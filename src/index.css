@@ -1,0 +1,699 @@
+@import "tailwindcss";
+
+/* Reset & Variables */
+:root {
+    /* Neo-Brutalism Palette */
+    --color-bg: #FFFFFF;
+    --color-text: #050505;
+    --color-primary: #FF2A2A; /* Striking Red */
+    --color-secondary: #050505;
+    --color-light: #F0F0F0;
+    
+    /* Structure */
+    --border-width: 4px;
+    --border-color: #050505;
+    --border-radius: 0px; /* Brutalist sharp edges */
+    --shadow-solid: 8px 8px 0px 0px #050505;
+    --shadow-solid-hover: 12px 12px 0px 0px #050505;
+    --shadow-solid-small: 4px 4px 0px 0px #050505;
+    
+    /* Layout */
+    --container-max: 1200px;
+    --spacing-section: 6rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+/* Typography Basics */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+p {
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+a {
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+/* Utilities */
+.container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section {
+    padding: var(--spacing-section) 0;
+    border-bottom: var(--border-width) solid var(--border-color);
+}
+
+.section-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.text-center { text-align: center; }
+.text-white { color: #FFFFFF; }
+.bg-dark { background-color: var(--color-text); color: #FFF; }
+.bg-light { background-color: var(--color-light); }
+.bg-red { background-color: var(--color-primary); }
+.color-red { color: var(--color-primary); }
+.border-top-thick { border-top: var(--border-width) solid var(--border-color); }
+
+.highlight {
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    padding: 0 0.5rem;
+    display: inline-block;
+    transform: rotate(-1deg);
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: 4px 4px 0px 0px var(--border-color);
+}
+
+/* Buttons (Neo-Brutalism Style) */
+.btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    font-weight: 900;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--shadow-solid);
+    transition: transform 0.1s, box-shadow 0.1s;
+    background-color: #FFFFFF;
+}
+
+.btn:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px 0px var(--border-color);
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+}
+
+.btn-secondary {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+.btn-large {
+    font-size: 1.3rem;
+    padding: 1.5rem 3rem;
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* Navigation */
+.navbar {
+    padding: 1.5rem 0;
+    border-bottom: var(--border-width) solid var(--border-color);
+    background-color: var(--color-bg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    padding: 5px 15px;
+    border: 3px solid var(--border-color);
+}
+
+/* Hero Section */
+.hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    background-image: radial-gradient(#d3d3d3 2px, transparent 2px);
+    background-size: 40px 40px;
+}
+
+.hero-content {
+    display: grid;
+    gap: 2rem;
+}
+
+.hero-title {
+    font-size: clamp(3rem, 6vw, 5rem);
+    max-width: 900px;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    max-width: 700px;
+    font-weight: 500;
+}
+
+.hero-cta {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.hero-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 4rem;
+    border-top: var(--border-width) solid var(--border-color);
+    padding-top: 2rem;
+}
+
+.stat-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-value {
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.stat-value small {
+    font-size: 1rem;
+    margin-left: 5px;
+}
+
+.stat-label {
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+/* Neo-Brutalist Cards */
+.brutal-card {
+    border: var(--border-width) solid var(--border-color);
+    background-color: var(--color-bg);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-solid);
+    transition: transform 0.2s;
+}
+
+.brutal-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: var(--shadow-solid-hover);
+}
+
+.card-dark {
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    border-color: var(--color-bg);
+    box-shadow: 8px 8px 0px 0px var(--color-primary);
+}
+
+/* Grid Systems */
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+}
+
+/* Why Us Section */
+.why-us .section-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    max-width: 800px;
+}
+
+.card-icon {
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    line-height: 1;
+}
+
+/* Pricing Section */
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+    align-items: start;
+}
+
+.pricing-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.featured-pricing {
+    background-color: #fff9db; /* Slight yellow tint */
+    transform: scale(1.05); /* Make it stand out */
+    position: relative;
+    z-index: 10;
+}
+
+.featured-pricing:hover {
+    transform: scale(1.05) translate(-4px, -4px);
+}
+
+.featured-badge {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background-color: var(--color-primary);
+    color: #FFF;
+    padding: 5px 15px;
+    font-weight: 900;
+    text-transform: uppercase;
+    border: var(--border-width) solid var(--border-color);
+    transform: rotate(3deg);
+}
+
+.pricing-header {
+    border-bottom: var(--border-width) solid var(--border-color);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.pricing-header h3 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.price {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+/* Price Anchoring Custom Styles */
+.anchored-price {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.old-price del {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #000;
+    text-decoration: none; /* Remove standard line-through */
+    position: relative;
+    display: inline-block;
+    opacity: 0.9;
+}
+
+.old-price del::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 2px; /* Thinner strike */
+    background-color: #FF0000;
+    transform: rotate(-12deg);
+    transform-origin: center;
+}
+
+.new-price small.today-badge {
+    font-size: 1.2rem;
+    color: #FFF;
+    background-color: var(--color-primary);
+    padding: 0.2rem 0.6rem;
+    border: 3px solid #000;
+    text-transform: uppercase;
+    font-weight: 900;
+    transform: rotate(-3deg);
+    box-shadow: 2px 2px 0px 0px #000;
+}
+
+/* Floating Promo Animation */
+@keyframes floatPrice {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+
+.new-price {
+    font-size: clamp(2.5rem, 5vw, 4.8rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--color-text);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    animation: floatPrice 3s ease-in-out infinite;
+}
+
+.new-price span {
+    font-size: clamp(1.4rem, 3vw, 3.2rem);
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: break-word;
+}
+
+.new-price small.today-badge {
+    align-self: flex-start;
+}
+
+.price-subtext.special-offer {
+    font-size: 1rem;
+    font-weight: 700;
+    background-color: #FFE600; /* Vivid Yellow */
+    color: #000;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border: 4px solid #000;
+    text-align: center;
+    line-height: 1.4;
+    box-shadow: 4px 4px 0px 0px #000;
+}
+
+/* Animations */
+@keyframes smoothBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+.smooth-bounce {
+    animation: smoothBounce 2.5s infinite ease-in-out;
+}
+
+.pricing-desc {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    min-height: 60px;
+}
+
+.pricing-features {
+    list-style: none;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+}
+
+.pricing-features li {
+    padding: 0.8rem 0;
+    border-bottom: 2px solid var(--border-color);
+    font-weight: 700;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.pricing-features li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+}
+
+.pricing-features li:last-child {
+    border-bottom: none;
+}
+
+.maintenance-card {
+    background-color: #f0f0f0;
+    background-image: repeating-linear-gradient(45deg, #e5e5e5 25%, transparent 25%, transparent 75%, #e5e5e5 75%, #e5e5e5), repeating-linear-gradient(45deg, #e5e5e5 25%, var(--color-light) 25%, var(--color-light) 75%, #e5e5e5 75%, #e5e5e5);
+    background-position: 0 0, 10px 10px;
+    background-size: 20px 20px;
+}
+.maintenance-card > * {
+    background-color: #f0f0f0; /* Ensure text is readable over stripes by giving it a solid background or keeping the stripe subtle. I adjusted the stripe colors to be very light. */
+}
+
+/* Process Section */
+.process-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.process-text {
+    position: sticky;
+    top: 150px;
+}
+
+.process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.step-card {
+    background-color: #FFF;
+}
+
+.step-number {
+    font-size: 1.5rem;
+    font-weight: 900;
+    border-bottom: var(--border-width) solid var(--border-color);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+/* Final CTA Section */
+.final-cta {
+    background-color: var(--color-text);
+    color: var(--color-bg);
+}
+
+.final-cta .section-title {
+    color: var(--color-bg);
+    margin-bottom: 3rem;
+}
+
+.final-cta-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.cta-divider {
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+}
+
+/* Footer */
+.footer {
+    background-color: #FFF;
+    padding: 4rem 0 2rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.footer-brand .logo {
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.footer-links h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 3px solid var(--border-color);
+    display: inline-block;
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-links a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: var(--border-width) solid var(--border-color);
+    padding-top: 2rem;
+    font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .pricing-grid { grid-template-columns: 1fr 1fr; }
+    .featured-pricing { transform: none; }
+    .featured-pricing:hover { transform: translate(-4px, -4px); }
+}
+
+@media (max-width: 768px) {
+    .hero-title { font-size: 2.5rem; }
+    .hero-cta { flex-direction: column; }
+    
+    .grid-3 { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .process-wrapper { grid-template-columns: 1fr; }
+    .footer-content { grid-template-columns: 1fr; }
+    
+    .process-text { position: relative; top: 0; }
+    
+    .final-cta-buttons { flex-direction: column; }
+    
+    .hero { min-height: auto; padding-top: 4rem; padding-bottom: 4rem; }
+}
+
+/* --- WaaS Custom Updates --- */
+
+/* Forms Section */
+.forms-section {
+    background-color: var(--color-light);
+    border-top: var(--border-width) solid var(--border-color);
+}
+
+.forms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    margin-top: 4rem;
+}
+
+.form-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: var(--border-width) solid var(--border-color);
+}
+
+.form-header h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Brutalist Forms */
+.brutal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    flex-grow: 1;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+}
+
+.brutal-input {
+    width: 100%;
+    padding: 1rem;
+    border: var(--border-width) solid var(--border-color);
+    background-color: #FFFFFF;
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: box-shadow 0.2s;
+    outline: none;
+}
+
+.brutal-input:focus {
+    box-shadow: var(--shadow-solid-small);
+}
+
+.brutal-input.textarea {
+    resize: vertical;
+}
+
+/* Dark theme form adjustments */
+.dark-form .form-group label {
+    color: #FFFFFF;
+}
+
+.dark-form .brutal-input {
+    background-color: var(--color-light);
+}
+
+.dark-form .brutal-input:focus {
+    box-shadow: 4px 4px 0px 0px var(--color-primary);
+}
+
+.form-submit {
+    margin-top: auto;
+    padding: 1.5rem;
+}
+
+/* Pricing updates */
+.price-disclaimer {
+    max-width: 800px;
+    margin: 1rem auto 3rem;
+    padding: 1rem;
+    background-color: #fff9db;
+    border: var(--border-width) solid var(--border-color);
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+    box-shadow: var(--shadow-solid-small);
+}
+
+@media (max-width: 900px) {
+    .forms-grid {
+        grid-template-columns: 1fr;
+    }
+}
+

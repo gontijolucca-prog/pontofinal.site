@@ -1,0 +1,22 @@
+{
+  "entities": {
+    "Submission": {
+      "title": "Submission",
+      "description": "A contact form submission",
+      "type": "object",
+      "properties": {
+        "plano_interesse": { "type": "string" },
+        "nome_empresa": { "type": "string" },
+        "telefone": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" }
+      },
+      "required": ["plano_interesse", "nome_empresa", "telefone", "date"]
+    }
+  },
+  "firestore": {
+    "submissions": {
+      "schema": { "$ref": "#/entities/Submission" },
+      "description": "Collection of contact form submissions"
+    }
+  }
+}
