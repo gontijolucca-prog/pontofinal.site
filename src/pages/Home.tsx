@@ -24,7 +24,7 @@ export default function Home() {
               
               <div className="hero-stats">
                   <div className="stat-box">
-                      <span className="stat-value">5<small>Dias</small></span>
+                      <span className="stat-value">2<small>Dias</small></span>
                       <span className="stat-label">Tempo Médio Entrega</span>
                   </div>
                   <div className="stat-box">
@@ -57,7 +57,7 @@ export default function Home() {
                   <div className="brutal-card card-dark">
                       <div className="card-icon">03</div>
                       <h3 className="card-title">Entrega Ultra-Rápida</h3>
-                      <p>Processos padronizados significam zero atrasos. Entregamos plataformas robustas em apenas 5 dias úteis, não em meses.</p>
+                      <p>Processos padronizados significam zero atrasos. Entregamos plataformas robustas em apenas 2 dias úteis, não em meses.</p>
                   </div>
               </div>
           </div>
@@ -70,7 +70,7 @@ export default function Home() {
               <p className="section-subtitle text-center">Sem propostas fechadas. O que vê é exatamente o que paga.</p>
               
               <div className="price-disclaimer">
-                  <strong>Nota:</strong> Todos os planos requerem uma Taxa de Ativação (Setup Fee) única de 50€ para configuração inicial e design.
+                  <strong>Nota:</strong> Todos os planos requerem uma Taxa de Ativação (Setup Fee) única de 100€ para configuração inicial e design.
               </div>
               
               <div className="pricing-grid">
@@ -80,7 +80,7 @@ export default function Home() {
                           <h3>Bronze</h3>
                           <div className="price anchored-price">
                               <div className="new-price">
-                                  <span>50€ (Arranque) + 20€/mês</span>
+                                  <span>100€ (Arranque) + 20€/mês</span>
                                   <small className="today-badge">Hoje</small>
                               </div>
                           </div>
@@ -106,7 +106,7 @@ export default function Home() {
                           <h3>Prata</h3>
                           <div className="price anchored-price">
                               <div className="new-price">
-                                  <span>50€ (Arranque) + 40€/mês</span>
+                                  <span>100€ (Arranque) + 40€/mês</span>
                                   <small className="today-badge">Hoje</small>
                               </div>
                           </div>
@@ -131,7 +131,7 @@ export default function Home() {
                           <h3>Ouro</h3>
                           <div className="price anchored-price">
                               <div className="new-price">
-                                  <span>50€ (Arranque) + 60€/mês</span>
+                                  <span>100€ (Arranque) + 60€/mês</span>
                                   <small className="today-badge">Hoje</small>
                               </div>
                           </div>
@@ -172,11 +172,11 @@ export default function Home() {
                       </div>
                       <div className="step-card brutal-card">
                           <div className="step-number">3. Ativação Rápida</div>
-                          <p>Recebe o link seguro para pagar a Taxa de Ativação (50€). Após o pagamento, o relógio dos 5 dias começa a contar.</p>
+                          <p>Recebe o link seguro para pagar a Taxa de Ativação (100€). Após o pagamento, o relógio dos 2 dias começa a contar.</p>
                       </div>
                       <div className="step-card brutal-card">
-                          <div className="step-number bg-red text-white">4. Lançamento em 5 Dias</div>
-                          <p>A nossa equipa opera cirurgicamente. Em 5 dias úteis, tem a máquina de clientes live no seu domínio.</p>
+                          <div className="step-number bg-red text-white">4. Lançamento em 2 Dias</div>
+                          <p>A nossa equipa opera cirurgicamente. Em 2 dias úteis, tem a máquina de clientes live no seu domínio.</p>
                       </div>
                   </div>
               </div>
