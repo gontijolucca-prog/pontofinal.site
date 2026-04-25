@@ -6,7 +6,7 @@ export default function Footer() {
         <div className="container footer-content">
             <div className="footer-brand">
                 <div className="logo">Pontofinal.site_</div>
-                <p>Website as a Service para empresas reais.<br/>Leiria, Portugal.</p>
+                <p>Agência Digital para empresas reais.<br/>Websites e Gestão de Redes Sociais.<br/>Leiria, Portugal.</p>
             </div>
             <div className="footer-links">
                 <h3>Legal</h3>
