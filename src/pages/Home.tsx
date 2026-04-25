@@ -12,7 +12,7 @@ export default function Home() {
       <header className="hero section">
           <div className="container hero-content">
               <h1 className="hero-title">
-                  O Seu Novo Website. E as suas<br/>
+                  O Seu Novo <span className="highlight">Website.</span> E as suas<br/>
                   <span className="highlight">Redes Sociais.</span><br/>
                   Num só lugar.
               </h1>
