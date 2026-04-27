@@ -496,6 +496,9 @@ a {
     .navbar, .footer {
         display: none !important;
     }
+    .proposta-tagline {
+        opacity: 0.08 !important;
+    }
     /* Tailwind utilities used in Proposta might need forced colors for printing */
     * {
         -webkit-print-color-adjust: exact !important;

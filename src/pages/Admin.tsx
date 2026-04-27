@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { db, auth } from '../firebase';
 import { collection, onSnapshot, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface Submission {
   id: string;
@@ -12,12 +12,51 @@ interface Submission {
   telefone: string;
 }
 
+const dropdownGroups = [
+  {
+    label: 'WEB',
+    items: [
+      { label: 'Web Bronze', path: '/proposta/web-bronze' },
+      { label: 'Web Prata', path: '/proposta/web-prata' },
+      { label: 'Web Ouro', path: '/proposta/web-ouro' },
+    ],
+  },
+  {
+    label: 'REDES SOCIAIS',
+    items: [
+      { label: 'Social Bronze', path: '/proposta/social-bronze' },
+      { label: 'Social Prata', path: '/proposta/social-prata' },
+      { label: 'Social Ouro', path: '/proposta/social-ouro' },
+    ],
+  },
+  {
+    label: 'OUTRO',
+    items: [
+      { label: 'Customizado', path: '/proposta' },
+      { label: 'Contrato', path: '/contrato' },
+    ],
+  },
+];
+
 export default function Admin() {
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   useEffect(() => {
     const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
@@ -117,8 +156,69 @@ export default function Admin() {
       <div className="container">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
           <h1 className="hero-title" style={{ fontSize: '2.5rem', margin: 0 }}>Administração</h1>
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            <Link to="/proposta" className="btn btn-primary">Ver Proposta</Link>
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <div ref={dropdownRef} style={{ position: 'relative' }}>
+              <button
+                onClick={() => setDropdownOpen((o) => !o)}
+                className="btn btn-primary"
+                style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+              >
+                Ver Proposta <span style={{ fontSize: '0.75rem' }}>▾</span>
+              </button>
+              {dropdownOpen && (
+                <div style={{
+                  position: 'absolute',
+                  top: 'calc(100% + 6px)',
+                  right: 0,
+                  background: '#fff',
+                  border: '4px solid #050505',
+                  boxShadow: '8px 8px 0px 0px #050505',
+                  minWidth: '200px',
+                  zIndex: 100,
+                }}>
+                  {dropdownGroups.map((group) => (
+                    <div key={group.label}>
+                      <div style={{
+                        padding: '0.4rem 1rem',
+                        fontSize: '0.65rem',
+                        fontWeight: 900,
+                        letterSpacing: '0.08em',
+                        textTransform: 'uppercase',
+                        color: '#FF2A2A',
+                        borderBottom: '2px solid #050505',
+                        background: '#F0F0F0',
+                      }}>
+                        {group.label}
+                      </div>
+                      {group.items.map((item) => (
+                        <button
+                          key={item.path}
+                          onClick={() => { setDropdownOpen(false); navigate(item.path); }}
+                          style={{
+                            display: 'block',
+                            width: '100%',
+                            textAlign: 'left',
+                            padding: '0.6rem 1rem',
+                            background: 'transparent',
+                            border: 'none',
+                            borderBottom: '1px solid #e0e0e0',
+                            cursor: 'pointer',
+                            fontFamily: 'inherit',
+                            fontWeight: 700,
+                            fontSize: '0.9rem',
+                            color: '#050505',
+                          }}
+                          onMouseEnter={(e) => (e.currentTarget.style.background = '#F0F0F0')}
+                          onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                        >
+                          {item.label}
+                        </button>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
             <button onClick={handleLogout} className="btn btn-secondary">Sair</button>
           </div>
         </div>

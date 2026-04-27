@@ -19,7 +19,7 @@ export default function Footer() {
                 <h3>Contacto</h3>
                 <ul>
                     <li><a href="mailto:geral@pontofinal.site">geral@pontofinal.site</a></li>
-                    <li><Link to="/admin" style={{ color: '#FF2A2A', fontWeight: 'bold' }}>Admin</Link></li>
+                    <li><Link to="/admin" style={{ color: '#FF2A2A', fontWeight: 'bold' }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Admin</Link></li>
                 </ul>
             </div>
         </div>

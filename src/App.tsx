@@ -6,14 +6,18 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
 import Admin from './pages/Admin';
 import Proposta from './pages/Proposta';
+import PropostaPlan from './pages/PropostaPlan';
+import Contrato from './pages/Contrato';
 
 function Layout() {
   const location = useLocation();
-  const isProposta = location.pathname === '/proposta';
+  const isFullPage = location.pathname === '/proposta'
+    || location.pathname.startsWith('/proposta/')
+    || location.pathname === '/contrato';
 
   return (
     <div className="min-h-screen flex flex-col">
-      {!isProposta && <Navbar />}
+      {!isFullPage && <Navbar />}
       <div className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -21,9 +25,11 @@ function Layout() {
           <Route path="/termos" element={<Terms />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/proposta" element={<Proposta />} />
+          <Route path="/proposta/:planId" element={<PropostaPlan />} />
+          <Route path="/contrato" element={<Contrato />} />
         </Routes>
       </div>
-      {!isProposta && <Footer />}
+      {!isFullPage && <Footer />}
     </div>
   );
 }

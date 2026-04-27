@@ -9,10 +9,10 @@ export default function Proposta() {
           <p className="proposta-subtitle">Gestão de Redes Sociais</p>
         </header>
 
-        <section className="proposta-section flex-grow flex flex-col pt-6 pb-4 min-h-0">
+        <section className="proposta-section flex flex-col pt-6 pb-4">
           <h2 className="section-title text-2xl font-bold border-b-4 border-black pb-2 mb-4 shrink-0">Plano: Customizado</h2>
-          
-          <div className="flex flex-col gap-4 flex-grow justify-center min-h-0">
+
+          <div className="flex flex-col gap-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center shrink-0">
               <div className="proposta-details">
                 <h3 className="font-bold text-xl mb-3">O que está incluído:</h3>
@@ -58,10 +58,10 @@ export default function Proposta() {
           </div>
         </section>
 
-        <footer className="proposta-footer mt-auto pt-8 text-center font-bold shrink-0">
-          <p className="text-xl leading-none text-black font-sans mb-2">pontofinal.site / Lucca Gontijo.</p>
+        <footer className="proposta-footer text-center font-bold shrink-0" style={{ marginTop: 'auto', transform: 'scale(0.7)', transformOrigin: 'center bottom' }}>
+          <p className="text-xl leading-none text-black font-sans" style={{ marginBottom: 0, paddingBottom: '12px' }}>pontofinal.site / Lucca Gontijo.</p>
           <div className="w-full border-t-4 border-black"></div>
-          <p className="text-xs leading-none opacity-80 text-black font-sans mt-2">A SUA AGÊNCIA DIGITAL FOCADA EM RESULTADOS.</p>
+          <p className="proposta-tagline text-xs leading-none text-black font-sans" style={{ marginBottom: 0, paddingTop: '12px', opacity: 0.6 }}>A SUA AGÊNCIA DIGITAL FOCADA EM RESULTADOS.</p>
         </footer>
       </div>
     </div>
