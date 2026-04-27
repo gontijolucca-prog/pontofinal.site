@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db, auth } from '../firebase';
 import { collection, onSnapshot, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
+import { Link } from 'react-router-dom';
 
 interface Submission {
   id: string;
@@ -116,7 +117,10 @@ export default function Admin() {
       <div className="container">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
           <h1 className="hero-title" style={{ fontSize: '2.5rem', margin: 0 }}>Administração</h1>
-          <button onClick={handleLogout} className="btn btn-secondary">Sair</button>
+          <div style={{ display: 'flex', gap: '1rem' }}>
+            <Link to="/proposta" className="btn btn-primary">Ver Proposta</Link>
+            <button onClick={handleLogout} className="btn btn-secondary">Sair</button>
+          </div>
         </div>
 
         <div className="brutal-card" style={{ overflowX: 'auto' }}>

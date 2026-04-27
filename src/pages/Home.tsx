@@ -69,12 +69,79 @@ export default function Home() {
               <h2 className="section-title text-center">Planos Mensais.<br/>Transparência Total.</h2>
               <p className="section-subtitle text-center" style={{marginBottom: '4rem'}}>Sem propostas fechadas. O que vê é exatamente o que paga.</p>
               
+              <h3 className="text-center" style={{fontSize: '2.5rem', marginTop: '2rem'}}>Planos de Produção de Conteúdo</h3>
+              <div className="pricing-grid" style={{marginBottom: '6rem'}}>
+                  {/* Conteudo - Bronze */}
+                  <div className="brutal-card pricing-card">
+                      <div className="pricing-header">
+                          <h3>Bronze</h3>
+                          <div className="price anchored-price">
+                              <div className="new-price">
+                                  <span>80€/mês</span>
+                              </div>
+                          </div>
+                      </div>
+                      <p className="pricing-desc"><strong>20 posts/mês</strong> ideal para manter uma presença ativa contínua.</p>
+                      <ul className="pricing-features">
+                          <li>3 posts regulares por semana</li>
+                          <li>2 carrosséis/semana (até 5 slides cada)</li>
+                          <li>Legendas incluídas</li>
+                      </ul>
+                      <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-full">Começar Agora</button>
+                  </div>
+
+                  {/* Conteudo - Prata */}
+                  <div className="brutal-card pricing-card featured-pricing">
+                      <div className="featured-badge">Mais Escolhido</div>
+                      <div className="pricing-header">
+                          <h3>Prata</h3>
+                          <div className="price anchored-price">
+                              <div className="new-price">
+                                  <span>150€/mês</span>
+                              </div>
+                          </div>
+                      </div>
+                      <p className="pricing-desc"><strong>28 posts/mês</strong> para empresas que querem dominar o feed e o algoritmo.</p>
+                      <ul className="pricing-features">
+                          <li>4 posts regulares por semana</li>
+                          <li>3 carrosséis/semana (até 8 slides cada)</li>
+                          <li>Legendas incluídas</li>
+                          <li>Planeamento mensal de conteúdos</li>
+                      </ul>
+                      <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-primary btn-full">Começar Agora</button>
+                  </div>
+
+                  {/* Conteudo - Ouro */}
+                  <div className="brutal-card pricing-card bg-stripe">
+                      <div className="pricing-header">
+                          <h3>Ouro</h3>
+                          <div className="price anchored-price">
+                              <div className="new-price">
+                                  <span>300€/mês</span>
+                              </div>
+                          </div>
+                      </div>
+                      <p className="pricing-desc"><strong>36 posts/mês</strong> A estratégia máxima de conteúdo, com vídeo e análise.</p>
+                      <ul className="pricing-features">
+                          <li>5 posts regulares por semana</li>
+                          <li>4 carrosséis/semana (até 10 slides cada)</li>
+                          <li>1 vídeo por semana</li>
+                          <li>Legendas incluídas</li>
+                          <li>Planeamento com estratégia de temas</li>
+                          <li>Análise de métricas do mês anterior</li>
+                          <li>1 Reunião de alinhamento criativo (30m)</li>
+                      </ul>
+                      <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-full">Começar Agora</button>
+                  </div>
+              </div>
+
+
               <h3 className="text-center" style={{fontSize: '2.5rem', marginTop: '2rem'}}>Planos de Websites</h3>
               <div className="price-disclaimer">
                   <strong>Nota:</strong> Todos os planos de website requerem uma Taxa de Arranque única para configuração inicial e design. As manutenções incluem alojamento e segurança.
               </div>
               
-              <div className="pricing-grid" style={{marginBottom: '6rem'}}>
+              <div className="pricing-grid">
                   {/* Website - Bronze */}
                   <div className="brutal-card pricing-card">
                       <div className="pricing-header">
@@ -143,73 +210,6 @@ export default function Home() {
                           <li>Suporte prioritário</li>
                           <li>Alojamento e segurança incluídos</li>
                           <li>4 atualizações por mês</li>
-                      </ul>
-                      <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-full">Começar Agora</button>
-                  </div>
-              </div>
-
-
-              <h3 className="text-center" style={{fontSize: '2.5rem', marginTop: '2rem'}}>Planos de Produção de Conteúdo</h3>
-              <div className="pricing-grid">
-                  {/* Conteudo - Bronze */}
-                  <div className="brutal-card pricing-card">
-                      <div className="pricing-header">
-                          <h3>Bronze</h3>
-                          <div className="price anchored-price">
-                              <div className="new-price">
-                                  <span>80€/mês</span>
-                              </div>
-                          </div>
-                      </div>
-                      <p className="pricing-desc"><strong>20 posts/mês</strong> ideal para manter uma presença ativa contínua.</p>
-                      <ul className="pricing-features">
-                          <li>3 posts regulares por semana</li>
-                          <li>2 carrosséis/semana (até 5 slides cada)</li>
-                          <li>Legendas incluídas</li>
-                      </ul>
-                      <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-full">Começar Agora</button>
-                  </div>
-
-                  {/* Conteudo - Prata */}
-                  <div className="brutal-card pricing-card featured-pricing">
-                      <div className="featured-badge">Mais Escolhido</div>
-                      <div className="pricing-header">
-                          <h3>Prata</h3>
-                          <div className="price anchored-price">
-                              <div className="new-price">
-                                  <span>150€/mês</span>
-                              </div>
-                          </div>
-                      </div>
-                      <p className="pricing-desc"><strong>28 posts/mês</strong> para empresas que querem dominar o feed e o algoritmo.</p>
-                      <ul className="pricing-features">
-                          <li>4 posts regulares por semana</li>
-                          <li>3 carrosséis/semana (até 8 slides cada)</li>
-                          <li>Legendas incluídas</li>
-                          <li>Planeamento mensal de conteúdos</li>
-                      </ul>
-                      <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-primary btn-full">Começar Agora</button>
-                  </div>
-
-                  {/* Conteudo - Ouro */}
-                  <div className="brutal-card pricing-card bg-stripe">
-                      <div className="pricing-header">
-                          <h3>Ouro</h3>
-                          <div className="price anchored-price">
-                              <div className="new-price">
-                                  <span>300€/mês</span>
-                              </div>
-                          </div>
-                      </div>
-                      <p className="pricing-desc"><strong>36 posts/mês</strong> A estratégia máxima de conteúdo, com vídeo e análise.</p>
-                      <ul className="pricing-features">
-                          <li>5 posts regulares por semana</li>
-                          <li>4 carrosséis/semana (até 10 slides cada)</li>
-                          <li>1 vídeo por semana</li>
-                          <li>Legendas incluídas</li>
-                          <li>Planeamento com estratégia de temas</li>
-                          <li>Análise de métricas do mês anterior</li>
-                          <li>1 Reunião de alinhamento criativo (30m)</li>
                       </ul>
                       <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-full">Começar Agora</button>
                   </div>

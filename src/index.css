@@ -239,6 +239,13 @@ a {
     box-shadow: var(--shadow-solid-hover);
 }
 
+.brutal-card-static {
+    border: var(--border-width) solid var(--border-color);
+    background-color: var(--color-bg);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-solid);
+}
+
 .card-dark {
     background-color: var(--color-text);
     color: var(--color-bg);
@@ -406,6 +413,94 @@ a {
     text-align: center;
     line-height: 1.4;
     box-shadow: 4px 4px 0px 0px #000;
+}
+
+/* Proposta (A4 Format) */
+.a4-container {
+    padding: 1rem;
+    background-color: var(--color-bg);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+@media (min-width: 768px) {
+    .a4-container {
+        padding: 2rem;
+    }
+}
+
+.a4-page {
+    width: 100%;
+    max-width: 210mm;
+    min-height: 297mm;
+    background: #FFF;
+    padding: 2rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    .a4-page {
+        padding: 15mm 20mm;
+    }
+}
+
+.proposta-title {
+    font-size: 2rem;
+    line-height: 1.1;
+    margin-bottom: 0.25rem;
+}
+
+@media (min-width: 768px) {
+    .proposta-title {
+        font-size: 3rem;
+    }
+}
+
+.proposta-subtitle {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+    .proposta-subtitle {
+        font-size: 1.25rem;
+    }
+}
+
+@media print {
+    @page {
+        size: A4;
+        margin: 0;
+    }
+    body {
+        background: #FFF;
+        margin: 0;
+    }
+    .a4-container {
+        padding: 0;
+        background: transparent;
+    }
+    .a4-page {
+        width: 210mm;
+        height: 297mm;
+        padding: 15mm 20mm;
+        box-shadow: none !important;
+        border: none !important;
+        page-break-after: always;
+    }
+    .navbar, .footer {
+        display: none !important;
+    }
+    /* Tailwind utilities used in Proposta might need forced colors for printing */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
 }
 
 /* Animations */
