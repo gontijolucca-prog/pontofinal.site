@@ -69,7 +69,7 @@ export default function Home() {
               <h2 className="section-title text-center">Planos Mensais.<br/>Transparência Total.</h2>
               <p className="section-subtitle text-center" style={{marginBottom: '4rem'}}>Sem propostas fechadas. O que vê é exatamente o que paga.</p>
               
-              <h3 className="text-center" style={{fontSize: '2.5rem', marginTop: '2rem'}}>Planos de Produção de Conteúdo</h3>
+              <h3 id="planos-conteudo" className="text-center" style={{fontSize: '2.5rem', marginTop: '2rem'}}>Planos de Produção de Conteúdo</h3>
               <div className="pricing-grid" style={{marginBottom: '6rem'}}>
                   {/* Conteudo - Bronze */}
                   <div className="brutal-card pricing-card">
@@ -136,7 +136,7 @@ export default function Home() {
               </div>
 
 
-              <h3 className="text-center" style={{fontSize: '2.5rem', marginTop: '2rem'}}>Planos de Websites</h3>
+              <h3 id="planos-websites" className="text-center" style={{fontSize: '2.5rem', marginTop: '2rem'}}>Planos de Websites</h3>
               <div className="price-disclaimer">
                   <strong>Nota:</strong> Todos os planos de website requerem uma Taxa de Arranque única para configuração inicial e design. As manutenções incluem alojamento e segurança.
               </div>
