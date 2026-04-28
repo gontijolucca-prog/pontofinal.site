@@ -201,12 +201,12 @@ export default function Contrato() {
               </thead>
               <tbody>
                 {[
-                  { label: '🥉 Bronze — 1 página (Arranque: 60€ + 20€/mês)', },
-                  { label: '🥈 Prata — Até 5 páginas (Arranque: 80€ + 40€/mês)', },
-                  { label: '🥇 Ouro — Website avançado (Arranque: 100€ + 60€/mês)', },
-                ].map((row) => (
-                  <tr key={row.label} style={{ borderBottom: '1px solid #ccc' }}>
-                    <td style={{ padding: '0.3rem 0.5rem' }}>{row.label}</td>
+                  '🥉 Bronze — 1 página',
+                  '🥈 Prata — Até 5 páginas',
+                  '🥇 Ouro — Website avançado',
+                ].map((label) => (
+                  <tr key={label} style={{ borderBottom: '1px solid #ccc' }}>
+                    <td style={{ padding: '0.3rem 0.5rem' }}>{label}</td>
                     <td style={{ padding: '0.3rem 0.5rem', textAlign: 'center' }}><input type="checkbox" /></td>
                   </tr>
                 ))}
@@ -254,9 +254,9 @@ export default function Contrato() {
               </thead>
               <tbody>
                 {[
-                  '🥉 Bronze — 80€/mês (20 posts · 3/sem · 2 carrosseis/sem)',
-                  '🥈 Prata — 150€/mês (28 posts · 4/sem · 3 carrosseis/sem · planeamento)',
-                  '🥇 Ouro — 300€/mês (36 posts · 5/sem · 4 carrosseis · 1 vídeo/sem · métricas)',
+                  '🥉 Bronze — 20 posts · 3/sem · 2 carrosseis/sem',
+                  '🥈 Prata — 28 posts · 4/sem · 3 carrosseis/sem · planeamento',
+                  '🥇 Ouro — 36 posts · 5/sem · 4 carrosseis · 1 vídeo/sem · métricas',
                 ].map((label) => (
                   <tr key={label} style={{ borderBottom: '1px solid #ccc' }}>
                     <td style={{ padding: '0.3rem 0.5rem' }}>{label}</td>
