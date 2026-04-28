@@ -22,8 +22,8 @@ const plans: Record<string, PlanData> = {
     objetivo:
       'Criar uma presença digital profissional com o essencial para um negócio em crescimento — rápido, seguro e sem preocupações técnicas.',
     pricing: [
-      { label: 'Taxa de Arranque', value: '60€' },
-      { label: 'Manutenção Mensal', value: '20€/mês' },
+      { label: 'Taxa de Arranque', value: '200€' },
+      { label: 'Manutenção Mensal', value: '30€/mês' },
     ],
   },
   'web-prata': {
@@ -39,8 +39,8 @@ const plans: Record<string, PlanData> = {
     objetivo:
       'Construir um website completo e funcional, com múltiplas páginas e ferramentas de contacto para converter visitantes em clientes.',
     pricing: [
-      { label: 'Taxa de Arranque', value: '80€' },
-      { label: 'Manutenção Mensal', value: '40€/mês' },
+      { label: 'Taxa de Arranque', value: '400€' },
+      { label: 'Manutenção Mensal', value: '50€/mês' },
     ],
   },
   'web-ouro': {
@@ -56,8 +56,8 @@ const plans: Record<string, PlanData> = {
     objetivo:
       'Desenvolver uma plataforma web avançada com ferramentas internas e análise de dados para maximizar o crescimento digital do negócio.',
     pricing: [
-      { label: 'Taxa de Arranque', value: '100€' },
-      { label: 'Manutenção Mensal', value: '60€/mês' },
+      { label: 'Taxa de Arranque', value: '700€' },
+      { label: 'Manutenção Mensal', value: '80€/mês' },
     ],
   },
   'social-bronze': {
@@ -73,7 +73,7 @@ const plans: Record<string, PlanData> = {
     objetivo:
       'Estabelecer uma presença consistente nas redes sociais com conteúdo de qualidade e regularidade para construir audiência e autoridade.',
     pricing: [
-      { label: 'Investimento Mensal', value: '80€/mês' },
+      { label: 'Investimento Mensal', value: '150€/mês' },
     ],
   },
   'social-prata': {
@@ -89,7 +89,7 @@ const plans: Record<string, PlanData> = {
     objetivo:
       'Aumentar o alcance e engagement com uma estratégia de conteúdo diversificada, combinando posts regulares, carrosseis de valor e planeamento mensal.',
     pricing: [
-      { label: 'Investimento Mensal', value: '150€/mês' },
+      { label: 'Investimento Mensal', value: '220€/mês' },
     ],
   },
   'social-ouro': {
@@ -107,7 +107,7 @@ const plans: Record<string, PlanData> = {
     objetivo:
       'Criar conteúdo focado em autoridade e engagement, combinando vídeo dinâmico para alcance e carrosseis educativos para fidelização, com análise de métricas mensal.',
     pricing: [
-      { label: 'Investimento Mensal', value: '300€/mês' },
+      { label: 'Investimento Mensal', value: '350€/mês' },
     ],
   },
 };

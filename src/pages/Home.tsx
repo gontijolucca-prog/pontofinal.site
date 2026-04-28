@@ -77,7 +77,7 @@ export default function Home() {
                           <h3>Bronze</h3>
                           <div className="price anchored-price">
                               <div className="new-price">
-                                  <span>80€/mês</span>
+                                  <span>150€/mês</span>
                               </div>
                           </div>
                       </div>
@@ -97,7 +97,7 @@ export default function Home() {
                           <h3>Prata</h3>
                           <div className="price anchored-price">
                               <div className="new-price">
-                                  <span>150€/mês</span>
+                                  <span>220€/mês</span>
                               </div>
                           </div>
                       </div>
@@ -117,7 +117,7 @@ export default function Home() {
                           <h3>Ouro</h3>
                           <div className="price anchored-price">
                               <div className="new-price">
-                                  <span>300€/mês</span>
+                                  <span>350€/mês</span>
                               </div>
                           </div>
                       </div>
@@ -148,13 +148,13 @@ export default function Home() {
                           <h3>Bronze</h3>
                           <div className="price anchored-price">
                               <div className="new-price" style={{fontSize: '2rem'}}>
-                                  <span>60€ (Arranque)</span>
-                                  <span>+ 20€/mês (Manutenção)</span>
+                                  <span>200€ (Arranque)</span>
+                                  <span>+ 30€/mês (Manutenção)</span>
                               </div>
                           </div>
                       </div>
                       <div className="price-subtext special-offer smooth-bounce" style={{marginBottom: '1.5rem'}}>
-                        <strong>OFERTA ESPECIAL:</strong> 1º Mês de Manutenção Grátis. A partir do 2º mês: 20€/mês.
+                        <strong>OFERTA ESPECIAL:</strong> 1º Mês de Manutenção Grátis. A partir do 2º mês: 30€/mês.
                       </div>
                       <ul className="pricing-features">
                           <li>Website de 1 página</li>
@@ -171,13 +171,13 @@ export default function Home() {
                           <h3>Prata</h3>
                           <div className="price anchored-price">
                               <div className="new-price" style={{fontSize: '2rem'}}>
-                                  <span>80€ (Arranque)</span>
-                                  <span>+ 40€/mês (Manutenção)</span>
+                                  <span>400€ (Arranque)</span>
+                                  <span>+ 50€/mês (Manutenção)</span>
                               </div>
                           </div>
                       </div>
                       <div className="price-subtext special-offer smooth-bounce" style={{marginBottom: '1.5rem'}}>
-                        <strong>OFERTA ESPECIAL:</strong> 1º Mês de Manutenção Grátis. A partir do 2º mês: 40€/mês.
+                        <strong>OFERTA ESPECIAL:</strong> 1º Mês de Manutenção Grátis. A partir do 2º mês: 50€/mês.
                       </div>
                       <ul className="pricing-features">
                           <li>Website até 5 páginas</li>
@@ -195,13 +195,13 @@ export default function Home() {
                           <h3>Ouro</h3>
                           <div className="price anchored-price">
                               <div className="new-price" style={{fontSize: '2rem'}}>
-                                  <span>100€ (Arranque)</span>
-                                  <span>+ 60€/mês (Manutenção)</span>
+                                  <span>700€ (Arranque)</span>
+                                  <span>+ 80€/mês (Manutenção)</span>
                               </div>
                           </div>
                       </div>
                       <div className="price-subtext special-offer smooth-bounce" style={{marginBottom: '1.5rem'}}>
-                        <strong>OFERTA ESPECIAL:</strong> 1º Mês de Manutenção Grátis. A partir do 2º mês: 60€/mês.
+                        <strong>OFERTA ESPECIAL:</strong> 1º Mês de Manutenção Grátis. A partir do 2º mês: 80€/mês.
                       </div>
                       <ul className="pricing-features">
                           <li>Tudo o que o Prata inclui</li>
