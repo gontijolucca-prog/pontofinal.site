@@ -18,7 +18,7 @@ export default function Proposta() {
                 <h3 className="font-bold text-xl mb-3">O que está incluído:</h3>
                 <ul className="pricing-features mb-0" style={{ fontSize: '0.90rem' }}>
                   <li><strong>2 Vídeos</strong> (Reels/TikTok/Shorts) com edição dinâmica</li>
-                  <li><strong>4 Carrosséis</strong> (até 10 slides cada) de alto valor</li>
+                  <li><strong>8 Carrosséis</strong> (até 10 slides cada) de alto valor</li>
                   <li>Legendas persuasivas e pesquisa de hashtags</li>
                   <li>Planeamento de conteúdo mensal</li>
                   <li>Design de acordo com a identidade da marca</li>

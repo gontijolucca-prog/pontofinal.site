@@ -32,7 +32,7 @@ const dropdownGroups = [
   {
     label: 'OUTRO',
     items: [
-      { label: 'Customizado', path: '/proposta' },
+      { label: 'Proposta Customizada v2', path: '/proposta' },
       { label: 'Contrato', path: '/contrato' },
     ],
   },
