@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
 import { collection, doc, getDocs, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
 
@@ -21,6 +22,12 @@ interface Client {
   email: string;
   notes: string;
   calendar: ClientCalendar;
+}
+
+interface GeneralNote {
+  id: string;
+  text: string;
+  done: boolean;
 }
 
 interface AggregatedObligation {
@@ -48,6 +55,7 @@ function formatDayKey(key: string): string {
 }
 
 export default function CRM() {
+  const navigate = useNavigate();
   const today = new Date();
   const todayKey = makeDayKey(today.getFullYear(), today.getMonth(), today.getDate());
 
@@ -55,6 +63,10 @@ export default function CRM() {
   const [tab, setTab] = useState<'clientes' | 'geral'>('clientes');
   const [clients, setClients] = useState<Client[]>([]);
   const [generalNotes, setGeneralNotes] = useState('');
+  const [generalNotesList, setGeneralNotesList] = useState<GeneralNote[]>([]);
+  const [expandedNoteId, setExpandedNoteId] = useState<string | null>(null);
+  const [editingNoteText, setEditingNoteText] = useState('');
+  const [fullscreenNoteId, setFullscreenNoteId] = useState<string | null>(null);
   const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingClientId, setEditingClientId] = useState<string | null>(null);
@@ -82,7 +94,10 @@ export default function CRM() {
         const loaded: Client[] = [];
         clientsSnap.forEach(d => loaded.push(d.data() as Client));
         setClients(loaded);
-        if (notesSnap.exists()) setGeneralNotes(notesSnap.data().notes || '');
+        if (notesSnap.exists()) {
+          setGeneralNotes(notesSnap.data().notes || '');
+          setGeneralNotesList(notesSnap.data().notesList || []);
+        }
       } catch (err) {
         console.error('CRM load error:', err);
       } finally {
@@ -99,12 +114,67 @@ export default function CRM() {
     }, 700);
   };
 
+  const saveGeneralSettings = (notes: string, notesList: GeneralNote[]) => {
+    setDoc(doc(db, 'crm_settings', 'general'), { notes, notesList }).catch(console.error);
+  };
+
   const handleGeneralNotesChange = (value: string) => {
     setGeneralNotes(value);
     if (notesTimer.current) clearTimeout(notesTimer.current);
     notesTimer.current = setTimeout(() => {
-      setDoc(doc(db, 'crm_settings', 'general'), { notes: value }).catch(console.error);
+      saveGeneralSettings(value, generalNotesList);
     }, 1000);
+  };
+
+  const saveNote = () => {
+    if (!generalNotes.trim()) return;
+    const newNote: GeneralNote = { id: `${Date.now()}-${Math.random().toString(36).slice(2)}`, text: generalNotes.trim(), done: false };
+    const updated = [...generalNotesList, newNote];
+    setGeneralNotesList(updated);
+    setGeneralNotes('');
+    saveGeneralSettings('', updated);
+  };
+
+  const openNote = (note: GeneralNote) => {
+    setExpandedNoteId(note.id);
+    setEditingNoteText(note.text);
+  };
+
+  const openFullscreen = (note: GeneralNote) => {
+    setFullscreenNoteId(note.id);
+    setEditingNoteText(note.text);
+    setExpandedNoteId(null);
+  };
+
+  const closeFullscreen = () => setFullscreenNoteId(null);
+
+  const saveFullscreenNote = () => {
+    if (!fullscreenNoteId || !editingNoteText.trim()) return;
+    const updated = generalNotesList.map(n => n.id === fullscreenNoteId ? { ...n, text: editingNoteText.trim() } : n);
+    setGeneralNotesList(updated);
+    saveGeneralSettings(generalNotes, updated);
+    setFullscreenNoteId(null);
+  };
+
+  const saveEditedNote = (id: string) => {
+    if (!editingNoteText.trim()) return;
+    const updated = generalNotesList.map(n => n.id === id ? { ...n, text: editingNoteText.trim() } : n);
+    setGeneralNotesList(updated);
+    setExpandedNoteId(null);
+    saveGeneralSettings(generalNotes, updated);
+  };
+
+  const toggleGeneralNote = (id: string) => {
+    const updated = generalNotesList.map(n => n.id === id ? { ...n, done: !n.done } : n);
+    setGeneralNotesList(updated);
+    saveGeneralSettings(generalNotes, updated);
+  };
+
+  const deleteGeneralNote = (id: string) => {
+    if (!window.confirm('Apagar esta nota? Esta ação não pode ser desfeita.')) return;
+    const updated = generalNotesList.filter(n => n.id !== id);
+    setGeneralNotesList(updated);
+    saveGeneralSettings(generalNotes, updated);
   };
 
   const selectedClient = clients.find(c => c.id === selectedClientId) ?? null;
@@ -258,10 +328,43 @@ export default function CRM() {
 
   // ── MAPA GERAL ──
   if (tab === 'geral') {
+    const fullscreenNote = fullscreenNoteId ? generalNotesList.find(n => n.id === fullscreenNoteId) : null;
+
     return (
       <main style={{ minHeight: '100vh', background: '#FAFAFA', fontFamily: 'inherit' }}>
+        {/* Fullscreen overlay */}
+        {fullscreenNote && (
+          <div style={{ position: 'fixed', inset: 0, zIndex: 1000, background: '#050505', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ padding: '1rem 1.5rem', borderBottom: '2px solid #333', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <span style={{ color: 'white', fontWeight: 900, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Nota — Modo Fullscreen</span>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <button
+                  onClick={saveFullscreenNote}
+                  disabled={!editingNoteText.trim()}
+                  style={{ padding: '0.4rem 1.2rem', background: '#FF2A2A', color: 'white', border: '2px solid white', fontWeight: 900, cursor: 'pointer', fontSize: '0.85rem', fontFamily: 'inherit' }}
+                >Guardar</button>
+                <button
+                  onClick={closeFullscreen}
+                  style={{ padding: '0.4rem 1.2rem', background: 'transparent', color: 'white', border: '2px solid white', fontWeight: 900, cursor: 'pointer', fontSize: '0.85rem', fontFamily: 'inherit' }}
+                >✕ Fechar</button>
+              </div>
+            </div>
+            <textarea
+              value={editingNoteText}
+              onChange={e => setEditingNoteText(e.target.value)}
+              autoFocus
+              style={{ flex: 1, padding: '2rem', background: '#111', color: '#F0F0F0', border: 'none', outline: 'none', fontSize: '1rem', fontFamily: 'inherit', resize: 'none', lineHeight: 1.7 }}
+            />
+          </div>
+        )}
         <div style={headerBg}>
-          <h1 style={{ fontWeight: 900, fontSize: '1.4rem', margin: 0, textTransform: 'uppercase', letterSpacing: '0.05em' }}>CRM</h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <button
+              onClick={() => navigate(-1)}
+              style={{ background: 'none', border: '2px solid white', color: 'white', padding: '0.3rem 0.8rem', cursor: 'pointer', fontWeight: 900, fontSize: '0.85rem', fontFamily: 'inherit' }}
+            >← Voltar</button>
+            <h1 style={{ fontWeight: 900, fontSize: '1.4rem', margin: 0, textTransform: 'uppercase', letterSpacing: '0.05em' }}>CRM</h1>
+          </div>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
             <button style={tabBtn(false)} onClick={() => setTab('clientes')}>Clientes</button>
             <button style={tabBtn(true)}>Mapa Geral</button>
@@ -274,9 +377,79 @@ export default function CRM() {
             <textarea
               value={generalNotes}
               onChange={e => handleGeneralNotesChange(e.target.value)}
-              placeholder="Escreve aqui as tuas notas gerais..."
-              style={{ width: '100%', minHeight: '130px', padding: '0.75rem', border: '2px solid #050505', fontFamily: 'inherit', fontSize: '0.9rem', resize: 'vertical', outline: 'none', background: 'white', boxSizing: 'border-box' }}
+              placeholder="Escreve uma nota e clica em Guardar..."
+              style={{ width: '100%', minHeight: '100px', padding: '0.75rem', border: '2px solid #050505', fontFamily: 'inherit', fontSize: '0.9rem', resize: 'vertical', outline: 'none', background: 'white', boxSizing: 'border-box', display: 'block' }}
             />
+            <button
+              onClick={saveNote}
+              disabled={!generalNotes.trim()}
+              style={{ marginTop: '0.5rem', padding: '0.45rem 1.4rem', background: generalNotes.trim() ? '#050505' : '#CCC', color: 'white', border: '2px solid #050505', fontWeight: 900, cursor: generalNotes.trim() ? 'pointer' : 'default', fontSize: '0.85rem', fontFamily: 'inherit' }}
+            >Guardar nota</button>
+
+            {generalNotesList.length > 0 && (
+              <div style={{ marginTop: '1rem' }}>
+                <p style={{ fontWeight: 900, fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.5rem', color: '#777' }}>Notas Guardadas ({generalNotesList.length})</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                  {generalNotesList.map(note => {
+                    const isExpanded = expandedNoteId === note.id;
+                    const preview = note.text.split('\n')[0].slice(0, 80) + (note.text.length > 80 || note.text.includes('\n') ? '…' : '');
+                    return (
+                      <div key={note.id} style={{ background: 'white', border: `2px solid ${note.done ? '#DDD' : '#050505'}`, opacity: note.done ? 0.5 : 1 }}>
+                        {/* Collapsed row */}
+                        {!isExpanded ? (
+                          <div style={{ padding: '0.6rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                            <input
+                              type="checkbox"
+                              checked={note.done}
+                              onChange={() => toggleGeneralNote(note.id)}
+                              style={{ cursor: 'pointer', accentColor: '#050505', flexShrink: 0, width: '1rem', height: '1rem' }}
+                            />
+                            <p
+                              onClick={() => !note.done && openNote(note)}
+                              style={{ flex: 1, margin: 0, fontSize: '0.88rem', color: '#333', textDecoration: note.done ? 'line-through' : 'none', cursor: note.done ? 'default' : 'pointer', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                              title={note.done ? undefined : 'Clica para editar'}
+                            >{preview}</p>
+                            {!note.done && (
+                              <button
+                                onClick={() => openFullscreen(note)}
+                                title="Abrir em fullscreen"
+                                style={{ background: 'transparent', border: 'none', cursor: 'pointer', padding: '0.2rem 0.4rem', color: '#888', fontSize: '1rem', lineHeight: 1, flexShrink: 0 }}
+                              >⛶</button>
+                            )}
+                            <button
+                              onClick={() => deleteGeneralNote(note.id)}
+                              style={{ background: 'transparent', border: '2px solid #050505', padding: '0.3rem 0.75rem', cursor: 'pointer', fontWeight: 700, fontSize: '0.75rem', fontFamily: 'inherit', flexShrink: 0 }}
+                            >Apagar</button>
+                          </div>
+                        ) : (
+                          /* Expanded / edit mode */
+                          <div style={{ padding: '0.75rem 1rem' }}>
+                            <textarea
+                              value={editingNoteText}
+                              onChange={e => setEditingNoteText(e.target.value)}
+                              autoFocus
+                              rows={4}
+                              style={{ width: '100%', padding: '0.5rem', border: '2px solid #050505', fontFamily: 'inherit', fontSize: '0.88rem', resize: 'vertical', outline: 'none', boxSizing: 'border-box', display: 'block', marginBottom: '0.5rem' }}
+                            />
+                            <div style={{ display: 'flex', gap: '0.5rem' }}>
+                              <button
+                                onClick={() => saveEditedNote(note.id)}
+                                disabled={!editingNoteText.trim()}
+                                style={{ padding: '0.35rem 1.1rem', background: '#050505', color: 'white', border: '2px solid #050505', fontWeight: 900, cursor: 'pointer', fontSize: '0.8rem', fontFamily: 'inherit' }}
+                              >Guardar</button>
+                              <button
+                                onClick={() => setExpandedNoteId(null)}
+                                style={{ padding: '0.35rem 1.1rem', background: 'white', color: '#050505', border: '2px solid #050505', fontWeight: 700, cursor: 'pointer', fontSize: '0.8rem', fontFamily: 'inherit' }}
+                              >Cancelar</button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
 
           {clients.some(c => c.notes.trim()) && (
@@ -509,7 +682,13 @@ export default function CRM() {
   return (
     <main style={{ minHeight: '100vh', background: '#FAFAFA', fontFamily: 'inherit' }}>
       <div style={headerBg}>
-        <h1 style={{ fontWeight: 900, fontSize: '1.4rem', margin: 0, textTransform: 'uppercase', letterSpacing: '0.05em' }}>CRM — Gestão de Clientes</h1>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <button
+            onClick={() => navigate(-1)}
+            style={{ background: 'none', border: '2px solid white', color: 'white', padding: '0.3rem 0.8rem', cursor: 'pointer', fontWeight: 900, fontSize: '0.85rem', fontFamily: 'inherit' }}
+          >← Voltar</button>
+          <h1 style={{ fontWeight: 900, fontSize: '1.4rem', margin: 0, textTransform: 'uppercase', letterSpacing: '0.05em' }}>CRM — Gestão de Clientes</h1>
+        </div>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
           <button style={tabBtn(true)}>Clientes</button>
           <button style={tabBtn(false)} onClick={() => setTab('geral')}>Mapa Geral</button>

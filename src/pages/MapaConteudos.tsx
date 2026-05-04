@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import jsPDF from 'jspdf';
 
 interface Publication {
@@ -24,6 +25,7 @@ function dayKey(year: number, month: number, day: number) {
 }
 
 export default function MapaConteudos() {
+  const navigate = useNavigate();
   const today = new Date();
   const [month, setMonth] = useState(today.getMonth());
   const [year, setYear] = useState(today.getFullYear());
@@ -207,9 +209,15 @@ export default function MapaConteudos() {
     <main style={{ minHeight: '100vh', background: '#FAFAFA', fontFamily: 'inherit' }}>
       {/* Header */}
       <div style={{ background: '#050505', color: 'white', padding: '1.5rem 2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
-        <h1 style={{ fontWeight: 900, fontSize: '1.5rem', margin: 0, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-          Mapa de Conteúdos
-        </h1>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <button
+            onClick={() => navigate(-1)}
+            style={{ background: 'none', border: '2px solid white', color: 'white', padding: '0.3rem 0.8rem', cursor: 'pointer', fontWeight: 900, fontSize: '0.85rem', fontFamily: 'inherit' }}
+          >← Voltar</button>
+          <h1 style={{ fontWeight: 900, fontSize: '1.5rem', margin: 0, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            Mapa de Conteúdos
+          </h1>
+        </div>
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
           <select
             value={month}
