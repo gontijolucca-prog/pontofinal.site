@@ -1,10 +1,10 @@
 import { useState } from 'react';
-
 import { db } from '../firebase';
 import { collection, addDoc } from 'firebase/firestore';
 
 export default function Home() {
   const [formStatus, setFormStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null);
+  const [contactMethod, setContactMethod] = useState<'telefone' | 'email'>('telefone');
 
   return (
     <main>
@@ -83,8 +83,8 @@ export default function Home() {
                       </div>
                       <p className="pricing-desc"><strong>20 posts/mês</strong> ideal para manter uma presença ativa contínua.</p>
                       <ul className="pricing-features">
-                          <li>3 posts regulares por semana</li>
-                          <li>2 carrosséis/semana (até 5 slides cada)</li>
+                          <li>12 imagens estáticas por mês</li>
+                          <li>8 carrosséis por mês (até 5 slides cada)</li>
                           <li>Legendas incluídas</li>
                       </ul>
                       <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-full">Começar Agora</button>
@@ -103,8 +103,8 @@ export default function Home() {
                       </div>
                       <p className="pricing-desc"><strong>28 posts/mês</strong> para empresas que querem dominar o feed e o algoritmo.</p>
                       <ul className="pricing-features">
-                          <li>4 posts regulares por semana</li>
-                          <li>3 carrosséis/semana (até 8 slides cada)</li>
+                          <li>16 imagens estáticas por mês</li>
+                          <li>12 carrosséis por mês (até 8 slides cada)</li>
                           <li>Legendas incluídas</li>
                           <li>Planeamento mensal de conteúdos</li>
                       </ul>
@@ -121,11 +121,11 @@ export default function Home() {
                               </div>
                           </div>
                       </div>
-                      <p className="pricing-desc"><strong>36 posts/mês</strong> A estratégia máxima de conteúdo, com vídeo e análise.</p>
+                      <p className="pricing-desc"><strong>40 posts/mês</strong> A estratégia máxima de conteúdo, com vídeo e análise.</p>
                       <ul className="pricing-features">
-                          <li>5 posts regulares por semana</li>
-                          <li>4 carrosséis/semana (até 10 slides cada)</li>
-                          <li>1 vídeo por semana</li>
+                          <li>20 imagens estáticas por mês</li>
+                          <li>16 carrosséis por mês (até 10 slides cada)</li>
+                          <li>4 vídeos por mês</li>
                           <li>Legendas incluídas</li>
                           <li>Planeamento com estratégia de temas</li>
                           <li>Análise de métricas do mês anterior</li>
@@ -330,9 +330,60 @@ export default function Home() {
                                   <input type="text" id="call-nome" name="nome_empresa" className="brutal-input" placeholder="Ex: João Silva - Oficina Auto João" required />
                               </div>
                               
+                              {/* Método de contacto */}
                               <div className="form-group">
-                                  <label htmlFor="call-telefone">Telefone/WhatsApp</label>
-                                  <input type="tel" id="call-telefone" name="telefone" className="brutal-input" placeholder="Ex: +351 912 345 678" required />
+                                  <label>Prefere ser contactado por:</label>
+                                  <div style={{ display: 'flex', gap: '1.5rem', marginTop: '0.3rem' }}>
+                                      <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 700, fontSize: '0.95rem', cursor: 'pointer' }}>
+                                          <input
+                                              type="radio"
+                                              name="contacto_metodo"
+                                              value="telefone"
+                                              checked={contactMethod === 'telefone'}
+                                              onChange={() => setContactMethod('telefone')}
+                                              style={{ width: '1.1rem', height: '1.1rem', cursor: 'pointer' }}
+                                          />
+                                          📞 Telefone
+                                      </label>
+                                      <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 700, fontSize: '0.95rem', cursor: 'pointer' }}>
+                                          <input
+                                              type="radio"
+                                              name="contacto_metodo"
+                                              value="email"
+                                              checked={contactMethod === 'email'}
+                                              onChange={() => setContactMethod('email')}
+                                              style={{ width: '1.1rem', height: '1.1rem', cursor: 'pointer' }}
+                                          />
+                                          ✉️ E-mail
+                                      </label>
+                                  </div>
+                              </div>
+
+                              <div className="form-group">
+                                  {contactMethod === 'telefone' ? (
+                                      <>
+                                          <label htmlFor="call-telefone">Telefone/WhatsApp</label>
+                                          <input type="tel" id="call-telefone" name="contacto_valor" className="brutal-input" placeholder="Ex: +351 912 345 678" required />
+                                      </>
+                                  ) : (
+                                      <>
+                                          <label htmlFor="call-email">E-mail</label>
+                                          <input type="email" id="call-email" name="contacto_valor" className="brutal-input" placeholder="Ex: joao@exemplo.pt" required />
+                                      </>
+                                  )}
+                              </div>
+
+                              {/* Breve descrição */}
+                              <div className="form-group">
+                                  <label htmlFor="call-descricao">Breve descrição do seu projeto</label>
+                                  <textarea
+                                      id="call-descricao"
+                                      name="descricao"
+                                      className="brutal-input textarea"
+                                      placeholder="Ex: Preciso de um website para o meu negócio local e gestão de redes sociais..."
+                                      rows={2}
+                                      style={{ minHeight: '3.5rem', resize: 'vertical' }}
+                                  />
                               </div>
                               
                               {/* Anti-spam hidden field */}

@@ -8,12 +8,16 @@ import Admin from './pages/Admin';
 import Proposta from './pages/Proposta';
 import PropostaPlan from './pages/PropostaPlan';
 import Contrato from './pages/Contrato';
+import MapaConteudos from './pages/MapaConteudos';
+import CRM from './pages/CRM';
 
 function Layout() {
   const location = useLocation();
   const isFullPage = location.pathname === '/proposta'
     || location.pathname.startsWith('/proposta/')
-    || location.pathname === '/contrato';
+    || location.pathname === '/contrato'
+    || location.pathname === '/mapa-conteudos'
+    || location.pathname === '/crm';
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -27,6 +31,8 @@ function Layout() {
           <Route path="/proposta" element={<Proposta />} />
           <Route path="/proposta/:planId" element={<PropostaPlan />} />
           <Route path="/contrato" element={<Contrato />} />
+          <Route path="/mapa-conteudos" element={<MapaConteudos />} />
+          <Route path="/crm" element={<CRM />} />
         </Routes>
       </div>
       {!isFullPage && <Footer />}
