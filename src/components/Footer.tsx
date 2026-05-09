@@ -19,12 +19,12 @@ export default function Footer() {
                 <h3>Contacto</h3>
                 <ul>
                     <li><a href="mailto:geral@pontofinal.site">geral@pontofinal.site</a></li>
-                    <li><Link to="/admin" style={{ color: '#FF2A2A', fontWeight: 'bold' }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Admin</Link></li>
+                    <li><Link to="/admin" className="footer-admin-link" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Admin</Link></li>
                 </ul>
             </div>
         </div>
         <div className="footer-bottom">
-            <p style={{ fontWeight: 700, marginBottom: 0 }}>&copy; 2026 Pontofinal.site. Todos os direitos reservados. Suporte: <a href="mailto:geral@pontofinal.site" style={{ color: '#FF2A2A' }}>geral@pontofinal.site</a></p>
+            <p>&copy; 2026 Pontofinal.site. Todos os direitos reservados. Suporte: <a href="mailto:geral@pontofinal.site">geral@pontofinal.site</a></p>
         </div>
     </footer>
   );

@@ -1,10 +1,31 @@
 import { useState } from 'react';
-
 import { db } from '../firebase';
 import { collection, addDoc } from 'firebase/firestore';
+import VideoTooltip from '../components/VideoTooltip';
+import { downloadPropostaPdf, downloadCustomPropostaPdf } from '../utils/generatePropostaPdf';
 
 export default function Home() {
   const [formStatus, setFormStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null);
+  const [contactMethod, setContactMethod] = useState<'telefone' | 'email'>('telefone');
+  
+  // Custom Plan State
+  const [customQuantities, setCustomQuantities] = useState({
+    static: 0,
+    carousel: 0,
+    video: 0
+  });
+  const [customPlan, setCustomPlan] = useState<{total: number, static: number, carousel: number, video: number} | null>(null);
+
+  const handleQuantityChange = (type: string, value: string) => {
+    setCustomQuantities(prev => ({ ...prev, [type]: Math.max(0, parseInt(value) || 0) }));
+  };
+
+  const generateCustomPlan = () => {
+    const total = (customQuantities.static * 5) + (customQuantities.carousel * 10) + (customQuantities.video * 20);
+    if (total > 0) {
+      setCustomPlan({ ...customQuantities, total });
+    }
+  };
 
   return (
     <main>
@@ -69,71 +90,194 @@ export default function Home() {
               <h2 className="section-title text-center">Planos Mensais.<br/>Transparência Total.</h2>
               <p className="section-subtitle text-center" style={{marginBottom: '4rem'}}>Sem propostas fechadas. O que vê é exatamente o que paga.</p>
               
-              <h3 id="planos-conteudo" className="text-center" style={{fontSize: '2.5rem', marginTop: '2rem'}}>Planos de Produção de Conteúdo</h3>
-              <div className="pricing-grid" style={{marginBottom: '6rem'}}>
-                  {/* Conteudo - Bronze */}
-                  <div className="brutal-card pricing-card">
-                      <div className="pricing-header">
-                          <h3>Bronze</h3>
-                          <div className="price anchored-price">
-                              <div className="new-price">
-                                  <span>150€/mês</span>
-                              </div>
-                          </div>
-                      </div>
-                      <p className="pricing-desc"><strong>20 posts/mês</strong> ideal para manter uma presença ativa contínua.</p>
-                      <ul className="pricing-features">
-                          <li>3 posts regulares por semana</li>
-                          <li>2 carrosséis/semana (até 5 slides cada)</li>
-                          <li>Legendas incluídas</li>
-                      </ul>
-                      <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-full">Começar Agora</button>
-                  </div>
+               <h3 id="planos-conteudo" className="text-center" style={{fontSize: '2.5rem', marginTop: '2rem'}}>Planos de Produção de Conteúdo</h3>
+               
+                {/* Calculadora de Plano Customizado */}
+                <div className="brutal-card" style={{ maxWidth: '1000px', margin: '0.5rem auto 2rem', padding: '0.5rem 1rem', border: '2px solid black', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                    
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <label style={{ fontWeight: 700, fontSize: '0.8rem' }}>Estáticas</label>
+                        <input 
+                            type="number" 
+                            style={{ 
+                                width: '40px', 
+                                fontSize: '1.2rem', 
+                                fontWeight: 900, 
+                                background: 'none', 
+                                border: 'none', 
+                                outline: 'none', 
+                                textAlign: 'center', 
+                                padding: 0,
+                                appearance: 'textfield'
+                            }} 
+                            value={customQuantities.static} 
+                            onChange={(e) => handleQuantityChange('static', e.target.value)}
+                            min="0"
+                        />
+                    </div>
 
-                  {/* Conteudo - Prata */}
-                  <div className="brutal-card pricing-card featured-pricing">
-                      <div className="featured-badge">Mais Escolhido</div>
-                      <div className="pricing-header">
-                          <h3>Prata</h3>
-                          <div className="price anchored-price">
-                              <div className="new-price">
-                                  <span>220€/mês</span>
-                              </div>
-                          </div>
-                      </div>
-                      <p className="pricing-desc"><strong>28 posts/mês</strong> para empresas que querem dominar o feed e o algoritmo.</p>
-                      <ul className="pricing-features">
-                          <li>4 posts regulares por semana</li>
-                          <li>3 carrosséis/semana (até 8 slides cada)</li>
-                          <li>Legendas incluídas</li>
-                          <li>Planeamento mensal de conteúdos</li>
-                      </ul>
-                      <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-primary btn-full">Começar Agora</button>
-                  </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <label style={{ fontWeight: 700, fontSize: '0.8rem' }}>Carrosséis</label>
+                        <input 
+                            type="number" 
+                            style={{ 
+                                width: '40px', 
+                                fontSize: '1.2rem', 
+                                fontWeight: 900, 
+                                background: 'none', 
+                                border: 'none', 
+                                outline: 'none', 
+                                textAlign: 'center', 
+                                padding: 0,
+                                appearance: 'textfield'
+                            }} 
+                            value={customQuantities.carousel} 
+                            onChange={(e) => handleQuantityChange('carousel', e.target.value)}
+                            min="0"
+                        />
+                    </div>
 
-                  {/* Conteudo - Ouro */}
-                  <div className="brutal-card pricing-card bg-stripe">
-                      <div className="pricing-header">
-                          <h3>Ouro</h3>
-                          <div className="price anchored-price">
-                              <div className="new-price">
-                                  <span>350€/mês</span>
-                              </div>
-                          </div>
-                      </div>
-                      <p className="pricing-desc"><strong>36 posts/mês</strong> A estratégia máxima de conteúdo, com vídeo e análise.</p>
-                      <ul className="pricing-features">
-                          <li>5 posts regulares por semana</li>
-                          <li>4 carrosséis/semana (até 10 slides cada)</li>
-                          <li>1 vídeo por semana</li>
-                          <li>Legendas incluídas</li>
-                          <li>Planeamento com estratégia de temas</li>
-                          <li>Análise de métricas do mês anterior</li>
-                          <li>1 Reunião de alinhamento criativo (30m)</li>
-                      </ul>
-                      <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-full">Começar Agora</button>
-                  </div>
-              </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <label style={{ fontWeight: 700, fontSize: '0.8rem' }}>Vídeos</label>
+                        <input 
+                            type="number" 
+                            style={{ 
+                                width: '40px', 
+                                fontSize: '1.2rem', 
+                                fontWeight: 900, 
+                                background: 'none', 
+                                border: 'none', 
+                                outline: 'none', 
+                                textAlign: 'center', 
+                                padding: 0,
+                                appearance: 'textfield'
+                            }} 
+                            value={customQuantities.video} 
+                            onChange={(e) => handleQuantityChange('video', e.target.value)}
+                            min="0"
+                        />
+                    </div>
+
+                    <button onClick={generateCustomPlan} className="btn btn-primary" style={{ padding: '0.3rem 0.5rem', fontSize: '0.8rem', whiteSpace: 'nowrap' }}>Gerar Plano Customizado</button>
+                </div>
+
+                <div className="pricing-grid" style={{marginBottom: '6rem'}}>
+                    {customPlan && (
+                        <div className="brutal-card pricing-card featured-pricing" style={{ position: 'relative', gridColumn: '2' }}>
+                            <button 
+                                onClick={() => setCustomPlan(null)} 
+                                style={{ 
+                                    position: 'absolute', 
+                                    top: '10px', 
+                                    left: '10px', 
+                                    width: '21px', 
+                                    height: '21px', 
+                                    border: '2px solid black', 
+                                    backgroundColor: 'white', 
+                                    fontWeight: 900, 
+                                    cursor: 'pointer', 
+                                    zIndex: 10,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '0.7rem'
+                                }}
+                            >✕</button>
+                            <div className="featured-badge">Plano Customizado</div>
+                            <div className="pricing-header">
+                                <h3>Personalizado</h3>
+                                <div className="price anchored-price">
+                                    <div className="new-price">
+                                        <span>{customPlan.total}€/mês</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p className="pricing-desc"><strong>{customPlan.static + customPlan.carousel + customPlan.video} posts/mês</strong> configurados por si.</p>
+                            <ul className="pricing-features">
+                                {customPlan.static > 0 && <li>{customPlan.static} imagens estáticas por mês</li>}
+                                {customPlan.carousel > 0 && <li>{customPlan.carousel} carrosséis por mês</li>}
+                                {customPlan.video > 0 && <li>{customPlan.video} <VideoTooltip>vídeos</VideoTooltip> por mês</li>}
+                                <li>Legendas incluídas</li>
+                                <li>Planeamento básico de conteúdos</li>
+                            </ul>
+                            <button onClick={() => downloadCustomPropostaPdf({ static: customPlan.static, carousel: customPlan.carousel, video: customPlan.video }, customPlan.total)} className="btn btn-primary btn-full" style={{ marginBottom: '0.75rem' }}>💾 Guardar Proposta</button>
+                            <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-primary btn-full">Começar Agora</button>
+                        </div>
+                    )}
+
+ 
+                    {!customPlan && (
+                        <>
+                           {/* Conteudo - Bronze */}
+                           <div className="brutal-card pricing-card">
+                               <div className="pricing-header">
+                                   <h3>Bronze</h3>
+                                   <div className="price anchored-price">
+                                       <div className="new-price">
+                                           <span>150€/mês</span>
+                                       </div>
+                                   </div>
+                               </div>
+                               <p className="pricing-desc"><strong>20 posts/mês</strong> ideal para manter uma presença ativa contínua.</p>
+                               <ul className="pricing-features">
+                                   <li>12 imagens estáticas por mês</li>
+                                   <li>8 carrosséis por mês (até 5 slides cada)</li>
+                                   <li>Legendas incluídas</li>
+                               </ul>
+                                <button onClick={() => downloadPropostaPdf('social-bronze')} className="btn btn-secondary btn-full" style={{ marginBottom: '0.75rem' }}>💾 Guardar Proposta</button>
+                                <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-full">Começar Agora</button>
+                            </div>
+                        
+                            {/* Conteudo - Prata */}
+                            <div className="brutal-card pricing-card featured-pricing">
+                                <div className="featured-badge">Mais Escolhido</div>
+                                <div className="pricing-header">
+                                    <h3>Prata</h3>
+                                    <div className="price anchored-price">
+                                        <div className="new-price">
+                                            <span>220€/mês</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p className="pricing-desc"><strong>28 posts/mês</strong> para empresas que querem dominar o feed e o algoritmo.</p>
+                                <ul className="pricing-features">
+                                    <li>16 imagens estáticas por mês</li>
+                                    <li>12 carrosséis por mês (até 8 slides cada)</li>
+                                    <li>Legendas incluídas</li>
+                                    <li>Planeamento mensal de conteúdos</li>
+                                </ul>
+                                <button onClick={() => downloadPropostaPdf('social-prata')} className="btn btn-primary btn-full" style={{ marginBottom: '0.75rem' }}>💾 Guardar Proposta</button>
+                                <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-primary btn-full">Começar Agora</button>
+                            </div>
+                        
+                            {/* Conteudo - Ouro */}
+                            <div className="brutal-card pricing-card bg-stripe">
+                                <div className="pricing-header">
+                                    <h3>Ouro</h3>
+                                    <div className="price anchored-price">
+                                        <div className="new-price">
+                                            <span>350€/mês</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p className="pricing-desc"><strong>40 posts/mês</strong> A estratégia máxima de conteúdo, com <VideoTooltip>vídeo</VideoTooltip> e análise.</p>
+                                <ul className="pricing-features">
+                                    <li>20 imagens estáticas por mês</li>
+                                    <li>16 carrosséis por mês (até 10 slides cada)</li>
+                                    <li>4 <VideoTooltip>vídeos</VideoTooltip> por mês</li>
+                                    <li>Legendas incluídas</li>
+                                    <li>Planeamento com estratégia de temas</li>
+                                    <li>Análise de métricas do mês anterior</li>
+                                    <li>1 Reunião de alinhamento criativo (30m)</li>
+                                </ul>
+                                <button onClick={() => downloadPropostaPdf('social-ouro')} className="btn btn-secondary btn-full" style={{ marginBottom: '0.75rem' }}>💾 Guardar Proposta</button>
+                                <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-full">Começar Agora</button>
+                            </div>
+                        </>
+                    )}
+                </div>
+
+
 
 
               <h3 id="planos-websites" className="text-center" style={{fontSize: '2.5rem', marginTop: '2rem'}}>Planos de Websites</h3>
@@ -160,59 +304,63 @@ export default function Home() {
                           <li>Website de 1 página</li>
                           <li>Design responsivo (telemóvel e PC)</li>
                           <li>Alojamento e segurança incluídos</li>
-                          <li>1 atualização por mês</li>
-                      </ul>
-                      <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-full">Começar Agora</button>
-                  </div>
+                       <li>1 atualização por mês</li>
+                       </ul>
+                       <button onClick={() => downloadPropostaPdf('web-bronze')} className="btn btn-secondary btn-full" style={{ marginBottom: '0.75rem' }}>💾 Guardar Proposta</button>
+                       <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-full">Começar Agora</button>
+                   </div>
 
-                  {/* Website - Prata */}
-                  <div className="brutal-card pricing-card featured-pricing">
-                      <div className="pricing-header">
-                          <h3>Prata</h3>
-                          <div className="price anchored-price">
-                              <div className="new-price" style={{fontSize: '2rem'}}>
-                                  <span>400€ (Arranque)</span>
-                                  <span>+ 50€/mês (Manutenção)</span>
-                              </div>
-                          </div>
-                      </div>
-                      <div className="price-subtext special-offer smooth-bounce" style={{marginBottom: '1.5rem'}}>
-                        <strong>OFERTA ESPECIAL:</strong> 1º Mês de Manutenção Grátis. A partir do 2º mês: 50€/mês.
-                      </div>
-                      <ul className="pricing-features">
-                          <li>Website até 5 páginas</li>
-                          <li>Design responsivo</li>
-                          <li>Botão WhatsApp</li>
-                          <li>Alojamento e segurança incluídos</li>
-                          <li>2 atualizações por mês</li>
-                      </ul>
-                      <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-primary btn-full">Começar Agora</button>
-                  </div>
+                   {/* Website - Prata */}
+                   <div className="brutal-card pricing-card featured-pricing">
+                       <div className="pricing-header">
+                           <h3>Prata</h3>
+                           <div className="price anchored-price">
+                               <div className="new-price" style={{fontSize: '2rem'}}>
+                                   <span>400€ (Arranque)</span>
+                                   <span>+ 50€/mês (Manutenção)</span>
+                               </div>
+                           </div>
+                       </div>
+                       <div className="price-subtext special-offer smooth-bounce" style={{marginBottom: '1.5rem'}}>
+                         <strong>OFERTA ESPECIAL:</strong> 1º Mês de Manutenção Grátis. A partir do 2º mês: 50€/mês.
+                       </div>
+                       <ul className="pricing-features">
+                           <li>Website até 5 páginas</li>
+                           <li>Design responsivo</li>
+                           <li>Botão WhatsApp</li>
+                           <li>Alojamento e segurança incluídos</li>
+                           <li>2 atualizações por mês</li>
+                       </ul>
+                       <button onClick={() => downloadPropostaPdf('web-prata')} className="btn btn-primary btn-full" style={{ marginBottom: '0.75rem' }}>💾 Guardar Proposta</button>
+                       <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-primary btn-full">Começar Agora</button>
+                   </div>
 
-                  {/* Website - Ouro */}
-                  <div className="brutal-card pricing-card bg-stripe">
-                      <div className="pricing-header">
-                          <h3>Ouro</h3>
-                          <div className="price anchored-price">
-                              <div className="new-price" style={{fontSize: '2rem'}}>
-                                  <span>700€ (Arranque)</span>
-                                  <span>+ 80€/mês (Manutenção)</span>
-                              </div>
-                          </div>
-                      </div>
-                      <div className="price-subtext special-offer smooth-bounce" style={{marginBottom: '1.5rem'}}>
-                        <strong>OFERTA ESPECIAL:</strong> 1º Mês de Manutenção Grátis. A partir do 2º mês: 80€/mês.
-                      </div>
-                      <ul className="pricing-features">
-                          <li>Tudo o que o Prata inclui</li>
-                          <li>Criação de ferramentas web / internas</li>
-                          <li>Estatísticas de visitas</li>
-                          <li>Suporte prioritário</li>
-                          <li>Alojamento e segurança incluídos</li>
-                          <li>4 atualizações por mês</li>
-                      </ul>
-                      <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-full">Começar Agora</button>
-                  </div>
+                   {/* Website - Ouro */}
+                   <div className="brutal-card pricing-card bg-stripe">
+                       <div className="pricing-header">
+                           <h3>Ouro</h3>
+                           <div className="price anchored-price">
+                               <div className="new-price" style={{fontSize: '2rem'}}>
+                                   <span>700€ (Arranque)</span>
+                                   <span>+ 80€/mês (Manutenção)</span>
+                               </div>
+                           </div>
+                       </div>
+                       <div className="price-subtext special-offer smooth-bounce" style={{marginBottom: '1.5rem'}}>
+                         <strong>OFERTA ESPECIAL:</strong> 1º Mês de Manutenção Grátis. A partir do 2º mês: 80€/mês.
+                       </div>
+                       <ul className="pricing-features">
+                           <li>Tudo o que o Prata inclui</li>
+                           <li>Criação de ferramentas web / internas</li>
+                           <li>Estatísticas de visitas</li>
+                           <li>Suporte prioritário</li>
+                           <li>Alojamento e segurança incluídos</li>
+                           <li>4 atualizações por mês</li>
+                       </ul>
+                       <button onClick={() => downloadPropostaPdf('web-ouro')} className="btn btn-secondary btn-full" style={{ marginBottom: '0.75rem' }}>💾 Guardar Proposta</button>
+                       <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-full">Começar Agora</button>
+                   </div>
+
               </div>
           </div>
       </section>
@@ -330,9 +478,60 @@ export default function Home() {
                                   <input type="text" id="call-nome" name="nome_empresa" className="brutal-input" placeholder="Ex: João Silva - Oficina Auto João" required />
                               </div>
                               
+                              {/* Método de contacto */}
                               <div className="form-group">
-                                  <label htmlFor="call-telefone">Telefone/WhatsApp</label>
-                                  <input type="tel" id="call-telefone" name="telefone" className="brutal-input" placeholder="Ex: +351 912 345 678" required />
+                                  <label>Prefere ser contactado por:</label>
+                                  <div style={{ display: 'flex', gap: '1.5rem', marginTop: '0.3rem' }}>
+                                      <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 700, fontSize: '0.95rem', cursor: 'pointer' }}>
+                                          <input
+                                              type="radio"
+                                              name="contacto_metodo"
+                                              value="telefone"
+                                              checked={contactMethod === 'telefone'}
+                                              onChange={() => setContactMethod('telefone')}
+                                              style={{ width: '1.1rem', height: '1.1rem', cursor: 'pointer' }}
+                                          />
+                                          📞 Telefone
+                                      </label>
+                                      <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 700, fontSize: '0.95rem', cursor: 'pointer' }}>
+                                          <input
+                                              type="radio"
+                                              name="contacto_metodo"
+                                              value="email"
+                                              checked={contactMethod === 'email'}
+                                              onChange={() => setContactMethod('email')}
+                                              style={{ width: '1.1rem', height: '1.1rem', cursor: 'pointer' }}
+                                          />
+                                          ✉️ E-mail
+                                      </label>
+                                  </div>
+                              </div>
+
+                              <div className="form-group">
+                                  {contactMethod === 'telefone' ? (
+                                      <>
+                                          <label htmlFor="call-telefone">Telefone/WhatsApp</label>
+                                          <input type="tel" id="call-telefone" name="contacto_valor" className="brutal-input" placeholder="Ex: +351 912 345 678" required />
+                                      </>
+                                  ) : (
+                                      <>
+                                          <label htmlFor="call-email">E-mail</label>
+                                          <input type="email" id="call-email" name="contacto_valor" className="brutal-input" placeholder="Ex: joao@exemplo.pt" required />
+                                      </>
+                                  )}
+                              </div>
+
+                              {/* Breve descrição */}
+                              <div className="form-group">
+                                  <label htmlFor="call-descricao">Breve descrição do seu projeto</label>
+                                  <textarea
+                                      id="call-descricao"
+                                      name="descricao"
+                                      className="brutal-input textarea"
+                                      placeholder="Ex: Preciso de um website para o meu negócio local e gestão de redes sociais..."
+                                      rows={2}
+                                      style={{ minHeight: '3.5rem', resize: 'vertical' }}
+                                  />
                               </div>
                               
                               {/* Anti-spam hidden field */}

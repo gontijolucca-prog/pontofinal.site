@@ -32,7 +32,7 @@ const dropdownGroups = [
   {
     label: 'OUTRO',
     items: [
-      { label: 'Proposta Customizada v2', path: '/proposta' },
+      { label: 'Proposta Customizada', path: '/proposta' },
       { label: 'Contrato', path: '/contrato' },
     ],
   },
@@ -113,6 +113,7 @@ export default function Admin() {
   };
 
   const handleDelete = async (id: string) => {
+    if (!window.confirm('Tens a certeza que queres apagar esta entrada? Esta ação não pode ser desfeita.')) return;
     try {
       await deleteDoc(doc(db, 'submissions', id));
     } catch (err) {
@@ -154,9 +155,9 @@ export default function Admin() {
   return (
     <main className="section bg-light" style={{ minHeight: '80vh' }}>
       <div className="container">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+        <div className="admin-header">
           <h1 className="hero-title" style={{ fontSize: '2.5rem', margin: 0 }}>Administração</h1>
-          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <div className="admin-actions">
             <div ref={dropdownRef} style={{ position: 'relative' }}>
               <button
                 onClick={() => setDropdownOpen((o) => !o)}
@@ -166,50 +167,17 @@ export default function Admin() {
                 Ver Proposta <span style={{ fontSize: '0.75rem' }}>▾</span>
               </button>
               {dropdownOpen && (
-                <div style={{
-                  position: 'absolute',
-                  top: 'calc(100% + 6px)',
-                  right: 0,
-                  background: '#fff',
-                  border: '4px solid #050505',
-                  boxShadow: '8px 8px 0px 0px #050505',
-                  minWidth: '200px',
-                  zIndex: 100,
-                }}>
+                <div className="admin-dropdown">
                   {dropdownGroups.map((group) => (
                     <div key={group.label}>
-                      <div style={{
-                        padding: '0.4rem 1rem',
-                        fontSize: '0.65rem',
-                        fontWeight: 900,
-                        letterSpacing: '0.08em',
-                        textTransform: 'uppercase',
-                        color: '#FF2A2A',
-                        borderBottom: '2px solid #050505',
-                        background: '#F0F0F0',
-                      }}>
+                      <div className="admin-dropdown-group-label">
                         {group.label}
                       </div>
                       {group.items.map((item) => (
                         <button
                           key={item.path}
                           onClick={() => { setDropdownOpen(false); navigate(item.path); }}
-                          style={{
-                            display: 'block',
-                            width: '100%',
-                            textAlign: 'left',
-                            padding: '0.6rem 1rem',
-                            background: 'transparent',
-                            border: 'none',
-                            borderBottom: '1px solid #e0e0e0',
-                            cursor: 'pointer',
-                            fontFamily: 'inherit',
-                            fontWeight: 700,
-                            fontSize: '0.9rem',
-                            color: '#050505',
-                          }}
-                          onMouseEnter={(e) => (e.currentTarget.style.background = '#F0F0F0')}
-                          onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                          className="admin-dropdown-item"
                         >
                           {item.label}
                         </button>
@@ -219,11 +187,13 @@ export default function Admin() {
                 </div>
               )}
             </div>
+            <button onClick={() => navigate('/mapa-conteudos')} className="btn btn-secondary">Mapa de Conteúdos</button>
+            <button onClick={() => navigate('/crm')} className="btn btn-secondary">CRM</button>
             <button onClick={handleLogout} className="btn btn-secondary">Sair</button>
           </div>
         </div>
 
-        <div className="brutal-card" style={{ overflowX: 'auto' }}>
+        <div className="brutal-card admin-table-wrapper">
           <h3 style={{ marginBottom: '1.5rem' }}>Respostas do Formulário ({submissions.length})</h3>
           
           {error && <p style={{ color: 'red', fontWeight: 'bold', marginBottom: '1rem' }}>{error}</p>}
