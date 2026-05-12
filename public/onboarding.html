@@ -1,0 +1,1459 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Content Machine · Onboarding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Cormorant+Garamond:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #06060a; color: #f0f0f0; font-family: 'Inter', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 48px; }
+    section { padding: 96px 0; border-top: 1px solid rgba(255,255,255,0.06); }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 10px;
+      font: 500 10.5px/1 'JetBrains Mono', monospace;
+      letter-spacing: 0.18em; text-transform: uppercase; color: #d4773b; margin-bottom: 20px;
+    }
+    .section-label::before { content: ''; width: 20px; height: 1px; background: #d4773b; display: block; }
+    h1 { font: 800 clamp(38px, 5.5vw, 74px)/1.05 'Inter', sans-serif; letter-spacing: -0.03em; }
+    h2 { font: 700 clamp(26px, 3.5vw, 46px)/1.1 'Inter', sans-serif; letter-spacing: -0.02em; }
+    h3 { font: 700 20px/1.2 'Inter', sans-serif; letter-spacing: -0.01em; }
+    .accent { color: #d4773b; }
+    .muted { color: rgba(255,255,255,0.45); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 120px 0 96px;
+      background: radial-gradient(ellipse 80% 55% at 50% -5%, rgba(212,119,59,0.13) 0%, transparent 65%);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .hero-badge {
+      display: inline-block;
+      font: 500 10.5px/1 'JetBrains Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.28); border: 1px solid rgba(255,255,255,0.1); padding: 7px 14px;
+      border-radius: 2px; margin-bottom: 36px;
+    }
+    .hero h1 { max-width: 880px; margin-bottom: 24px; }
+    .hero-sub { font: 400 19px/1.75 'Inter', sans-serif; color: rgba(255,255,255,0.48); max-width: 580px; margin-bottom: 44px; }
+    .chips { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 64px; }
+    .chip {
+      font: 500 11.5px/1 'JetBrains Mono', monospace; letter-spacing: 0.05em;
+      padding: 8px 16px; border-radius: 20px; border: 1px solid;
+    }
+    .chip-luiz { color: #d4773b; border-color: rgba(212,119,59,0.4); background: rgba(212,119,59,0.07); }
+    .chip-tbs  { color: #8fa8bc; border-color: rgba(143,168,188,0.4); background: rgba(143,168,188,0.07); }
+    .chip-tbu  { color: #c4a97c; border-color: rgba(196,169,124,0.4); background: rgba(196,169,124,0.07); }
+    .stats-row { display: flex; flex-wrap: wrap; border: 1px solid rgba(255,255,255,0.08); }
+    .stat { flex: 1; min-width: 150px; padding: 28px 32px; border-right: 1px solid rgba(255,255,255,0.08); }
+    .stat:last-child { border-right: none; }
+    .stat-num { display: block; font: 800 52px/1 'Inter', sans-serif; letter-spacing: -0.04em; color: #d4773b; margin-bottom: 8px; }
+    .stat-label { font: 400 11px/1 'JetBrains Mono', monospace; letter-spacing: 0.08em; color: rgba(255,255,255,0.28); text-transform: uppercase; }
+
+    /* ── PROCESS ── */
+    .process-flow { display: flex; align-items: flex-start; gap: 0; margin-top: 56px; position: relative; }
+    .process-step { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; padding: 0 8px; }
+    .process-step:not(:last-child)::after {
+      content: ''; position: absolute; top: 23px; right: -4px;
+      width: 8px; height: 1px; background: rgba(255,255,255,0.15);
+    }
+    .step-circle {
+      width: 48px; height: 48px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font: 700 14px/1 'Inter', sans-serif; margin-bottom: 14px; flex-shrink: 0;
+    }
+    .step-circle.normal { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.5); }
+    .step-circle.client { background: rgba(212,119,59,0.12); border: 2px solid rgba(212,119,59,0.7); color: #d4773b; }
+    .step-title { font: 600 13px/1.3 'Inter', sans-serif; color: #f0f0f0; margin-bottom: 6px; }
+    .step-desc { font: 400 11px/1.5 'JetBrains Mono', monospace; color: rgba(255,255,255,0.3); letter-spacing: 0.02em; }
+    .step-note { margin-top: 8px; font: 400 11px/1.4 'Inter', sans-serif; color: rgba(212,119,59,0.75); font-style: italic; }
+    .arrow-connector { display: flex; align-items: center; padding-top: 23px; color: rgba(255,255,255,0.15); font-size: 16px; flex-shrink: 0; }
+    .note-box {
+      margin-top: 32px; padding: 16px 20px;
+      background: rgba(212,119,59,0.06); border-left: 2px solid rgba(212,119,59,0.5);
+      border-radius: 0 6px 6px 0;
+      font: 400 13px/1.65 'Inter', sans-serif; color: rgba(255,255,255,0.48);
+    }
+    .note-box strong { color: rgba(212,119,59,0.9); font-weight: 600; }
+
+    /* ── BRANDS ── */
+    .brands-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 56px; }
+    .brand-card { background: rgba(255,255,255,0.022); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 32px; position: relative; overflow: visible; transition: border-color 0.25s, box-shadow 0.25s; }
+    .brand-card:hover { border-color: rgba(255,255,255,0.14); box-shadow: 0 16px 48px rgba(0,0,0,0.35); }
+    .brand-card::after { content:''; position:absolute; inset:0; border-radius:12px; pointer-events:none; z-index:-1; }
+    .brand-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+    .brand-card.luiz::before { background: linear-gradient(90deg, #d4773b 0%, transparent 70%); }
+    .brand-card.tbu::before  { background: linear-gradient(90deg, #c4a97c 0%, transparent 70%); }
+    .brand-card.tbs::before  { background: linear-gradient(90deg, #8fa8bc 0%, transparent 70%); }
+    .brand-handle { font: 500 10.5px/1 'JetBrains Mono', monospace; letter-spacing: 0.08em; color: rgba(255,255,255,0.28); margin-bottom: 8px; }
+    .brand-name { font: 700 21px/1.1 'Inter', sans-serif; letter-spacing: -0.01em; margin-bottom: 6px; }
+    .luiz .brand-name { color: #d4773b; }
+    .tbu  .brand-name { color: #c4a97c; }
+    .tbs  .brand-name { color: #8fa8bc; }
+    .brand-tagline { font: 400 12.5px/1.55 'Inter', sans-serif; color: rgba(255,255,255,0.38); margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .brand-sub { font: 600 9.5px/1 'JetBrains Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.22); margin-bottom: 10px; margin-top: 18px; }
+    .pillar-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .pillar-tag { font: 400 11px/1 'Inter', sans-serif; padding: 5px 10px; border-radius: 3px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.52); }
+    .luiz .pillar-tag { border-color: rgba(212,119,59,0.2); }
+    .tbu  .pillar-tag { border-color: rgba(196,169,124,0.2); }
+    .tbs  .pillar-tag { border-color: rgba(143,168,188,0.2); }
+    .aud-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+    .aud-bar { flex: 1; height: 3px; border-radius: 2px; background: rgba(255,255,255,0.07); overflow: hidden; }
+    .aud-fill { height: 100%; border-radius: 2px; }
+    .luiz .aud-fill { background: #d4773b; }
+    .tbu  .aud-fill { background: #c4a97c; }
+    .tbs  .aud-fill { background: #8fa8bc; }
+    .aud-label { font: 400 9.5px/1 'JetBrains Mono', monospace; color: rgba(255,255,255,0.28); letter-spacing: 0.06em; white-space: nowrap; }
+    .mix-row { display: flex; gap: 6px; margin-top: 6px; }
+    .mix-item { flex: 1; text-align: center; padding: 10px 6px; background: rgba(255,255,255,0.04); border-radius: 4px; border: 1px solid rgba(255,255,255,0.07); }
+    .mix-pct { font: 700 17px/1 'Inter', sans-serif; }
+    .luiz .mix-pct { color: #d4773b; }
+    .tbu  .mix-pct { color: #c4a97c; }
+    .tbs  .mix-pct { color: #8fa8bc; }
+    .mix-type { font: 400 9px/1 'JetBrains Mono', monospace; color: rgba(255,255,255,0.28); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
+
+    /* ── WORKFLOW VISUAL ── */
+    .workflow-wrap { margin-top: 56px; position: relative; }
+    .workflow-row { display: flex; align-items: center; gap: 0; }
+    .wf-step {
+      flex: 1; text-align: center; padding: 28px 16px;
+      background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px; position: relative;
+    }
+    .wf-step.highlight { background: rgba(212,119,59,0.08); border-color: rgba(212,119,59,0.35); }
+    .wf-arrow { padding: 0 10px; color: rgba(255,255,255,0.2); font-size: 18px; flex-shrink: 0; }
+    .wf-icon { font-size: 24px; margin-bottom: 10px; line-height: 1; }
+    .wf-title { font: 600 13px/1.3 'Inter', sans-serif; color: #f0f0f0; margin-bottom: 4px; }
+    .wf-desc { font: 400 11px/1.5 'JetBrains Mono', monospace; color: rgba(255,255,255,0.32); letter-spacing: 0.02em; }
+    .wf-badge {
+      position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+      font: 700 9px/1 'JetBrains Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase;
+      background: #d4773b; color: #fff; padding: 3px 8px; border-radius: 2px; white-space: nowrap;
+    }
+
+    /* ── CAROUSEL EXAMPLES ── */
+    .carousel-block { margin-top: 72px; }
+    .carousel-block + .carousel-block { margin-top: 64px; }
+    .cx-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+    .cx-brand { font: 700 18px/1 'Inter', sans-serif; }
+    .cx-brand.luiz { color: #d4773b; }
+    .cx-brand.tbs  { color: #8fa8bc; }
+    .cx-brand.tbu  { color: #c4a97c; }
+    .cx-meta { font: 400 11px/1 'JetBrains Mono', monospace; color: rgba(255,255,255,0.3); letter-spacing: 0.06em; }
+    .cx-strip { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 14px; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.08) transparent; }
+
+    /* Slide base */
+    .slide {
+      flex: 0 0 auto; width: 214px; aspect-ratio: 4/5;
+      border-radius: 10px; border: 1px solid rgba(255,255,255,0.09);
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 18px; box-shadow: 0 16px 40px rgba(0,0,0,0.45);
+    }
+    .slide-bg { position: absolute; inset: 0; background-size: cover; background-position: center; z-index: 0; }
+    .slide-ov { position: absolute; inset: 0; z-index: 1; }
+    .slide-inner { position: relative; z-index: 2; }
+    .s-num { position: absolute; top: 14px; right: 14px; font: 400 9.5px/1 'JetBrains Mono', monospace; letter-spacing: 0.06em; color: rgba(255,255,255,0.38); z-index: 2; }
+    .s-chip { position: absolute; top: 14px; left: 14px; font: 600 10px/1 'Inter', sans-serif; z-index: 2; }
+    .s-head { font: 700 14px/1.25 'Inter', sans-serif; letter-spacing: -0.01em; color: #fff; margin-bottom: 5px; }
+    .s-cap { font: 400 9px/1.45 'JetBrains Mono', monospace; color: rgba(255,255,255,0.45); letter-spacing: 0.04em; text-transform: uppercase; }
+    .s-arr { position: absolute; bottom: 13px; right: 14px; font-size: 13px; z-index: 2; }
+    .s-stat { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; z-index: 2; width: 90%; }
+    .s-stat-num { font: 800 52px/1 'Inter', sans-serif; letter-spacing: -0.04em; }
+    .s-stat-unit { font: 400 13px/1 'JetBrains Mono', monospace; margin-top: 4px; opacity: 0.6; letter-spacing: 0.08em; }
+    .s-stat-lbl { font: 400 8.5px/1.45 'JetBrains Mono', monospace; margin-top: 10px; opacity: 0.4; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* LUIZ slides — dark editorial */
+    .sl { background: #111114; }
+    .sl .s-chip { color: #d4773b; }
+    .sl .s-arr  { color: #d4773b; }
+    .sl .s-stat-num { color: #d4773b; }
+    .sl .slide-ov { background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.72) 100%); }
+
+    /* TBU slides — ivory/aurum */
+    .st { background: #f5f0e8; }
+    .st .slide-ov { background: linear-gradient(to bottom, rgba(245,240,232,0.35) 0%, rgba(245,240,232,0.82) 65%); }
+    .st .s-num  { color: rgba(44,36,32,0.38); }
+    .st .s-chip { color: #b06d35; }
+    .st .s-arr  { color: #b06d35; }
+    .st .s-head { color: #2c2420; font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 600; }
+    .st .s-cap  { color: rgba(44,36,32,0.48); }
+    .st .s-stat-num { color: #2c2420; }
+    .st .s-stat-unit { color: rgba(44,36,32,0.5); }
+    .st .s-stat-lbl  { color: rgba(44,36,32,0.4); }
+
+    /* TECHBODY STUDIOS slides — dark steel */
+    .ss { background: #141820; }
+    .ss .slide-ov { background: linear-gradient(to bottom, rgba(20,24,32,0.04) 0%, rgba(20,24,32,0.78) 100%); }
+    .ss .s-num  { color: rgba(255,255,255,0.28); }
+    .ss .s-chip { color: #8fa8bc; }
+    .ss .s-arr  { color: #8fa8bc; }
+    .ss .s-head { color: #fff; font-family: 'Inter', sans-serif; }
+    .ss .s-cap  { color: rgba(255,255,255,0.38); }
+    .ss .s-stat-num { color: #8fa8bc; }
+    .ss .s-stat-unit { color: rgba(143,168,188,0.6); }
+    .ss .s-stat-lbl  { color: rgba(255,255,255,0.28); }
+
+    .cx-note {
+      margin-top: 14px; padding: 12px 18px;
+      background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 6px; font: 400 12px/1.6 'Inter', sans-serif; color: rgba(255,255,255,0.38);
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .cx-note-icon { opacity: 0.5; flex-shrink: 0; }
+
+    /* ── FOOTER ── */
+    footer { padding: 48px 0; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; }
+    footer p { font: 400 11px/1 'JetBrains Mono', monospace; color: rgba(255,255,255,0.18); letter-spacing: 0.08em; }
+
+    /* ── FLOATING ORBS (hero) ── */
+    .hero { position: relative; overflow: hidden; }
+    .orb { position:absolute; border-radius:50%; filter:blur(80px); animation:orbFloat 8s ease-in-out infinite; pointer-events:none; }
+    .orb-1 { width:500px; height:500px; background:rgba(212,119,59,0.09); top:-180px; left:-100px; animation-duration:9s; }
+    .orb-2 { width:350px; height:350px; background:rgba(143,168,188,0.07); top:40px; right:-80px; animation-duration:11s; animation-delay:-4s; }
+    .orb-3 { width:250px; height:250px; background:rgba(196,169,124,0.06); bottom:-60px; left:40%; animation-duration:7s; animation-delay:-2s; }
+    @keyframes orbFloat { 0%,100% { transform:translateY(0) scale(1); } 50% { transform:translateY(-30px) scale(1.05); } }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .hero { animation: heroIn 1s cubic-bezier(0.16,1,0.3,1) both; }
+    @keyframes heroIn { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+
+    /* ── CARD HOVER LIFT ── */
+    .wf-step { transition: border-color 0.22s, transform 0.22s, box-shadow 0.22s; }
+    .wf-step:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.35); }
+    .mix-item { transition: background 0.2s, border-color 0.2s; }
+    .mix-item:hover { background: rgba(255,255,255,0.07); }
+    .slide { transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s; }
+    .slide:hover { transform: scale(1.03) translateY(-4px); box-shadow: 0 24px 56px rgba(0,0,0,0.6); z-index: 2; }
+
+    /* ── STAT COUNTER PULSE ── */
+    .stat-num { animation: statPop 0.8s cubic-bezier(0.16,1,0.3,1) both; animation-delay: 0.4s; }
+    @keyframes statPop { from { opacity:0; transform:scale(0.7); } to { opacity:1; transform:scale(1); } }
+
+    /* ── SECTION LABEL SHIMMER ── */
+    .section-label { position: relative; overflow: hidden; }
+    .section-label::after { content:''; position:absolute; top:0; left:-100%; width:60%; height:100%; background:linear-gradient(90deg,transparent,rgba(212,119,59,0.4),transparent); animation:shimmer 3s ease-in-out infinite; }
+    @keyframes shimmer { 0%,60% { left:-100%; } 100% { left:200%; } }
+
+    /* ── GRADIENT BORDER on hover for video cards ── */
+    [style*="border-radius:12px"][style*="overflow:hidden"] { transition: box-shadow 0.25s; }
+    [style*="border-radius:12px"][style*="overflow:hidden"]:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+    .fade-in-section { opacity:0; transform:translateY(30px); transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); will-change:opacity,transform; }
+    .fade-in-section.is-visible { opacity:1; transform:translateY(0); }
+    .stagger-child { opacity:0; transform:translateY(18px); transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+    .stagger-child.is-visible { opacity:1; transform:translateY(0); }
+
+    /* ── PILLAR HOVER TOOLTIP ── */
+    .pillar-hover-wrap { position:relative; display:inline-block; }
+    .pillar-trigger { cursor:help; display:flex; align-items:center; gap:6px; }
+    .pillar-trigger::after { content:'›'; font-size:11px; color:rgba(255,255,255,0.2); transition:color 0.2s, transform 0.2s; display:inline-block; }
+    .pillar-hover-wrap:hover .pillar-trigger::after { color:rgba(255,255,255,0.5); transform:translateX(2px); }
+    .theme-popup { position:absolute; left:0; top:calc(100% + 10px); z-index:300; width:290px; max-height:380px; overflow-y:auto; background:#12121a; border:1px solid rgba(255,255,255,0.13); border-radius:10px; padding:18px; opacity:0; pointer-events:none; transform:translateY(8px); transition:opacity 0.22s ease, transform 0.22s ease; box-shadow:0 24px 56px rgba(0,0,0,0.85); scrollbar-width:thin; scrollbar-color:rgba(255,255,255,0.08) transparent; }
+    .pillar-hover-wrap:hover .theme-popup { opacity:1; pointer-events:auto; transform:translateY(0); }
+    .tbu .theme-popup, .brand-card:last-child .theme-popup { left:auto; right:0; }
+    .theme-popup-title { font:500 9px/1 'JetBrains Mono',monospace; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.22); margin-bottom:14px; }
+    .theme-popup-item { display:flex; gap:10px; align-items:baseline; padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.05); }
+    .theme-popup-item:last-child { border-bottom:none; padding-bottom:0; }
+    .theme-popup-dot { width:4px; height:4px; border-radius:50%; flex-shrink:0; margin-top:1px; }
+    .theme-popup-name { font:600 12px/1.3 'Inter',sans-serif; color:rgba(255,255,255,0.65); }
+    .theme-popup-desc { font:400 10px/1.4 'JetBrains Mono',monospace; color:rgba(255,255,255,0.25); margin-top:2px; letter-spacing:0.02em; }
+
+    @media (max-width: 960px) {
+      .brands-grid { grid-template-columns: 1fr; }
+      .process-flow { flex-wrap: wrap; }
+      .workflow-row { flex-wrap: wrap; gap: 8px; }
+      .wf-arrow { display: none; }
+      .wf-step { min-width: 44%; }
+      .stat { min-width: 50%; }
+      .container { padding: 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="container">
+    <div class="hero-badge">Content Machine · Maio 2026</div>
+    <h1>O Vosso <span class="accent">Sistema de Conteúdo</span><br>para Redes Sociais</h1>
+    <p class="hero-sub">Copies que aproves. Visuais produzidos com as regras da tua marca. Calendario gerido, publicação automática e captação de leads — tudo tratado por mim.</p>
+    <div class="chips">
+      <span class="chip chip-luiz">@techbody_pt · Luiz Santana</span>
+      <span class="chip chip-tbs">@techbody · TechBody</span>
+      <span class="chip chip-tbu">@techbody_u · TechBody U</span>
+    </div>
+    <div class="stats-row">
+      <div class="stat"><span class="stat-num">3</span><span class="stat-label">Marcas Ativas</span></div>
+      <div class="stat"><span class="stat-num">36</span><span class="stat-label">Publicações / Mês</span></div>
+      <div class="stat"><span class="stat-num">2</span><span class="stat-label">Rounds de Aprovação</span></div>
+      <div class="stat"><span class="stat-num">48h</span><span class="stat-label">Entrega Visual</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     PROCESSO
+════════════════════════════════════════════════════ -->
+<section id="processo">
+  <div class="container">
+    <span class="section-label">Como Funciona</span>
+    <h2>Dois rounds de aprovação.<br>Nenhuma surpresa visual.</h2>
+    <p class="muted" style="margin-top:16px;max-width:600px;font-size:16px;">O copy define o que a peça comunica. Só avanço para a produção visual depois de teres aprovado o texto — sem iterações desnecessárias, sem re-trabalho.</p>
+
+    <div class="workflow-wrap">
+      <div class="workflow-row">
+        <div class="wf-step">
+          <div class="wf-icon">🗂</div>
+          <div class="wf-title">Brand Config</div>
+          <div class="wf-desc">Voz, paleta, pilares,<br>limites científicos</div>
+        </div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step">
+          <div class="wf-icon">✍️</div>
+          <div class="wf-title">Escrita de Copies</div>
+          <div class="wf-desc">Textos gerados com<br>regras da marca</div>
+        </div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step highlight" style="position:relative">
+          <div class="wf-badge">✓ Aprovação Vossa</div>
+          <div class="wf-icon">👁</div>
+          <div class="wf-title">Revisão de Textos</div>
+          <div class="wf-desc">Aprovam ou comentam<br>em documento partilhado</div>
+        </div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step">
+          <div class="wf-icon">🎨</div>
+          <div class="wf-title">Produção Visual</div>
+          <div class="wf-desc">Carrossel, Reels ou<br>Imagem produzidos</div>
+        </div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step highlight">
+          <div class="wf-badge">✓ Aprovação Vossa</div>
+          <div class="wf-icon">✅</div>
+          <div class="wf-title">Aprovação Final</div>
+          <div class="wf-desc">Visual aprovado<br>antes de publicar</div>
+        </div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step">
+          <div class="wf-icon">📅</div>
+          <div class="wf-title">Publicação</div>
+          <div class="wf-desc">Calendário gerido,<br>timing optimizado</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box" style="margin-top:28px">
+      <strong>Porquê textos primeiro?</strong> O copy define o ângulo, o tom e a chamada à acção de cada peça. Produzir visuais antes de teres aprovado o texto seria re-trabalho garantido. Este modelo elimina surpresas, protege a voz de marca e reduz o número de revisões para zero na maioria dos casos.
+    </div>
+    <div class="note-box" style="margin-top:12px">
+      <strong>Brand Config por marca:</strong> Cada marca tem as suas regras definidas — sem emojis, sem títulos honoríficos, sem alegações científicas não suportadas. Estas regras aplicam-se automaticamente a cada peça que produzo, sem lista de verificação manual.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     AS TRÊS MARCAS
+════════════════════════════════════════════════════ -->
+<section id="marcas">
+  <div class="container">
+    <span class="section-label">As Três Marcas</span>
+    <h2>O que está por trás<br>de cada conta.</h2>
+    <p class="muted" style="margin-top:16px;max-width:600px;font-size:16px;">Cada marca tem o seu próprio config: voz, paleta, pilares de conteúdo e regras de aprovação. Nenhuma peça sai sem respeitar esse config.</p>
+
+    <div class="brands-grid">
+
+      <!-- LUIZ SANTANA -->
+      <div class="brand-card luiz">
+        <div class="brand-handle">@techbody_pt</div>
+        <div class="brand-name">Luiz Santana</div>
+        <div class="brand-tagline">CEO TechBody Portugal · Doutorado em WB-EMS<br>Marca pessoal de autoridade científica</div>
+
+        <div class="brand-sub">
+          <div class="pillar-hover-wrap">
+            <span class="pillar-trigger">Pilares de Conteúdo</span>
+            <div class="theme-popup">
+              <div class="theme-popup-title">Temas disponíveis</div>
+              <div style="display:flex;flex-direction:column;gap:0">
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#d4773b"></div><div><div class="theme-popup-name">Origem &amp; Percurso</div><div class="theme-popup-desc">percurso académico, missão, por que WB-EMS</div></div></div>
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#d4773b"></div><div><div class="theme-popup-name">Papers &amp; PubMed</div><div class="theme-popup-desc">evidência científica, estudos, interpretação</div></div></div>
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#d4773b"></div><div><div class="theme-popup-name">Método &amp; Ciência</div><div class="theme-popup-desc">protocolo, fisiologia, comparativos</div></div></div>
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#d4773b"></div><div><div class="theme-popup-name">Barreiras ao Exercício</div><div class="theme-popup-desc">tempo, motivação, consistência, soluções</div></div></div>
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#d4773b"></div><div><div class="theme-popup-name">TechBody U</div><div class="theme-popup-desc">produto, uso em casa, autonomia</div></div></div>
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#d4773b"></div><div><div class="theme-popup-name">B2B · Profissionais</div><div class="theme-popup-desc">fisioterapeutas, coaches, franchising</div></div></div>
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#d4773b"></div><div><div class="theme-popup-name">Bastidores &amp; Liderança</div><div class="theme-popup-desc">equipa, decisões, visão estratégica</div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pillar-tags">
+          <span class="pillar-tag">Método &amp; Ciência</span>
+          <span class="pillar-tag">Papers PubMed</span>
+          <span class="pillar-tag">Barreiras ao Exercício</span>
+          <span class="pillar-tag">TechBody U</span>
+          <span class="pillar-tag">B2B · Profissionais</span>
+          <span class="pillar-tag">Origem &amp; Percurso</span>
+          <span class="pillar-tag">Bastidores</span>
+        </div>
+
+        <div class="brand-sub">Audiências</div>
+        <div class="aud-row"><span class="aud-label">B2C</span><div class="aud-bar"><div class="aud-fill" style="width:65%"></div></div><span class="aud-label">65%</span></div>
+        <div class="aud-row" style="margin-top:4px"><span class="aud-label">B2B</span><div class="aud-bar"><div class="aud-fill" style="width:35%"></div></div><span class="aud-label">35%</span></div>
+
+        <div class="brand-sub">Mix Mensal</div>
+        <div class="mix-row">
+          <div class="mix-item"><div class="mix-pct">45%</div><div class="mix-type">Reels</div></div>
+          <div class="mix-item"><div class="mix-pct">35%</div><div class="mix-type">Carrosséis</div></div>
+          <div class="mix-item"><div class="mix-pct">20%</div><div class="mix-type">Stories</div></div>
+        </div>
+
+        <div class="brand-sub" style="margin-top:20px">Regras de Voz</div>
+        <div style="font:400 11.5px/1.6 'JetBrains Mono',monospace;color:rgba(255,255,255,0.32)">
+          Sem primeira pessoa · Sem títulos · Sem emojis<br>
+          Voz impessoal/imperativa · pt_PT obrigatório
+        </div>
+      </div>
+
+      <!-- TECHBODY U -->
+      <div class="brand-card tbu">
+        <div class="brand-handle">@techbody_u</div>
+        <div class="brand-name">TechBody U</div>
+        <div class="brand-tagline">Dispositivo WB-EMS para treino em casa<br>Treino inteligente. Vinte minutos. Consistência real.</div>
+
+        <div class="brand-sub">
+          <div class="pillar-hover-wrap">
+            <span class="pillar-trigger">Pilares de Conteúdo</span>
+            <div class="theme-popup">
+              <div class="theme-popup-title">Temas disponíveis</div>
+              <div style="display:flex;flex-direction:column;gap:0">
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#c4a97c"></div><div><div class="theme-popup-name">Introdução ao Produto</div><div class="theme-popup-desc">o que é, como funciona, primeiros passos</div></div></div>
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#c4a97c"></div><div><div class="theme-popup-name">Ciência do EMS</div><div class="theme-popup-desc">fibras musculares, activação, evidência clínica</div></div></div>
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#c4a97c"></div><div><div class="theme-popup-name">Treino em Casa</div><div class="theme-popup-desc">rotinas, comodidade, autonomia total</div></div></div>
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#c4a97c"></div><div><div class="theme-popup-name">App &amp; Autonomia</div><div class="theme-popup-desc">acompanhamento, progressão, dados pessoais</div></div></div>
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#c4a97c"></div><div><div class="theme-popup-name">Resultados &amp; Evidência</div><div class="theme-popup-desc">composição corporal, força, casos reais</div></div></div>
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#c4a97c"></div><div><div class="theme-popup-name">Barreiras ao Exercício</div><div class="theme-popup-desc">tempo, motivação, o TechBody U como solução</div></div></div>
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#c4a97c"></div><div><div class="theme-popup-name">B2B / Integração</div><div class="theme-popup-desc">clínicas, ginásios, pacotes empresariais</div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pillar-tags">
+          <span class="pillar-tag">Introdução ao Produto</span>
+          <span class="pillar-tag">Ciência do EMS</span>
+          <span class="pillar-tag">Treino em Casa</span>
+          <span class="pillar-tag">App &amp; Autonomia</span>
+          <span class="pillar-tag">Resultados &amp; Evidência</span>
+          <span class="pillar-tag">Barreiras ao Exercício</span>
+          <span class="pillar-tag">B2B / Integração</span>
+        </div>
+
+        <div class="brand-sub">Audiências</div>
+        <div class="aud-row"><span class="aud-label">B2C</span><div class="aud-bar"><div class="aud-fill" style="width:80%"></div></div><span class="aud-label">80%</span></div>
+        <div class="aud-row" style="margin-top:4px"><span class="aud-label">B2B</span><div class="aud-bar"><div class="aud-fill" style="width:20%"></div></div><span class="aud-label">20%</span></div>
+
+        <div class="brand-sub">Mix Mensal</div>
+        <div class="mix-row">
+          <div class="mix-item"><div class="mix-pct">45%</div><div class="mix-type">Reels</div></div>
+          <div class="mix-item"><div class="mix-pct">35%</div><div class="mix-type">Carrosséis</div></div>
+          <div class="mix-item"><div class="mix-pct">20%</div><div class="mix-type">Stories</div></div>
+        </div>
+
+        <div class="brand-sub" style="margin-top:20px">Regras Visuais</div>
+        <div style="font:400 11.5px/1.6 'JetBrains Mono',monospace;color:rgba(255,255,255,0.32)">
+          50% slides com foto · Fotos únicas por carrossel<br>
+          Paleta escura #1a1a1a · Accent #d4773b · Inter
+        </div>
+      </div>
+
+      <!-- TECHBODY STUDIOS -->
+      <div class="brand-card tbs">
+        <div class="brand-handle">@techbody</div>
+        <div class="brand-name">TechBody</div>
+        <div class="brand-tagline">Estúdios de electrofitness WB-EMS profissional<br>Treino supervisionado. Resultados medidos. Experiência premium.</div>
+
+        <div class="brand-sub">
+          <div class="pillar-hover-wrap">
+            <span class="pillar-trigger">Pilares de Conteúdo</span>
+            <div class="theme-popup">
+              <div class="theme-popup-title">Temas disponíveis</div>
+              <div style="display:flex;flex-direction:column;gap:0">
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#8fa8bc"></div><div><div class="theme-popup-name">Experiência no Estúdio</div><div class="theme-popup-desc">visitas, ambiente, dia-a-dia</div></div></div>
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#8fa8bc"></div><div><div class="theme-popup-name">Tecnologia EMS Profissional</div><div class="theme-popup-desc">equipamento, protocolo, segurança</div></div></div>
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#8fa8bc"></div><div><div class="theme-popup-name">Resultados &amp; Evidência</div><div class="theme-popup-desc">casos reais, métricas, composição corporal</div></div></div>
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#8fa8bc"></div><div><div class="theme-popup-name">Equipa &amp; Treinadores</div><div class="theme-popup-desc">formação, metodologia, bastidores</div></div></div>
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#8fa8bc"></div><div><div class="theme-popup-name">Ciência WB-EMS</div><div class="theme-popup-desc">fisiologia, papers, comparativos</div></div></div>
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#8fa8bc"></div><div><div class="theme-popup-name">Transformações de Cliente</div><div class="theme-popup-desc">antes/depois, depoimentos, acompanhamento</div></div></div>
+                <div class="theme-popup-item"><div class="theme-popup-dot" style="background:#8fa8bc"></div><div><div class="theme-popup-name">B2B · Franchising</div><div class="theme-popup-desc">modelo de negócio, parceiros, expansão</div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pillar-tags">
+          <span class="pillar-tag">Experiência no Estúdio</span>
+          <span class="pillar-tag">Tecnologia EMS</span>
+          <span class="pillar-tag">Resultados &amp; Evidência</span>
+          <span class="pillar-tag">Equipa &amp; Treinadores</span>
+          <span class="pillar-tag">Ciência WB-EMS</span>
+          <span class="pillar-tag">B2B · Franchising</span>
+          <span class="pillar-tag">Transformações</span>
+        </div>
+
+        <div class="brand-sub">Audiências</div>
+        <div class="aud-row"><span class="aud-label">B2C</span><div class="aud-bar"><div class="aud-fill" style="width:70%"></div></div><span class="aud-label">70%</span></div>
+        <div class="aud-row" style="margin-top:4px"><span class="aud-label">B2B</span><div class="aud-bar"><div class="aud-fill" style="width:30%"></div></div><span class="aud-label">30%</span></div>
+
+        <div class="brand-sub">Mix Mensal</div>
+        <div class="mix-row">
+          <div class="mix-item"><div class="mix-pct">4</div><div class="mix-type">Reels</div></div>
+          <div class="mix-item"><div class="mix-pct">4</div><div class="mix-type">Carrosséis</div></div>
+          <div class="mix-item"><div class="mix-pct">4</div><div class="mix-type">Stories</div></div>
+        </div>
+
+        <div class="brand-sub" style="margin-top:20px">Regras Visuais</div>
+        <div style="font:400 11.5px/1.6 'JetBrains Mono',monospace;color:rgba(255,255,255,0.32)">
+          Paleta profissional · Accent #8fa8bc (aço)<br>
+          Estúdio em cena · Equipa real · Editorial limpo
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note-box" style="margin-top:28px">
+      <strong>Config = memória da marca:</strong> Cada brand config contém mais de 40 regras específicas — substituições linguísticas obrigatórias, alegações científicas permitidas/proibidas, posições de título, paleta exacta e tipos de imagem para cada posição de slide. Nenhuma peça é produzida sem consultar esse config.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     FORMATOS DE CONTEÚDO
+════════════════════════════════════════════════════ -->
+<section id="formatos">
+  <div class="container">
+    <span class="section-label">O Que Produzimos</span>
+    <h2>Três formatos.<br>Um processo.</h2>
+    <p class="muted" style="margin-top:16px;max-width:600px;font-size:16px;">Cada formato tem regras próprias de estrutura e aprovação, mas o mesmo processo de dois rounds.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px">
+
+      <div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:32px">
+        <div style="font:800 40px/1 'Inter',sans-serif;letter-spacing:-0.03em;color:#d4773b;margin-bottom:8px">4<span style="font-size:20px;opacity:0.6">/mês</span></div>
+        <div style="font:700 18px/1.2 'Inter',sans-serif;margin-bottom:12px">Carrosséis</div>
+        <div style="font:400 13px/1.65 'Inter',sans-serif;color:rgba(255,255,255,0.4);margin-bottom:20px">6 a 8 slides, progressão lógica, gancho + desenvolvimento + CTA. 50% dos slides com fotografia única.</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font:400 11px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.28)">→ Rácio 4:5 (Instagram)</div>
+          <div style="font:400 11px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.28)">→ 1 por semana por marca</div>
+          <div style="font:400 11px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.28)">→ Seg ou Qui · 9h</div>
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:32px">
+        <div style="font:800 40px/1 'Inter',sans-serif;letter-spacing:-0.03em;color:#d4773b;margin-bottom:8px">4<span style="font-size:20px;opacity:0.6">/mês</span></div>
+        <div style="font:700 18px/1.2 'Inter',sans-serif;margin-bottom:12px">Reels</div>
+        <div style="font:400 13px/1.65 'Inter',sans-serif;color:rgba(255,255,255,0.4);margin-bottom:20px">Vídeos de 15 a 60 segundos. Notoriedade, dinâmica e demonstração de produto. Estilo cinematográfico editorial.</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font:400 11px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.28)">→ 15 / 30 / 60 segundos</div>
+          <div style="font:400 11px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.28)">→ 1 por semana por marca</div>
+          <div style="font:400 11px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.28)">→ Ter ou Qua · 18h</div>
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:32px">
+        <div style="font:800 40px/1 'Inter',sans-serif;letter-spacing:-0.03em;color:#d4773b;margin-bottom:8px">4<span style="font-size:20px;opacity:0.6">/mês</span></div>
+        <div style="font:700 18px/1.2 'Inter',sans-serif;margin-bottom:12px">Stories / Posts</div>
+        <div style="font:400 13px/1.65 'Inter',sans-serif;color:rgba(255,255,255,0.4);margin-bottom:20px">Posts de conversão com CTA activo. Disparam o ManyChat para captar leads directamente pelo Instagram.</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font:400 11px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.28)">→ 1 por semana por marca</div>
+          <div style="font:400 11px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.28)">→ Sex · 17h (conversão)</div>
+          <div style="font:400 11px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.28)">→ Gatilho ManyChat activo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     EXEMPLOS DE CARROSSÉIS
+════════════════════════════════════════════════════ -->
+<section id="exemplos">
+  <div class="container">
+    <span class="section-label">Exemplos de Carrosséis</span>
+    <h2>Como ficam<br>na prática.</h2>
+    <p class="muted" style="margin-top:16px;max-width:600px;font-size:16px;">Três carrosséis reais — um por marca — com textos, visuais e regras de aprovação aplicadas. Cada um tem exactamente 3 slides com fotografia (50% da regra), sem repetições.</p>
+
+    <!-- ── LUIZ SANTANA ── -->
+    <div class="carousel-block">
+      <div class="cx-header">
+        <div>
+          <div class="cx-brand luiz">Luiz Santana</div>
+          <div class="cx-meta" style="margin-top:4px">Tema: Barreiras ao Exercício · B2C · 6 slides</div>
+        </div>
+        <span class="chip chip-luiz">@techbody_pt</span>
+      </div>
+      <div class="cx-strip">
+
+        <!-- S1 — HOOK (foto) -->
+        <div class="slide sl">
+          <div class="slide-bg" style="background-image:url('brands/luiz_santana/assets/photos/magnific_a1-contrarian-firme-e-des_2964293568.png')"></div>
+          <div class="slide-ov"></div>
+          <div class="s-chip">Luiz Santana.</div>
+          <div class="s-num">01/06</div>
+          <div class="slide-inner">
+            <div class="s-head">Não treinas? O problema não és tu. É o sistema.</div>
+            <div class="s-cap">As barreiras são reais. O método também.</div>
+          </div>
+          <div class="s-arr" style="color:#d4773b">→</div>
+        </div>
+
+        <!-- S2 — DESENVOLVIMENTO (sem foto) -->
+        <div class="slide sl" style="background:radial-gradient(ellipse 100% 80% at 80% 20%, rgba(212,119,59,0.18),transparent 60%),#111114;justify-content:center">
+          <div class="s-chip">Luiz Santana.</div>
+          <div class="s-num">02/06</div>
+          <div style="position:relative;z-index:2;text-align:left;padding:0 2px">
+            <div style="font:700 13px/1.3 'JetBrains Mono',monospace;color:rgba(255,255,255,0.28);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:14px">Barreira 01</div>
+            <div class="s-head" style="font-size:18px">Tempo<br>escasso.</div>
+            <div class="s-head" style="font-size:18px;color:#d4773b">Motivação<br>em baixo.</div>
+            <div class="s-head" style="font-size:18px">Interesse<br>perdido.</div>
+          </div>
+          <div class="s-arr" style="color:#d4773b">→</div>
+        </div>
+
+        <!-- S3 — STAT (sem foto) -->
+        <div class="slide sl" style="background:#111114;justify-content:center">
+          <div class="s-chip">Luiz Santana.</div>
+          <div class="s-num">03/06</div>
+          <div class="s-stat">
+            <div class="s-stat-num" style="color:#d4773b">20</div>
+            <div class="s-stat-unit" style="color:rgba(212,119,59,0.65)">minutos</div>
+            <div class="s-stat-lbl">85% fibras activadas · 1× por semana</div>
+          </div>
+          <div class="s-arr" style="color:#d4773b">→</div>
+        </div>
+
+        <!-- S4 — DESENVOLVIMENTO (foto ambiente) -->
+        <div class="slide sl">
+          <div class="slide-bg" style="background-image:url('brands/luiz_santana/assets/photos/magnific_b1.-office-minimalist-sea_2964372206.png')"></div>
+          <div class="slide-ov"></div>
+          <div class="s-chip">Luiz Santana.</div>
+          <div class="s-num">04/06</div>
+          <div class="slide-inner">
+            <div class="s-head">WB-EMS: ciência que elimina barreiras, não as ignora.</div>
+            <div class="s-cap">Método sustentado por evidência académica</div>
+          </div>
+          <div class="s-arr" style="color:#d4773b">→</div>
+        </div>
+
+        <!-- S5 — DESENVOLVIMENTO (sem foto) -->
+        <div class="slide sl" style="background:radial-gradient(ellipse 80% 80% at 20% 80%, rgba(212,119,59,0.12),transparent 55%),#111114;justify-content:center">
+          <div class="s-chip">Luiz Santana.</div>
+          <div class="s-num">05/06</div>
+          <div style="position:relative;z-index:2">
+            <div class="s-head" style="font-size:16px;margin-bottom:14px">Método, tecnologia e acompanhamento num só ecossistema.</div>
+            <div class="s-cap">TechBody · TechBody U · Treino em casa</div>
+          </div>
+          <div class="s-arr" style="color:#d4773b">→</div>
+        </div>
+
+        <!-- S6 — CTA (foto) -->
+        <div class="slide sl">
+          <div class="slide-bg" style="background-image:url('brands/luiz_santana/assets/photos/magnific_a4-origem-narrativa-e-rel_2964293900.png')"></div>
+          <div class="slide-ov"></div>
+          <div class="s-chip">Luiz Santana.</div>
+          <div class="s-num">06/06</div>
+          <div class="slide-inner">
+            <div class="s-head">Marca a tua sessão experimental.</div>
+            <div class="s-cap">O primeiro passo é apenas começar.</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="cx-note">
+        <span class="cx-note-icon">💡</span>
+        <span><strong style="color:rgba(255,255,255,0.6)">Decisões de design:</strong> Poses do Luiz apenas no slide 1 (gancho) e slide 6 (CTA) — slides diferentes, poses diferentes. Slides intermédios com tipografia editorial e ambiente neutro. Fotografia S4 (escritório minimalista) cria contraste com os slides de texto puro. 3/6 slides com foto = 50% da regra cumprida. Sem repetições de imagem.</span>
+      </div>
+    </div>
+
+    <!-- ── TECHBODY U ── -->
+    <div class="carousel-block">
+      <div class="cx-header">
+        <div>
+          <div class="cx-brand tbu">TechBody U</div>
+          <div class="cx-meta" style="margin-top:4px">Tema: Barreiras ao Exercício · B2C · 6 slides · Design Aurum</div>
+        </div>
+        <span class="chip chip-tbu">@techbody_u</span>
+      </div>
+      <div class="cx-strip">
+
+        <!-- S1 — HOOK (foto) -->
+        <div class="slide st">
+          <div class="slide-bg" style="background-image:url('brands/techbody_u/assets/photos/magnific_a5.-suggestion-of-motion-_2964142095.png')"></div>
+          <div class="slide-ov"></div>
+          <div class="s-chip" style="color:#b06d35">TechBody U.</div>
+          <div class="s-num" style="color:rgba(44,36,32,0.38)">01/06</div>
+          <div class="slide-inner">
+            <div class="s-head">Não treinas? <em style="color:#b06d35">Não é culpa tua.</em> É o sistema.</div>
+            <div class="s-cap" style="color:rgba(44,36,32,0.48)">As barreiras são reais. O método também.</div>
+          </div>
+          <div class="s-arr" style="color:#b06d35">→</div>
+        </div>
+
+        <!-- S2 — DESENVOLVIMENTO (foto) -->
+        <div class="slide st">
+          <div class="slide-bg" style="background-image:url('brands/techbody_u/assets/photos/magnific_e1-chegada-ao-estudio-pes_2964211125.png')"></div>
+          <div class="slide-ov"></div>
+          <div class="s-chip" style="color:#b06d35">TechBody U.</div>
+          <div class="s-num" style="color:rgba(44,36,32,0.38)">02/06</div>
+          <div class="slide-inner">
+            <div class="s-head">Tempo escasso. Motivação em baixo. <em style="color:#b06d35">Interesse perdido.</em></div>
+          </div>
+          <div class="s-arr" style="color:#b06d35">→</div>
+        </div>
+
+        <!-- S3 — STAT -->
+        <div class="slide st" style="background:#f5f0e8;justify-content:center">
+          <div class="s-chip" style="color:#b06d35">TechBody U.</div>
+          <div class="s-num" style="color:rgba(44,36,32,0.38)">03/06</div>
+          <div class="s-stat">
+            <div class="s-stat-num" style="color:#2c2420;font-family:'Cormorant Garamond',serif">20</div>
+            <div class="s-stat-unit" style="color:#b06d35">minutos</div>
+            <div class="s-stat-lbl" style="color:rgba(44,36,32,0.4)">85% fibras activadas · 1× por semana</div>
+          </div>
+          <div class="s-arr" style="color:#b06d35">→</div>
+        </div>
+
+        <!-- S4 — DESENVOLVIMENTO -->
+        <div class="slide st" style="background:#f5f0e8;justify-content:center">
+          <div class="s-chip" style="color:#b06d35">TechBody U.</div>
+          <div class="s-num" style="color:rgba(44,36,32,0.38)">04/06</div>
+          <div style="position:relative;z-index:2;padding:0 2px">
+            <div style="width:36px;height:1px;background:#b06d35;margin-bottom:14px"></div>
+            <div class="s-head">WB-EMS: <em style="color:#b06d35">ciência que elimina barreiras,</em> não promessas.</div>
+          </div>
+          <div class="s-arr" style="color:#b06d35">→</div>
+        </div>
+
+        <!-- S5 — DESENVOLVIMENTO (foto) -->
+        <div class="slide st">
+          <div class="slide-bg" style="background-image:url('brands/techbody_u/assets/photos/magnific_b7.-home-studio-corner-ed_2964142762.png')"></div>
+          <div class="slide-ov"></div>
+          <div class="s-chip" style="color:#b06d35">TechBody U.</div>
+          <div class="s-num" style="color:rgba(44,36,32,0.38)">05/06</div>
+          <div class="slide-inner">
+            <div class="s-head">Agora também <em style="color:#b06d35">em casa.</em> Sem desculpas.</div>
+          </div>
+          <div class="s-arr" style="color:#b06d35">→</div>
+        </div>
+
+        <!-- S6 — CTA -->
+        <div class="slide st" style="background:#f5f0e8;justify-content:center">
+          <div class="s-chip" style="color:#b06d35">TechBody U.</div>
+          <div class="s-num" style="color:rgba(44,36,32,0.38)">06/06</div>
+          <div style="position:relative;z-index:2;padding:0 2px">
+            <div style="width:36px;height:1px;background:#b06d35;margin-bottom:14px"></div>
+            <div class="s-head">Marca a tua <em style="color:#b06d35">sessão experimental.</em></div>
+            <div class="s-cap" style="color:rgba(44,36,32,0.48);margin-top:8px">O primeiro passo é apenas começar.</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="cx-note">
+        <span class="cx-note-icon">💡</span>
+        <span><strong style="color:rgba(255,255,255,0.6)">Decisões de design:</strong> Design Aurum — fundo marfim claro, tipografia Cormorant Garamond, accent #b06d35. Contrasta com a estética escura da marca Luiz para diferenciar as duas contas, mesmo que sejam do mesmo ecossistema. Fotos S1, S2 e S5 — todas únicas, nenhuma repetida.</span>
+      </div>
+    </div>
+
+    <!-- ── TECHBODY STUDIOS ── -->
+    <div class="carousel-block">
+      <div class="cx-header">
+        <div>
+          <div class="cx-brand tbs">TechBody</div>
+          <div class="cx-meta" style="margin-top:4px">Tema: Experiência no Estúdio · B2C · 6 slides</div>
+        </div>
+        <span class="chip chip-tbs">@techbody</span>
+      </div>
+      <div class="cx-strip">
+
+        <!-- S1 — HOOK (foto estúdio) -->
+        <div class="slide ss">
+          <div class="slide-bg" style="background-image:url('brands/techbody/assets/photos/magnific_estudio-aquecimento-contr_2968055318.png')"></div>
+          <div class="slide-ov"></div>
+          <div class="s-chip">TechBody.</div>
+          <div class="s-num">01/06</div>
+          <div class="slide-inner">
+            <div class="s-head">20 minutos. Uma vez por semana. Resultados que ficam.</div>
+            <div class="s-cap">Tecnologia WB-EMS. Supervisão especializada.</div>
+          </div>
+          <div class="s-arr">→</div>
+        </div>
+
+        <!-- S2 — STAT (sem foto) -->
+        <div class="slide ss" style="background:radial-gradient(ellipse 90% 70% at 60% 30%, rgba(143,168,188,0.14),transparent 65%),#141820;justify-content:center">
+          <div class="s-chip">TechBody.</div>
+          <div class="s-num">02/06</div>
+          <div class="s-stat">
+            <div class="s-stat-num">85</div>
+            <div class="s-stat-unit">% fibras</div>
+            <div class="s-stat-lbl">activadas em cada sessão · vs 30–40% no treino convencional</div>
+          </div>
+          <div class="s-arr">→</div>
+        </div>
+
+        <!-- S3 — DESENVOLVIMENTO (foto) -->
+        <div class="slide ss">
+          <div class="slide-bg" style="background-image:url('brands/techbody/assets/photos/magnific_e5-serie-de-resistencia-f_2964580719.png')"></div>
+          <div class="slide-ov"></div>
+          <div class="s-chip">TechBody.</div>
+          <div class="s-num">03/06</div>
+          <div class="slide-inner">
+            <div class="s-head">Cada sessão é gerida por especialistas certificados.</div>
+            <div class="s-cap">Protocolo individual · Progresso medido</div>
+          </div>
+          <div class="s-arr">→</div>
+        </div>
+
+        <!-- S4 — DESENVOLVIMENTO (sem foto) -->
+        <div class="slide ss" style="background:#141820;justify-content:center">
+          <div class="s-chip">TechBody.</div>
+          <div class="s-num">04/06</div>
+          <div style="position:relative;z-index:2;padding:0 2px">
+            <div style="width:28px;height:1px;background:#8fa8bc;margin-bottom:16px"></div>
+            <div class="s-head" style="font-size:15px">WB-EMS: presença em mais de 30 países. Escolha de atletas de elite e clínicos de reabilitação.</div>
+          </div>
+          <div class="s-arr">→</div>
+        </div>
+
+        <!-- S5 — DESENVOLVIMENTO (foto noturna) -->
+        <div class="slide ss">
+          <div class="slide-bg" style="background-image:url('brands/techbody/assets/photos/magnific_estudio-pico-de-intensida_2968056176.png')"></div>
+          <div class="slide-ov"></div>
+          <div class="s-chip">TechBody.</div>
+          <div class="s-num">05/06</div>
+          <div class="slide-inner">
+            <div class="s-head">Treino profissional. Acompanhamento real. Sem horas perdidas.</div>
+            <div class="s-cap">Estúdios TechBody em Portugal</div>
+          </div>
+          <div class="s-arr">→</div>
+        </div>
+
+        <!-- S6 — CTA (sem foto) -->
+        <div class="slide ss" style="background:radial-gradient(ellipse 80% 60% at 30% 70%, rgba(143,168,188,0.1),transparent 60%),#0e1118;justify-content:center">
+          <div class="s-chip">TechBody.</div>
+          <div class="s-num">06/06</div>
+          <div style="position:relative;z-index:2;padding:0 2px">
+            <div style="width:28px;height:1px;background:#8fa8bc;margin-bottom:16px"></div>
+            <div class="s-head" style="font-size:17px">Agenda a tua sessão experimental.</div>
+            <div class="s-cap" style="margin-top:8px">Sem compromisso · Primeira consulta gratuita</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="cx-note">
+        <span class="cx-note-icon">💡</span>
+        <span><strong style="color:rgba(255,255,255,0.6)">Decisões de design:</strong> Paleta aço #8fa8bc diferencia o TechBody estúdios do TechBody U (marfim/dourado) e do Luiz (âmbar). Conteúdo centrado na experiência profissional em estúdio — foco no especialista e na tecnologia, não no produto físico. Fotos S1, S3 e S5 — ambiente de estúdio único em cada slide.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     CALENDÁRIO DE PUBLICAÇÕES
+════════════════════════════════════════════════════ -->
+<section id="calendario" class="fade-in-section">
+  <div class="container">
+    <span class="section-label">Calendário de Publicação</span>
+    <h2>12 publicações por mês.<br>Cada uma no momento certo.</h2>
+    <p class="muted" style="margin-top:16px;max-width:640px;font-size:16px;">4 Reels · 4 Carrosséis · 4 Stories/Posts — por conta. Distribuídos em 3 publicações por semana com ritmo alternado, horários optimizados e lógica de funil para gerar leads.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 320px;gap:48px;margin-top:52px;align-items:start">
+
+      <!-- CALENDAR GRID -->
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+          <div style="font:600 11px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.22)">Exemplo · Maio 2026 · Por Conta</div>
+          <div style="display:flex;gap:14px;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:1px;background:#d4773b"></div><span style="font:400 10px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.35)">Reel</span></div>
+            <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:1px;background:#38bdf8"></div><span style="font:400 10px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.35)">Carrossel</span></div>
+            <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:1px;background:#a78bfa"></div><span style="font:400 10px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.35)">Story / Post</span></div>
+          </div>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:10px;overflow:hidden">
+          <!-- Header -->
+          <div style="display:grid;grid-template-columns:64px repeat(5,1fr);background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.07)">
+            <div style="padding:10px 12px"></div>
+            <div style="padding:10px 8px;text-align:center;font:500 9.5px/1 'JetBrains Mono',monospace;letter-spacing:0.1em;color:rgba(255,255,255,0.22);text-transform:uppercase">SEG</div>
+            <div style="padding:10px 8px;text-align:center;font:500 9.5px/1 'JetBrains Mono',monospace;letter-spacing:0.1em;color:rgba(255,255,255,0.22);text-transform:uppercase">TER</div>
+            <div style="padding:10px 8px;text-align:center;font:500 9.5px/1 'JetBrains Mono',monospace;letter-spacing:0.1em;color:rgba(255,255,255,0.22);text-transform:uppercase">QUA</div>
+            <div style="padding:10px 8px;text-align:center;font:500 9.5px/1 'JetBrains Mono',monospace;letter-spacing:0.1em;color:rgba(255,255,255,0.22);text-transform:uppercase">QUI</div>
+            <div style="padding:10px 8px;text-align:center;font:500 9.5px/1 'JetBrains Mono',monospace;letter-spacing:0.1em;color:rgba(255,255,255,0.22);text-transform:uppercase">SEX</div>
+          </div>
+          <!-- SEM 1: Reel Ter 5, Carrossel Qui 7, Story Sex 8 -->
+          <div style="display:grid;grid-template-columns:64px repeat(5,1fr);border-bottom:1px solid rgba(255,255,255,0.05)">
+            <div style="padding:12px;font:500 9px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.16);letter-spacing:0.08em;display:flex;align-items:center">SEM 1</div>
+            <div style="padding:12px 8px;text-align:center"><div style="font:400 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.18)">4</div></div>
+            <div style="padding:10px 6px;text-align:center;background:rgba(212,119,59,0.08)">
+              <div style="font:600 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.65);margin-bottom:7px">5</div>
+              <div style="font:600 8.5px/1 'JetBrains Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;color:#d4773b;background:rgba(212,119,59,0.15);border:1px solid rgba(212,119,59,0.3);padding:3px 5px;border-radius:2px;display:inline-block">Reel</div>
+              <div style="margin-top:5px;font:400 8.5px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.2)">18h</div>
+            </div>
+            <div style="padding:12px 8px;text-align:center"><div style="font:400 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.18)">6</div></div>
+            <div style="padding:10px 6px;text-align:center;background:rgba(56,189,248,0.08)">
+              <div style="font:600 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.65);margin-bottom:7px">7</div>
+              <div style="font:600 8.5px/1 'JetBrains Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;color:#38bdf8;background:rgba(56,189,248,0.15);border:1px solid rgba(56,189,248,0.3);padding:3px 5px;border-radius:2px;display:inline-block">Carrossel</div>
+              <div style="margin-top:5px;font:400 8.5px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.2)">9h</div>
+            </div>
+            <div style="padding:10px 6px;text-align:center;background:rgba(167,139,250,0.08)">
+              <div style="font:600 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.65);margin-bottom:7px">8</div>
+              <div style="font:600 8.5px/1 'JetBrains Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;color:#a78bfa;background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.3);padding:3px 5px;border-radius:2px;display:inline-block">Story</div>
+              <div style="margin-top:5px;font:400 8.5px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.2)">17h</div>
+            </div>
+          </div>
+          <!-- SEM 2: Carrossel Seg 11, Reel Qua 13, Story Sex 15 -->
+          <div style="display:grid;grid-template-columns:64px repeat(5,1fr);border-bottom:1px solid rgba(255,255,255,0.05)">
+            <div style="padding:12px;font:500 9px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.16);letter-spacing:0.08em;display:flex;align-items:center">SEM 2</div>
+            <div style="padding:10px 6px;text-align:center;background:rgba(56,189,248,0.08)">
+              <div style="font:600 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.65);margin-bottom:7px">11</div>
+              <div style="font:600 8.5px/1 'JetBrains Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;color:#38bdf8;background:rgba(56,189,248,0.15);border:1px solid rgba(56,189,248,0.3);padding:3px 5px;border-radius:2px;display:inline-block">Carrossel</div>
+              <div style="margin-top:5px;font:400 8.5px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.2)">9h</div>
+            </div>
+            <div style="padding:12px 8px;text-align:center;background:rgba(255,255,255,0.025)">
+              <div style="font:700 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.45)">12</div>
+              <div style="margin-top:5px;font:400 8.5px/1 'JetBrains Mono',monospace;color:rgba(212,119,59,0.5)">hoje</div>
+            </div>
+            <div style="padding:10px 6px;text-align:center;background:rgba(212,119,59,0.08)">
+              <div style="font:600 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.65);margin-bottom:7px">13</div>
+              <div style="font:600 8.5px/1 'JetBrains Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;color:#d4773b;background:rgba(212,119,59,0.15);border:1px solid rgba(212,119,59,0.3);padding:3px 5px;border-radius:2px;display:inline-block">Reel</div>
+              <div style="margin-top:5px;font:400 8.5px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.2)">18h</div>
+            </div>
+            <div style="padding:12px 8px;text-align:center"><div style="font:400 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.18)">14</div></div>
+            <div style="padding:10px 6px;text-align:center;background:rgba(167,139,250,0.08)">
+              <div style="font:600 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.65);margin-bottom:7px">15</div>
+              <div style="font:600 8.5px/1 'JetBrains Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;color:#a78bfa;background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.3);padding:3px 5px;border-radius:2px;display:inline-block">Story</div>
+              <div style="margin-top:5px;font:400 8.5px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.2)">17h</div>
+            </div>
+          </div>
+          <!-- SEM 3: Reel Ter 19, Carrossel Qui 21, Story Sex 22 -->
+          <div style="display:grid;grid-template-columns:64px repeat(5,1fr);border-bottom:1px solid rgba(255,255,255,0.05)">
+            <div style="padding:12px;font:500 9px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.16);letter-spacing:0.08em;display:flex;align-items:center">SEM 3</div>
+            <div style="padding:12px 8px;text-align:center"><div style="font:400 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.18)">18</div></div>
+            <div style="padding:10px 6px;text-align:center;background:rgba(212,119,59,0.08)">
+              <div style="font:600 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.65);margin-bottom:7px">19</div>
+              <div style="font:600 8.5px/1 'JetBrains Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;color:#d4773b;background:rgba(212,119,59,0.15);border:1px solid rgba(212,119,59,0.3);padding:3px 5px;border-radius:2px;display:inline-block">Reel</div>
+              <div style="margin-top:5px;font:400 8.5px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.2)">18h</div>
+            </div>
+            <div style="padding:12px 8px;text-align:center"><div style="font:400 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.18)">20</div></div>
+            <div style="padding:10px 6px;text-align:center;background:rgba(56,189,248,0.08)">
+              <div style="font:600 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.65);margin-bottom:7px">21</div>
+              <div style="font:600 8.5px/1 'JetBrains Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;color:#38bdf8;background:rgba(56,189,248,0.15);border:1px solid rgba(56,189,248,0.3);padding:3px 5px;border-radius:2px;display:inline-block">Carrossel</div>
+              <div style="margin-top:5px;font:400 8.5px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.2)">9h</div>
+            </div>
+            <div style="padding:10px 6px;text-align:center;background:rgba(167,139,250,0.08)">
+              <div style="font:600 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.65);margin-bottom:7px">22</div>
+              <div style="font:600 8.5px/1 'JetBrains Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;color:#a78bfa;background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.3);padding:3px 5px;border-radius:2px;display:inline-block">Story</div>
+              <div style="margin-top:5px;font:400 8.5px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.2)">17h</div>
+            </div>
+          </div>
+          <!-- SEM 4: Carrossel Seg 25, Reel Qua 27, Story Sex 29 -->
+          <div style="display:grid;grid-template-columns:64px repeat(5,1fr)">
+            <div style="padding:12px;font:500 9px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.16);letter-spacing:0.08em;display:flex;align-items:center">SEM 4</div>
+            <div style="padding:10px 6px;text-align:center;background:rgba(56,189,248,0.08)">
+              <div style="font:600 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.65);margin-bottom:7px">25</div>
+              <div style="font:600 8.5px/1 'JetBrains Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;color:#38bdf8;background:rgba(56,189,248,0.15);border:1px solid rgba(56,189,248,0.3);padding:3px 5px;border-radius:2px;display:inline-block">Carrossel</div>
+              <div style="margin-top:5px;font:400 8.5px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.2)">9h</div>
+            </div>
+            <div style="padding:12px 8px;text-align:center"><div style="font:400 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.18)">26</div></div>
+            <div style="padding:10px 6px;text-align:center;background:rgba(212,119,59,0.08)">
+              <div style="font:600 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.65);margin-bottom:7px">27</div>
+              <div style="font:600 8.5px/1 'JetBrains Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;color:#d4773b;background:rgba(212,119,59,0.15);border:1px solid rgba(212,119,59,0.3);padding:3px 5px;border-radius:2px;display:inline-block">Reel</div>
+              <div style="margin-top:5px;font:400 8.5px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.2)">18h</div>
+            </div>
+            <div style="padding:12px 8px;text-align:center"><div style="font:400 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.18)">28</div></div>
+            <div style="padding:10px 6px;text-align:center;background:rgba(167,139,250,0.08)">
+              <div style="font:600 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.65);margin-bottom:7px">29</div>
+              <div style="font:600 8.5px/1 'JetBrains Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;color:#a78bfa;background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.3);padding:3px 5px;border-radius:2px;display:inline-block">Story</div>
+              <div style="margin-top:5px;font:400 8.5px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.2)">17h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RATIONALE SIDEBAR -->
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="background:rgba(212,119,59,0.06);border:1px solid rgba(212,119,59,0.2);border-radius:8px;padding:20px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+            <div style="width:8px;height:8px;border-radius:1px;background:#d4773b;flex-shrink:0"></div>
+            <div style="font:700 13px/1 'Inter',sans-serif;color:#d4773b">Reel · Ter ou Qua · 18h</div>
+          </div>
+          <div style="font:400 12.5px/1.65 'Inter',sans-serif;color:rgba(255,255,255,0.45)">Terça e quarta são os dias com maior distribuição orgânica de vídeo no Instagram. Publicar às 18h captura o pico de consumo pós-trabalho — o algoritmo premia vídeos que ganham visualizações rápidas na primeira hora.</div>
+        </div>
+        <div style="background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.2);border-radius:8px;padding:20px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+            <div style="width:8px;height:8px;border-radius:1px;background:#38bdf8;flex-shrink:0"></div>
+            <div style="font:700 13px/1 'Inter',sans-serif;color:#38bdf8">Carrossel · Seg ou Qui · 9h</div>
+          </div>
+          <div style="font:400 12.5px/1.65 'Inter',sans-serif;color:rgba(255,255,255,0.45)">Carrosséis acumulam guardados — o sinal de intenção mais forte no algoritmo. Segunda e quinta são dias de planeamento, quando o utilizador guarda conteúdo para mais tarde. O horário matinal apanha quem revê o feed antes do dia começar.</div>
+        </div>
+        <div style="background:rgba(167,139,250,0.06);border:1px solid rgba(167,139,250,0.2);border-radius:8px;padding:20px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+            <div style="width:8px;height:8px;border-radius:1px;background:#a78bfa;flex-shrink:0"></div>
+            <div style="font:700 13px/1 'Inter',sans-serif;color:#a78bfa">Story / Post · Sex · 17h</div>
+          </div>
+          <div style="font:400 12.5px/1.65 'Inter',sans-serif;color:rgba(255,255,255,0.45)">Sexta ao fim da tarde é o momento de conversão. O utilizador está mais receptivo a CTAs e tem tempo para responder a DMs durante o fim de semana. Os posts de sexta disparam a automação ManyChat para captar leads nas 48h seguintes.</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:16px">
+          <div style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:12px">Totais Mensais · Por Conta</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:400 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.4)">Reels</span><span style="font:700 14px/1 'Inter',sans-serif;color:#d4773b">4</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:400 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.4)">Carrosséis</span><span style="font:700 14px/1 'Inter',sans-serif;color:#38bdf8">4</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:400 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.4)">Stories / Posts</span><span style="font:700 14px/1 'Inter',sans-serif;color:#a78bfa">4</span></div>
+            <div style="height:1px;background:rgba(255,255,255,0.07);margin:6px 0"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:600 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.6)">Total / conta</span><span style="font:800 16px/1 'Inter',sans-serif;color:#f0f0f0">12</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:600 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.6)">Total / 3 contas</span><span style="font:800 16px/1 'Inter',sans-serif;color:#d4773b">36</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box" style="margin-top:28px">
+      <strong>Porquê este ritmo?</strong> Três publicações por semana é o limiar onde o algoritmo do Instagram considera a conta activa e aumenta a distribuição orgânica. Abaixo de 3/semana, o alcance cai. Acima de 5/semana sem orçamento de promoção, a qualidade por peça dilui-se e o público dessensibiliza. Cada tipo de conteúdo está no dia e hora em que o padrão de comportamento da plataforma mostra melhor conversão para aquele formato.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     PUBLICAÇÃO AUTOMÁTICA & MANYCHAT
+════════════════════════════════════════════════════ -->
+<section id="automacao" class="fade-in-section">
+  <div class="container">
+    <span class="section-label">Automação &amp; Publicação</span>
+    <h2>Tu aproves.<br>Eu publico e capto leads.</h2>
+    <p class="muted" style="margin-top:16px;max-width:640px;font-size:16px;">Depois do conteúdo aprovado, trato de tudo: agendar a publicação, activar o ManyChat e capturar os leads directamente pelo Instagram — sem acompanhamento manual da tua parte.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:52px">
+      <!-- O que nos dão -->
+      <div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:36px">
+        <div style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:24px">O que me precisas de dar</div>
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:34px;height:34px;border-radius:8px;background:rgba(212,119,59,0.1);border:1px solid rgba(212,119,59,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px">🔑</div>
+            <div><div style="font:700 14px/1.2 'Inter',sans-serif;margin-bottom:5px">Acesso às contas</div><div style="font:400 12.5px/1.6 'Inter',sans-serif;color:rgba(255,255,255,0.38)">Gestor de negócio do Meta ou acesso de agência. Sem partilhar palavras-passe.</div></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:34px;height:34px;border-radius:8px;background:rgba(212,119,59,0.1);border:1px solid rgba(212,119,59,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px">✅</div>
+            <div><div style="font:700 14px/1.2 'Inter',sans-serif;margin-bottom:5px">Aprovação mensal</div><div style="font:400 12.5px/1.6 'Inter',sans-serif;color:rgba(255,255,255,0.38)">Um documento com todos os textos. Uma galeria com todos os visuais. Dois rounds de aprovação por mês — não mais.</div></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:34px;height:34px;border-radius:8px;background:rgba(212,119,59,0.1);border:1px solid rgba(212,119,59,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px">💬</div>
+            <div><div style="font:700 14px/1.2 'Inter',sans-serif;margin-bottom:5px">Feedback por mensagem</div><div style="font:400 12.5px/1.6 'Inter',sans-serif;color:rgba(255,255,255,0.38)">Qualquer ajuste pedido por mensagem ou comentário directamente no documento. Sem reuniões para revisões.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- O que tratamos -->
+      <div style="background:rgba(212,119,59,0.04);border:1px solid rgba(212,119,59,0.2);border-radius:12px;padding:36px">
+        <div style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;color:rgba(212,119,59,0.55);margin-bottom:24px">O que trato</div>
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:34px;height:34px;border-radius:8px;background:rgba(212,119,59,0.12);border:1px solid rgba(212,119,59,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px">📅</div>
+            <div><div style="font:700 14px/1.2 'Inter',sans-serif;margin-bottom:5px">Agendamento automático</div><div style="font:400 12.5px/1.6 'Inter',sans-serif;color:rgba(255,255,255,0.38)">Cada peça publicada no dia e hora óptimos do calendário. Sem intervenção da tua parte.</div></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:34px;height:34px;border-radius:8px;background:rgba(212,119,59,0.12);border:1px solid rgba(212,119,59,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px">🤖</div>
+            <div><div style="font:700 14px/1.2 'Inter',sans-serif;margin-bottom:5px">Integração ManyChat</div><div style="font:400 12.5px/1.6 'Inter',sans-serif;color:rgba(255,255,255,0.38)">Configuro os gatilhos de comentário em cada post CTA. O ManyChat responde automaticamente em DM e captura o lead.</div></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:34px;height:34px;border-radius:8px;background:rgba(212,119,59,0.12);border:1px solid rgba(212,119,59,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px">📊</div>
+            <div><div style="font:700 14px/1.2 'Inter',sans-serif;margin-bottom:5px">Relatório mensal</div><div style="font:400 12.5px/1.6 'Inter',sans-serif;color:rgba(255,255,255,0.38)">Alcance, guardados e leads captados por peça. Dados que informam o calendário do mês seguinte.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ManyChat flow -->
+    <div style="margin-top:40px">
+      <div style="font:600 11px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:24px">Como o ManyChat captura leads</div>
+      <div style="display:flex;align-items:stretch;gap:0;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:10px;overflow:hidden;flex-wrap:wrap">
+        <div style="flex:1;min-width:140px;padding:28px 18px;border-right:1px solid rgba(255,255,255,0.06);text-align:center">
+          <div style="font-size:26px;margin-bottom:12px;line-height:1">📱</div>
+          <div style="font:700 13px/1.2 'Inter',sans-serif;margin-bottom:8px">Post publicado</div>
+          <div style="font:400 11px/1.55 'JetBrains Mono',monospace;color:rgba(255,255,255,0.3)">CTA no copy:<br>"Comenta <span style="color:#a78bfa">TREINO</span>"</div>
+        </div>
+        <div style="display:flex;align-items:center;padding:0 6px;color:rgba(255,255,255,0.15);font-size:16px;flex-shrink:0">→</div>
+        <div style="flex:1;min-width:140px;padding:28px 18px;border-right:1px solid rgba(255,255,255,0.06);text-align:center">
+          <div style="font-size:26px;margin-bottom:12px;line-height:1">💬</div>
+          <div style="font:700 13px/1.2 'Inter',sans-serif;margin-bottom:8px">Utilizador comenta</div>
+          <div style="font:400 11px/1.55 'JetBrains Mono',monospace;color:rgba(255,255,255,0.3)">ManyChat detecta<br>a palavra-chave</div>
+        </div>
+        <div style="display:flex;align-items:center;padding:0 6px;color:rgba(255,255,255,0.15);font-size:16px;flex-shrink:0">→</div>
+        <div style="flex:1;min-width:140px;padding:28px 18px;border-right:1px solid rgba(255,255,255,0.06);text-align:center">
+          <div style="font-size:26px;margin-bottom:12px;line-height:1">🤖</div>
+          <div style="font:700 13px/1.2 'Inter',sans-serif;margin-bottom:8px">DM automático</div>
+          <div style="font:400 11px/1.55 'JetBrains Mono',monospace;color:rgba(255,255,255,0.3)">Envia link, guia<br>ou marcação</div>
+        </div>
+        <div style="display:flex;align-items:center;padding:0 6px;color:rgba(255,255,255,0.15);font-size:16px;flex-shrink:0">→</div>
+        <div style="flex:1;min-width:140px;padding:28px 18px;border-right:1px solid rgba(255,255,255,0.06);text-align:center;background:rgba(167,139,250,0.04)">
+          <div style="font-size:26px;margin-bottom:12px;line-height:1">📋</div>
+          <div style="font:700 13px/1.2 'Inter',sans-serif;margin-bottom:8px">Lead capturado</div>
+          <div style="font:400 11px/1.55 'JetBrains Mono',monospace;color:rgba(255,255,255,0.3)">Nome, contacto<br>e intenção guardados</div>
+        </div>
+        <div style="display:flex;align-items:center;padding:0 6px;color:rgba(255,255,255,0.15);font-size:16px;flex-shrink:0">→</div>
+        <div style="flex:1;min-width:140px;padding:28px 18px;text-align:center;background:rgba(212,119,59,0.05)">
+          <div style="font-size:26px;margin-bottom:12px;line-height:1">💰</div>
+          <div style="font:700 13px/1.2 'Inter',sans-serif;margin-bottom:8px;color:#d4773b">Conversão</div>
+          <div style="font:400 11px/1.55 'JetBrains Mono',monospace;color:rgba(255,255,255,0.3)">Funil de venda<br>activado</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box" style="margin-top:28px">
+      <strong>Porquê ManyChat?</strong> O Instagram penaliza links externos nas legendas mas favorece conteúdo com alto engagement de comentários. A automação por palavras-chave transforma comentários em conversas privadas — o utilizador recebe o que pediu, a conta ganha engagement, o algoritmo distribui mais, e captamos o lead. É o único sistema nativo do Instagram que converte ao mesmo tempo que cresce o alcance orgânico.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     PRÓXIMOS PASSOS
+════════════════════════════════════════════════════ -->
+<section id="proximos">
+  <div class="container">
+    <span class="section-label">A Partir Daqui</span>
+    <h2>O que acontece<br>após esta reunião.</h2>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px">
+      <div style="padding:28px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);border-radius:10px">
+        <div style="font:800 32px/1 'Inter',sans-serif;color:#d4773b;letter-spacing:-0.03em;margin-bottom:12px">01</div>
+        <div style="font:700 16px/1.2 'Inter',sans-serif;margin-bottom:8px">Aprovação de Calendário</div>
+        <div style="font:400 13px/1.65 'Inter',sans-serif;color:rgba(255,255,255,0.4)">Partilho o calendário de conteúdo do próximo mês com os temas por marca para aprovação inicial.</div>
+      </div>
+      <div style="padding:28px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);border-radius:10px">
+        <div style="font:800 32px/1 'Inter',sans-serif;color:#d4773b;letter-spacing:-0.03em;margin-bottom:12px">02</div>
+        <div style="font:700 16px/1.2 'Inter',sans-serif;margin-bottom:8px">Primeiro Round de Copies</div>
+        <div style="font:400 13px/1.65 'Inter',sans-serif;color:rgba(255,255,255,0.4)">Envio os textos das primeiras peças. Aprovação num documento partilhado com comentários inline — sem reunião.</div>
+      </div>
+      <div style="padding:28px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);border-radius:10px">
+        <div style="font:800 32px/1 'Inter',sans-serif;color:#d4773b;letter-spacing:-0.03em;margin-bottom:12px">03</div>
+        <div style="font:700 16px/1.2 'Inter',sans-serif;margin-bottom:8px">Produção e Aprovação Visual</div>
+        <div style="font:400 13px/1.65 'Inter',sans-serif;color:rgba(255,255,255,0.4)">Copies aprovados, produzo os visuais em 48h. Segundo round de aprovação e publicação programada.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     VÍDEOS — IDEIAS E GUIÕES
+════════════════════════════════════════════════════ -->
+<section id="videos" class="fade-in-section">
+  <div class="container">
+    <span class="section-label">Estratégia de Vídeo</span>
+    <h2>O que podemos filmar.<br>O que a IA cria.</h2>
+    <p class="muted" style="margin-top:16px;max-width:680px;font-size:16px;">Para cada marca, preparamos 2 guiões para vídeos gravados em estúdio ou com a equipa, e 2 conceitos para conteúdo 100% gerado por IA — prontos a produzir sem câmara, sem actor, sem locação.</p>
+
+    <!-- ── LUIZ SANTANA ── -->
+    <div style="margin-top:64px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:32px">
+        <div style="width:3px;height:36px;background:#d4773b;border-radius:2px;flex-shrink:0"></div>
+        <div>
+          <div style="font:700 20px/1.1 'Inter',sans-serif;color:#d4773b">Luiz Santana</div>
+          <div style="font:400 11px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.3);margin-top:4px;letter-spacing:0.06em">@techbody_pt · Marca pessoal de autoridade científica</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
+
+        <!-- Vídeo Gravado 1 -->
+        <div style="background:rgba(212,119,59,0.05);border:1px solid rgba(212,119,59,0.18);border-radius:12px;overflow:hidden">
+          <div style="padding:16px 20px;border-bottom:1px solid rgba(212,119,59,0.12);display:flex;align-items:center;gap:8px">
+            <div style="font:600 9px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;background:rgba(212,119,59,0.15);color:#d4773b;padding:4px 8px;border-radius:2px">Gravado · Reel 60s</div>
+            <div style="font:500 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.55)">Vídeo Gravado 01</div>
+          </div>
+          <div style="padding:20px">
+            <div style="font:700 15px/1.3 'Inter',sans-serif;margin-bottom:10px;letter-spacing:-0.01em">"O problema não é a falta de motivação"</div>
+            <div style="font:400 12px/1.6 'Inter',sans-serif;color:rgba(255,255,255,0.4);margin-bottom:16px">Luiz fala directamente à câmara num cenário de escritório limpo ou estúdio TechBody. Tom assertivo, sem guião rígido — mais conversa do que discurso.</div>
+            <div style="font:600 10px/1 'JetBrains Mono',monospace;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:12px">Guião</div>
+            <div style="font:400 12.5px/1.75 'Inter',sans-serif;color:rgba(255,255,255,0.55);background:rgba(0,0,0,0.2);border-radius:6px;padding:14px;border-left:2px solid rgba(212,119,59,0.3)">
+              <em style="color:#d4773b">[0–5s]</em> "A maior mentira do fitness é que o problema és tu."<br>
+              <em style="color:#d4773b">[5–18s]</em> "Décadas de investigação mostram que o problema é o sistema — treino ineficiente, tempo escasso, sem retorno real sobre o que está a acontecer no teu corpo."<br>
+              <em style="color:#d4773b">[18–35s]</em> "O WB-EMS não é um atalho. É tecnologia desenhada para o corpo humano — activa 85% das fibras musculares em 20 minutos. A ciência chama-lhe electrofitness de corpo inteiro."<br>
+              <em style="color:#d4773b">[35–50s]</em> "Não é magia. É física. É fisiologia. É o mesmo princípio que os hospitais usam em reabilitação desde os anos 70."<br>
+              <em style="color:#d4773b">[50–60s]</em> "Se queres perceber como funciona, comenta <span style="color:#a78bfa">CIÊNCIA</span> e envio-te o estudo completo."
+            </div>
+            <div style="margin-top:12px;font:400 11px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.22)">ManyChat trigger → "CIÊNCIA" → envia PDF do paper</div>
+          </div>
+        </div>
+
+        <!-- Vídeo Gravado 2 -->
+        <div style="background:rgba(212,119,59,0.05);border:1px solid rgba(212,119,59,0.18);border-radius:12px;overflow:hidden">
+          <div style="padding:16px 20px;border-bottom:1px solid rgba(212,119,59,0.12);display:flex;align-items:center;gap:8px">
+            <div style="font:600 9px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;background:rgba(212,119,59,0.15);color:#d4773b;padding:4px 8px;border-radius:2px">Gravado · Reel 30s</div>
+            <div style="font:500 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.55)">Vídeo Gravado 02</div>
+          </div>
+          <div style="padding:20px">
+            <div style="font:700 15px/1.3 'Inter',sans-serif;margin-bottom:10px;letter-spacing:-0.01em">"Isto é o que acontece no teu músculo"</div>
+            <div style="font:400 12px/1.6 'Inter',sans-serif;color:rgba(255,255,255,0.4);margin-bottom:16px">Luiz de jaleca branca ou em contexto de estúdio. Usa o corpo como referência visual — aponta para grupos musculares enquanto fala. Pode incluir um tablet com infográfico.</div>
+            <div style="font:600 10px/1 'JetBrains Mono',monospace;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:12px">Guião</div>
+            <div style="font:400 12.5px/1.75 'Inter',sans-serif;color:rgba(255,255,255,0.55);background:rgba(0,0,0,0.2);border-radius:6px;padding:14px;border-left:2px solid rgba(212,119,59,0.3)">
+              <em style="color:#d4773b">[0–5s]</em> "Num treino convencional, activam-se entre 30 e 40% das fibras musculares. Bom? Sim. Suficiente? Depende."<br>
+              <em style="color:#d4773b">[5–15s]</em> "Com WB-EMS, o impulso eléctrico chega directamente à fibra — 85% de activação. Em 20 minutos. Sem impacto articular."<br>
+              <em style="color:#d4773b">[15–25s]</em> "Não é uma opinião. É o que dizem 200+ estudos publicados em revistas com revisão por pares."<br>
+              <em style="color:#d4773b">[25–30s]</em> "Comenta <span style="color:#a78bfa">ESTUDOS</span> e envio-te a lista dos 5 mais relevantes."
+            </div>
+            <div style="margin-top:12px;font:400 11px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.22)">ManyChat trigger → "ESTUDOS" → envia lista de papers</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+
+        <!-- IA Vídeo 1 -->
+        <div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden">
+          <div style="padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px">
+            <div style="font:600 9px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;background:rgba(167,139,250,0.12);color:#a78bfa;padding:4px 8px;border-radius:2px">100% IA · Reel 15s</div>
+            <div style="font:500 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.55)">Vídeo IA 01</div>
+          </div>
+          <div style="padding:20px">
+            <div style="font:700 15px/1.3 'Inter',sans-serif;margin-bottom:10px;letter-spacing:-0.01em">"Visualização: fibras musculares em acção"</div>
+            <div style="font:400 12px/1.6 'Inter',sans-serif;color:rgba(255,255,255,0.4);margin-bottom:16px">Animação 3D do músculo a ser activado por electrostimulação. Gerado com IA de imagem+vídeo (Sora / Kling / Seedance). Voz off do Luiz gravada separadamente e sobreposta.</div>
+            <div style="font:600 10px/1 'JetBrains Mono',monospace;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:12px">Conceito + Voz Off</div>
+            <div style="font:400 12.5px/1.75 'Inter',sans-serif;color:rgba(255,255,255,0.55);background:rgba(0,0,0,0.2);border-radius:6px;padding:14px;border-left:2px solid rgba(167,139,250,0.3)">
+              <em style="color:#a78bfa">Visual:</em> Zoom in sobre tecido muscular. Impulso eléctrico propaga-se entre fibras. Contracção simultânea de 85% das fibras. Zoom out para silhueta humana.<br><br>
+              <em style="color:#a78bfa">Voz off:</em> "Isto é o que acontece no teu músculo durante uma sessão WB-EMS. Cada impulso activa o que o treino convencional não consegue atingir. Não é ficção científica. É o princípio por trás de mais de 200 estudos."
+            </div>
+          </div>
+        </div>
+
+        <!-- IA Vídeo 2 -->
+        <div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden">
+          <div style="padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px">
+            <div style="font:600 9px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;background:rgba(167,139,250,0.12);color:#a78bfa;padding:4px 8px;border-radius:2px">100% IA · Reel 30s</div>
+            <div style="font:500 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.55)">Vídeo IA 02</div>
+          </div>
+          <div style="padding:20px">
+            <div style="font:700 15px/1.3 'Inter',sans-serif;margin-bottom:10px;letter-spacing:-0.01em">"Comparativo: 1 hora de ginásio vs 20 min WB-EMS"</div>
+            <div style="font:400 12px/1.6 'Inter',sans-serif;color:rgba(255,255,255,0.4);margin-bottom:16px">Ecrã dividido gerado por IA: lado esquerdo mostra ginásio tradicional, lado direito estúdio WB-EMS. Dados sobrepostos em tempo real. Narração sóbria, dados científicos.</div>
+            <div style="font:600 10px/1 'JetBrains Mono',monospace;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:12px">Conceito + Voz Off</div>
+            <div style="font:400 12.5px/1.75 'Inter',sans-serif;color:rgba(255,255,255,0.55);background:rgba(0,0,0,0.2);border-radius:6px;padding:14px;border-left:2px solid rgba(167,139,250,0.3)">
+              <em style="color:#a78bfa">Visual:</em> Ecrã dividido. Esq: treino convencional, cronómetro a correr, 35% fibras activadas. Dir: WB-EMS 20min, 85% fibras. Gráfico de barras aparece no centro a comparar.<br><br>
+              <em style="color:#a78bfa">Voz off:</em> "O mesmo resultado. Menos tempo. Mais fibras activadas. A diferença não está no esforço — está na tecnologia por trás de cada contracção."
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TECHBODY STUDIOS ── -->
+    <div style="margin-top:72px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:32px">
+        <div style="width:3px;height:36px;background:#8fa8bc;border-radius:2px;flex-shrink:0"></div>
+        <div>
+          <div style="font:700 20px/1.1 'Inter',sans-serif;color:#8fa8bc">TechBody</div>
+          <div style="font:400 11px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.3);margin-top:4px;letter-spacing:0.06em">@techbody · Estúdios de electrofitness profissional</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
+
+        <!-- Gravado 1 -->
+        <div style="background:rgba(143,168,188,0.05);border:1px solid rgba(143,168,188,0.18);border-radius:12px;overflow:hidden">
+          <div style="padding:16px 20px;border-bottom:1px solid rgba(143,168,188,0.12);display:flex;align-items:center;gap:8px">
+            <div style="font:600 9px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;background:rgba(143,168,188,0.15);color:#8fa8bc;padding:4px 8px;border-radius:2px">Gravado · Reel 30s</div>
+            <div style="font:500 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.55)">Vídeo Gravado 01</div>
+          </div>
+          <div style="padding:20px">
+            <div style="font:700 15px/1.3 'Inter',sans-serif;margin-bottom:10px;letter-spacing:-0.01em">"Um dia no TechBody — nos bastidores"</div>
+            <div style="font:400 12px/1.6 'Inter',sans-serif;color:rgba(255,255,255,0.4);margin-bottom:16px">Equipa do estúdio mostra a rotina: chegada do cliente, preparação do equipamento, sessão em curso, feedback final. Voz off de um treinador. Não é publicidade — é documentário curto.</div>
+            <div style="font:600 10px/1 'JetBrains Mono',monospace;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:12px">Guião / Sequência</div>
+            <div style="font:400 12.5px/1.75 'Inter',sans-serif;color:rgba(255,255,255,0.55);background:rgba(0,0,0,0.2);border-radius:6px;padding:14px;border-left:2px solid rgba(143,168,188,0.3)">
+              <em style="color:#8fa8bc">[0–5s]</em> Cliente entra no estúdio. Treinador cumprimenta. Ambiente limpo e profissional.<br>
+              <em style="color:#8fa8bc">[5–12s]</em> Colocação do fato WB-EMS. Treinador explica o protocolo do dia. Écran com dados vitais.<br>
+              <em style="color:#8fa8bc">[12–22s]</em> Sessão em curso. Cliente em esforço controlado. Treinador monitoriza.<br>
+              <em style="color:#8fa8bc">[22–30s]</em> Fim da sessão. Cliente sorri. Treinador mostra dados no tablet.<br>
+              <em style="color:#8fa8bc">Voz off:</em> "20 minutos. Uma vez por semana. No TechBody, cada sessão tem um especialista dedicado a ti."
+            </div>
+            <div style="margin-top:12px;font:400 11px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.22)">ManyChat trigger → "SESSÃO" → agendamento directo</div>
+          </div>
+        </div>
+
+        <!-- Gravado 2 -->
+        <div style="background:rgba(143,168,188,0.05);border:1px solid rgba(143,168,188,0.18);border-radius:12px;overflow:hidden">
+          <div style="padding:16px 20px;border-bottom:1px solid rgba(143,168,188,0.12);display:flex;align-items:center;gap:8px">
+            <div style="font:600 9px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;background:rgba(143,168,188,0.15);color:#8fa8bc;padding:4px 8px;border-radius:2px">Gravado · Reel 60s</div>
+            <div style="font:500 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.55)">Vídeo Gravado 02</div>
+          </div>
+          <div style="padding:20px">
+            <div style="font:700 15px/1.3 'Inter',sans-serif;margin-bottom:10px;letter-spacing:-0.01em">"Depoimento real: 3 meses com TechBody"</div>
+            <div style="font:400 12px/1.6 'Inter',sans-serif;color:rgba(255,255,255,0.4);margin-bottom:16px">Cliente real fala 45 segundos. Treinador confirma com dados. Formato entrevista rápida. O mais poderoso dos formatos — sem actor, sem argumento, só resultado.</div>
+            <div style="font:600 10px/1 'JetBrains Mono',monospace;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:12px">Estrutura da Entrevista</div>
+            <div style="font:400 12.5px/1.75 'Inter',sans-serif;color:rgba(255,255,255,0.55);background:rgba(0,0,0,0.2);border-radius:6px;padding:14px;border-left:2px solid rgba(143,168,188,0.3)">
+              <em style="color:#8fa8bc">[0–5s]</em> Pergunta em texto: "Porquê TechBody?"<br>
+              <em style="color:#8fa8bc">[5–30s]</em> Cliente: "Comecei porque não tinha tempo para o ginásio. Ao fim de 3 meses, a minha médica disse que tinha a composição corporal de alguém 10 anos mais novo."<br>
+              <em style="color:#8fa8bc">[30–45s]</em> Treinador mostra resultados no tablet: -4kg gordura, +2,3kg músculo.<br>
+              <em style="color:#8fa8bc">[45–60s]</em> CTA: "Agenda a tua sessão experimental. Primeiro mês sem risco."<br>
+              <em style="color:#8fa8bc">Comenta:</em> "<span style="color:#a78bfa">RESULTADOS</span> para receber o teu protocolo inicial"
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        <!-- IA 1 -->
+        <div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden">
+          <div style="padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px">
+            <div style="font:600 9px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;background:rgba(167,139,250,0.12);color:#a78bfa;padding:4px 8px;border-radius:2px">100% IA · Reel 15s</div>
+            <div style="font:500 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.55)">Vídeo IA 01</div>
+          </div>
+          <div style="padding:20px">
+            <div style="font:700 15px/1.3 'Inter',sans-serif;margin-bottom:10px;letter-spacing:-0.01em">"Tour virtual pelo estúdio"</div>
+            <div style="font:400 12px/1.6 'Inter',sans-serif;color:rgba(255,255,255,0.4);margin-bottom:16px">Vídeo gerado por IA de um estúdio premium de electrofitness. Câmara flutua pelo espaço. Equipamento em destaque. Sem pessoas — produto puro.</div>
+            <div style="font:400 12.5px/1.75 'Inter',sans-serif;color:rgba(255,255,255,0.55);background:rgba(0,0,0,0.2);border-radius:6px;padding:14px;border-left:2px solid rgba(167,139,250,0.3)">
+              <em style="color:#a78bfa">Prompt visual:</em> Voo lento de câmara estilo drone por um estúdio de electrofitness premium. Equipamento preto fosco, iluminação quente suave, arquitectura minimalista. Sem pessoas. Estética médica premium.<br><br>
+              <em style="color:#a78bfa">Texto no ecrã:</em> "TechBody. O estúdio que a ciência construiu."
+            </div>
+          </div>
+        </div>
+
+        <!-- IA 2 -->
+        <div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden">
+          <div style="padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px">
+            <div style="font:600 9px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;background:rgba(167,139,250,0.12);color:#a78bfa;padding:4px 8px;border-radius:2px">100% IA · Reel 30s</div>
+            <div style="font:500 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.55)">Vídeo IA 02</div>
+          </div>
+          <div style="padding:20px">
+            <div style="font:700 15px/1.3 'Inter',sans-serif;margin-bottom:10px;letter-spacing:-0.01em">"Linha do tempo: 12 semanas de resultados"</div>
+            <div style="font:400 12px/1.6 'Inter',sans-serif;color:rgba(255,255,255,0.4);margin-bottom:16px">Visualização animada por IA de uma linha do tempo com dados de progresso de um cliente tipo. Estilo editorial/científico, sem mostrar rosto real.</div>
+            <div style="font:400 12.5px/1.75 'Inter',sans-serif;color:rgba(255,255,255,0.55);background:rgba(0,0,0,0.2);border-radius:6px;padding:14px;border-left:2px solid rgba(167,139,250,0.3)">
+              <em style="color:#a78bfa">Visual:</em> Semana 1 → 4 → 8 → 12. Dados aparecem um a um: composição corporal, força, bem-estar subjectivo. Gráficos animados sobre fundo escuro.<br><br>
+              <em style="color:#a78bfa">Voz off:</em> "Semana 1: adaptação. Semana 4: primeiras diferenças visíveis. Semana 8: resultados medidos. Semana 12: nova referência para o teu corpo."
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TECHBODY U ── -->
+    <div style="margin-top:72px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:32px">
+        <div style="width:3px;height:36px;background:#c4a97c;border-radius:2px;flex-shrink:0"></div>
+        <div>
+          <div style="font:700 20px/1.1 'Inter',sans-serif;color:#c4a97c">TechBody U</div>
+          <div style="font:400 11px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,0.3);margin-top:4px;letter-spacing:0.06em">@techbody_u · Dispositivo WB-EMS para treino em casa</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
+
+        <!-- Gravado 1 -->
+        <div style="background:rgba(196,169,124,0.05);border:1px solid rgba(196,169,124,0.18);border-radius:12px;overflow:hidden">
+          <div style="padding:16px 20px;border-bottom:1px solid rgba(196,169,124,0.12);display:flex;align-items:center;gap:8px">
+            <div style="font:600 9px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;background:rgba(196,169,124,0.15);color:#c4a97c;padding:4px 8px;border-radius:2px">Gravado · Reel 30s</div>
+            <div style="font:500 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.55)">Vídeo Gravado 01</div>
+          </div>
+          <div style="padding:20px">
+            <div style="font:700 15px/1.3 'Inter',sans-serif;margin-bottom:10px;letter-spacing:-0.01em">"Sessão TechBody U em casa — tempo real"</div>
+            <div style="font:400 12px/1.6 'Inter',sans-serif;color:rgba(255,255,255,0.4);margin-bottom:16px">Membro da equipa ou utilizador real faz 20 minutos com o dispositivo em casa. Câmara mostra o ambiente doméstico — não perfeito, real. Temporizador visível no écran. Sem discurso.</div>
+            <div style="font:600 10px/1 'JetBrains Mono',monospace;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:12px">Sequência</div>
+            <div style="font:400 12.5px/1.75 'Inter',sans-serif;color:rgba(255,255,255,0.55);background:rgba(0,0,0,0.2);border-radius:6px;padding:14px;border-left:2px solid rgba(196,169,124,0.3)">
+              <em style="color:#c4a97c">[0–5s]</em> Acordar, beber água, vestir o dispositivo em 3 movimentos.<br>
+              <em style="color:#c4a97c">[5–15s]</em> App aberta, protocolo seleccionado, temporizador a 20min. Sessão começa.<br>
+              <em style="color:#c4a97c">[15–25s]</em> Acelerado: 20 minutos condensados em 10 segundos. App mostra resultado.<br>
+              <em style="color:#c4a97c">[25–30s]</em> Texto: "20 minutos. Feito. O resto do dia é teu."<br>
+              <em style="color:#c4a97c">Comenta:</em> "<span style="color:#a78bfa">CASA</span> para saberes como funciona em casa"
+            </div>
+          </div>
+        </div>
+
+        <!-- Gravado 2 -->
+        <div style="background:rgba(196,169,124,0.05);border:1px solid rgba(196,169,124,0.18);border-radius:12px;overflow:hidden">
+          <div style="padding:16px 20px;border-bottom:1px solid rgba(196,169,124,0.12);display:flex;align-items:center;gap:8px">
+            <div style="font:600 9px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;background:rgba(196,169,124,0.15);color:#c4a97c;padding:4px 8px;border-radius:2px">Gravado · Reel 60s</div>
+            <div style="font:500 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.55)">Vídeo Gravado 02</div>
+          </div>
+          <div style="padding:20px">
+            <div style="font:700 15px/1.3 'Inter',sans-serif;margin-bottom:10px;letter-spacing:-0.01em">"Resposta às 3 dúvidas mais comuns"</div>
+            <div style="font:400 12px/1.6 'Inter',sans-serif;color:rgba(255,255,255,0.4);margin-bottom:16px">Membro da equipa responde em directo às dúvidas que chegam nos comentários e DMs. Formato de perguntas e respostas rápido, sem apresentação formal. Proximidade máxima.</div>
+            <div style="font:600 10px/1 'JetBrains Mono',monospace;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:12px">Guião de Perguntas e Respostas</div>
+            <div style="font:400 12.5px/1.75 'Inter',sans-serif;color:rgba(255,255,255,0.55);background:rgba(0,0,0,0.2);border-radius:6px;padding:14px;border-left:2px solid rgba(196,169,124,0.3)">
+              <em style="color:#c4a97c">[0–5s]</em> "Respondi às vossas dúvidas sobre o TechBody U."<br>
+              <em style="color:#c4a97c">[5–25s]</em> Q1: "É seguro?" R: "Sim. A tecnologia WB-EMS tem 50 anos de uso clínico. O TechBody U foi desenvolvido com os mesmos protocolos de segurança usados em estúdio."<br>
+              <em style="color:#c4a97c">[25–42s]</em> Q2: "Quanto tempo demora a ver resultados?" R: "4 a 6 semanas para composição corporal. Força e bem-estar, em geral, nas primeiras 2 semanas."<br>
+              <em style="color:#c4a97c">[42–58s]</em> Q3: "Posso usar todos os dias?" R: "Não — e é isso que o torna eficaz. 1 a 3 vezes por semana, com descanso entre sessões. O músculo cresce no período de recuperação."<br>
+              <em style="color:#c4a97c">[58–60s]</em> "Tens mais dúvidas? Comenta <span style="color:#a78bfa">DÚVIDA</span>."
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        <!-- IA 1 -->
+        <div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden">
+          <div style="padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px">
+            <div style="font:600 9px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;background:rgba(167,139,250,0.12);color:#a78bfa;padding:4px 8px;border-radius:2px">100% IA · Reel 15s</div>
+            <div style="font:500 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.55)">Vídeo IA 01</div>
+          </div>
+          <div style="padding:20px">
+            <div style="font:700 15px/1.3 'Inter',sans-serif;margin-bottom:10px;letter-spacing:-0.01em">"O dispositivo em casa — abertura de embalagem cinematográfica"</div>
+            <div style="font:400 12px/1.6 'Inter',sans-serif;color:rgba(255,255,255,0.4);margin-bottom:16px">Vídeo de produto gerado por IA. Close-ups do dispositivo TechBody U, materiais, app. Luz natural quente. Sem mãos — o produto apresenta-se.</div>
+            <div style="font:400 12.5px/1.75 'Inter',sans-serif;color:rgba(255,255,255,0.55);background:rgba(0,0,0,0.2);border-radius:6px;padding:14px;border-left:2px solid rgba(167,139,250,0.3)">
+              <em style="color:#a78bfa">Prompt visual:</em> Vídeo de produto lento e cinematográfico. Dispositivo TechBody U numa superfície branca minimalista. Luz natural quente vinda da esquerda. Detalhes macro: textura do tecido, conectores, brilho do ecrã da aplicação. Estética editorial, sem pessoas.<br><br>
+              <em style="color:#a78bfa">Texto no ecrã:</em> "TechBody U. O estúdio dentro de casa."
+            </div>
+          </div>
+        </div>
+
+        <!-- IA 2 -->
+        <div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden">
+          <div style="padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px">
+            <div style="font:600 9px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;background:rgba(167,139,250,0.12);color:#a78bfa;padding:4px 8px;border-radius:2px">100% IA · Reel 30s</div>
+            <div style="font:500 12px/1 'Inter',sans-serif;color:rgba(255,255,255,0.55)">Vídeo IA 02</div>
+          </div>
+          <div style="padding:20px">
+            <div style="font:700 15px/1.3 'Inter',sans-serif;margin-bottom:10px;letter-spacing:-0.01em">"O que o WB-EMS sente vs parece — visualização"</div>
+            <div style="font:400 12px/1.6 'Inter',sans-serif;color:rgba(255,255,255,0.4);margin-bottom:16px">Vídeo de animação abstracta que comunica sensação de electrofitness. Ondas de energia percorrem silhueta humana. Visual poético — não técnico. Para audiência de topo de funil.</div>
+            <div style="font:400 12.5px/1.75 'Inter',sans-serif;color:rgba(255,255,255,0.55);background:rgba(0,0,0,0.2);border-radius:6px;padding:14px;border-left:2px solid rgba(167,139,250,0.3)">
+              <em style="color:#a78bfa">Visual:</em> Silhueta humana em fundo escuro. Ondas de luz dourada percorrem o corpo, camada a camada. Ritmo de batimento cardíaco. Texto aparece: "20 minutos. 85% do músculo activado."<br><br>
+              <em style="color:#a78bfa">Voz off:</em> "Não se vê. Sente-se. E os resultados aparecem."
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>Lucca Gontijo · 2026 · Confidencial · Para uso interno</p>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('is-visible');
+      let i = 0;
+      e.target.querySelectorAll('.stagger-child').forEach(c => {
+        setTimeout(() => c.classList.add('is-visible'), i++ * 90);
+      });
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.07 });
+
+  document.querySelectorAll('section').forEach(el => {
+    if (!el.classList.contains('hero')) {
+      el.classList.add('fade-in-section');
+    }
+    io.observe(el);
+  });
+</script>
+
+</body>
+</html>
