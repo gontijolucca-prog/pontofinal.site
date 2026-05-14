@@ -163,7 +163,7 @@ export default function Home() {
 
                 <div className="pricing-grid" style={{marginBottom: '6rem'}}>
                     {customPlan && (
-                        <div className="brutal-card pricing-card featured-pricing" style={{ position: 'relative', gridColumn: '2' }}>
+                        <div className="brutal-card pricing-card featured-pricing custom-plan-card" style={{ position: 'relative' }}>
                             <button 
                                 onClick={() => setCustomPlan(null)} 
                                 style={{ 
@@ -286,10 +286,9 @@ export default function Home() {
               </div>
               
               <div className="pricing-grid">
-                  {/* Website - Bronze */}
-                  <div className="brutal-card pricing-card">
-                      <div className="pricing-header">
-                          <h3>Bronze</h3>
+                   <div className="brutal-card pricing-card">
+                       <div className="pricing-header">
+                           <h3>Bronze</h3>
                           <div className="price anchored-price">
                               <div className="new-price" style={{fontSize: '2rem'}}>
                                   <span>200€ (Arranque)</span>

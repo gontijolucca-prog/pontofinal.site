@@ -34,7 +34,7 @@ html {
 }
 
 body {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Arial Black', 'Impact', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: var(--color-text);
     background-color: var(--color-bg);
     line-height: 1.5;
@@ -374,6 +374,16 @@ a {
     margin-top: 4rem;
 }
 
+/* Pricing Section */
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+    align-items: stretch;
+    justify-content: center;
+}
+
 /* Why Us Section */
 .why-us .section-title {
     font-size: clamp(2rem, 5vw, 3.5rem);
@@ -688,6 +698,25 @@ a {
     border-bottom: none;
 }
 
+/* Custom plan card grid placement */
+.custom-plan-card {
+    grid-column: span 1;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .custom-plan-card {
+        grid-column: 1 / -1;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 1025px) {
+    .custom-plan-card {
+        grid-column: 2;
+    }
+}
+
 .maintenance-card {
     background-color: #f0f0f0;
     background-image: repeating-linear-gradient(45deg, #e5e5e5 25%, transparent 25%, transparent 75%, #e5e5e5 75%, #e5e5e5), repeating-linear-gradient(45deg, #e5e5e5 25%, var(--color-light) 25%, var(--color-light) 75%, #e5e5e5 75%, #e5e5e5);
@@ -808,7 +837,10 @@ a {
 /* Responsive - Tablet */
 @media (max-width: 1024px) {
     .grid-3 { grid-template-columns: repeat(2, 1fr); }
-    .pricing-grid { grid-template-columns: 1fr 1fr; }
+    .pricing-grid {
+        grid-template-columns: repeat(2, minmax(0, 400px));
+        justify-content: center;
+    }
     .featured-pricing { transform: none; }
     .featured-pricing:hover { transform: translate(-4px, -4px); }
     
@@ -1056,6 +1088,16 @@ a {
     font-size: 1.1rem;
     font-weight: 500;
     box-shadow: var(--shadow-solid-small);
+}
+
+/* Section headings alignment */
+#planos-conteudo,
+#planos-websites {
+    text-align: center;
+    max-width: var(--container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 2rem;
 }
 
 @media (max-width: 900px) {
