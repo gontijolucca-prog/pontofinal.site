@@ -1,7 +1,7 @@
 // approval-store.js — localStorage adapter for item approval state.
 // Schema: { [itemId]: { status: 'pending'|'approved'|'rejected', note: '', updatedAt: ISOString } }
 
-const KEY = 'cm-approval-v1';
+const KEY = 'cm-approval-tb-v1';
 
 function read() {
   try {
