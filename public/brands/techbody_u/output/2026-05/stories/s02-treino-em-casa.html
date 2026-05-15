@@ -19,11 +19,11 @@ html, body { height: 100%; background: #0a0a0c; color: var(--text); font-family:
 /* Single story = full 9:16 poster, no scrolling, fits Instagram story 1080×1920 */
 .story-single {
   position: relative;
-  width: 100vw;
-  height: 100vh;
+  /* Force 9:16 box even when the viewport itself is wider/shorter. */
+  width: min(100vw, calc(100vh * 9 / 16));
+  height: min(100vh, calc(100vw * 16 / 9));
   aspect-ratio: 9 / 16;
   margin: 0 auto;
-  max-height: 100vh;
   background: var(--bg);
   color: var(--text);
   display: grid;

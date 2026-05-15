@@ -409,6 +409,12 @@
   aspect-ratio: 4 / 5;
   max-width: calc(96vw - 400px);
 }
+/* Stories + reels are 9:16 not 4:5 — switch the frame ratio when the modal
+   carries data-format="story" or "reel". */
+.viewer-modal[data-format="story"] .viewer-frame-wrap,
+.viewer-modal[data-format="reel"]  .viewer-frame-wrap {
+  aspect-ratio: 9 / 16;
+}
 .viewer-frame-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
 .viewer-close {
   position: absolute;

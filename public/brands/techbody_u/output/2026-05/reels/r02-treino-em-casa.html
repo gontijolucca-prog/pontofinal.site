@@ -26,9 +26,9 @@ html, body {
 }
 .reel {
   position: relative;
-  width: 100vw;
-  height: 100vh;
-  max-height: 100vh;
+  /* Force a 9:16 box even when the viewport is not 9:16 (e.g. desktop preview). */
+  width: min(100vw, calc(100vh * 9 / 16));
+  height: min(100vh, calc(100vw * 16 / 9));
   aspect-ratio: 9 / 16;
   margin: 0 auto;
   background: var(--bg);

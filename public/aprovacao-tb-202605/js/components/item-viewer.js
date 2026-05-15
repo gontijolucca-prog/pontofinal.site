@@ -72,7 +72,7 @@ class ItemViewer extends HTMLElement {
     ` : "";
 
     this.innerHTML = `
-      <div class="viewer-modal" role="dialog" aria-modal="true" aria-label="${it.title || it.theme}">
+      <div class="viewer-modal" data-format="${it.format}" role="dialog" aria-modal="true" aria-label="${it.title || it.theme}">
         <div class="viewer-frame-wrap">
           ${it.html_url ? `<iframe src="${it.html_url}${isCarousel ? "#slide-1" : ""}" title="${it.title}"></iframe>` : ``}
           ${navHtml}
