@@ -84,11 +84,51 @@ function updateCounts() {
   els.pendingCount().textContent  = String(total - (counts.approved || 0) - (counts.rejected || 0));
 }
 
+function manageLoader() {
+  const loader = document.getElementById("loader");
+  const fill   = document.getElementById("loaderFill");
+  const hint   = document.getElementById("loaderHint");
+  if (!loader) return;
+
+  // Catch every iframe that gets rendered into the DOM.
+  const iframes = Array.from(document.querySelectorAll("iframe"));
+  const total = iframes.length;
+  let done = 0;
+
+  const update = () => {
+    const pct = total === 0 ? 1 : done / total;
+    fill.style.transform = `scaleX(${pct})`;
+    hint.textContent = `${done} / ${total}`;
+    if (done >= total) {
+      // Tiny delay so the user sees the bar reach the end.
+      setTimeout(() => loader.setAttribute("aria-hidden", "true"), 150);
+    }
+  };
+
+  if (total === 0) { update(); return; }
+  update();
+
+  iframes.forEach((f) => {
+    const tick = () => { done += 1; update(); };
+    if (f.contentDocument && f.contentDocument.readyState === "complete") {
+      tick();
+    } else {
+      f.addEventListener("load",  tick, { once: true });
+      f.addEventListener("error", tick, { once: true });
+    }
+  });
+
+  // Hard cap — never block the user longer than 10s even if some iframe never resolves.
+  setTimeout(() => loader.setAttribute("aria-hidden", "true"), 10000);
+}
+
 async function init() {
   state.items = await loadItems();
   bindOpen();
   window.addEventListener("approval:changed", updateCounts);
   render();
+  // Wait one frame for the components to mount their iframes, then watch them.
+  requestAnimationFrame(() => requestAnimationFrame(manageLoader));
 }
 
 init();

@@ -41,10 +41,13 @@ class PostTile extends HTMLElement {
     const it = this._item;
     if (!it) return;
 
+    const pngUrl = (it.html_url || "").replace(/\.html$/, ".png");
+
     this.innerHTML = `
       <article class="tile" data-item-id="${it.id}">
         <span class="tile__label">Story · ${BRAND_LABELS[it.brand]?.toUpperCase() || it.brand}</span>
         <iframe src="${it.html_url}" loading="eager" tabindex="-1" onload="this.classList.add('is-loaded')"></iframe>
+        <a class="tile__download" href="${pngUrl}" download="${it.id}.png" title="Descarregar PNG 1080×1920" aria-label="Descarregar story">⤓</a>
         <div class="tile__caption">
           <strong>${it.title || it.theme}</strong>
           <span>${it.scheduled_for || ""} · ${it.hour || ""}</span>
@@ -52,7 +55,9 @@ class PostTile extends HTMLElement {
       </article>
     `;
 
-    this.querySelector(".tile").addEventListener("click", () => {
+    this.querySelector(".tile").addEventListener("click", (e) => {
+      // Don't open viewer when clicking the download icon.
+      if (e.target.closest(".tile__download")) return;
       this.dispatchEvent(new CustomEvent("item:open", { bubbles: true, detail: { id: it.id } }));
     });
   }
