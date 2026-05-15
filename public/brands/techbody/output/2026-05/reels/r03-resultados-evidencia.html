@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="pt-PT"><head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Doze semanas no método TechBody.</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,400;0,800;1,200;1,400;1,800&family=Manrope:wght@200;400;500;700;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+
+:root {
+  --bg: #1a1a1a;
+  --accent: #d4773b;
+  --text: #ffffff;
+  --mute: color-mix(in srgb, var(--text) 55%, transparent);
+  --line: color-mix(in srgb, var(--text) 12%, transparent);
+  --font-display: 'Manrope', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%;
+  background: #050507;
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+.reel {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  aspect-ratio: 9 / 16;
+  margin: 0 auto;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+.reel__brand {
+  position: absolute; top: clamp(20px, 3.4vw, 38px);
+  left: clamp(20px, 3.4vw, 38px);
+  z-index: 10;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-style: normal;
+  font-size: clamp(18px, 2.2vw, 26px);
+  letter-spacing: -0.015em;
+  color: var(--accent);
+}
+.reel__progress {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: rgba(255,255,255,0.06);
+  z-index: 11;
+}
+.reel__progress::before {
+  content: ""; position: absolute; inset: 0;
+  background: var(--accent);
+  transform-origin: left center;
+  animation: reel-progress 30s linear infinite;
+}
+@keyframes reel-progress {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+
+        .stage {
+          position: absolute; inset: 0;
+          display: grid; gap: clamp(22px, 3vw, 32px);
+          padding: 120px 48px 80px;
+          grid-template-rows: auto 1fr auto auto auto;
+          align-content: start;
+        }
+        .label {
+          font-family: var(--font-mono); font-size: 12px;
+          letter-spacing: 0.3em; text-transform: uppercase;
+          color: var(--mute);
+        }
+        .grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: clamp(8px, 1.4vw, 16px);
+        }
+        .wk {
+          display: grid; place-items: center; gap: 6px;
+          padding: 12px 4px;
+          border: 1px solid var(--line);
+          opacity: 0.15;
+        }
+        .wk__num {
+          font-family: var(--font-display); font-weight: 200;
+          font-size: clamp(20px, 2.4vw, 28px);
+          letter-spacing: -0.04em;
+        }
+        .wk__dot {
+          width: 6px; height: 6px; border-radius: 50%;
+          background: var(--accent);
+        }
+        @keyframes wkfade1 { 0%, 0% { opacity: 0.15; transform: scale(0.9); } 3%, 65% { opacity: 1; transform: scale(1); } 100% { opacity: 1; transform: scale(1); } }
+.wk1 { animation: wkfade1 30s ease infinite; }
+@keyframes wkfade2 { 0%, 5% { opacity: 0.15; transform: scale(0.9); } 8%, 65% { opacity: 1; transform: scale(1); } 100% { opacity: 1; transform: scale(1); } }
+.wk2 { animation: wkfade2 30s ease infinite; }
+@keyframes wkfade3 { 0%, 10% { opacity: 0.15; transform: scale(0.9); } 13%, 65% { opacity: 1; transform: scale(1); } 100% { opacity: 1; transform: scale(1); } }
+.wk3 { animation: wkfade3 30s ease infinite; }
+@keyframes wkfade4 { 0%, 15% { opacity: 0.15; transform: scale(0.9); } 18%, 65% { opacity: 1; transform: scale(1); } 100% { opacity: 1; transform: scale(1); } }
+.wk4 { animation: wkfade4 30s ease infinite; }
+@keyframes wkfade5 { 0%, 20% { opacity: 0.15; transform: scale(0.9); } 23%, 65% { opacity: 1; transform: scale(1); } 100% { opacity: 1; transform: scale(1); } }
+.wk5 { animation: wkfade5 30s ease infinite; }
+@keyframes wkfade6 { 0%, 25% { opacity: 0.15; transform: scale(0.9); } 28%, 65% { opacity: 1; transform: scale(1); } 100% { opacity: 1; transform: scale(1); } }
+.wk6 { animation: wkfade6 30s ease infinite; }
+@keyframes wkfade7 { 0%, 30% { opacity: 0.15; transform: scale(0.9); } 33%, 65% { opacity: 1; transform: scale(1); } 100% { opacity: 1; transform: scale(1); } }
+.wk7 { animation: wkfade7 30s ease infinite; }
+@keyframes wkfade8 { 0%, 35% { opacity: 0.15; transform: scale(0.9); } 38%, 65% { opacity: 1; transform: scale(1); } 100% { opacity: 1; transform: scale(1); } }
+.wk8 { animation: wkfade8 30s ease infinite; }
+@keyframes wkfade9 { 0%, 40% { opacity: 0.15; transform: scale(0.9); } 43%, 65% { opacity: 1; transform: scale(1); } 100% { opacity: 1; transform: scale(1); } }
+.wk9 { animation: wkfade9 30s ease infinite; }
+@keyframes wkfade10 { 0%, 45% { opacity: 0.15; transform: scale(0.9); } 48%, 65% { opacity: 1; transform: scale(1); } 100% { opacity: 1; transform: scale(1); } }
+.wk10 { animation: wkfade10 30s ease infinite; }
+@keyframes wkfade11 { 0%, 50% { opacity: 0.15; transform: scale(0.9); } 53%, 65% { opacity: 1; transform: scale(1); } 100% { opacity: 1; transform: scale(1); } }
+.wk11 { animation: wkfade11 30s ease infinite; }
+@keyframes wkfade12 { 0%, 55% { opacity: 0.15; transform: scale(0.9); } 58%, 65% { opacity: 1; transform: scale(1); } 100% { opacity: 1; transform: scale(1); } }
+.wk12 { animation: wkfade12 30s ease infinite; }
+        .captions {
+          display: grid; gap: 6px;
+          padding-top: 14px; border-top: 1px solid var(--line);
+        }
+        .cap {
+          display: flex; justify-content: space-between; align-items: baseline;
+          opacity: 0;
+        }
+        .cap__metric {
+          font-family: var(--font-display); font-weight: 200;
+          font-size: clamp(40px, 6vw, 64px); line-height: 0.9;
+          letter-spacing: -0.04em; color: var(--accent);
+        }
+        .cap__name {
+          font-family: var(--font-mono); font-size: 11px;
+          letter-spacing: 0.22em; text-transform: uppercase;
+          color: var(--mute);
+        }
+        .cap1 { animation: capfade 30s ease infinite; animation-delay: 6s; }
+        .cap2 { animation: capfade 30s ease infinite; animation-delay: 11s; }
+        .cap3 { animation: capfade 30s ease infinite; animation-delay: 16s; }
+        @keyframes capfade {
+          0% { opacity: 0; transform: translateX(-8px); }
+          5%, 70% { opacity: 1; transform: translateX(0); }
+          85% { opacity: 1; }
+          100% { opacity: 0; }
+        }
+        .kicker {
+          font-family: var(--font-display); font-weight: 500;
+          font-size: clamp(22px, 3vw, 32px); line-height: 1.18;
+          letter-spacing: -0.02em; max-width: 22ch;
+          opacity: 0;
+          animation: kicker 30s ease infinite;
+          animation-delay: 22s;
+        }
+        @keyframes kicker {
+          0% { opacity: 0; transform: translateY(8px); }
+          15% { opacity: 1; transform: translateY(0); }
+          90% { opacity: 1; }
+          100% { opacity: 0; }
+        }
+        .cta {
+          font-family: var(--font-mono); font-size: 12px;
+          letter-spacing: 0.24em; text-transform: uppercase;
+          color: var(--mute); padding-top: 18px;
+          border-top: 1px solid var(--line);
+          text-align: center;
+        }
+
+</style></head>
+<body>
+<section class="reel" aria-label="Reel TechBody — Doze semanas no método TechBody.">
+  <div class="reel__progress"></div>
+  <span class="reel__brand">TechBody</span>
+
+<div class="stage">
+  <span class="label">DOZE SEMANAS · MÉTODO TECHBODY</span>
+  <div class="grid">
+    <span class="wk wk1"><span class="wk__num">01</span><span class="wk__dot"></span></span><span class="wk wk2"><span class="wk__num">02</span><span class="wk__dot"></span></span><span class="wk wk3"><span class="wk__num">03</span><span class="wk__dot"></span></span><span class="wk wk4"><span class="wk__num">04</span><span class="wk__dot"></span></span><span class="wk wk5"><span class="wk__num">05</span><span class="wk__dot"></span></span><span class="wk wk6"><span class="wk__num">06</span><span class="wk__dot"></span></span><span class="wk wk7"><span class="wk__num">07</span><span class="wk__dot"></span></span><span class="wk wk8"><span class="wk__num">08</span><span class="wk__dot"></span></span><span class="wk wk9"><span class="wk__num">09</span><span class="wk__dot"></span></span><span class="wk wk10"><span class="wk__num">10</span><span class="wk__dot"></span></span><span class="wk wk11"><span class="wk__num">11</span><span class="wk__dot"></span></span><span class="wk wk12"><span class="wk__num">12</span><span class="wk__dot"></span></span>
+  </div>
+  <div class="captions">
+    <div class="cap cap1"><span class="cap__metric">+24%</span><span class="cap__name">FORÇA APLICADA</span></div>
+    <div class="cap cap2"><span class="cap__metric">+31%</span><span class="cap__name">ENERGIA NA ROTINA</span></div>
+    <div class="cap cap3"><span class="cap__metric">+18%</span><span class="cap__name">MOBILIDADE</span></div>
+  </div>
+  <h2 class="kicker">Método. Não é mágica.</h2>
+  <span class="cta">Inicia a tua avaliação →</span>
+</div>
+
+</section>
+</body></html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Aprovação · Conteúdo Maio 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles/reset.css" />
+<link rel="stylesheet" href="styles/tokens.css" />
+<link rel="stylesheet" href="styles/components.css" />
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar para conteúdo</a>
+
+<header class="app-header">
+  <div class="logo">TechBody_</div>
+  <div class="header-meta">
+    <span>Aprovação de conteúdo</span>
+    <span>·</span>
+    <span>Maio 2026</span>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- CALENDÁRIO -->
+  <section class="section">
+    <div class="section__heading">
+      <h2>Calendário</h2>
+      <span class="count" id="totalCount">0</span>
+      <span class="section__hint">Toda a publicação agendada deste mês</span>
+    </div>
+    <month-calendar id="calendar"></month-calendar>
+  </section>
+
+  <!-- CARROSSÉIS — LIST -->
+  <section class="section" id="carrosseisSection">
+    <div class="section__heading">
+      <h2>Carrosséis</h2>
+      <span class="count" id="carrosseisCount">0</span>
+      <span class="section__hint">Cada bloco mostra os 6 slides do carrossel</span>
+    </div>
+    <div id="carrosseisList"></div>
+  </section>
+
+  <!-- POSTS — GALLERY 9:16 -->
+  <section class="section" id="postsSection">
+    <div class="section__heading">
+      <h2>Stories</h2>
+      <span class="count" id="postsCount">0</span>
+      <span class="section__hint">Stories Instagram · 9:16</span>
+    </div>
+    <div class="gallery" id="postsGallery"></div>
+  </section>
+
+
+  <!-- REELS — GALLERY 9:16 -->
+  <section class="section" id="reelsSection">
+    <div class="section__heading">
+      <h2>Reels</h2>
+      <span class="count" id="reelsCount">0</span>
+      <span class="section__hint">Vídeos verticais · 9:16 motion graphics</span>
+    </div>
+    <div class="gallery" id="reelsGallery"></div>
+  </section>
+
+</main>
+
+<item-viewer id="viewer" aria-hidden="true"></item-viewer>
+
+<footer class="app-footer">
+  <span>Estado guardado localmente</span>
+  <span>
+    Aprovados <strong id="approvedCount">0</strong>
+    · Rejeitados <strong id="rejectedCount">0</strong>
+    · Pendentes <strong id="pendingCount">0</strong>
+  </span>
+</footer>
+
+<script type="module" src="js/components/month-calendar.js"></script>
+<script type="module" src="js/components/carrossel-row.js"></script>
+<script type="module" src="js/components/post-tile.js"></script>
+<script type="module" src="js/components/reel-tile.js"></script>
+<script type="module" src="js/components/item-viewer.js"></script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

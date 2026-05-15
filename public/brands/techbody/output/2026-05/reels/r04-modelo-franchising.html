@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="pt-PT"><head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>30 metros quadrados. Linha de receita nova.</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,400;0,800;1,200;1,400;1,800&family=Manrope:wght@200;400;500;700;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+
+:root {
+  --bg: #1a1a1a;
+  --accent: #d4773b;
+  --text: #ffffff;
+  --mute: color-mix(in srgb, var(--text) 55%, transparent);
+  --line: color-mix(in srgb, var(--text) 12%, transparent);
+  --font-display: 'Manrope', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%;
+  background: #050507;
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+.reel {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  aspect-ratio: 9 / 16;
+  margin: 0 auto;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+.reel__brand {
+  position: absolute; top: clamp(20px, 3.4vw, 38px);
+  left: clamp(20px, 3.4vw, 38px);
+  z-index: 10;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-style: normal;
+  font-size: clamp(18px, 2.2vw, 26px);
+  letter-spacing: -0.015em;
+  color: var(--accent);
+}
+.reel__progress {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: rgba(255,255,255,0.06);
+  z-index: 11;
+}
+.reel__progress::before {
+  content: ""; position: absolute; inset: 0;
+  background: var(--accent);
+  transform-origin: left center;
+  animation: reel-progress 30s linear infinite;
+}
+@keyframes reel-progress {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+
+.stage {
+  position: absolute; inset: 0;
+  display: grid; gap: clamp(18px, 2.6vw, 26px);
+  padding: 120px 48px 80px;
+  grid-template-rows: auto 1fr auto auto auto;
+  align-content: start;
+}
+.label {
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--mute);
+}
+.plan {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  max-height: 38vh;
+  margin: 0 auto;
+  width: min(86%, 480px);
+  background: rgba(255,255,255,0.03);
+  border: 1px dashed var(--line);
+}
+.plan__outline {
+  position: absolute; inset: 18%;
+  border: 2px solid var(--accent);
+  animation: planscale 30s ease infinite;
+  transform-origin: center;
+}
+@keyframes planscale {
+  0% { transform: scale(0.4); opacity: 0; }
+  12% { transform: scale(1); opacity: 1; }
+  90% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.plan__inner {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  gap: 6px;
+  font-family: var(--font-display); font-weight: 200;
+  letter-spacing: -0.05em;
+  opacity: 0;
+  animation: planfade 30s ease infinite;
+  animation-delay: 2s;
+}
+.plan__num { font-size: clamp(96px, 18vw, 180px); color: var(--accent); }
+.plan__unit { font-size: clamp(28px, 4vw, 42px); color: var(--text); margin-bottom: 6px; }
+@keyframes planfade {
+  0% { opacity: 0; }
+  15%, 80% { opacity: 1; }
+  90% { opacity: 0; }
+  100% { opacity: 0; }
+}
+.plan__dot {
+  position: absolute;
+  width: 10px; height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0;
+}
+.plan__dot--1 { top: 22%; left: 22%; animation: dot 30s ease infinite; animation-delay: 6s; }
+.plan__dot--2 { top: 22%; right: 22%; animation: dot 30s ease infinite; animation-delay: 7s; }
+.plan__dot--3 { bottom: 22%; left: 22%; animation: dot 30s ease infinite; animation-delay: 8s; }
+.plan__dot--4 { bottom: 22%; right: 22%; animation: dot 30s ease infinite; animation-delay: 9s; }
+@keyframes dot { 0% { opacity: 0; transform: scale(0); } 30% { opacity: 1; transform: scale(1); } 90% { opacity: 1; } 100% { opacity: 0; } }
+.legend { display: grid; gap: 8px; padding-top: 14px; border-top: 1px solid var(--line); }
+.lg { display: flex; gap: 14px; align-items: baseline; opacity: 0; }
+.lg__name {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--accent); min-width: 11ch;
+}
+.lg__t { font-family: var(--font-display); font-weight: 500; font-size: clamp(13px, 1.6vw, 18px); }
+.lg1 { animation: lgfade 30s ease infinite; animation-delay: 11s; }
+.lg2 { animation: lgfade 30s ease infinite; animation-delay: 14s; }
+.lg3 { animation: lgfade 30s ease infinite; animation-delay: 17s; }
+@keyframes lgfade { 0% { opacity: 0; transform: translateX(-6px); } 8% { opacity: 1; transform: translateX(0); } 80% { opacity: 1; } 100% { opacity: 0; } }
+.kicker {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(22px, 3vw, 32px); line-height: 1.15;
+  max-width: 22ch; opacity: 0;
+  animation: kfade 30s ease infinite;
+  animation-delay: 22s;
+}
+@keyframes kfade { 0% { opacity: 0; } 15% { opacity: 1; } 90% { opacity: 1; } 100% { opacity: 0; } }
+.cta {
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--mute); padding-top: 16px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+</style></head>
+<body>
+<section class="reel" aria-label="Reel TechBody — 30 metros quadrados. Linha de receita nova.">
+  <div class="reel__progress"></div>
+  <span class="reel__brand">TechBody</span>
+
+<div class="stage">
+  <span class="label">FRANCHISING TECHBODY</span>
+  <div class="plan">
+    <div class="plan__outline"></div>
+    <div class="plan__inner"><span class="plan__num">30</span><span class="plan__unit">m²</span></div>
+    <span class="plan__dot plan__dot--1"></span>
+    <span class="plan__dot plan__dot--2"></span>
+    <span class="plan__dot plan__dot--3"></span>
+    <span class="plan__dot plan__dot--4"></span>
+  </div>
+  <div class="legend">
+    <div class="lg lg1"><span class="lg__name">EQUIPAMENTO</span><span class="lg__t">Fato EMS · Dispositivo · Setup</span></div>
+    <div class="lg lg2"><span class="lg__name">FORMAÇÃO</span><span class="lg__t">Treinador certificado em 4 semanas</span></div>
+    <div class="lg lg3"><span class="lg__name">RECEITA</span><span class="lg__t">Ticket médio superior ao convencional</span></div>
+  </div>
+  <h2 class="kicker">Nova linha de receita. Operacional em 60 dias.</h2>
+  <span class="cta">Agenda reunião →</span>
+</div>
+
+</section>
+</body></html>

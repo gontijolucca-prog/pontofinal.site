@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TechBody U · resultados_evidencia · story</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@200;400;800;900&family=Fraunces:ital,wght@0,200;0,400;0,800;1,200;1,400;1,800&family=Manrope:wght@200;400;500;700&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #F2EDE4;
+  --primary: #14160F;
+  --accent: #C36F49;
+  --text: #14160F;
+  --line: rgba(255,255,255,0.10);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: #0a0a0c; color: var(--text); font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; }
+
+/* Single story = full 9:16 poster, no scrolling, fits Instagram story 1080×1920 */
+.story-single {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  aspect-ratio: 9 / 16;
+  margin: 0 auto;
+  max-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: clamp(40px, 6vw, 84px);
+  overflow: hidden;
+  font-family: 'Manrope', sans-serif;
+}
+
+/* Atmospheric backdrop */
+.story-single::before {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(255,255,255,0.05), transparent 38%),
+    radial-gradient(circle at 88% 92%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 42%);
+  pointer-events: none;
+}
+
+.bg-photo {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  z-index: 0;
+}
+.bg-photo::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--bg) 35%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 78%, transparent) 60%,
+    var(--bg) 100%);
+}
+
+.story-single__top,
+.story-single__body,
+.story-single__bottom { position: relative; z-index: 2; }
+
+.story-single__top {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: color-mix(in srgb, var(--text) 65%, transparent);
+}
+.story-single__top .brand {
+  font-family: 'Manrope', sans-serif; font-weight: 700;
+  font-size: clamp(16px, 1.9vw, 20px);
+  letter-spacing: -0.01em;
+  color: var(--accent);
+  text-transform: none;
+}
+
+.story-single__body {
+  display: grid; align-content: center; gap: clamp(18px, 3vw, 32px);
+  max-width: 24ch;
+}
+
+/* Headline variants — clean Manrope for dark brand; italic Fraunces stays for soft brand */
+.story-single--type h1 {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: clamp(40px, 8vw, 110px);
+  line-height: 1.04; letter-spacing: -0.028em;
+  text-transform: none;
+}
+
+.story-single--type-soft h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 200; font-style: italic;
+  font-size: clamp(44px, 9.4vw, 132px);
+  line-height: 0.96; letter-spacing: -0.025em;
+  max-width: 16ch;
+}
+.story-single--type-soft h1 em { color: var(--accent); font-style: italic; font-weight: 800; }
+
+.story-single--num .num {
+  font-family: 'Fraunces', serif;
+  font-weight: 800;
+  font-style: italic;
+  font-size: clamp(160px, 32vw, 320px);
+  line-height: 0.86; letter-spacing: -0.06em;
+  color: var(--accent);
+}
+.story-single--num h1 {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: clamp(22px, 3.2vw, 38px);
+  line-height: 1.15; letter-spacing: -0.018em;
+  text-transform: none;
+  max-width: 22ch;
+}
+.story-single--num-soft .num {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 800;
+  color: var(--accent);
+}
+.story-single--num-soft h1 {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 400;
+  text-transform: none;
+  letter-spacing: -0.02em;
+}
+
+.story-single--quote blockquote {
+  font-family: 'Fraunces', serif; font-style: italic;
+  font-weight: 200;
+  font-size: clamp(34px, 6.4vw, 78px);
+  line-height: 1.12; letter-spacing: -0.022em;
+  color: var(--text);
+  max-width: 18ch;
+}
+.story-single--quote::before {
+  content: "";
+  position: absolute; left: clamp(40px, 6vw, 84px); top: 38%;
+  width: 4px; height: 24vh; background: var(--accent);
+  z-index: 1;
+}
+.story-single--quote .story-single__body { padding-left: clamp(20px, 3vw, 36px); }
+.story-single--quote cite {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: 0.22em; text-transform: uppercase; font-style: normal;
+  color: color-mix(in srgb, var(--text) 60%, transparent);
+}
+
+.story-single__bottom {
+  display: flex; justify-content: space-between; align-items: end;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: color-mix(in srgb, var(--text) 55%, transparent);
+  gap: 16px;
+}
+.story-single__cta {
+  display: inline-block;
+  background: var(--accent); color: #0a0a0c;
+  padding: 10px 18px;
+  font-family: 'Barlow', sans-serif; font-weight: 800;
+  font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+  line-height: 1;
+}
+</style>
+</head>
+<body>
+<section class="story-single story-single--type-soft" aria-label="Story TechBody U — resultados_evidencia">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_b7.-home-studio-corner-ed_2964142762.png')"></div>
+  <div class="story-single__top">
+    <span class="brand">TechBody U</span>
+  </div>
+  <div class="story-single__body"><h1><em>Doze</em> semanas é o tempo do método.</h1></div>
+  <div class="story-single__bottom"></div>
+</section>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="pt-PT"><head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Doze semanas em casa.</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,400;0,800;1,200;1,400;1,800&family=Manrope:wght@200;400;500;700;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+
+:root {
+  --bg: #F2EDE4;
+  --accent: #C36F49;
+  --text: #14160F;
+  --mute: color-mix(in srgb, var(--text) 55%, transparent);
+  --line: color-mix(in srgb, var(--text) 12%, transparent);
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%;
+  background: #050507;
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+.reel {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  aspect-ratio: 9 / 16;
+  margin: 0 auto;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+.reel__brand {
+  position: absolute; top: clamp(20px, 3.4vw, 38px);
+  left: clamp(20px, 3.4vw, 38px);
+  z-index: 10;
+  font-family: var(--font-display);
+  font-weight: 200;
+  font-style: italic;
+  font-size: clamp(18px, 2.2vw, 26px);
+  letter-spacing: -0.015em;
+  color: var(--accent);
+}
+.reel__progress {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: rgba(255,255,255,0.06);
+  z-index: 11;
+}
+.reel__progress::before {
+  content: ""; position: absolute; inset: 0;
+  background: var(--accent);
+  transform-origin: left center;
+  animation: reel-progress 30s linear infinite;
+}
+@keyframes reel-progress {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+
+        .stage {
+          position: absolute; inset: 0;
+          display: grid; gap: clamp(16px, 2.6vw, 24px);
+          padding: 110px 48px 70px;
+          grid-template-rows: auto 1fr auto auto auto;
+          align-content: start;
+        }
+        .label {
+          font-family: var(--font-mono); font-size: 11px;
+          letter-spacing: 0.3em; text-transform: uppercase;
+          color: var(--mute);
+        }
+        .timeline { display: grid; gap: 6px; min-height: 0; }
+        .row { display: grid; grid-template-columns: 64px 1fr; align-items: center; gap: 12px; }
+        .row__wk {
+          font-family: var(--font-mono); font-size: 10px;
+          letter-spacing: 0.18em; color: var(--mute);
+        }
+        .row__bar {
+          position: relative; height: 6px;
+          background: color-mix(in srgb, var(--text) 12%, transparent);
+        }
+        .row__fill {
+          position: absolute; inset: 0;
+          background: var(--accent);
+          transform-origin: left center;
+          transform: scaleX(0);
+        }
+        @keyframes fill {
+          0% { transform: scaleX(0); }
+          6% { transform: scaleX(1); }
+          92% { transform: scaleX(1); }
+          100% { transform: scaleX(0); }
+        }
+        .r1 .row__fill { animation: fill 30s ease infinite; animation-delay: 0.00s; }
+.r2 .row__fill { animation: fill 30s ease infinite; animation-delay: 1.60s; }
+.r3 .row__fill { animation: fill 30s ease infinite; animation-delay: 3.20s; }
+.r4 .row__fill { animation: fill 30s ease infinite; animation-delay: 4.80s; }
+.r5 .row__fill { animation: fill 30s ease infinite; animation-delay: 6.40s; }
+.r6 .row__fill { animation: fill 30s ease infinite; animation-delay: 8.00s; }
+.r7 .row__fill { animation: fill 30s ease infinite; animation-delay: 9.60s; }
+.r8 .row__fill { animation: fill 30s ease infinite; animation-delay: 11.20s; }
+.r9 .row__fill { animation: fill 30s ease infinite; animation-delay: 12.80s; }
+.r10 .row__fill { animation: fill 30s ease infinite; animation-delay: 14.40s; }
+.r11 .row__fill { animation: fill 30s ease infinite; animation-delay: 16.00s; }
+.r12 .row__fill { animation: fill 30s ease infinite; animation-delay: 17.60s; }
+        .metrics {
+          display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+          padding-top: 14px; border-top: 1px solid var(--line);
+        }
+        .m { display: grid; gap: 4px; opacity: 0; }
+        .m__val {
+          font-family: var(--font-display); font-style: italic; font-weight: 200;
+          font-size: clamp(28px, 5vw, 46px); letter-spacing: -0.04em;
+          color: var(--accent); line-height: 0.95;
+        }
+        .m__lbl {
+          font-family: var(--font-mono); font-size: 9px;
+          letter-spacing: 0.22em; color: var(--mute);
+        }
+        .m1 { animation: mfade 30s ease infinite; animation-delay: 19s; }
+        .m2 { animation: mfade 30s ease infinite; animation-delay: 20.5s; }
+        .m3 { animation: mfade 30s ease infinite; animation-delay: 22s; }
+        @keyframes mfade { 0% { opacity: 0; transform: translateY(6px); } 6% { opacity: 1; transform: translateY(0); } 85% { opacity: 1; } 100% { opacity: 0; } }
+        .kicker {
+          font-family: var(--font-display); font-style: italic;
+          font-weight: 200; font-size: clamp(24px, 3.8vw, 38px);
+          letter-spacing: -0.022em; line-height: 1.05;
+          max-width: 22ch; opacity: 0;
+          animation: kfade 30s ease infinite;
+          animation-delay: 25s;
+        }
+        .kicker em { font-weight: 800; color: var(--accent); }
+        @keyframes kfade { 0% { opacity: 0; } 12% { opacity: 1; } 90% { opacity: 1; } 100% { opacity: 0; } }
+        .cta {
+          font-family: var(--font-mono); font-size: 11px;
+          letter-spacing: 0.22em; text-transform: uppercase;
+          color: var(--mute); padding-top: 12px;
+          border-top: 1px solid var(--line);
+          text-align: center;
+        }
+
+</style></head>
+<body>
+<section class="reel" aria-label="Reel TechBody U — Doze semanas em casa.">
+  <div class="reel__progress"></div>
+  <span class="reel__brand">TechBody U</span>
+
+<div class="stage">
+  <span class="label">DOZE SEMANAS · MÉTODO</span>
+  <div class="timeline">
+    <div class="row r1"><span class="row__wk">SEM 01</span><span class="row__bar"><span class="row__fill"></span></span></div><div class="row r2"><span class="row__wk">SEM 02</span><span class="row__bar"><span class="row__fill"></span></span></div><div class="row r3"><span class="row__wk">SEM 03</span><span class="row__bar"><span class="row__fill"></span></span></div><div class="row r4"><span class="row__wk">SEM 04</span><span class="row__bar"><span class="row__fill"></span></span></div><div class="row r5"><span class="row__wk">SEM 05</span><span class="row__bar"><span class="row__fill"></span></span></div><div class="row r6"><span class="row__wk">SEM 06</span><span class="row__bar"><span class="row__fill"></span></span></div><div class="row r7"><span class="row__wk">SEM 07</span><span class="row__bar"><span class="row__fill"></span></span></div><div class="row r8"><span class="row__wk">SEM 08</span><span class="row__bar"><span class="row__fill"></span></span></div><div class="row r9"><span class="row__wk">SEM 09</span><span class="row__bar"><span class="row__fill"></span></span></div><div class="row r10"><span class="row__wk">SEM 10</span><span class="row__bar"><span class="row__fill"></span></span></div><div class="row r11"><span class="row__wk">SEM 11</span><span class="row__bar"><span class="row__fill"></span></span></div><div class="row r12"><span class="row__wk">SEM 12</span><span class="row__bar"><span class="row__fill"></span></span></div>
+  </div>
+  <div class="metrics">
+    <div class="m m1"><span class="m__val">+24%</span><span class="m__lbl">FORÇA</span></div>
+    <div class="m m2"><span class="m__val">+18%</span><span class="m__lbl">MOBILIDADE</span></div>
+    <div class="m m3"><span class="m__val">+31%</span><span class="m__lbl">ENERGIA</span></div>
+  </div>
+  <h2 class="kicker"><em>Doze semanas.</em> Método. Resultado.</h2>
+  <span class="cta">Inicia o programa →</span>
+</div>
+
+</section>
+</body></html>

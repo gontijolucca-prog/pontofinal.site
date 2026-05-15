@@ -1,0 +1,990 @@
+[
+  {
+    "id": "techbody-2026-05-c01",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "carrossel",
+    "theme": "experiencia_sessao",
+    "pilar": "Experiência no estúdio",
+    "audience": "b2c",
+    "title": "Vinte e cinco minutos é o teu treino completo.",
+    "slides": 6,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Vinte e cinco minutos. Treino completo."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Sem horas no ginásio. Sem cargas pesadas. Sem desculpas."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Vestes o fato EMS no estúdio e começas a sessão em dois minutos."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Cada movimento acompanhado por um treinador certificado, do início ao fim."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Sai do estúdio com a sessão feita. Volta para a tua rotina."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Marca a tua sessão experimental no estúdio TechBody."
+      }
+    ],
+    "html_url": "../brands/techbody/output/2026-05/carrosseis/c01-experiencia-sessao.html",
+    "photos_used": [
+      "magnific_e4-pico-de-intensidade-im_2964580645.png",
+      "magnific_estudio-postreino-pessoa-_2968056754.png"
+    ],
+    "photo_positions": [
+      1,
+      6
+    ],
+    "styles": [
+      "photo",
+      "type",
+      "type",
+      "type",
+      "type",
+      "photo"
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-07",
+    "hour": "09h"
+  },
+  {
+    "id": "techbody-2026-05-c02",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "carrossel",
+    "theme": "ciencia_ems",
+    "pilar": "Ciência e método",
+    "audience": "b2c",
+    "title": "EMS é estímulo profundo — não é truque.",
+    "slides": 6,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Activar mais fibras musculares em menos tempo."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Num treino tradicional, recrutas cerca de 30 a 40% das fibras musculares."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Com EMS de corpo inteiro a activação chega aos 85 a 90%."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Frequência recomendada: 1 a 3 sessões por semana, com acompanhamento."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Equipamento certificado, fabricado na Alemanha, sob supervisão profissional."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Conhece o método. Marca a primeira sessão."
+      }
+    ],
+    "html_url": "../brands/techbody/output/2026-05/carrosseis/c02-ciencia-ems.html",
+    "photos_used": [
+      "magnific_e3-forca-guiada-por-app-f_2964580559.png",
+      "magnific_e5-serie-de-resistencia-f_2964580719.png"
+    ],
+    "photo_positions": [
+      1,
+      3
+    ],
+    "styles": [
+      "photo",
+      "num",
+      "photo",
+      "type",
+      "type",
+      "type"
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-11",
+    "hour": "09h"
+  },
+  {
+    "id": "techbody-2026-05-c03",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "carrossel",
+    "theme": "resultados_evidencia",
+    "pilar": "Resultados e transformação",
+    "audience": "b2c",
+    "title": "Resultado é o que se mede — não o que se imagina.",
+    "slides": 6,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Resultado é o que se mede."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Começamos com uma avaliação inicial — pontos de referência claros."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Estudos clínicos apontam ganhos consistentes entre 6 e 12 semanas de prática regular."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Avaliamos três eixos: força aplicada, mobilidade e bem-estar percebido."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Reavaliação intermédia. Sabes onde estás. Sabes para onde vais."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Inicia a tua avaliação no estúdio TechBody."
+      }
+    ],
+    "html_url": "../brands/techbody/output/2026-05/carrosseis/c03-resultados-evidencia.html",
+    "photos_used": [
+      "magnific_estudio-aquecimento-contr_2968055318.png",
+      "magnific_e2.-aquecimento-controlad_2964620617.png"
+    ],
+    "photo_positions": [
+      3,
+      6
+    ],
+    "styles": [
+      "type",
+      "type",
+      "photo",
+      "type",
+      "type",
+      "photo"
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-21",
+    "hour": "09h"
+  },
+  {
+    "id": "techbody-2026-05-c04",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "carrossel",
+    "theme": "modelo_franchising",
+    "pilar": "Modelo de negócio e franchising",
+    "audience": "b2b",
+    "title": "Trinta metros quadrados, uma nova linha de receita.",
+    "slides": 6,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Trinta metros quadrados. Nova linha de receita."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Um estúdio TechBody opera numa área mínima de 30 a 40 m² dentro do teu espaço."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Ticket médio por sessão superior ao modelo de ginásio convencional."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Clientes regressam com frequência semanal — 1 a 3 sessões em média."
+      },
+      {
+        "role": "development",
+        "text_overlay": "O franchising inclui equipamento alemão certificado, formação do treinador e suporte comercial."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Agenda uma reunião sobre o modelo de franchising."
+      }
+    ],
+    "html_url": "../brands/techbody/output/2026-05/carrosseis/c04-modelo-franchising.html",
+    "photos_used": [
+      "magnific_estudio-pico-de-intensida_2968056176.png",
+      "magnific_e6.-postreino-recuperacao_2964620915.png"
+    ],
+    "photo_positions": [
+      1,
+      6
+    ],
+    "styles": [
+      "photo",
+      "num",
+      "type",
+      "type",
+      "type",
+      "photo"
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-25",
+    "hour": "09h"
+  },
+  {
+    "id": "techbody-2026-05-s01",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "experiencia_sessao",
+    "pilar": "Experiência no estúdio",
+    "audience": "b2c",
+    "title": "Vinte e cinco minutos é a tua sessão.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Vinte e cinco minutos é a tua sessão."
+      }
+    ],
+    "html_url": "../brands/techbody/output/2026-05/stories/s01-experiencia-sessao.html",
+    "photos_used": [
+      "magnific_e6-postreino-imagem-edito_2964580806.png"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-08",
+    "hour": "17h"
+  },
+  {
+    "id": "techbody-2026-05-s02",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "ciencia_ems",
+    "pilar": "Ciência e método",
+    "audience": "b2c",
+    "title": "85 a 90% das fibras activadas.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "85 a 90% das fibras musculares activadas."
+      }
+    ],
+    "html_url": "../brands/techbody/output/2026-05/stories/s02-ciencia-ems.html",
+    "photos_used": [],
+    "photo_positions": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-15",
+    "hour": "17h"
+  },
+  {
+    "id": "techbody-2026-05-s03",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "resultados_evidencia",
+    "pilar": "Resultados e transformação",
+    "audience": "b2c",
+    "title": "Resultado é o que se mede.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Resultado é o que se mede."
+      }
+    ],
+    "html_url": "../brands/techbody/output/2026-05/stories/s03-resultados-evidencia.html",
+    "photos_used": [],
+    "photo_positions": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-22",
+    "hour": "17h"
+  },
+  {
+    "id": "techbody-2026-05-s04",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "modelo_franchising",
+    "pilar": "Modelo de negócio e franchising",
+    "audience": "b2b",
+    "title": "Trinta metros quadrados, nova receita.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Trinta metros quadrados. Nova receita."
+      }
+    ],
+    "html_url": "../brands/techbody/output/2026-05/stories/s04-modelo-franchising.html",
+    "photos_used": [],
+    "photo_positions": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-29",
+    "hour": "17h"
+  },
+  {
+    "id": "techbody-2026-05-r01",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "reel",
+    "theme": "experiencia_sessao",
+    "pilar": "Experiência no estúdio",
+    "audience": "b2c",
+    "title": "A sessão começa em dois minutos.",
+    "slides": 15,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "25 minutos."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Veste o fato."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Começa o trabalho."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "90% das fibras activadas."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Marca sessão →"
+      }
+    ],
+    "html_url": "../brands/techbody/output/2026-05/reels/r01-experiencia-sessao.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-05",
+    "hour": "18h"
+  },
+  {
+    "id": "techbody-2026-05-r02",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "reel",
+    "theme": "ciencia_ems",
+    "pilar": "Ciência e método",
+    "audience": "b2c",
+    "title": "O treino convencional só recruta 40%.",
+    "slides": 15,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "40%."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Esse é o recrutamento típico no treino convencional."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Com EMS, chega aos 90%."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "Fibras profundas activadas."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Vê o método →"
+      }
+    ],
+    "html_url": "../brands/techbody/output/2026-05/reels/r02-ciencia-ems.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-13",
+    "hour": "18h"
+  },
+  {
+    "id": "techbody-2026-05-r03",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "reel",
+    "theme": "resultados_evidencia",
+    "pilar": "Resultados e transformação",
+    "audience": "b2c",
+    "title": "Doze semanas no método TechBody.",
+    "slides": 30,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Semana 1."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Avaliação inicial. Sessões semanais."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Reavaliação às 6 semanas."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "Métricas registadas. Progresso visível."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Inicia avaliação →"
+      }
+    ],
+    "html_url": "../brands/techbody/output/2026-05/reels/r03-resultados-evidencia.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-19",
+    "hour": "18h"
+  },
+  {
+    "id": "techbody-2026-05-r04",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "reel",
+    "theme": "modelo_franchising",
+    "pilar": "Modelo de negócio e franchising",
+    "audience": "b2b",
+    "title": "30 metros quadrados. Linha de receita nova.",
+    "slides": 30,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "30 m²."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "É só do que precisas para operar um estúdio EMS."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Equipamento. Formação. Suporte comercial."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "Ticket médio superior. Retenção elevada."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Agenda reunião →"
+      }
+    ],
+    "html_url": "../brands/techbody/output/2026-05/reels/r04-modelo-franchising.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-27",
+    "hour": "18h"
+  },
+  {
+    "id": "techbody_u-2026-05-c01",
+    "brand": "techbody_u",
+    "month": "2026-05",
+    "format": "carrossel",
+    "theme": "introducao_produto",
+    "pilar": "Produto em contexto",
+    "audience": "b2c",
+    "title": "Treinar em casa, com tecnologia de estúdio.",
+    "slides": 6,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Treinar em casa, com tecnologia de estúdio."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Inclui fato EMS de corpo inteiro, dispositivo de controlo e aplicação dedicada."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Sessões de 20 minutos, acompanhadas pela aplicação, no horário que te dá jeito."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Equipamento certificado, fabricado na Alemanha — o mesmo usado em estúdios premium."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Sem deslocações. Sem horários. Sem espera."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Conhece o ecossistema TechBody U."
+      }
+    ],
+    "html_url": "../brands/techbody_u/output/2026-05/carrosseis/c01-introducao-produto.html",
+    "photos_used": [
+      "magnific_e4-pico-de-intensidade-um_2964228815.png",
+      "magnific_a5.-suggestion-of-motion-_2964142095.png"
+    ],
+    "photo_positions": [
+      2,
+      6
+    ],
+    "styles": [
+      "type",
+      "photo",
+      "num",
+      "type",
+      "type",
+      "photo"
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-07",
+    "hour": "09h"
+  },
+  {
+    "id": "techbody_u-2026-05-c02",
+    "brand": "techbody_u",
+    "month": "2026-05",
+    "format": "carrossel",
+    "theme": "treino_em_casa",
+    "pilar": "Rotina e conveniência",
+    "audience": "b2c",
+    "title": "A casa pode ser o teu estúdio.",
+    "slides": 6,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "A casa pode ser o teu estúdio."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Quatro metros quadrados livres. É tudo o que precisas."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Vestes o fato, abres a aplicação e começas a sessão."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Vinte minutos de activação muscular de corpo inteiro com EMS."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Sem máquinas. Sem viagens. Sem espera por horário."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Marca uma demonstração e vê como funciona."
+      }
+    ],
+    "html_url": "../brands/techbody_u/output/2026-05/carrosseis/c02-treino-em-casa.html",
+    "photos_used": [
+      "magnific_e2-aquecimento-controlado_2964228670.png",
+      "magnific_e1-chegada-ao-estudio-pes_2964211125.png"
+    ],
+    "photo_positions": [
+      2,
+      5
+    ],
+    "styles": [
+      "type",
+      "photo",
+      "type",
+      "type",
+      "photo",
+      "type"
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-11",
+    "hour": "09h"
+  },
+  {
+    "id": "techbody_u-2026-05-c03",
+    "brand": "techbody_u",
+    "month": "2026-05",
+    "format": "carrossel",
+    "theme": "app_acompanhamento",
+    "pilar": "App e autonomia",
+    "audience": "b2c",
+    "title": "A aplicação acompanha cada sessão.",
+    "slides": 6,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "A aplicação acompanha cada sessão."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Sessões guiadas em vídeo por treinadores certificados."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Intensidade, duração e zonas activadas — em tempo real."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Histórico de 90 dias sempre visível. Sabes onde estás."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Sem treinador presencial — mas com acompanhamento estruturado."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Vê a aplicação em acção. Marca uma demonstração."
+      }
+    ],
+    "html_url": "../brands/techbody_u/output/2026-05/carrosseis/c03-app-acompanhamento.html",
+    "photos_used": [
+      "magnific_c2-foco-e-forca-uma-pesso_2964210537.png",
+      "magnific_c6-pausa-ativa-pessoa-sen_2964228483.png"
+    ],
+    "photo_positions": [
+      1,
+      5
+    ],
+    "styles": [
+      "photo",
+      "type",
+      "type",
+      "num",
+      "photo",
+      "type"
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-21",
+    "hour": "09h"
+  },
+  {
+    "id": "techbody_u-2026-05-c04",
+    "brand": "techbody_u",
+    "month": "2026-05",
+    "format": "carrossel",
+    "theme": "resultados_evidencia",
+    "pilar": "Transformação e bem-estar",
+    "audience": "b2c",
+    "title": "Doze semanas é o tempo do método.",
+    "slides": 6,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Doze semanas é o tempo do método."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Programa-base com avaliação inicial — referências claras para começar."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Reavaliação intermédia para ajustar e ver o que mudou."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Estudos clínicos apontam ganhos consistentes em programas de 6 a 12 semanas."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Três eixos avaliados: força, mobilidade e bem-estar percebido."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Inicia o programa de doze semanas."
+      }
+    ],
+    "html_url": "../brands/techbody_u/output/2026-05/carrosseis/c04-resultados-evidencia.html",
+    "photos_used": [
+      "magnific_environment-variation-3-h_2964143357.png",
+      "magnific_b4.-recovery-and-calm-edi_2964142488.png"
+    ],
+    "photo_positions": [
+      2,
+      4
+    ],
+    "styles": [
+      "type",
+      "photo",
+      "type",
+      "photo",
+      "type",
+      "type"
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-25",
+    "hour": "09h"
+  },
+  {
+    "id": "techbody_u-2026-05-s01",
+    "brand": "techbody_u",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "introducao_produto",
+    "pilar": "Produto em contexto",
+    "audience": "b2c",
+    "title": "Treinar em casa com tecnologia de estúdio.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Treinar em casa, com tecnologia de estúdio."
+      }
+    ],
+    "html_url": "../brands/techbody_u/output/2026-05/stories/s01-introducao-produto.html",
+    "photos_used": [
+      "magnific_e6-postreino-pessoa-em-re_2964211563.png"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-08",
+    "hour": "17h"
+  },
+  {
+    "id": "techbody_u-2026-05-s02",
+    "brand": "techbody_u",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "treino_em_casa",
+    "pilar": "Rotina e conveniência",
+    "audience": "b2c",
+    "title": "Quatro metros quadrados. Vinte minutos.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Quatro metros quadrados. Vinte minutos."
+      }
+    ],
+    "html_url": "../brands/techbody_u/output/2026-05/stories/s02-treino-em-casa.html",
+    "photos_used": [
+      "magnific_c5-noite-de-ativacao-trei_2964210896.png"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-15",
+    "hour": "17h"
+  },
+  {
+    "id": "techbody_u-2026-05-s03",
+    "brand": "techbody_u",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "app_acompanhamento",
+    "pilar": "App e autonomia",
+    "audience": "b2c",
+    "title": "A aplicação acompanha cada sessão.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "A aplicação acompanha cada sessão."
+      }
+    ],
+    "html_url": "../brands/techbody_u/output/2026-05/stories/s03-app-acompanhamento.html",
+    "photos_used": [
+      "magnific_c2-foco-e-forca-uma-pesso_2964228044.png"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-22",
+    "hour": "17h"
+  },
+  {
+    "id": "techbody_u-2026-05-s04",
+    "brand": "techbody_u",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "resultados_evidencia",
+    "pilar": "Transformação e bem-estar",
+    "audience": "b2c",
+    "title": "Doze semanas é o tempo do método.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Doze semanas é o tempo do método."
+      }
+    ],
+    "html_url": "../brands/techbody_u/output/2026-05/stories/s04-resultados-evidencia.html",
+    "photos_used": [
+      "magnific_b7.-home-studio-corner-ed_2964142762.png"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-29",
+    "hour": "17h"
+  },
+  {
+    "id": "techbody_u-2026-05-r01",
+    "brand": "techbody_u",
+    "month": "2026-05",
+    "format": "reel",
+    "theme": "introducao_produto",
+    "pilar": "Produto em contexto",
+    "audience": "b2c",
+    "title": "Três peças. Um treino.",
+    "slides": 15,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Três peças."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Veste. Liga. Treina."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Sessão de 20 minutos."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "Tecnologia alemã certificada."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Descobre →"
+      }
+    ],
+    "html_url": "../brands/techbody_u/output/2026-05/reels/r01-introducao-produto.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-05",
+    "hour": "18h"
+  },
+  {
+    "id": "techbody_u-2026-05-r02",
+    "brand": "techbody_u",
+    "month": "2026-05",
+    "format": "reel",
+    "theme": "treino_em_casa",
+    "pilar": "Rotina e conveniência",
+    "audience": "b2c",
+    "title": "Quatro metros quadrados.",
+    "slides": 15,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "4 m²."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Esse é o teu novo estúdio."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Sem máquinas. Sem deslocações."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "20 minutos = uma hora convencional."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Marca demonstração →"
+      }
+    ],
+    "html_url": "../brands/techbody_u/output/2026-05/reels/r02-treino-em-casa.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-13",
+    "hour": "18h"
+  },
+  {
+    "id": "techbody_u-2026-05-r03",
+    "brand": "techbody_u",
+    "month": "2026-05",
+    "format": "reel",
+    "theme": "app_acompanhamento",
+    "pilar": "App e autonomia",
+    "audience": "b2c",
+    "title": "A aplicação que te treina.",
+    "slides": 30,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "O teu treinador digital."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Biblioteca de sessões guiadas."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Dados em tempo real."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "90 dias de histórico visível."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Vê a aplicação →"
+      }
+    ],
+    "html_url": "../brands/techbody_u/output/2026-05/reels/r03-app-acompanhamento.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-19",
+    "hour": "18h"
+  },
+  {
+    "id": "techbody_u-2026-05-r04",
+    "brand": "techbody_u",
+    "month": "2026-05",
+    "format": "reel",
+    "theme": "resultados_evidencia",
+    "pilar": "Transformação e bem-estar",
+    "audience": "b2c",
+    "title": "Doze semanas em casa.",
+    "slides": 30,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "12 semanas."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Avaliação inicial."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Reavaliação às 6 semanas."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "Mobilidade. Força. Bem-estar."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Inicia o programa →"
+      }
+    ],
+    "html_url": "../brands/techbody_u/output/2026-05/reels/r04-resultados-evidencia.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-15T21:23:47",
+    "scheduled_for": "2026-05-27",
+    "hour": "18h"
+  }
+]

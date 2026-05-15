@@ -1,0 +1,32 @@
+[
+  {
+    "slide_number": 1,
+    "role": "hook",
+    "text_overlay": "12 semanas. Método. Resultado."
+  },
+  {
+    "slide_number": 2,
+    "role": "development",
+    "text_overlay": "Programa-base de 12 semanas com avaliação inicial e reavaliação intermédia."
+  },
+  {
+    "slide_number": 3,
+    "role": "development",
+    "text_overlay": "Estudos apontam ganhos consistentes em força e composição corporal entre 6 e 12 semanas."
+  },
+  {
+    "slide_number": 4,
+    "role": "development",
+    "text_overlay": "Três eixos avaliados: mobilidade, força e bem-estar percebido."
+  },
+  {
+    "slide_number": 5,
+    "role": "development",
+    "text_overlay": "\"A consistência ganha à intensidade isolada.\""
+  },
+  {
+    "slide_number": 6,
+    "role": "cta",
+    "text_overlay": "Inicia o programa de 12 semanas TechBody U."
+  }
+]

@@ -1,0 +1,51 @@
+{
+  "month": "2026-05",
+  "brand": "techbody",
+  "used_photos": [
+    {
+      "file": "magnific_e4-pico-de-intensidade-im_2964580645.png",
+      "carousel": "c01",
+      "slot": 1
+    },
+    {
+      "file": "magnific_estudio-postreino-pessoa-_2968056754.png",
+      "carousel": "c01",
+      "slot": 6
+    },
+    {
+      "file": "magnific_e3-forca-guiada-por-app-f_2964580559.png",
+      "carousel": "c02",
+      "slot": 1
+    },
+    {
+      "file": "magnific_e5-serie-de-resistencia-f_2964580719.png",
+      "carousel": "c02",
+      "slot": 3
+    },
+    {
+      "file": "magnific_estudio-aquecimento-contr_2968055318.png",
+      "carousel": "c03",
+      "slot": 3
+    },
+    {
+      "file": "magnific_e2.-aquecimento-controlad_2964620617.png",
+      "carousel": "c03",
+      "slot": 6
+    },
+    {
+      "file": "magnific_estudio-pico-de-intensida_2968056176.png",
+      "carousel": "c04",
+      "slot": 1
+    },
+    {
+      "file": "magnific_e6.-postreino-recuperacao_2964620915.png",
+      "carousel": "c04",
+      "slot": 6
+    },
+    {
+      "file": "magnific_e6-postreino-imagem-edito_2964580806.png",
+      "carousel": "s01",
+      "slot": 1
+    }
+  ]
+}

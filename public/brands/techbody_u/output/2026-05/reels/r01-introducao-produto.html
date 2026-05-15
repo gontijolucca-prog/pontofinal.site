@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="pt-PT"><head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Três peças. Um treino.</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,400;0,800;1,200;1,400;1,800&family=Manrope:wght@200;400;500;700;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+
+:root {
+  --bg: #F2EDE4;
+  --accent: #C36F49;
+  --text: #14160F;
+  --mute: color-mix(in srgb, var(--text) 55%, transparent);
+  --line: color-mix(in srgb, var(--text) 12%, transparent);
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%;
+  background: #050507;
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+.reel {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  aspect-ratio: 9 / 16;
+  margin: 0 auto;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+.reel__brand {
+  position: absolute; top: clamp(20px, 3.4vw, 38px);
+  left: clamp(20px, 3.4vw, 38px);
+  z-index: 10;
+  font-family: var(--font-display);
+  font-weight: 200;
+  font-style: italic;
+  font-size: clamp(18px, 2.2vw, 26px);
+  letter-spacing: -0.015em;
+  color: var(--accent);
+}
+.reel__progress {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: rgba(255,255,255,0.06);
+  z-index: 11;
+}
+.reel__progress::before {
+  content: ""; position: absolute; inset: 0;
+  background: var(--accent);
+  transform-origin: left center;
+  animation: reel-progress 15s linear infinite;
+}
+@keyframes reel-progress {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+
+.stage {
+  position: absolute; inset: 0;
+  display: grid; gap: clamp(20px, 3vw, 32px);
+  padding: 120px 48px 80px;
+  grid-template-rows: auto 1fr auto auto auto;
+  align-content: start;
+}
+.label {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--mute);
+}
+.parts {
+  position: relative; display: grid; place-items: center;
+  min-height: 40vh;
+}
+.part {
+  position: absolute;
+  border: 1.5px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  display: grid; place-items: center;
+  animation-duration: 15s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.6, 0, 0.2, 1);
+}
+.part__name {
+  font-family: var(--font-display); font-style: italic; font-weight: 400;
+  font-size: clamp(14px, 1.6vw, 16px);
+  color: var(--accent);
+  letter-spacing: -0.01em;
+}
+.part--suit   { width: 38%; aspect-ratio: 3/5;   animation-name: psuit; }
+.part--device { width: 18%; aspect-ratio: 1/1; border-radius: 50%; animation-name: pdev; }
+.part--phone  { width: 22%; aspect-ratio: 9/16; animation-name: pph; }
+@keyframes psuit {
+  0%  { transform: translate(-90vw, -10vh) rotate(-12deg); opacity: 0; }
+  25% { transform: translate(0, 0) rotate(0); opacity: 1; }
+  85% { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(0, 0); opacity: 1; }
+}
+@keyframes pdev {
+  0%, 25% { transform: translate(80vw, 40vh); opacity: 0; }
+  45% { transform: translate(46%, -30%); opacity: 1; }
+  85% { transform: translate(46%, -30%); opacity: 1; }
+  100% { transform: translate(46%, -30%); opacity: 1; }
+}
+@keyframes pph {
+  0%, 45% { transform: translate(-80vw, 60vh); opacity: 0; }
+  65% { transform: translate(-46%, 30%); opacity: 1; }
+  85% { transform: translate(-46%, 30%); opacity: 1; }
+  100% { transform: translate(-46%, 30%); opacity: 1; }
+}
+.captions {
+  display: flex; justify-content: space-around;
+  padding-top: 18px; border-top: 1px solid var(--line);
+}
+.cap {
+  font-family: var(--font-display); font-style: italic;
+  font-weight: 200; font-size: clamp(20px, 2.8vw, 30px);
+  opacity: 0;
+}
+.c1 { animation: capf 15s ease infinite; animation-delay: 2s; }
+.c2 { animation: capf 15s ease infinite; animation-delay: 4.5s; }
+.c3 { animation: capf 15s ease infinite; animation-delay: 7s; color: var(--accent); }
+@keyframes capf { 0% { opacity: 0; transform: translateY(6px); } 8% { opacity: 1; transform: translateY(0); } 80% { opacity: 1; } 100% { opacity: 0; } }
+.kicker {
+  font-family: var(--font-display); font-style: italic;
+  font-weight: 200; font-size: clamp(28px, 4.4vw, 44px);
+  letter-spacing: -0.022em; line-height: 1.1;
+  max-width: 18ch; opacity: 0;
+  animation: kfade 15s ease infinite;
+  animation-delay: 10s;
+}
+.kicker em { font-weight: 800; font-style: italic; color: var(--accent); }
+@keyframes kfade { 0% { opacity: 0; } 12% { opacity: 1; } 90% { opacity: 1; } 100% { opacity: 0; } }
+.cta {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--mute); padding-top: 14px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+</style></head>
+<body>
+<section class="reel" aria-label="Reel TechBody U — Três peças. Um treino.">
+  <div class="reel__progress"></div>
+  <span class="reel__brand">TechBody U</span>
+
+<div class="stage">
+  <span class="label">SISTEMA TECHBODY U</span>
+  <div class="parts">
+    <div class="part part--suit"><span class="part__name">fato</span></div>
+    <div class="part part--device"><span class="part__name">dispositivo</span></div>
+    <div class="part part--phone"><span class="part__name">app</span></div>
+  </div>
+  <div class="captions">
+    <span class="cap c1">Veste.</span>
+    <span class="cap c2">Liga.</span>
+    <span class="cap c3">Treina.</span>
+  </div>
+  <h2 class="kicker"><em>Três peças.</em> Um treino.</h2>
+  <span class="cta">Descobre o método →</span>
+</div>
+
+</section>
+</body></html>
