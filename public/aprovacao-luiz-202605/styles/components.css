@@ -154,7 +154,6 @@
 }
 .cal-chip[data-brand="techbody"]   .cal-chip__brand { background: var(--text); color: var(--bg); border-color: var(--text); }
 .cal-chip[data-brand="techbody_u"] .cal-chip__brand { background: var(--accent); color: var(--bg); border-color: var(--accent); }
-.cal-chip[data-brand="luiz_santana"] .cal-chip__brand { background: var(--text); color: var(--bg); border-color: var(--text); }
 .cal-chip__fmt  { letter-spacing: 0.08em; }
 .cal-chip__hour { color: var(--text-mute); font-weight: 700; }
 .cal-chip[data-format="carrossel"] { background: var(--bg); }
@@ -247,7 +246,11 @@
   transform: scale(0.1852);  /* 200 / 1080 ; height becomes 200 * 1.25 = 250 */
   transform-origin: top left;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 200ms ease;
+  background: var(--bg);
 }
+.slide-thumb iframe.is-loaded { opacity: 1; }
 .slide-thumb__num {
   position: absolute;
   bottom: 4px; left: 6px;
@@ -329,7 +332,11 @@
   pointer-events: none;
   transform: scale(0.58);
   transform-origin: top left;
+  opacity: 0;
+  transition: opacity 250ms ease;
+  background: var(--bg);
 }
+.tile iframe.is-loaded { opacity: 1; }
 .tile--reel iframe {
   width: 100%; height: 100%;
   transform: none;

@@ -44,7 +44,7 @@ class PostTile extends HTMLElement {
     this.innerHTML = `
       <article class="tile" data-item-id="${it.id}">
         <span class="tile__label">Story · ${BRAND_LABELS[it.brand]?.toUpperCase() || it.brand}</span>
-        <iframe src="${it.html_url}" loading="lazy" tabindex="-1"></iframe>
+        <iframe src="${it.html_url}" loading="eager" tabindex="-1" onload="this.classList.add('is-loaded')"></iframe>
         <div class="tile__caption">
           <strong>${it.title || it.theme}</strong>
           <span>${it.scheduled_for || ""} · ${it.hour || ""}</span>

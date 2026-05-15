@@ -64,7 +64,7 @@ class CarrosselRow extends HTMLElement {
         <div class="slide-strip">
           ${Array.from({ length: it.slides || 6 }).map((_, i) => `
             <div class="slide-thumb" data-slide-index="${i}">
-              <iframe src="${it.html_url}#slide-${i + 1}" loading="lazy" tabindex="-1"></iframe>
+              <iframe src="${it.html_url}#slide-${i + 1}" loading="eager" tabindex="-1" onload="this.classList.add('is-loaded')"></iframe>
               <span class="slide-thumb__num">${String(i + 1).padStart(2, "0")} / ${it.slides}</span>
             </div>
           `).join("")}
