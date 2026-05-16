@@ -8,7 +8,6 @@
 <style>
   *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
   html,body { background: #F2EDE4; color: #14160F; font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; }
-  /* Enforce portrait 9:16 inside the feedback iframe regardless of viewport. */
   body {
     width: min(100vw, calc(100vh * 9/16));
     height: min(100vh, calc(100vw * 16/9));
@@ -21,7 +20,7 @@
   body::-webkit-scrollbar { width: 6px; }
   body::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.45); border-radius: 3px; }
 
-  .head { padding: 36px 28px 20px; }
+  .head { padding: 32px 26px 22px; }
   .badge {
     display: inline-block;
     padding: 5px 10px;
@@ -30,130 +29,99 @@
     font: 700 10px/1 'JetBrains Mono', monospace;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
-  h1 { font: 800 30px/1.04 'Manrope'; letter-spacing: -0.025em; margin-bottom: 12px; }
-  .meta { font: 300 12px/1.55 'JetBrains Mono', monospace; color: rgba(0,0,0,0.45); }
-  .meta strong { color: #14160F; font-weight: 500; }
-  .meta__row + .meta__row { margin-top: 4px; }
+  h1 { font: 800 28px/1.05 'Manrope'; letter-spacing: -0.025em; margin-bottom: 10px; }
+  .head__sub { font: 300 12px/1.5 'JetBrains Mono', monospace; color: rgba(0,0,0,0.45); }
 
-  /* Timeline mockup — horizontal strip showing scene-boxes side by side. */
-  .timeline {
-    margin: 28px 0 0;
-    padding: 0 28px 4px;
-    overflow-x: auto;
+  .section-title {
+    margin: 8px 26px 12px;
+    font: 700 11px/1 'JetBrains Mono', monospace;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.45);
   }
-  .timeline__strip {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(78px, 1fr));
-    gap: 6px;
-  }
-  .ts-box {
-    aspect-ratio: 9/16;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.10);
-    padding: 10px 8px 8px;
-    position: relative;
-    display: flex; flex-direction: column; justify-content: space-between;
-    min-height: 130px;
-  }
-  .ts-box__bar {
-    position: absolute; top: 0; left: 0; height: 3px;
-    background: #C36F49;
-  }
-  .ts-num { font: 500 9px/1 'JetBrains Mono', monospace; color: rgba(0,0,0,0.45); letter-spacing: 0.14em; }
-  .ts-text { font: 800 11px/1.12 'Manrope'; text-transform: uppercase; letter-spacing: -0.005em; word-break: break-word; }
-  .ts-dur { font: 300 9px/1 'JetBrains Mono', monospace; color: rgba(0,0,0,0.45); }
 
-  /* Shot list — detailed cards. */
-  .shot-list { padding: 32px 28px 4px; }
-  .shot-list h2 { font: 800 16px/1 'Manrope'; text-transform: uppercase; letter-spacing: -0.005em; margin-bottom: 18px; }
-  .shot {
+  .script { padding: 0 26px; }
+  .line {
+    padding: 16px 0 20px;
     border-top: 1px solid rgba(255,255,255,0.12);
-    padding: 18px 0 22px;
   }
-  .shot__head {
-    display: grid;
-    grid-template-columns: 56px 1fr;
-    gap: 12px;
-    margin-bottom: 12px;
+  .line:first-child { border-top: 0; padding-top: 4px; }
+  .line__head {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 10px;
   }
-  .shot__num { font: 800 13px/1 'JetBrains Mono', monospace; color: #C36F49; }
-  .shot__time { font: 300 10px/1 'JetBrains Mono', monospace; color: rgba(0,0,0,0.45); margin-top: 5px; }
-  .shot__type { font: 700 10px/1 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.10em; margin-bottom: 8px; }
-  .shot__onscreen { font: 800 10px/1 'JetBrains Mono', monospace; color: #F2EDE4; background: #C36F49; padding: 4px 7px; display: inline-block; margin-bottom: 10px; letter-spacing: 0.08em; }
-  .shot__dialogue { font: 800 14px/1.3 'Manrope'; margin-bottom: 12px; }
-  .shot__dialogue::before { content: '« '; color: #C36F49; }
-  .shot__dialogue::after  { content: ' »'; color: #C36F49; }
-  .shot__meta { font: 300 11px/1.45 'JetBrains Mono', monospace; color: rgba(0,0,0,0.45); display: grid; gap: 4px; }
-  .shot__meta strong { color: #14160F; font-weight: 500; }
+  .line__num {
+    font: 800 14px/1 'JetBrains Mono', monospace;
+    color: #C36F49;
+  }
+  .line__role {
+    font: 700 9px/1 'JetBrains Mono', monospace;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.45);
+  }
+  .line__time {
+    margin-left: auto;
+    font: 300 10px/1 'JetBrains Mono', monospace;
+    color: rgba(0,0,0,0.45);
+    letter-spacing: 0.08em;
+  }
+  .line__text {
+    font: 800 18px/1.32 'Manrope';
+    letter-spacing: -0.005em;
+  }
+  .line__text::before { content: '« '; color: #C36F49; }
+  .line__text::after  { content: ' »'; color: #C36F49; }
 
-  /* Caption block */
   .caption {
     margin-top: 24px;
-    padding: 24px 28px 36px;
+    padding: 22px 26px 28px;
     border-top: 1px solid rgba(255,255,255,0.12);
-    background: rgba(255,255,255,0.02);
+    background: rgba(255,255,255,0.025);
   }
   .caption h3 {
     font: 700 10px/1 'JetBrains Mono', monospace;
     text-transform: uppercase;
     letter-spacing: 0.16em;
     color: rgba(0,0,0,0.45);
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
   .caption__text {
-    font: 400 12px/1.55 'JetBrains Mono', monospace;
+    font: 400 13px/1.55 'JetBrains Mono', monospace;
     color: #14160F;
     white-space: pre-wrap;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
   .caption__tags { color: #C36F49; font: 700 11px/1.45 'JetBrains Mono', monospace; word-break: break-all; }
 
-  .foot {
-    padding: 14px 28px 36px;
-    font: 700 9px/1 'JetBrains Mono', monospace;
-    letter-spacing: 0.18em;
+  .footnote {
+    padding: 18px 26px 32px;
+    font: 400 11px/1.5 'JetBrains Mono', monospace;
     color: rgba(0,0,0,0.45);
-    text-transform: uppercase;
   }
+  .footnote strong { color: #14160F; font-weight: 700; }
 </style>
 </head>
 <body>
   <header class="head">
-    <span class="badge">Guia de gravação · TechBody U</span>
+    <span class="badge">Script · TechBody U</span>
     <h1>Unboxing TechBody U.</h1>
-    <div class="meta">
-      <div class="meta__row"><strong>Formato</strong> · Talking-head + close-up de produto (estilo unboxing)</div>
-      <div class="meta__row"><strong>Duração</strong> · 22s · 5 planos</div>
-      <div class="meta__row"><strong>Local</strong> · Casa do utilizador — sala com luz natural, mesa neutra</div>
-      <div class="meta__row"><strong>Vestuário</strong> · Roupa de casa (sweatshirt, calção, ténis ou descalço)</div>
-      <div class="meta__row"><strong>Luz</strong> · Luz natural de janela 45° à frente; sem flash</div>
-      <div class="meta__row"><strong>Áudio</strong> · Áudio do telemóvel chega — som de unboxing valoriza a peça</div>
-    </div>
+    <div class="head__sub">Vídeo de cerca de 22 segundos · 5 falas curtas</div>
   </header>
 
-  <section class="timeline" aria-label="Linha de tempo">
-    <div class="timeline__strip">
-      <div class="ts-box"><div class="ts-box__bar" style="width:9%"></div><span class="ts-num">01 · 2s</span><span class="ts-text">UNBOXING</span><span class="ts-dur">0s → 2s</span></div>
-      <div class="ts-box"><div class="ts-box__bar" style="width:27%"></div><span class="ts-num">02 · 6s</span><span class="ts-text">3 PEÇAS</span><span class="ts-dur">2s → 8s</span></div>
-      <div class="ts-box"><div class="ts-box__bar" style="width:32%"></div><span class="ts-num">03 · 7s</span><span class="ts-text">ELETRODOS · MAGNÉTICO · APLICAÇÃO</span><span class="ts-dur">8s → 15s</span></div>
-      <div class="ts-box"><div class="ts-box__bar" style="width:23%"></div><span class="ts-num">04 · 5s</span><span class="ts-text">25 MIN · EM CASA</span><span class="ts-dur">15s → 20s</span></div>
-      <div class="ts-box"><div class="ts-box__bar" style="width:9%"></div><span class="ts-num">05 · 2s</span><span class="ts-text">DESCOBRIR →</span><span class="ts-dur">20s → 22s</span></div>
-    </div>
+  <h2 class="section-title">Lê para a câmara</h2>
+  <section class="script">
+    <div class="line"><div class="line__head"><span class="line__num">01</span><span class="line__role">INÍCIO</span><span class="line__time">~2s</span></div><p class="line__text">Acabei de receber o TechBody U. Vou abrir contigo.</p></div>
+    <div class="line"><div class="line__head"><span class="line__num">02</span><span class="line__role">FALA</span><span class="line__time">~6s</span></div><p class="line__text">Vem o fato, o controlador, e o telemóvel é o teu painel.</p></div>
+    <div class="line"><div class="line__head"><span class="line__num">03</span><span class="line__role">FALA</span><span class="line__time">~7s</span></div><p class="line__text">Eletrodos secos no fato. Ligas com um clique magnético. A aplicação guia a sessão toda.</p></div>
+    <div class="line"><div class="line__head"><span class="line__num">04</span><span class="line__role">REMATE</span><span class="line__time">~5s</span></div><p class="line__text">Em casa, no horário que dá jeito. Sem marcar, sem deslocar.</p></div>
+    <div class="line"><div class="line__head"><span class="line__num">05</span><span class="line__role">FECHO</span><span class="line__time">~2s</span></div><p class="line__text">Compra ou subscrição mensal. Link na bio.</p></div>
   </section>
 
-  <section class="shot-list" aria-label="Plano por take">
-    <h2>Plano por take</h2>
-    <article class="shot"><div class="shot__head"><div><div class="shot__num">01</div><div class="shot__time">0s → 2s</div></div><div><div class="shot__onscreen">UNBOXING</div><div class="shot__dialogue">Acabei de receber o TechBody U. Vou abrir contigo.</div><div class="shot__meta"><div><strong>Cenário</strong> · Medium shot, talking-head · Sentado/de pé junto à caixa fechada na mesa. Olho na lente.</div></div></div></div></article>
-    <article class="shot"><div class="shot__head"><div><div class="shot__num">02</div><div class="shot__time">2s → 8s</div></div><div><div class="shot__onscreen">3 PEÇAS</div><div class="shot__dialogue">Vem o fato, o controlador, e o telemóvel é o teu painel.</div><div class="shot__meta"><div><strong>Cenário</strong> · Top-down ASMR-style do unboxing · Câmara directamente em cima da mesa. Mãos a tirar as peças.</div></div></div></div></article>
-    <article class="shot"><div class="shot__head"><div><div class="shot__num">03</div><div class="shot__time">8s → 15s</div></div><div><div class="shot__onscreen">ELETRODOS · MAGNÉTICO · APLICAÇÃO</div><div class="shot__dialogue">Eletrodos secos no fato. Ligas com um clique magnético. A aplicação guia a sessão toda.</div><div class="shot__meta"><div><strong>Cenário</strong> · Talking-head com cada peça à mão · Medium shot. Mostra cada peça à câmara, uma de cada vez.</div></div></div></div></article>
-    <article class="shot"><div class="shot__head"><div><div class="shot__num">04</div><div class="shot__time">15s → 20s</div></div><div><div class="shot__onscreen">25 MIN · EM CASA</div><div class="shot__dialogue">Em casa, no horário que dá jeito. Sem marcar, sem deslocar.</div><div class="shot__meta"><div><strong>Cenário</strong> · Cenário 2 — pessoa a vestir o fato em casa · Wide shot em casa, luz natural. Pessoa a vestir o fato.</div></div></div></div></article>
-    <article class="shot"><div class="shot__head"><div><div class="shot__num">05</div><div class="shot__time">20s → 22s</div></div><div><div class="shot__onscreen">DESCOBRIR →</div><div class="shot__dialogue">Compra ou subscrição mensal. Link na bio.</div><div class="shot__meta"><div><strong>Cenário</strong> · Medium shot, fecho · Pessoa pronta para treinar, mão no controlador.</div></div></div></div></article>
-  </section>
-
-  <section class="caption" aria-label="Caption Instagram">
-    <h3>Caption Instagram · rascunho</h3>
+  <section class="caption">
+    <h3>Caption para publicar</h3>
     <div class="caption__text">Acabei de receber o TechBody U. Vou abrir contigo.
 
 Vem o fato com eletrodos secos, o controlador magnético e o telemóvel é o teu painel.
@@ -164,6 +132,9 @@ Disponível para compra ou subscrição mensal. Link na bio.</div>
     <div class="caption__tags">#TechBodyU #EMSemCasa #TreinoInteligente #25Minutos #FitnessPortugal #Eletroestimulacao</div>
   </section>
 
-  <div class="foot">TechBody U · Maio 2026</div>
+  <p class="footnote">
+    <strong>Próximo passo</strong> · Manda-nos o vídeo bruto. Tratamos
+    da edição, dos subtítulos e do resto.
+  </p>
 </body>
 </html>
