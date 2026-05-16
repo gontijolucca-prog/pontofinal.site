@@ -3,7 +3,7 @@
 
 import { approvalStore } from "../stores/approval-store.js";
 
-const BRAND_LABELS = { techbody: "TechBody", techbody_u: "TechBody U", luiz_santana: "Luiz Santana" };
+const BRAND_LABELS = { techbody: "TechBody", techbody_u: "TechBody U" };
 
 class CarrosselRow extends HTMLElement {
   setItem(item) {
@@ -90,18 +90,15 @@ class CarrosselRow extends HTMLElement {
       if (action === "open") {
         this.dispatchEvent(new CustomEvent("item:open", { bubbles: true, detail: { id: it.id } }));
       } else if (action === "download") {
-        // Sequentially trigger a download for each pre-rendered slide PNG.
-        // We hit `${html_url stripped of .html}_shots/slide_NN.png`.
-        const base = (it.html_url || "").replace(/\.html$/, "_shots");
-        const total = it.slides || 6;
-        for (let i = 1; i <= total; i++) {
-          const a = document.createElement("a");
-          a.href = `${base}/slide_${String(i).padStart(2, "0")}.png`;
-          a.download = `${it.id}_slide_${String(i).padStart(2, "0")}.png`;
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-        }
+        // Single ZIP with all 6 PNGs at native 2160×2700 — avoids browser
+        // multi-download blocking and ensures the client gets the full set.
+        const zipUrl = (it.html_url || "").replace(/\.html$/, ".zip");
+        const a = document.createElement("a");
+        a.href = zipUrl;
+        a.download = `${it.id}.zip`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
       } else if (action === "approve" || action === "reject") {
         const desired = action === "approve" ? "approved" : "rejected";
         const current = approvalStore.get(it.id).status;
