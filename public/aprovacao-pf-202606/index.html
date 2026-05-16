@@ -253,7 +253,7 @@
 <body>
 <header class="app">
   <div class="logo">Pontofinal.site_</div>
-  <div class="header-meta">Aprovação · <strong>Junho 2026</strong><br/><span id="totalCount">3</span> reels</div>
+  <div class="header-meta">Aprovação · <strong>Junho 2026</strong><br/><span id="totalCount">…</span> reels</div>
 </header>
 
 <section class="stats">
@@ -298,32 +298,7 @@
 </div>
 
 <script>
-const ITEMS = [
-  {
-    id: "r001",
-    title: "Antes de gastares em ads — atualizado",
-    pilar: "Marketing Digital Realista",
-    video: "/media/reels/r001_ads.mp4",
-    scheduled_for: null,
-    caption: "Antes de gastares mais em ads, vê isto.\n\nSe o site não está pronto, o tráfego pago só te custa mais dinheiro. Antes do orçamento de ads, garante que a tua landing converte.\n\nFalamos? PontoFinal.site\n\n—\n#marketingdigital #adspagas #conversao #pmeportugal #empresariosportugal #landingpage #websiteprofissional #empreendedorportugues #estrategiademarketing #pontofinalsite"
-  },
-  {
-    id: "r002",
-    title: "SEO não é magia",
-    pilar: "Marketing Digital Realista",
-    video: "/media/reels/r002_seo.mp4",
-    scheduled_for: null,
-    caption: "SEO não é magia. É título, conteúdo e velocidade — bem feito, durante semanas.\n\nQuem te promete topo do Google em sete dias está a vender placebos. O Google demora a confiar — mas confia, quando vê trabalho consistente.\n\nFazemos SEO a sério em PontoFinal.site.\n\n—\n#seo #googleranking #marketingdigital #conteudo #pmeportugal #websiteprofissional #empreendedorportugues #pontofinalsite #estrategiadigital #marketingdeconteudo"
-  },
-  {
-    id: "r003",
-    title: "Mobile-first não é opção",
-    pilar: "Produtividade e Tecnologia",
-    video: "/media/reels/r003_mobile.mp4",
-    scheduled_for: null,
-    caption: "70% do tráfego web vem de telemóvel. E o teu site — abre bem aí?\n\nSe o utilizador tem de fazer pinch para ler, já perdeste a venda. Mobile-first não é tendência: é a base mínima para 2026.\n\nVê se o teu site passa o teste em PontoFinal.site.\n\n—\n#mobilefirst #webdesign #ux #pmeportugal #websiteresponsivo #marketingdigital #conversao #empreendedorportugues #pontofinalsite #experienciadoutilizador"
-  }
-];
+let ITEMS = [];
 
 const STORAGE_KEY = 'pontofinal_approval_v1';
 const load = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; } };
@@ -459,7 +434,18 @@ document.getElementById('overlay').addEventListener('click', (e) => {
 });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeOverlay(); });
 
-renderGrid();
+async function bootstrap() {
+  try {
+    const r = await fetch('data/items.json', { cache: 'no-store' });
+    if (!r.ok) throw new Error('items.json ' + r.status);
+    ITEMS = await r.json();
+  } catch (e) {
+    document.getElementById('footStatus').textContent = 'Erro a carregar items.json — ' + e.message;
+    ITEMS = [];
+  }
+  renderGrid();
+}
+bootstrap();
 </script>
 </body>
 </html>
