@@ -1,6 +1,7 @@
 // <month-calendar> — renders a single-month grid with chips on scheduled days.
 
-const WEEKDAYS = ["seg", "ter", "qua", "qui", "sex", "sáb", "dom"];
+const WEEKDAYS_FULL = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"];
+const WEEKDAYS_HEAD = ["seg", "ter", "qua", "qui", "sex", "sáb", "dom"];
 const BRAND_SHORT = { techbody: "TB", techbody_u: "TBU", luiz_santana: "LS" };
 const FMT_LABEL = { carrossel: "Carr", story: "Story", reel: "Reel" };
 
@@ -9,6 +10,9 @@ function firstWeekday(year, month) {
   // Return 0=Monday..6=Sunday for the 1st of the month.
   const d = new Date(year, month - 1, 1).getDay(); // 0=Sun..6=Sat
   return (d + 6) % 7;
+}
+function weekdayLabel(year, month, day) {
+  return WEEKDAYS_FULL[new Date(year, month - 1, day).getDay()];
 }
 
 class MonthCalendar extends HTMLElement {
@@ -40,12 +44,17 @@ class MonthCalendar extends HTMLElement {
       list.sort((a, b) => (a.hour || "").localeCompare(b.hour || ""));
     }
 
+    // Desktop: 7-col grid. Mobile: agenda (vertical list of days-with-content).
     const cells = [];
     for (let i = 0; i < offset; i++) cells.push({ blank: true });
     for (let d = 1; d <= total; d++) {
       cells.push({ blank: false, day: d, items: byDay.get(d) || [] });
     }
     while (cells.length % 7 !== 0) cells.push({ blank: true });
+
+    const agendaDays = Array.from(byDay.keys())
+      .sort((a, b) => a - b)
+      .map(d => ({ day: d, items: byDay.get(d) }));
 
     this.innerHTML = `
       <div class="calendar">
@@ -58,19 +67,21 @@ class MonthCalendar extends HTMLElement {
           </div>
         </div>
         <div class="cal-grid">
-          ${WEEKDAYS.map(w => `<div class="cal-grid__weekday">${w}</div>`).join("")}
+          ${WEEKDAYS_HEAD.map(w => `<div class="cal-grid__weekday">${w}</div>`).join("")}
           ${cells.map(c => this._cellHTML(c)).join("")}
         </div>
+        <ol class="cal-agenda" aria-label="Agenda do mês">
+          ${agendaDays.map(({ day, items }) => this._agendaRowHTML(day, items)).join("")}
+        </ol>
       </div>
     `;
 
-    // Wire chip clicks
-    this.querySelectorAll(".cal-chip[data-item-id]").forEach(el => {
+    // Wire chip clicks (grid + agenda).
+    this.querySelectorAll("[data-item-id]").forEach(el => {
       el.addEventListener("click", () => {
         const id = el.dataset.itemId;
         this.dispatchEvent(new CustomEvent("calendar:item-click", {
-          bubbles: true,
-          detail: { id },
+          bubbles: true, detail: { id },
         }));
       });
     });
@@ -90,6 +101,27 @@ class MonthCalendar extends HTMLElement {
         <span class="cal-day__num">${c.day}</span>
         <div class="cal-day__chips">${chips}</div>
       </div>
+    `;
+  }
+
+  _agendaRowHTML(day, items) {
+    const weekday = weekdayLabel(this._year, this._month, day);
+    const rows = items.map(it => `
+      <li class="agenda-item" data-item-id="${it.id}" data-format="${it.format}" data-brand="${it.brand}">
+        <span class="agenda-item__hour">${it.hour || ""}</span>
+        <span class="agenda-item__brand">${BRAND_SHORT[it.brand] || it.brand}</span>
+        <span class="agenda-item__fmt">${FMT_LABEL[it.format] || it.format}</span>
+        <span class="agenda-item__title">${it.title || it.theme}</span>
+      </li>
+    `).join("");
+    return `
+      <li class="agenda-day">
+        <div class="agenda-day__head">
+          <span class="agenda-day__num">${String(day).padStart(2, "0")}</span>
+          <span class="agenda-day__wd">${weekday}</span>
+        </div>
+        <ol class="agenda-day__items">${rows}</ol>
+      </li>
     `;
   }
 }

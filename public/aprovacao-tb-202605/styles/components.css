@@ -209,6 +209,58 @@ body:has(.loader[aria-hidden="false"]) { overflow: hidden; }
 .cal-chip[data-format="reel"]     { background: #F0F0F0; }
 .cal-chip:hover { transform: translate(-1px, -1px); box-shadow: 2px 2px 0 0 var(--border); }
 
+/* ───── AGENDA — mobile-first list of days with content ───── */
+.cal-agenda { display: none; list-style: none; padding: 0; margin: 0; }
+.agenda-day {
+  border-top: 2px solid var(--border);
+  padding: 10px 0 14px;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 12px;
+}
+.agenda-day:first-child { border-top: 0; }
+.agenda-day__head {
+  display: flex; flex-direction: column; align-items: flex-start;
+}
+.agenda-day__num {
+  font: 900 28px/1 var(--font-heavy);
+  letter-spacing: -0.04em;
+}
+.agenda-day__wd {
+  font: 700 10px/1 var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  margin-top: 4px;
+}
+.agenda-day__items { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.agenda-item {
+  display: grid;
+  grid-template-columns: 38px 36px auto 1fr;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 10px;
+  border: 2px solid var(--border);
+  background: var(--bg);
+  cursor: pointer;
+  min-height: 44px;
+}
+.agenda-item:active { transform: translate(1px, 1px); }
+.agenda-item__hour { font: 700 11px/1 var(--font-mono); color: var(--text-mute); letter-spacing: 0.06em; }
+.agenda-item__brand {
+  font: 900 10px/1 var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 5px;
+  border: 1.5px solid currentColor;
+  text-align: center;
+}
+.agenda-item[data-brand="techbody"]     .agenda-item__brand { background: var(--text); color: var(--bg); border-color: var(--text); }
+.agenda-item[data-brand="techbody_u"]   .agenda-item__brand { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+.agenda-item[data-brand="luiz_santana"] .agenda-item__brand { background: #5b6f4a; color: var(--bg); border-color: #5b6f4a; }
+.agenda-item__fmt { font: 700 10px/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-mute); }
+.agenda-item__title { font: 800 12px/1.2 var(--font-heavy); letter-spacing: -0.005em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
 /* ───── CARROSSEIS — LIST (each row shows all 6 slides) ───── */
 .carrossel-row {
   display: grid;
@@ -670,53 +722,51 @@ body:has(.loader[aria-hidden="false"]) { overflow: hidden; }
     letter-spacing: 0.08em;
   }
 
-  /* Calendar — instead of squeezing 7 cells into a phone width,
-     let it scroll horizontally while keeping the grid shape. */
-  month-calendar { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .calendar { gap: 10px; min-width: 620px; }
-  .calendar__head { gap: 10px; }
+  /* Calendar — hide the 7-col grid (terrible on phones) and show the
+     vertical agenda instead. Each day with content becomes a row, days
+     without content vanish entirely so the user sees only what matters. */
+  .cal-grid { display: none; }
+  .cal-agenda { display: block; }
+  .calendar__head { gap: 8px; }
   .calendar__title { font-size: 18px; }
-  .calendar__legend { gap: 10px; font-size: 9px; flex-wrap: wrap; }
-  .cal-grid__weekday { padding: 6px 4px; font-size: 9px; letter-spacing: 0.06em; }
-  .cal-day { min-height: 80px; padding: 4px; }
-  .cal-day__num { font-size: 12px; }
-  .cal-chip {
-    grid-template-columns: auto 1fr;
-    padding: 2px 4px;
-    font-size: 8px;
-  }
-  .cal-chip__hour { display: none; }
+  .calendar__legend { display: none; }
 
-  /* Carrossel — already collapses to single column at 1080px;
-     here we just tighten the inner spacing. */
+  /* Carrossel — much tighter so more content per screen. The meta block
+     used to consume ~half the viewport before the slides appeared. */
   .carrossel-row {
-    padding: 14px;
-    gap: 14px;
-    margin-bottom: 22px;
-    border-width: 3px;
+    padding: 12px;
+    gap: 10px;
+    margin-bottom: 18px;
+    border-width: 2px;
+    box-shadow: var(--shadow);
   }
-  .carrossel-row__title { font-size: 18px; line-height: 1.05; }
-  .carrossel-row__schedule { font-size: 11px; }
-  .slide-strip { gap: 6px; }
-  .slide-thumb { flex: 0 0 152px; border-width: 2px; }
+  .carrossel-row__meta { gap: 6px; }
+  .carrossel-row__brand { font-size: 9px; padding: 3px 7px; }
+  .carrossel-row__title { font-size: 15px; line-height: 1.15; letter-spacing: -0.015em; }
+  .carrossel-row__tags { gap: 3px; }
+  .tag { font-size: 9px; padding: 2px 6px; }
+  .carrossel-row__schedule { font-size: 10px; margin-top: 4px; }
+  .slide-strip { gap: 6px; padding-bottom: 4px; }
+  .slide-thumb { flex: 0 0 140px; border-width: 2px; }
   .slide-thumb iframe {
-    /* width 152 / 1080 = 0.1407 → height becomes 152 * 1.25 = 190 */
-    transform: scale(0.1407);
+    /* 140 / 1080 ≈ 0.1296. Height becomes 140 * 1.25 = 175. */
+    transform: scale(0.1296);
   }
   .slide-thumb__num { font-size: 9px; padding: 2px 4px; }
 
-  /* Action buttons — 44px tap targets, full-width on the action row. */
+  /* Action buttons — one row of 4 small icon-buttons. */
   .carrossel-row__actions {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 6px;
   }
-  .carrossel-row__actions .btn { width: 100%; }
+  .carrossel-row__actions .btn { width: 100%; padding: 10px 4px; }
   .btn {
-    min-height: 44px;
-    padding: 10px 14px;
-    font-size: 12px;
+    min-height: 42px;
+    padding: 10px 12px;
+    font-size: 10px;
     border-width: 2px;
+    letter-spacing: 0.04em;
   }
 
   /* Status stamp shouldn't crash into the title on small rows. */
