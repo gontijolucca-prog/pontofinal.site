@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#FFFFFF" />
+<title>Aprovação · PontoFinal · Junho 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --ink: #050505;
+    --accent: #FF2A2A;
+    --ok: #00A347;
+    --warn: #E0A800;
+    --mute: rgba(5,5,5,0.45);
+    --line: rgba(5,5,5,0.12);
+    --dot: rgba(5,5,5,0.85);
+    --shadow: 6px 6px 0 0 var(--ink);
+    --shadow-sm: 3px 3px 0 0 var(--ink);
+    --pad: clamp(14px, 4vw, 24px);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 14px; line-height: 1.5;
+    background-image: radial-gradient(circle, var(--dot) 1.3px, transparent 1.3px);
+    background-size: 32px 32px;
+    min-height: 100vh; overflow-x: hidden;
+  }
+  header.app {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--bg);
+    border-bottom: 4px solid var(--ink);
+    padding: var(--pad);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+  }
+  .logo {
+    background: var(--ink); color: #FFF;
+    padding: 8px 14px;
+    font: 400 14px/1 'Archivo Black', sans-serif;
+    letter-spacing: -0.01em;
+  }
+  .header-meta { text-align: right; font-size: 11px; color: var(--mute); line-height: 1.3; }
+  .header-meta strong { color: var(--ink); font-weight: 600; }
+
+  .stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    padding: var(--pad); border-bottom: 2px solid var(--ink);
+  }
+  .stat {
+    background: var(--bg); border: 3px solid var(--ink);
+    padding: 10px 8px; text-align: center; box-shadow: var(--shadow-sm);
+  }
+  .stat__n { font: 400 24px/1 'Archivo Black', sans-serif; }
+  .stat__l { font-size: 10px; color: var(--mute); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .stat--ok .stat__n { color: var(--ok); }
+  .stat--rej .stat__n { color: var(--accent); }
+
+  .filters {
+    display: flex; gap: 8px; padding: var(--pad);
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    border-bottom: 1px solid var(--line);
+  }
+  .filter {
+    flex: 0 0 auto; background: var(--bg); color: var(--ink);
+    border: 2px solid var(--ink); padding: 6px 12px;
+    font: 600 11px/1 'JetBrains Mono', monospace;
+    text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer;
+    scroll-snap-align: start;
+  }
+  .filter.is-on { background: var(--ink); color: #FFF; }
+
+  /* GALLERY GRID */
+  main {
+    padding: var(--pad);
+    padding-bottom: 100px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  @media (min-width: 720px)  { main { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+  @media (min-width: 1100px) { main { grid-template-columns: repeat(4, 1fr); gap: 18px; max-width: 1280px; margin: 0 auto; } }
+
+  .card {
+    position: relative;
+    background: var(--bg);
+    border: 3px solid var(--ink);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    cursor: pointer;
+    display: grid; grid-template-rows: auto auto;
+  }
+  .card__thumb {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    background: #000;
+    overflow: hidden;
+  }
+  .card__thumb video {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    pointer-events: none;
+  }
+  .card__playbadge {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    pointer-events: none;
+    transition: opacity 0.15s;
+  }
+  .card__playbadge svg {
+    width: 38px; height: 38px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  }
+  .card.is-playing .card__playbadge { opacity: 0; }
+
+  .card__id {
+    position: absolute; top: 6px; right: 6px;
+    background: var(--bg); color: var(--ink);
+    border: 2px solid var(--ink);
+    padding: 2px 6px;
+    font: 600 10px/1 'JetBrains Mono', monospace;
+  }
+  .card__status {
+    position: absolute; top: 6px; left: 6px;
+    background: var(--ink); color: #FFF;
+    border: 2px solid var(--ink);
+    width: 14px; height: 14px;
+    display: grid; place-items: center;
+    font: 600 10px/1 monospace;
+  }
+  .card__status[data-state="approved"] { background: var(--ok); }
+  .card__status[data-state="rejected"] { background: var(--accent); }
+  .card__status[data-state="pending"]  { background: var(--bg); color: var(--ink); }
+
+  .card__meta {
+    padding: 8px 10px;
+    border-top: 3px solid var(--ink);
+    background: var(--bg);
+    display: grid; gap: 4px;
+  }
+  .card__title {
+    font: 400 13px/1.2 'Archivo Black', sans-serif;
+    letter-spacing: -0.015em;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card__sched {
+    font-size: 10px; color: var(--mute);
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+
+  /* OVERLAY (Modal) */
+  .overlay {
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(5,5,5,0.92);
+    display: none;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .overlay.is-open { display: block; }
+  .overlay__inner {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    padding: 16px 16px 0;
+  }
+  @media (min-width: 720px) {
+    .overlay__inner { grid-template-columns: 1fr 360px; grid-template-rows: 1fr; padding: 24px; gap: 24px; max-width: 1100px; margin: 0 auto; }
+  }
+  .overlay__video {
+    background: #000;
+    border: 4px solid #FFF;
+    box-shadow: var(--shadow);
+    aspect-ratio: 9 / 16;
+    max-height: calc(100vh - 320px);
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+  }
+  @media (min-width: 720px) {
+    .overlay__video { max-height: calc(100vh - 80px); max-width: 360px; align-self: start; }
+  }
+  .overlay__video video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .overlay__side {
+    background: var(--bg); border: 4px solid var(--ink);
+    box-shadow: var(--shadow);
+    margin-top: 16px;
+    overflow: hidden;
+  }
+  @media (min-width: 720px) {
+    .overlay__side { margin-top: 0; align-self: start; }
+  }
+  .overlay__header {
+    padding: 16px;
+    border-bottom: 3px solid var(--ink);
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;
+  }
+  .overlay__title { font: 400 20px/1.15 'Archivo Black', sans-serif; letter-spacing: -0.02em; }
+  .overlay__close {
+    appearance: none; background: var(--ink); color: #FFF;
+    border: 2px solid var(--ink); padding: 6px 10px;
+    font: 600 12px/1 'JetBrains Mono', monospace;
+    cursor: pointer; flex-shrink: 0;
+  }
+  .overlay__pilar { padding: 0 16px 12px; font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.08em; }
+  .overlay__caption {
+    padding: 0 16px 12px;
+    font-size: 13px; line-height: 1.6;
+    white-space: pre-wrap;
+    max-height: 280px; overflow-y: auto;
+    border-top: 1px solid var(--line); padding-top: 12px;
+  }
+  .overlay__sched {
+    padding: 8px 16px;
+    background: #FAFAFA;
+    border-top: 1px solid var(--line);
+    font-size: 11px; color: var(--mute);
+  }
+  .overlay__sched strong { color: var(--ink); font-weight: 600; }
+  .actions {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;
+    border-top: 3px solid var(--ink);
+  }
+  .btn {
+    appearance: none; background: var(--bg); color: var(--ink);
+    border: 0; border-right: 3px solid var(--ink);
+    padding: 16px 6px;
+    font: 600 12px/1 'JetBrains Mono', monospace;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    cursor: pointer; min-height: 54px;
+  }
+  .btn:last-child { border-right: 0; }
+  .btn:active { transform: translateY(1px); }
+  .btn[aria-pressed="true"][data-state="approved"] { background: var(--ok); color: #FFF; }
+  .btn[aria-pressed="true"][data-state="rejected"] { background: var(--accent); color: #FFF; }
+  .btn[aria-pressed="true"][data-state="pending"]  { background: var(--ink); color: #FFF; }
+
+  footer.app {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
+    background: var(--ink); color: #FFF;
+    padding: 10px var(--pad);
+    font: 600 11px/1 'JetBrains Mono', monospace;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer.app .badge { background: var(--accent); padding: 4px 8px; border: 2px solid #FFF; }
+</style>
+</head>
+<body>
+<header class="app">
+  <div class="logo">Pontofinal.site_</div>
+  <div class="header-meta">Aprovação · <strong>Junho 2026</strong><br/><span id="totalCount">3</span> reels</div>
+</header>
+
+<section class="stats">
+  <div class="stat stat--ok"><div class="stat__n" id="cApproved">0</div><div class="stat__l">Aprov.</div></div>
+  <div class="stat"><div class="stat__n" id="cPending">0</div><div class="stat__l">Pendentes</div></div>
+  <div class="stat stat--rej"><div class="stat__n" id="cRejected">0</div><div class="stat__l">Rejeit.</div></div>
+</section>
+
+<nav class="filters" id="filters">
+  <button class="filter is-on" data-filter="all">Todos</button>
+  <button class="filter" data-filter="pending">Pendentes</button>
+  <button class="filter" data-filter="approved">Aprovados</button>
+  <button class="filter" data-filter="rejected">Rejeitados</button>
+</nav>
+
+<main id="grid"></main>
+
+<footer class="app">
+  <span id="footStatus">Estado local · piloto</span>
+  <span class="badge">PILOT</span>
+</footer>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay" role="dialog" aria-hidden="true">
+  <div class="overlay__inner">
+    <div class="overlay__video"><video id="ovVideo" playsinline controls></video></div>
+    <div class="overlay__side">
+      <div class="overlay__header">
+        <h2 class="overlay__title" id="ovTitle"></h2>
+        <button class="overlay__close" onclick="closeOverlay()">Fechar</button>
+      </div>
+      <div class="overlay__pilar" id="ovPilar"></div>
+      <div class="overlay__caption" id="ovCaption"></div>
+      <div class="overlay__sched">Agendamento: <strong id="ovSched">—</strong></div>
+      <div class="actions">
+        <button class="btn" data-state="rejected" id="btnReject">Rejeitar</button>
+        <button class="btn" data-state="pending"  id="btnPending">Pendente</button>
+        <button class="btn" data-state="approved" id="btnApprove">Aprovar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const ITEMS = [
+  {
+    id: "r001",
+    title: "Antes de gastares em ads — atualizado",
+    pilar: "Marketing Digital Realista",
+    video: "/media/reels/r001_ads.mp4",
+    scheduled_for: null,
+    caption: "Antes de gastares mais em ads, vê isto.\n\nSe o site não está pronto, o tráfego pago só te custa mais dinheiro. Antes do orçamento de ads, garante que a tua landing converte.\n\nFalamos? PontoFinal.site\n\n—\n#marketingdigital #adspagas #conversao #pmeportugal #empresariosportugal #landingpage #websiteprofissional #empreendedorportugues #estrategiademarketing #pontofinalsite"
+  },
+  {
+    id: "r002",
+    title: "SEO não é magia",
+    pilar: "Marketing Digital Realista",
+    video: "/media/reels/r002_seo.mp4",
+    scheduled_for: null,
+    caption: "SEO não é magia. É título, conteúdo e velocidade — bem feito, durante semanas.\n\nQuem te promete topo do Google em sete dias está a vender placebos. O Google demora a confiar — mas confia, quando vê trabalho consistente.\n\nFazemos SEO a sério em PontoFinal.site.\n\n—\n#seo #googleranking #marketingdigital #conteudo #pmeportugal #websiteprofissional #empreendedorportugues #pontofinalsite #estrategiadigital #marketingdeconteudo"
+  },
+  {
+    id: "r003",
+    title: "Mobile-first não é opção",
+    pilar: "Produtividade e Tecnologia",
+    video: "/media/reels/r003_mobile.mp4",
+    scheduled_for: null,
+    caption: "70% do tráfego web vem de telemóvel. E o teu site — abre bem aí?\n\nSe o utilizador tem de fazer pinch para ler, já perdeste a venda. Mobile-first não é tendência: é a base mínima para 2026.\n\nVê se o teu site passa o teste em PontoFinal.site.\n\n—\n#mobilefirst #webdesign #ux #pmeportugal #websiteresponsivo #marketingdigital #conversao #empreendedorportugues #pontofinalsite #experienciadoutilizador"
+  }
+];
+
+const STORAGE_KEY = 'pontofinal_approval_v1';
+const load = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; } };
+const save = (s) => localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
+let state = load();
+let currentFilter = 'all';
+let activeId = null;
+
+const escapeHtml = (s) => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function fmtScheduled(iso) {
+  if (!iso) return 'Próximo slot livre após aprovação';
+  const d = new Date(iso);
+  return d.toLocaleString('pt-PT', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' });
+}
+
+function statusOf(id) { return state[id]?.status || 'pending'; }
+function statusSymbol(s) { return s === 'approved' ? '✓' : s === 'rejected' ? '✕' : '·'; }
+
+function renderGrid() {
+  const grid = document.getElementById('grid');
+  const items = ITEMS.filter(it => currentFilter === 'all' ? true : statusOf(it.id) === currentFilter);
+  document.getElementById('totalCount').textContent = ITEMS.length;
+  grid.innerHTML = items.map(it => {
+    const st = statusOf(it.id);
+    const sched = state[it.id]?.scheduled_for;
+    const schedFmt = sched ? new Date(sched).toLocaleString('pt-PT', { day:'2-digit', month:'short', hour:'2-digit' }) : 'Pendente';
+    return `
+      <article class="card" data-id="${it.id}" onclick="openOverlay('${it.id}')">
+        <div class="card__thumb">
+          <video src="${it.video}#t=0.5" preload="metadata" muted playsinline></video>
+          <span class="card__status" data-state="${st}">${statusSymbol(st)}</span>
+          <span class="card__id">${it.id.toUpperCase()}</span>
+          <span class="card__playbadge">
+            <svg viewBox="0 0 24 24" fill="#FFF" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </div>
+        <div class="card__meta">
+          <div class="card__title">${escapeHtml(it.title)}</div>
+          <div class="card__sched">${escapeHtml(schedFmt)}</div>
+        </div>
+      </article>
+    `;
+  }).join('');
+  updateStats();
+}
+
+function updateStats() {
+  let a=0,p=0,r=0;
+  ITEMS.forEach(it => {
+    const s = statusOf(it.id);
+    if (s==='approved') a++; else if (s==='rejected') r++; else p++;
+  });
+  document.getElementById('cApproved').textContent = a;
+  document.getElementById('cPending').textContent  = p;
+  document.getElementById('cRejected').textContent = r;
+}
+
+function openOverlay(id) {
+  const it = ITEMS.find(x => x.id === id);
+  if (!it) return;
+  activeId = id;
+  document.getElementById('ovTitle').textContent   = it.title;
+  document.getElementById('ovPilar').textContent   = it.pilar;
+  document.getElementById('ovCaption').textContent = it.caption;
+  const v = document.getElementById('ovVideo');
+  v.src = it.video;
+  v.muted = false; v.loop = true;
+  v.play().catch(()=>{});
+  refreshOverlayActions();
+  document.getElementById('overlay').classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeOverlay() {
+  const v = document.getElementById('ovVideo');
+  v.pause(); v.removeAttribute('src'); v.load();
+  document.getElementById('overlay').classList.remove('is-open');
+  document.body.style.overflow = '';
+  activeId = null;
+}
+
+function refreshOverlayActions() {
+  if (!activeId) return;
+  const st = statusOf(activeId);
+  for (const k of ['rejected','pending','approved']) {
+    const b = document.getElementById('btn' + k.charAt(0).toUpperCase() + k.slice(1));
+    if (b) b.setAttribute('aria-pressed', st === k ? 'true' : 'false');
+  }
+  document.getElementById('ovSched').textContent = fmtScheduled(state[activeId]?.scheduled_for);
+}
+
+function setStatus(id, status) {
+  const cur = state[id]?.status;
+  const next = cur === status ? 'pending' : status;
+  state[id] = { ...(state[id] || {}), status: next, updated_at: new Date().toISOString() };
+  if (next === 'approved') {
+    state[id].scheduled_for = computeNextSlot();
+  } else {
+    delete state[id].scheduled_for;
+  }
+  save(state);
+  refreshOverlayActions();
+  renderGrid();
+}
+
+function computeNextSlot() {
+  const slots = [];
+  const start = new Date(); start.setHours(0,0,0,0);
+  for (let d=0; d<60; d++) {
+    const day = new Date(start.getTime() + d*86400000);
+    [9, 13, 19].forEach(h => {
+      const t = new Date(day); t.setHours(h, 0, 0, 0);
+      if (t > new Date()) slots.push(t.toISOString());
+    });
+  }
+  const taken = new Set(ITEMS.map(it => state[it.id]?.scheduled_for).filter(Boolean));
+  return slots.find(s => !taken.has(s));
+}
+
+document.getElementById('filters').addEventListener('click', (e) => {
+  const f = e.target.dataset?.filter;
+  if (!f) return;
+  document.querySelectorAll('.filter').forEach(b => b.classList.toggle('is-on', b.dataset.filter === f));
+  currentFilter = f;
+  renderGrid();
+});
+document.getElementById('btnApprove').addEventListener('click', () => setStatus(activeId, 'approved'));
+document.getElementById('btnReject').addEventListener('click',  () => setStatus(activeId, 'rejected'));
+document.getElementById('btnPending').addEventListener('click', () => setStatus(activeId, 'pending'));
+document.getElementById('overlay').addEventListener('click', (e) => {
+  if (e.target.id === 'overlay') closeOverlay();
+});
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeOverlay(); });
+
+renderGrid();
+</script>
+</body>
+</html>
