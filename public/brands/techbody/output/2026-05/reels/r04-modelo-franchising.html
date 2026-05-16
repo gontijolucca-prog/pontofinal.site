@@ -1,183 +1,170 @@
 <!doctype html>
-<html lang="pt-PT"><head>
+<html lang="pt-PT">
+<head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>30 metros quadrados. Linha de receita nova.</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,400;0,800;1,200;1,400;1,800&family=Manrope:wght@200;400;500;700;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
+<title>EMS como linha de receita.</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;700;800&family=JetBrains+Mono:wght@300;500;700&display=swap" rel="stylesheet" />
 <style>
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html,body { background: #1a1a1a; color: #ffffff; font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; }
+  /* Enforce portrait 9:16 inside the feedback iframe regardless of viewport. */
+  body {
+    width: min(100vw, calc(100vh * 9/16));
+    height: min(100vh, calc(100vw * 16/9));
+    margin: 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.45) transparent;
+  }
+  body::-webkit-scrollbar { width: 6px; }
+  body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.45); border-radius: 3px; }
 
-:root {
-  --bg: #1a1a1a;
-  --accent: #d4773b;
-  --text: #ffffff;
-  --mute: color-mix(in srgb, var(--text) 55%, transparent);
-  --line: color-mix(in srgb, var(--text) 12%, transparent);
-  --font-display: 'Manrope', sans-serif;
-  --font-body: 'Manrope', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body {
-  height: 100%;
-  background: #050507;
-  color: var(--text);
-  font-family: var(--font-body);
-  -webkit-font-smoothing: antialiased;
-}
-.reel {
-  position: relative;
-  /* Force a 9:16 box even when the viewport is not 9:16 (e.g. desktop preview). */
-  width: min(100vw, calc(100vh * 9 / 16));
-  height: min(100vh, calc(100vw * 16 / 9));
-  aspect-ratio: 9 / 16;
-  margin: 0 auto;
-  background: var(--bg);
-  color: var(--text);
-  overflow: hidden;
-}
-.reel__brand {
-  position: absolute; top: clamp(20px, 3.4vw, 38px);
-  left: clamp(20px, 3.4vw, 38px);
-  z-index: 10;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-style: normal;
-  font-size: clamp(18px, 2.2vw, 26px);
-  letter-spacing: -0.015em;
-  color: var(--accent);
-}
-.reel__progress {
-  position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: rgba(255,255,255,0.06);
-  z-index: 11;
-}
-.reel__progress::before {
-  content: ""; position: absolute; inset: 0;
-  background: var(--accent);
-  transform-origin: left center;
-  animation: reel-progress 30s linear infinite;
-}
-@keyframes reel-progress {
-  0% { transform: scaleX(0); }
-  100% { transform: scaleX(1); }
-}
+  .head { padding: 36px 28px 20px; }
+  .badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1.5px solid #d4773b;
+    color: #d4773b;
+    font: 700 10px/1 'JetBrains Mono', monospace;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  h1 { font: 800 30px/1.04 'Manrope'; letter-spacing: -0.025em; margin-bottom: 12px; }
+  .meta { font: 300 12px/1.55 'JetBrains Mono', monospace; color: rgba(255,255,255,0.45); }
+  .meta strong { color: #ffffff; font-weight: 500; }
+  .meta__row + .meta__row { margin-top: 4px; }
 
+  /* Timeline mockup — horizontal strip showing scene-boxes side by side. */
+  .timeline {
+    margin: 28px 0 0;
+    padding: 0 28px 4px;
+    overflow-x: auto;
+  }
+  .timeline__strip {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(78px, 1fr));
+    gap: 6px;
+  }
+  .ts-box {
+    aspect-ratio: 9/16;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.10);
+    padding: 10px 8px 8px;
+    position: relative;
+    display: flex; flex-direction: column; justify-content: space-between;
+    min-height: 130px;
+  }
+  .ts-box__bar {
+    position: absolute; top: 0; left: 0; height: 3px;
+    background: #d4773b;
+  }
+  .ts-num { font: 500 9px/1 'JetBrains Mono', monospace; color: rgba(255,255,255,0.45); letter-spacing: 0.14em; }
+  .ts-text { font: 800 11px/1.12 'Manrope'; text-transform: uppercase; letter-spacing: -0.005em; word-break: break-word; }
+  .ts-dur { font: 300 9px/1 'JetBrains Mono', monospace; color: rgba(255,255,255,0.45); }
 
-.stage {
-  position: absolute; inset: 0;
-  display: grid; gap: clamp(18px, 2.6vw, 26px);
-  padding: 120px 48px 80px;
-  grid-template-rows: auto 1fr auto auto auto;
-  align-content: start;
-}
-.label {
-  font-family: var(--font-mono); font-size: 12px;
-  letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--mute);
-}
-.plan {
-  position: relative;
-  aspect-ratio: 1 / 1;
-  max-height: 38vh;
-  margin: 0 auto;
-  width: min(86%, 480px);
-  background: rgba(255,255,255,0.03);
-  border: 1px dashed var(--line);
-}
-.plan__outline {
-  position: absolute; inset: 18%;
-  border: 2px solid var(--accent);
-  animation: planscale 30s ease infinite;
-  transform-origin: center;
-}
-@keyframes planscale {
-  0% { transform: scale(0.4); opacity: 0; }
-  12% { transform: scale(1); opacity: 1; }
-  90% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
-}
-.plan__inner {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  gap: 6px;
-  font-family: var(--font-display); font-weight: 200;
-  letter-spacing: -0.05em;
-  opacity: 0;
-  animation: planfade 30s ease infinite;
-  animation-delay: 2s;
-}
-.plan__num { font-size: clamp(96px, 18vw, 180px); color: var(--accent); }
-.plan__unit { font-size: clamp(28px, 4vw, 42px); color: var(--text); margin-bottom: 6px; }
-@keyframes planfade {
-  0% { opacity: 0; }
-  15%, 80% { opacity: 1; }
-  90% { opacity: 0; }
-  100% { opacity: 0; }
-}
-.plan__dot {
-  position: absolute;
-  width: 10px; height: 10px;
-  background: var(--accent);
-  border-radius: 50%;
-  opacity: 0;
-}
-.plan__dot--1 { top: 22%; left: 22%; animation: dot 30s ease infinite; animation-delay: 6s; }
-.plan__dot--2 { top: 22%; right: 22%; animation: dot 30s ease infinite; animation-delay: 7s; }
-.plan__dot--3 { bottom: 22%; left: 22%; animation: dot 30s ease infinite; animation-delay: 8s; }
-.plan__dot--4 { bottom: 22%; right: 22%; animation: dot 30s ease infinite; animation-delay: 9s; }
-@keyframes dot { 0% { opacity: 0; transform: scale(0); } 30% { opacity: 1; transform: scale(1); } 90% { opacity: 1; } 100% { opacity: 0; } }
-.legend { display: grid; gap: 8px; padding-top: 14px; border-top: 1px solid var(--line); }
-.lg { display: flex; gap: 14px; align-items: baseline; opacity: 0; }
-.lg__name {
-  font-family: var(--font-mono); font-size: 11px;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--accent); min-width: 11ch;
-}
-.lg__t { font-family: var(--font-display); font-weight: 500; font-size: clamp(13px, 1.6vw, 18px); }
-.lg1 { animation: lgfade 30s ease infinite; animation-delay: 11s; }
-.lg2 { animation: lgfade 30s ease infinite; animation-delay: 14s; }
-.lg3 { animation: lgfade 30s ease infinite; animation-delay: 17s; }
-@keyframes lgfade { 0% { opacity: 0; transform: translateX(-6px); } 8% { opacity: 1; transform: translateX(0); } 80% { opacity: 1; } 100% { opacity: 0; } }
-.kicker {
-  font-family: var(--font-display); font-weight: 500;
-  font-size: clamp(22px, 3vw, 32px); line-height: 1.15;
-  max-width: 22ch; opacity: 0;
-  animation: kfade 30s ease infinite;
-  animation-delay: 22s;
-}
-@keyframes kfade { 0% { opacity: 0; } 15% { opacity: 1; } 90% { opacity: 1; } 100% { opacity: 0; } }
-.cta {
-  font-family: var(--font-mono); font-size: 12px;
-  letter-spacing: 0.24em; text-transform: uppercase;
-  color: var(--mute); padding-top: 16px;
-  border-top: 1px solid var(--line);
-  text-align: center;
-}
+  /* Shot list — detailed cards. */
+  .shot-list { padding: 32px 28px 4px; }
+  .shot-list h2 { font: 800 16px/1 'Manrope'; text-transform: uppercase; letter-spacing: -0.005em; margin-bottom: 18px; }
+  .shot {
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding: 18px 0 22px;
+  }
+  .shot__head {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .shot__num { font: 800 13px/1 'JetBrains Mono', monospace; color: #d4773b; }
+  .shot__time { font: 300 10px/1 'JetBrains Mono', monospace; color: rgba(255,255,255,0.45); margin-top: 5px; }
+  .shot__type { font: 700 10px/1 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.10em; margin-bottom: 8px; }
+  .shot__onscreen { font: 800 10px/1 'JetBrains Mono', monospace; color: #1a1a1a; background: #d4773b; padding: 4px 7px; display: inline-block; margin-bottom: 10px; letter-spacing: 0.08em; }
+  .shot__dialogue { font: 800 14px/1.3 'Manrope'; margin-bottom: 12px; }
+  .shot__dialogue::before { content: '« '; color: #d4773b; }
+  .shot__dialogue::after  { content: ' »'; color: #d4773b; }
+  .shot__meta { font: 300 11px/1.45 'JetBrains Mono', monospace; color: rgba(255,255,255,0.45); display: grid; gap: 4px; }
+  .shot__meta strong { color: #ffffff; font-weight: 500; }
 
-</style></head>
+  /* Caption block */
+  .caption {
+    margin-top: 24px;
+    padding: 24px 28px 36px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.02);
+  }
+  .caption h3 {
+    font: 700 10px/1 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 14px;
+  }
+  .caption__text {
+    font: 400 12px/1.55 'JetBrains Mono', monospace;
+    color: #ffffff;
+    white-space: pre-wrap;
+    margin-bottom: 14px;
+  }
+  .caption__tags { color: #d4773b; font: 700 11px/1.45 'JetBrains Mono', monospace; word-break: break-all; }
+
+  .foot {
+    padding: 14px 28px 36px;
+    font: 700 9px/1 'JetBrains Mono', monospace;
+    letter-spacing: 0.18em;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+  }
+</style>
+</head>
 <body>
-<section class="reel" aria-label="Reel TechBody — 30 metros quadrados. Linha de receita nova.">
-  <div class="reel__progress"></div>
-  <span class="reel__brand">TechBody</span>
+  <header class="head">
+    <span class="badge">Guia de gravação · TechBody</span>
+    <h1>EMS como linha de receita.</h1>
+    <div class="meta">
+      <div class="meta__row"><strong>Formato</strong> · Talking-head founder/manager + B-roll do estúdio dentro do ginásio</div>
+      <div class="meta__row"><strong>Duração</strong> · 28s · 5 planos</div>
+      <div class="meta__row"><strong>Local</strong> · Corredor do ginásio + interior de um estúdio TechBody em operação</div>
+      <div class="meta__row"><strong>Vestuário</strong> · Roupa de office casual (camisa, calça); nada de fato de treino</div>
+      <div class="meta__row"><strong>Luz</strong> · Natural; aproveitar luz de janela do estúdio</div>
+      <div class="meta__row"><strong>Áudio</strong> · Lavalier; ruído do ginásio mantido em background</div>
+    </div>
+  </header>
 
-<div class="stage">
-  <span class="label">FRANCHISING TECHBODY</span>
-  <div class="plan">
-    <div class="plan__outline"></div>
-    <div class="plan__inner"><span class="plan__num">30</span><span class="plan__unit">m²</span></div>
-    <span class="plan__dot plan__dot--1"></span>
-    <span class="plan__dot plan__dot--2"></span>
-    <span class="plan__dot plan__dot--3"></span>
-    <span class="plan__dot plan__dot--4"></span>
-  </div>
-  <div class="legend">
-    <div class="lg lg1"><span class="lg__name">EQUIPAMENTO</span><span class="lg__t">Fato EMS alemão certificado, pronto a operar</span></div>
-    <div class="lg lg2"><span class="lg__name">FORMAÇÃO</span><span class="lg__t">Treinadores qualificados no método TechBody</span></div>
-    <div class="lg lg3"><span class="lg__name">SUPORTE</span><span class="lg__t">Acompanhamento comercial contínuo</span></div>
-  </div>
-  <h2 class="kicker">Trinta metros quadrados. Uma nova linha de receita.</h2>
-  <span class="cta">Agenda uma reunião sobre o modelo de franchising →</span>
-</div>
+  <section class="timeline" aria-label="Linha de tempo">
+    <div class="timeline__strip">
+      <div class="ts-box"><div class="ts-box__bar" style="width:8%"></div><span class="ts-num">01 · 2s</span><span class="ts-text">PARA GINÁSIOS</span><span class="ts-dur">0s → 2s</span></div>
+      <div class="ts-box"><div class="ts-box__bar" style="width:29%"></div><span class="ts-num">02 · 8s</span><span class="ts-text">ÁREA COMPACTA</span><span class="ts-dur">2s → 10s</span></div>
+      <div class="ts-box"><div class="ts-box__bar" style="width:29%"></div><span class="ts-num">03 · 8s</span><span class="ts-text">TICKET ↑ · 2-3 ×/SEM</span><span class="ts-dur">10s → 18s</span></div>
+      <div class="ts-box"><div class="ts-box__bar" style="width:21%"></div><span class="ts-num">04 · 6s</span><span class="ts-text">PLANO · FORMAÇÃO · MARKETING</span><span class="ts-dur">18s → 24s</span></div>
+      <div class="ts-box"><div class="ts-box__bar" style="width:14%"></div><span class="ts-num">05 · 4s</span><span class="ts-text">AGENDAR →</span><span class="ts-dur">24s → 28s</span></div>
+    </div>
+  </section>
 
-</section>
-</body></html>
+  <section class="shot-list" aria-label="Plano por take">
+    <h2>Plano por take</h2>
+    <article class="shot"><div class="shot__head"><div><div class="shot__num">01</div><div class="shot__time">0s → 2s</div></div><div><div class="shot__onscreen">PARA GINÁSIOS</div><div class="shot__dialogue">Tens um ginásio? Vou-te mostrar porquê o EMS pode ser uma linha de receita.</div><div class="shot__meta"><div><strong>Cenário</strong> · Medium close-up, talking-head · No corredor do ginásio, ginásio em soft-focus atrás.</div></div></div></div></article>
+    <article class="shot"><div class="shot__head"><div><div class="shot__num">02</div><div class="shot__time">2s → 10s</div></div><div><div class="shot__onscreen">ÁREA COMPACTA</div><div class="shot__dialogue">Integra-se numa área compacta do espaço existente. Não tira sala de aulas, não tira ringue.</div><div class="shot__meta"><div><strong>Cenário</strong> · Walk-and-talk para dentro do estúdio EMS · Steady-cam ou estabilizador. Sujeito anda em direcção ao estúdio enquanto fala.</div></div></div></div></article>
+    <article class="shot"><div class="shot__head"><div><div class="shot__num">03</div><div class="shot__time">10s → 18s</div></div><div><div class="shot__onscreen">TICKET ↑ · 2-3 ×/SEM</div><div class="shot__dialogue">Ticket médio por sessão superior ao modelo convencional. O cliente vem duas a três vezes por semana — frequência regular.</div><div class="shot__meta"><div><strong>Cenário</strong> · Talking-head + lower thirds com números · Medium shot dentro do estúdio EMS.</div></div></div></div></article>
+    <article class="shot"><div class="shot__head"><div><div class="shot__num">04</div><div class="shot__time">18s → 24s</div></div><div><div class="shot__onscreen">PLANO · FORMAÇÃO · MARKETING</div><div class="shot__dialogue">O franchising inclui plano de negócio, formação, recrutamento e marketing digital. Não estás sozinho.</div><div class="shot__meta"><div><strong>Cenário</strong> · Triptych B-roll com voz off contínua · 3 planos curtos: (a) treinador a ser formado, (b) reunião de planeamento, (c) anúncio em telemóvel.</div></div></div></div></article>
+    <article class="shot"><div class="shot__head"><div><div class="shot__num">05</div><div class="shot__time">24s → 28s</div></div><div><div class="shot__onscreen">AGENDAR →</div><div class="shot__dialogue">Marca uma reunião. Vamos olhar para os teus números juntos.</div><div class="shot__meta"><div><strong>Cenário</strong> · Medium shot, fecho · Igual ao primeiro plano, fechando o arco.</div></div></div></div></article>
+  </section>
+
+  <section class="caption" aria-label="Caption Instagram">
+    <h3>Caption Instagram · rascunho</h3>
+    <div class="caption__text">Tens um ginásio? Vou-te mostrar porquê o EMS pode ser uma linha de receita.
+
+→ Integra-se numa área compacta do espaço existente.
+→ Ticket médio por sessão superior ao modelo convencional.
+→ Frequência regular: 2-3 sessões por semana, por cliente.
+→ Franchising inclui plano de negócio, formação, recrutamento e marketing digital.
+
+Marca uma reunião. Vamos olhar para os teus números juntos.</div>
+    <div class="caption__tags">#TechBody #EMSPortugal #Eletrofitness #TreinoInteligente #25Minutos #Lisboa</div>
+  </section>
+
+  <div class="foot">TechBody · Maio 2026</div>
+</body>
+</html>

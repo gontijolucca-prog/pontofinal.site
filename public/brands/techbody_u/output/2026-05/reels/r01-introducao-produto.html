@@ -1,172 +1,169 @@
 <!doctype html>
-<html lang="pt-PT"><head>
+<html lang="pt-PT">
+<head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Três peças. Um treino.</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,400;0,800;1,200;1,400;1,800&family=Manrope:wght@200;400;500;700;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
+<title>Unboxing TechBody U.</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;700;800&family=JetBrains+Mono:wght@300;500;700&display=swap" rel="stylesheet" />
 <style>
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html,body { background: #F2EDE4; color: #14160F; font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; }
+  /* Enforce portrait 9:16 inside the feedback iframe regardless of viewport. */
+  body {
+    width: min(100vw, calc(100vh * 9/16));
+    height: min(100vh, calc(100vw * 16/9));
+    margin: 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,0.45) transparent;
+  }
+  body::-webkit-scrollbar { width: 6px; }
+  body::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.45); border-radius: 3px; }
 
-:root {
-  --bg: #F2EDE4;
-  --accent: #C36F49;
-  --text: #14160F;
-  --mute: color-mix(in srgb, var(--text) 55%, transparent);
-  --line: color-mix(in srgb, var(--text) 12%, transparent);
-  --font-display: 'Fraunces', serif;
-  --font-body: 'Manrope', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body {
-  height: 100%;
-  background: #050507;
-  color: var(--text);
-  font-family: var(--font-body);
-  -webkit-font-smoothing: antialiased;
-}
-.reel {
-  position: relative;
-  /* Force a 9:16 box even when the viewport is not 9:16 (e.g. desktop preview). */
-  width: min(100vw, calc(100vh * 9 / 16));
-  height: min(100vh, calc(100vw * 16 / 9));
-  aspect-ratio: 9 / 16;
-  margin: 0 auto;
-  background: var(--bg);
-  color: var(--text);
-  overflow: hidden;
-}
-.reel__brand {
-  position: absolute; top: clamp(20px, 3.4vw, 38px);
-  left: clamp(20px, 3.4vw, 38px);
-  z-index: 10;
-  font-family: var(--font-display);
-  font-weight: 200;
-  font-style: italic;
-  font-size: clamp(18px, 2.2vw, 26px);
-  letter-spacing: -0.015em;
-  color: var(--accent);
-}
-.reel__progress {
-  position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: rgba(255,255,255,0.06);
-  z-index: 11;
-}
-.reel__progress::before {
-  content: ""; position: absolute; inset: 0;
-  background: var(--accent);
-  transform-origin: left center;
-  animation: reel-progress 15s linear infinite;
-}
-@keyframes reel-progress {
-  0% { transform: scaleX(0); }
-  100% { transform: scaleX(1); }
-}
+  .head { padding: 36px 28px 20px; }
+  .badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1.5px solid #C36F49;
+    color: #C36F49;
+    font: 700 10px/1 'JetBrains Mono', monospace;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  h1 { font: 800 30px/1.04 'Manrope'; letter-spacing: -0.025em; margin-bottom: 12px; }
+  .meta { font: 300 12px/1.55 'JetBrains Mono', monospace; color: rgba(0,0,0,0.45); }
+  .meta strong { color: #14160F; font-weight: 500; }
+  .meta__row + .meta__row { margin-top: 4px; }
 
+  /* Timeline mockup — horizontal strip showing scene-boxes side by side. */
+  .timeline {
+    margin: 28px 0 0;
+    padding: 0 28px 4px;
+    overflow-x: auto;
+  }
+  .timeline__strip {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(78px, 1fr));
+    gap: 6px;
+  }
+  .ts-box {
+    aspect-ratio: 9/16;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.10);
+    padding: 10px 8px 8px;
+    position: relative;
+    display: flex; flex-direction: column; justify-content: space-between;
+    min-height: 130px;
+  }
+  .ts-box__bar {
+    position: absolute; top: 0; left: 0; height: 3px;
+    background: #C36F49;
+  }
+  .ts-num { font: 500 9px/1 'JetBrains Mono', monospace; color: rgba(0,0,0,0.45); letter-spacing: 0.14em; }
+  .ts-text { font: 800 11px/1.12 'Manrope'; text-transform: uppercase; letter-spacing: -0.005em; word-break: break-word; }
+  .ts-dur { font: 300 9px/1 'JetBrains Mono', monospace; color: rgba(0,0,0,0.45); }
 
-.stage {
-  position: absolute; inset: 0;
-  display: grid; gap: clamp(20px, 3vw, 32px);
-  padding: 120px 48px 80px;
-  grid-template-rows: auto 1fr auto auto auto;
-  align-content: start;
-}
-.label {
-  font-family: var(--font-mono); font-size: 11px;
-  letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--mute);
-}
-.parts {
-  position: relative; display: grid; place-items: center;
-  min-height: 40vh;
-}
-.part {
-  position: absolute;
-  border: 1.5px solid var(--accent);
-  background: color-mix(in srgb, var(--accent) 6%, transparent);
-  display: grid; place-items: center;
-  animation-duration: 15s;
-  animation-iteration-count: infinite;
-  animation-timing-function: cubic-bezier(0.6, 0, 0.2, 1);
-}
-.part__name {
-  font-family: var(--font-display); font-style: italic; font-weight: 400;
-  font-size: clamp(14px, 1.6vw, 16px);
-  color: var(--accent);
-  letter-spacing: -0.01em;
-}
-.part--suit   { width: 38%; aspect-ratio: 3/5;   animation-name: psuit; }
-.part--device { width: 18%; aspect-ratio: 1/1; border-radius: 50%; animation-name: pdev; }
-.part--phone  { width: 22%; aspect-ratio: 9/16; animation-name: pph; }
-@keyframes psuit {
-  0%  { transform: translate(-90vw, -10vh) rotate(-12deg); opacity: 0; }
-  25% { transform: translate(0, 0) rotate(0); opacity: 1; }
-  85% { transform: translate(0, 0); opacity: 1; }
-  100% { transform: translate(0, 0); opacity: 1; }
-}
-@keyframes pdev {
-  0%, 25% { transform: translate(80vw, 40vh); opacity: 0; }
-  45% { transform: translate(46%, -30%); opacity: 1; }
-  85% { transform: translate(46%, -30%); opacity: 1; }
-  100% { transform: translate(46%, -30%); opacity: 1; }
-}
-@keyframes pph {
-  0%, 45% { transform: translate(-80vw, 60vh); opacity: 0; }
-  65% { transform: translate(-46%, 30%); opacity: 1; }
-  85% { transform: translate(-46%, 30%); opacity: 1; }
-  100% { transform: translate(-46%, 30%); opacity: 1; }
-}
-.captions {
-  display: flex; justify-content: space-around;
-  padding-top: 18px; border-top: 1px solid var(--line);
-}
-.cap {
-  font-family: var(--font-display); font-style: italic;
-  font-weight: 200; font-size: clamp(20px, 2.8vw, 30px);
-  opacity: 0;
-}
-.c1 { animation: capf 15s ease infinite; animation-delay: 2s; }
-.c2 { animation: capf 15s ease infinite; animation-delay: 4.5s; }
-.c3 { animation: capf 15s ease infinite; animation-delay: 7s; color: var(--accent); }
-@keyframes capf { 0% { opacity: 0; transform: translateY(6px); } 8% { opacity: 1; transform: translateY(0); } 80% { opacity: 1; } 100% { opacity: 0; } }
-.kicker {
-  font-family: var(--font-display); font-style: italic;
-  font-weight: 200; font-size: clamp(28px, 4.4vw, 44px);
-  letter-spacing: -0.022em; line-height: 1.1;
-  max-width: 18ch; opacity: 0;
-  animation: kfade 15s ease infinite;
-  animation-delay: 10s;
-}
-.kicker em { font-weight: 800; font-style: italic; color: var(--accent); }
-@keyframes kfade { 0% { opacity: 0; } 12% { opacity: 1; } 90% { opacity: 1; } 100% { opacity: 0; } }
-.cta {
-  font-family: var(--font-mono); font-size: 11px;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--mute); padding-top: 14px;
-  border-top: 1px solid var(--line);
-  text-align: center;
-}
+  /* Shot list — detailed cards. */
+  .shot-list { padding: 32px 28px 4px; }
+  .shot-list h2 { font: 800 16px/1 'Manrope'; text-transform: uppercase; letter-spacing: -0.005em; margin-bottom: 18px; }
+  .shot {
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding: 18px 0 22px;
+  }
+  .shot__head {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .shot__num { font: 800 13px/1 'JetBrains Mono', monospace; color: #C36F49; }
+  .shot__time { font: 300 10px/1 'JetBrains Mono', monospace; color: rgba(0,0,0,0.45); margin-top: 5px; }
+  .shot__type { font: 700 10px/1 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.10em; margin-bottom: 8px; }
+  .shot__onscreen { font: 800 10px/1 'JetBrains Mono', monospace; color: #F2EDE4; background: #C36F49; padding: 4px 7px; display: inline-block; margin-bottom: 10px; letter-spacing: 0.08em; }
+  .shot__dialogue { font: 800 14px/1.3 'Manrope'; margin-bottom: 12px; }
+  .shot__dialogue::before { content: '« '; color: #C36F49; }
+  .shot__dialogue::after  { content: ' »'; color: #C36F49; }
+  .shot__meta { font: 300 11px/1.45 'JetBrains Mono', monospace; color: rgba(0,0,0,0.45); display: grid; gap: 4px; }
+  .shot__meta strong { color: #14160F; font-weight: 500; }
 
-</style></head>
+  /* Caption block */
+  .caption {
+    margin-top: 24px;
+    padding: 24px 28px 36px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.02);
+  }
+  .caption h3 {
+    font: 700 10px/1 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: rgba(0,0,0,0.45);
+    margin-bottom: 14px;
+  }
+  .caption__text {
+    font: 400 12px/1.55 'JetBrains Mono', monospace;
+    color: #14160F;
+    white-space: pre-wrap;
+    margin-bottom: 14px;
+  }
+  .caption__tags { color: #C36F49; font: 700 11px/1.45 'JetBrains Mono', monospace; word-break: break-all; }
+
+  .foot {
+    padding: 14px 28px 36px;
+    font: 700 9px/1 'JetBrains Mono', monospace;
+    letter-spacing: 0.18em;
+    color: rgba(0,0,0,0.45);
+    text-transform: uppercase;
+  }
+</style>
+</head>
 <body>
-<section class="reel" aria-label="Reel TechBody U — Três peças. Um treino.">
-  <div class="reel__progress"></div>
-  <span class="reel__brand">TechBody U</span>
+  <header class="head">
+    <span class="badge">Guia de gravação · TechBody U</span>
+    <h1>Unboxing TechBody U.</h1>
+    <div class="meta">
+      <div class="meta__row"><strong>Formato</strong> · Talking-head + close-up de produto (estilo unboxing)</div>
+      <div class="meta__row"><strong>Duração</strong> · 22s · 5 planos</div>
+      <div class="meta__row"><strong>Local</strong> · Casa do utilizador — sala com luz natural, mesa neutra</div>
+      <div class="meta__row"><strong>Vestuário</strong> · Roupa de casa (sweatshirt, calção, ténis ou descalço)</div>
+      <div class="meta__row"><strong>Luz</strong> · Luz natural de janela 45° à frente; sem flash</div>
+      <div class="meta__row"><strong>Áudio</strong> · Áudio do telemóvel chega — som de unboxing valoriza a peça</div>
+    </div>
+  </header>
 
-<div class="stage">
-  <span class="label">SISTEMA TECHBODY U</span>
-  <div class="parts">
-    <div class="part part--suit"><span class="part__name">fato</span></div>
-    <div class="part part--device"><span class="part__name">dispositivo</span></div>
-    <div class="part part--phone"><span class="part__name">app</span></div>
-  </div>
-  <div class="captions">
-    <span class="cap c1">Veste.</span>
-    <span class="cap c2">Liga.</span>
-    <span class="cap c3">Treina.</span>
-  </div>
-  <h2 class="kicker"><em>Três peças</em> que fazem o teu estúdio.</h2>
-  <span class="cta">Conhece o ecossistema TechBody U →</span>
-</div>
+  <section class="timeline" aria-label="Linha de tempo">
+    <div class="timeline__strip">
+      <div class="ts-box"><div class="ts-box__bar" style="width:9%"></div><span class="ts-num">01 · 2s</span><span class="ts-text">UNBOXING</span><span class="ts-dur">0s → 2s</span></div>
+      <div class="ts-box"><div class="ts-box__bar" style="width:27%"></div><span class="ts-num">02 · 6s</span><span class="ts-text">3 PEÇAS</span><span class="ts-dur">2s → 8s</span></div>
+      <div class="ts-box"><div class="ts-box__bar" style="width:32%"></div><span class="ts-num">03 · 7s</span><span class="ts-text">ELETRODOS · MAGNÉTICO · APLICAÇÃO</span><span class="ts-dur">8s → 15s</span></div>
+      <div class="ts-box"><div class="ts-box__bar" style="width:23%"></div><span class="ts-num">04 · 5s</span><span class="ts-text">25 MIN · EM CASA</span><span class="ts-dur">15s → 20s</span></div>
+      <div class="ts-box"><div class="ts-box__bar" style="width:9%"></div><span class="ts-num">05 · 2s</span><span class="ts-text">DESCOBRIR →</span><span class="ts-dur">20s → 22s</span></div>
+    </div>
+  </section>
 
-</section>
-</body></html>
+  <section class="shot-list" aria-label="Plano por take">
+    <h2>Plano por take</h2>
+    <article class="shot"><div class="shot__head"><div><div class="shot__num">01</div><div class="shot__time">0s → 2s</div></div><div><div class="shot__onscreen">UNBOXING</div><div class="shot__dialogue">Acabei de receber o TechBody U. Vou abrir contigo.</div><div class="shot__meta"><div><strong>Cenário</strong> · Medium shot, talking-head · Sentado/de pé junto à caixa fechada na mesa. Olho na lente.</div></div></div></div></article>
+    <article class="shot"><div class="shot__head"><div><div class="shot__num">02</div><div class="shot__time">2s → 8s</div></div><div><div class="shot__onscreen">3 PEÇAS</div><div class="shot__dialogue">Vem o fato, o controlador, e o telemóvel é o teu painel.</div><div class="shot__meta"><div><strong>Cenário</strong> · Top-down ASMR-style do unboxing · Câmara directamente em cima da mesa. Mãos a tirar as peças.</div></div></div></div></article>
+    <article class="shot"><div class="shot__head"><div><div class="shot__num">03</div><div class="shot__time">8s → 15s</div></div><div><div class="shot__onscreen">ELETRODOS · MAGNÉTICO · APLICAÇÃO</div><div class="shot__dialogue">Eletrodos secos no fato. Ligas com um clique magnético. A aplicação guia a sessão toda.</div><div class="shot__meta"><div><strong>Cenário</strong> · Talking-head com cada peça à mão · Medium shot. Mostra cada peça à câmara, uma de cada vez.</div></div></div></div></article>
+    <article class="shot"><div class="shot__head"><div><div class="shot__num">04</div><div class="shot__time">15s → 20s</div></div><div><div class="shot__onscreen">25 MIN · EM CASA</div><div class="shot__dialogue">Em casa, no horário que dá jeito. Sem marcar, sem deslocar.</div><div class="shot__meta"><div><strong>Cenário</strong> · Cenário 2 — pessoa a vestir o fato em casa · Wide shot em casa, luz natural. Pessoa a vestir o fato.</div></div></div></div></article>
+    <article class="shot"><div class="shot__head"><div><div class="shot__num">05</div><div class="shot__time">20s → 22s</div></div><div><div class="shot__onscreen">DESCOBRIR →</div><div class="shot__dialogue">Compra ou subscrição mensal. Link na bio.</div><div class="shot__meta"><div><strong>Cenário</strong> · Medium shot, fecho · Pessoa pronta para treinar, mão no controlador.</div></div></div></div></article>
+  </section>
+
+  <section class="caption" aria-label="Caption Instagram">
+    <h3>Caption Instagram · rascunho</h3>
+    <div class="caption__text">Acabei de receber o TechBody U. Vou abrir contigo.
+
+Vem o fato com eletrodos secos, o controlador magnético e o telemóvel é o teu painel.
+Treinas em casa, no horário que te dá jeito.
+Sessões de 25 minutos guiadas pela aplicação.
+
+Disponível para compra ou subscrição mensal. Link na bio.</div>
+    <div class="caption__tags">#TechBodyU #EMSemCasa #TreinoInteligente #25Minutos #FitnessPortugal #Eletroestimulacao</div>
+  </section>
+
+  <div class="foot">TechBody U · Maio 2026</div>
+</body>
+</html>

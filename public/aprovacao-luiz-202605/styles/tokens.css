@@ -48,6 +48,36 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Mobile scale — keeps the brutalist contrast but shrinks everything so
+   it actually breathes on a phone. Touch targets are enforced separately
+   in components.css. */
+@media (max-width: 720px) {
+  :root {
+    --t-xxs: 10px;
+    --t-xs:  11px;
+    --t-sm:  13px;
+    --t-md:  15px;
+    --t-lg:  18px;
+    --t-xl:  24px;
+    --t-2xl: 36px;
+
+    --s-3: 10px;
+    --s-4: 14px;
+    --s-5: 22px;
+    --s-6: 18px;
+    --s-7: 36px;
+
+    --border-w: 2px;
+    --border-w-bold: 3px;
+    --shadow: 4px 4px 0 0 var(--border);
+    --shadow-lg: 6px 6px 0 0 var(--border);
+    --shadow-sm: 2px 2px 0 0 var(--border);
+  }
+  body {
+    background-size: 24px 24px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

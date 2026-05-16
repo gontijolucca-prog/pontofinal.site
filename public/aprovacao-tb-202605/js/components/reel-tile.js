@@ -41,14 +41,16 @@ class ReelTile extends HTMLElement {
     const it = this._item;
     if (!it) return;
     const duration = it.slides || 15;
+    const isGuide = it.kind === "shoot_guide";
+    const kindLabel = isGuide ? `Guia ${duration}s` : `Reel ${duration}s`;
 
     this.innerHTML = `
-      <article class="tile tile--reel" data-item-id="${it.id}">
-        <span class="tile__label">Reel ${duration}s · ${BRAND_LABELS[it.brand]?.toUpperCase() || it.brand}</span>
+      <article class="tile tile--reel${isGuide ? " tile--guide" : ""}" data-item-id="${it.id}">
+        <span class="tile__label">${kindLabel} · ${BRAND_LABELS[it.brand]?.toUpperCase() || it.brand}</span>
         <iframe src="${it.html_url}" loading="eager" tabindex="-1" onload="this.classList.add('is-loaded')"></iframe>
         <div class="tile__caption">
           <strong>${it.title || it.theme}</strong>
-          <span>${it.scheduled_for || ""} · ${it.hour || ""} · ${duration}s</span>
+          <span>${it.scheduled_for || ""} · ${it.hour || ""} · ${duration}s · ${isGuide ? "guia de gravação" : "motion graphics"}</span>
         </div>
       </article>
     `;

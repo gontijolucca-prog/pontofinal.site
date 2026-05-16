@@ -1,153 +1,169 @@
 <!doctype html>
-<html lang="pt-PT"><head>
+<html lang="pt-PT">
+<head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>O treino convencional só recruta 40%.</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,400;0,800;1,200;1,400;1,800&family=Manrope:wght@200;400;500;700;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
+<title>Mito: EMS é só vibração.</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;700;800&family=JetBrains+Mono:wght@300;500;700&display=swap" rel="stylesheet" />
 <style>
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html,body { background: #1a1a1a; color: #ffffff; font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; }
+  /* Enforce portrait 9:16 inside the feedback iframe regardless of viewport. */
+  body {
+    width: min(100vw, calc(100vh * 9/16));
+    height: min(100vh, calc(100vw * 16/9));
+    margin: 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.45) transparent;
+  }
+  body::-webkit-scrollbar { width: 6px; }
+  body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.45); border-radius: 3px; }
 
-:root {
-  --bg: #1a1a1a;
-  --accent: #d4773b;
-  --text: #ffffff;
-  --mute: color-mix(in srgb, var(--text) 55%, transparent);
-  --line: color-mix(in srgb, var(--text) 12%, transparent);
-  --font-display: 'Manrope', sans-serif;
-  --font-body: 'Manrope', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body {
-  height: 100%;
-  background: #050507;
-  color: var(--text);
-  font-family: var(--font-body);
-  -webkit-font-smoothing: antialiased;
-}
-.reel {
-  position: relative;
-  /* Force a 9:16 box even when the viewport is not 9:16 (e.g. desktop preview). */
-  width: min(100vw, calc(100vh * 9 / 16));
-  height: min(100vh, calc(100vw * 16 / 9));
-  aspect-ratio: 9 / 16;
-  margin: 0 auto;
-  background: var(--bg);
-  color: var(--text);
-  overflow: hidden;
-}
-.reel__brand {
-  position: absolute; top: clamp(20px, 3.4vw, 38px);
-  left: clamp(20px, 3.4vw, 38px);
-  z-index: 10;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-style: normal;
-  font-size: clamp(18px, 2.2vw, 26px);
-  letter-spacing: -0.015em;
-  color: var(--accent);
-}
-.reel__progress {
-  position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: rgba(255,255,255,0.06);
-  z-index: 11;
-}
-.reel__progress::before {
-  content: ""; position: absolute; inset: 0;
-  background: var(--accent);
-  transform-origin: left center;
-  animation: reel-progress 15s linear infinite;
-}
-@keyframes reel-progress {
-  0% { transform: scaleX(0); }
-  100% { transform: scaleX(1); }
-}
+  .head { padding: 36px 28px 20px; }
+  .badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1.5px solid #d4773b;
+    color: #d4773b;
+    font: 700 10px/1 'JetBrains Mono', monospace;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  h1 { font: 800 30px/1.04 'Manrope'; letter-spacing: -0.025em; margin-bottom: 12px; }
+  .meta { font: 300 12px/1.55 'JetBrains Mono', monospace; color: rgba(255,255,255,0.45); }
+  .meta strong { color: #ffffff; font-weight: 500; }
+  .meta__row + .meta__row { margin-top: 4px; }
 
+  /* Timeline mockup — horizontal strip showing scene-boxes side by side. */
+  .timeline {
+    margin: 28px 0 0;
+    padding: 0 28px 4px;
+    overflow-x: auto;
+  }
+  .timeline__strip {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(78px, 1fr));
+    gap: 6px;
+  }
+  .ts-box {
+    aspect-ratio: 9/16;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.10);
+    padding: 10px 8px 8px;
+    position: relative;
+    display: flex; flex-direction: column; justify-content: space-between;
+    min-height: 130px;
+  }
+  .ts-box__bar {
+    position: absolute; top: 0; left: 0; height: 3px;
+    background: #d4773b;
+  }
+  .ts-num { font: 500 9px/1 'JetBrains Mono', monospace; color: rgba(255,255,255,0.45); letter-spacing: 0.14em; }
+  .ts-text { font: 800 11px/1.12 'Manrope'; text-transform: uppercase; letter-spacing: -0.005em; word-break: break-word; }
+  .ts-dur { font: 300 9px/1 'JetBrains Mono', monospace; color: rgba(255,255,255,0.45); }
 
-.stage {
-  position: absolute; inset: 0;
-  display: grid; gap: clamp(20px, 3vw, 32px);
-  padding: 130px 48px 70px;
-  grid-template-rows: auto auto auto auto 1fr;
-  align-content: center;
-}
-.label {
-  font-family: var(--font-mono); font-size: 12px;
-  letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--mute);
-}
-.bar { display: grid; gap: 10px; }
-.bar__label {
-  font-family: var(--font-display); font-weight: 500;
-  font-size: clamp(20px, 2.6vw, 30px); letter-spacing: -0.018em;
-}
-.bar__pct {
-  font-family: var(--font-display); font-weight: 200;
-  font-size: clamp(56px, 11vw, 110px); line-height: 1;
-  letter-spacing: -0.05em; color: var(--accent);
-  opacity: 0;
-  animation-duration: 15s; animation-iteration-count: infinite;
-  animation-timing-function: ease;
-}
-.bar__pct--a { color: var(--mute); animation-name: pctA; }
-.bar__pct--b { animation-name: pctB; }
-@keyframes pctA { 0%, 18% { opacity: 0; } 26% { opacity: 1; } 92% { opacity: 1; } 96% { opacity: 0; } }
-@keyframes pctB { 0%, 48% { opacity: 0; } 56% { opacity: 1; } 92% { opacity: 1; } 96% { opacity: 0; } }
-.bar__rail {
-  height: clamp(14px, 1.6vw, 18px);
-  background: rgba(255,255,255,0.06);
-  position: relative; overflow: hidden;
-}
-.bar__fill {
-  position: absolute; inset: 0;
-  background: var(--accent);
-  transform-origin: left center;
-  transform: scaleX(0);
-  animation-duration: 15s;
-  animation-iteration-count: infinite;
-  animation-timing-function: cubic-bezier(0.6, 0, 0.2, 1);
-}
-.bar__fill--a { background: rgba(255,255,255,0.45); animation-name: barA; }
-.bar__fill--b { animation-name: barB; }
-@keyframes barA { 0%, 8% { transform: scaleX(0); } 26% { transform: scaleX(0.40); } 92% { transform: scaleX(0.40); } 96% { transform: scaleX(0); } 100% { transform: scaleX(0); } }
-@keyframes barB { 0%, 32% { transform: scaleX(0); } 56% { transform: scaleX(0.90); } 92% { transform: scaleX(0.90); } 96% { transform: scaleX(0); } 100% { transform: scaleX(0); } }
-.kicker {
-  font-family: var(--font-display); font-weight: 500;
-  font-size: clamp(22px, 3vw, 34px); line-height: 1.18;
-  letter-spacing: -0.02em; max-width: 22ch;
-  opacity: 0;
-  animation: kicker 15s ease infinite;
-}
-@keyframes kicker { 0%, 72% { opacity: 0; transform: translateY(8px); } 80% { opacity: 1; transform: translateY(0); } 95% { opacity: 1; } 100% { opacity: 0; } }
-.cta {
-  align-self: end;
-  font-family: var(--font-mono); font-size: 12px;
-  letter-spacing: 0.24em; text-transform: uppercase;
-  color: var(--mute); padding-top: 24px;
-  border-top: 1px solid var(--line);
-  text-align: center;
-}
+  /* Shot list — detailed cards. */
+  .shot-list { padding: 32px 28px 4px; }
+  .shot-list h2 { font: 800 16px/1 'Manrope'; text-transform: uppercase; letter-spacing: -0.005em; margin-bottom: 18px; }
+  .shot {
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding: 18px 0 22px;
+  }
+  .shot__head {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .shot__num { font: 800 13px/1 'JetBrains Mono', monospace; color: #d4773b; }
+  .shot__time { font: 300 10px/1 'JetBrains Mono', monospace; color: rgba(255,255,255,0.45); margin-top: 5px; }
+  .shot__type { font: 700 10px/1 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.10em; margin-bottom: 8px; }
+  .shot__onscreen { font: 800 10px/1 'JetBrains Mono', monospace; color: #1a1a1a; background: #d4773b; padding: 4px 7px; display: inline-block; margin-bottom: 10px; letter-spacing: 0.08em; }
+  .shot__dialogue { font: 800 14px/1.3 'Manrope'; margin-bottom: 12px; }
+  .shot__dialogue::before { content: '« '; color: #d4773b; }
+  .shot__dialogue::after  { content: ' »'; color: #d4773b; }
+  .shot__meta { font: 300 11px/1.45 'JetBrains Mono', monospace; color: rgba(255,255,255,0.45); display: grid; gap: 4px; }
+  .shot__meta strong { color: #ffffff; font-weight: 500; }
 
-</style></head>
+  /* Caption block */
+  .caption {
+    margin-top: 24px;
+    padding: 24px 28px 36px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.02);
+  }
+  .caption h3 {
+    font: 700 10px/1 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 14px;
+  }
+  .caption__text {
+    font: 400 12px/1.55 'JetBrains Mono', monospace;
+    color: #ffffff;
+    white-space: pre-wrap;
+    margin-bottom: 14px;
+  }
+  .caption__tags { color: #d4773b; font: 700 11px/1.45 'JetBrains Mono', monospace; word-break: break-all; }
+
+  .foot {
+    padding: 14px 28px 36px;
+    font: 700 9px/1 'JetBrains Mono', monospace;
+    letter-spacing: 0.18em;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+  }
+</style>
+</head>
 <body>
-<section class="reel" aria-label="Reel TechBody — O treino convencional só recruta 40%.">
-  <div class="reel__progress"></div>
-  <span class="reel__brand">TechBody</span>
+  <header class="head">
+    <span class="badge">Guia de gravação · TechBody</span>
+    <h1>Mito: EMS é só vibração.</h1>
+    <div class="meta">
+      <div class="meta__row"><strong>Formato</strong> · Talking-head + B-roll do equipamento (mito → verdade)</div>
+      <div class="meta__row"><strong>Duração</strong> · 22s · 5 planos</div>
+      <div class="meta__row"><strong>Local</strong> · Estúdio TechBody — fundo neutro com fato EMS visível atrás</div>
+      <div class="meta__row"><strong>Vestuário</strong> · Treinador de estúdio (calção/t-shirt TechBody) OU cliente regular em fato EMS</div>
+      <div class="meta__row"><strong>Luz</strong> · Luz natural + fill suave; nada cinematográfico — registo natural</div>
+      <div class="meta__row"><strong>Áudio</strong> · Lavalier discreto OU shotgun do telemóvel. Som ambiente do estúdio cortado.</div>
+    </div>
+  </header>
 
-<div class="stage">
-  <span class="label">ACTIVAÇÃO MUSCULAR</span>
-  <div class="bar bar--a">
-    <span class="bar__label">Treino convencional</span>
-    <span class="bar__pct bar__pct--a">40%</span>
-    <div class="bar__rail"><div class="bar__fill bar__fill--a"></div></div>
-  </div>
-  <div class="bar bar--b">
-    <span class="bar__label">EMS de corpo inteiro</span>
-    <span class="bar__pct bar__pct--b">90%</span>
-    <div class="bar__rail"><div class="bar__fill bar__fill--b"></div></div>
-  </div>
-  <h2 class="kicker">O mesmo corpo. Estímulo mais profundo.</h2>
-  <span class="cta">Conhece o método. Marca a primeira sessão →</span>
-</div>
+  <section class="timeline" aria-label="Linha de tempo">
+    <div class="timeline__strip">
+      <div class="ts-box"><div class="ts-box__bar" style="width:8%"></div><span class="ts-num">01 · 2s</span><span class="ts-text">MITO</span><span class="ts-dur">0s → 1s</span></div>
+      <div class="ts-box"><div class="ts-box__bar" style="width:30%"></div><span class="ts-num">02 · 6s</span><span class="ts-text">FIBRAS PROFUNDAS</span><span class="ts-dur">1s → 8s</span></div>
+      <div class="ts-box"><div class="ts-box__bar" style="width:32%"></div><span class="ts-num">03 · 7s</span><span class="ts-text">ATÉ 90% · 25 MIN</span><span class="ts-dur">8s → 15s</span></div>
+      <div class="ts-box"><div class="ts-box__bar" style="width:23%"></div><span class="ts-num">04 · 5s</span><span class="ts-text">—</span><span class="ts-dur">15s → 20s</span></div>
+      <div class="ts-box"><div class="ts-box__bar" style="width:9%"></div><span class="ts-num">05 · 2s</span><span class="ts-text">MARCAR →</span><span class="ts-dur">20s → 22s</span></div>
+    </div>
+  </section>
 
-</section>
-</body></html>
+  <section class="shot-list" aria-label="Plano por take">
+    <h2>Plano por take</h2>
+    <article class="shot"><div class="shot__head"><div><div class="shot__num">01</div><div class="shot__time">0s → 1.5s</div></div><div><div class="shot__onscreen">MITO</div><div class="shot__dialogue">Achas que EMS é só vibração? Vou explicar o que é mesmo.</div><div class="shot__meta"><div><strong>Cenário</strong> · Close-up frontal, talking-head · Cabeça + ombros, olho na lente. Fundo do estúdio levemente desfocado.</div></div></div></div></article>
+    <article class="shot"><div class="shot__head"><div><div class="shot__num">02</div><div class="shot__time">1.5s → 8s</div></div><div><div class="shot__onscreen">FIBRAS PROFUNDAS</div><div class="shot__dialogue">O sinal eléctrico chega a fibras que num treino convencional dificilmente activas — as profundas.</div><div class="shot__meta"><div><strong>Cenário</strong> · Close-up de mãos no fato + transição para médio · Mãos a fechar fivelas, depois cut para sujeito de pé.</div></div></div></div></article>
+    <article class="shot"><div class="shot__head"><div><div class="shot__num">03</div><div class="shot__time">8s → 15s</div></div><div><div class="shot__onscreen">ATÉ 90% · 25 MIN</div><div class="shot__dialogue">No estúdio, em 25 minutos activamos até 90% das fibras musculares. Sempre com um treinador a controlar a intensidade.</div><div class="shot__meta"><div><strong>Cenário</strong> · Medium shot a falar para câmara · Plano peito-acima, ligeiramente baixo. Olho na lente.</div></div></div></div></article>
+    <article class="shot"><div class="shot__head"><div><div class="shot__num">04</div><div class="shot__time">15s → 20s</div></div><div><div class="shot__dialogue">Cada movimento que fazes, o sistema amplifica. Não trabalhas contra a vibração — trabalhas com ela.</div><div class="shot__meta"><div><strong>Cenário</strong> · Cenário 2 — close-up do treinador + atleta · Sobre o ombro do treinador a ajustar o controlador. Atleta em agachamento controlado.</div></div></div></div></article>
+    <article class="shot"><div class="shot__head"><div><div class="shot__num">05</div><div class="shot__time">20s → 22s</div></div><div><div class="shot__onscreen">MARCAR →</div><div class="shot__dialogue">Marca uma sessão experimental. Link na bio.</div><div class="shot__meta"><div><strong>Cenário</strong> · Close-up a falar para câmara · Igual ao primeiro plano, fecha o ciclo visual.</div></div></div></div></article>
+  </section>
+
+  <section class="caption" aria-label="Caption Instagram">
+    <h3>Caption Instagram · rascunho</h3>
+    <div class="caption__text">Achas que EMS é só vibração? Vou explicar o que é mesmo.
+
+No treino convencional, o trabalho concentra-se nas fibras superficiais.
+Com EMS de corpo inteiro a activação chega até 90% das fibras — incluindo as profundas.
+Cada sessão tem 25 minutos e é sempre acompanhada por um treinador.
+
+Vem ao estúdio. Marca a primeira sessão.</div>
+    <div class="caption__tags">#TechBody #EMSPortugal #Eletrofitness #TreinoInteligente #25Minutos #Lisboa</div>
+  </section>
+
+  <div class="foot">TechBody · Maio 2026</div>
+</body>
+</html>

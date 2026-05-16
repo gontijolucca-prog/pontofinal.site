@@ -1,7 +1,7 @@
 // <month-calendar> — renders a single-month grid with chips on scheduled days.
 
 const WEEKDAYS = ["seg", "ter", "qua", "qui", "sex", "sáb", "dom"];
-const BRAND_SHORT = { techbody: "TB", techbody_u: "TBU", luiz_santana: "LZ" };
+const BRAND_SHORT = { techbody: "TB", techbody_u: "TBU", luiz_santana: "LS" };
 const FMT_LABEL = { carrossel: "Carr", story: "Story", reel: "Reel" };
 
 function daysInMonth(year, month) { return new Date(year, month, 0).getDate(); }
