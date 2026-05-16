@@ -1,198 +1,29 @@
 <!doctype html>
-<html lang="pt-PT"><head>
+<html lang="pt-PT">
+<head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>A aplicação que te treina.</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,400;0,800;1,200;1,400;1,800&family=Manrope:wght@200;400;500;700;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
+<title>EMS, em conversa.</title>
 <style>
-
-:root {
-  --bg: #F2EDE4;
-  --accent: #C36F49;
-  --text: #14160F;
-  --mute: color-mix(in srgb, var(--text) 55%, transparent);
-  --line: color-mix(in srgb, var(--text) 12%, transparent);
-  --font-display: 'Fraunces', serif;
-  --font-body: 'Manrope', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body {
-  height: 100%;
-  background: #050507;
-  color: var(--text);
-  font-family: var(--font-body);
-  -webkit-font-smoothing: antialiased;
-}
-.reel {
-  position: relative;
-  /* Force a 9:16 box even when the viewport is not 9:16 (e.g. desktop preview). */
-  width: min(100vw, calc(100vh * 9 / 16));
-  height: min(100vh, calc(100vw * 16 / 9));
-  aspect-ratio: 9 / 16;
-  margin: 0 auto;
-  background: var(--bg);
-  color: var(--text);
-  overflow: hidden;
-}
-.reel__brand {
-  position: absolute; top: clamp(20px, 3.4vw, 38px);
-  left: clamp(20px, 3.4vw, 38px);
-  z-index: 10;
-  font-family: var(--font-display);
-  font-weight: 200;
-  font-style: italic;
-  font-size: clamp(18px, 2.2vw, 26px);
-  letter-spacing: -0.015em;
-  color: var(--accent);
-}
-.reel__progress {
-  position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: rgba(255,255,255,0.06);
-  z-index: 11;
-}
-.reel__progress::before {
-  content: ""; position: absolute; inset: 0;
-  background: var(--accent);
-  transform-origin: left center;
-  animation: reel-progress 30s linear infinite;
-}
-@keyframes reel-progress {
-  0% { transform: scaleX(0); }
-  100% { transform: scaleX(1); }
-}
-
-
-.stage {
-  position: absolute; inset: 0;
-  display: grid; gap: clamp(18px, 2.8vw, 28px);
-  padding: 110px 48px 70px;
-  grid-template-rows: auto 1fr auto auto;
-  align-content: start;
-}
-.label {
-  font-family: var(--font-mono); font-size: 11px;
-  letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--mute);
-}
-.phone {
-  position: relative;
-  width: min(70%, 360px);
-  aspect-ratio: 9 / 16;
-  margin: 0 auto;
-  border: 4px solid var(--text);
-  border-radius: 30px;
-  background: #14160F;
-  overflow: hidden;
-  color: var(--text);
-}
-.phone__notch {
-  position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
-  width: 50px; height: 6px;
-  background: var(--text); opacity: 0.4; border-radius: 3px;
-  z-index: 5;
-}
-.screen {
-  position: absolute; inset: 0;
-  padding: 38px 18px 18px;
-  display: flex; flex-direction: column; gap: 10px;
-  opacity: 0;
-}
-.s__title {
-  font-family: var(--font-mono); font-size: 9px;
-  letter-spacing: 0.28em; color: var(--accent);
-}
-.row {
-  display: flex; justify-content: space-between; align-items: baseline;
-  padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
-  font-family: var(--font-display); font-style: italic; font-weight: 400;
-  font-size: clamp(11px, 1.4vw, 13px); color: rgba(242,237,228,0.85);
-}
-.row .acc { color: var(--accent); font-weight: 800; font-style: italic; }
-.metric {
-  font-family: var(--font-display); font-style: italic; font-weight: 800;
-  font-size: clamp(56px, 9vw, 88px); color: var(--accent);
-  line-height: 1; letter-spacing: -0.04em;
-  margin-top: 24px; text-align: center;
-}
-.metric-label {
-  font-family: var(--font-display); font-style: italic; font-weight: 400;
-  font-size: clamp(11px, 1.4vw, 14px); color: rgba(242,237,228,0.7);
-  text-align: center;
-}
-.ring {
-  width: 80px; height: 80px;
-  margin: 12px auto 0;
-  border: 4px solid var(--accent);
-  border-top-color: rgba(242,237,228,0.2);
-  border-radius: 50%;
-  animation: spin 2s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-.graph { width: 100%; height: 60px; color: var(--accent); margin-top: 12px; }
-.s1 { animation: scr 30s ease infinite; animation-delay: 1s; }
-.s2 { animation: scr 30s ease infinite; animation-delay: 9s; }
-.s3 { animation: scr 30s ease infinite; animation-delay: 17s; }
-@keyframes scr {
-  0% { opacity: 0; transform: translateX(60px); }
-  5% { opacity: 1; transform: translateX(0); }
-  25% { opacity: 1; transform: translateX(0); }
-  30% { opacity: 0; transform: translateX(-60px); }
-  100% { opacity: 0; transform: translateX(-60px); }
-}
-.kicker {
-  font-family: var(--font-display); font-style: italic;
-  font-weight: 200; font-size: clamp(28px, 4.4vw, 42px);
-  letter-spacing: -0.022em; line-height: 1.05;
-  max-width: 18ch; opacity: 0;
-  animation: kfade 30s ease infinite;
-  animation-delay: 24s;
-}
-.kicker em { font-weight: 800; color: var(--accent); }
-@keyframes kfade { 0% { opacity: 0; } 12% { opacity: 1; } 90% { opacity: 1; } 100% { opacity: 0; } }
-.cta {
-  font-family: var(--font-mono); font-size: 11px;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--mute); padding-top: 12px;
-  border-top: 1px solid var(--line);
-  text-align: center;
-}
-
-</style></head>
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html,body { height: 100%; background: #000; overflow: hidden; }
+  .reel {
+    width: min(100vw, calc(100vh * 9/16));
+    height: min(100vh, calc(100vw * 16/9));
+    margin: 0 auto;
+    background: #000;
+    display: grid; place-items: center;
+  }
+  video {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+</style>
+</head>
 <body>
-<section class="reel" aria-label="Reel TechBody U — A aplicação que te treina.">
-  <div class="reel__progress"></div>
-  <span class="reel__brand">TechBody U</span>
-
-<div class="stage">
-  <span class="label">APLICAÇÃO TECHBODY U</span>
-  <div class="phone">
-    <div class="phone__notch"></div>
-    <div class="screen s1">
-      <span class="s__title">SESSÕES</span>
-      <div class="row"><span>Núcleo</span><span class="acc">20 min</span></div>
-      <div class="row"><span>Mobilidade</span><span class="acc">15 min</span></div>
-      <div class="row"><span>Força</span><span class="acc">25 min</span></div>
-      <div class="row"><span>Activação</span><span class="acc">12 min</span></div>
-    </div>
-    <div class="screen s2">
-      <span class="s__title">EM SESSÃO</span>
-      <span class="metric">86%</span>
-      <span class="metric-label">activação<br>corpo inteiro</span>
-      <div class="ring"></div>
-    </div>
-    <div class="screen s3">
-      <span class="s__title">HISTÓRICO · 90 DIAS</span>
-      <svg class="graph" viewBox="0 0 100 60" preserveAspectRatio="none">
-        <path d="M0 50 L20 42 L40 35 L60 28 L80 18 L100 12" stroke="currentColor" stroke-width="1.5" fill="none"/>
-      </svg>
-      <div class="row"><span>Sessões</span><span class="acc">36</span></div>
-      <div class="row"><span>Consistência</span><span class="acc">consolidada</span></div>
-    </div>
+  <div class="reel">
+    <video src="r03-app-acompanhamento.mp4" autoplay muted loop playsinline preload="auto"></video>
   </div>
-  <h2 class="kicker"><em>A aplicação</em> acompanha cada sessão.</h2>
-  <span class="cta">Vê a aplicação em acção →</span>
-</div>
-
-</section>
-</body></html>
+</body>
+</html>

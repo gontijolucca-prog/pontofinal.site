@@ -42,15 +42,22 @@ class ReelTile extends HTMLElement {
     if (!it) return;
     const duration = it.slides || 15;
     const isGuide = it.kind === "shoot_guide";
-    const kindLabel = isGuide ? `Guia ${duration}s` : `Reel ${duration}s`;
+    const isVideo = it.kind === "video";
+    const kindClass = isGuide ? "tile--guide" : (isVideo ? "tile--video" : "");
+    const kindLabel = isGuide ? `Guia ${duration}s`
+                    : isVideo ? `Vídeo ${duration}s`
+                    : `Reel ${duration}s`;
+    const kindDesc  = isGuide ? "guia de gravação"
+                    : isVideo ? "vídeo aprovado · pronto a publicar"
+                    : "motion graphics";
 
     this.innerHTML = `
-      <article class="tile tile--reel${isGuide ? " tile--guide" : ""}" data-item-id="${it.id}">
+      <article class="tile tile--reel ${kindClass}" data-item-id="${it.id}">
         <span class="tile__label">${kindLabel} · ${BRAND_LABELS[it.brand]?.toUpperCase() || it.brand}</span>
         <iframe src="${it.html_url}" loading="eager" tabindex="-1" onload="this.classList.add('is-loaded')"></iframe>
         <div class="tile__caption">
           <strong>${it.title || it.theme}</strong>
-          <span>${it.scheduled_for || ""} · ${it.hour || ""} · ${duration}s · ${isGuide ? "guia de gravação" : "motion graphics"}</span>
+          <span>${it.scheduled_for || ""} · ${it.hour || ""} · ${duration}s · ${kindDesc}</span>
         </div>
       </article>
     `;

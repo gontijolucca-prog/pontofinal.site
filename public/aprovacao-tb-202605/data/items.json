@@ -545,7 +545,7 @@
       "photo"
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-16T13:36:18",
+    "generated_at": "2026-05-16T13:46:51",
     "scheduled_for": "2026-05-07",
     "hour": "09h"
   },
@@ -603,7 +603,7 @@
       "type"
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-16T13:36:18",
+    "generated_at": "2026-05-16T13:46:51",
     "scheduled_for": "2026-05-11",
     "hour": "09h"
   },
@@ -661,7 +661,7 @@
       "type"
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-16T13:36:18",
+    "generated_at": "2026-05-16T13:46:51",
     "scheduled_for": "2026-05-21",
     "hour": "09h"
   },
@@ -719,7 +719,7 @@
       "type"
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-16T13:36:18",
+    "generated_at": "2026-05-16T13:46:51",
     "scheduled_for": "2026-05-25",
     "hour": "09h"
   },
@@ -747,7 +747,7 @@
       1
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-16T13:36:18",
+    "generated_at": "2026-05-16T13:46:51",
     "scheduled_for": "2026-05-08",
     "hour": "17h"
   },
@@ -775,7 +775,7 @@
       1
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-16T13:36:18",
+    "generated_at": "2026-05-16T13:46:51",
     "scheduled_for": "2026-05-15",
     "hour": "17h"
   },
@@ -803,7 +803,7 @@
       1
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-16T13:36:18",
+    "generated_at": "2026-05-16T13:46:51",
     "scheduled_for": "2026-05-22",
     "hour": "17h"
   },
@@ -831,7 +831,7 @@
       1
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-16T13:36:18",
+    "generated_at": "2026-05-16T13:46:51",
     "scheduled_for": "2026-05-29",
     "hour": "17h"
   },
@@ -871,7 +871,7 @@
     "html_url": "../brands/techbody_u/output/2026-05/reels/r01-introducao-produto.html",
     "photos_used": [],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-16T13:36:18",
+    "generated_at": "2026-05-16T13:46:51",
     "scheduled_for": "2026-05-05",
     "hour": "18h"
   },
@@ -911,7 +911,7 @@
     "html_url": "../brands/techbody_u/output/2026-05/reels/r02-treino-em-casa.html",
     "photos_used": [],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-16T13:36:18",
+    "generated_at": "2026-05-16T13:46:51",
     "scheduled_for": "2026-05-13",
     "hour": "18h"
   },
@@ -920,38 +920,22 @@
     "brand": "techbody_u",
     "month": "2026-05",
     "format": "reel",
-    "kind": "motion",
+    "kind": "video",
     "theme": "app_acompanhamento",
     "pilar": "App e autonomia",
     "audience": "b2c",
-    "title": "A aplicação que te treina.",
-    "slides": 22,
+    "title": "EMS, em conversa.",
+    "slides": 20,
     "slides_text": [
       {
-        "role": "hook",
-        "text_overlay": "O teu treinador digital."
-      },
-      {
-        "role": "demo",
-        "text_overlay": "Biblioteca de sessões guiadas."
-      },
-      {
-        "role": "demo",
-        "text_overlay": "Dados em tempo real."
-      },
-      {
-        "role": "proof",
-        "text_overlay": "Histórico das sessões sempre visível."
-      },
-      {
-        "role": "cta",
-        "text_overlay": "Vê a aplicação →"
+        "role": "video",
+        "text_overlay": "iMessage entre TechBody U e utilizador — Q&A rápido sobre EMS, fechando no site."
       }
     ],
     "html_url": "../brands/techbody_u/output/2026-05/reels/r03-app-acompanhamento.html",
     "photos_used": [],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-16T13:36:18",
+    "generated_at": "2026-05-16T13:46:51",
     "scheduled_for": "2026-05-19",
     "hour": "18h"
   },
@@ -991,7 +975,7 @@
     "html_url": "../brands/techbody_u/output/2026-05/reels/r04-resultados-evidencia.html",
     "photos_used": [],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-16T13:36:18",
+    "generated_at": "2026-05-16T13:46:51",
     "scheduled_for": "2026-05-27",
     "hour": "18h"
   }

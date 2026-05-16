@@ -469,6 +469,7 @@ body:has(.loader[aria-hidden="false"]) { overflow: hidden; }
 }
 .tile--reel  .tile__label { background: var(--accent); }
 .tile--guide .tile__label { background: #B8762A; }
+.tile--video .tile__label { background: #1F7A4D; }
 .tile__caption {
   position: absolute;
   bottom: 0; left: 0; right: 0;
