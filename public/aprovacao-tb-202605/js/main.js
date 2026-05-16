@@ -90,36 +90,96 @@ function manageLoader() {
   const hint   = document.getElementById("loaderHint");
   if (!loader) return;
 
+  const start = performance.now();
+  const MIN_VISIBLE_MS = 1200;   // never flash & disappear
+  const PER_IFRAME_MS  = 18000;  // give each iframe up to 18s before we count it
+  const HARD_CAP_MS    = 30000;  // absolute ceiling so user isn't stuck forever
+  const POST_LOAD_PAINT_MS = 400; // wait for content to actually paint after load fires
+
   // Catch every iframe that gets rendered into the DOM.
   const iframes = Array.from(document.querySelectorAll("iframe"));
   const total = iframes.length;
   let done = 0;
+  let hidden = false;
+
+  const hideNow = () => {
+    if (hidden) return;
+    hidden = true;
+    // Tiny delay so the user sees the bar reach 100% before fade.
+    setTimeout(() => loader.setAttribute("aria-hidden", "true"), 220);
+  };
+
+  const tryHide = () => {
+    if (hidden) return;
+    if (done < total) return;
+    const elapsed = performance.now() - start;
+    if (elapsed >= MIN_VISIBLE_MS) {
+      hideNow();
+    } else {
+      setTimeout(tryHide, MIN_VISIBLE_MS - elapsed + 20);
+    }
+  };
 
   const update = () => {
     const pct = total === 0 ? 1 : done / total;
     fill.style.transform = `scaleX(${pct})`;
     hint.textContent = `${done} / ${total}`;
-    if (done >= total) {
-      // Tiny delay so the user sees the bar reach the end.
-      setTimeout(() => loader.setAttribute("aria-hidden", "true"), 150);
-    }
+    tryHide();
   };
 
-  if (total === 0) { update(); return; }
+  if (total === 0) {
+    fill.style.transform = "scaleX(1)";
+    setTimeout(() => loader.setAttribute("aria-hidden", "true"), MIN_VISIBLE_MS);
+    return;
+  }
+
   update();
 
   iframes.forEach((f) => {
-    const tick = () => { done += 1; update(); };
+    let ticked = false;
+    const tick = () => {
+      if (ticked) return;
+      ticked = true;
+      done += 1;
+      update();
+    };
+
+    // Wait for the iframe's window load (covers its images + fonts), then
+    // wait one paint cycle so the content is actually on the screen.
+    const onLoad = () => {
+      // The iframe document is now done. Wait for its inner window load too
+      // (catches images/fonts inside the carousel/story HTML).
+      try {
+        const w = f.contentWindow;
+        const inner = () => requestAnimationFrame(() =>
+          requestAnimationFrame(() => setTimeout(tick, POST_LOAD_PAINT_MS))
+        );
+        if (w && w.document && w.document.readyState === "complete") {
+          inner();
+        } else if (w) {
+          w.addEventListener("load", inner, { once: true });
+        } else {
+          inner();
+        }
+      } catch {
+        // Cross-origin or similar — best effort.
+        setTimeout(tick, POST_LOAD_PAINT_MS);
+      }
+    };
+
     if (f.contentDocument && f.contentDocument.readyState === "complete") {
-      tick();
+      onLoad();
     } else {
-      f.addEventListener("load",  tick, { once: true });
-      f.addEventListener("error", tick, { once: true });
+      f.addEventListener("load",  onLoad, { once: true });
+      f.addEventListener("error", tick,   { once: true });
     }
+
+    // Per-iframe safety net.
+    setTimeout(tick, PER_IFRAME_MS);
   });
 
-  // Hard cap — never block the user longer than 10s even if some iframe never resolves.
-  setTimeout(() => loader.setAttribute("aria-hidden", "true"), 10000);
+  // Absolute ceiling.
+  setTimeout(hideNow, HARD_CAP_MS);
 }
 
 async function init() {

@@ -777,26 +777,35 @@ body:has(.loader[aria-hidden="false"]) { overflow: hidden; }
     border-width: 2px;
   }
 
-  /* Stories/Reels gallery — 2 columns on phones, tight gap. */
-  .gallery {
+  /* Stories — 2 columns (hero text stays readable). Reels — 1 column,
+     full-width, because the motion graphics + the shoot guides need real
+     screen space to be legible on a phone. */
+  #postsGallery {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
+  #reelsGallery {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
   .tile { border-width: 3px; }
-  .tile iframe {
-    /* Mobile tile ≈ (100vw - 32px outer - 10px gap) / 2 ≈ 170px wide.
-       Keep the iframe drawing at its native 380×676 so the inner HTML
-       still gets a sensible viewport — just scale the visual down to fit
-       the tile. 170/380 ≈ 0.447. */
+  /* Stories: still use the scaled-down 380×676 approach so the inner
+     1080-wide layout doesn't reflow at a tiny viewport. */
+  #postsGallery .tile iframe {
     width: 380px; height: 676px;
     transform: scale(0.447);
     transform-origin: top left;
   }
-  .tile--reel iframe {
-    width: 380px; height: 676px;
-    transform: scale(0.447);
-    transform-origin: top left;
+  /* Reels (motion + guides): give the iframe the full tile viewport. The
+     reel/guide HTML uses `min(100vw, 100vh*9/16)` internally so it adapts
+     to whatever viewport size we hand it. */
+  #reelsGallery .tile iframe {
+    width: 100%; height: 100%;
+    transform: none;
   }
+  #reelsGallery .tile__label { font-size: 10px; padding: 4px 8px; }
+  #reelsGallery .tile__caption { padding: 8px 10px 10px; }
+  #reelsGallery .tile__caption strong { font-size: 13px; }
   .tile__label { font-size: 9px; padding: 2px 6px; }
   .tile__caption { padding: 6px 8px 8px; }
   .tile__caption strong { font-size: 12px; }
