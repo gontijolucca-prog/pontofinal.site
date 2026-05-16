@@ -7,32 +7,32 @@
     "theme": "barreiras",
     "pilar": "Barreiras ao exercício",
     "audience": "b2c",
-    "title": "Não treinar não é fraqueza. É um problema de método.",
+    "title": "Não treinar não é fraqueza. É problema de método.",
     "slides": 6,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Não treinar não é fraqueza. É um problema de método."
+        "text_overlay": "Não treinar não é fraqueza. É problema de método."
       },
       {
         "role": "development",
-        "text_overlay": "A barreira mais comum é o tempo — não a falta de vontade."
+        "text_overlay": "Para a maioria, a barreira é o tempo. Não a vontade."
       },
       {
         "role": "development",
-        "text_overlay": "Sessões de 20 a 25 minutos cabem na rotina de quase qualquer pessoa."
+        "text_overlay": "Vinte e cinco minutos cabem em qualquer agenda."
       },
       {
         "role": "development",
-        "text_overlay": "Com EMS de corpo inteiro, o estímulo é mais denso por minuto activo."
+        "text_overlay": "Com EMS de corpo inteiro, cada minuto activo vale por três."
       },
       {
         "role": "development",
-        "text_overlay": "O método consistente importa mais do que a duração total da semana."
+        "text_overlay": "Consistência semanal pesa mais do que duração diária."
       },
       {
         "role": "cta",
-        "text_overlay": "Conhece o método. Marca a primeira sessão."
+        "text_overlay": "Conhece o método TechBody. Marca a primeira sessão."
       }
     ],
     "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c01-barreiras.html",
@@ -47,13 +47,13 @@
     "styles": [
       "type",
       "photo",
-      "num",
+      "type",
       "type",
       "photo",
       "type"
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-15T21:46:40",
+    "generated_at": "2026-05-16T13:36:18",
     "scheduled_for": "2026-05-07",
     "hour": "09h"
   },
@@ -70,27 +70,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "WB-EMS: o que a evidência mostra."
+        "text_overlay": "WB-EMS — o que a evidência mostra."
       },
       {
         "role": "development",
-        "text_overlay": "Num treino convencional o recrutamento típico é de 30 a 40% das fibras."
+        "text_overlay": "Treino convencional activa sobretudo as fibras mais acessíveis."
       },
       {
         "role": "development",
-        "text_overlay": "Com eletroestimulação de corpo inteiro a activação chega aos 85 a 90%."
+        "text_overlay": "EMS de corpo inteiro chega até 90% das fibras. Profundas incluídas."
       },
       {
         "role": "development",
-        "text_overlay": "Estudos clínicos apontam ganhos consistentes em programas de 6 a 12 semanas."
+        "text_overlay": "Dose certa: duas a três sessões por semana, com acompanhamento."
       },
       {
         "role": "development",
-        "text_overlay": "Frequência recomendada: 1 a 3 sessões por semana, sempre com acompanhamento."
+        "text_overlay": "Janela onde a evolução fica visível: seis a doze semanas."
       },
       {
         "role": "cta",
-        "text_overlay": "Conhece o método em estúdio."
+        "text_overlay": "Vê o método em estúdio. Marca a tua sessão."
       }
     ],
     "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c02-metodo-ciencia.html",
@@ -104,14 +104,14 @@
     ],
     "styles": [
       "photo",
+      "type",
       "num",
-      "num",
-      "num",
+      "type",
       "type",
       "photo"
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-15T21:46:40",
+    "generated_at": "2026-05-16T13:36:18",
     "scheduled_for": "2026-05-11",
     "hour": "09h"
   },
@@ -123,28 +123,28 @@
     "theme": "origem_percurso",
     "pilar": "Origem e percurso",
     "audience": "b2c",
-    "title": "Doze anos a construir o eletrofitness em Portugal.",
+    "title": "Mais de uma década a construir o eletrofitness em Portugal.",
     "slides": 6,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Doze anos a construir o eletrofitness em Portugal."
+        "text_overlay": "Mais de uma década a construir o eletrofitness em Portugal."
       },
       {
         "role": "development",
-        "text_overlay": "TechBody começou em 2012 — quando o mercado de EMS ainda não existia em Portugal."
+        "text_overlay": "A TechBody nasceu antes do mercado existir."
       },
       {
         "role": "development",
-        "text_overlay": "A aposta foi sempre na evidência: equipamento certificado e acompanhamento profissional."
+        "text_overlay": "Aposta clara desde o início. Equipamento certificado e treinador profissional."
       },
       {
         "role": "development",
-        "text_overlay": "Hoje é uma rede de estúdios e um produto para treinar em casa: TechBody U."
+        "text_overlay": "Hoje é uma rede de estúdios. E um produto que cabe em casa."
       },
       {
         "role": "development",
-        "text_overlay": "O método mantém-se o mesmo — só o lugar onde a sessão acontece é que muda."
+        "text_overlay": "O método é o mesmo. O lugar onde acontece é que mudou."
       },
       {
         "role": "cta",
@@ -162,14 +162,14 @@
     ],
     "styles": [
       "type",
-      "num",
+      "type",
       "photo",
       "type",
       "photo",
       "type"
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-15T21:46:40",
+    "generated_at": "2026-05-16T13:36:18",
     "scheduled_for": "2026-05-21",
     "hour": "09h"
   },
@@ -181,32 +181,32 @@
     "theme": "b2b_ferramenta",
     "pilar": "B2B — ferramenta para profissionais",
     "audience": "b2b",
-    "title": "EMS é uma ferramenta de negócio, não só de treino.",
+    "title": "EMS não é só treino. É linha de negócio.",
     "slides": 6,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "EMS é uma ferramenta de negócio, não só de treino."
+        "text_overlay": "EMS não é só treino. É linha de negócio."
       },
       {
         "role": "development",
-        "text_overlay": "Para ginásios, um estúdio EMS é uma nova linha de receita com ticket médio elevado."
+        "text_overlay": "Para ginásios e clínicas, o EMS opera numa área compacta."
       },
       {
         "role": "development",
-        "text_overlay": "Área mínima para operar: 30 a 40 m² dentro do espaço existente."
+        "text_overlay": "Ticket por sessão superior ao convencional. Frequência regular."
       },
       {
         "role": "development",
-        "text_overlay": "Os clientes regressam com frequência semanal — 1 a 3 sessões em média."
+        "text_overlay": "Cada cliente regressa duas a três vezes por semana."
       },
       {
         "role": "development",
-        "text_overlay": "O franchising TechBody inclui equipamento alemão, formação e suporte comercial."
+        "text_overlay": "Franchising chave-na-mão. Plano, formação, recrutamento e marketing digital."
       },
       {
         "role": "cta",
-        "text_overlay": "Agenda uma reunião sobre o modelo de franchising."
+        "text_overlay": "Marca uma reunião. Vamos olhar para os teus números."
       }
     ],
     "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c04-b2b-ferramenta.html",
@@ -221,14 +221,286 @@
     "styles": [
       "photo",
       "type",
-      "num",
+      "type",
       "type",
       "photo",
       "type"
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-15T21:46:40",
+    "generated_at": "2026-05-16T13:36:18",
     "scheduled_for": "2026-05-25",
     "hour": "09h"
+  },
+  {
+    "id": "luiz_santana-2026-05-s01",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "barreiras",
+    "pilar": "Barreiras ao exercício",
+    "audience": "b2c",
+    "title": "Não é falta de vontade. É falta de método.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Não é falta de vontade. É falta de método."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/stories/s01-barreiras.html",
+    "photos_used": [
+      "magnific_a7.-proximidade-closeup-h_2964306149.png"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-16T13:36:18",
+    "scheduled_for": "2026-05-08",
+    "hour": "17h"
+  },
+  {
+    "id": "luiz_santana-2026-05-s02",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "metodo_ciencia",
+    "pilar": "Método e ciência aplicada",
+    "audience": "b2c",
+    "title": "Até 90% das fibras. Em 25 minutos.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Até 90% das fibras musculares. Em vinte e cinco minutos."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/stories/s02-metodo-ciencia.html",
+    "photos_used": [
+      "magnific_c1.-silhouette-softly-blu_2964372464.png"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-16T13:36:18",
+    "scheduled_for": "2026-05-15",
+    "hour": "17h"
+  },
+  {
+    "id": "luiz_santana-2026-05-s03",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "origem_percurso",
+    "pilar": "Origem e percurso",
+    "audience": "b2c",
+    "title": "Mais de uma década de eletrofitness em Portugal.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Mais de uma década a construir o eletrofitness em Portugal."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/stories/s03-origem-percurso.html",
+    "photos_used": [
+      "magnific_a1.-contrarian-firme-e-de_2964305227.png"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-16T13:36:18",
+    "scheduled_for": "2026-05-22",
+    "hour": "17h"
+  },
+  {
+    "id": "luiz_santana-2026-05-s04",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "b2b_ferramenta",
+    "pilar": "B2B — ferramenta para profissionais",
+    "audience": "b2b",
+    "title": "EMS não é só treino. É linha de negócio.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "EMS não é só treino. É linha de negócio."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/stories/s04-b2b-ferramenta.html",
+    "photos_used": [
+      "magnific_a7.-seated-confidence-edi_2964371960.png"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-16T13:36:18",
+    "scheduled_for": "2026-05-29",
+    "hour": "17h"
+  },
+  {
+    "id": "luiz_santana-2026-05-r01",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "reel",
+    "kind": "shoot_guide",
+    "theme": "barreiras",
+    "pilar": "Barreiras ao exercício",
+    "audience": "b2c",
+    "title": "Não é fraqueza. É problema de método.",
+    "slides": 23,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Não treinar não é fraqueza. É problema de método."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Para a maioria, a barreira é o tempo. Não a vontade."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Vinte e cinco minutos cabem em qualquer agenda."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "Com EMS de corpo inteiro, cada minuto activo vale por três. Consistência semanal pesa mais do que duração diária."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Marca a primeira sessão. Conhece o método TechBody."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/reels/r01-barreiras.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-16T13:36:18",
+    "scheduled_for": "2026-05-05",
+    "hour": "18h"
+  },
+  {
+    "id": "luiz_santana-2026-05-r02",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "reel",
+    "kind": "shoot_guide",
+    "theme": "metodo_ciencia",
+    "pilar": "Método e ciência aplicada",
+    "audience": "b2c",
+    "title": "WB-EMS — o que a evidência mostra.",
+    "slides": 28,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "WB-EMS. O que a evidência mostra."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Num treino convencional, activas sobretudo as fibras musculares mais superficiais."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Com eletroestimulação de corpo inteiro chegas até 90% das fibras. Profundas incluídas."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "Duas a três sessões por semana, sempre com acompanhamento. A janela onde a evolução fica visível é entre seis e doze semanas."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Vem ao estúdio TechBody. Conhece o método."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/reels/r02-metodo-ciencia.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-16T13:36:18",
+    "scheduled_for": "2026-05-13",
+    "hour": "18h"
+  },
+  {
+    "id": "luiz_santana-2026-05-r03",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "reel",
+    "kind": "shoot_guide",
+    "theme": "origem_percurso",
+    "pilar": "Origem e percurso",
+    "audience": "b2c",
+    "title": "TechBody nasceu antes do mercado existir.",
+    "slides": 26,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "TechBody nasceu antes do mercado existir em Portugal."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Há mais de uma década, com a primeira sala de eletroestimulação em Lisboa."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "A aposta foi sempre na evidência. Equipamento certificado. Treinador profissional."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "Hoje é uma rede de estúdios. E um produto que cabe em casa. O lugar mudou — o método, não."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Descobre o método TechBody. Link na bio."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/reels/r03-origem-percurso.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-16T13:36:18",
+    "scheduled_for": "2026-05-19",
+    "hour": "18h"
+  },
+  {
+    "id": "luiz_santana-2026-05-r04",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "reel",
+    "kind": "shoot_guide",
+    "theme": "b2b_ferramenta",
+    "pilar": "B2B — ferramenta para profissionais",
+    "audience": "b2b",
+    "title": "EMS não é só treino. É linha de negócio.",
+    "slides": 26,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "EMS não é só treino. É linha de negócio."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Para ginásios e clínicas, o EMS opera numa área compacta do espaço existente."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Ticket por sessão superior ao convencional. Cliente regressa duas a três vezes por semana."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "Franchising TechBody chave-na-mão. Plano de negócio, formação, recrutamento e marketing digital."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Marca uma reunião. Vamos olhar para os teus números."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/reels/r04-b2b-ferramenta.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-16T13:36:18",
+    "scheduled_for": "2026-05-27",
+    "hour": "18h"
   }
 ]

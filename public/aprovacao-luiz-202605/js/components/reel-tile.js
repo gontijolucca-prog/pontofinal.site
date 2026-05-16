@@ -3,7 +3,7 @@
 
 import { approvalStore } from "../stores/approval-store.js";
 
-const BRAND_LABELS = { techbody: "TechBody", techbody_u: "TechBody U" };
+const BRAND_LABELS = { techbody: "TechBody", techbody_u: "TechBody U", luiz_santana: "Luiz Santana" };
 
 class ReelTile extends HTMLElement {
   setItem(item) {
