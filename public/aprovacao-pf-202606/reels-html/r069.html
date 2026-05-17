@@ -85,7 +85,7 @@
     position: absolute; left: 0; top: 0; bottom: 0;
     background: var(--accent);
     transform-origin: left center;
-    animation: progress 15.00s linear infinite;
+    animation: progress 28.00s linear infinite;
   }
   @keyframes progress {
     0%   { transform: scaleX(0); }
@@ -145,51 +145,75 @@
   }
   @keyframes scene1 {
   0%, 0.00% { opacity: 0; transform: translateY(14px); }
-  4.50% { opacity: 1; transform: translateY(0); }
-  19.50% { opacity: 1; transform: translateY(0); }
-  25.00%, 100% { opacity: 0; transform: translateY(-14px); }
+  3.00% { opacity: 1; transform: translateY(0); }
+  13.00% { opacity: 1; transform: translateY(0); }
+  16.67%, 100% { opacity: 0; transform: translateY(-14px); }
 }
 @keyframes sweep1 {
   0%, 0.00% { transform: scaleX(0); opacity: 1; }
-  1.00% { transform: scaleX(1); opacity: 1; }
-  2.50% { transform: scaleX(1); opacity: 0; }
-  2.75%, 100% { transform: scaleX(0); opacity: 0; }
+  0.67% { transform: scaleX(1); opacity: 1; }
+  1.67% { transform: scaleX(1); opacity: 0; }
+  1.83%, 100% { transform: scaleX(0); opacity: 0; }
 }
 @keyframes scene2 {
-  0%, 25.00% { opacity: 0; transform: translateY(14px); }
-  29.50% { opacity: 1; transform: translateY(0); }
-  44.50% { opacity: 1; transform: translateY(0); }
-  50.00%, 100% { opacity: 0; transform: translateY(-14px); }
+  0%, 16.67% { opacity: 0; transform: translateY(14px); }
+  19.67% { opacity: 1; transform: translateY(0); }
+  29.67% { opacity: 1; transform: translateY(0); }
+  33.33%, 100% { opacity: 0; transform: translateY(-14px); }
 }
 @keyframes sweep2 {
-  0%, 25.00% { transform: scaleX(0); opacity: 1; }
-  26.00% { transform: scaleX(1); opacity: 1; }
-  27.50% { transform: scaleX(1); opacity: 0; }
-  27.75%, 100% { transform: scaleX(0); opacity: 0; }
+  0%, 16.67% { transform: scaleX(0); opacity: 1; }
+  17.33% { transform: scaleX(1); opacity: 1; }
+  18.33% { transform: scaleX(1); opacity: 0; }
+  18.50%, 100% { transform: scaleX(0); opacity: 0; }
 }
 @keyframes scene3 {
-  0%, 50.00% { opacity: 0; transform: translateY(14px); }
-  54.50% { opacity: 1; transform: translateY(0); }
-  69.50% { opacity: 1; transform: translateY(0); }
-  75.00%, 100% { opacity: 0; transform: translateY(-14px); }
+  0%, 33.33% { opacity: 0; transform: translateY(14px); }
+  36.33% { opacity: 1; transform: translateY(0); }
+  46.33% { opacity: 1; transform: translateY(0); }
+  50.00%, 100% { opacity: 0; transform: translateY(-14px); }
 }
 @keyframes sweep3 {
-  0%, 50.00% { transform: scaleX(0); opacity: 1; }
-  51.00% { transform: scaleX(1); opacity: 1; }
-  52.50% { transform: scaleX(1); opacity: 0; }
-  52.75%, 100% { transform: scaleX(0); opacity: 0; }
+  0%, 33.33% { transform: scaleX(0); opacity: 1; }
+  34.00% { transform: scaleX(1); opacity: 1; }
+  35.00% { transform: scaleX(1); opacity: 0; }
+  35.17%, 100% { transform: scaleX(0); opacity: 0; }
 }
 @keyframes scene4 {
-  0%, 75.00% { opacity: 0; transform: translateY(14px); }
-  79.50% { opacity: 1; transform: translateY(0); }
-  94.50% { opacity: 1; transform: translateY(0); }
-  100.00%, 100% { opacity: 0; transform: translateY(-14px); }
+  0%, 50.00% { opacity: 0; transform: translateY(14px); }
+  53.00% { opacity: 1; transform: translateY(0); }
+  63.00% { opacity: 1; transform: translateY(0); }
+  66.67%, 100% { opacity: 0; transform: translateY(-14px); }
 }
 @keyframes sweep4 {
-  0%, 75.00% { transform: scaleX(0); opacity: 1; }
-  76.00% { transform: scaleX(1); opacity: 1; }
-  77.50% { transform: scaleX(1); opacity: 0; }
-  77.75%, 100% { transform: scaleX(0); opacity: 0; }
+  0%, 50.00% { transform: scaleX(0); opacity: 1; }
+  50.67% { transform: scaleX(1); opacity: 1; }
+  51.67% { transform: scaleX(1); opacity: 0; }
+  51.83%, 100% { transform: scaleX(0); opacity: 0; }
+}
+@keyframes scene5 {
+  0%, 66.67% { opacity: 0; transform: translateY(14px); }
+  69.67% { opacity: 1; transform: translateY(0); }
+  79.67% { opacity: 1; transform: translateY(0); }
+  83.33%, 100% { opacity: 0; transform: translateY(-14px); }
+}
+@keyframes sweep5 {
+  0%, 66.67% { transform: scaleX(0); opacity: 1; }
+  67.33% { transform: scaleX(1); opacity: 1; }
+  68.33% { transform: scaleX(1); opacity: 0; }
+  68.50%, 100% { transform: scaleX(0); opacity: 0; }
+}
+@keyframes scene6 {
+  0%, 83.33% { opacity: 0; transform: translateY(14px); }
+  86.33% { opacity: 1; transform: translateY(0); }
+  96.33% { opacity: 1; transform: translateY(0); }
+  100.00%, 100% { opacity: 0; transform: translateY(-14px); }
+}
+@keyframes sweep6 {
+  0%, 83.33% { transform: scaleX(0); opacity: 1; }
+  84.00% { transform: scaleX(1); opacity: 1; }
+  85.00% { transform: scaleX(1); opacity: 0; }
+  85.17%, 100% { transform: scaleX(0); opacity: 0; }
 }
 </style>
 </head>
@@ -198,20 +222,26 @@
   <div class="progress"></div>
   <div class="brand">Pontofinal.site_</div>
   <div class="stage">
-  <div class="scene scene--hook" style="animation: scene1 15.00s linear infinite;"><p class="scene__text">O site não tinha <span class="hl">agendamento online</span></p></div>
-  <div class="scene scene--setup" style="animation: scene2 15.00s linear infinite;"><p class="scene__text">Clínica em Covilhã, <span class="hl">doentes a ligar</span> para marcar consultas</p></div>
-  <div class="scene scene--punch" style="animation: scene3 15.00s linear infinite;"><p class="scene__text">Dois meses depois: <span class="hl">+40%</span> de marcações diretas no site</p></div>
-  <div class="scene scene--cta" style="animation: scene4 15.00s linear infinite;"><p class="scene__text"><span class="hl">Quantas marcações</span> estás a perder?</p></div>
+  <div class="scene scene--hook" style="animation: scene1 28.00s linear infinite;"><p class="scene__text">Clínica em Covilhã. <span class="hl">Sem agendamento</span> online</p></div>
+  <div class="scene scene--setup" style="animation: scene2 28.00s linear infinite;"><p class="scene__text">Doentes a ligar de manhã. Recepcionista <span class="hl">cansada</span></p></div>
+  <div class="scene scene--setup" style="animation: scene3 28.00s linear infinite;"><p class="scene__text">Pusemos agendamento online. <span class="hl">Dois meses</span> depois</p></div>
+  <div class="scene scene--punch" style="animation: scene4 28.00s linear infinite;"><p class="scene__text"><span class="hl">Quarenta por cento</span> mais marcações. Sem telefonemas</p></div>
+  <div class="scene scene--punch" style="animation: scene5 28.00s linear infinite;"><p class="scene__text">Quantos pacientes perdes por não terem <span class="hl">onde marcar</span>?</p></div>
+  <div class="scene scene--cta" style="animation: scene6 28.00s linear infinite;"><p class="scene__text">Pomos no teu site. <span class="hl">PontoFinal.site</span></p></div>
   </div>
-  <div class="sweep" style="animation: sweep1 15.00s linear infinite;"></div>
-  <div class="sweep" style="animation: sweep2 15.00s linear infinite;"></div>
-  <div class="sweep" style="animation: sweep3 15.00s linear infinite;"></div>
-  <div class="sweep" style="animation: sweep4 15.00s linear infinite;"></div>
+  <div class="sweep" style="animation: sweep1 28.00s linear infinite;"></div>
+  <div class="sweep" style="animation: sweep2 28.00s linear infinite;"></div>
+  <div class="sweep" style="animation: sweep3 28.00s linear infinite;"></div>
+  <div class="sweep" style="animation: sweep4 28.00s linear infinite;"></div>
+  <div class="sweep" style="animation: sweep5 28.00s linear infinite;"></div>
+  <div class="sweep" style="animation: sweep6 28.00s linear infinite;"></div>
   <div class="footer-arrow">↓</div>
   <audio class="voice" data-idx="0" preload="auto" src="../audio/voices/r069_s1.mp3"></audio>
   <audio class="voice" data-idx="1" preload="auto" src="../audio/voices/r069_s2.mp3"></audio>
   <audio class="voice" data-idx="2" preload="auto" src="../audio/voices/r069_s3.mp3"></audio>
   <audio class="voice" data-idx="3" preload="auto" src="../audio/voices/r069_s4.mp3"></audio>
+  <audio class="voice" data-idx="4" preload="auto" src="../audio/voices/r069_s5.mp3"></audio>
+  <audio class="voice" data-idx="5" preload="auto" src="../audio/voices/r069_s6.mp3"></audio>
 </section>
 <script>
 (function () {
@@ -259,8 +289,8 @@
   // Only when ?audio=1 (overlay only — thumbnails silent).
   const wantAudio = new URLSearchParams(location.search).get('audio') === '1';
   if (!wantAudio) return;
-  const DURATION_MS = 15000;
-  const NUM_SCENES = 4;
+  const DURATION_MS = 28000;
+  const NUM_SCENES = 6;
   const STEP_MS = DURATION_MS / NUM_SCENES;
   const voices = Array.from(document.querySelectorAll('audio.voice'));
   voices.forEach(v => { v.volume = 1.0; v.preload = 'auto'; });
