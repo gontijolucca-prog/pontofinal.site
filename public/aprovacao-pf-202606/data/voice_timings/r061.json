@@ -1,11 +1,11 @@
 {
-  "total_ms": 28417,
+  "total_ms": 28196,
   "chunks": [
     {
-      "text": "Doze pedidos",
+      "text": "Doze pedidos novos",
       "emphasis": "Doze pedidos",
       "start_ms": 0,
-      "dur_ms": 926,
+      "dur_ms": 1244,
       "graphic": {
         "type": "count",
         "to": 12,
@@ -15,114 +15,114 @@
     {
       "text": "por semana",
       "emphasis": null,
-      "start_ms": 926,
-      "dur_ms": 772
+      "start_ms": 1244,
+      "dur_ms": 691
     },
     {
-      "text": "directos do Google",
-      "emphasis": "do Google",
-      "start_ms": 1698,
-      "dur_ms": 1390
+      "text": "todos pelo Google",
+      "emphasis": "pelo Google",
+      "start_ms": 1935,
+      "dur_ms": 1176
     },
     {
       "text": "Aconteceu com",
       "emphasis": null,
-      "start_ms": 3228,
-      "dur_ms": 769
+      "start_ms": 3251,
+      "dur_ms": 725
     },
     {
       "text": "uma óptica",
       "emphasis": null,
-      "start_ms": 3997,
-      "dur_ms": 592
+      "start_ms": 3976,
+      "dur_ms": 558
     },
     {
       "text": "em Braga",
       "emphasis": null,
-      "start_ms": 4589,
-      "dur_ms": 473
+      "start_ms": 4534,
+      "dur_ms": 446
     },
     {
-      "text": "Atendimento",
-      "emphasis": null,
-      "start_ms": 5202,
-      "dur_ms": 707
-    },
-    {
-      "text": "de cinco estrelas",
-      "emphasis": "cinco estrelas",
-      "start_ms": 5909,
-      "dur_ms": 1092
+      "text": "Atendimento excelente",
+      "emphasis": "Atendimento excelente",
+      "start_ms": 5121,
+      "dur_ms": 1311
     },
     {
       "text": "Mas no Google",
       "emphasis": null,
-      "start_ms": 7142,
-      "dur_ms": 847
+      "start_ms": 6573,
+      "dur_ms": 855
     },
     {
-      "text": "completamente invisível",
-      "emphasis": "invisível",
-      "start_ms": 7989,
-      "dur_ms": 1498
+      "text": "ninguém a encontrava",
+      "emphasis": "ninguém a encontrava",
+      "start_ms": 7428,
+      "dur_ms": 1316
     },
     {
       "text": "As pessoas procuravam",
       "emphasis": null,
-      "start_ms": 9627,
-      "dur_ms": 1434
+      "start_ms": 8884,
+      "dur_ms": 1266
     },
     {
-      "text": "óptica na zona",
+      "text": "óptica em Braga",
       "emphasis": null,
-      "start_ms": 11061,
-      "dur_ms": 956
+      "start_ms": 10150,
+      "dur_ms": 905
     },
     {
-      "text": "iam para os concorrentes",
+      "text": "E iam todas",
+      "emphasis": null,
+      "start_ms": 11195,
+      "dur_ms": 696
+    },
+    {
+      "text": "para os concorrentes",
       "emphasis": "para os concorrentes",
-      "start_ms": 12017,
-      "dur_ms": 1638
+      "start_ms": 11891,
+      "dur_ms": 1266
     },
     {
       "text": "Trabalhámos o site",
       "emphasis": null,
-      "start_ms": 13796,
-      "dur_ms": 1116
+      "start_ms": 13297,
+      "dur_ms": 1358
     },
     {
-      "text": "durante quatro meses",
+      "text": "quatro meses",
       "emphasis": "quatro meses",
-      "start_ms": 14912,
-      "dur_ms": 1240
+      "start_ms": 14655,
+      "dur_ms": 905
     },
     {
-      "text": "Hoje está",
+      "text": "Hoje aparece",
       "emphasis": null,
-      "start_ms": 16293,
-      "dur_ms": 570
-    },
-    {
-      "text": "em primeiro lugar",
-      "emphasis": "primeiro lugar",
-      "start_ms": 16863,
-      "dur_ms": 1077,
+      "start_ms": 15701,
+      "dur_ms": 762,
       "graphic": {
         "type": "stamp",
         "text": "Nº 1"
       }
     },
     {
+      "text": "em primeiro lugar",
+      "emphasis": "primeiro lugar",
+      "start_ms": 16463,
+      "dur_ms": 1079
+    },
+    {
       "text": "para treze pesquisas",
       "emphasis": null,
-      "start_ms": 17940,
-      "dur_ms": 1267
+      "start_ms": 17542,
+      "dur_ms": 1270
     },
     {
       "text": "Doze pedidos novos",
       "emphasis": "Doze pedidos",
-      "start_ms": 19347,
-      "dur_ms": 1104,
+      "start_ms": 18952,
+      "dur_ms": 1149,
       "graphic": {
         "type": "count",
         "to": 12,
@@ -132,50 +132,56 @@
     {
       "text": "por semana",
       "emphasis": null,
-      "start_ms": 20451,
-      "dur_ms": 614
+      "start_ms": 20101,
+      "dur_ms": 638
     },
     {
       "text": "Todos directos",
       "emphasis": null,
-      "start_ms": 21205,
-      "dur_ms": 798
+      "start_ms": 20880,
+      "dur_ms": 848
     },
     {
       "text": "do Google",
       "emphasis": "do Google",
-      "start_ms": 22003,
-      "dur_ms": 513
+      "start_ms": 21728,
+      "dur_ms": 545
     },
     {
-      "text": "Se o Google não te encontra",
+      "text": "Se o Google",
       "emphasis": null,
-      "start_ms": 22657,
-      "dur_ms": 1540
+      "start_ms": 22413,
+      "dur_ms": 653
+    },
+    {
+      "text": "não te encontra",
+      "emphasis": null,
+      "start_ms": 23066,
+      "dur_ms": 890
     },
     {
       "text": "ninguém te encontra",
       "emphasis": "ninguém te encontra",
-      "start_ms": 24197,
-      "dur_ms": 1083
+      "start_ms": 23956,
+      "dur_ms": 1127
     },
     {
-      "text": "Resolvemos isso",
+      "text": "Pomos o teu negócio",
       "emphasis": null,
-      "start_ms": 25421,
-      "dur_ms": 942
+      "start_ms": 25223,
+      "dur_ms": 941
     },
     {
-      "text": "para ti",
-      "emphasis": "para ti",
-      "start_ms": 26363,
-      "dur_ms": 439
+      "text": "no topo",
+      "emphasis": "no topo",
+      "start_ms": 26164,
+      "dur_ms": 347
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 26943,
-      "dur_ms": 1474
+      "start_ms": 26652,
+      "dur_ms": 1544
     }
   ]
 }

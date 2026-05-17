@@ -1,11 +1,11 @@
 {
-  "total_ms": 32225,
+  "total_ms": 31798,
   "chunks": [
     {
       "text": "Trinta e duas reservas",
       "emphasis": "Trinta e duas",
       "start_ms": 0,
-      "dur_ms": 1511,
+      "dur_ms": 1204,
       "graphic": {
         "type": "count",
         "to": 32,
@@ -13,112 +13,130 @@
       }
     },
     {
-      "text": "num fim-de-semana",
+      "text": "num só fim-de-semana",
       "emphasis": null,
-      "start_ms": 1511,
-      "dur_ms": 1168
+      "start_ms": 1204,
+      "dur_ms": 1094
     },
     {
-      "text": "sem uma única chamada",
-      "emphasis": "sem chamadas",
-      "start_ms": 2679,
-      "dur_ms": 1442
+      "text": "Sem uma única",
+      "emphasis": "chamada",
+      "start_ms": 2439,
+      "dur_ms": 950
+    },
+    {
+      "text": "chamada",
+      "emphasis": null,
+      "start_ms": 3389,
+      "dur_ms": 512
     },
     {
       "text": "Aconteceu com",
       "emphasis": null,
-      "start_ms": 4262,
-      "dur_ms": 759
+      "start_ms": 4042,
+      "dur_ms": 787
     },
     {
       "text": "um restaurante",
       "emphasis": null,
-      "start_ms": 5021,
-      "dur_ms": 817
+      "start_ms": 4829,
+      "dur_ms": 848
     },
     {
       "text": "em Cascais",
       "emphasis": null,
-      "start_ms": 5838,
-      "dur_ms": 583
+      "start_ms": 5677,
+      "dur_ms": 605
     },
     {
-      "text": "A melhor comida da zona",
-      "emphasis": "melhor comida",
-      "start_ms": 6561,
-      "dur_ms": 2171
+      "text": "Comida brutal",
+      "emphasis": "Comida brutal",
+      "start_ms": 6423,
+      "dur_ms": 873
+    },
+    {
+      "text": "ambiente óptimo",
+      "emphasis": null,
+      "start_ms": 7296,
+      "dur_ms": 1007
     },
     {
       "text": "Mas o site",
       "emphasis": null,
-      "start_ms": 8872,
-      "dur_ms": 584
+      "start_ms": 8444,
+      "dur_ms": 632
     },
     {
-      "text": "era de dois mil e dez",
-      "emphasis": "dois mil e dez",
-      "start_ms": 9456,
-      "dur_ms": 1227
+      "text": "tinha quinze anos",
+      "emphasis": "quinze anos",
+      "start_ms": 9076,
+      "dur_ms": 1074
     },
     {
-      "text": "Sem fotos",
+      "text": "Sem fotografias",
       "emphasis": null,
-      "start_ms": 10823,
-      "dur_ms": 742
+      "start_ms": 10291,
+      "dur_ms": 1251
+    },
+    {
+      "text": "sem informações",
+      "emphasis": null,
+      "start_ms": 11542,
+      "dur_ms": 1251
     },
     {
       "text": "sem reservas online",
       "emphasis": null,
-      "start_ms": 11565,
-      "dur_ms": 1567
-    },
-    {
-      "text": "sem informação clara",
-      "emphasis": null,
-      "start_ms": 13132,
-      "dur_ms": 1650
+      "start_ms": 12793,
+      "dur_ms": 1584
     },
     {
       "text": "Refizemos tudo",
-      "emphasis": null,
-      "start_ms": 14922,
-      "dur_ms": 929
+      "emphasis": "de novo",
+      "start_ms": 14518,
+      "dur_ms": 828
     },
     {
-      "text": "do zero",
-      "emphasis": "do zero",
-      "start_ms": 15851,
-      "dur_ms": 464
+      "text": "de novo",
+      "emphasis": null,
+      "start_ms": 15346,
+      "dur_ms": 414
     },
     {
       "text": "Fotografias profissionais",
       "emphasis": null,
-      "start_ms": 16455,
-      "dur_ms": 1865
+      "start_ms": 15900,
+      "dur_ms": 1717
     },
     {
-      "text": "menu apetitoso",
+      "text": "menu visível",
       "emphasis": null,
-      "start_ms": 18320,
-      "dur_ms": 1044
+      "start_ms": 17617,
+      "dur_ms": 824
     },
     {
       "text": "reservas com um clique",
       "emphasis": "um clique",
-      "start_ms": 19364,
-      "dur_ms": 1642
+      "start_ms": 18441,
+      "dur_ms": 1510
     },
     {
-      "text": "Primeiro fim-de-semana:",
+      "text": "Primeiro fim-de-semana",
       "emphasis": null,
-      "start_ms": 21146,
-      "dur_ms": 1562
+      "start_ms": 20092,
+      "dur_ms": 1213
     },
     {
-      "text": "trinta e duas reservas",
-      "emphasis": "trinta e duas",
-      "start_ms": 22708,
-      "dur_ms": 1494,
+      "text": "no ar:",
+      "emphasis": null,
+      "start_ms": 21305,
+      "dur_ms": 331
+    },
+    {
+      "text": "Trinta e duas reservas",
+      "emphasis": "Trinta e duas",
+      "start_ms": 21776,
+      "dur_ms": 1705,
       "graphic": {
         "type": "count",
         "to": 32,
@@ -128,44 +146,44 @@
     {
       "text": "pelo site",
       "emphasis": null,
-      "start_ms": 24202,
-      "dur_ms": 612
+      "start_ms": 23481,
+      "dur_ms": 698
     },
     {
       "text": "A recepcionista",
       "emphasis": null,
-      "start_ms": 24955,
-      "dur_ms": 795
+      "start_ms": 24319,
+      "dur_ms": 961
     },
     {
-      "text": "pôde finalmente respirar",
-      "emphasis": "finalmente respirar",
-      "start_ms": 25750,
-      "dur_ms": 1271
-    },
-    {
-      "text": "Pegamos no teu negócio",
+      "text": "deixou de correr",
       "emphasis": null,
-      "start_ms": 27162,
-      "dur_ms": 1223
+      "start_ms": 25280,
+      "dur_ms": 1025
     },
     {
-      "text": "fazemos com que trabalhe",
+      "text": "atrás do telefone",
+      "emphasis": "do telefone",
+      "start_ms": 26305,
+      "dur_ms": 1090
+    },
+    {
+      "text": "Tratamos do teu site",
       "emphasis": null,
-      "start_ms": 28385,
-      "dur_ms": 1334
+      "start_ms": 27536,
+      "dur_ms": 1312
     },
     {
-      "text": "enquanto dormes",
-      "emphasis": "enquanto dormes",
-      "start_ms": 29719,
-      "dur_ms": 833
+      "text": "tu cuidas do negócio",
+      "emphasis": "cuidas do negócio",
+      "start_ms": 28848,
+      "dur_ms": 1311
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 30692,
-      "dur_ms": 1532
+      "start_ms": 30300,
+      "dur_ms": 1497
     }
   ]
 }

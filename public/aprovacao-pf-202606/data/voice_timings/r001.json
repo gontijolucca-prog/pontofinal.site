@@ -1,134 +1,146 @@
 {
-  "total_ms": 30251,
+  "total_ms": 27836,
   "chunks": [
     {
-      "text": "Tive uma cliente",
-      "emphasis": null,
-      "start_ms": 0,
-      "dur_ms": 772
-    },
-    {
-      "text": "que pagou",
-      "emphasis": null,
-      "start_ms": 772,
-      "dur_ms": 434
-    },
-    {
-      "text": "seis mil euros",
+      "text": "Pagou seis mil euros",
       "emphasis": "seis mil euros",
-      "start_ms": 1206,
-      "dur_ms": 675,
+      "start_ms": 0,
+      "dur_ms": 1523,
       "graphic": {
         "type": "euro",
         "to": 6000
       }
     },
     {
-      "text": "num site lindíssimo",
+      "text": "pelo site dela",
       "emphasis": null,
-      "start_ms": 1881,
-      "dur_ms": 917
+      "start_ms": 1523,
+      "dur_ms": 1066
     },
     {
-      "text": "Daqueles que ganham",
+      "text": "Site lindo",
       "emphasis": null,
-      "start_ms": 2938,
-      "dur_ms": 999
+      "start_ms": 2729,
+      "dur_ms": 642
     },
     {
-      "text": "prémios de design",
+      "text": "daqueles que ganham",
+      "emphasis": "prémios",
+      "start_ms": 3371,
+      "dur_ms": 1219
+    },
+    {
+      "text": "prémios",
       "emphasis": null,
-      "start_ms": 3937,
-      "dur_ms": 893
+      "start_ms": 4590,
+      "dur_ms": 449
     },
     {
       "text": "Em três meses",
       "emphasis": null,
-      "start_ms": 4970,
-      "dur_ms": 1378
+      "start_ms": 5179,
+      "dur_ms": 1196
     },
     {
-      "text": "vendeu",
-      "emphasis": "zero",
-      "start_ms": 6348,
-      "dur_ms": 636,
+      "text": "não vendeu",
+      "emphasis": "nada",
+      "start_ms": 6375,
+      "dur_ms": 920
+    },
+    {
+      "text": "nada",
+      "emphasis": null,
+      "start_ms": 7295,
+      "dur_ms": 368
+    },
+    {
+      "text": "Zero clientes",
+      "emphasis": "Zero",
+      "start_ms": 7804,
+      "dur_ms": 1056,
       "graphic": {
         "type": "count",
         "to": 0,
-        "suffix": "vendas"
+        "suffix": "clientes"
       }
     },
     {
-      "text": "zero",
+      "text": "O design estava bonito",
       "emphasis": null,
-      "start_ms": 6984,
-      "dur_ms": 424
+      "start_ms": 9001,
+      "dur_ms": 1476
     },
     {
-      "text": "Sabes qual era",
+      "text": "mas faltava",
       "emphasis": null,
-      "start_ms": 7548,
-      "dur_ms": 819
+      "start_ms": 10477,
+      "dur_ms": 738
     },
     {
-      "text": "o problema?",
+      "text": "o mais importante",
+      "emphasis": "o mais importante",
+      "start_ms": 11215,
+      "dur_ms": 1141
+    },
+    {
+      "text": "Não havia",
       "emphasis": null,
-      "start_ms": 8367,
-      "dur_ms": 643
+      "start_ms": 12496,
+      "dur_ms": 513
     },
     {
-      "text": "Feito para ganhar prémios",
+      "text": "um botão claro",
+      "emphasis": "botão claro",
+      "start_ms": 13009,
+      "dur_ms": 798
+    },
+    {
+      "text": "para comprar",
       "emphasis": null,
-      "start_ms": 9151,
-      "dur_ms": 1756
+      "start_ms": 13807,
+      "dur_ms": 685
     },
     {
-      "text": "não para vender",
-      "emphasis": "não para vender",
-      "start_ms": 10907,
-      "dur_ms": 1053
-    },
-    {
-      "text": "Os visitantes admiravam",
+      "text": "Refizemos tudo",
       "emphasis": null,
-      "start_ms": 12101,
-      "dur_ms": 1450
+      "start_ms": 14633,
+      "dur_ms": 905
     },
     {
-      "text": "iam embora",
-      "emphasis": "sem comprar",
-      "start_ms": 13551,
-      "dur_ms": 630
+      "text": "do zero",
+      "emphasis": "do zero",
+      "start_ms": 15538,
+      "dur_ms": 453
     },
     {
-      "text": "sem comprar",
+      "text": "Com foco em",
+      "emphasis": "vender",
+      "start_ms": 16131,
+      "dur_ms": 698
+    },
+    {
+      "text": "vender",
       "emphasis": null,
-      "start_ms": 14181,
-      "dur_ms": 694
+      "start_ms": 16829,
+      "dur_ms": 381
     },
     {
-      "text": "Refizemos do zero",
+      "text": "não em ser bonito",
       "emphasis": null,
-      "start_ms": 15016,
-      "dur_ms": 1453
-    },
-    {
-      "text": "focado em converter",
-      "emphasis": "converter",
-      "start_ms": 16469,
-      "dur_ms": 1623
+      "start_ms": 17210,
+      "dur_ms": 1080
     },
     {
       "text": "Primeiro mês:",
       "emphasis": null,
-      "start_ms": 18233,
-      "dur_ms": 834
+      "start_ms": 18430,
+      "dur_ms": 850
     },
     {
       "text": "dezasseis pedidos",
       "emphasis": "dezasseis",
-      "start_ms": 19067,
-      "dur_ms": 1091,
+      "start_ms": 19280,
+      "dur_ms": 1111,
       "graphic": {
         "type": "count",
         "to": 16,
@@ -138,56 +150,56 @@
     {
       "text": "directos",
       "emphasis": null,
-      "start_ms": 20158,
-      "dur_ms": 513
+      "start_ms": 20391,
+      "dur_ms": 523
     },
     {
-      "text": "Um site",
+      "text": "Um site bom",
       "emphasis": null,
-      "start_ms": 20811,
-      "dur_ms": 442
+      "start_ms": 21055,
+      "dur_ms": 596
     },
     {
-      "text": "não é um portfólio",
+      "text": "não é o mais bonito",
       "emphasis": null,
-      "start_ms": 21253,
-      "dur_ms": 1136
+      "start_ms": 21651,
+      "dur_ms": 1029
     },
     {
-      "text": "É um vendedor",
+      "text": "É o que",
+      "emphasis": "mais vende",
+      "start_ms": 22820,
+      "dur_ms": 425
+    },
+    {
+      "text": "mais vende",
       "emphasis": null,
-      "start_ms": 22530,
-      "dur_ms": 919
+      "start_ms": 23245,
+      "dur_ms": 608
     },
     {
-      "text": "que trabalha",
-      "emphasis": "vinte e quatro horas",
-      "start_ms": 23449,
-      "dur_ms": 848
-    },
-    {
-      "text": "vinte e quatro horas",
+      "text": "Se o teu",
       "emphasis": null,
-      "start_ms": 24297,
-      "dur_ms": 1414
+      "start_ms": 23993,
+      "dur_ms": 450
     },
     {
-      "text": "Se o teu não traz clientes",
+      "text": "não está a vender",
       "emphasis": null,
-      "start_ms": 25851,
-      "dur_ms": 1896
+      "start_ms": 24443,
+      "dur_ms": 956
     },
     {
       "text": "fala connosco",
       "emphasis": "fala connosco",
-      "start_ms": 27747,
-      "dur_ms": 948
+      "start_ms": 25399,
+      "dur_ms": 730
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 28835,
-      "dur_ms": 1416
+      "start_ms": 26269,
+      "dur_ms": 1567
     }
   ]
 }

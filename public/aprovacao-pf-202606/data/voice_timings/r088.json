@@ -1,35 +1,41 @@
 {
-  "total_ms": 23670,
+  "total_ms": 22264,
   "chunks": [
     {
       "text": "Reparaste como",
       "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 1064
+      "dur_ms": 1089
     },
     {
       "text": "tantas marcas",
       "emphasis": null,
-      "start_ms": 1064,
-      "dur_ms": 988
+      "start_ms": 1089,
+      "dur_ms": 1011
     },
     {
       "text": "são confusas?",
       "emphasis": "confusas",
-      "start_ms": 2052,
-      "dur_ms": 989
+      "start_ms": 2100,
+      "dur_ms": 1011
     },
     {
-      "text": "E sabes porquê?",
+      "text": "Não é",
+      "emphasis": "por acaso",
+      "start_ms": 3251,
+      "dur_ms": 385
+    },
+    {
+      "text": "por acaso",
       "emphasis": null,
-      "start_ms": 3182,
-      "dur_ms": 1160
+      "start_ms": 3636,
+      "dur_ms": 694
     },
     {
-      "text": "Propositadamente",
-      "emphasis": "Propositadamente",
-      "start_ms": 4483,
-      "dur_ms": 1219,
+      "text": "É de propósito",
+      "emphasis": "de propósito",
+      "start_ms": 4471,
+      "dur_ms": 952,
       "graphic": {
         "type": "stamp",
         "text": "DE PROPÓSITO"
@@ -38,98 +44,98 @@
     {
       "text": "Acham que ser vago",
       "emphasis": null,
-      "start_ms": 5842,
-      "dur_ms": 1025
+      "start_ms": 5563,
+      "dur_ms": 1039
     },
     {
       "text": "soa sofisticado",
       "emphasis": null,
-      "start_ms": 6867,
-      "dur_ms": 855
+      "start_ms": 6602,
+      "dur_ms": 865
     },
     {
       "text": "Que ser misterioso",
       "emphasis": null,
-      "start_ms": 7863,
-      "dur_ms": 901
+      "start_ms": 7607,
+      "dur_ms": 994
     },
     {
       "text": "soa premium",
       "emphasis": null,
-      "start_ms": 8764,
-      "dur_ms": 550
+      "start_ms": 8601,
+      "dur_ms": 608
     },
     {
       "text": "Não soa",
       "emphasis": "Não soa",
-      "start_ms": 9454,
-      "dur_ms": 847
+      "start_ms": 9349,
+      "dur_ms": 905
     },
     {
       "text": "É falta de coragem",
       "emphasis": "falta de coragem",
-      "start_ms": 10442,
-      "dur_ms": 1391
+      "start_ms": 10395,
+      "dur_ms": 999
     },
     {
       "text": "para dizerem",
       "emphasis": null,
-      "start_ms": 11833,
-      "dur_ms": 928
+      "start_ms": 11394,
+      "dur_ms": 666
     },
     {
       "text": "o que fazem",
       "emphasis": null,
-      "start_ms": 12761,
-      "dur_ms": 850
+      "start_ms": 12060,
+      "dur_ms": 610
     },
     {
       "text": "A clareza",
       "emphasis": null,
-      "start_ms": 13752,
-      "dur_ms": 1051
+      "start_ms": 12811,
+      "dur_ms": 1038
     },
     {
       "text": "assusta",
       "emphasis": "assusta",
-      "start_ms": 14803,
-      "dur_ms": 818
+      "start_ms": 13849,
+      "dur_ms": 807
     },
     {
       "text": "Por isso",
       "emphasis": null,
-      "start_ms": 15761,
-      "dur_ms": 707
+      "start_ms": 14797,
+      "dur_ms": 671
     },
     {
       "text": "é tão rara",
       "emphasis": null,
-      "start_ms": 16468,
-      "dur_ms": 883
+      "start_ms": 15468,
+      "dur_ms": 838
     },
     {
-      "text": "E por isso",
+      "text": "E é exactamente",
       "emphasis": null,
-      "start_ms": 17492,
-      "dur_ms": 874
+      "start_ms": 16446,
+      "dur_ms": 824
     },
     {
-      "text": "faz uma marca",
+      "text": "o que faz",
       "emphasis": null,
-      "start_ms": 18366,
-      "dur_ms": 1136
+      "start_ms": 17270,
+      "dur_ms": 494
     },
     {
-      "text": "destacar-se",
+      "text": "uma marca destacar-se",
       "emphasis": "destacar-se",
-      "start_ms": 19502,
-      "dur_ms": 962
+      "start_ms": 17764,
+      "dur_ms": 1154
     },
     {
       "text": "Quem é claro",
       "emphasis": "vende",
-      "start_ms": 20604,
-      "dur_ms": 1073,
+      "start_ms": 19059,
+      "dur_ms": 1090,
       "graphic": {
         "type": "stamp",
         "text": "VENDE"
@@ -138,14 +144,14 @@
     {
       "text": "vende",
       "emphasis": null,
-      "start_ms": 21677,
-      "dur_ms": 447
+      "start_ms": 20149,
+      "dur_ms": 454
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 22265,
-      "dur_ms": 1404
+      "start_ms": 20743,
+      "dur_ms": 1520
     }
   ]
 }
