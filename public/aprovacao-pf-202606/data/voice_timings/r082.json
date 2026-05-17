@@ -1,149 +1,149 @@
 {
-  "total_ms": 23544,
+  "total_ms": 24039,
   "chunks": [
     {
       "text": "Caso real",
       "emphasis": "Caso real",
       "start_ms": 0,
-      "dur_ms": 847
+      "dur_ms": 824
     },
     {
       "text": "Ginásio em Lisboa",
       "emphasis": null,
-      "start_ms": 988,
-      "dur_ms": 958
+      "start_ms": 964,
+      "dur_ms": 1015
     },
     {
       "text": "equipamento topo de gama",
       "emphasis": "topo de gama",
-      "start_ms": 1946,
-      "dur_ms": 1352
+      "start_ms": 1979,
+      "dur_ms": 1434
     },
     {
       "text": "Mas o site?",
       "emphasis": null,
-      "start_ms": 3438,
-      "dur_ms": 963
+      "start_ms": 3554,
+      "dur_ms": 1010
     },
     {
       "text": "Antigo",
       "emphasis": null,
-      "start_ms": 4542,
-      "dur_ms": 498
+      "start_ms": 4704,
+      "dur_ms": 527
     },
     {
       "text": "Sem fotos",
       "emphasis": null,
-      "start_ms": 5040,
-      "dur_ms": 748
+      "start_ms": 5231,
+      "dur_ms": 791
     },
     {
       "text": "Sem horários",
       "emphasis": null,
-      "start_ms": 5788,
-      "dur_ms": 997
+      "start_ms": 6022,
+      "dur_ms": 1054
     },
     {
       "text": "Sem preços",
       "emphasis": "Sem preços",
-      "start_ms": 6785,
-      "dur_ms": 831
+      "start_ms": 7076,
+      "dur_ms": 878
     },
     {
       "text": "As pessoas procuravam",
       "emphasis": null,
-      "start_ms": 7756,
-      "dur_ms": 1219
+      "start_ms": 8095,
+      "dur_ms": 1262
     },
     {
       "text": "ginásio perto",
       "emphasis": null,
-      "start_ms": 8975,
-      "dur_ms": 754
+      "start_ms": 9357,
+      "dur_ms": 781
     },
     {
       "text": "Achavam",
       "emphasis": null,
-      "start_ms": 9870,
-      "dur_ms": 409
+      "start_ms": 10278,
+      "dur_ms": 451
     },
     {
       "text": "o concorrente",
       "emphasis": "o concorrente",
-      "start_ms": 10279,
-      "dur_ms": 760
+      "start_ms": 10729,
+      "dur_ms": 837
     },
     {
       "text": "Fizemos site novo",
       "emphasis": null,
-      "start_ms": 11180,
-      "dur_ms": 1219
+      "start_ms": 11707,
+      "dur_ms": 1149
     },
     {
       "text": "Fotos profissionais",
       "emphasis": null,
-      "start_ms": 12539,
-      "dur_ms": 1660
+      "start_ms": 12996,
+      "dur_ms": 1602
     },
     {
       "text": "Turmas",
       "emphasis": null,
-      "start_ms": 14199,
-      "dur_ms": 524
+      "start_ms": 14598,
+      "dur_ms": 506
     },
     {
       "text": "Preços claros",
       "emphasis": null,
-      "start_ms": 14723,
-      "dur_ms": 1136
+      "start_ms": 15104,
+      "dur_ms": 1096
     },
     {
       "text": "Avaliações",
       "emphasis": "Avaliações",
-      "start_ms": 15999,
-      "dur_ms": 770
+      "start_ms": 16340,
+      "dur_ms": 797
     },
     {
       "text": "dos clientes",
       "emphasis": null,
-      "start_ms": 16769,
-      "dur_ms": 925
+      "start_ms": 17137,
+      "dur_ms": 956
     },
     {
       "text": "Quarenta e três",
       "emphasis": "Quarenta e três",
-      "start_ms": 17834,
-      "dur_ms": 882
+      "start_ms": 18233,
+      "dur_ms": 871
     },
     {
       "text": "inscrições novas",
       "emphasis": null,
-      "start_ms": 18716,
-      "dur_ms": 941
+      "start_ms": 19104,
+      "dur_ms": 929
     },
     {
       "text": "no primeiro mês",
       "emphasis": null,
-      "start_ms": 19657,
-      "dur_ms": 882
+      "start_ms": 20033,
+      "dur_ms": 870
     },
     {
       "text": "O teu site mostra",
       "emphasis": null,
-      "start_ms": 20679,
-      "dur_ms": 823
+      "start_ms": 21043,
+      "dur_ms": 860
     },
     {
       "text": "o que tens?",
       "emphasis": "o que tens",
-      "start_ms": 21502,
-      "dur_ms": 532
+      "start_ms": 21903,
+      "dur_ms": 556
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 22174,
-      "dur_ms": 1369
+      "start_ms": 22599,
+      "dur_ms": 1439
     }
   ]
 }
