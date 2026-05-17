@@ -112,14 +112,21 @@
     position: absolute; top: 0; left: 0;
   }
   .card__playbadge {
-    position: absolute; inset: 0;
+    position: absolute;
+    right: 8px; bottom: 8px;
     display: grid; place-items: center;
+    width: 28px; height: 28px;
+    background: rgba(0,0,0,0.55);
+    border-radius: 50%;
     pointer-events: none;
     transition: opacity 0.15s;
+    opacity: 0;
   }
+  .card:hover .card__playbadge,
+  .card:focus-within .card__playbadge { opacity: 1; }
   .card__playbadge svg {
-    width: 38px; height: 38px;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    width: 14px; height: 14px;
+    filter: none;
   }
   .card.is-playing .card__playbadge { opacity: 0; }
 
