@@ -1,155 +1,149 @@
 {
-  "total_ms": 26825,
+  "total_ms": 25409,
   "chunks": [
     {
-      "text": "Já te disseram",
+      "text": "Sabes qual é",
       "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 677
+      "dur_ms": 796
     },
     {
-      "text": "que o email marketing",
+      "text": "a coisa mais",
       "emphasis": null,
-      "start_ms": 677,
-      "dur_ms": 1016
+      "start_ms": 796,
+      "dur_ms": 796
     },
     {
-      "text": "morreu?",
-      "emphasis": "morreu?",
-      "start_ms": 1693,
-      "dur_ms": 338
+      "text": "subvalorizada",
+      "emphasis": "subvalorizada",
+      "start_ms": 1592,
+      "dur_ms": 862
     },
     {
-      "text": "Pois é",
+      "text": "no marketing",
       "emphasis": null,
-      "start_ms": 2172,
-      "dur_ms": 334
+      "start_ms": 2454,
+      "dur_ms": 796
     },
     {
-      "text": "mas eu vou-te provar",
-      "emphasis": null,
-      "start_ms": 2506,
-      "dur_ms": 1113
-    },
-    {
-      "text": "exactamente o contrário",
-      "emphasis": null,
-      "start_ms": 3619,
-      "dur_ms": 1281
+      "text": "A lista de emails",
+      "emphasis": "lista de emails",
+      "start_ms": 3391,
+      "dur_ms": 1207
     },
     {
       "text": "Por cada euro",
       "emphasis": null,
-      "start_ms": 5040,
-      "dur_ms": 868
+      "start_ms": 4738,
+      "dur_ms": 1046
     },
     {
-      "text": "que investes em email",
+      "text": "investido em email",
       "emphasis": null,
-      "start_ms": 5908,
-      "dur_ms": 1403
+      "start_ms": 5784,
+      "dur_ms": 1449
     },
     {
       "text": "recebes em média",
       "emphasis": null,
-      "start_ms": 7311,
-      "dur_ms": 1069
+      "start_ms": 7233,
+      "dur_ms": 1288
     },
     {
-      "text": "trinta e seis euros",
+      "text": "trinta e seis",
       "emphasis": "trinta e seis",
-      "start_ms": 8380,
-      "dur_ms": 1269
-    },
-    {
-      "text": "Trinta e seis",
-      "emphasis": "Trinta e seis",
-      "start_ms": 9789,
-      "dur_ms": 1091
+      "start_ms": 8521,
+      "dur_ms": 1046
     },
     {
       "text": "No Instagram",
       "emphasis": null,
-      "start_ms": 11020,
-      "dur_ms": 762
+      "start_ms": 9708,
+      "dur_ms": 794
     },
     {
       "text": "nem chegas a cinco",
-      "emphasis": "cinco",
-      "start_ms": 11782,
-      "dur_ms": 1142
+      "emphasis": null,
+      "start_ms": 10502,
+      "dur_ms": 1191
     },
     {
-      "text": "A diferença",
-      "emphasis": null,
-      "start_ms": 13064,
-      "dur_ms": 830
+      "text": "E o melhor",
+      "emphasis": "o melhor",
+      "start_ms": 11833,
+      "dur_ms": 638
     },
     {
-      "text": "é muito simples",
+      "text": "de tudo?",
       "emphasis": null,
-      "start_ms": 13894,
-      "dur_ms": 1132
-    },
-    {
-      "text": "O Instagram",
-      "emphasis": null,
-      "start_ms": 15166,
-      "dur_ms": 675
-    },
-    {
-      "text": "pode desaparecer amanhã",
-      "emphasis": null,
-      "start_ms": 15841,
-      "dur_ms": 1411
-    },
-    {
-      "text": "pode banir-te",
-      "emphasis": null,
-      "start_ms": 17252,
-      "dur_ms": 797
-    },
-    {
-      "text": "pode mudar as regras",
-      "emphasis": null,
-      "start_ms": 18049,
-      "dur_ms": 1226
+      "start_ms": 12471,
+      "dur_ms": 511
     },
     {
       "text": "A tua lista",
       "emphasis": null,
-      "start_ms": 19416,
-      "dur_ms": 831
+      "start_ms": 13122,
+      "dur_ms": 847
     },
     {
-      "text": "é tua para sempre",
+      "text": "é tua",
       "emphasis": "para sempre",
-      "start_ms": 20247,
-      "dur_ms": 1285
+      "start_ms": 13969,
+      "dur_ms": 385
     },
     {
-      "text": "ninguém ta tira",
+      "text": "para sempre",
       "emphasis": null,
-      "start_ms": 21532,
-      "dur_ms": 1134
+      "start_ms": 14354,
+      "dur_ms": 846
+    },
+    {
+      "text": "O Instagram",
+      "emphasis": null,
+      "start_ms": 15340,
+      "dur_ms": 619
+    },
+    {
+      "text": "pode desaparecer",
+      "emphasis": "amanhã",
+      "start_ms": 15959,
+      "dur_ms": 900
+    },
+    {
+      "text": "amanhã",
+      "emphasis": null,
+      "start_ms": 16859,
+      "dur_ms": 338
+    },
+    {
+      "text": "A lista, não",
+      "emphasis": null,
+      "start_ms": 17338,
+      "dur_ms": 1428
     },
     {
       "text": "Construímos a tua lista",
       "emphasis": null,
-      "start_ms": 22807,
-      "dur_ms": 1280
+      "start_ms": 18906,
+      "dur_ms": 1675
     },
     {
-      "text": "contigo, do zero",
+      "text": "escrevemos as campanhas",
       "emphasis": null,
-      "start_ms": 24087,
-      "dur_ms": 891
+      "start_ms": 20581,
+      "dur_ms": 1675
+    },
+    {
+      "text": "tu vês os resultados",
+      "emphasis": "vês os resultados",
+      "start_ms": 22256,
+      "dur_ms": 1456
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 25118,
-      "dur_ms": 1706
+      "start_ms": 23853,
+      "dur_ms": 1555
     }
   ]
 }

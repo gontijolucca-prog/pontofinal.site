@@ -1,155 +1,149 @@
 {
-  "total_ms": 29961,
+  "total_ms": 27915,
   "chunks": [
     {
-      "text": "Tenho uma pergunta",
+      "text": "Conheço um restaurante",
       "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 850
+      "dur_ms": 1164
     },
     {
-      "text": "para fazeres a ti próprio",
+      "text": "em Cascais",
       "emphasis": null,
-      "start_ms": 850,
-      "dur_ms": 1181
+      "start_ms": 1164,
+      "dur_ms": 529
     },
     {
-      "text": "Quantas horas",
+      "text": "a melhor comida",
+      "emphasis": "melhor comida",
+      "start_ms": 1693,
+      "dur_ms": 793
+    },
+    {
+      "text": "da zona",
       "emphasis": null,
-      "start_ms": 2172,
-      "dur_ms": 890
+      "start_ms": 2486,
+      "dur_ms": 370
     },
     {
-      "text": "por semana",
+      "text": "Mas o site",
       "emphasis": null,
-      "start_ms": 3062,
-      "dur_ms": 684
+      "start_ms": 2996,
+      "dur_ms": 629
     },
     {
-      "text": "fazes a mesma coisa",
-      "emphasis": "a mesma coisa",
-      "start_ms": 3746,
-      "dur_ms": 1301
+      "text": "era de dois mil e dez",
+      "emphasis": "dois mil e dez",
+      "start_ms": 3625,
+      "dur_ms": 1321
     },
     {
-      "text": "sempre repetida?",
+      "text": "Sem fotos a sério",
       "emphasis": null,
-      "start_ms": 5047,
-      "dur_ms": 1095
+      "start_ms": 5086,
+      "dur_ms": 1174
     },
     {
-      "text": "Facturas",
+      "text": "sem reservas online",
       "emphasis": null,
-      "start_ms": 6283,
-      "dur_ms": 1042
+      "start_ms": 6260,
+      "dur_ms": 1312
     },
     {
-      "text": "Emails",
+      "text": "sem informação clara",
       "emphasis": null,
-      "start_ms": 7325,
-      "dur_ms": 782
+      "start_ms": 7572,
+      "dur_ms": 1380
     },
     {
-      "text": "Posts nas redes",
+      "text": "Refizemos tudo",
       "emphasis": null,
-      "start_ms": 8107,
-      "dur_ms": 1954
+      "start_ms": 9092,
+      "dur_ms": 944
     },
     {
-      "text": "tudo manual",
-      "emphasis": "tudo manual",
-      "start_ms": 10061,
-      "dur_ms": 1434
+      "text": "do zero",
+      "emphasis": "do zero",
+      "start_ms": 10036,
+      "dur_ms": 472
     },
     {
-      "text": "Cinco horas",
+      "text": "Fotografias profissionais",
       "emphasis": null,
-      "start_ms": 11636,
-      "dur_ms": 871
+      "start_ms": 10648,
+      "dur_ms": 1949
     },
     {
-      "text": "por semana",
+      "text": "menu visível",
       "emphasis": null,
-      "start_ms": 12507,
-      "dur_ms": 792
+      "start_ms": 12597,
+      "dur_ms": 935
     },
     {
-      "text": "Vinte horas por mês",
-      "emphasis": "Vinte horas",
-      "start_ms": 13299,
-      "dur_ms": 1506
-    },
-    {
-      "text": "Imagina o que conseguias",
+      "text": "reservas integradas",
       "emphasis": null,
-      "start_ms": 14946,
-      "dur_ms": 1665
+      "start_ms": 13532,
+      "dur_ms": 1481
     },
     {
-      "text": "com vinte horas livres",
+      "text": "Sabes o que aconteceu",
       "emphasis": null,
-      "start_ms": 16611,
-      "dur_ms": 1527
+      "start_ms": 15153,
+      "dur_ms": 1011
     },
     {
-      "text": "Bastava uma tarde",
+      "text": "no primeiro fim-de-semana?",
       "emphasis": null,
-      "start_ms": 18279,
-      "dur_ms": 1400
+      "start_ms": 16164,
+      "dur_ms": 1252
     },
     {
-      "text": "a configurar",
+      "text": "Trinta e duas reservas",
+      "emphasis": "Trinta e duas",
+      "start_ms": 17557,
+      "dur_ms": 1822
+    },
+    {
+      "text": "todas pelo site",
       "emphasis": null,
-      "start_ms": 19679,
-      "dur_ms": 988
+      "start_ms": 19379,
+      "dur_ms": 1243
     },
     {
-      "text": "Zapier ou Make",
+      "text": "Sem uma única",
       "emphasis": null,
-      "start_ms": 20667,
-      "dur_ms": 1153
+      "start_ms": 20762,
+      "dur_ms": 858
     },
     {
-      "text": "E nunca mais",
+      "text": "chamada de telefone",
+      "emphasis": "uma única chamada",
+      "start_ms": 21620,
+      "dur_ms": 1255
+    },
+    {
+      "text": "Pegamos no teu negócio",
       "emphasis": null,
-      "start_ms": 21960,
-      "dur_ms": 840
+      "start_ms": 23015,
+      "dur_ms": 1193
     },
     {
-      "text": "precisarias de tocar",
-      "emphasis": "nunca mais tocar",
-      "start_ms": 22800,
-      "dur_ms": 1400
-    },
-    {
-      "text": "O tempo que ganhas",
+      "text": "fazemos com que trabalhe",
       "emphasis": null,
-      "start_ms": 24341,
-      "dur_ms": 1075
+      "start_ms": 24208,
+      "dur_ms": 1302
     },
     {
-      "text": "usas para vender",
-      "emphasis": "para vender",
-      "start_ms": 25416,
-      "dur_ms": 956
-    },
-    {
-      "text": "e para crescer",
-      "emphasis": null,
-      "start_ms": 26372,
-      "dur_ms": 836
-    },
-    {
-      "text": "Automatizamos contigo",
-      "emphasis": null,
-      "start_ms": 27349,
-      "dur_ms": 1524
+      "text": "enquanto dormes",
+      "emphasis": "enquanto dormes",
+      "start_ms": 25510,
+      "dur_ms": 813
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 28873,
-      "dur_ms": 1088
+      "start_ms": 26464,
+      "dur_ms": 1451
     }
   ]
 }

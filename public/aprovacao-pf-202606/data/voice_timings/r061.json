@@ -1,161 +1,167 @@
 {
-  "total_ms": 27823,
+  "total_ms": 28731,
   "chunks": [
     {
-      "text": "Atenção",
+      "text": "Tenho uma cliente",
       "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 421
+      "dur_ms": 1010
     },
     {
-      "text": "a uma coisa",
+      "text": "em Braga",
       "emphasis": null,
-      "start_ms": 421,
-      "dur_ms": 662
+      "start_ms": 1010,
+      "dur_ms": 475
     },
     {
-      "text": "que está a acontecer",
-      "emphasis": "agora mesmo",
-      "start_ms": 1083,
-      "dur_ms": 1204
-    },
-    {
-      "text": "Alguém pode telefonar-te",
+      "text": "dona de uma óptica",
       "emphasis": null,
-      "start_ms": 2427,
-      "dur_ms": 1339
+      "start_ms": 1485,
+      "dur_ms": 1069
     },
     {
-      "text": "em nome do teu chefe",
-      "emphasis": "do teu chefe",
-      "start_ms": 3766,
-      "dur_ms": 1116
-    },
-    {
-      "text": "com a voz dele perfeita",
+      "text": "de bairro",
       "emphasis": null,
-      "start_ms": 4882,
-      "dur_ms": 1283
+      "start_ms": 2554,
+      "dur_ms": 534
     },
     {
-      "text": "E pode não ser",
+      "text": "Qualidade brutal",
+      "emphasis": "Qualidade brutal",
+      "start_ms": 3228,
+      "dur_ms": 1169
+    },
+    {
+      "text": "atendimento óptimo",
       "emphasis": null,
-      "start_ms": 6305,
-      "dur_ms": 965
+      "start_ms": 4397,
+      "dur_ms": 1315
     },
     {
-      "text": "ele",
-      "emphasis": "ele",
-      "start_ms": 7270,
-      "dur_ms": 207
-    },
-    {
-      "text": "A inteligência artificial",
+      "text": "Mas no Google?",
       "emphasis": null,
-      "start_ms": 7618,
-      "dur_ms": 1716
+      "start_ms": 5853,
+      "dur_ms": 952
     },
     {
-      "text": "consegue clonar",
+      "text": "Não aparecia",
       "emphasis": null,
-      "start_ms": 9334,
-      "dur_ms": 1030
+      "start_ms": 6945,
+      "dur_ms": 800
     },
     {
-      "text": "uma voz humana",
+      "text": "nem por sombras",
+      "emphasis": "nem por sombras",
+      "start_ms": 7745,
+      "dur_ms": 999
+    },
+    {
+      "text": "As pessoas procuravam",
       "emphasis": null,
-      "start_ms": 10364,
+      "start_ms": 8885,
+      "dur_ms": 1442
+    },
+    {
+      "text": "óptica na zona",
+      "emphasis": null,
+      "start_ms": 10327,
       "dur_ms": 961
     },
     {
-      "text": "em cinco minutos",
-      "emphasis": "cinco minutos",
-      "start_ms": 11325,
-      "dur_ms": 1099
+      "text": "iam para os concorrentes",
+      "emphasis": "para os concorrentes",
+      "start_ms": 11288,
+      "dur_ms": 1648
     },
     {
-      "text": "Cinco minutos",
-      "emphasis": "Cinco",
-      "start_ms": 12565,
-      "dur_ms": 963
-    },
-    {
-      "text": "Empresas portuguesas",
+      "text": "Trabalhámos o site",
       "emphasis": null,
-      "start_ms": 13669,
-      "dur_ms": 1114
+      "start_ms": 13077,
+      "dur_ms": 1094
     },
     {
-      "text": "já perderam",
+      "text": "durante quatro meses",
       "emphasis": null,
-      "start_ms": 14783,
-      "dur_ms": 613
+      "start_ms": 14171,
+      "dur_ms": 1216
     },
     {
-      "text": "dezenas de milhares",
-      "emphasis": "milhares",
-      "start_ms": 15396,
-      "dur_ms": 1059
-    },
-    {
-      "text": "Voz idêntica",
+      "text": "Hoje está",
       "emphasis": null,
-      "start_ms": 16595,
-      "dur_ms": 885
+      "start_ms": 15527,
+      "dur_ms": 588
     },
     {
-      "text": "pedido urgente",
+      "text": "em primeiro lugar",
+      "emphasis": "primeiro lugar",
+      "start_ms": 16115,
+      "dur_ms": 1111
+    },
+    {
+      "text": "para treze pesquisas",
       "emphasis": null,
-      "start_ms": 17480,
-      "dur_ms": 1033
+      "start_ms": 17226,
+      "dur_ms": 1307
     },
     {
-      "text": "transferência feita",
+      "text": "Resultado?",
       "emphasis": null,
-      "start_ms": 18513,
-      "dur_ms": 1402
+      "start_ms": 18674,
+      "dur_ms": 789
     },
     {
-      "text": "A regra de ouro",
+      "text": "Doze pedidos",
+      "emphasis": "Doze pedidos",
+      "start_ms": 19603,
+      "dur_ms": 1054
+    },
+    {
+      "text": "por semana",
       "emphasis": null,
-      "start_ms": 20055,
-      "dur_ms": 1168
+      "start_ms": 20657,
+      "dur_ms": 878
     },
     {
-      "text": "é simples",
+      "text": "todos do Google",
       "emphasis": null,
-      "start_ms": 21223,
-      "dur_ms": 701
+      "start_ms": 21535,
+      "dur_ms": 1318
     },
     {
-      "text": "Verifica sempre",
+      "text": "Se o Google",
       "emphasis": null,
-      "start_ms": 22064,
-      "dur_ms": 1136
+      "start_ms": 22994,
+      "dur_ms": 624
     },
     {
-      "text": "por outro canal",
-      "emphasis": "outro canal",
-      "start_ms": 23200,
-      "dur_ms": 1136
-    },
-    {
-      "text": "sem excepção",
-      "emphasis": "sem excepção",
-      "start_ms": 24336,
-      "dur_ms": 909
-    },
-    {
-      "text": "Protegemos o teu negócio",
+      "text": "não te encontra",
       "emphasis": null,
-      "start_ms": 25385,
-      "dur_ms": 1500
+      "start_ms": 23618,
+      "dur_ms": 851
+    },
+    {
+      "text": "ninguém te encontra",
+      "emphasis": "ninguém te encontra",
+      "start_ms": 24469,
+      "dur_ms": 1079
+    },
+    {
+      "text": "Resolvemos isso",
+      "emphasis": "para ti",
+      "start_ms": 25688,
+      "dur_ms": 933
+    },
+    {
+      "text": "para ti",
+      "emphasis": null,
+      "start_ms": 26621,
+      "dur_ms": 436
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 26885,
-      "dur_ms": 938
+      "start_ms": 27198,
+      "dur_ms": 1532
     }
   ]
 }
