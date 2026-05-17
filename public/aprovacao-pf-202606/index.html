@@ -288,7 +288,7 @@
 <!-- Overlay -->
 <div class="overlay" id="overlay" role="dialog" aria-hidden="true">
   <div class="overlay__inner">
-    <div class="overlay__video"><iframe id="ovFrame" loading="lazy"></iframe></div>
+    <div class="overlay__video"><iframe id="ovFrame" loading="lazy" allow="autoplay"></iframe></div>
     <div class="overlay__side">
       <div class="overlay__header">
         <h2 class="overlay__title" id="ovTitle"></h2>
@@ -374,7 +374,7 @@ function openOverlay(id) {
   document.getElementById('ovPilar').textContent   = it.pilar;
   document.getElementById('ovCaption').textContent = it.caption;
   const v = document.getElementById('ovFrame');
-  v.src = it.html;
+  v.src = it.html + '?audio=1';
   refreshOverlayActions();
   document.getElementById('overlay').classList.add('is-open');
   document.body.style.overflow = 'hidden';
