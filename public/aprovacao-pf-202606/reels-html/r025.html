@@ -17,21 +17,22 @@
     background: #000;
     overflow: hidden;
     font-family: 'Arial Black', 'Helvetica Neue', Impact, sans-serif;
-    display: grid;
-    place-items: center;
+  }
+  /* The .stage wrapper is sized to viewport; .reel is fixed 1080x1920 and
+     gets a JS-applied transform: scale() that fits .stage. At native 1080×1920
+     viewport (Playwright recording), the scale is exactly 1.0. */
+  .stage-fit {
+    position: fixed; inset: 0;
+    display: grid; place-items: center;
   }
   .reel {
     position: relative;
     width: 1080px;
     height: 1920px;
-    flex-shrink: 0;
     background: var(--bg);
     background-image: radial-gradient(circle, var(--dot) 1.8px, transparent 1.8px);
     background-size: 44px 44px;
     overflow: hidden;
-    /* Scale to fit viewport (iframe or browser) while preserving 9:16 ratio.
-       At native 1080x1920 viewport (Playwright recording), this evaluates to 1.0. */
-    transform: scale(min(calc(100vw / 1080), calc(100vh / 1920)));
     transform-origin: center center;
   }
   .reel::before {
@@ -147,6 +148,7 @@
 </style>
 </head>
 <body>
+<div class="stage-fit">
 <section class="reel" aria-label="Pagaste em ads. Mas ninguém sabe o ROI.">
   <div class="progress"></div>
   <div class="brand">Pontofinal.site_</div>
@@ -158,6 +160,19 @@
   </div>
   <div class="footer-arrow">↓</div>
 </section>
+</div>
+<script>
+(function () {
+  const r = document.querySelector('.reel');
+  function fit() {
+    const sw = window.innerWidth / 1080;
+    const sh = window.innerHeight / 1920;
+    r.style.transform = 'scale(' + Math.min(sw, sh) + ')';
+  }
+  fit();
+  addEventListener('resize', fit);
+})();
+</script>
 <audio src="../audio/csr014.mp3" autoplay loop muted style="position:fixed;bottom:8px;right:8px;z-index:99;width:140px;opacity:0.7"></audio>
 </body>
 </html>
