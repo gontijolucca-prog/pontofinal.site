@@ -1,143 +1,151 @@
 {
-  "total_ms": 22982,
+  "total_ms": 23670,
   "chunks": [
     {
-      "text": "Já reparaste",
+      "text": "Reparaste como",
       "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 732
+      "dur_ms": 1064
     },
     {
-      "text": "como as marcas portuguesas",
+      "text": "tantas marcas",
       "emphasis": null,
-      "start_ms": 732,
-      "dur_ms": 1586
+      "start_ms": 1064,
+      "dur_ms": 988
     },
     {
       "text": "são confusas?",
       "emphasis": "confusas",
-      "start_ms": 2318,
-      "dur_ms": 793
+      "start_ms": 2052,
+      "dur_ms": 989
     },
     {
-      "text": "Pois é",
+      "text": "E sabes porquê?",
       "emphasis": null,
-      "start_ms": 3251,
-      "dur_ms": 506
+      "start_ms": 3182,
+      "dur_ms": 1160
     },
     {
-      "text": "propositadamente",
-      "emphasis": "propositadamente",
-      "start_ms": 3757,
-      "dur_ms": 1351
+      "text": "Propositadamente",
+      "emphasis": "Propositadamente",
+      "start_ms": 4483,
+      "dur_ms": 1219,
+      "graphic": {
+        "type": "stamp",
+        "text": "DE PROPÓSITO"
+      }
     },
     {
       "text": "Acham que ser vago",
       "emphasis": null,
-      "start_ms": 5249,
+      "start_ms": 5842,
       "dur_ms": 1025
     },
     {
       "text": "soa sofisticado",
       "emphasis": null,
-      "start_ms": 6274,
+      "start_ms": 6867,
       "dur_ms": 855
     },
     {
       "text": "Que ser misterioso",
       "emphasis": null,
-      "start_ms": 7270,
-      "dur_ms": 1009
+      "start_ms": 7863,
+      "dur_ms": 901
     },
     {
       "text": "soa premium",
       "emphasis": null,
-      "start_ms": 8279,
-      "dur_ms": 616
+      "start_ms": 8764,
+      "dur_ms": 550
     },
     {
       "text": "Não soa",
       "emphasis": "Não soa",
-      "start_ms": 9035,
-      "dur_ms": 917
+      "start_ms": 9454,
+      "dur_ms": 847
     },
     {
       "text": "É falta de coragem",
       "emphasis": "falta de coragem",
-      "start_ms": 10092,
-      "dur_ms": 1310
+      "start_ms": 10442,
+      "dur_ms": 1391
     },
     {
       "text": "para dizerem",
       "emphasis": null,
-      "start_ms": 11402,
-      "dur_ms": 873
+      "start_ms": 11833,
+      "dur_ms": 928
     },
     {
       "text": "o que fazem",
       "emphasis": null,
-      "start_ms": 12275,
-      "dur_ms": 800
+      "start_ms": 12761,
+      "dur_ms": 850
     },
     {
       "text": "A clareza",
       "emphasis": null,
-      "start_ms": 13216,
+      "start_ms": 13752,
       "dur_ms": 1051
     },
     {
       "text": "assusta",
       "emphasis": "assusta",
-      "start_ms": 14267,
+      "start_ms": 14803,
       "dur_ms": 818
     },
     {
       "text": "Por isso",
       "emphasis": null,
-      "start_ms": 15225,
-      "dur_ms": 645
+      "start_ms": 15761,
+      "dur_ms": 707
     },
     {
       "text": "é tão rara",
       "emphasis": null,
-      "start_ms": 15870,
-      "dur_ms": 806
+      "start_ms": 16468,
+      "dur_ms": 883
     },
     {
       "text": "E por isso",
       "emphasis": null,
-      "start_ms": 16816,
-      "dur_ms": 864
+      "start_ms": 17492,
+      "dur_ms": 874
     },
     {
       "text": "faz uma marca",
       "emphasis": null,
-      "start_ms": 17680,
-      "dur_ms": 1123
+      "start_ms": 18366,
+      "dur_ms": 1136
     },
     {
       "text": "destacar-se",
       "emphasis": "destacar-se",
-      "start_ms": 18803,
-      "dur_ms": 950
+      "start_ms": 19502,
+      "dur_ms": 962
     },
     {
       "text": "Quem é claro",
       "emphasis": "vende",
-      "start_ms": 19893,
-      "dur_ms": 1049
+      "start_ms": 20604,
+      "dur_ms": 1073,
+      "graphic": {
+        "type": "stamp",
+        "text": "VENDE"
+      }
     },
     {
       "text": "vende",
       "emphasis": null,
-      "start_ms": 20942,
-      "dur_ms": 437
+      "start_ms": 21677,
+      "dur_ms": 447
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 21519,
-      "dur_ms": 1462
+      "start_ms": 22265,
+      "dur_ms": 1404
     }
   ]
 }

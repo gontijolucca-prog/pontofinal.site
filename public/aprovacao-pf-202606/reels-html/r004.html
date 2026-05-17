@@ -47,50 +47,39 @@
   }
   .brand {
     position: absolute;
-    top: 96px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 96px; left: 50%; transform: translateX(-50%);
     z-index: 5;
-    background: var(--ink);
-    color: #FFF;
-    padding: 14px 28px;
-    border: 4px solid var(--ink);
+    background: var(--ink); color: #FFF;
+    padding: 14px 28px; border: 4px solid var(--ink);
     font: 900 32px/1 'Arial Black', sans-serif;
-    letter-spacing: -0.02em;
-    text-transform: lowercase;
+    letter-spacing: -0.02em; text-transform: lowercase;
   }
   .progress {
     position: absolute;
     top: 60px; left: 60px; right: 60px; height: 8px;
-    background: rgba(5,5,5,0.08);
-    z-index: 4;
+    background: rgba(5,5,5,0.08); z-index: 4;
   }
   .progress::after {
-    content: "";
-    position: absolute; left: 0; top: 0; bottom: 0;
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0;
     background: var(--accent);
     transform-origin: left center;
-    animation: progress 25.409s linear infinite;
+    animation: progress 27.534s linear infinite;
   }
   @keyframes progress {
-    0%   { transform: scaleX(0); }
-    100% { transform: scaleX(1); }
+    0% { transform: scaleX(0); } 100% { transform: scaleX(1); }
   }
-  .stage {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    padding: 0 110px;
-    z-index: 2;
-  }
+  .stage { position: absolute; inset: 0; z-index: 2; }
   .chunk {
     position: absolute;
     inset: 220px 110px 320px;
-    display: grid;
-    place-items: center;
+    display: grid; place-items: center;
     opacity: 0;
     will-change: opacity;
+  }
+  .chunk__inner {
+    display: grid; place-items: center;
+    gap: 32px;
+    max-width: 860px;
   }
   .chunk__text {
     font: 900 140px/1.04 'Arial Black', sans-serif;
@@ -99,20 +88,102 @@
     text-transform: uppercase;
     text-align: center;
     max-width: 860px;
-    word-break: normal;
-    overflow-wrap: normal;
-    hyphens: manual;
+    word-break: normal; overflow-wrap: normal; hyphens: manual;
+  }
+  .chunk--with-graphic .chunk__text {
+    font-size: 76px;
+    letter-spacing: -0.02em;
+    color: rgba(5,5,5,0.7);
   }
   .hl {
     display: inline-block;
-    background: var(--accent);
-    color: #FFF;
+    background: var(--accent); color: #FFF;
     padding: 4px 22px 14px;
     border: 6px solid var(--ink);
     box-shadow: 10px 10px 0 0 var(--ink);
-    margin: 6px 4px;
-    transform: rotate(-1.4deg);
+    margin: 6px 4px; transform: rotate(-1.4deg);
   }
+
+  /* Motion graphics — neo-brutalist */
+  .g-counter {
+    display: grid; grid-auto-flow: row; place-items: center;
+    text-align: center;
+  }
+  .g-counter--prefix, .g-counter--percent {
+    grid-auto-flow: column; align-items: baseline; gap: 18px;
+  }
+  .g-counter__num {
+    font: 900 360px/0.95 'Arial Black', sans-serif;
+    color: var(--ink);
+    letter-spacing: -0.045em;
+    font-variant-numeric: tabular-nums;
+  }
+  .g-counter__suffix {
+    font: 900 72px/1 'Arial Black', sans-serif;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    margin-top: 12px;
+  }
+  .g-counter__prefix, .g-counter__symbol {
+    font: 900 220px/1 'Arial Black', sans-serif;
+    color: var(--accent);
+    letter-spacing: -0.03em;
+  }
+  .g-stamp {
+    display: inline-block;
+    background: var(--accent); color: #FFF;
+    padding: 28px 60px 38px;
+    border: 8px solid var(--ink);
+    box-shadow: 18px 18px 0 0 var(--ink);
+    transform: rotate(-3.5deg);
+    font: 900 130px/1 'Arial Black', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    animation: stamp-pop 0.5s cubic-bezier(.2,1.6,.4,1) both;
+  }
+  @keyframes stamp-pop {
+    0%   { transform: rotate(-12deg) scale(0.2); opacity: 0; }
+    60%  { transform: rotate(-1deg) scale(1.08); opacity: 1; }
+    100% { transform: rotate(-3.5deg) scale(1); opacity: 1; }
+  }
+  .g-bars {
+    display: grid; gap: 28px; width: 100%;
+  }
+  .g-bar {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 18px; align-items: center;
+  }
+  .g-bar__label {
+    font: 900 56px/1 'Arial Black', sans-serif;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .g-bar__track {
+    position: relative;
+    height: 88px;
+    background: rgba(5,5,5,0.07);
+    border: 4px solid var(--ink);
+  }
+  .g-bar__fill {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 0;
+    background: var(--accent);
+    animation: bar-grow 0.9s cubic-bezier(.2,.7,.2,1) both;
+  }
+  @keyframes bar-grow {
+    from { width: 0; }
+    to   { width: var(--target, 100%); }
+  }
+  .g-bar__value {
+    position: absolute;
+    right: -8px; top: 50%; transform: translate(100%, -50%);
+    font: 900 52px/1 'Arial Black', sans-serif;
+    color: var(--ink);
+    padding-left: 16px;
+  }
+
   .footer-arrow {
     position: absolute;
     bottom: 96px; left: 50%; transform: translateX(-50%);
@@ -127,145 +198,157 @@
   }
   @keyframes chunk0 {
               0% { opacity: 1; }
-              3.121% { opacity: 1; }
-              3.133%, 100% { opacity: 0; }
+              2.528% { opacity: 1; }
+              2.539%, 100% { opacity: 0; }
             }
 @keyframes chunk1 {
-              0%, 3.121% { opacity: 0; }
-              3.133% { opacity: 1; }
-              6.254% { opacity: 1; }
-              6.265%, 100% { opacity: 0; }
+              0%, 2.528% { opacity: 0; }
+              2.539% { opacity: 1; }
+              7.602% { opacity: 1; }
+              7.612%, 100% { opacity: 0; }
             }
 @keyframes chunk2 {
-              0%, 6.254% { opacity: 0; }
-              6.265% { opacity: 1; }
-              9.646% { opacity: 1; }
-              9.658%, 100% { opacity: 0; }
+              0%, 7.602% { opacity: 0; }
+              7.612% { opacity: 1; }
+              14.034% { opacity: 1; }
+              14.044%, 100% { opacity: 0; }
             }
 @keyframes chunk3 {
-              0%, 9.646% { opacity: 0; }
-              9.658% { opacity: 1; }
-              13.334% { opacity: 1; }
-              13.346%, 100% { opacity: 0; }
+              0%, 14.034% { opacity: 0; }
+              14.044% { opacity: 1; }
+              18.548% { opacity: 1; }
+              18.559%, 100% { opacity: 0; }
             }
 @keyframes chunk4 {
-              0%, 13.334% { opacity: 0; }
-              13.346% { opacity: 1; }
-              18.635% { opacity: 1; }
-              18.647%, 100% { opacity: 0; }
+              0%, 18.548% { opacity: 0; }
+              18.559% { opacity: 1; }
+              21.363% { opacity: 1; }
+              21.374%, 100% { opacity: 0; }
             }
 @keyframes chunk5 {
-              0%, 18.635% { opacity: 0; }
-              18.647% { opacity: 1; }
-              22.752% { opacity: 1; }
-              22.764%, 100% { opacity: 0; }
+              0%, 21.363% { opacity: 0; }
+              21.374% { opacity: 1; }
+              26.099% { opacity: 1; }
+              26.110%, 100% { opacity: 0; }
             }
 @keyframes chunk6 {
-              0%, 22.752% { opacity: 0; }
-              22.764% { opacity: 1; }
-              28.454% { opacity: 1; }
-              28.466%, 100% { opacity: 0; }
+              0%, 26.099% { opacity: 0; }
+              26.110% { opacity: 1; }
+              28.594% { opacity: 1; }
+              28.605%, 100% { opacity: 0; }
             }
 @keyframes chunk7 {
-              0%, 28.454% { opacity: 0; }
-              28.466% { opacity: 1; }
-              33.524% { opacity: 1; }
-              33.535%, 100% { opacity: 0; }
+              0%, 28.594% { opacity: 0; }
+              28.605% { opacity: 1; }
+              32.433% { opacity: 1; }
+              32.444%, 100% { opacity: 0; }
             }
 @keyframes chunk8 {
-              0%, 33.524% { opacity: 0; }
-              33.535% { opacity: 1; }
-              38.195% { opacity: 1; }
-              38.207%, 100% { opacity: 0; }
+              0%, 32.433% { opacity: 0; }
+              32.444% { opacity: 1; }
+              36.010% { opacity: 1; }
+              36.021%, 100% { opacity: 0; }
             }
 @keyframes chunk9 {
-              0%, 38.195% { opacity: 0; }
-              38.207% { opacity: 1; }
-              41.320% { opacity: 1; }
-              41.332%, 100% { opacity: 0; }
+              0%, 36.010% { opacity: 0; }
+              36.021% { opacity: 1; }
+              39.235% { opacity: 1; }
+              39.246%, 100% { opacity: 0; }
             }
 @keyframes chunk10 {
-              0%, 41.320% { opacity: 0; }
-              41.332% { opacity: 1; }
-              46.558% { opacity: 1; }
-              46.570%, 100% { opacity: 0; }
+              0%, 39.235% { opacity: 0; }
+              39.246% { opacity: 1; }
+              42.969% { opacity: 1; }
+              42.980%, 100% { opacity: 0; }
             }
 @keyframes chunk11 {
-              0%, 46.558% { opacity: 0; }
-              46.570% { opacity: 1; }
-              49.069% { opacity: 1; }
-              49.081%, 100% { opacity: 0; }
+              0%, 42.969% { opacity: 0; }
+              42.980% { opacity: 1; }
+              48.013% { opacity: 1; }
+              48.024%, 100% { opacity: 0; }
             }
 @keyframes chunk12 {
-              0%, 49.069% { opacity: 0; }
-              49.081% { opacity: 1; }
-              51.631% { opacity: 1; }
-              51.643%, 100% { opacity: 0; }
+              0%, 48.013% { opacity: 0; }
+              48.024% { opacity: 1; }
+              52.088% { opacity: 1; }
+              52.099%, 100% { opacity: 0; }
             }
 @keyframes chunk13 {
-              0%, 51.631% { opacity: 0; }
-              51.643% { opacity: 1; }
-              54.965% { opacity: 1; }
-              54.977%, 100% { opacity: 0; }
+              0%, 52.088% { opacity: 0; }
+              52.099% { opacity: 1; }
+              53.766% { opacity: 1; }
+              53.777%, 100% { opacity: 0; }
             }
 @keyframes chunk14 {
-              0%, 54.965% { opacity: 0; }
-              54.977% { opacity: 1; }
-              56.480% { opacity: 1; }
-              56.492%, 100% { opacity: 0; }
+              0%, 53.766% { opacity: 0; }
+              53.777% { opacity: 1; }
+              56.123% { opacity: 1; }
+              56.134%, 100% { opacity: 0; }
             }
 @keyframes chunk15 {
-              0%, 56.480% { opacity: 0; }
-              56.492% { opacity: 1; }
-              60.361% { opacity: 1; }
-              60.372%, 100% { opacity: 0; }
+              0%, 56.123% { opacity: 0; }
+              56.134% { opacity: 1; }
+              59.417% { opacity: 1; }
+              59.428%, 100% { opacity: 0; }
             }
 @keyframes chunk16 {
-              0%, 60.361% { opacity: 0; }
-              60.372% { opacity: 1; }
-              62.797% { opacity: 1; }
-              62.808%, 100% { opacity: 0; }
+              0%, 59.417% { opacity: 0; }
+              59.428% { opacity: 1; }
+              62.156% { opacity: 1; }
+              62.167%, 100% { opacity: 0; }
             }
 @keyframes chunk17 {
-              0%, 62.797% { opacity: 0; }
-              62.808% { opacity: 1; }
-              66.339% { opacity: 1; }
-              66.351%, 100% { opacity: 0; }
+              0%, 62.156% { opacity: 0; }
+              62.167% { opacity: 1; }
+              65.156% { opacity: 1; }
+              65.167%, 100% { opacity: 0; }
             }
 @keyframes chunk18 {
-              0%, 66.339% { opacity: 0; }
-              66.351% { opacity: 1; }
-              68.224% { opacity: 1; }
-              68.236%, 100% { opacity: 0; }
+              0%, 65.156% { opacity: 0; }
+              65.167% { opacity: 1; }
+              68.711% { opacity: 1; }
+              68.722%, 100% { opacity: 0; }
             }
 @keyframes chunk19 {
-              0%, 68.224% { opacity: 0; }
-              68.236% { opacity: 1; }
-              74.395% { opacity: 1; }
-              74.407%, 100% { opacity: 0; }
+              0%, 68.711% { opacity: 0; }
+              68.722% { opacity: 1; }
+              70.328% { opacity: 1; }
+              70.338%, 100% { opacity: 0; }
             }
 @keyframes chunk20 {
-              0%, 74.395% { opacity: 0; }
-              74.407% { opacity: 1; }
-              80.987% { opacity: 1; }
-              80.999%, 100% { opacity: 0; }
+              0%, 70.328% { opacity: 0; }
+              70.338% { opacity: 1; }
+              74.392% { opacity: 1; }
+              74.403%, 100% { opacity: 0; }
             }
 @keyframes chunk21 {
-              0%, 80.987% { opacity: 0; }
-              80.999% { opacity: 1; }
-              87.579% { opacity: 1; }
-              87.591%, 100% { opacity: 0; }
+              0%, 74.392% { opacity: 0; }
+              74.403% { opacity: 1; }
+              80.246% { opacity: 1; }
+              80.257%, 100% { opacity: 0; }
             }
 @keyframes chunk22 {
-              0%, 87.579% { opacity: 0; }
-              87.591% { opacity: 1; }
-              93.864% { opacity: 1; }
-              93.876%, 100% { opacity: 0; }
+              0%, 80.246% { opacity: 0; }
+              80.257% { opacity: 1; }
+              86.101% { opacity: 1; }
+              86.112%, 100% { opacity: 0; }
             }
 @keyframes chunk23 {
-              0%, 93.864% { opacity: 0; }
-              93.876% { opacity: 1; }
-              99.988% { opacity: 1; }
+              0%, 86.101% { opacity: 0; }
+              86.112% { opacity: 1; }
+              90.430% { opacity: 1; }
+              90.441%, 100% { opacity: 0; }
+            }
+@keyframes chunk24 {
+              0%, 90.430% { opacity: 0; }
+              90.441% { opacity: 1; }
+              94.509% { opacity: 1; }
+              94.520%, 100% { opacity: 0; }
+            }
+@keyframes chunk25 {
+              0%, 94.509% { opacity: 0; }
+              94.520% { opacity: 1; }
+              99.989% { opacity: 1; }
               100.000%, 100% { opacity: 0; }
             }
 </style>
@@ -275,30 +358,32 @@
   <div class="progress"></div>
   <div class="brand">Pontofinal.site_</div>
   <div class="stage">
-  <div class="chunk" style="animation: chunk0 25.409s linear infinite;"><p class="chunk__text">Sabes qual é</p></div>
-  <div class="chunk" style="animation: chunk1 25.409s linear infinite;"><p class="chunk__text">a coisa mais</p></div>
-  <div class="chunk" style="animation: chunk2 25.409s linear infinite;"><p class="chunk__text"><span class="hl">subvalorizada</span></p></div>
-  <div class="chunk" style="animation: chunk3 25.409s linear infinite;"><p class="chunk__text">no marketing</p></div>
-  <div class="chunk" style="animation: chunk4 25.409s linear infinite;"><p class="chunk__text">A <span class="hl">lista de emails</span></p></div>
-  <div class="chunk" style="animation: chunk5 25.409s linear infinite;"><p class="chunk__text">Por cada euro</p></div>
-  <div class="chunk" style="animation: chunk6 25.409s linear infinite;"><p class="chunk__text">investido em email</p></div>
-  <div class="chunk" style="animation: chunk7 25.409s linear infinite;"><p class="chunk__text">recebes em média</p></div>
-  <div class="chunk" style="animation: chunk8 25.409s linear infinite;"><p class="chunk__text"><span class="hl">trinta e seis</span></p></div>
-  <div class="chunk" style="animation: chunk9 25.409s linear infinite;"><p class="chunk__text">No Instagram</p></div>
-  <div class="chunk" style="animation: chunk10 25.409s linear infinite;"><p class="chunk__text">nem chegas a cinco</p></div>
-  <div class="chunk" style="animation: chunk11 25.409s linear infinite;"><p class="chunk__text">E <span class="hl">o melhor</span></p></div>
-  <div class="chunk" style="animation: chunk12 25.409s linear infinite;"><p class="chunk__text">de tudo?</p></div>
-  <div class="chunk" style="animation: chunk13 25.409s linear infinite;"><p class="chunk__text">A tua lista</p></div>
-  <div class="chunk" style="animation: chunk14 25.409s linear infinite;"><p class="chunk__text">é tua</p></div>
-  <div class="chunk" style="animation: chunk15 25.409s linear infinite;"><p class="chunk__text">para sempre</p></div>
-  <div class="chunk" style="animation: chunk16 25.409s linear infinite;"><p class="chunk__text">O Instagram</p></div>
-  <div class="chunk" style="animation: chunk17 25.409s linear infinite;"><p class="chunk__text">pode desaparecer</p></div>
-  <div class="chunk" style="animation: chunk18 25.409s linear infinite;"><p class="chunk__text">amanhã</p></div>
-  <div class="chunk" style="animation: chunk19 25.409s linear infinite;"><p class="chunk__text">A lista, não</p></div>
-  <div class="chunk" style="animation: chunk20 25.409s linear infinite;"><p class="chunk__text">Construímos a tua lista</p></div>
-  <div class="chunk" style="animation: chunk21 25.409s linear infinite;"><p class="chunk__text">escrevemos as campanhas</p></div>
-  <div class="chunk" style="animation: chunk22 25.409s linear infinite;"><p class="chunk__text">tu <span class="hl">vês os resultados</span></p></div>
-  <div class="chunk" style="animation: chunk23 25.409s linear infinite;"><p class="chunk__text"><span class="hl">PontoFinal.site</span></p></div>
+  <div class="chunk" data-idx="0" style="animation: chunk0 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">Cada euro</p></div></div>
+  <div class="chunk" data-idx="1" style="animation: chunk1 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">em email marketing</p></div></div>
+  <div class="chunk chunk--with-graphic" data-idx="2" style="animation: chunk2 27.534s linear infinite;"><div class="chunk__inner"><div class="g-counter g-counter--prefix" data-to="36"><span class="g-counter__prefix">€</span><span class="g-counter__num">0</span></div><p class="chunk__text">devolve <span class="hl">trinta e seis</span></p></div></div>
+  <div class="chunk" data-idx="3" style="animation: chunk3 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text"><span class="hl">Trinta e seis</span></p></div></div>
+  <div class="chunk" data-idx="4" style="animation: chunk4 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">No Instagram</p></div></div>
+  <div class="chunk chunk--with-graphic" data-idx="5" style="animation: chunk5 27.534s linear infinite;"><div class="chunk__inner"><div class="g-bars"><div class="g-bar" data-target="100.00"><span class="g-bar__label">Email</span><div class="g-bar__track"><div class="g-bar__fill"></div><span class="g-bar__value">36</span></div></div><div class="g-bar" data-target="13.89"><span class="g-bar__label">Insta</span><div class="g-bar__track"><div class="g-bar__fill"></div><span class="g-bar__value">5</span></div></div></div><p class="chunk__text">nem chegas a <span class="hl">cinco</span></p></div></div>
+  <div class="chunk" data-idx="6" style="animation: chunk6 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">E sabes o que</p></div></div>
+  <div class="chunk" data-idx="7" style="animation: chunk7 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">quase nenhum negócio</p></div></div>
+  <div class="chunk" data-idx="8" style="animation: chunk8 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text"><span class="hl">em Portugal</span> faz?</p></div></div>
+  <div class="chunk" data-idx="9" style="animation: chunk9 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">Construir a sua</p></div></div>
+  <div class="chunk" data-idx="10" style="animation: chunk10 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text"><span class="hl">lista de emails</span></p></div></div>
+  <div class="chunk" data-idx="11" style="animation: chunk11 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">Dependentes de plataformas</p></div></div>
+  <div class="chunk" data-idx="12" style="animation: chunk12 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">que podem desaparecer</p></div></div>
+  <div class="chunk" data-idx="13" style="animation: chunk13 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">amanhã</p></div></div>
+  <div class="chunk" data-idx="14" style="animation: chunk14 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">O Instagram</p></div></div>
+  <div class="chunk" data-idx="15" style="animation: chunk15 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">pode <span class="hl">banir-te</span></p></div></div>
+  <div class="chunk" data-idx="16" style="animation: chunk16 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">O algoritmo</p></div></div>
+  <div class="chunk" data-idx="17" style="animation: chunk17 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">pode mudar</p></div></div>
+  <div class="chunk" data-idx="18" style="animation: chunk18 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">A tua lista</p></div></div>
+  <div class="chunk" data-idx="19" style="animation: chunk19 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">é tua</p></div></div>
+  <div class="chunk" data-idx="20" style="animation: chunk20 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">para sempre</p></div></div>
+  <div class="chunk" data-idx="21" style="animation: chunk21 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">Construímos a tua lista</p></div></div>
+  <div class="chunk" data-idx="22" style="animation: chunk22 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">escrevemos as campanhas</p></div></div>
+  <div class="chunk" data-idx="23" style="animation: chunk23 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">tu vês resultados</p></div></div>
+  <div class="chunk" data-idx="24" style="animation: chunk24 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text">todos os meses</p></div></div>
+  <div class="chunk" data-idx="25" style="animation: chunk25 27.534s linear infinite;"><div class="chunk__inner"><p class="chunk__text"><span class="hl">PontoFinal.site</span></p></div></div>
   </div>
   <div class="footer-arrow">↓</div>
   <audio id="narration" src="../audio/voices/r004.mp3" preload="auto"></audio>
@@ -306,6 +391,9 @@
 </section>
 <script>
 (function () {
+  const TOTAL_MS = 27534;
+  const COUNTERS = [{"chunk_idx": 2, "to": 36, "start": 2096, "dur": 1630}];
+
   // Responsive scale: fit reel to iframe/window viewport
   const r = document.querySelector('.reel');
   function fit() {
@@ -323,7 +411,7 @@
       if (!t) return;
       t.style.fontSize = '';
       let size = parseFloat(getComputedStyle(t).fontSize);
-      const minSize = 50;
+      const minSize = 40;
       let safety = 60;
       while (safety-- > 0 && size > minSize) {
         const overW = t.scrollWidth > scene.clientWidth;
@@ -341,22 +429,64 @@
   }
   addEventListener('resize', () => setTimeout(fitText, 50));
 
-  // Narration + background beat: only when ?audio=1 (overlay).
+  // Set bar-grow CSS targets from data attributes
+  document.querySelectorAll('.g-bar').forEach(bar => {
+    const t = bar.dataset.target || '100';
+    const fill = bar.querySelector('.g-bar__fill');
+    if (fill) fill.style.setProperty('--target', t + '%');
+  });
+
+  // Counter animation timeline: tick at rAF, drive each counter based on
+  // the looping timeline. Uses audio.currentTime when audio is playing,
+  // else page performance.now().
+  const audio = document.getElementById('narration');
+  const beat = document.getElementById('beat');
+  const t0 = performance.now();
+  function getT() {
+    if (audio && !audio.paused && !audio.muted && audio.currentTime > 0) {
+      return (audio.currentTime * 1000) % TOTAL_MS;
+    }
+    return (performance.now() - t0) % TOTAL_MS;
+  }
+  const chunkEls = document.querySelectorAll('.chunk');
+  function tick() {
+    const t = getT();
+    for (const cm of COUNTERS) {
+      const el = chunkEls[cm.chunk_idx];
+      if (!el) continue;
+      const numEl = el.querySelector('.g-counter__num');
+      if (!numEl) continue;
+      // Ramp counter during first 60% of the chunk window, capped at 900ms
+      const rampMs = Math.min(cm.dur * 0.6, 900);
+      const elapsed = t - cm.start;
+      let p = 0;
+      if (elapsed >= 0 && elapsed < cm.dur) {
+        p = Math.min(1, elapsed / Math.max(rampMs, 200));
+      } else if (elapsed >= cm.dur) {
+        p = 1;
+      } else {
+        p = 0;
+      }
+      numEl.textContent = Math.round(p * cm.to);
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  // Narration + background beat playback
   const wantAudio = new URLSearchParams(location.search).get('audio') === '1';
-  const a = document.getElementById('narration');
-  const b = document.getElementById('beat');
-  if (a) a.loop = true;
-  if (b) b.loop = true;
+  if (audio) audio.loop = true;
+  if (beat) beat.loop = true;
   if (wantAudio) {
-    if (a) { a.muted = false; a.volume = 1.0; a.play().catch(() => {}); }
-    if (b) { b.muted = false; b.volume = 0.15; b.play().catch(() => {}); }
+    if (audio) { audio.muted = false; audio.volume = 1.0; audio.play().catch(() => {}); }
+    if (beat)  { beat.muted  = false; beat.volume  = 0.15; beat.play().catch(() => {}); }
     ['click','touchstart'].forEach(e => addEventListener(e, () => {
-      if (a) a.play().catch(() => {});
-      if (b) b.play().catch(() => {});
+      if (audio) audio.play().catch(() => {});
+      if (beat)  beat.play().catch(() => {});
     }, {once: true}));
   } else {
-    if (a) a.muted = true;
-    if (b) b.muted = true;
+    if (audio) audio.muted = true;
+    if (beat)  beat.muted  = true;
   }
 })();
 </script>

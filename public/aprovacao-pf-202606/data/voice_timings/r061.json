@@ -1,167 +1,181 @@
 {
-  "total_ms": 28731,
+  "total_ms": 28417,
   "chunks": [
-    {
-      "text": "Tenho uma cliente",
-      "emphasis": null,
-      "start_ms": 0,
-      "dur_ms": 1010
-    },
-    {
-      "text": "em Braga",
-      "emphasis": null,
-      "start_ms": 1010,
-      "dur_ms": 475
-    },
-    {
-      "text": "dona de uma óptica",
-      "emphasis": null,
-      "start_ms": 1485,
-      "dur_ms": 1069
-    },
-    {
-      "text": "de bairro",
-      "emphasis": null,
-      "start_ms": 2554,
-      "dur_ms": 534
-    },
-    {
-      "text": "Qualidade brutal",
-      "emphasis": "Qualidade brutal",
-      "start_ms": 3228,
-      "dur_ms": 1169
-    },
-    {
-      "text": "atendimento óptimo",
-      "emphasis": null,
-      "start_ms": 4397,
-      "dur_ms": 1315
-    },
-    {
-      "text": "Mas no Google?",
-      "emphasis": null,
-      "start_ms": 5853,
-      "dur_ms": 952
-    },
-    {
-      "text": "Não aparecia",
-      "emphasis": null,
-      "start_ms": 6945,
-      "dur_ms": 800
-    },
-    {
-      "text": "nem por sombras",
-      "emphasis": "nem por sombras",
-      "start_ms": 7745,
-      "dur_ms": 999
-    },
-    {
-      "text": "As pessoas procuravam",
-      "emphasis": null,
-      "start_ms": 8885,
-      "dur_ms": 1442
-    },
-    {
-      "text": "óptica na zona",
-      "emphasis": null,
-      "start_ms": 10327,
-      "dur_ms": 961
-    },
-    {
-      "text": "iam para os concorrentes",
-      "emphasis": "para os concorrentes",
-      "start_ms": 11288,
-      "dur_ms": 1648
-    },
-    {
-      "text": "Trabalhámos o site",
-      "emphasis": null,
-      "start_ms": 13077,
-      "dur_ms": 1094
-    },
-    {
-      "text": "durante quatro meses",
-      "emphasis": null,
-      "start_ms": 14171,
-      "dur_ms": 1216
-    },
-    {
-      "text": "Hoje está",
-      "emphasis": null,
-      "start_ms": 15527,
-      "dur_ms": 588
-    },
-    {
-      "text": "em primeiro lugar",
-      "emphasis": "primeiro lugar",
-      "start_ms": 16115,
-      "dur_ms": 1111
-    },
-    {
-      "text": "para treze pesquisas",
-      "emphasis": null,
-      "start_ms": 17226,
-      "dur_ms": 1307
-    },
-    {
-      "text": "Resultado?",
-      "emphasis": null,
-      "start_ms": 18674,
-      "dur_ms": 789
-    },
     {
       "text": "Doze pedidos",
       "emphasis": "Doze pedidos",
-      "start_ms": 19603,
-      "dur_ms": 1054
+      "start_ms": 0,
+      "dur_ms": 926,
+      "graphic": {
+        "type": "count",
+        "to": 12,
+        "suffix": "pedidos/sem"
+      }
     },
     {
       "text": "por semana",
       "emphasis": null,
-      "start_ms": 20657,
-      "dur_ms": 878
+      "start_ms": 926,
+      "dur_ms": 772
     },
     {
-      "text": "todos do Google",
-      "emphasis": null,
-      "start_ms": 21535,
-      "dur_ms": 1318
+      "text": "directos do Google",
+      "emphasis": "do Google",
+      "start_ms": 1698,
+      "dur_ms": 1390
     },
     {
-      "text": "Se o Google",
+      "text": "Aconteceu com",
       "emphasis": null,
-      "start_ms": 22994,
-      "dur_ms": 624
+      "start_ms": 3228,
+      "dur_ms": 769
     },
     {
-      "text": "não te encontra",
+      "text": "uma óptica",
       "emphasis": null,
-      "start_ms": 23618,
-      "dur_ms": 851
+      "start_ms": 3997,
+      "dur_ms": 592
+    },
+    {
+      "text": "em Braga",
+      "emphasis": null,
+      "start_ms": 4589,
+      "dur_ms": 473
+    },
+    {
+      "text": "Atendimento",
+      "emphasis": null,
+      "start_ms": 5202,
+      "dur_ms": 707
+    },
+    {
+      "text": "de cinco estrelas",
+      "emphasis": "cinco estrelas",
+      "start_ms": 5909,
+      "dur_ms": 1092
+    },
+    {
+      "text": "Mas no Google",
+      "emphasis": null,
+      "start_ms": 7142,
+      "dur_ms": 847
+    },
+    {
+      "text": "completamente invisível",
+      "emphasis": "invisível",
+      "start_ms": 7989,
+      "dur_ms": 1498
+    },
+    {
+      "text": "As pessoas procuravam",
+      "emphasis": null,
+      "start_ms": 9627,
+      "dur_ms": 1434
+    },
+    {
+      "text": "óptica na zona",
+      "emphasis": null,
+      "start_ms": 11061,
+      "dur_ms": 956
+    },
+    {
+      "text": "iam para os concorrentes",
+      "emphasis": "para os concorrentes",
+      "start_ms": 12017,
+      "dur_ms": 1638
+    },
+    {
+      "text": "Trabalhámos o site",
+      "emphasis": null,
+      "start_ms": 13796,
+      "dur_ms": 1116
+    },
+    {
+      "text": "durante quatro meses",
+      "emphasis": "quatro meses",
+      "start_ms": 14912,
+      "dur_ms": 1240
+    },
+    {
+      "text": "Hoje está",
+      "emphasis": null,
+      "start_ms": 16293,
+      "dur_ms": 570
+    },
+    {
+      "text": "em primeiro lugar",
+      "emphasis": "primeiro lugar",
+      "start_ms": 16863,
+      "dur_ms": 1077,
+      "graphic": {
+        "type": "stamp",
+        "text": "Nº 1"
+      }
+    },
+    {
+      "text": "para treze pesquisas",
+      "emphasis": null,
+      "start_ms": 17940,
+      "dur_ms": 1267
+    },
+    {
+      "text": "Doze pedidos novos",
+      "emphasis": "Doze pedidos",
+      "start_ms": 19347,
+      "dur_ms": 1104,
+      "graphic": {
+        "type": "count",
+        "to": 12,
+        "suffix": "pedidos/sem"
+      }
+    },
+    {
+      "text": "por semana",
+      "emphasis": null,
+      "start_ms": 20451,
+      "dur_ms": 614
+    },
+    {
+      "text": "Todos directos",
+      "emphasis": null,
+      "start_ms": 21205,
+      "dur_ms": 798
+    },
+    {
+      "text": "do Google",
+      "emphasis": "do Google",
+      "start_ms": 22003,
+      "dur_ms": 513
+    },
+    {
+      "text": "Se o Google não te encontra",
+      "emphasis": null,
+      "start_ms": 22657,
+      "dur_ms": 1540
     },
     {
       "text": "ninguém te encontra",
       "emphasis": "ninguém te encontra",
-      "start_ms": 24469,
-      "dur_ms": 1079
+      "start_ms": 24197,
+      "dur_ms": 1083
     },
     {
       "text": "Resolvemos isso",
-      "emphasis": "para ti",
-      "start_ms": 25688,
-      "dur_ms": 933
+      "emphasis": null,
+      "start_ms": 25421,
+      "dur_ms": 942
     },
     {
       "text": "para ti",
-      "emphasis": null,
-      "start_ms": 26621,
-      "dur_ms": 436
+      "emphasis": "para ti",
+      "start_ms": 26363,
+      "dur_ms": 439
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 27198,
-      "dur_ms": 1532
+      "start_ms": 26943,
+      "dur_ms": 1474
     }
   ]
 }
