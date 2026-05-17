@@ -26,11 +26,10 @@ html, body {
 }
 .reel {
   position: relative;
-  /* Force a 9:16 box even when the viewport is not 9:16 (e.g. desktop preview). */
-  width: min(100vw, calc(100vh * 9 / 16));
-  height: min(100vh, calc(100vw * 16 / 9));
-  aspect-ratio: 9 / 16;
-  margin: 0 auto;
+  /* Fill parent (iframe já enforça 9:16; em browser direto ocupa a janela). */
+  width: 100%;
+  height: 100%;
+  margin: 0;
   background: var(--bg);
   color: var(--text);
   overflow: hidden;
