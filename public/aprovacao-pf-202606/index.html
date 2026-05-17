@@ -99,9 +99,20 @@
     background: #000;
     overflow: hidden;
   }
-  .card__thumb video {
-    width: 100%; height: 100%; object-fit: cover; display: block;
+  .card__thumb video,
+  .card__thumb iframe {
+    width: 100%; height: 100%; display: block;
     pointer-events: none;
+    border: 0;
+    background: #FFF;
+  }
+  .card__thumb iframe {
+    /* iframes show the reel's natural 1080x1920, scale it down to fill the
+       9:16 thumb. transform-origin keeps the centre framed. */
+    transform: scale(0.176);
+    transform-origin: 0 0;
+    width: 1080px; height: 1920px;
+    position: absolute; top: 0; left: 0;
   }
   .card__playbadge {
     position: absolute; inset: 0;
@@ -183,7 +194,8 @@
   @media (min-width: 720px) {
     .overlay__video { max-height: calc(100vh - 80px); max-width: 360px; align-self: start; }
   }
-  .overlay__video video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .overlay__video video,
+  .overlay__video iframe { width: 100%; height: 100%; display: block; border: 0; background: #FFF; }
 
   .overlay__side {
     background: var(--bg); border: 4px solid var(--ink);
@@ -279,7 +291,7 @@
 <!-- Overlay -->
 <div class="overlay" id="overlay" role="dialog" aria-hidden="true">
   <div class="overlay__inner">
-    <div class="overlay__video"><video id="ovVideo" playsinline controls></video></div>
+    <div class="overlay__video"><iframe id="ovFrame" loading="lazy"></iframe></div>
     <div class="overlay__side">
       <div class="overlay__header">
         <h2 class="overlay__title" id="ovTitle"></h2>
@@ -329,7 +341,7 @@ function renderGrid() {
     return `
       <article class="card" data-id="${it.id}" onclick="openOverlay('${it.id}')">
         <div class="card__thumb">
-          <video src="${it.video}#t=0.5" preload="metadata" muted playsinline></video>
+          <iframe src="${it.html}" loading="lazy" scrolling="no" tabindex="-1"></iframe>
           <span class="card__status" data-state="${st}">${statusSymbol(st)}</span>
           <span class="card__id">${it.id.toUpperCase()}</span>
           <span class="card__playbadge">
@@ -364,18 +376,16 @@ function openOverlay(id) {
   document.getElementById('ovTitle').textContent   = it.title;
   document.getElementById('ovPilar').textContent   = it.pilar;
   document.getElementById('ovCaption').textContent = it.caption;
-  const v = document.getElementById('ovVideo');
-  v.src = it.video;
-  v.muted = false; v.loop = true;
-  v.play().catch(()=>{});
+  const v = document.getElementById('ovFrame');
+  v.src = it.html;
   refreshOverlayActions();
   document.getElementById('overlay').classList.add('is-open');
   document.body.style.overflow = 'hidden';
 }
 
 function closeOverlay() {
-  const v = document.getElementById('ovVideo');
-  v.pause(); v.removeAttribute('src'); v.load();
+  const v = document.getElementById('ovFrame');
+  v.removeAttribute('src');
   document.getElementById('overlay').classList.remove('is-open');
   document.body.style.overflow = '';
   activeId = null;

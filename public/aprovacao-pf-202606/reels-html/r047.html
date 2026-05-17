@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>API pequena: conecta tudo sem código</title>
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --ink: #050505;
+    --accent: #FF2A2A;
+    --dot: rgba(5,5,5,0.85);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: #000;
+    overflow: hidden;
+    font-family: 'Arial Black', 'Helvetica Neue', Impact, sans-serif;
+  }
+  .reel {
+    position: relative;
+    width: 1080px;
+    height: 1920px;
+    background: var(--bg);
+    background-image: radial-gradient(circle, var(--dot) 1.8px, transparent 1.8px);
+    background-size: 44px 44px;
+    overflow: hidden;
+  }
+  .reel::before {
+    content: "";
+    position: absolute;
+    inset: 60px;
+    border: 6px solid var(--ink);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .brand {
+    position: absolute;
+    top: 96px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    background: var(--ink);
+    color: #FFF;
+    padding: 14px 28px;
+    border: 4px solid var(--ink);
+    font: 900 32px/1 'Arial Black', sans-serif;
+    letter-spacing: -0.02em;
+    text-transform: lowercase;
+  }
+  .progress {
+    position: absolute;
+    top: 60px; left: 60px; right: 60px; height: 8px;
+    background: rgba(5,5,5,0.08);
+    z-index: 4;
+  }
+  .progress::after {
+    content: "";
+    position: absolute; left: 0; top: 0; bottom: 0;
+    background: var(--accent);
+    transform-origin: left center;
+    animation: progress 15.00s linear infinite;
+  }
+  @keyframes progress {
+    0%   { transform: scaleX(0); }
+    100% { transform: scaleX(1); }
+  }
+  .stage {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 0 110px;
+    z-index: 2;
+  }
+  .scene {
+    position: absolute;
+    inset: 220px 110px 280px;
+    display: grid;
+    place-items: center;
+    opacity: 0;
+  }
+  .scene__text {
+    font: 900 clamp(78px, 9vw, 132px)/1.02 'Arial Black', sans-serif;
+    color: var(--ink);
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    text-align: center;
+    max-width: 18ch;
+  }
+  .scene--hook .scene__text { font-size: 138px; }
+  .scene--cta .scene__text { font-size: 118px; }
+  .hl {
+    display: inline-block;
+    background: var(--accent);
+    color: #FFF;
+    padding: 4px 22px 14px;
+    border: 6px solid var(--ink);
+    box-shadow: 10px 10px 0 0 var(--ink);
+    margin: 6px 4px;
+    transform: rotate(-1.4deg);
+  }
+  .footer-arrow {
+    position: absolute;
+    bottom: 96px; left: 50%; transform: translateX(-50%);
+    z-index: 4;
+    font: 900 88px/1 'Arial Black', sans-serif;
+    color: var(--accent);
+    animation: arrow 1.8s ease-in-out infinite;
+  }
+  @keyframes arrow {
+    0%, 100% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, 14px); }
+  }
+  @keyframes scene1 {
+  0%, 0.00% { opacity: 0; transform: translateY(14px); }
+  4.50% { opacity: 1; transform: translateY(0); }
+  19.50% { opacity: 1; transform: translateY(0); }
+  25.00%, 100% { opacity: 0; transform: translateY(-14px); }
+}
+@keyframes scene2 {
+  0%, 25.00% { opacity: 0; transform: translateY(14px); }
+  29.50% { opacity: 1; transform: translateY(0); }
+  44.50% { opacity: 1; transform: translateY(0); }
+  50.00%, 100% { opacity: 0; transform: translateY(-14px); }
+}
+@keyframes scene3 {
+  0%, 50.00% { opacity: 0; transform: translateY(14px); }
+  54.50% { opacity: 1; transform: translateY(0); }
+  69.50% { opacity: 1; transform: translateY(0); }
+  75.00%, 100% { opacity: 0; transform: translateY(-14px); }
+}
+@keyframes scene4 {
+  0%, 75.00% { opacity: 0; transform: translateY(14px); }
+  79.50% { opacity: 1; transform: translateY(0); }
+  94.50% { opacity: 1; transform: translateY(0); }
+  100.00%, 100% { opacity: 0; transform: translateY(-14px); }
+}
+</style>
+</head>
+<body>
+<section class="reel" aria-label="API pequena: conecta tudo sem código">
+  <div class="progress"></div>
+  <div class="brand">Pontofinal.site_</div>
+  <div class="stage">
+  <div class="scene scene--hook" style="animation: scene1 15.00s linear infinite;"><p class="scene__text">Duas tools <span class="hl">não falam</span> uma com a outra?</p></div>
+  <div class="scene scene--setup" style="animation: scene2 15.00s linear infinite;"><p class="scene__text">Dinheiro do lado e dados <span class="hl">isolados</span>. Perda garantida.</p></div>
+  <div class="scene scene--punch" style="animation: scene3 15.00s linear infinite;"><p class="scene__text">Uma API pequena (Zapier, Integromat) conecta tudo. <span class="hl">Sem código</span>.</p></div>
+  <div class="scene scene--cta" style="animation: scene4 15.00s linear infinite;"><p class="scene__text"><span class="hl">Liga. Sincroniza</span>. Escala.</p></div>
+  </div>
+  <div class="footer-arrow">↓</div>
+</section>
+<audio src="../audio/NudeKuties.mp3" autoplay loop muted style="position:fixed;bottom:8px;right:8px;z-index:99;width:140px;opacity:0.7"></audio>
+</body>
+</html>
