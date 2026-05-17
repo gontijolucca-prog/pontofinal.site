@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Dashboard · Conteúdo</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles/reset.css" />
+<link rel="stylesheet" href="styles/tokens.css" />
+<link rel="stylesheet" href="styles/components.css" />
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar para conteúdo</a>
+
+<header class="app-header">
+  <div class="logo" id="brandLogo">TechBody_</div>
+  <div class="header-meta">
+    <span id="periodLabel">Maio 2026</span>
+  </div>
+  <user-menu id="userMenu" aria-hidden="true"></user-menu>
+</header>
+
+<main id="main">
+
+  <!-- APROVAÇÕES -->
+  <section class="section">
+    <div class="section__heading">
+      <h2>Aprovações</h2>
+      <span class="section__hint" id="approvalsHint">Estado da revisão de conteúdo deste período</span>
+    </div>
+    <approval-stats id="approvalStats"></approval-stats>
+  </section>
+
+  <!-- TEMAS -->
+  <section class="section">
+    <div class="section__heading">
+      <h2>Temas</h2>
+      <span class="section__hint">Catálogo editorial que alimenta a geração de conteúdo</span>
+    </div>
+    <themes-catalog id="themesCatalog"></themes-catalog>
+  </section>
+
+  <!-- PERFORMANCE INSTAGRAM -->
+  <section class="section section--placeholder">
+    <div class="section__heading">
+      <h2>Performance Instagram</h2>
+      <span class="section__hint">Em breve — métricas por post após auto-publish</span>
+    </div>
+    <div class="placeholder-card">
+      <p class="placeholder-card__title">A chegar</p>
+      <p class="placeholder-card__body">
+        Likes, alcance, guardados e taxa de envolvimento por post — agregados
+        por marca, formato e pilar editorial. Disponível depois de ligarmos
+        a conta Instagram Business à pipeline de publicação.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<auth-modal id="authModal" aria-hidden="true"></auth-modal>
+
+<footer class="app-footer">
+  <span id="footerStatus">Estado sincronizado</span>
+  <span id="footerSummary">—</span>
+</footer>
+
+<script type="module" src="js/components/auth-modal.js"></script>
+<script type="module" src="js/components/user-menu.js"></script>
+<script type="module" src="js/components/approval-stats.js"></script>
+<script type="module" src="js/components/themes-catalog.js"></script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

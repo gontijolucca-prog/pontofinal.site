@@ -1,0 +1,99 @@
+:root {
+  /* Neo-brutalism palette (PontoFinal.site DESIGN_SYSTEM.md) */
+  --bg: #FFFFFF;
+  --bg-soft: #F4F4F2;
+  --text: #050505;
+  --text-mute: rgba(5, 5, 5, 0.45);
+  --text-faint: rgba(5, 5, 5, 0.25);
+  --accent: #FF2A2A;
+  --border: #050505;
+  --border-soft: rgba(5, 5, 5, 0.12);
+
+  --status-approved: #2BB05F;
+  --status-rejected: #FF2A2A;
+  --status-pending:  #FFB81F;
+
+  /* Structure */
+  --border-w: 3px;
+  --border-w-bold: 4px;
+  --radius: 0;
+  --shadow: 6px 6px 0 0 var(--border);
+  --shadow-lg: 10px 10px 0 0 var(--border);
+  --shadow-sm: 3px 3px 0 0 var(--border);
+
+  /* Type */
+  --font-heavy: 'Arial Black', 'Helvetica Neue', Impact, sans-serif;
+  --font-mono:  'JetBrains Mono', ui-monospace, monospace;
+
+  --t-xxs: 10px;
+  --t-xs:  12px;
+  --t-sm:  14px;
+  --t-md:  16px;
+  --t-lg:  22px;
+  --t-xl:  34px;
+  --t-2xl: 56px;
+
+  /* Spacing */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 14px;
+  --s-4: 22px;
+  --s-5: 36px;
+  --s-6: 56px;
+  --s-7: 88px;
+
+  /* Motion */
+  --d-fast: 110ms;
+  --d-base: 220ms;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Mobile scale — keeps the brutalist contrast but shrinks everything so
+   it actually breathes on a phone. Touch targets are enforced separately
+   in components.css. */
+@media (max-width: 720px) {
+  :root {
+    --t-xxs: 10px;
+    --t-xs:  11px;
+    --t-sm:  13px;
+    --t-md:  15px;
+    --t-lg:  18px;
+    --t-xl:  24px;
+    --t-2xl: 36px;
+
+    --s-3: 10px;
+    --s-4: 14px;
+    --s-5: 22px;
+    --s-6: 18px;
+    --s-7: 36px;
+
+    --border-w: 2px;
+    --border-w-bold: 3px;
+    --shadow: 4px 4px 0 0 var(--border);
+    --shadow-lg: 6px 6px 0 0 var(--border);
+    --shadow-sm: 2px 2px 0 0 var(--border);
+  }
+  body {
+    background-size: 24px 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background: var(--bg);
+  /* dotted grid as in DESIGN_SYSTEM */
+  background-image: radial-gradient(circle, rgba(5,5,5,0.10) 1.4px, transparent 1.4px);
+  background-size: 36px 36px;
+  background-position: 0 0;
+  color: var(--text);
+  font-family: var(--font-heavy);
+  font-size: var(--t-md);
+  min-height: 100dvh;
+  letter-spacing: 0.005em;
+}
