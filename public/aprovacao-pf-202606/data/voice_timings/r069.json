@@ -1,143 +1,143 @@
 {
-  "total_ms": 22470,
+  "total_ms": 22937,
   "chunks": [
     {
       "text": "Caso real",
       "emphasis": "Caso real",
       "start_ms": 0,
-      "dur_ms": 859
+      "dur_ms": 928
     },
     {
       "text": "Clínica em Covilhã",
       "emphasis": null,
-      "start_ms": 999,
-      "dur_ms": 1118
+      "start_ms": 1069,
+      "dur_ms": 1102
     },
     {
       "text": "sem agendamento online",
       "emphasis": "sem agendamento",
-      "start_ms": 2117,
-      "dur_ms": 1366
+      "start_ms": 2171,
+      "dur_ms": 1347
     },
     {
       "text": "Doentes ligavam",
       "emphasis": null,
-      "start_ms": 3624,
-      "dur_ms": 946
+      "start_ms": 3659,
+      "dur_ms": 991
     },
     {
       "text": "de manhã",
       "emphasis": null,
-      "start_ms": 4570,
-      "dur_ms": 505
+      "start_ms": 4650,
+      "dur_ms": 529
     },
     {
       "text": "Recepcionista cansada",
       "emphasis": null,
-      "start_ms": 5215,
-      "dur_ms": 1381
+      "start_ms": 5320,
+      "dur_ms": 1451
     },
     {
       "text": "Quem ligava",
       "emphasis": null,
-      "start_ms": 6737,
-      "dur_ms": 716
+      "start_ms": 6911,
+      "dur_ms": 727
     },
     {
       "text": "à noite",
       "emphasis": null,
-      "start_ms": 7453,
-      "dur_ms": 456
+      "start_ms": 7638,
+      "dur_ms": 463
     },
     {
       "text": "ninguém atendia",
       "emphasis": null,
-      "start_ms": 7909,
-      "dur_ms": 976
+      "start_ms": 8101,
+      "dur_ms": 992
     },
     {
       "text": "Iam para",
       "emphasis": null,
-      "start_ms": 9026,
-      "dur_ms": 464
+      "start_ms": 9234,
+      "dur_ms": 460
     },
     {
       "text": "a concorrência",
       "emphasis": "a concorrência",
-      "start_ms": 9490,
-      "dur_ms": 813
+      "start_ms": 9694,
+      "dur_ms": 805
     },
     {
       "text": "Pusemos agendamento",
       "emphasis": null,
-      "start_ms": 10443,
-      "dur_ms": 1169
+      "start_ms": 10639,
+      "dur_ms": 1149
     },
     {
       "text": "online no site",
       "emphasis": null,
-      "start_ms": 11612,
-      "dur_ms": 862
+      "start_ms": 11788,
+      "dur_ms": 847
     },
     {
       "text": "Dois meses depois?",
       "emphasis": "Dois meses",
-      "start_ms": 12615,
-      "dur_ms": 1230
+      "start_ms": 12776,
+      "dur_ms": 1242
     },
     {
       "text": "Quarenta por cento",
       "emphasis": "Quarenta por cento",
-      "start_ms": 13986,
-      "dur_ms": 919
+      "start_ms": 14158,
+      "dur_ms": 1019
     },
     {
       "text": "mais marcações",
       "emphasis": null,
-      "start_ms": 14905,
-      "dur_ms": 714
+      "start_ms": 15177,
+      "dur_ms": 792
     },
     {
       "text": "Directas",
       "emphasis": null,
-      "start_ms": 15760,
-      "dur_ms": 585
+      "start_ms": 16109,
+      "dur_ms": 606
     },
     {
       "text": "Sem telefonemas",
       "emphasis": null,
-      "start_ms": 16345,
-      "dur_ms": 1098
+      "start_ms": 16715,
+      "dur_ms": 1135
     },
     {
       "text": "Quantos pacientes perdes",
       "emphasis": null,
-      "start_ms": 17583,
-      "dur_ms": 1063
+      "start_ms": 17990,
+      "dur_ms": 1075
     },
     {
       "text": "por não terem",
       "emphasis": null,
-      "start_ms": 18646,
-      "dur_ms": 576
+      "start_ms": 19065,
+      "dur_ms": 582
     },
     {
       "text": "onde marcar?",
       "emphasis": "onde marcar",
-      "start_ms": 19222,
-      "dur_ms": 532
+      "start_ms": 19647,
+      "dur_ms": 537
     },
     {
       "text": "Pomos no teu site",
       "emphasis": null,
-      "start_ms": 19894,
-      "dur_ms": 1172
+      "start_ms": 20324,
+      "dur_ms": 1195
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 21207,
-      "dur_ms": 1263
+      "start_ms": 21660,
+      "dur_ms": 1277
     }
   ]
 }

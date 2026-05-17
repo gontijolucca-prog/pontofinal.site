@@ -1,130 +1,130 @@
 {
-  "total_ms": 17916,
+  "total_ms": 18384,
   "chunks": [
     {
       "text": "Sabes porque",
       "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 742
+      "dur_ms": 766
     },
     {
       "text": "as marcas portuguesas",
       "emphasis": null,
-      "start_ms": 742,
-      "dur_ms": 1298
+      "start_ms": 766,
+      "dur_ms": 1341
     },
     {
       "text": "são confusas?",
       "emphasis": "confusas",
-      "start_ms": 2040,
-      "dur_ms": 804
+      "start_ms": 2107,
+      "dur_ms": 830
     },
     {
       "text": "Propositalmente",
       "emphasis": "Propositalmente",
-      "start_ms": 2984,
-      "dur_ms": 963
+      "start_ms": 3077,
+      "dur_ms": 1021
     },
     {
       "text": "Acham que vago",
       "emphasis": null,
-      "start_ms": 4088,
-      "dur_ms": 744
+      "start_ms": 4239,
+      "dur_ms": 829
     },
     {
       "text": "soa sofisticado",
       "emphasis": null,
-      "start_ms": 4832,
-      "dur_ms": 797
+      "start_ms": 5068,
+      "dur_ms": 889
     },
     {
       "text": "Que misterioso",
       "emphasis": null,
-      "start_ms": 5769,
-      "dur_ms": 741
+      "start_ms": 6097,
+      "dur_ms": 734
     },
     {
       "text": "soa premium",
       "emphasis": null,
-      "start_ms": 6510,
-      "dur_ms": 582
+      "start_ms": 6831,
+      "dur_ms": 577
     },
     {
       "text": "É mentira",
       "emphasis": "mentira",
-      "start_ms": 7233,
-      "dur_ms": 952
+      "start_ms": 7549,
+      "dur_ms": 893
     },
     {
       "text": "É falta de coragem",
       "emphasis": "falta de coragem",
-      "start_ms": 8325,
-      "dur_ms": 1163
+      "start_ms": 8583,
+      "dur_ms": 1184
     },
     {
       "text": "para dizer",
       "emphasis": null,
-      "start_ms": 9488,
-      "dur_ms": 646
+      "start_ms": 9767,
+      "dur_ms": 658
     },
     {
       "text": "o que fazem",
       "emphasis": null,
-      "start_ms": 10134,
-      "dur_ms": 710
+      "start_ms": 10425,
+      "dur_ms": 723
     },
     {
       "text": "A clareza",
       "emphasis": null,
-      "start_ms": 10984,
-      "dur_ms": 659
+      "start_ms": 11289,
+      "dur_ms": 679
     },
     {
       "text": "assusta",
       "emphasis": "assusta",
-      "start_ms": 11643,
-      "dur_ms": 513
+      "start_ms": 11968,
+      "dur_ms": 528
     },
     {
       "text": "Por isso",
       "emphasis": null,
-      "start_ms": 12297,
-      "dur_ms": 615
+      "start_ms": 12636,
+      "dur_ms": 690
     },
     {
       "text": "é rara",
       "emphasis": null,
-      "start_ms": 12912,
-      "dur_ms": 462
+      "start_ms": 13326,
+      "dur_ms": 517
     },
     {
       "text": "Por isso",
       "emphasis": null,
-      "start_ms": 13515,
-      "dur_ms": 595
+      "start_ms": 13983,
+      "dur_ms": 617
     },
     {
       "text": "é valiosa",
       "emphasis": "valiosa",
-      "start_ms": 14110,
-      "dur_ms": 670
+      "start_ms": 14600,
+      "dur_ms": 694
     },
     {
       "text": "Quem é claro",
       "emphasis": null,
-      "start_ms": 14920,
-      "dur_ms": 608
+      "start_ms": 15435,
+      "dur_ms": 590
     },
     {
       "text": "destaca-se sozinho",
       "emphasis": "destaca-se",
-      "start_ms": 15528,
-      "dur_ms": 912
+      "start_ms": 16025,
+      "dur_ms": 884
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 16581,
+      "start_ms": 17049,
       "dur_ms": 1335
     }
   ]

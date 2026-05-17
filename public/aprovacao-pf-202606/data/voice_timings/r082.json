@@ -1,149 +1,149 @@
 {
-  "total_ms": 22569,
+  "total_ms": 22913,
   "chunks": [
     {
       "text": "Caso real",
       "emphasis": "Caso real",
       "start_ms": 0,
-      "dur_ms": 707
+      "dur_ms": 835
     },
     {
       "text": "Ginásio em Lisboa",
       "emphasis": null,
-      "start_ms": 847,
-      "dur_ms": 912
+      "start_ms": 976,
+      "dur_ms": 905
     },
     {
       "text": "equipamento topo de gama",
       "emphasis": "topo de gama",
-      "start_ms": 1759,
-      "dur_ms": 1288
+      "start_ms": 1881,
+      "dur_ms": 1277
     },
     {
       "text": "Mas o site?",
       "emphasis": null,
-      "start_ms": 3187,
-      "dur_ms": 963
+      "start_ms": 3299,
+      "dur_ms": 917
     },
     {
       "text": "Antigo",
       "emphasis": null,
-      "start_ms": 4291,
+      "start_ms": 4356,
       "dur_ms": 508
     },
     {
       "text": "Sem fotos",
       "emphasis": null,
-      "start_ms": 4799,
+      "start_ms": 4864,
       "dur_ms": 762
     },
     {
       "text": "Sem horários",
       "emphasis": null,
-      "start_ms": 5561,
+      "start_ms": 5626,
       "dur_ms": 1016
     },
     {
       "text": "Sem preços",
       "emphasis": "Sem preços",
-      "start_ms": 6577,
+      "start_ms": 6642,
       "dur_ms": 848
     },
     {
       "text": "As pessoas procuravam",
       "emphasis": null,
-      "start_ms": 7566,
-      "dur_ms": 1212
+      "start_ms": 7631,
+      "dur_ms": 1219
     },
     {
       "text": "ginásio perto",
       "emphasis": null,
-      "start_ms": 8778,
-      "dur_ms": 751
+      "start_ms": 8850,
+      "dur_ms": 754
     },
     {
       "text": "Achavam",
       "emphasis": null,
-      "start_ms": 9669,
-      "dur_ms": 427
+      "start_ms": 9745,
+      "dur_ms": 439
     },
     {
       "text": "o concorrente",
       "emphasis": "o concorrente",
-      "start_ms": 10096,
-      "dur_ms": 792
+      "start_ms": 10184,
+      "dur_ms": 814
     },
     {
       "text": "Fizemos site novo",
       "emphasis": null,
-      "start_ms": 11028,
-      "dur_ms": 1172
+      "start_ms": 11139,
+      "dur_ms": 1091
     },
     {
       "text": "Fotos profissionais",
       "emphasis": null,
-      "start_ms": 12341,
-      "dur_ms": 1480
+      "start_ms": 12370,
+      "dur_ms": 1440
     },
     {
       "text": "Turmas",
       "emphasis": null,
-      "start_ms": 13821,
-      "dur_ms": 467
+      "start_ms": 13810,
+      "dur_ms": 455
     },
     {
       "text": "Preços claros",
       "emphasis": null,
-      "start_ms": 14288,
-      "dur_ms": 1013
+      "start_ms": 14265,
+      "dur_ms": 984
     },
     {
       "text": "Avaliações",
       "emphasis": "Avaliações",
-      "start_ms": 15442,
-      "dur_ms": 700
+      "start_ms": 15389,
+      "dur_ms": 739
     },
     {
       "text": "dos clientes",
       "emphasis": null,
-      "start_ms": 16142,
-      "dur_ms": 841
+      "start_ms": 16128,
+      "dur_ms": 886
     },
     {
       "text": "Quarenta e três",
       "emphasis": "Quarenta e três",
-      "start_ms": 17123,
-      "dur_ms": 829
+      "start_ms": 17154,
+      "dur_ms": 844
     },
     {
       "text": "inscrições novas",
       "emphasis": null,
-      "start_ms": 17952,
-      "dur_ms": 884
+      "start_ms": 17998,
+      "dur_ms": 901
     },
     {
       "text": "no primeiro mês",
       "emphasis": null,
-      "start_ms": 18836,
-      "dur_ms": 829
+      "start_ms": 18899,
+      "dur_ms": 844
     },
     {
       "text": "O teu site mostra",
       "emphasis": null,
-      "start_ms": 19806,
-      "dur_ms": 824
+      "start_ms": 19883,
+      "dur_ms": 895
     },
     {
       "text": "o que tens?",
       "emphasis": "o que tens",
-      "start_ms": 20630,
-      "dur_ms": 534
+      "start_ms": 20778,
+      "dur_ms": 579
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 21304,
-      "dur_ms": 1265
+      "start_ms": 21497,
+      "dur_ms": 1416
     }
   ]
 }
