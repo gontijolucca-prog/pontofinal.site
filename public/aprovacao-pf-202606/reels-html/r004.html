@@ -19,9 +19,6 @@
     font-family: 'Arial Black', 'Helvetica Neue', Impact, sans-serif;
     position: relative;
   }
-  /* .reel is absolutely positioned and centered via negative margins. JS sets
-     transform: scale() to fit viewport while preserving its natural 1080x1920.
-     At native 1080×1920 viewport (Playwright recording), scale is 1.0. */
   .reel {
     position: absolute;
     top: 50%; left: 50%;
@@ -39,18 +36,6 @@
   @keyframes bg-drift {
     0%   { background-position: 0 0; }
     100% { background-position: 44px 44px; }
-  }
-  /* Scene sweep — a red bar that slides across at each scene transition. */
-  .sweep {
-    position: absolute;
-    top: 0; left: 0;
-    height: 12px;
-    width: 100%;
-    background: var(--accent);
-    z-index: 3;
-    transform-origin: left center;
-    transform: scaleX(0);
-    pointer-events: none;
   }
   .reel::before {
     content: "";
@@ -85,7 +70,7 @@
     position: absolute; left: 0; top: 0; bottom: 0;
     background: var(--accent);
     transform-origin: left center;
-    animation: progress 28.00s linear infinite;
+    animation: progress 23.525s linear infinite;
   }
   @keyframes progress {
     0%   { transform: scaleX(0); }
@@ -99,28 +84,25 @@
     padding: 0 110px;
     z-index: 2;
   }
-  .scene {
+  .chunk {
     position: absolute;
     inset: 220px 110px 280px;
     display: grid;
     place-items: center;
     opacity: 0;
+    will-change: opacity, transform;
   }
-  .scene__text {
-    font: 900 108px/1.06 'Arial Black', sans-serif;
+  .chunk__text {
+    font: 900 140px/1.04 'Arial Black', sans-serif;
     color: var(--ink);
     letter-spacing: -0.035em;
     text-transform: uppercase;
     text-align: center;
-    max-width: 820px;
-    /* No word-break / overflow-wrap / hyphens: keep words intact. JS shrinks
-       font until the longest word fits without splitting. */
+    max-width: 860px;
     word-break: normal;
     overflow-wrap: normal;
     hyphens: manual;
   }
-  .scene--hook .scene__text { font-size: 118px; }
-  .scene--cta .scene__text { font-size: 102px; }
   .hl {
     display: inline-block;
     background: var(--accent);
@@ -143,77 +125,155 @@
     0%, 100% { transform: translate(-50%, 0); }
     50% { transform: translate(-50%, 14px); }
   }
-  @keyframes scene1 {
-  0%, 0.00% { opacity: 0; transform: translateY(14px); }
-  3.00% { opacity: 1; transform: translateY(0); }
-  13.00% { opacity: 1; transform: translateY(0); }
-  16.67%, 100% { opacity: 0; transform: translateY(-14px); }
+  @keyframes chunk0 {
+  0%, 0.000% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  0.298% { opacity: 1; transform: translateY(0) scale(1); }
+  4.247% { opacity: 1; transform: translateY(0) scale(1); }
+  4.544%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
 }
-@keyframes sweep1 {
-  0%, 0.00% { transform: scaleX(0); opacity: 1; }
-  0.67% { transform: scaleX(1); opacity: 1; }
-  1.67% { transform: scaleX(1); opacity: 0; }
-  1.83%, 100% { transform: scaleX(0); opacity: 0; }
+@keyframes chunk1 {
+  0%, 4.544% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  4.842% { opacity: 1; transform: translateY(0) scale(1); }
+  6.117% { opacity: 1; transform: translateY(0) scale(1); }
+  6.414%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
 }
-@keyframes scene2 {
-  0%, 16.67% { opacity: 0; transform: translateY(14px); }
-  19.67% { opacity: 1; transform: translateY(0); }
-  29.67% { opacity: 1; transform: translateY(0); }
-  33.33%, 100% { opacity: 0; transform: translateY(-14px); }
+@keyframes chunk2 {
+  0%, 7.010% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  7.307% { opacity: 1; transform: translateY(0) scale(1); }
+  10.508% { opacity: 1; transform: translateY(0) scale(1); }
+  10.806%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
 }
-@keyframes sweep2 {
-  0%, 16.67% { transform: scaleX(0); opacity: 1; }
-  17.33% { transform: scaleX(1); opacity: 1; }
-  18.33% { transform: scaleX(1); opacity: 0; }
-  18.50%, 100% { transform: scaleX(0); opacity: 0; }
+@keyframes chunk3 {
+  0%, 11.405% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  11.702% { opacity: 1; transform: translateY(0) scale(1); }
+  14.291% { opacity: 1; transform: translateY(0) scale(1); }
+  14.589%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
 }
-@keyframes scene3 {
-  0%, 33.33% { opacity: 0; transform: translateY(14px); }
-  36.33% { opacity: 1; transform: translateY(0); }
-  46.33% { opacity: 1; transform: translateY(0); }
-  50.00%, 100% { opacity: 0; transform: translateY(-14px); }
+@keyframes chunk4 {
+  0%, 14.589% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  14.886% { opacity: 1; transform: translateY(0) scale(1); }
+  18.270% { opacity: 1; transform: translateY(0) scale(1); }
+  18.567%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
 }
-@keyframes sweep3 {
-  0%, 33.33% { transform: scaleX(0); opacity: 1; }
-  34.00% { transform: scaleX(1); opacity: 1; }
-  35.00% { transform: scaleX(1); opacity: 0; }
-  35.17%, 100% { transform: scaleX(0); opacity: 0; }
+@keyframes chunk5 {
+  0%, 18.567% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  18.865% { opacity: 1; transform: translateY(0) scale(1); }
+  21.717% { opacity: 1; transform: translateY(0) scale(1); }
+  22.015%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
 }
-@keyframes scene4 {
-  0%, 50.00% { opacity: 0; transform: translateY(14px); }
-  53.00% { opacity: 1; transform: translateY(0); }
-  63.00% { opacity: 1; transform: translateY(0); }
-  66.67%, 100% { opacity: 0; transform: translateY(-14px); }
+@keyframes chunk6 {
+  0%, 22.610% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  22.908% { opacity: 1; transform: translateY(0) scale(1); }
+  24.527% { opacity: 1; transform: translateY(0) scale(1); }
+  24.825%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
 }
-@keyframes sweep4 {
-  0%, 50.00% { transform: scaleX(0); opacity: 1; }
-  50.67% { transform: scaleX(1); opacity: 1; }
-  51.67% { transform: scaleX(1); opacity: 0; }
-  51.83%, 100% { transform: scaleX(0); opacity: 0; }
+@keyframes chunk7 {
+  0%, 25.420% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  25.717% { opacity: 1; transform: translateY(0) scale(1); }
+  28.684% { opacity: 1; transform: translateY(0) scale(1); }
+  28.982%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
 }
-@keyframes scene5 {
-  0%, 66.67% { opacity: 0; transform: translateY(14px); }
-  69.67% { opacity: 1; transform: translateY(0); }
-  79.67% { opacity: 1; transform: translateY(0); }
-  83.33%, 100% { opacity: 0; transform: translateY(-14px); }
+@keyframes chunk8 {
+  0%, 28.982% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  29.279% { opacity: 1; transform: translateY(0) scale(1); }
+  33.615% { opacity: 1; transform: translateY(0) scale(1); }
+  33.913%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
 }
-@keyframes sweep5 {
-  0%, 66.67% { transform: scaleX(0); opacity: 1; }
-  67.33% { transform: scaleX(1); opacity: 1; }
-  68.33% { transform: scaleX(1); opacity: 0; }
-  68.50%, 100% { transform: scaleX(0); opacity: 0; }
+@keyframes chunk9 {
+  0%, 33.913% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  34.210% { opacity: 1; transform: translateY(0) scale(1); }
+  39.371% { opacity: 1; transform: translateY(0) scale(1); }
+  39.668%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
 }
-@keyframes scene6 {
-  0%, 83.33% { opacity: 0; transform: translateY(14px); }
-  86.33% { opacity: 1; transform: translateY(0); }
-  96.33% { opacity: 1; transform: translateY(0); }
-  100.00%, 100% { opacity: 0; transform: translateY(-14px); }
+@keyframes chunk10 {
+  0%, 40.264% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  40.561% { opacity: 1; transform: translateY(0) scale(1); }
+  45.245% { opacity: 1; transform: translateY(0) scale(1); }
+  45.543%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
 }
-@keyframes sweep6 {
-  0%, 83.33% { transform: scaleX(0); opacity: 1; }
-  84.00% { transform: scaleX(1); opacity: 1; }
-  85.00% { transform: scaleX(1); opacity: 0; }
-  85.17%, 100% { transform: scaleX(0); opacity: 0; }
+@keyframes chunk11 {
+  0%, 46.138% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  46.436% { opacity: 1; transform: translateY(0) scale(1); }
+  48.425% { opacity: 1; transform: translateY(0) scale(1); }
+  48.723%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
+}
+@keyframes chunk12 {
+  0%, 48.723% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  49.020% { opacity: 1; transform: translateY(0) scale(1); }
+  52.302% { opacity: 1; transform: translateY(0) scale(1); }
+  52.599%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
+}
+@keyframes chunk13 {
+  0%, 53.199% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  53.496% { opacity: 1; transform: translateY(0) scale(1); }
+  56.502% { opacity: 1; transform: translateY(0) scale(1); }
+  56.799%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
+}
+@keyframes chunk14 {
+  0%, 56.799% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  57.097% { opacity: 1; transform: translateY(0) scale(1); }
+  59.447% { opacity: 1; transform: translateY(0) scale(1); }
+  59.745%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
+}
+@keyframes chunk15 {
+  0%, 60.340% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  60.638% { opacity: 1; transform: translateY(0) scale(1); }
+  62.818% { opacity: 1; transform: translateY(0) scale(1); }
+  63.116%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
+}
+@keyframes chunk16 {
+  0%, 63.116% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  63.413% { opacity: 1; transform: translateY(0) scale(1); }
+  66.606% { opacity: 1; transform: translateY(0) scale(1); }
+  66.903%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
+}
+@keyframes chunk17 {
+  0%, 67.498% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  67.796% { opacity: 1; transform: translateY(0) scale(1); }
+  71.469% { opacity: 1; transform: translateY(0) scale(1); }
+  71.766%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
+}
+@keyframes chunk18 {
+  0%, 71.766% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  72.064% { opacity: 1; transform: translateY(0) scale(1); }
+  73.071% { opacity: 1; transform: translateY(0) scale(1); }
+  73.369%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
+}
+@keyframes chunk19 {
+  0%, 73.968% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  74.266% { opacity: 1; transform: translateY(0) scale(1); }
+  76.591% { opacity: 1; transform: translateY(0) scale(1); }
+  76.888%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
+}
+@keyframes chunk20 {
+  0%, 76.888% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  77.186% { opacity: 1; transform: translateY(0) scale(1); }
+  80.043% { opacity: 1; transform: translateY(0) scale(1); }
+  80.340%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
+}
+@keyframes chunk21 {
+  0%, 80.935% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  81.233% { opacity: 1; transform: translateY(0) scale(1); }
+  82.644% { opacity: 1; transform: translateY(0) scale(1); }
+  82.942%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
+}
+@keyframes chunk22 {
+  0%, 82.942% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  83.239% { opacity: 1; transform: translateY(0) scale(1); }
+  87.052% { opacity: 1; transform: translateY(0) scale(1); }
+  87.350%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
+}
+@keyframes chunk23 {
+  0%, 87.945% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  88.242% { opacity: 1; transform: translateY(0) scale(1); }
+  93.228% { opacity: 1; transform: translateY(0) scale(1); }
+  93.526%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
+}
+@keyframes chunk24 {
+  0%, 94.125% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  94.423% { opacity: 1; transform: translateY(0) scale(1); }
+  99.698% { opacity: 1; transform: translateY(0) scale(1); }
+  99.996%, 100% { opacity: 0; transform: translateY(-10px) scale(0.96); }
 }
 </style>
 </head>
@@ -222,26 +282,34 @@
   <div class="progress"></div>
   <div class="brand">Pontofinal.site_</div>
   <div class="stage">
-  <div class="scene scene--hook" style="animation: scene1 28.00s linear infinite;"><p class="scene__text">Quem é que ainda usa <span class="hl">email</span> em 2026?</p></div>
-  <div class="scene scene--setup" style="animation: scene2 28.00s linear infinite;"><p class="scene__text">Toda a gente. E <span class="hl">paga</span></p></div>
-  <div class="scene scene--setup" style="animation: scene3 28.00s linear infinite;"><p class="scene__text">Por cada euro em email, recebes <span class="hl">trinta e seis</span></p></div>
-  <div class="scene scene--punch" style="animation: scene4 28.00s linear infinite;"><p class="scene__text">No Instagram nem chegas a <span class="hl">cinco</span></p></div>
-  <div class="scene scene--punch" style="animation: scene5 28.00s linear infinite;"><p class="scene__text">O Instagram não te pertence. <span class="hl">A tua lista sim</span></p></div>
-  <div class="scene scene--cta" style="animation: scene6 28.00s linear infinite;"><p class="scene__text">Construímos a tua lista. <span class="hl">PontoFinal.site</span></p></div>
+  <div class="chunk" style="animation: chunk0 23.525s linear infinite;"><p class="chunk__text">Achas que o email</p></div>
+  <div class="chunk" style="animation: chunk1 23.525s linear infinite;"><p class="chunk__text"><span class="hl">morreu?</span></p></div>
+  <div class="chunk" style="animation: chunk2 23.525s linear infinite;"><p class="chunk__text">Não morreu</p></div>
+  <div class="chunk" style="animation: chunk3 23.525s linear infinite;"><p class="chunk__text">Toda a gente</p></div>
+  <div class="chunk" style="animation: chunk4 23.525s linear infinite;"><p class="chunk__text">ainda usa email</p></div>
+  <div class="chunk" style="animation: chunk5 23.525s linear infinite;"><p class="chunk__text">todos os dias</p></div>
+  <div class="chunk" style="animation: chunk6 23.525s linear infinite;"><p class="chunk__text">E <span class="hl">paga</span></p></div>
+  <div class="chunk" style="animation: chunk7 23.525s linear infinite;"><p class="chunk__text">Por cada euro</p></div>
+  <div class="chunk" style="animation: chunk8 23.525s linear infinite;"><p class="chunk__text">investido em email</p></div>
+  <div class="chunk" style="animation: chunk9 23.525s linear infinite;"><p class="chunk__text">recebes <span class="hl">trinta e seis</span></p></div>
+  <div class="chunk" style="animation: chunk10 23.525s linear infinite;"><p class="chunk__text"><span class="hl">Trinta e seis</span> euros</p></div>
+  <div class="chunk" style="animation: chunk11 23.525s linear infinite;"><p class="chunk__text">No Instagram</p></div>
+  <div class="chunk" style="animation: chunk12 23.525s linear infinite;"><p class="chunk__text">nem chegas a <span class="hl">cinco</span></p></div>
+  <div class="chunk" style="animation: chunk13 23.525s linear infinite;"><p class="chunk__text">A diferença</p></div>
+  <div class="chunk" style="animation: chunk14 23.525s linear infinite;"><p class="chunk__text">é simples</p></div>
+  <div class="chunk" style="animation: chunk15 23.525s linear infinite;"><p class="chunk__text">O Instagram</p></div>
+  <div class="chunk" style="animation: chunk16 23.525s linear infinite;"><p class="chunk__text"><span class="hl">não te pertence</span></p></div>
+  <div class="chunk" style="animation: chunk17 23.525s linear infinite;"><p class="chunk__text">Pode desaparecer</p></div>
+  <div class="chunk" style="animation: chunk18 23.525s linear infinite;"><p class="chunk__text">amanhã</p></div>
+  <div class="chunk" style="animation: chunk19 23.525s linear infinite;"><p class="chunk__text">A tua lista</p></div>
+  <div class="chunk" style="animation: chunk20 23.525s linear infinite;"><p class="chunk__text">de emails <span class="hl">sim</span></p></div>
+  <div class="chunk" style="animation: chunk21 23.525s linear infinite;"><p class="chunk__text">É tua</p></div>
+  <div class="chunk" style="animation: chunk22 23.525s linear infinite;"><p class="chunk__text"><span class="hl">para sempre</span></p></div>
+  <div class="chunk" style="animation: chunk23 23.525s linear infinite;"><p class="chunk__text">Construímos a tua lista</p></div>
+  <div class="chunk" style="animation: chunk24 23.525s linear infinite;"><p class="chunk__text"><span class="hl">PontoFinal.site</span></p></div>
   </div>
-  <div class="sweep" style="animation: sweep1 28.00s linear infinite;"></div>
-  <div class="sweep" style="animation: sweep2 28.00s linear infinite;"></div>
-  <div class="sweep" style="animation: sweep3 28.00s linear infinite;"></div>
-  <div class="sweep" style="animation: sweep4 28.00s linear infinite;"></div>
-  <div class="sweep" style="animation: sweep5 28.00s linear infinite;"></div>
-  <div class="sweep" style="animation: sweep6 28.00s linear infinite;"></div>
   <div class="footer-arrow">↓</div>
-  <audio class="voice" data-idx="0" preload="auto" src="../audio/voices/r004_s1.mp3"></audio>
-  <audio class="voice" data-idx="1" preload="auto" src="../audio/voices/r004_s2.mp3"></audio>
-  <audio class="voice" data-idx="2" preload="auto" src="../audio/voices/r004_s3.mp3"></audio>
-  <audio class="voice" data-idx="3" preload="auto" src="../audio/voices/r004_s4.mp3"></audio>
-  <audio class="voice" data-idx="4" preload="auto" src="../audio/voices/r004_s5.mp3"></audio>
-  <audio class="voice" data-idx="5" preload="auto" src="../audio/voices/r004_s6.mp3"></audio>
+  <audio id="narration" src="../audio/voices/r004.mp3" preload="auto"></audio>
 </section>
 <script>
 (function () {
@@ -255,15 +323,15 @@
   fit();
   addEventListener('resize', fit);
 
-  // Auto-fit text: shrink font until each scene's text fits its container
-  // without breaking words. Runs once after fonts load.
+  // Auto-fit text: shrink large chunk text until it fits without breaking words.
   function fitText() {
-    document.querySelectorAll('.scene').forEach(scene => {
-      const t = scene.querySelector('.scene__text');
+    document.querySelectorAll('.chunk').forEach(scene => {
+      const t = scene.querySelector('.chunk__text');
       if (!t) return;
+      t.style.fontSize = '';
       let size = parseFloat(getComputedStyle(t).fontSize);
-      const minSize = 40;
-      let safety = 50;
+      const minSize = 50;
+      let safety = 60;
       while (safety-- > 0 && size > minSize) {
         const overW = t.scrollWidth > scene.clientWidth;
         const overH = t.scrollHeight > scene.clientHeight;
@@ -273,58 +341,25 @@
       }
     });
   }
-  // Run after fonts ready so measurements are correct
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(fitText);
   } else {
     setTimeout(fitText, 200);
   }
-  addEventListener('resize', () => {
-    // Reset font sizes before re-fitting on resize
-    document.querySelectorAll('.scene__text').forEach(t => t.style.fontSize = '');
-    setTimeout(fitText, 50);
-  });
+  addEventListener('resize', () => setTimeout(fitText, 50));
 
-  // Voice playback: trigger pre-rendered Piper TTS clip at each scene start.
-  // Only when ?audio=1 (overlay only — thumbnails silent).
+  // Narration playback: looped, only when ?audio=1 (overlay) or muted thumb.
   const wantAudio = new URLSearchParams(location.search).get('audio') === '1';
-  if (!wantAudio) return;
-  const DURATION_MS = 28000;
-  const NUM_SCENES = 6;
-  const STEP_MS = DURATION_MS / NUM_SCENES;
-  const voices = Array.from(document.querySelectorAll('audio.voice'));
-  voices.forEach(v => { v.volume = 1.0; v.preload = 'auto'; });
-  function playVoice(i) {
-    const v = voices[i];
-    if (!v) return;
-    try { v.pause(); v.currentTime = 0; } catch (_) {}
-    v.play().catch(() => {});
-  }
-  function scheduleLoop() {
-    for (let i = 0; i < NUM_SCENES; i++) setTimeout(() => playVoice(i), i * STEP_MS);
-  }
-  scheduleLoop();
-  setInterval(scheduleLoop, DURATION_MS);
-  // Kick first scene immediately on user interaction (autoplay policy)
-  ['click','touchstart'].forEach(e => addEventListener(e, () => playVoice(0), {once: true}));
-})();
-</script>
-
-<audio id="reel-audio" src="../audio/lofi_loop.mp3" loop preload="auto"
-       style="position:fixed;bottom:8px;right:8px;z-index:99;width:170px;opacity:0.85;display:none"></audio>
-<script>
-(function () {
-  const a = document.getElementById('reel-audio');
-  if (!a) return;
-  const wantAudio = new URLSearchParams(location.search).get('audio') === '1';
-  if (wantAudio) {
-    a.muted = false;
-    a.volume = 0.18; // soft bed so voice stays foreground
-    a.controls = true;
-    a.style.display = 'block';
-    a.play().catch(() => {});
-  } else {
-    a.muted = true;
+  const a = document.getElementById('narration');
+  if (a) {
+    a.loop = true;
+    if (wantAudio) {
+      a.muted = false; a.volume = 1.0;
+      a.play().catch(() => {});
+      ['click','touchstart'].forEach(e => addEventListener(e, () => a.play().catch(() => {}), {once: true}));
+    } else {
+      a.muted = true;
+    }
   }
 })();
 </script>
