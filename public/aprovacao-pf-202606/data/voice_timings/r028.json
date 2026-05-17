@@ -1,161 +1,155 @@
 {
-  "total_ms": 20905,
+  "total_ms": 29961,
   "chunks": [
     {
       "text": "Tenho uma pergunta",
       "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 869
+      "dur_ms": 850
     },
     {
-      "text": "para ti",
+      "text": "para fazeres a ti próprio",
       "emphasis": null,
-      "start_ms": 869,
-      "dur_ms": 338
+      "start_ms": 850,
+      "dur_ms": 1181
     },
     {
       "text": "Quantas horas",
       "emphasis": null,
-      "start_ms": 1347,
-      "dur_ms": 607
+      "start_ms": 2172,
+      "dur_ms": 890
     },
     {
       "text": "por semana",
       "emphasis": null,
-      "start_ms": 1954,
-      "dur_ms": 467
+      "start_ms": 3062,
+      "dur_ms": 684
     },
     {
-      "text": "fazes a mesma coisa?",
+      "text": "fazes a mesma coisa",
       "emphasis": "a mesma coisa",
-      "start_ms": 2421,
-      "dur_ms": 934
+      "start_ms": 3746,
+      "dur_ms": 1301
+    },
+    {
+      "text": "sempre repetida?",
+      "emphasis": null,
+      "start_ms": 5047,
+      "dur_ms": 1095
     },
     {
       "text": "Facturas",
       "emphasis": null,
-      "start_ms": 3496,
-      "dur_ms": 589
+      "start_ms": 6283,
+      "dur_ms": 1042
     },
     {
       "text": "Emails",
       "emphasis": null,
-      "start_ms": 4085,
-      "dur_ms": 442
+      "start_ms": 7325,
+      "dur_ms": 782
     },
     {
       "text": "Posts nas redes",
       "emphasis": null,
-      "start_ms": 4527,
-      "dur_ms": 1105
+      "start_ms": 8107,
+      "dur_ms": 1954
     },
     {
-      "text": "Tudo manual",
+      "text": "tudo manual",
+      "emphasis": "tudo manual",
+      "start_ms": 10061,
+      "dur_ms": 1434
+    },
+    {
+      "text": "Cinco horas",
       "emphasis": null,
-      "start_ms": 5772,
-      "dur_ms": 693
-    },
-    {
-      "text": "Tudo igual",
-      "emphasis": "Tudo igual",
-      "start_ms": 6465,
-      "dur_ms": 630
-    },
-    {
-      "text": "Se calhar",
-      "emphasis": null,
-      "start_ms": 7236,
-      "dur_ms": 488
-    },
-    {
-      "text": "cinco horas",
-      "emphasis": null,
-      "start_ms": 7724,
-      "dur_ms": 596
+      "start_ms": 11636,
+      "dur_ms": 871
     },
     {
       "text": "por semana",
       "emphasis": null,
-      "start_ms": 8320,
-      "dur_ms": 541
+      "start_ms": 12507,
+      "dur_ms": 792
     },
     {
-      "text": "Vinte horas",
+      "text": "Vinte horas por mês",
       "emphasis": "Vinte horas",
-      "start_ms": 9001,
-      "dur_ms": 730
+      "start_ms": 13299,
+      "dur_ms": 1506
     },
     {
-      "text": "por mês",
+      "text": "Imagina o que conseguias",
       "emphasis": null,
-      "start_ms": 9731,
-      "dur_ms": 465
+      "start_ms": 14946,
+      "dur_ms": 1665
     },
     {
-      "text": "Imagina o que fazias",
+      "text": "com vinte horas livres",
       "emphasis": null,
-      "start_ms": 10337,
-      "dur_ms": 1025
+      "start_ms": 16611,
+      "dur_ms": 1527
     },
     {
-      "text": "com essas vinte horas",
+      "text": "Bastava uma tarde",
       "emphasis": null,
-      "start_ms": 11362,
-      "dur_ms": 1076
-    },
-    {
-      "text": "Uma tarde",
-      "emphasis": null,
-      "start_ms": 12578,
-      "dur_ms": 531
+      "start_ms": 18279,
+      "dur_ms": 1400
     },
     {
       "text": "a configurar",
       "emphasis": null,
-      "start_ms": 13109,
-      "dur_ms": 708
+      "start_ms": 19679,
+      "dur_ms": 988
     },
     {
       "text": "Zapier ou Make",
       "emphasis": null,
-      "start_ms": 13817,
-      "dur_ms": 827
+      "start_ms": 20667,
+      "dur_ms": 1153
     },
     {
       "text": "E nunca mais",
       "emphasis": null,
-      "start_ms": 14785,
-      "dur_ms": 713
+      "start_ms": 21960,
+      "dur_ms": 840
     },
     {
-      "text": "tocas naquilo",
-      "emphasis": "nunca mais tocas",
-      "start_ms": 15498,
-      "dur_ms": 773
+      "text": "precisarias de tocar",
+      "emphasis": "nunca mais tocar",
+      "start_ms": 22800,
+      "dur_ms": 1400
     },
     {
       "text": "O tempo que ganhas",
       "emphasis": null,
-      "start_ms": 16411,
-      "dur_ms": 1020
+      "start_ms": 24341,
+      "dur_ms": 1075
     },
     {
       "text": "usas para vender",
       "emphasis": "para vender",
-      "start_ms": 17431,
-      "dur_ms": 907
+      "start_ms": 25416,
+      "dur_ms": 956
+    },
+    {
+      "text": "e para crescer",
+      "emphasis": null,
+      "start_ms": 26372,
+      "dur_ms": 836
     },
     {
       "text": "Automatizamos contigo",
       "emphasis": null,
-      "start_ms": 18478,
-      "dur_ms": 1068
+      "start_ms": 27349,
+      "dur_ms": 1524
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 19686,
-      "dur_ms": 1219
+      "start_ms": 28873,
+      "dur_ms": 1088
     }
   ]
 }
