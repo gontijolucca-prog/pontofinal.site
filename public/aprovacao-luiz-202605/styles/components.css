@@ -1329,6 +1329,29 @@ body:has(.loader[aria-hidden="false"]) { overflow: hidden; }
 }
 
 /* ─────────────────────────────────────────────────────────────────────
+   OFFLINE BANNER — toast sticky no topo quando sem internet.
+   ───────────────────────────────────────────────────────────────────── */
+
+.offline-banner {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 95;
+  padding: 10px 20px;
+  background: #ffcc00;
+  color: #1a1a1a;
+  font: 800 var(--t-sm)/1.3 var(--font-heavy);
+  letter-spacing: -0.01em;
+  text-align: center;
+  border-bottom: var(--border-w-bold) solid var(--border);
+  animation: offlineSlide 200ms var(--ease);
+}
+.offline-banner[hidden] { display: none; }
+@keyframes offlineSlide {
+  from { transform: translateY(-100%); }
+  to { transform: none; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
    NAV LINK — link para o dashboard (e outras páginas) no header.
    ───────────────────────────────────────────────────────────────────── */
 

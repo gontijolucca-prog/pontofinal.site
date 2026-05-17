@@ -97,6 +97,10 @@
 <auth-modal id="authModal" aria-hidden="true"></auth-modal>
 <help-overlay id="helpOverlay" aria-hidden="true"></help-overlay>
 
+<div id="offlineBanner" class="offline-banner" hidden>
+  ⚠ Sem ligação à internet. As tuas alterações ficam guardadas localmente e sincronizam quando voltar.
+</div>
+
 <footer class="app-footer">
   <span id="footerStatus">Estado sincronizado</span>
   <span>
@@ -105,6 +109,19 @@
     · Pendentes <strong id="pendingCount">0</strong>
   </span>
 </footer>
+
+<script>
+  // Offline detection — independente dos módulos JS
+  (function() {
+    const banner = document.getElementById("offlineBanner");
+    function update() {
+      banner.hidden = navigator.onLine;
+    }
+    window.addEventListener("online", update);
+    window.addEventListener("offline", update);
+    update();
+  })();
+</script>
 
 <script type="module" src="js/components/month-calendar.js"></script>
 <script type="module" src="js/components/month-switcher.js"></script>
