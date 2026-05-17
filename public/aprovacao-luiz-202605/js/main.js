@@ -5,11 +5,17 @@ import { approvalStore, init as initApprovalStore } from "./stores/approval-stor
 import { supabase, AUTH_ENABLED } from "./lib/supabase-client.js";
 import { monthShortLabel } from "./components/month-switcher.js";
 
-const state = { items: [], currentMonth: "all" };
+const state = {
+  items: [],
+  currentMonth: "all",
+  currentBrand:  "all",
+  currentFormat: "all",
+};
 
 const els = {
   calendar:        () => document.getElementById("calendar"),
   monthSwitcher:   () => document.getElementById("monthSwitcher"),
+  filterBar:       () => document.getElementById("filterBar"),
   headerLabel:     () => document.getElementById("headerLabel"),
   carrosseisList:  () => document.getElementById("carrosseisList"),
   postsGallery:    () => document.getElementById("postsGallery"),
@@ -29,8 +35,62 @@ function sortBySchedule(a, b) {
 }
 
 function visibleItems() {
-  if (state.currentMonth === "all") return state.items;
-  return state.items.filter(i => i.month === state.currentMonth);
+  return state.items.filter(i => {
+    if (state.currentMonth  !== "all" && inferMonth(i) !== state.currentMonth)  return false;
+    if (state.currentBrand  !== "all" && i.brand        !== state.currentBrand)  return false;
+    if (state.currentFormat !== "all" && i.format       !== state.currentFormat) return false;
+    return true;
+  });
+}
+
+// ─── URL state persistence ───────────────────────────────────────────────
+
+function readUrlState() {
+  const u = new URLSearchParams(window.location.search);
+  return {
+    month:  u.get("month")  || null,
+    brand:  u.get("brand")  || null,
+    format: u.get("format") || null,
+  };
+}
+
+function writeUrlState() {
+  const u = new URLSearchParams(window.location.search);
+  const apply = (k, v, def) => {
+    if (!v || v === def) u.delete(k); else u.set(k, v);
+  };
+  apply("month",  state.currentMonth,  "all");
+  apply("brand",  state.currentBrand,  "all");
+  apply("format", state.currentFormat, "all");
+  const qs = u.toString();
+  const path = window.location.pathname + (qs ? "?" + qs : "") + window.location.hash;
+  window.history.replaceState(null, "", path);
+}
+
+// ─── Aggregate stats for filter chip counts (respect *other* axes) ───────
+
+function brandCounts() {
+  const map = new Map();
+  for (const it of state.items) {
+    if (state.currentMonth  !== "all" && inferMonth(it) !== state.currentMonth)  continue;
+    if (state.currentFormat !== "all" && it.format      !== state.currentFormat) continue;
+    map.set(it.brand, (map.get(it.brand) || 0) + 1);
+  }
+  return Array.from(map.entries()).sort().map(([value, count]) => ({ value, count }));
+}
+
+function formatCounts() {
+  const map = new Map();
+  for (const it of state.items) {
+    if (state.currentMonth !== "all" && inferMonth(it) !== state.currentMonth) continue;
+    if (state.currentBrand !== "all" && it.brand       !== state.currentBrand) continue;
+    map.set(it.format, (map.get(it.format) || 0) + 1);
+  }
+  // Ordem natural: carrossel → story → reel
+  const ORDER = { carrossel: 0, story: 1, reel: 2 };
+  return Array.from(map.entries())
+    .sort(([a], [b]) => (ORDER[a] ?? 99) - (ORDER[b] ?? 99))
+    .map(([value, count]) => ({ value, count }));
 }
 
 function inferMonth(item) {
@@ -66,19 +126,21 @@ function pickDefaultMonth(months) {
 function render() {
   const items = visibleItems();
 
-  // Calendar reflects current month (or first month if "all").
-  if (state.currentMonth !== "all") {
-    els.calendar().setMonth(state.currentMonth);
-    els.calendar().setItems(items);
+  // Calendar reflects current month (or first month if "all"). Chips no calendário
+  // respeitam o filtro brand/format actual.
+  const calendarMonthScope = state.currentMonth !== "all"
+    ? state.currentMonth
+    : (availableMonths()[0]?.value || null);
+  if (calendarMonthScope) {
+    els.calendar().setMonth(calendarMonthScope);
+    const calendarItems = state.items.filter(i =>
+      inferMonth(i) === calendarMonthScope
+      && (state.currentBrand  === "all" || i.brand  === state.currentBrand)
+      && (state.currentFormat === "all" || i.format === state.currentFormat)
+    );
+    els.calendar().setItems(calendarItems);
   } else {
-    // "all" mode: pick first month with items so the calendar isn't empty.
-    const months = availableMonths();
-    if (months.length) {
-      els.calendar().setMonth(months[0].value);
-      els.calendar().setItems(state.items.filter(i => inferMonth(i) === months[0].value));
-    } else {
-      els.calendar().setItems(items);
-    }
+    els.calendar().setItems(items);
   }
 
   const carrosseis = items.filter(i => i.format === "carrossel").sort(sortBySchedule);
@@ -109,10 +171,24 @@ function render() {
     rg.appendChild(tile);
   });
 
+  // Empty state: se todos os filtros activos resultam em zero items,
+  // mostrar mensagem clara em cima da lista de carrosseis.
+  toggleEmptyState(items.length === 0 && hasActiveFilters());
+
   setCount(els.totalCount(),      items.length);
   setCount(els.carrosseisCount(), carrosseis.length);
   setCount(els.postsCount(),      posts.length);
   setCount(els.reelsCount(),      reels.length);
+
+  // Atualiza as contagens das chips do filter-bar — reflectem a intersecção
+  // dos *outros* eixos para que o user veja antecipadamente o efeito.
+  const filterBar = els.filterBar();
+  if (filterBar) {
+    filterBar.setOptions(
+      { brands: brandCounts(), formats: formatCounts() },
+      { brand: state.currentBrand, format: state.currentFormat },
+    );
+  }
 
   // Header label reflects current scope.
   const headerLabel = els.headerLabel();
@@ -122,7 +198,35 @@ function render() {
       : `Aprovação · ${monthShortLabel(state.currentMonth)}`;
   }
 
+  writeUrlState();
   updateCounts();
+}
+
+function hasActiveFilters() {
+  return state.currentBrand !== "all"
+      || state.currentFormat !== "all"
+      || state.currentMonth !== "all";
+}
+
+function toggleEmptyState(visible) {
+  let el = document.getElementById("filterEmptyState");
+  if (visible && !el) {
+    el = document.createElement("div");
+    el.id = "filterEmptyState";
+    el.className = "filter-empty-state";
+    el.innerHTML = `
+      <p class="filter-empty-state__title">Nenhum item para estes filtros.</p>
+      <button type="button" class="filter-empty-state__reset">Limpar filtros</button>
+    `;
+    el.querySelector(".filter-empty-state__reset").addEventListener("click", () => {
+      state.currentBrand  = "all";
+      state.currentFormat = "all";
+      render();
+    });
+    document.getElementById("carrosseisSection").before(el);
+  } else if (!visible && el) {
+    el.remove();
+  }
 }
 
 function setCount(el, n) {
@@ -299,12 +403,26 @@ async function init() {
 
   // Wire the month switcher: list available months + pick default.
   const months = availableMonths();
-  state.currentMonth = pickDefaultMonth(months);
+  const urlState = readUrlState();
+  state.currentMonth  = urlState.month  || pickDefaultMonth(months);
+  state.currentBrand  = urlState.brand  || "all";
+  state.currentFormat = urlState.format || "all";
+
   const switcher = els.monthSwitcher();
   if (switcher) {
     switcher.setMonths(months, state.currentMonth);
     switcher.addEventListener("month:change", e => {
       state.currentMonth = e.detail.month;
+      render();
+      requestAnimationFrame(() => requestAnimationFrame(manageLoader));
+    });
+  }
+
+  const filterBar = els.filterBar();
+  if (filterBar) {
+    filterBar.addEventListener("filter:change", e => {
+      state.currentBrand  = e.detail.brand;
+      state.currentFormat = e.detail.format;
       render();
       requestAnimationFrame(() => requestAnimationFrame(manageLoader));
     });

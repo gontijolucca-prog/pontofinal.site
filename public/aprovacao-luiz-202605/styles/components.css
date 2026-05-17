@@ -1269,6 +1269,123 @@ body:has(.loader[aria-hidden="false"]) { overflow: hidden; }
 }
 
 /* ─────────────────────────────────────────────────────────────────────
+   FILTER BAR — chip groups (marca/formato) abaixo do header. Sticky por
+   baixo do header. Escondido quando só há 1 opção por eixo.
+   ───────────────────────────────────────────────────────────────────── */
+
+filter-bar { display: block; }
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4) var(--s-6);
+  padding: var(--s-3) var(--s-6);
+  border-bottom: var(--border-w-bold) solid var(--border);
+  background: var(--bg);
+  position: sticky;
+  top: 72px;  /* abaixo do app-header */
+  z-index: 40;
+}
+.filter-bar__group {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  min-width: 0;
+}
+.filter-bar__label {
+  font: 900 var(--t-xs)/1 var(--font-heavy);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-mute);
+}
+.filter-bar__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.filter-bar__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  background: var(--bg);
+  border: var(--border-w) solid var(--border);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-mono);
+  font-size: var(--t-xxs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background var(--d-fast) var(--ease), color var(--d-fast) var(--ease), transform var(--d-fast) var(--ease);
+}
+.filter-bar__chip:hover {
+  transform: translateY(-1px);
+}
+.filter-bar__chip[aria-selected="true"] {
+  background: var(--accent);
+  color: var(--bg);
+  transform: rotate(-1deg);
+}
+.filter-bar__chip[aria-selected="true"] .filter-bar__chip-count {
+  background: var(--bg);
+  color: var(--accent);
+}
+.filter-bar__chip-count {
+  display: inline-block;
+  min-width: 22px;
+  text-align: center;
+  background: color-mix(in srgb, var(--text) 8%, transparent);
+  color: var(--text);
+  padding: 2px 5px;
+  font-family: var(--font-heavy);
+  font-weight: 900;
+  letter-spacing: 0;
+  border: 1px solid var(--border);
+}
+
+/* Empty state when filters return zero items. */
+.filter-empty-state {
+  margin: var(--s-6) auto;
+  padding: var(--s-6);
+  max-width: 480px;
+  text-align: center;
+  background: var(--bg-soft, color-mix(in srgb, var(--text) 4%, transparent));
+  border: var(--border-w) solid var(--border);
+}
+.filter-empty-state__title {
+  font: 800 var(--t-md)/1.2 var(--font-heavy);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--s-3);
+}
+.filter-empty-state__reset {
+  background: var(--text);
+  color: var(--bg);
+  border: var(--border-w) solid var(--border);
+  padding: 8px 14px;
+  font-family: var(--font-heavy);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+.filter-empty-state__reset:hover {
+  background: var(--accent);
+}
+
+@media (max-width: 720px) {
+  .filter-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-3);
+    padding: var(--s-3);
+    top: 60px;
+  }
+  .filter-bar__group { flex-wrap: wrap; }
+  .filter-bar__chip { padding: 4px 8px; font-size: 9px; }
+  .filter-bar__chip-count { padding: 1px 4px; min-width: 18px; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
    MONTH SWITCHER — chip group no header. Permite alternar entre meses
    presentes em items.json. Escondido quando há só um mês.
    ───────────────────────────────────────────────────────────────────── */
