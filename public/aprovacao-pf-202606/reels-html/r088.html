@@ -208,6 +208,10 @@
   <div class="sweep" style="animation: sweep3 15.00s linear infinite;"></div>
   <div class="sweep" style="animation: sweep4 15.00s linear infinite;"></div>
   <div class="footer-arrow">↓</div>
+  <audio class="voice" data-idx="0" preload="auto" src="../audio/voices/r088_s1.mp3"></audio>
+  <audio class="voice" data-idx="1" preload="auto" src="../audio/voices/r088_s2.mp3"></audio>
+  <audio class="voice" data-idx="2" preload="auto" src="../audio/voices/r088_s3.mp3"></audio>
+  <audio class="voice" data-idx="3" preload="auto" src="../audio/voices/r088_s4.mp3"></audio>
 </section>
 <script>
 (function () {
@@ -251,56 +255,28 @@
     setTimeout(fitText, 50);
   });
 
-  // Swoosh: synthesised noise burst on every scene transition (Web Audio).
-  // Only fires when ?audio=1 is in the URL (overlay only — thumbnails silent).
+  // Voice playback: trigger pre-rendered Piper TTS clip at each scene start.
+  // Only when ?audio=1 (overlay only — thumbnails silent).
   const wantAudio = new URLSearchParams(location.search).get('audio') === '1';
   if (!wantAudio) return;
   const DURATION_MS = 15000;
   const NUM_SCENES = 4;
   const STEP_MS = DURATION_MS / NUM_SCENES;
-  let ctx = null;
-  function ensureCtx() {
-    if (!ctx) {
-      const AC = window.AudioContext || window.webkitAudioContext;
-      if (!AC) return null;
-      ctx = new AC();
-    }
-    if (ctx.state === 'suspended') ctx.resume();
-    return ctx;
-  }
-  function swoosh() {
-    // iPhone-style tri-tone notification: A5 → E6 → A6 with bell harmonics
-    const c = ensureCtx();
-    if (!c || c.state !== 'running') return;
-    const t0 = c.currentTime;
-    const notes = [880, 1320, 1760]; // A5, E6 (5th), A6 (octave)
-    const stagger = 0.07;
-    const dur = 0.32;
-    notes.forEach((f, i) => {
-      const startT = t0 + i * stagger;
-      // Stack 3 harmonics for bell timbre
-      [1, 2, 3].forEach(h => {
-        const osc = c.createOscillator();
-        osc.type = 'sine';
-        osc.frequency.value = f * h;
-        const g = c.createGain();
-        const amp = 0.32 / (h * h); // 1/n² so harmonics fall off naturally
-        g.gain.setValueAtTime(0.0001, startT);
-        g.gain.linearRampToValueAtTime(amp, startT + 0.004);
-        g.gain.exponentialRampToValueAtTime(0.001, startT + dur);
-        osc.connect(g); g.connect(c.destination);
-        osc.start(startT);
-        osc.stop(startT + dur);
-      });
-    });
+  const voices = Array.from(document.querySelectorAll('audio.voice'));
+  voices.forEach(v => { v.volume = 1.0; v.preload = 'auto'; });
+  function playVoice(i) {
+    const v = voices[i];
+    if (!v) return;
+    try { v.pause(); v.currentTime = 0; } catch (_) {}
+    v.play().catch(() => {});
   }
   function scheduleLoop() {
-    for (let i = 0; i < NUM_SCENES; i++) setTimeout(swoosh, i * STEP_MS);
+    for (let i = 0; i < NUM_SCENES; i++) setTimeout(() => playVoice(i), i * STEP_MS);
   }
   scheduleLoop();
   setInterval(scheduleLoop, DURATION_MS);
-  // Resume context on user click anywhere (browser autoplay policies)
-  ['click','touchstart'].forEach(e => addEventListener(e, ensureCtx, {once: true}));
+  // Kick first scene immediately on user interaction (autoplay policy)
+  ['click','touchstart'].forEach(e => addEventListener(e, () => playVoice(0), {once: true}));
 })();
 </script>
 
@@ -313,7 +289,7 @@
   const wantAudio = new URLSearchParams(location.search).get('audio') === '1';
   if (wantAudio) {
     a.muted = false;
-    a.volume = 0.45;
+    a.volume = 0.18; // soft bed so voice stays foreground
     a.controls = true;
     a.style.display = 'block';
     a.play().catch(() => {});
