@@ -41,6 +41,32 @@
     <themes-catalog id="themesCatalog"></themes-catalog>
   </section>
 
+  <!-- PUBLISH QUEUE — o que está agendado/publicado -->
+  <section class="section">
+    <div class="section__heading">
+      <h2>Fila de publicação</h2>
+      <span class="section__hint">Posts agendados, publicados ou que falharam</span>
+    </div>
+    <publish-queue id="publishQueue"></publish-queue>
+  </section>
+
+  <!-- DM BOT — regras + actividade -->
+  <section class="section">
+    <div class="section__heading">
+      <h2>DM bot · regras</h2>
+      <span class="section__hint">Comentário ou DM com keyword → resposta automática</span>
+    </div>
+    <dm-rules id="dmRules"></dm-rules>
+  </section>
+
+  <section class="section">
+    <div class="section__heading">
+      <h2>DM bot · actividade</h2>
+      <span class="section__hint">Últimas mensagens enviadas pelo bot</span>
+    </div>
+    <dm-activity id="dmActivity"></dm-activity>
+  </section>
+
   <!-- PERFORMANCE INSTAGRAM -->
   <section class="section section--placeholder">
     <div class="section__heading">
@@ -71,6 +97,9 @@
 <script type="module" src="js/components/month-switcher.js"></script>
 <script type="module" src="js/components/approval-stats.js"></script>
 <script type="module" src="js/components/themes-catalog.js"></script>
+<script type="module" src="js/components/dm-rules.js"></script>
+<script type="module" src="js/components/dm-activity.js"></script>
+<script type="module" src="js/components/publish-queue.js"></script>
 <script type="module" src="js/main.js"></script>
 </body>
 </html>
