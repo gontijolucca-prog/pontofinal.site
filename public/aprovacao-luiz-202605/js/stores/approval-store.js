@@ -211,4 +211,23 @@ export const approvalStore = {
       localStorage.removeItem(LS_KEY);
     }
   },
+
+  // Histórico de mudanças de estado para um item. Retorna [] se Supabase não
+  // estiver activo, ou se ainda não houver registos (ou se a tabela history
+  // não existir, o que dá graceful empty array).
+  async history(itemId) {
+    if (!AUTH_ENABLED || !supabase) return [];
+    const { data, error } = await supabase
+      .from("approval_history")
+      .select("status, note, changed_at, changed_by_email")
+      .eq("namespace", NAMESPACE)
+      .eq("item_id", itemId)
+      .order("changed_at", { ascending: false })
+      .limit(20);
+    if (error) {
+      console.warn("[approval-store] history not available:", error.message);
+      return [];
+    }
+    return data || [];
+  },
 };

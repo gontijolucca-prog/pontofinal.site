@@ -21,9 +21,50 @@ class ItemViewer extends HTMLElement {
   open(item) {
     this._item = item;
     this._slide = 1;
+    this._history = null;
     this.setAttribute("data-open", "true");
     this.setAttribute("aria-hidden", "false");
     this.render();
+    this._loadHistory();
+  }
+
+  async _loadHistory() {
+    if (!this._item) return;
+    const itemId = this._item.id;
+    const rows = await approvalStore.history(itemId);
+    if (!this._item || this._item.id !== itemId) return; // changed item meanwhile
+    this._history = rows;
+    this._renderHistory();
+  }
+
+  _renderHistory() {
+    const wrap = this.querySelector(".viewer-history");
+    if (!wrap) return;
+    const rows = this._history || [];
+    if (!rows.length) {
+      wrap.innerHTML = `<p class="viewer-history__empty">Sem histórico ainda.</p>`;
+      return;
+    }
+    const fmt = (iso) => {
+      const d = new Date(iso);
+      return d.toLocaleString("pt-PT", { dateStyle: "short", timeStyle: "short" });
+    };
+    const statusLabel = { approved: "Aprovado", rejected: "Rejeitado", pending: "Pendente", deleted: "Apagado" };
+    wrap.innerHTML = rows.map(r => `
+      <div class="viewer-history__row viewer-history__row--${r.status}">
+        <span class="viewer-history__status">${statusLabel[r.status] || r.status}</span>
+        <span class="viewer-history__meta">
+          ${this._escapeForHtml(r.changed_by_email || "—")} · ${fmt(r.changed_at)}
+        </span>
+        ${r.note ? `<p class="viewer-history__note">"${this._escapeForHtml(r.note)}"</p>` : ""}
+      </div>
+    `).join("");
+  }
+
+  _escapeForHtml(s) {
+    return String(s).replace(/[&<>"']/g, c =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
+    );
   }
 
   close() {
@@ -100,6 +141,12 @@ class ItemViewer extends HTMLElement {
               </div>
             `).join("")}
           </div>
+          <details class="viewer-history-block">
+            <summary>Histórico de aprovação</summary>
+            <div class="viewer-history" data-history>
+              <p class="viewer-history__empty">A carregar…</p>
+            </div>
+          </details>
           <div class="viewer-actions">
             <textarea data-note placeholder="Sugestão de edição (opcional)">${state.note || ""}</textarea>
             <button class="btn btn--reject" data-action="reject">Rejeitar</button>
