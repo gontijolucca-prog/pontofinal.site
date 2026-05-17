@@ -56,12 +56,18 @@ function render() {
     rg.appendChild(tile);
   });
 
-  els.totalCount().textContent = String(state.items.length);
-  els.carrosseisCount().textContent = String(carrosseis.length);
-  els.postsCount().textContent = String(posts.length);
-  els.reelsCount().textContent = String(reels.length);
+  setCount(els.totalCount(),      state.items.length);
+  setCount(els.carrosseisCount(), carrosseis.length);
+  setCount(els.postsCount(),      posts.length);
+  setCount(els.reelsCount(),      reels.length);
 
   updateCounts();
+}
+
+function setCount(el, n) {
+  if (!el) return;
+  el.textContent = n > 0 ? String(n) : "—";
+  el.setAttribute("data-zero", n > 0 ? "false" : "true");
 }
 
 function findItem(id) { return state.items.find(it => it.id === id); }

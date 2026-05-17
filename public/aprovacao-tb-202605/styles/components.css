@@ -105,6 +105,11 @@ body:has(.loader[aria-hidden="false"]) { overflow: hidden; }
   box-shadow: var(--shadow-sm);
   font: 900 var(--t-md)/1 var(--font-heavy);
   transform: rotate(-2deg);
+  transition: background var(--d-fast) var(--ease), color var(--d-fast) var(--ease);
+}
+.section__heading .count[data-zero="true"] {
+  background: var(--bg-soft);
+  color: var(--text-mute);
 }
 .section__hint {
   font: 700 var(--t-sm)/1.4 var(--font-mono);
@@ -171,7 +176,16 @@ body:has(.loader[aria-hidden="false"]) { overflow: hidden; }
   flex-direction: column;
   gap: 4px;
 }
-.cal-day--blank { background: var(--bg-soft); }
+.cal-day--blank {
+  background:
+    repeating-linear-gradient(
+      135deg,
+      var(--bg) 0,
+      var(--bg) 8px,
+      var(--bg-soft) 8px,
+      var(--bg-soft) 10px
+    );
+}
 .cal-day__num {
   font: 900 var(--t-sm)/1 var(--font-heavy);
   color: var(--text);
