@@ -1,187 +1,137 @@
 {
-  "total_ms": 28196,
+  "total_ms": 19858,
   "chunks": [
     {
-      "text": "Doze pedidos novos",
-      "emphasis": "Doze pedidos",
+      "text": "Sabias que",
+      "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 1244,
+      "dur_ms": 894
+    },
+    {
+      "text": "mais de metade",
+      "emphasis": "mais de metade",
+      "start_ms": 894,
+      "dur_ms": 1252,
       "graphic": {
-        "type": "count",
-        "to": 12,
-        "suffix": "pedidos/sem"
+        "type": "percent",
+        "to": 53
       }
     },
     {
-      "text": "por semana",
+      "text": "sai em três segundos",
       "emphasis": null,
-      "start_ms": 1244,
-      "dur_ms": 691
+      "start_ms": 2146,
+      "dur_ms": 1789
     },
     {
-      "text": "todos pelo Google",
-      "emphasis": "pelo Google",
-      "start_ms": 1935,
-      "dur_ms": 1176
-    },
-    {
-      "text": "Aconteceu com",
-      "emphasis": null,
-      "start_ms": 3251,
-      "dur_ms": 725
-    },
-    {
-      "text": "uma óptica",
-      "emphasis": null,
-      "start_ms": 3976,
-      "dur_ms": 558
-    },
-    {
-      "text": "em Braga",
-      "emphasis": null,
-      "start_ms": 4534,
-      "dur_ms": 446
-    },
-    {
-      "text": "Atendimento excelente",
-      "emphasis": "Atendimento excelente",
-      "start_ms": 5121,
-      "dur_ms": 1311
-    },
-    {
-      "text": "Mas no Google",
-      "emphasis": null,
-      "start_ms": 6573,
-      "dur_ms": 855
-    },
-    {
-      "text": "ninguém a encontrava",
-      "emphasis": "ninguém a encontrava",
-      "start_ms": 7428,
-      "dur_ms": 1316
-    },
-    {
-      "text": "As pessoas procuravam",
-      "emphasis": null,
-      "start_ms": 8884,
-      "dur_ms": 1266
-    },
-    {
-      "text": "óptica em Braga",
-      "emphasis": null,
-      "start_ms": 10150,
-      "dur_ms": 905
-    },
-    {
-      "text": "E iam todas",
-      "emphasis": null,
-      "start_ms": 11195,
-      "dur_ms": 696
-    },
-    {
-      "text": "para os concorrentes",
-      "emphasis": "para os concorrentes",
-      "start_ms": 11891,
-      "dur_ms": 1266
-    },
-    {
-      "text": "Trabalhámos o site",
-      "emphasis": null,
-      "start_ms": 13297,
-      "dur_ms": 1358
-    },
-    {
-      "text": "quatro meses",
-      "emphasis": "quatro meses",
-      "start_ms": 14655,
-      "dur_ms": 905
-    },
-    {
-      "text": "Hoje aparece",
-      "emphasis": null,
-      "start_ms": 15701,
-      "dur_ms": 762,
+      "text": "Cinquenta e três",
+      "emphasis": "53%",
+      "start_ms": 4076,
+      "dur_ms": 995,
       "graphic": {
-        "type": "stamp",
-        "text": "Nº 1"
+        "type": "percent",
+        "to": 53
       }
     },
     {
-      "text": "em primeiro lugar",
-      "emphasis": "primeiro lugar",
-      "start_ms": 16463,
-      "dur_ms": 1079
-    },
-    {
-      "text": "para treze pesquisas",
+      "text": "por cento",
       "emphasis": null,
-      "start_ms": 17542,
-      "dur_ms": 1270
+      "start_ms": 5071,
+      "dur_ms": 560
     },
     {
-      "text": "Doze pedidos novos",
-      "emphasis": "Doze pedidos",
-      "start_ms": 18952,
-      "dur_ms": 1149,
+      "text": "Por causa de",
+      "emphasis": "três segundos",
+      "start_ms": 5772,
+      "dur_ms": 752
+    },
+    {
+      "text": "três segundos",
+      "emphasis": null,
+      "start_ms": 6524,
+      "dur_ms": 815
+    },
+    {
+      "text": "Não importa",
+      "emphasis": null,
+      "start_ms": 7479,
+      "dur_ms": 559
+    },
+    {
+      "text": "quão bom é",
+      "emphasis": null,
+      "start_ms": 8038,
+      "dur_ms": 509
+    },
+    {
+      "text": "o teu produto",
+      "emphasis": null,
+      "start_ms": 8547,
+      "dur_ms": 661
+    },
+    {
+      "text": "Se o site é lento",
+      "emphasis": null,
+      "start_ms": 9349,
+      "dur_ms": 1190
+    },
+    {
+      "text": "perdeste a venda",
+      "emphasis": "perdeste a venda",
+      "start_ms": 10539,
+      "dur_ms": 1120
+    },
+    {
+      "text": "Antes",
+      "emphasis": "de a fazeres",
+      "start_ms": 11799,
+      "dur_ms": 393
+    },
+    {
+      "text": "de a fazeres",
+      "emphasis": null,
+      "start_ms": 12192,
+      "dur_ms": 942
+    },
+    {
+      "text": "Cada segundo extra",
+      "emphasis": null,
+      "start_ms": 13274,
+      "dur_ms": 1072
+    },
+    {
+      "text": "reduz vendas em",
+      "emphasis": "sete por cento",
+      "start_ms": 14346,
+      "dur_ms": 893,
       "graphic": {
-        "type": "count",
-        "to": 12,
-        "suffix": "pedidos/sem"
+        "type": "percent",
+        "to": 7
       }
     },
     {
-      "text": "por semana",
+      "text": "sete por cento",
       "emphasis": null,
-      "start_ms": 20101,
-      "dur_ms": 638
+      "start_ms": 15239,
+      "dur_ms": 833
     },
     {
-      "text": "Todos directos",
+      "text": "Optimizamos o teu site",
       "emphasis": null,
-      "start_ms": 20880,
-      "dur_ms": 848
+      "start_ms": 16212,
+      "dur_ms": 1498
     },
     {
-      "text": "do Google",
-      "emphasis": "do Google",
-      "start_ms": 21728,
+      "text": "até voar",
+      "emphasis": "até voar",
+      "start_ms": 17710,
       "dur_ms": 545
-    },
-    {
-      "text": "Se o Google",
-      "emphasis": null,
-      "start_ms": 22413,
-      "dur_ms": 653
-    },
-    {
-      "text": "não te encontra",
-      "emphasis": null,
-      "start_ms": 23066,
-      "dur_ms": 890
-    },
-    {
-      "text": "ninguém te encontra",
-      "emphasis": "ninguém te encontra",
-      "start_ms": 23956,
-      "dur_ms": 1127
-    },
-    {
-      "text": "Pomos o teu negócio",
-      "emphasis": null,
-      "start_ms": 25223,
-      "dur_ms": 941
-    },
-    {
-      "text": "no topo",
-      "emphasis": "no topo",
-      "start_ms": 26164,
-      "dur_ms": 347
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 26652,
-      "dur_ms": 1544
+      "start_ms": 18395,
+      "dur_ms": 1462
     }
   ]
 }

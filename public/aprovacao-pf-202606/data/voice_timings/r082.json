@@ -1,213 +1,133 @@
 {
-  "total_ms": 32795,
+  "total_ms": 19732,
   "chunks": [
     {
-      "text": "Quarenta e três",
-      "emphasis": "Quarenta e três",
+      "text": "Sabias que",
+      "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 920,
+      "dur_ms": 791
+    },
+    {
+      "text": "oitenta por cento",
+      "emphasis": "oitenta por cento",
+      "start_ms": 791,
+      "dur_ms": 1345,
       "graphic": {
-        "type": "count",
-        "to": 43,
-        "suffix": "inscrições"
+        "type": "percent",
+        "to": 80
       }
     },
     {
-      "text": "inscrições novas",
+      "text": "só leem o título",
       "emphasis": null,
-      "start_ms": 920,
-      "dur_ms": 981
+      "start_ms": 2136,
+      "dur_ms": 1265
     },
     {
-      "text": "no primeiro mês",
-      "emphasis": "primeiro mês",
-      "start_ms": 1901,
-      "dur_ms": 920
+      "text": "Oitenta por cento",
+      "emphasis": "Oitenta por cento",
+      "start_ms": 3542,
+      "dur_ms": 1195
     },
     {
-      "text": "Foi o que aconteceu",
+      "text": "O resto do texto",
       "emphasis": null,
-      "start_ms": 2961,
-      "dur_ms": 865
+      "start_ms": 4878,
+      "dur_ms": 1228
     },
     {
-      "text": "a um ginásio",
+      "text": "ninguém vê",
+      "emphasis": "ninguém vê",
+      "start_ms": 6106,
+      "dur_ms": 768
+    },
+    {
+      "text": "O título",
       "emphasis": null,
-      "start_ms": 3826,
-      "dur_ms": 547
+      "start_ms": 7015,
+      "dur_ms": 529
     },
     {
-      "text": "em Lisboa",
+      "text": "não é decoração",
+      "emphasis": "não é decoração",
+      "start_ms": 7544,
+      "dur_ms": 991
+    },
+    {
+      "text": "É a única coisa",
       "emphasis": null,
-      "start_ms": 4373,
-      "dur_ms": 410
+      "start_ms": 8676,
+      "dur_ms": 822
     },
     {
-      "text": "Equipamento",
-      "emphasis": "topo de gama",
-      "start_ms": 4924,
-      "dur_ms": 711
+      "text": "que decide",
+      "emphasis": "se alguém continua",
+      "start_ms": 9498,
+      "dur_ms": 548
     },
     {
-      "text": "topo de gama",
+      "text": "se alguém continua",
       "emphasis": null,
-      "start_ms": 5635,
-      "dur_ms": 775
+      "start_ms": 10046,
+      "dur_ms": 986
     },
     {
-      "text": "Instrutores",
-      "emphasis": "excelentes",
-      "start_ms": 6550,
-      "dur_ms": 730
+      "text": "Um título errado",
+      "emphasis": "Um título errado",
+      "start_ms": 11173,
+      "dur_ms": 874
     },
     {
-      "text": "excelentes",
+      "text": "custa-te clientes",
       "emphasis": null,
-      "start_ms": 7280,
-      "dur_ms": 663
+      "start_ms": 12047,
+      "dur_ms": 928
     },
     {
-      "text": "Mas o site?",
+      "text": "a cada hora",
       "emphasis": null,
-      "start_ms": 8083,
-      "dur_ms": 1126
+      "start_ms": 12975,
+      "dur_ms": 601
     },
     {
-      "text": "Antigo",
+      "text": "Mudar uma palavra",
       "emphasis": null,
-      "start_ms": 9349,
-      "dur_ms": 440
+      "start_ms": 13716,
+      "dur_ms": 1022
     },
     {
-      "text": "desactualizado",
-      "emphasis": null,
-      "start_ms": 9789,
-      "dur_ms": 1027
-    },
-    {
-      "text": "vazio",
-      "emphasis": "vazio",
-      "start_ms": 10816,
-      "dur_ms": 367
-    },
-    {
-      "text": "Sem fotos",
-      "emphasis": null,
-      "start_ms": 11323,
-      "dur_ms": 937
-    },
-    {
-      "text": "sem horários",
-      "emphasis": null,
-      "start_ms": 12260,
-      "dur_ms": 1249
-    },
-    {
-      "text": "sem preços",
-      "emphasis": "sem preços",
-      "start_ms": 13509,
-      "dur_ms": 1041
-    },
-    {
-      "text": "As pessoas procuravam",
-      "emphasis": null,
-      "start_ms": 14691,
-      "dur_ms": 1395
-    },
-    {
-      "text": "ginásio na zona",
-      "emphasis": null,
-      "start_ms": 16086,
-      "dur_ms": 996
-    },
-    {
-      "text": "E iam",
-      "emphasis": null,
-      "start_ms": 17223,
-      "dur_ms": 278
-    },
-    {
-      "text": "para o concorrente",
-      "emphasis": "o concorrente",
-      "start_ms": 17501,
-      "dur_ms": 999
-    },
-    {
-      "text": "Fizemos",
-      "emphasis": "site novo",
-      "start_ms": 18640,
-      "dur_ms": 526
-    },
-    {
-      "text": "um site novo",
-      "emphasis": null,
-      "start_ms": 19166,
-      "dur_ms": 902
-    },
-    {
-      "text": "Fotos profissionais",
-      "emphasis": null,
-      "start_ms": 20208,
-      "dur_ms": 1484
-    },
-    {
-      "text": "turmas em destaque",
-      "emphasis": null,
-      "start_ms": 21692,
-      "dur_ms": 1406
-    },
-    {
-      "text": "preços claros",
-      "emphasis": null,
-      "start_ms": 23098,
-      "dur_ms": 1015
-    },
-    {
-      "text": "avaliações reais",
-      "emphasis": "avaliações reais",
-      "start_ms": 24113,
-      "dur_ms": 1249
-    },
-    {
-      "text": "Primeiro mês:",
-      "emphasis": null,
-      "start_ms": 25503,
-      "dur_ms": 912
-    },
-    {
-      "text": "quarenta e três",
-      "emphasis": "quarenta e três",
-      "start_ms": 26415,
-      "dur_ms": 1053,
+      "text": "pode duplicar",
+      "emphasis": "duplicar",
+      "start_ms": 14738,
+      "dur_ms": 782,
       "graphic": {
-        "type": "count",
-        "to": 43,
-        "suffix": "inscrições"
+        "type": "stamp",
+        "text": "2X"
       }
     },
     {
-      "text": "inscrições novas",
+      "text": "as vendas",
       "emphasis": null,
-      "start_ms": 27468,
-      "dur_ms": 1123
+      "start_ms": 15520,
+      "dur_ms": 541
     },
     {
-      "text": "Mostramos o que tens",
+      "text": "Escrevemos os teus títulos",
       "emphasis": null,
-      "start_ms": 28731,
-      "dur_ms": 1352
+      "start_ms": 16201,
+      "dur_ms": 1417
     },
     {
-      "text": "do jeito certo",
-      "emphasis": "do jeito certo",
-      "start_ms": 30083,
-      "dur_ms": 946
+      "text": "contigo",
+      "emphasis": "contigo",
+      "start_ms": 17618,
+      "dur_ms": 382
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 31170,
-      "dur_ms": 1625
+      "start_ms": 18141,
+      "dur_ms": 1590
     }
   ]
 }

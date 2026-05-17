@@ -1,189 +1,117 @@
 {
-  "total_ms": 31798,
+  "total_ms": 19499,
   "chunks": [
     {
-      "text": "Trinta e duas reservas",
-      "emphasis": "Trinta e duas",
+      "text": "Sabias que mais de",
+      "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 1204,
+      "dur_ms": 1426
+    },
+    {
+      "text": "setenta por cento",
+      "emphasis": "setenta por cento",
+      "start_ms": 1426,
+      "dur_ms": 1347,
       "graphic": {
-        "type": "count",
-        "to": 32,
-        "suffix": "reservas"
+        "type": "percent",
+        "to": 70
       }
     },
     {
-      "text": "num só fim-de-semana",
+      "text": "visitam pelo telemóvel",
       "emphasis": null,
-      "start_ms": 1204,
-      "dur_ms": 1094
+      "start_ms": 2773,
+      "dur_ms": 1743
     },
     {
-      "text": "Sem uma única",
-      "emphasis": "chamada",
-      "start_ms": 2439,
-      "dur_ms": 950
+      "text": "Setenta por cento",
+      "emphasis": "Setenta por cento",
+      "start_ms": 4656,
+      "dur_ms": 1265
     },
     {
-      "text": "chamada",
+      "text": "Não pelo",
+      "emphasis": "portátil",
+      "start_ms": 6061,
+      "dur_ms": 557
+    },
+    {
+      "text": "portátil",
       "emphasis": null,
-      "start_ms": 3389,
-      "dur_ms": 512
+      "start_ms": 6618,
+      "dur_ms": 557
     },
     {
-      "text": "Aconteceu com",
+      "text": "Pelo telemóvel",
+      "emphasis": "telemóvel",
+      "start_ms": 7316,
+      "dur_ms": 1253
+    },
+    {
+      "text": "Se o teu site",
       "emphasis": null,
-      "start_ms": 4042,
-      "dur_ms": 787
+      "start_ms": 8710,
+      "dur_ms": 721
     },
     {
-      "text": "um restaurante",
+      "text": "não pensado",
+      "emphasis": "ecrã pequeno",
+      "start_ms": 9431,
+      "dur_ms": 610
+    },
+    {
+      "text": "para ecrã pequeno",
       "emphasis": null,
-      "start_ms": 4829,
-      "dur_ms": 848
+      "start_ms": 10041,
+      "dur_ms": 944
     },
     {
-      "text": "em Cascais",
+      "text": "Perdeste",
       "emphasis": null,
-      "start_ms": 5677,
-      "dur_ms": 605
+      "start_ms": 11126,
+      "dur_ms": 476
     },
     {
-      "text": "Comida brutal",
-      "emphasis": "Comida brutal",
-      "start_ms": 6423,
-      "dur_ms": 873
+      "text": "a maior parte",
+      "emphasis": "dos clientes",
+      "start_ms": 11602,
+      "dur_ms": 773
     },
     {
-      "text": "ambiente óptimo",
+      "text": "dos clientes",
       "emphasis": null,
-      "start_ms": 7296,
-      "dur_ms": 1007
+      "start_ms": 12375,
+      "dur_ms": 713
     },
     {
-      "text": "Mas o site",
+      "text": "Eles nem vão",
       "emphasis": null,
-      "start_ms": 8444,
-      "dur_ms": 632
+      "start_ms": 13228,
+      "dur_ms": 806
     },
     {
-      "text": "tinha quinze anos",
-      "emphasis": "quinze anos",
-      "start_ms": 9076,
+      "text": "olhar duas vezes",
+      "emphasis": "duas vezes",
+      "start_ms": 14034,
       "dur_ms": 1074
     },
     {
-      "text": "Sem fotografias",
+      "text": "Refazemos para",
       "emphasis": null,
-      "start_ms": 10291,
-      "dur_ms": 1251
+      "start_ms": 15249,
+      "dur_ms": 1122
     },
     {
-      "text": "sem informações",
-      "emphasis": null,
-      "start_ms": 11542,
-      "dur_ms": 1251
-    },
-    {
-      "text": "sem reservas online",
-      "emphasis": null,
-      "start_ms": 12793,
-      "dur_ms": 1584
-    },
-    {
-      "text": "Refizemos tudo",
-      "emphasis": "de novo",
-      "start_ms": 14518,
-      "dur_ms": 828
-    },
-    {
-      "text": "de novo",
-      "emphasis": null,
-      "start_ms": 15346,
-      "dur_ms": 414
-    },
-    {
-      "text": "Fotografias profissionais",
-      "emphasis": null,
-      "start_ms": 15900,
-      "dur_ms": 1717
-    },
-    {
-      "text": "menu visível",
-      "emphasis": null,
-      "start_ms": 17617,
-      "dur_ms": 824
-    },
-    {
-      "text": "reservas com um clique",
-      "emphasis": "um clique",
-      "start_ms": 18441,
-      "dur_ms": 1510
-    },
-    {
-      "text": "Primeiro fim-de-semana",
-      "emphasis": null,
-      "start_ms": 20092,
-      "dur_ms": 1213
-    },
-    {
-      "text": "no ar:",
-      "emphasis": null,
-      "start_ms": 21305,
-      "dur_ms": 331
-    },
-    {
-      "text": "Trinta e duas reservas",
-      "emphasis": "Trinta e duas",
-      "start_ms": 21776,
-      "dur_ms": 1705,
-      "graphic": {
-        "type": "count",
-        "to": 32,
-        "suffix": "reservas"
-      }
-    },
-    {
-      "text": "pelo site",
-      "emphasis": null,
-      "start_ms": 23481,
-      "dur_ms": 698
-    },
-    {
-      "text": "A recepcionista",
-      "emphasis": null,
-      "start_ms": 24319,
-      "dur_ms": 961
-    },
-    {
-      "text": "deixou de correr",
-      "emphasis": null,
-      "start_ms": 25280,
-      "dur_ms": 1025
-    },
-    {
-      "text": "atrás do telefone",
-      "emphasis": "do telefone",
-      "start_ms": 26305,
-      "dur_ms": 1090
-    },
-    {
-      "text": "Tratamos do teu site",
-      "emphasis": null,
-      "start_ms": 27536,
-      "dur_ms": 1312
-    },
-    {
-      "text": "tu cuidas do negócio",
-      "emphasis": "cuidas do negócio",
-      "start_ms": 28848,
-      "dur_ms": 1311
+      "text": "telemóvel primeiro",
+      "emphasis": "telemóvel primeiro",
+      "start_ms": 16371,
+      "dur_ms": 1443
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 30300,
-      "dur_ms": 1497
+      "start_ms": 17955,
+      "dur_ms": 1544
     }
   ]
 }

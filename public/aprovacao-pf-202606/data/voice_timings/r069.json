@@ -1,199 +1,141 @@
 {
-  "total_ms": 30264,
+  "total_ms": 22749,
   "chunks": [
     {
-      "text": "Quarenta por cento",
-      "emphasis": "Quarenta por cento",
+      "text": "Sabias que",
+      "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 942,
+      "dur_ms": 983
+    },
+    {
+      "text": "noventa e quatro por cento",
+      "emphasis": "noventa e quatro",
+      "start_ms": 983,
+      "dur_ms": 2556,
       "graphic": {
         "type": "percent",
-        "to": 40
+        "to": 94
       }
     },
     {
-      "text": "mais marcações",
+      "text": "vem do design",
       "emphasis": null,
-      "start_ms": 942,
-      "dur_ms": 733
+      "start_ms": 3539,
+      "dur_ms": 1279
     },
     {
-      "text": "em dois meses",
-      "emphasis": "dois meses",
-      "start_ms": 1675,
-      "dur_ms": 681
-    },
-    {
-      "text": "Foi o resultado",
+      "text": "Estudo da",
       "emphasis": null,
-      "start_ms": 2497,
-      "dur_ms": 781
+      "start_ms": 4958,
+      "dur_ms": 446
     },
     {
-      "text": "para uma clínica",
+      "text": "universidade de Stanford",
+      "emphasis": "Stanford",
+      "start_ms": 5404,
+      "dur_ms": 1191
+    },
+    {
+      "text": "Antes de leres",
       "emphasis": null,
-      "start_ms": 3278,
-      "dur_ms": 834
+      "start_ms": 6735,
+      "dur_ms": 760
     },
     {
-      "text": "na Covilhã",
+      "text": "uma palavra",
       "emphasis": null,
-      "start_ms": 4112,
-      "dur_ms": 521
+      "start_ms": 7495,
+      "dur_ms": 598
     },
     {
-      "text": "Tinham uma",
-      "emphasis": "boa equipa",
-      "start_ms": 4773,
-      "dur_ms": 586
-    },
-    {
-      "text": "boa equipa",
+      "text": "Antes de veres",
       "emphasis": null,
-      "start_ms": 5359,
-      "dur_ms": 586
+      "start_ms": 8233,
+      "dur_ms": 951
     },
     {
-      "text": "Mas só agendavam",
+      "text": "preços",
       "emphasis": null,
-      "start_ms": 6086,
-      "dur_ms": 1070
+      "start_ms": 9184,
+      "dur_ms": 407
     },
     {
-      "text": "consultas",
+      "text": "Antes de saberes",
       "emphasis": null,
-      "start_ms": 7156,
-      "dur_ms": 602
+      "start_ms": 9731,
+      "dur_ms": 963
     },
     {
-      "text": "pelo telefone",
-      "emphasis": "pelo telefone",
-      "start_ms": 7758,
-      "dur_ms": 870
-    },
-    {
-      "text": "De manhã",
+      "text": "o que fazes",
       "emphasis": null,
-      "start_ms": 8769,
-      "dur_ms": 604
+      "start_ms": 10694,
+      "dur_ms": 662
     },
     {
-      "text": "a recepcionista",
+      "text": "Em segundos",
       "emphasis": null,
-      "start_ms": 9373,
-      "dur_ms": 1132
+      "start_ms": 11496,
+      "dur_ms": 815
     },
     {
-      "text": "não dava resposta",
-      "emphasis": "não dava resposta",
-      "start_ms": 10505,
-      "dur_ms": 1282
+      "text": "decidem se confiam",
+      "emphasis": "confiam em ti",
+      "start_ms": 12311,
+      "dur_ms": 1334
     },
     {
-      "text": "À tarde",
+      "text": "em ti",
       "emphasis": null,
-      "start_ms": 11928,
-      "dur_ms": 588
+      "start_ms": 13645,
+      "dur_ms": 370
     },
     {
-      "text": "o telefone",
-      "emphasis": "tocava vazio",
-      "start_ms": 12516,
-      "dur_ms": 841
-    },
-    {
-      "text": "tocava vazio",
+      "text": "Site velho",
       "emphasis": null,
-      "start_ms": 13357,
-      "dur_ms": 1009
+      "start_ms": 14155,
+      "dur_ms": 864
     },
     {
-      "text": "Quem não era atendido",
+      "text": "mensagem errada",
+      "emphasis": "mensagem errada",
+      "start_ms": 15019,
+      "dur_ms": 1295
+    },
+    {
+      "text": "Mesmo que sejas",
       "emphasis": null,
-      "start_ms": 14506,
-      "dur_ms": 1641
+      "start_ms": 16454,
+      "dur_ms": 846
     },
     {
-      "text": "ia para a",
-      "emphasis": "clínica do lado",
-      "start_ms": 16147,
-      "dur_ms": 703
+      "text": "o melhor",
+      "emphasis": "o melhor",
+      "start_ms": 17300,
+      "dur_ms": 451
     },
     {
-      "text": "clínica do lado",
+      "text": "no que fazes",
       "emphasis": null,
-      "start_ms": 16850,
-      "dur_ms": 1173
+      "start_ms": 17751,
+      "dur_ms": 676
     },
     {
-      "text": "Pusemos agendamento",
-      "emphasis": "agendamento online",
-      "start_ms": 18164,
-      "dur_ms": 1276
-    },
-    {
-      "text": "online no site",
+      "text": "Fazemos com que pareças",
       "emphasis": null,
-      "start_ms": 19440,
-      "dur_ms": 941
+      "start_ms": 18568,
+      "dur_ms": 1503
     },
     {
-      "text": "Sem mudar",
-      "emphasis": null,
-      "start_ms": 20522,
-      "dur_ms": 668
-    },
-    {
-      "text": "mais nada",
-      "emphasis": null,
-      "start_ms": 21190,
-      "dur_ms": 667
-    },
-    {
-      "text": "Dois meses depois?",
-      "emphasis": "Dois meses",
-      "start_ms": 21997,
-      "dur_ms": 1416
-    },
-    {
-      "text": "Quarenta por cento",
-      "emphasis": "Quarenta por cento",
-      "start_ms": 23553,
-      "dur_ms": 1227,
-      "graphic": {
-        "type": "percent",
-        "to": 40
-      }
-    },
-    {
-      "text": "mais marcações",
-      "emphasis": null,
-      "start_ms": 24780,
-      "dur_ms": 954
-    },
-    {
-      "text": "a qualquer hora",
-      "emphasis": "qualquer hora",
-      "start_ms": 25734,
-      "dur_ms": 1023
-    },
-    {
-      "text": "Resolvemos isso",
-      "emphasis": null,
-      "start_ms": 26897,
-      "dur_ms": 889
-    },
-    {
-      "text": "para ti também",
-      "emphasis": "para ti",
-      "start_ms": 27786,
-      "dur_ms": 829
+      "text": "tão bom como és",
+      "emphasis": "tão bom como és",
+      "start_ms": 20071,
+      "dur_ms": 981
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 28755,
-      "dur_ms": 1509
+      "start_ms": 21193,
+      "dur_ms": 1555
     }
   ]
 }
