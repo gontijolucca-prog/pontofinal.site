@@ -4,6 +4,11 @@ const WEEKDAYS_FULL = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"];
 const WEEKDAYS_HEAD = ["seg", "ter", "qua", "qui", "sex", "sáb", "dom"];
 const BRAND_SHORT = { techbody: "TB", techbody_u: "TBU", luiz_santana: "LS" };
 const FMT_LABEL = { carrossel: "Carr", story: "Story", reel: "Reel" };
+const MONTH_LABEL = {
+  1: "Janeiro", 2: "Fevereiro", 3: "Março", 4: "Abril",
+  5: "Maio", 6: "Junho", 7: "Julho", 8: "Agosto",
+  9: "Setembro", 10: "Outubro", 11: "Novembro", 12: "Dezembro",
+};
 
 function daysInMonth(year, month) { return new Date(year, month, 0).getDate(); }
 function firstWeekday(year, month) {
@@ -25,6 +30,15 @@ class MonthCalendar extends HTMLElement {
 
   setItems(items) {
     this._items = items;
+    this.render();
+  }
+
+  setMonth(yyyymm) {
+    // accepts "2026-05" or "2026-6"
+    const [y, m] = yyyymm.split("-").map(s => parseInt(s, 10));
+    if (!y || !m) return;
+    this._year = y;
+    this._month = m;
     this.render();
   }
 
@@ -56,10 +70,11 @@ class MonthCalendar extends HTMLElement {
       .sort((a, b) => a - b)
       .map(d => ({ day: d, items: byDay.get(d) }));
 
+    const title = `${MONTH_LABEL[this._month] || this._month} ${this._year}`;
     this.innerHTML = `
       <div class="calendar">
         <div class="calendar__head">
-          <div class="calendar__title">Maio 2026</div>
+          <div class="calendar__title">${title}</div>
           <div class="calendar__legend">
             <span><i class="dot" style="background:#fff"></i>Carrossel</span>
             <span><i class="dot" style="background:#FF2A2A"></i>Story</span>

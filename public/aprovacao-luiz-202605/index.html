@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Aprovação · Conteúdo Maio 2026</title>
+<title>Aprovação · Conteúdo</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;900&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles/reset.css" />
 <link rel="stylesheet" href="styles/tokens.css" />
@@ -22,8 +22,9 @@
 <header class="app-header">
   <div class="logo">TechBody_</div>
   <div class="header-meta">
-    <span>Aprovação · Maio 2026</span>
+    <span id="headerLabel">Aprovação</span>
   </div>
+  <month-switcher id="monthSwitcher"></month-switcher>
   <user-menu id="userMenu" aria-hidden="true"></user-menu>
 </header>
 
@@ -85,6 +86,7 @@
 </footer>
 
 <script type="module" src="js/components/month-calendar.js"></script>
+<script type="module" src="js/components/month-switcher.js"></script>
 <script type="module" src="js/components/carrossel-row.js"></script>
 <script type="module" src="js/components/post-tile.js"></script>
 <script type="module" src="js/components/reel-tile.js"></script>

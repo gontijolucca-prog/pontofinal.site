@@ -3,11 +3,14 @@
 import { loadItems } from "./data-loader.js";
 import { approvalStore, init as initApprovalStore } from "./stores/approval-store.js";
 import { supabase, AUTH_ENABLED } from "./lib/supabase-client.js";
+import { monthShortLabel } from "./components/month-switcher.js";
 
-const state = { items: [] };
+const state = { items: [], currentMonth: "all" };
 
 const els = {
   calendar:        () => document.getElementById("calendar"),
+  monthSwitcher:   () => document.getElementById("monthSwitcher"),
+  headerLabel:     () => document.getElementById("headerLabel"),
   carrosseisList:  () => document.getElementById("carrosseisList"),
   postsGallery:    () => document.getElementById("postsGallery"),
   reelsGallery:    () => document.getElementById("reelsGallery"),
@@ -25,12 +28,62 @@ function sortBySchedule(a, b) {
   return (a.scheduled_for || "").localeCompare(b.scheduled_for || "");
 }
 
-function render() {
-  els.calendar().setItems(state.items);
+function visibleItems() {
+  if (state.currentMonth === "all") return state.items;
+  return state.items.filter(i => i.month === state.currentMonth);
+}
 
-  const carrosseis = state.items.filter(i => i.format === "carrossel").sort(sortBySchedule);
-  const posts      = state.items.filter(i => i.format === "story").sort(sortBySchedule);
-  const reels      = state.items.filter(i => i.format === "reel").sort(sortBySchedule);
+function inferMonth(item) {
+  // Prefer it.month; fall back to first 7 chars of scheduled_for ("2026-05-07" → "2026-05").
+  if (item.month) return item.month;
+  if (typeof item.scheduled_for === "string" && item.scheduled_for.length >= 7) {
+    return item.scheduled_for.slice(0, 7);
+  }
+  return null;
+}
+
+function availableMonths() {
+  const map = new Map();
+  for (const it of state.items) {
+    const m = inferMonth(it);
+    if (!m) continue;
+    map.set(m, (map.get(m) || 0) + 1);
+  }
+  return Array.from(map.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([value, count]) => ({ value, count }));
+}
+
+function pickDefaultMonth(months) {
+  if (months.length <= 1) return months[0]?.value || "all";
+  // Default to the *first* month containing the current date, or the latest month otherwise.
+  const today = new Date();
+  const ym = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}`;
+  if (months.some(m => m.value === ym)) return ym;
+  return months[months.length - 1].value; // most recent
+}
+
+function render() {
+  const items = visibleItems();
+
+  // Calendar reflects current month (or first month if "all").
+  if (state.currentMonth !== "all") {
+    els.calendar().setMonth(state.currentMonth);
+    els.calendar().setItems(items);
+  } else {
+    // "all" mode: pick first month with items so the calendar isn't empty.
+    const months = availableMonths();
+    if (months.length) {
+      els.calendar().setMonth(months[0].value);
+      els.calendar().setItems(state.items.filter(i => inferMonth(i) === months[0].value));
+    } else {
+      els.calendar().setItems(items);
+    }
+  }
+
+  const carrosseis = items.filter(i => i.format === "carrossel").sort(sortBySchedule);
+  const posts      = items.filter(i => i.format === "story").sort(sortBySchedule);
+  const reels      = items.filter(i => i.format === "reel").sort(sortBySchedule);
 
   const list = els.carrosseisList();
   list.innerHTML = "";
@@ -56,10 +109,18 @@ function render() {
     rg.appendChild(tile);
   });
 
-  setCount(els.totalCount(),      state.items.length);
+  setCount(els.totalCount(),      items.length);
   setCount(els.carrosseisCount(), carrosseis.length);
   setCount(els.postsCount(),      posts.length);
   setCount(els.reelsCount(),      reels.length);
+
+  // Header label reflects current scope.
+  const headerLabel = els.headerLabel();
+  if (headerLabel) {
+    headerLabel.textContent = state.currentMonth === "all"
+      ? "Aprovação · Todos os meses"
+      : `Aprovação · ${monthShortLabel(state.currentMonth)}`;
+  }
 
   updateCounts();
 }
@@ -85,10 +146,19 @@ function bindOpen() {
 
 function updateCounts() {
   const counts = approvalStore.counts();
-  const total = state.items.length;
-  els.approvedCount().textContent = String(counts.approved || 0);
-  els.rejectedCount().textContent = String(counts.rejected || 0);
-  els.pendingCount().textContent  = String(total - (counts.approved || 0) - (counts.rejected || 0));
+  const items = visibleItems();
+  // Counts são por item visível: o approval-store guarda por id, mas só queremos
+  // mostrar approved/rejected/pending para os items presentes no scope actual.
+  let approved = 0, rejected = 0;
+  for (const it of items) {
+    const s = approvalStore.get(it.id)?.status;
+    if (s === "approved") approved++;
+    else if (s === "rejected") rejected++;
+  }
+  const pending = items.length - approved - rejected;
+  els.approvedCount().textContent = String(approved);
+  els.rejectedCount().textContent = String(rejected);
+  els.pendingCount().textContent  = String(pending);
 }
 
 function manageLoader() {
@@ -226,6 +296,20 @@ async function init() {
   state.items = await loadItems();
   bindOpen();
   window.addEventListener("approval:changed", updateCounts);
+
+  // Wire the month switcher: list available months + pick default.
+  const months = availableMonths();
+  state.currentMonth = pickDefaultMonth(months);
+  const switcher = els.monthSwitcher();
+  if (switcher) {
+    switcher.setMonths(months, state.currentMonth);
+    switcher.addEventListener("month:change", e => {
+      state.currentMonth = e.detail.month;
+      render();
+      requestAnimationFrame(() => requestAnimationFrame(manageLoader));
+    });
+  }
+
   render();
   // Wait one frame for the components to mount their iframes, then watch them.
   requestAnimationFrame(() => requestAnimationFrame(manageLoader));

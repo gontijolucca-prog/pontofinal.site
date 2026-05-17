@@ -2,17 +2,20 @@
 
 import { supabase, AUTH_ENABLED } from "./lib/supabase-client.js";
 import { loadThemes, loadItems, loadApprovals, subscribeApprovals } from "./lib/data-loader.js";
-import { BRAND_LABEL, PERIOD_LABEL } from "./config.js";
+import { BRAND_LABEL } from "./config.js";
+import { monthShortLabel } from "./components/month-switcher.js";
 
 const state = {
   items: [],
   approvals: {},
   themes: [],
+  currentMonth: "all",
 };
 
 const els = {
   brandLogo:     () => document.getElementById("brandLogo"),
   periodLabel:   () => document.getElementById("periodLabel"),
+  monthSwitcher: () => document.getElementById("monthSwitcher"),
   approvalStats: () => document.getElementById("approvalStats"),
   themesCatalog: () => document.getElementById("themesCatalog"),
   footerSummary: () => document.getElementById("footerSummary"),
@@ -22,7 +25,48 @@ const els = {
 
 function applyConfig() {
   els.brandLogo().textContent = `${BRAND_LABEL}_`;
-  els.periodLabel().textContent = `Aprovação · ${PERIOD_LABEL}`;
+  els.periodLabel().textContent = `Dashboard · ${BRAND_LABEL}`;
+}
+
+function inferMonth(item) {
+  if (item.month) return item.month;
+  if (typeof item.scheduled_for === "string" && item.scheduled_for.length >= 7) {
+    return item.scheduled_for.slice(0, 7);
+  }
+  return null;
+}
+
+function availableMonths() {
+  const map = new Map();
+  for (const it of state.items) {
+    const m = inferMonth(it);
+    if (!m) continue;
+    map.set(m, (map.get(m) || 0) + 1);
+  }
+  return Array.from(map.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([value, count]) => ({ value, count }));
+}
+
+function pickDefaultMonth(months) {
+  if (months.length === 0) return "all";
+  if (months.length === 1) return months[0].value;
+  const today = new Date();
+  const ym = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}`;
+  if (months.some(m => m.value === ym)) return ym;
+  return months[months.length - 1].value;
+}
+
+function visibleItems() {
+  if (state.currentMonth === "all") return state.items;
+  return state.items.filter(it => inferMonth(it) === state.currentMonth);
+}
+
+function updatePeriodLabel() {
+  const label = state.currentMonth === "all"
+    ? `Dashboard · ${BRAND_LABEL} · Todos os meses`
+    : `Dashboard · ${BRAND_LABEL} · ${monthShortLabel(state.currentMonth)}`;
+  els.periodLabel().textContent = label;
 }
 
 async function ensureAuthenticated() {
@@ -46,15 +90,18 @@ async function ensureAuthenticated() {
 }
 
 function renderAll() {
-  els.approvalStats().setData(state.items, state.approvals);
-  els.themesCatalog().setData(state.themes);
+  const items = visibleItems();
+  els.approvalStats().setData(items, state.approvals);
+  els.themesCatalog().setData(state.themes);  // temas são atemporais, não filtram
+  updatePeriodLabel();
   updateFooter();
 }
 
 function updateFooter() {
-  const total = state.items.length;
+  const items = visibleItems();
+  const total = items.length;
   let a = 0, r = 0;
-  for (const it of state.items) {
+  for (const it of items) {
     const s = state.approvals[it.id]?.status;
     if (s === "approved") a++;
     else if (s === "rejected") r++;
@@ -81,6 +128,19 @@ async function init() {
   state.themes = themes;
   state.items = items;
   state.approvals = approvals;
+
+  // Wire month switcher.
+  const months = availableMonths();
+  state.currentMonth = pickDefaultMonth(months);
+  const switcher = els.monthSwitcher();
+  if (switcher) {
+    switcher.setMonths(months, state.currentMonth);
+    switcher.addEventListener("month:change", e => {
+      state.currentMonth = e.detail.month;
+      renderAll();
+    });
+  }
+
   renderAll();
 
   // Realtime: alterações às aprovações refletem-se de imediato no dashboard.
