@@ -246,6 +246,14 @@ function bindOpen() {
     const it = findItem(e.detail.id);
     if (it) els.viewer().open(it);
   });
+  // Keyboard advance dentro do viewer (A/R/J/K).
+  document.addEventListener("viewer:advance", e => {
+    const items = visibleItems().sort(sortBySchedule);
+    const idx = items.findIndex(it => it.id === e.detail.currentId);
+    if (idx < 0) { e.detail.next = null; return; }
+    const target = items[idx + e.detail.direction];
+    e.detail.next = target || null;
+  });
 }
 
 function updateCounts() {
@@ -399,7 +407,11 @@ async function init() {
   await initApprovalStore();
   state.items = await loadItems();
   bindOpen();
-  window.addEventListener("approval:changed", updateCounts);
+  window.addEventListener("approval:changed", () => {
+    updateCounts();
+    // Re-render calendar para actualizar os badges. Galerias mantêm-se.
+    els.calendar()?.render?.();
+  });
 
   // Wire the month switcher: list available months + pick default.
   const months = availableMonths();

@@ -1,9 +1,12 @@
 // <month-calendar> — renders a single-month grid with chips on scheduled days.
 
+import { approvalStore } from "../stores/approval-store.js";
+
 const WEEKDAYS_FULL = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"];
 const WEEKDAYS_HEAD = ["seg", "ter", "qua", "qui", "sex", "sáb", "dom"];
 const BRAND_SHORT = { techbody: "TB", techbody_u: "TBU", luiz_santana: "LS" };
 const FMT_LABEL = { carrossel: "Carr", story: "Story", reel: "Reel" };
+const STATUS_GLYPH = { approved: "✓", rejected: "✗", pending: "" };
 const MONTH_LABEL = {
   1: "Janeiro", 2: "Fevereiro", 3: "Março", 4: "Abril",
   5: "Maio", 6: "Junho", 7: "Julho", 8: "Agosto",
@@ -102,15 +105,26 @@ class MonthCalendar extends HTMLElement {
     });
   }
 
+  _statusFor(itemId) {
+    try {
+      return approvalStore.get(itemId)?.status || "pending";
+    } catch { return "pending"; }
+  }
+
   _cellHTML(c) {
     if (c.blank) return `<div class="cal-day cal-day--blank"></div>`;
-    const chips = c.items.map(it => `
-      <span class="cal-chip" data-format="${it.format}" data-brand="${it.brand}" data-item-id="${it.id}" title="${it.title || it.theme}">
-        <span class="cal-chip__brand">${BRAND_SHORT[it.brand] || it.brand}</span>
-        <span class="cal-chip__fmt">${FMT_LABEL[it.format] || it.format}</span>
-        <span class="cal-chip__hour">${it.hour || ""}</span>
-      </span>
-    `).join("");
+    const chips = c.items.map(it => {
+      const status = this._statusFor(it.id);
+      const glyph = STATUS_GLYPH[status] || "";
+      return `
+        <span class="cal-chip cal-chip--${status}" data-format="${it.format}" data-brand="${it.brand}" data-status="${status}" data-item-id="${it.id}" title="${it.title || it.theme}">
+          <span class="cal-chip__brand">${BRAND_SHORT[it.brand] || it.brand}</span>
+          <span class="cal-chip__fmt">${FMT_LABEL[it.format] || it.format}</span>
+          <span class="cal-chip__hour">${it.hour || ""}</span>
+          ${glyph ? `<span class="cal-chip__status" aria-label="${status}">${glyph}</span>` : ""}
+        </span>
+      `;
+    }).join("");
     return `
       <div class="cal-day">
         <span class="cal-day__num">${c.day}</span>
@@ -121,14 +135,19 @@ class MonthCalendar extends HTMLElement {
 
   _agendaRowHTML(day, items) {
     const weekday = weekdayLabel(this._year, this._month, day);
-    const rows = items.map(it => `
-      <li class="agenda-item" data-item-id="${it.id}" data-format="${it.format}" data-brand="${it.brand}">
-        <span class="agenda-item__hour">${it.hour || ""}</span>
-        <span class="agenda-item__brand">${BRAND_SHORT[it.brand] || it.brand}</span>
-        <span class="agenda-item__fmt">${FMT_LABEL[it.format] || it.format}</span>
-        <span class="agenda-item__title">${it.title || it.theme}</span>
-      </li>
-    `).join("");
+    const rows = items.map(it => {
+      const status = this._statusFor(it.id);
+      const glyph = STATUS_GLYPH[status] || "";
+      return `
+        <li class="agenda-item agenda-item--${status}" data-item-id="${it.id}" data-format="${it.format}" data-brand="${it.brand}" data-status="${status}">
+          <span class="agenda-item__hour">${it.hour || ""}</span>
+          <span class="agenda-item__brand">${BRAND_SHORT[it.brand] || it.brand}</span>
+          <span class="agenda-item__fmt">${FMT_LABEL[it.format] || it.format}</span>
+          <span class="agenda-item__title">${it.title || it.theme}</span>
+          ${glyph ? `<span class="agenda-item__status" aria-label="${status}">${glyph}</span>` : ""}
+        </li>
+      `;
+    }).join("");
     return `
       <li class="agenda-day">
         <div class="agenda-day__head">

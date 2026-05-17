@@ -227,6 +227,41 @@ body:has(.loader[aria-hidden="false"]) { overflow: hidden; }
 .cal-chip[data-format="story"]    { background: #FFF0EE; }
 .cal-chip[data-format="reel"]     { background: #F0F0F0; }
 .cal-chip:hover { transform: translate(-1px, -1px); box-shadow: 2px 2px 0 0 var(--border); }
+.cal-chip__status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px; height: 16px;
+  margin-left: 2px;
+  font-size: 11px;
+  font-weight: 900;
+  font-family: var(--font-heavy);
+}
+.cal-chip--approved {
+  border-color: #2a8c3a;
+  box-shadow: inset 3px 0 0 0 #2a8c3a;
+}
+.cal-chip--approved .cal-chip__status { color: #2a8c3a; }
+.cal-chip--rejected {
+  border-color: #b3261e;
+  box-shadow: inset 3px 0 0 0 #b3261e;
+  opacity: 0.7;
+}
+.cal-chip--rejected .cal-chip__status { color: #b3261e; }
+
+/* Status indicators na agenda mobile. */
+.agenda-item__status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  margin-left: 6px;
+  font-weight: 900;
+  font-family: var(--font-heavy);
+}
+.agenda-item--approved .agenda-item__status { color: #2a8c3a; }
+.agenda-item--rejected .agenda-item__status { color: #b3261e; }
+.agenda-item--rejected { opacity: 0.7; }
 
 /* ───── AGENDA — mobile-first list of days with content ───── */
 .cal-agenda { display: none; list-style: none; padding: 0; margin: 0; }
@@ -1266,6 +1301,135 @@ body:has(.loader[aria-hidden="false"]) { overflow: hidden; }
    muita coisa — assim o user-menu fica sempre visível. */
 @media (max-width: 480px) {
   .header-meta { display: none; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   HELP TRIGGER — botão "?" no header (cor accent, sticky com o resto).
+   ───────────────────────────────────────────────────────────────────── */
+
+.help-trigger {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: var(--border-w) solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font: 900 16px/1 var(--font-heavy);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: background var(--d-fast) var(--ease), color var(--d-fast) var(--ease), transform var(--d-fast) var(--ease);
+  flex-shrink: 0;
+}
+.help-trigger:hover {
+  background: var(--accent);
+  color: var(--bg);
+  transform: rotate(8deg);
+}
+@media (max-width: 720px) {
+  .help-trigger { width: 26px; height: 26px; font-size: 13px; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   HELP OVERLAY — modal com lista de atalhos. Aparece no centro.
+   ───────────────────────────────────────────────────────────────────── */
+
+.help-overlay {
+  position: fixed; inset: 0;
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
+  backdrop-filter: blur(8px);
+  display: grid;
+  place-items: center;
+  z-index: 200;
+  padding: var(--s-6);
+  animation: helpFade var(--d-base) var(--ease);
+}
+.help-overlay[aria-hidden="true"] { display: none; }
+@keyframes helpFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.help-overlay__panel {
+  background: var(--bg);
+  border: var(--border-w-bold) solid var(--border);
+  box-shadow: 8px 8px 0 0 var(--text);
+  width: min(520px, 100%);
+  padding: var(--s-5) var(--s-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  animation: helpSlide var(--d-slow) var(--ease);
+}
+@keyframes helpSlide {
+  from { transform: translateY(20px) scale(0.96); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+.help-overlay__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.help-overlay__head h2 {
+  font: 900 var(--t-xl)/1 var(--font-heavy);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+.help-overlay__close {
+  background: none;
+  border: none;
+  font: 900 26px/1 var(--font-heavy);
+  cursor: pointer;
+  color: var(--text);
+  padding: 0 6px;
+  line-height: 1;
+}
+.help-overlay__close:hover { color: var(--accent); }
+.help-overlay__list {
+  list-style: none;
+  display: grid;
+  gap: var(--s-2);
+  padding: 0;
+}
+.help-overlay__item {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: var(--s-3);
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+}
+.help-overlay__item:last-child { border-bottom: 0; }
+.help-overlay__keys {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.help-overlay__list kbd, .help-overlay__foot kbd {
+  display: inline-block;
+  padding: 2px 7px;
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  background: var(--text);
+  color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  min-width: 18px;
+  text-align: center;
+}
+.help-overlay__label {
+  font-family: var(--font-mono);
+  font-size: var(--t-sm);
+  color: var(--text);
+}
+.help-overlay__foot {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--text-mute);
+  text-align: right;
+}
+@media (max-width: 720px) {
+  .help-overlay__panel { padding: var(--s-4); }
+  .help-overlay__item { grid-template-columns: 110px 1fr; }
 }
 
 /* ─────────────────────────────────────────────────────────────────────

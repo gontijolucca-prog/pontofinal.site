@@ -25,6 +25,7 @@
     <span id="headerLabel">Aprovação</span>
   </div>
   <month-switcher id="monthSwitcher"></month-switcher>
+  <button type="button" id="helpButton" class="help-trigger" aria-label="Atalhos do teclado" title="Atalhos (?)">?</button>
   <user-menu id="userMenu" aria-hidden="true"></user-menu>
 </header>
 
@@ -78,6 +79,7 @@
 
 <item-viewer id="viewer" aria-hidden="true"></item-viewer>
 <auth-modal id="authModal" aria-hidden="true"></auth-modal>
+<help-overlay id="helpOverlay" aria-hidden="true"></help-overlay>
 
 <footer class="app-footer">
   <span id="footerStatus">Estado sincronizado</span>
@@ -91,6 +93,15 @@
 <script type="module" src="js/components/month-calendar.js"></script>
 <script type="module" src="js/components/month-switcher.js"></script>
 <script type="module" src="js/components/filter-bar.js"></script>
+<script type="module" src="js/components/help-overlay.js"></script>
+<script>
+  // Help button wire (não precisa de módulo).
+  document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("helpButton");
+    const overlay = document.getElementById("helpOverlay");
+    if (btn && overlay) btn.addEventListener("click", () => overlay.open());
+  });
+</script>
 <script type="module" src="js/components/carrossel-row.js"></script>
 <script type="module" src="js/components/post-tile.js"></script>
 <script type="module" src="js/components/reel-tile.js"></script>

@@ -12,10 +12,47 @@ class ItemViewer extends HTMLElement {
     this.addEventListener("click", (e) => { if (e.target === this) this.close(); });
     document.addEventListener("keydown", (e) => {
       if (this.getAttribute("data-open") !== "true") return;
-      if (e.key === "Escape") this.close();
-      if (e.key === "ArrowRight") this._step(+1);
-      if (e.key === "ArrowLeft")  this._step(-1);
+      // Ignorar atalhos se o user estiver a escrever uma nota.
+      const tag = (e.target?.tagName || "").toLowerCase();
+      const typing = tag === "input" || tag === "textarea" || e.target?.isContentEditable;
+      if (e.key === "Escape") return this.close();
+      if (e.key === "ArrowRight") return this._step(+1);
+      if (e.key === "ArrowLeft")  return this._step(-1);
+      if (typing) return;
+      // Atalhos action — só fora de inputs.
+      const key = e.key.toLowerCase();
+      if (key === "a") { e.preventDefault(); this._actAndAdvance("approve"); return; }
+      if (key === "r") { e.preventDefault(); this._actAndAdvance("reject");  return; }
+      if (key === "j" || e.key === "ArrowDown") { e.preventDefault(); this._advanceItem(+1); return; }
+      if (key === "k" || e.key === "ArrowUp")   { e.preventDefault(); this._advanceItem(-1); return; }
     });
+  }
+
+  _actAndAdvance(action) {
+    if (!this._item) return;
+    const note = this.querySelector("textarea[data-note]")?.value || "";
+    const desired = action === "approve" ? "approved" : "rejected";
+    const current = approvalStore.get(this._item.id).status;
+    approvalStore.set(this._item.id, current === desired ? "pending" : desired, note);
+    // Avança para o próximo item visível, OU fecha se estava no último.
+    if (!this._advanceItem(+1)) this.close();
+  }
+
+  _advanceItem(direction) {
+    // Pede ao main.js para encontrar o próximo item visível na mesma direcção
+    // e abri-lo se existir. Retorna true se conseguiu mover.
+    if (!this._item) return false;
+    const ev = new CustomEvent("viewer:advance", {
+      bubbles: true,
+      cancelable: true,
+      detail: { currentId: this._item.id, direction, callback: null },
+    });
+    this.dispatchEvent(ev);
+    // main.js terá preenchido callback com o item para abrir, ou null.
+    const next = ev.detail.next;
+    if (!next) return false;
+    this.open(next);
+    return true;
   }
 
   open(item) {
