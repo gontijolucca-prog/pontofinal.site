@@ -1,155 +1,155 @@
 {
-  "total_ms": 23113,
+  "total_ms": 22147,
   "chunks": [
     {
       "text": "Achas que o email",
       "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 1069
+      "dur_ms": 1028
     },
     {
       "text": "morreu?",
       "emphasis": "morreu?",
-      "start_ms": 1069,
-      "dur_ms": 440
+      "start_ms": 1028,
+      "dur_ms": 423
     },
     {
       "text": "Não morreu",
       "emphasis": null,
-      "start_ms": 1649,
-      "dur_ms": 905
+      "start_ms": 1591,
+      "dur_ms": 777
     },
     {
       "text": "Toda a gente",
       "emphasis": null,
-      "start_ms": 2695,
-      "dur_ms": 682
+      "start_ms": 2509,
+      "dur_ms": 686
     },
     {
       "text": "ainda usa email",
       "emphasis": null,
-      "start_ms": 3377,
-      "dur_ms": 853
+      "start_ms": 3195,
+      "dur_ms": 858
     },
     {
       "text": "todos os dias",
       "emphasis": null,
-      "start_ms": 4230,
-      "dur_ms": 740
+      "start_ms": 4053,
+      "dur_ms": 743
     },
     {
       "text": "E paga",
       "emphasis": "paga",
-      "start_ms": 5111,
-      "dur_ms": 650
+      "start_ms": 4936,
+      "dur_ms": 626
     },
     {
       "text": "Por cada euro",
       "emphasis": null,
-      "start_ms": 5901,
-      "dur_ms": 836
+      "start_ms": 5703,
+      "dur_ms": 784
     },
     {
       "text": "investido em email",
       "emphasis": null,
-      "start_ms": 6737,
-      "dur_ms": 1157
+      "start_ms": 6487,
+      "dur_ms": 1085
     },
     {
       "text": "recebes trinta e seis",
       "emphasis": "trinta e seis",
-      "start_ms": 7894,
-      "dur_ms": 1350
+      "start_ms": 7572,
+      "dur_ms": 1265
     },
     {
       "text": "Trinta e seis euros",
       "emphasis": "Trinta e seis",
-      "start_ms": 9385,
-      "dur_ms": 1149
+      "start_ms": 8978,
+      "dur_ms": 1102
     },
     {
       "text": "No Instagram",
       "emphasis": null,
-      "start_ms": 10674,
-      "dur_ms": 585
+      "start_ms": 10221,
+      "dur_ms": 590
     },
     {
       "text": "nem chegas a cinco",
       "emphasis": "cinco",
-      "start_ms": 11259,
-      "dur_ms": 877
+      "start_ms": 10811,
+      "dur_ms": 884
     },
     {
       "text": "A diferença",
       "emphasis": null,
-      "start_ms": 12277,
-      "dur_ms": 868
+      "start_ms": 11835,
+      "dur_ms": 849
     },
     {
       "text": "é simples",
       "emphasis": null,
-      "start_ms": 13145,
-      "dur_ms": 710
+      "start_ms": 12684,
+      "dur_ms": 695
     },
     {
       "text": "O Instagram",
       "emphasis": null,
-      "start_ms": 13996,
-      "dur_ms": 619
+      "start_ms": 13519,
+      "dur_ms": 599
     },
     {
       "text": "não te pertence",
       "emphasis": "não te pertence",
-      "start_ms": 14615,
-      "dur_ms": 843
+      "start_ms": 14118,
+      "dur_ms": 817
     },
     {
       "text": "Pode desaparecer",
       "emphasis": null,
-      "start_ms": 15599,
-      "dur_ms": 971
+      "start_ms": 15075,
+      "dur_ms": 869
     },
     {
       "text": "amanhã",
       "emphasis": null,
-      "start_ms": 16570,
-      "dur_ms": 364
+      "start_ms": 15944,
+      "dur_ms": 326
     },
     {
       "text": "A tua lista",
       "emphasis": null,
-      "start_ms": 17074,
+      "start_ms": 16411,
       "dur_ms": 708
     },
     {
       "text": "de emails sim",
       "emphasis": "sim",
-      "start_ms": 17782,
+      "start_ms": 17119,
       "dur_ms": 836
     },
     {
       "text": "É tua",
       "emphasis": null,
-      "start_ms": 18758,
-      "dur_ms": 457
+      "start_ms": 18095,
+      "dur_ms": 406
     },
     {
       "text": "para sempre",
       "emphasis": "para sempre",
-      "start_ms": 19215,
-      "dur_ms": 1005
+      "start_ms": 18501,
+      "dur_ms": 894
     },
     {
       "text": "Construímos a tua lista",
       "emphasis": null,
-      "start_ms": 20361,
-      "dur_ms": 1311
+      "start_ms": 19535,
+      "dur_ms": 1207
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 21813,
-      "dur_ms": 1300
+      "start_ms": 20882,
+      "dur_ms": 1265
     }
   ]
 }
