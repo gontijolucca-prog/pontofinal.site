@@ -478,17 +478,22 @@ body:has(.loader[aria-hidden="false"]) { overflow: hidden; }
 .tile__label {
   position: absolute;
   top: var(--s-2); left: var(--s-2);
-  background: var(--text);
+  /* Glass: deixa o conteúdo do iframe respirar atrás do chip. */
+  background: rgba(5, 5, 5, 0.62);
+  backdrop-filter: blur(8px) saturate(140%);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
   color: var(--bg);
-  padding: 3px 8px;
+  padding: 4px 9px;
   font: 900 var(--t-xxs)/1 var(--font-mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
-.tile--reel  .tile__label { background: var(--accent); }
-.tile--guide .tile__label { background: #B8762A; }
-.tile--video .tile__label { background: #1F7A4D; }
+/* Cores específicas por variante — cada uma a sua tonalidade glass. */
+.tile--reel  .tile__label { background: rgba(255, 42, 42, 0.62); }
+.tile--guide .tile__label { background: rgba(184, 118, 42, 0.62); }
+.tile--video .tile__label { background: rgba(31, 122, 77, 0.62); }
 .tile__caption {
   position: absolute;
   bottom: 0; left: 0; right: 0;
@@ -581,14 +586,25 @@ body:has(.loader[aria-hidden="false"]) { overflow: hidden; }
   top: 10px; right: 10px;
   z-index: 20;
   width: 36px; height: 36px;
-  background: var(--text);
+  /* Glass para não tapar o conteúdo da imagem por baixo. */
+  background: rgba(5, 5, 5, 0.55);
+  backdrop-filter: blur(8px) saturate(140%);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
   color: var(--bg);
-  border: 3px solid var(--border);
-  box-shadow: var(--shadow-sm);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   font: 900 18px/1 var(--font-heavy);
   cursor: pointer;
+  transition: background var(--d-fast) var(--ease);
 }
-.viewer-close:hover { background: var(--accent); color: var(--bg); }
+.viewer-close:hover {
+  background: var(--accent);
+  border-color: var(--bg);
+}
+@media (max-width: 720px) {
+  .viewer-close { width: 32px; height: 32px; top: 8px; right: 8px; font-size: 16px; }
+}
 
 /* Barra horizontal por baixo do iframe — prev | counter | next. Não tapa
    nada da imagem. Botões grandes, fáceis no telemóvel. */
