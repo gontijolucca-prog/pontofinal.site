@@ -20,7 +20,7 @@
 <a class="skip-link" href="#main">Saltar para conteúdo</a>
 
 <header class="app-header">
-  <div class="logo">Luiz Santana_</div>
+  <div class="logo">TechBody_</div>
   <div class="header-meta">
     <span>Aprovação de conteúdo</span>
     <span>·</span>
@@ -74,9 +74,11 @@
 </main>
 
 <item-viewer id="viewer" aria-hidden="true"></item-viewer>
+<auth-modal id="authModal" aria-hidden="true"></auth-modal>
+<user-menu id="userMenu" aria-hidden="true"></user-menu>
 
 <footer class="app-footer">
-  <span>Estado guardado localmente</span>
+  <span id="footerStatus">Estado sincronizado</span>
   <span>
     Aprovados <strong id="approvedCount">0</strong>
     · Rejeitados <strong id="rejectedCount">0</strong>
@@ -89,6 +91,8 @@
 <script type="module" src="js/components/post-tile.js"></script>
 <script type="module" src="js/components/reel-tile.js"></script>
 <script type="module" src="js/components/item-viewer.js"></script>
+<script type="module" src="js/components/auth-modal.js"></script>
+<script type="module" src="js/components/user-menu.js"></script>
 <script type="module" src="js/main.js"></script>
 </body>
 </html>

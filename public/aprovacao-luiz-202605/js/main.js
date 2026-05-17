@@ -1,7 +1,8 @@
 // main.js — load items, render calendar + carrossel list + stories + reels galleries.
 
 import { loadItems } from "./data-loader.js";
-import { approvalStore } from "./stores/approval-store.js";
+import { approvalStore, init as initApprovalStore } from "./stores/approval-store.js";
+import { supabase, AUTH_ENABLED } from "./lib/supabase-client.js";
 
 const state = { items: [] };
 
@@ -182,7 +183,40 @@ function manageLoader() {
   setTimeout(hideNow, HARD_CAP_MS);
 }
 
+async function ensureAuthenticated() {
+  if (!AUTH_ENABLED) return null; // modo dev: salta auth, usa localStorage
+  const authModal = document.getElementById("authModal");
+  const userMenu  = document.getElementById("userMenu");
+
+  const { data: { session } } = await supabase.auth.getSession();
+  if (session) {
+    userMenu.setSession(session);
+    return session;
+  }
+
+  // Esconde o loader; o modal toma conta.
+  const loader = document.getElementById("loader");
+  if (loader) loader.setAttribute("aria-hidden", "true");
+
+  authModal.open();
+
+  // Aguarda evento de sessão estabelecida (após click do magic link, Supabase
+  // emite SIGNED_IN).
+  return new Promise((resolve) => {
+    const { data: sub } = supabase.auth.onAuthStateChange((event, sess) => {
+      if (event === "SIGNED_IN" && sess) {
+        sub?.subscription?.unsubscribe?.();
+        authModal.close();
+        userMenu.setSession(sess);
+        resolve(sess);
+      }
+    });
+  });
+}
+
 async function init() {
+  await ensureAuthenticated();
+  await initApprovalStore();
   state.items = await loadItems();
   bindOpen();
   window.addEventListener("approval:changed", updateCounts);

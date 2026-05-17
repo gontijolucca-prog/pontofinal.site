@@ -897,3 +897,235 @@ body:has(.loader[aria-hidden="false"]) { overflow: hidden; }
   .slide-thumb { flex: 0 0 132px; }
   .slide-thumb iframe { transform: scale(0.1222); }
 }
+
+/* ─────────────────────────────────────────────────────────────────────
+   AUTH MODAL — duas inputs email + remember-me. Brutalist editorial
+   alinhado com o resto da app: bordas pretas grossas, hard shadow.
+   ───────────────────────────────────────────────────────────────────── */
+
+.auth-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: var(--s-4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--d-base) var(--ease);
+}
+.auth-modal[aria-hidden="false"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+.auth-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255, 42, 42, 0.18), transparent 55%),
+    radial-gradient(circle at 80% 80%, rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.95));
+  backdrop-filter: blur(6px);
+}
+.auth-modal__card {
+  position: relative;
+  width: min(440px, calc(100vw - var(--s-5)));
+  background: var(--bg);
+  border: var(--border-w-bold) solid var(--border);
+  box-shadow: var(--shadow-lg);
+  padding: var(--s-5) var(--s-4) var(--s-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  transform: translateY(8px);
+  animation: authReveal 360ms var(--ease) forwards;
+}
+@keyframes authReveal {
+  0%   { transform: translateY(20px); opacity: 0; }
+  60%  { transform: translateY(-4px); opacity: 1; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.auth-modal__head h2 {
+  font-family: var(--font-heavy);
+  font-size: var(--t-xl);
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  margin: 0 0 var(--s-2);
+  text-transform: uppercase;
+}
+.auth-modal__head p {
+  font-family: var(--font-mono);
+  font-size: var(--t-sm);
+  color: var(--text-mute);
+  margin: 0;
+  line-height: 1.4;
+}
+.auth-modal__email {
+  font-family: var(--font-mono);
+  font-size: var(--t-md);
+  color: var(--text);
+  margin-top: var(--s-2);
+  padding: var(--s-2) var(--s-3);
+  background: var(--bg-soft);
+  border: var(--border-w) solid var(--border);
+  word-break: break-all;
+}
+
+.auth-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  margin-top: var(--s-2);
+}
+.auth-modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.auth-modal__field > span {
+  font-family: var(--font-mono);
+  font-size: var(--t-xxs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+.auth-modal__field input {
+  font-family: var(--font-mono);
+  font-size: var(--t-md);
+  padding: var(--s-3);
+  background: var(--bg);
+  border: var(--border-w) solid var(--border);
+  color: var(--text);
+  outline: none;
+  transition: box-shadow var(--d-fast) var(--ease), transform var(--d-fast) var(--ease);
+}
+.auth-modal__field input:focus {
+  box-shadow: var(--shadow-sm);
+  transform: translate(-2px, -2px);
+}
+.auth-modal__error {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--accent);
+  margin: 0;
+  min-height: 1.2em;
+}
+.auth-modal__remember {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-sm);
+  cursor: pointer;
+  user-select: none;
+}
+.auth-modal__remember input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--accent);
+  border: var(--border-w) solid var(--border);
+  cursor: pointer;
+}
+.auth-modal__submit {
+  background: var(--text);
+  color: var(--bg);
+  border: var(--border-w) solid var(--border);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-heavy);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: var(--s-3);
+  font-size: var(--t-md);
+  cursor: pointer;
+  transition: transform var(--d-fast) var(--ease), box-shadow var(--d-fast) var(--ease);
+}
+.auth-modal__submit:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 var(--accent);
+}
+.auth-modal__submit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.auth-modal__small {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--text-faint);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.auth-modal__actions {
+  display: flex;
+  gap: var(--s-2);
+  margin-top: var(--s-2);
+}
+.auth-modal__back {
+  background: var(--bg);
+  color: var(--text);
+  border: var(--border-w) solid var(--border);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-heavy);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: var(--s-2) var(--s-3);
+  font-size: var(--t-sm);
+  cursor: pointer;
+  transition: transform var(--d-fast) var(--ease);
+}
+.auth-modal__back:hover {
+  transform: translate(-2px, -2px);
+}
+
+@media (max-width: 720px) {
+  .auth-modal__card { padding: var(--s-4) var(--s-3); }
+  .auth-modal__head h2 { font-size: var(--t-lg); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   USER MENU — chip discreto top-right com email + logout.
+   ───────────────────────────────────────────────────────────────────── */
+
+.user-menu {
+  position: fixed;
+  top: var(--s-2);
+  right: var(--s-2);
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: 6px 10px;
+  background: var(--bg);
+  border: var(--border-w) solid var(--border);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+}
+.user-menu[aria-hidden="true"] {
+  display: none;
+}
+.user-menu__email {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text);
+}
+.user-menu__logout {
+  background: var(--text);
+  color: var(--bg);
+  border: none;
+  padding: 4px 8px;
+  font-family: var(--font-heavy);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: var(--t-xxs);
+  cursor: pointer;
+  transition: background var(--d-fast) var(--ease);
+}
+.user-menu__logout:hover {
+  background: var(--accent);
+}
+@media (max-width: 720px) {
+  .user-menu__email { max-width: 120px; }
+}
