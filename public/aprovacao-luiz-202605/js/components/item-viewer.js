@@ -65,17 +65,21 @@ class ItemViewer extends HTMLElement {
     const state = approvalStore.get(it.id);
     const isCarousel = it.format === "carrossel" && it.slides > 1;
 
-    const navHtml = isCarousel ? `
-      <button class="viewer-nav viewer-nav--prev" data-action="prev" aria-label="Slide anterior">‹</button>
-      <button class="viewer-nav viewer-nav--next" data-action="next" aria-label="Próximo slide">›</button>
-      <span class="viewer-counter">${this._slide} / ${it.slides}</span>
+    const navbarHtml = isCarousel ? `
+      <div class="viewer-navbar">
+        <button class="viewer-nav viewer-nav--prev" data-action="prev" aria-label="Slide anterior">‹</button>
+        <span class="viewer-counter">${this._slide} / ${it.slides}</span>
+        <button class="viewer-nav viewer-nav--next" data-action="next" aria-label="Próximo slide">›</button>
+      </div>
     ` : "";
 
     this.innerHTML = `
       <div class="viewer-modal" data-format="${it.format}" role="dialog" aria-modal="true" aria-label="${it.title || it.theme}">
-        <div class="viewer-frame-wrap">
-          ${it.html_url ? `<iframe src="${it.html_url}${isCarousel ? "#slide-1" : ""}" title="${it.title}"></iframe>` : ``}
-          ${navHtml}
+        <div class="viewer-frame-col">
+          <div class="viewer-frame-wrap">
+            ${it.html_url ? `<iframe src="${it.html_url}${isCarousel ? "#slide-1" : ""}" title="${it.title}"></iframe>` : ``}
+          </div>
+          ${navbarHtml}
         </div>
         <aside class="viewer-panel">
           <div class="viewer-meta">
