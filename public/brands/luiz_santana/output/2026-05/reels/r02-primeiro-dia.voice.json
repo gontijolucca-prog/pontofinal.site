@@ -1,0 +1,66 @@
+{
+  "voice": "pt-PT-RaquelNeural",
+  "total_ms": 39688,
+  "chunks": [
+    {
+      "text": "Nunca fizeste EMS?",
+      "start_ms": 0,
+      "dur_ms": 2928
+    },
+    {
+      "text": "Vou-te contar como é o primeiro dia no estúdio.",
+      "start_ms": 3128,
+      "dur_ms": 3456
+    },
+    {
+      "text": "Conversa curta sobre os teus objectivos e o teu historial.",
+      "start_ms": 6784,
+      "dur_ms": 4536
+    },
+    {
+      "text": "O treinador percebe de onde partes.",
+      "start_ms": 11520,
+      "dur_ms": 3288
+    },
+    {
+      "text": "Avaliação inicial.",
+      "start_ms": 15008,
+      "dur_ms": 2592
+    },
+    {
+      "text": "Vestes o fato EMS.",
+      "start_ms": 17800,
+      "dur_ms": 2736
+    },
+    {
+      "text": "O treinador acompanha cada movimento.",
+      "start_ms": 20736,
+      "dur_ms": 3528
+    },
+    {
+      "text": "Vinte e cinco minutos depois, sais com a sessão feita.",
+      "start_ms": 24464,
+      "dur_ms": 4344
+    },
+    {
+      "text": "Sem cargas pesadas.",
+      "start_ms": 29008,
+      "dur_ms": 2736
+    },
+    {
+      "text": "Sem desculpas.",
+      "start_ms": 31944,
+      "dur_ms": 2328
+    },
+    {
+      "text": "Marca a primeira sessão.",
+      "start_ms": 34472,
+      "dur_ms": 2688
+    },
+    {
+      "text": "Sem compromisso.",
+      "start_ms": 37360,
+      "dur_ms": 2328
+    }
+  ]
+}

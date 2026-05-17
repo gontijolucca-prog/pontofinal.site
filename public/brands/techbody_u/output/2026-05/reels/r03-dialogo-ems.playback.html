@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>EMS, em conversa.</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;700;800&family=JetBrains+Mono:wght@300;500;700&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html,body {
+    background: #0a0a0a; color: #ffffff;
+    font-family: 'Manrope', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    width: min(100vw, calc(100vh * 9/16));
+    height: min(100vh, calc(100vw * 16/9));
+    margin: 0 auto;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+
+  .head {
+    padding: 16px 18px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .brand-badge {
+    font: 800 11px/1 'Manrope';
+    letter-spacing: -0.02em;
+    padding: 5px 9px;
+    background: #ffffff;
+    color: #0a0a0a;
+  }
+  .duration-badge {
+    font: 700 10px/1 'JetBrains Mono';
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.55);
+  }
+
+  /* Stage: ilustração + subtítulos */
+  .stage {
+    position: relative;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at center, rgba(255,42,42,0.10) 0%, transparent 70%),
+      #0a0a0a;
+  }
+  .illustration-slot {
+    position: absolute;
+    inset: 16px;
+    border: 2px dashed rgba(255,255,255,0.20);
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+  .illustration-slot__hint {
+    font: 700 10px/1.4 'JetBrains Mono';
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.32);
+    text-align: center;
+    padding: 0 24px;
+  }
+  .subtitle-stack {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: end center;
+    padding-bottom: 70px;
+    z-index: 2;
+  }
+  .chunk {
+    position: absolute;
+    bottom: 90px;
+    left: 22px;
+    right: 22px;
+    font: 800 32px/1.08 'Manrope';
+    letter-spacing: -0.03em;
+    text-align: left;
+    color: #ffffff;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.6);
+    opacity: 0;
+    will-change: opacity, transform;
+  }
+
+  /* Foot: play button + progress + storyboard preview */
+  .foot {
+    padding: 14px 18px 18px;
+    background: linear-gradient(to top, #0a0a0a 70%, transparent);
+    z-index: 3;
+  }
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
+  .play-btn {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: #FF2A2A;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    font: 900 16px/1 'Manrope';
+    display: grid;
+    place-items: center;
+    box-shadow: 0 2px 8px rgba(255,42,42,0.4);
+    transition: transform 120ms ease;
+  }
+  .play-btn:hover { transform: scale(1.05); }
+  .progress {
+    flex: 1;
+    height: 4px;
+    background: rgba(255,255,255,0.14);
+    overflow: hidden;
+  }
+  .progress__fill {
+    height: 100%;
+    background: #FF2A2A;
+    width: 0%;
+    transition: width 80ms linear;
+  }
+  .time {
+    font: 700 10px/1 'JetBrains Mono';
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.08em;
+    min-width: 50px;
+    text-align: right;
+  }
+  .voice-note {
+    font: 700 9px/1 'JetBrains Mono';
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    text-align: center;
+    margin-top: 6px;
+  }
+
+  /* Storyboard preview — em baixo, scrollable */
+  details.storyboard {
+    margin-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding-top: 10px;
+  }
+  details.storyboard summary {
+    font: 700 10px/1 'JetBrains Mono';
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    margin-bottom: 8px;
+  }
+  .storyboard ul { list-style: none; }
+  .story-row {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 8px;
+    padding: 6px 0;
+    font: 400 11px/1.4 'Manrope';
+  }
+  .story-role {
+    font: 700 9px/1 'JetBrains Mono';
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    align-self: start;
+    padding-top: 1px;
+  }
+
+  @keyframes chunk0 {
+  0% { opacity: 0; transform: translateY(8px); }
+  0.000% { opacity: 0; transform: translateY(8px); }
+  0.000% { opacity: 1; transform: none; }
+  99.958% { opacity: 1; transform: none; }
+  100.000%, 100% { opacity: 0; transform: translateY(-8px); }
+}
+
+  /* Pausa animação se áudio não está a tocar */
+  body:not(.playing) .chunk {
+    animation-play-state: paused !important;
+    opacity: 0;
+  }
+  body:not(.playing) .chunk:first-child {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+</head>
+<body>
+  <header class="head">
+    <span class="brand-badge">TechBody U</span>
+    <span class="duration-badge">7.2s · Voz feminina PT-PT</span>
+  </header>
+
+  <main class="stage">
+    <div class="illustration-slot">
+      <span class="illustration-slot__hint">ILUSTRAÇÃO<br/>(a definir)</span>
+    </div>
+    <div class="subtitle-stack">
+      <div class="chunk" style="animation: chunk0 7.224s linear infinite both;">iMessage entre TechBody U e utilizador — Q&A rápido sobre EMS, fechando no site.</div>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <div class="controls">
+      <button id="playBtn" class="play-btn" aria-label="Play">▶</button>
+      <div class="progress"><div class="progress__fill" id="progressFill"></div></div>
+      <span class="time" id="timeLabel">0:00 / 0:07</span>
+    </div>
+    <p class="voice-note">Voz: Raquel (Microsoft Neural) · PT-PT</p>
+
+    <details class="storyboard">
+      <summary>Roteiro · 1 blocos</summary>
+      <ul>
+        <li class="story-row"><span class="story-role">• video</span><span class="story-text">iMessage entre TechBody U e utilizador — Q&A rápido sobre EMS, fechando no site.</span></li>
+      </ul>
+    </details>
+  </footer>
+
+  <audio id="audio" src="r03-dialogo-ems.voice.mp3" preload="auto"></audio>
+
+  <script>
+    const audio = document.getElementById('audio');
+    const btn   = document.getElementById('playBtn');
+    const fill  = document.getElementById('progressFill');
+    const time  = document.getElementById('timeLabel');
+    const body  = document.body;
+
+    function fmt(s) {
+      const m = Math.floor(s/60); const x = Math.floor(s%60);
+      return m + ':' + String(x).padStart(2,'0');
+    }
+    function update() {
+      if (!audio.duration) return;
+      const pct = (audio.currentTime / audio.duration) * 100;
+      fill.style.width = pct + '%';
+      time.textContent = fmt(audio.currentTime) + ' / ' + fmt(audio.duration);
+    }
+    btn.addEventListener('click', () => {
+      if (audio.paused) audio.play(); else audio.pause();
+    });
+    audio.addEventListener('play', () => { btn.textContent = '⏸'; body.classList.add('playing'); });
+    audio.addEventListener('pause', () => { btn.textContent = '▶'; body.classList.remove('playing'); });
+    audio.addEventListener('ended', () => {
+      audio.currentTime = 0;
+      audio.play();   // loop
+    });
+    audio.addEventListener('timeupdate', update);
+    audio.addEventListener('loadedmetadata', update);
+
+    // Sincroniza animação CSS com o áudio: define animation-delay negativo
+    // == currentTime para começar pelo chunk certo após seek.
+    function syncAnimations() {
+      const t = audio.currentTime;
+      document.querySelectorAll('.chunk').forEach(el => {
+        el.style.animationDelay = (-t) + 's';
+      });
+    }
+    audio.addEventListener('play', syncAnimations);
+    audio.addEventListener('seeked', syncAnimations);
+  </script>
+</body>
+</html>

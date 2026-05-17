@@ -1,0 +1,36 @@
+{
+  "voice": "pt-PT-RaquelNeural",
+  "total_ms": 15760,
+  "chunks": [
+    {
+      "text": "25 minutos.",
+      "start_ms": 0,
+      "dur_ms": 2520
+    },
+    {
+      "text": "Menos do que esperas no café.",
+      "start_ms": 2720,
+      "dur_ms": 2832
+    },
+    {
+      "text": "Menos do que um episódio.",
+      "start_ms": 5752,
+      "dur_ms": 2736
+    },
+    {
+      "text": "Sessão completa.",
+      "start_ms": 8688,
+      "dur_ms": 2376
+    },
+    {
+      "text": "Treino sério.",
+      "start_ms": 11264,
+      "dur_ms": 2064
+    },
+    {
+      "text": "Marca sessão →",
+      "start_ms": 13528,
+      "dur_ms": 2232
+    }
+  ]
+}

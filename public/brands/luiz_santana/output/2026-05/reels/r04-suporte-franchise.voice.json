@@ -1,0 +1,71 @@
+{
+  "voice": "pt-PT-RaquelNeural",
+  "total_ms": 41448,
+  "chunks": [
+    {
+      "text": "Vais abrir um estúdio TechBody?",
+      "start_ms": 0,
+      "dur_ms": 2976
+    },
+    {
+      "text": "Não vais sozinho.",
+      "start_ms": 3176,
+      "dur_ms": 2496
+    },
+    {
+      "text": "Plano de negócio adaptado ao teu mercado.",
+      "start_ms": 5872,
+      "dur_ms": 3504
+    },
+    {
+      "text": "Formação de treinadores em eletroestimulação.",
+      "start_ms": 9576,
+      "dur_ms": 4152
+    },
+    {
+      "text": "Recrutamento da equipa.",
+      "start_ms": 13928,
+      "dur_ms": 2640
+    },
+    {
+      "text": "Marketing digital de lançamento.",
+      "start_ms": 16768,
+      "dur_ms": 3216
+    },
+    {
+      "text": "Tudo coordenado pela rede.",
+      "start_ms": 20184,
+      "dur_ms": 2736
+    },
+    {
+      "text": "Depois do arranque continuamos contigo.",
+      "start_ms": 23120,
+      "dur_ms": 3432
+    },
+    {
+      "text": "Revisão mensal de objectivos.",
+      "start_ms": 26752,
+      "dur_ms": 3264
+    },
+    {
+      "text": "Suporte comercial.",
+      "start_ms": 30216,
+      "dur_ms": 2472
+    },
+    {
+      "text": "Não estás sozinho na operação.",
+      "start_ms": 32888,
+      "dur_ms": 2928
+    },
+    {
+      "text": "Marca uma reunião.",
+      "start_ms": 36016,
+      "dur_ms": 2424
+    },
+    {
+      "text": "Vamos desenhar o teu estúdio.",
+      "start_ms": 38640,
+      "dur_ms": 2808
+    }
+  ]
+}

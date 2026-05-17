@@ -1,0 +1,66 @@
+{
+  "voice": "pt-PT-RaquelNeural",
+  "total_ms": 37288,
+  "chunks": [
+    {
+      "text": "Primeira sessão em casa?",
+      "start_ms": 0,
+      "dur_ms": 2616
+    },
+    {
+      "text": "Vou-te mostrar passo a passo.",
+      "start_ms": 2816,
+      "dur_ms": 2928
+    },
+    {
+      "text": "Tira o fato da caixa.",
+      "start_ms": 5944,
+      "dur_ms": 2568
+    },
+    {
+      "text": "Veste-o por cima da roupa de treino.",
+      "start_ms": 8712,
+      "dur_ms": 3144
+    },
+    {
+      "text": "Liga o controlador com o clique magnético.",
+      "start_ms": 12056,
+      "dur_ms": 3624
+    },
+    {
+      "text": "Abre a aplicação.",
+      "start_ms": 15880,
+      "dur_ms": 2232
+    },
+    {
+      "text": "Escolhe uma sessão da biblioteca.",
+      "start_ms": 18312,
+      "dur_ms": 3096
+    },
+    {
+      "text": "Apertas iniciar.",
+      "start_ms": 21608,
+      "dur_ms": 2520
+    },
+    {
+      "text": "O treinador digital guia tudo — do aquecimento ao fecho.",
+      "start_ms": 24328,
+      "dur_ms": 4704
+    },
+    {
+      "text": "Vinte e cinco minutos.",
+      "start_ms": 29232,
+      "dur_ms": 2520
+    },
+    {
+      "text": "Compra ou subscrição mensal.",
+      "start_ms": 31952,
+      "dur_ms": 3144
+    },
+    {
+      "text": "Link na bio.",
+      "start_ms": 35296,
+      "dur_ms": 1992
+    }
+  ]
+}
