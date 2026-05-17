@@ -1,143 +1,143 @@
 {
-  "total_ms": 22424,
+  "total_ms": 21298,
   "chunks": [
     {
       "text": "Atenção",
       "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 940
+      "dur_ms": 847
     },
     {
       "text": "Não me venham",
       "emphasis": null,
-      "start_ms": 1080,
-      "dur_ms": 699
+      "start_ms": 988,
+      "dur_ms": 674
     },
     {
       "text": "com sites bonitos",
       "emphasis": "bonitos",
-      "start_ms": 1779,
-      "dur_ms": 914
+      "start_ms": 1662,
+      "dur_ms": 881
     },
     {
       "text": "Conheço um cliente",
       "emphasis": null,
-      "start_ms": 2834,
-      "dur_ms": 832
+      "start_ms": 2684,
+      "dur_ms": 812
     },
     {
       "text": "que pagou",
       "emphasis": null,
-      "start_ms": 3666,
-      "dur_ms": 416
+      "start_ms": 3496,
+      "dur_ms": 406
     },
     {
       "text": "cinco mil euros",
       "emphasis": "cinco mil euros",
-      "start_ms": 4082,
-      "dur_ms": 694
+      "start_ms": 3902,
+      "dur_ms": 676
     },
     {
       "text": "num site lindíssimo",
       "emphasis": null,
-      "start_ms": 4776,
-      "dur_ms": 879
+      "start_ms": 4578,
+      "dur_ms": 857
     },
     {
       "text": "Design premiado",
       "emphasis": null,
-      "start_ms": 5795,
-      "dur_ms": 996
+      "start_ms": 5576,
+      "dur_ms": 924
     },
     {
       "text": "toda a gente elogiava",
       "emphasis": null,
-      "start_ms": 6791,
-      "dur_ms": 1395
+      "start_ms": 6500,
+      "dur_ms": 1293
     },
     {
       "text": "Vendeu zero",
       "emphasis": "zero",
-      "start_ms": 8327,
-      "dur_ms": 1175
+      "start_ms": 7934,
+      "dur_ms": 1032
     },
     {
       "text": "Nada",
       "emphasis": null,
-      "start_ms": 9502,
-      "dur_ms": 427
+      "start_ms": 8966,
+      "dur_ms": 375
     },
     {
       "text": "Em três meses inteiros",
       "emphasis": null,
-      "start_ms": 10069,
-      "dur_ms": 1416
+      "start_ms": 9481,
+      "dur_ms": 1314
     },
     {
       "text": "Sabes qual era",
       "emphasis": null,
-      "start_ms": 11625,
-      "dur_ms": 760
+      "start_ms": 10936,
+      "dur_ms": 773
     },
     {
       "text": "o problema?",
       "emphasis": null,
-      "start_ms": 12385,
-      "dur_ms": 598
+      "start_ms": 11709,
+      "dur_ms": 608
     },
     {
       "text": "Não tinha",
       "emphasis": null,
-      "start_ms": 13123,
+      "start_ms": 12458,
       "dur_ms": 553
     },
     {
       "text": "chamada à acção",
       "emphasis": "chamada à acção",
-      "start_ms": 13676,
+      "start_ms": 13011,
       "dur_ms": 921
     },
     {
       "text": "Os visitantes admiravam",
       "emphasis": null,
-      "start_ms": 14737,
-      "dur_ms": 1350
+      "start_ms": 14072,
+      "dur_ms": 1229
     },
     {
       "text": "e iam embora",
       "emphasis": null,
-      "start_ms": 16087,
-      "dur_ms": 704
+      "start_ms": 15301,
+      "dur_ms": 641
     },
     {
       "text": "Bonito não vende",
       "emphasis": null,
-      "start_ms": 16932,
-      "dur_ms": 1054
+      "start_ms": 16083,
+      "dur_ms": 1013
     },
     {
       "text": "Conversão vende",
       "emphasis": "Conversão vende",
-      "start_ms": 17986,
-      "dur_ms": 989
+      "start_ms": 17096,
+      "dur_ms": 950
     },
     {
       "text": "Auditamos o teu site",
       "emphasis": null,
-      "start_ms": 19115,
-      "dur_ms": 1348
+      "start_ms": 18186,
+      "dur_ms": 1241
     },
     {
       "text": "grátis",
       "emphasis": "grátis",
-      "start_ms": 20463,
-      "dur_ms": 405
+      "start_ms": 19427,
+      "dur_ms": 372
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 21008,
-      "dur_ms": 1416
+      "start_ms": 19940,
+      "dur_ms": 1358
     }
   ]
 }

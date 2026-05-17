@@ -1,155 +1,155 @@
 {
-  "total_ms": 25111,
+  "total_ms": 24128,
   "chunks": [
     {
       "text": "Alguém te ligou ontem",
       "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 1080
+      "dur_ms": 1050
     },
     {
       "text": "em nome do teu chefe?",
       "emphasis": "do teu chefe",
-      "start_ms": 1080,
-      "dur_ms": 1079
+      "start_ms": 1050,
+      "dur_ms": 1051
     },
     {
       "text": "Cuidado",
       "emphasis": "Cuidado",
-      "start_ms": 2299,
-      "dur_ms": 859
+      "start_ms": 2241,
+      "dur_ms": 573
     },
     {
       "text": "Pode não ter sido",
       "emphasis": null,
-      "start_ms": 3298,
-      "dur_ms": 1085
+      "start_ms": 2955,
+      "dur_ms": 957
     },
     {
       "text": "ele",
       "emphasis": "ele",
-      "start_ms": 4383,
-      "dur_ms": 192
+      "start_ms": 3912,
+      "dur_ms": 169
     },
     {
       "text": "A inteligência artificial",
       "emphasis": null,
-      "start_ms": 4715,
-      "dur_ms": 1574
+      "start_ms": 4221,
+      "dur_ms": 1524
     },
     {
       "text": "copia vozes",
       "emphasis": null,
-      "start_ms": 6289,
-      "dur_ms": 693
+      "start_ms": 5745,
+      "dur_ms": 670
     },
     {
       "text": "em cinco minutos",
       "emphasis": "cinco minutos",
-      "start_ms": 6982,
-      "dur_ms": 1007
+      "start_ms": 6415,
+      "dur_ms": 975
     },
     {
       "text": "Cinco",
       "emphasis": "Cinco",
-      "start_ms": 8129,
-      "dur_ms": 487
+      "start_ms": 7531,
+      "dur_ms": 441
     },
     {
       "text": "Houve empresas portuguesas",
       "emphasis": null,
-      "start_ms": 8757,
-      "dur_ms": 1334
+      "start_ms": 8112,
+      "dur_ms": 1287
     },
     {
       "text": "que perderam",
       "emphasis": null,
-      "start_ms": 10091,
-      "dur_ms": 616
+      "start_ms": 9399,
+      "dur_ms": 594
     },
     {
       "text": "dezenas de milhares",
       "emphasis": "milhares",
-      "start_ms": 10707,
-      "dur_ms": 975
+      "start_ms": 9993,
+      "dur_ms": 940
     },
     {
       "text": "Voz idêntica",
       "emphasis": null,
-      "start_ms": 11823,
-      "dur_ms": 863
+      "start_ms": 11073,
+      "dur_ms": 821
     },
     {
       "text": "à do CEO",
       "emphasis": null,
-      "start_ms": 12686,
-      "dur_ms": 576
+      "start_ms": 11894,
+      "dur_ms": 548
     },
     {
       "text": "Pediu para fazer",
       "emphasis": null,
-      "start_ms": 13403,
-      "dur_ms": 903
+      "start_ms": 12583,
+      "dur_ms": 868
     },
     {
       "text": "transferência urgente",
       "emphasis": null,
-      "start_ms": 14306,
-      "dur_ms": 1186
+      "start_ms": 13451,
+      "dur_ms": 1140
     },
     {
       "text": "Era falso",
       "emphasis": "Era falso",
-      "start_ms": 15633,
-      "dur_ms": 638
+      "start_ms": 14732,
+      "dur_ms": 766
     },
     {
       "text": "A regra",
       "emphasis": null,
-      "start_ms": 16412,
-      "dur_ms": 655
+      "start_ms": 15638,
+      "dur_ms": 604
     },
     {
       "text": "é simples",
       "emphasis": null,
-      "start_ms": 17067,
-      "dur_ms": 842
+      "start_ms": 16242,
+      "dur_ms": 777
     },
     {
       "text": "Verifica sempre",
       "emphasis": null,
-      "start_ms": 18050,
-      "dur_ms": 1160
+      "start_ms": 17160,
+      "dur_ms": 1108
     },
     {
       "text": "por outro canal",
       "emphasis": "outro canal",
-      "start_ms": 19210,
-      "dur_ms": 1161
+      "start_ms": 18268,
+      "dur_ms": 1109
     },
     {
       "text": "Sempre",
       "emphasis": "Sempre",
-      "start_ms": 20512,
-      "dur_ms": 604
+      "start_ms": 19518,
+      "dur_ms": 576
     },
     {
       "text": "Sem excepção",
       "emphasis": null,
-      "start_ms": 21116,
-      "dur_ms": 1207
+      "start_ms": 20094,
+      "dur_ms": 1153
     },
     {
       "text": "Protegemos o teu negócio",
       "emphasis": null,
-      "start_ms": 22463,
-      "dur_ms": 1230
+      "start_ms": 21388,
+      "dur_ms": 1265
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 23834,
-      "dur_ms": 1277
+      "start_ms": 22793,
+      "dur_ms": 1335
     }
   ]
 }
