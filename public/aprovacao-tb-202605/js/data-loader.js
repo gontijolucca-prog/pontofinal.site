@@ -1,11 +1,18 @@
 // data-loader.js — loads items.json and derives filter universe.
 
+import { BRANDS_FILTER } from "./config.js";
+
 export async function loadItems() {
   try {
     const res = await fetch('data/items.json', { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const items = await res.json();
+    let items = await res.json();
     if (!Array.isArray(items)) throw new Error('items.json must be an array');
+    // Per-deploy brand filter: items.json é partilhado entre deploys mas cada
+    // deploy só mostra as suas marcas (definidas em config.js BRANDS_FILTER).
+    if (BRANDS_FILTER && BRANDS_FILTER.length > 0) {
+      items = items.filter(it => BRANDS_FILTER.includes(it.brand));
+    }
     return items;
   } catch (err) {
     console.warn('[data-loader] items.json not found or invalid:', err.message);

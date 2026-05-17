@@ -8,3 +8,5 @@ export const AUTH_ENABLED =
   SUPABASE_URL.startsWith("https://") &&
   !SUPABASE_URL.includes("YOUR_PROJECT") &&
   !SUPABASE_ANON_KEY.includes("REPLACE");
+
+export const BRANDS_FILTER = ["luiz_santana"];
