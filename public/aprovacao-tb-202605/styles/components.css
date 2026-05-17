@@ -594,53 +594,63 @@ body:has(.loader[aria-hidden="false"]) { overflow: hidden; }
   background: var(--bg);
   border: var(--border-w-bold) solid var(--border);
   box-shadow: var(--shadow-lg);
-  display: grid;
-  grid-template-columns: auto 400px;
+  display: flex;
   overflow: hidden;
 }
-@media (max-width: 880px) {
-  .viewer-modal {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-    height: 96vh;
-  }
-  .viewer-frame-wrap {
-    aspect-ratio: 4 / 5;
-    height: auto !important;
-    max-width: 100% !important;
-    width: 100%;
-  }
-  .viewer-modal[data-format="story"] .viewer-frame-wrap,
-  .viewer-modal[data-format="reel"]  .viewer-frame-wrap {
-    aspect-ratio: 9 / 16;
-  }
-  .viewer-panel { border-top: var(--border-w-bold) solid var(--border); border-left: 0 !important; }
-}
-/* Wrapper column: contém o iframe + barra de navegação (slides). A coluna
-   tem largura ditada pela aspect-ratio do .viewer-frame-wrap. A navbar fica
-   por baixo do iframe (estilo Instagram com counter centrado), nunca em cima
-   da imagem. */
+/* Coluna do conteúdo: aspect-ratio define a largura a partir da altura.
+   Default 4:5 (carrossel); story/reel override para 9:16. */
 .viewer-frame-col {
   display: flex;
   flex-direction: column;
   height: 100%;
   min-height: 0;
+  aspect-ratio: 4 / 5;
+  max-width: calc(96vw - 400px);
+  flex-shrink: 0;
+}
+.viewer-modal[data-format="story"] .viewer-frame-col,
+.viewer-modal[data-format="reel"]  .viewer-frame-col {
+  aspect-ratio: 9 / 16;
+}
+.viewer-panel {
+  width: 400px;
+  flex-shrink: 0;
 }
 .viewer-frame-wrap {
   background: var(--bg);
   position: relative;
   flex: 1 1 auto;
   min-height: 0;
-  aspect-ratio: 4 / 5;
-  max-width: calc(96vw - 400px);
   border-bottom: var(--border-w) solid var(--border);
 }
-/* Stories + reels são 9:16 — switch ratio. */
-.viewer-modal[data-format="story"] .viewer-frame-wrap,
-.viewer-modal[data-format="reel"]  .viewer-frame-wrap {
-  aspect-ratio: 9 / 16;
-}
 .viewer-frame-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+@media (max-width: 880px) {
+  .viewer-modal {
+    flex-direction: column;
+    height: 96vh;
+    max-width: 100vw;
+  }
+  .viewer-frame-col {
+    aspect-ratio: 4 / 5;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    flex-shrink: 1;
+  }
+  .viewer-modal[data-format="story"] .viewer-frame-col,
+  .viewer-modal[data-format="reel"]  .viewer-frame-col {
+    aspect-ratio: 9 / 16;
+  }
+  .viewer-panel {
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    border-top: var(--border-w-bold) solid var(--border);
+    border-left: 0 !important;
+  }
+}
 .viewer-close {
   position: absolute;
   top: 10px; right: 10px;
