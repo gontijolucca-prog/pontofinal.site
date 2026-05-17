@@ -4,6 +4,7 @@ import { loadItems } from "./data-loader.js";
 import { approvalStore, init as initApprovalStore } from "./stores/approval-store.js";
 import { supabase, AUTH_ENABLED } from "./lib/supabase-client.js";
 import { monthShortLabel } from "./components/month-switcher.js";
+import { DASHBOARD_URL } from "./config.js";
 
 const state = {
   items: [],
@@ -277,48 +278,74 @@ function manageLoader() {
   const loader = document.getElementById("loader");
   const fill   = document.getElementById("loaderFill");
   const hint   = document.getElementById("loaderHint");
+  const label  = document.querySelector(".loader__label-text") || document.querySelector(".loader__label");
   if (!loader) return;
 
   const start = performance.now();
-  const MIN_VISIBLE_MS = 1200;   // never flash & disappear
-  const PER_IFRAME_MS  = 18000;  // give each iframe up to 18s before we count it
-  const HARD_CAP_MS    = 30000;  // absolute ceiling so user isn't stuck forever
-  const POST_LOAD_PAINT_MS = 400; // wait for content to actually paint after load fires
+  const MIN_VISIBLE_MS = 700;
+  const PER_IFRAME_HARD_TIMEOUT = 60_000; // 60s por iframe — só dispara em casos extremos
+  const ABSOLUTE_SAFETY_MS = 5 * 60_000;  // 5 min absoluto (rede partida)
+  const SETTLE_WINDOW_MS = 400;           // body height tem de estar estável este tempo
+  const SETTLE_POLL_MS = 80;
+  const POST_LOAD_PAINT_MS = 250;
 
-  // Catch every iframe that gets rendered into the DOM.
   const iframes = Array.from(document.querySelectorAll("iframe"));
   const total = iframes.length;
   let done = 0;
   let hidden = false;
+  let allIframesReady = false;
 
-  const hideNow = () => {
+  function hideNow() {
     if (hidden) return;
     hidden = true;
-    // Tiny delay so the user sees the bar reach 100% before fade.
     setTimeout(() => loader.setAttribute("aria-hidden", "true"), 220);
-  };
+  }
 
-  const tryHide = () => {
+  // Espera até a página estar estável (fonts loaded + body height parou de mudar).
+  // Só depois liberta o scroll. Isto resolve o "loader desaparece mas página
+  // continua a saltar" — fica visível enquanto o reflow está em curso.
+  function waitForSettlementThenHide() {
     if (hidden) return;
-    if (done < total) return;
-    const elapsed = performance.now() - start;
-    if (elapsed >= MIN_VISIBLE_MS) {
-      hideNow();
-    } else {
-      setTimeout(tryHide, MIN_VISIBLE_MS - elapsed + 20);
-    }
-  };
+    const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
+    fontsReady.then(() => {
+      let lastHeight = document.body.scrollHeight;
+      let stableSince = performance.now();
+      const poll = () => {
+        if (hidden) return;
+        const h = document.body.scrollHeight;
+        if (h !== lastHeight) {
+          lastHeight = h;
+          stableSince = performance.now();
+        }
+        if (performance.now() - stableSince >= SETTLE_WINDOW_MS) {
+          // Garantir min-visible
+          const elapsed = performance.now() - start;
+          if (elapsed >= MIN_VISIBLE_MS) hideNow();
+          else setTimeout(hideNow, MIN_VISIBLE_MS - elapsed);
+        } else {
+          setTimeout(poll, SETTLE_POLL_MS);
+        }
+      };
+      poll();
+    });
+  }
 
-  const update = () => {
+  function update() {
     const pct = total === 0 ? 1 : done / total;
-    fill.style.transform = `scaleX(${pct})`;
-    hint.textContent = `${done} / ${total}`;
-    tryHide();
-  };
+    if (fill) fill.style.transform = `scaleX(${pct})`;
+    if (hint) hint.textContent = `${done} / ${total}`;
+    if (label && allIframesReady) label.textContent = "Quase pronto…";
+    if (done >= total && !allIframesReady) {
+      allIframesReady = true;
+      if (label) label.textContent = "A finalizar…";
+      // iframes todos reportaram done — agora espera que a página assente.
+      waitForSettlementThenHide();
+    }
+  }
 
   if (total === 0) {
-    fill.style.transform = "scaleX(1)";
-    setTimeout(() => loader.setAttribute("aria-hidden", "true"), MIN_VISIBLE_MS);
+    update();
+    waitForSettlementThenHide();
     return;
   }
 
@@ -333,11 +360,7 @@ function manageLoader() {
       update();
     };
 
-    // Wait for the iframe's window load (covers its images + fonts), then
-    // wait one paint cycle so the content is actually on the screen.
     const onLoad = () => {
-      // The iframe document is now done. Wait for its inner window load too
-      // (catches images/fonts inside the carousel/story HTML).
       try {
         const w = f.contentWindow;
         const inner = () => requestAnimationFrame(() =>
@@ -351,7 +374,6 @@ function manageLoader() {
           inner();
         }
       } catch {
-        // Cross-origin or similar — best effort.
         setTimeout(tick, POST_LOAD_PAINT_MS);
       }
     };
@@ -363,12 +385,11 @@ function manageLoader() {
       f.addEventListener("error", tick,   { once: true });
     }
 
-    // Per-iframe safety net.
-    setTimeout(tick, PER_IFRAME_MS);
+    setTimeout(tick, PER_IFRAME_HARD_TIMEOUT);
   });
 
-  // Absolute ceiling.
-  setTimeout(hideNow, HARD_CAP_MS);
+  // Safety absoluta — só dispara se algo for *muito* mal (rede partida).
+  setTimeout(hideNow, ABSOLUTE_SAFETY_MS);
 }
 
 async function ensureAuthenticated() {
@@ -403,6 +424,13 @@ async function ensureAuthenticated() {
 }
 
 async function init() {
+  // Dashboard link no header — visível se config.js definir DASHBOARD_URL.
+  const dashLink = document.getElementById("dashboardLink");
+  if (dashLink && DASHBOARD_URL) {
+    dashLink.href = DASHBOARD_URL;
+    dashLink.hidden = false;
+  }
+
   await ensureAuthenticated();
   await initApprovalStore();
   state.items = await loadItems();

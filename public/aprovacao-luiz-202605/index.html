@@ -13,10 +13,25 @@
 <div id="loader" class="loader" aria-hidden="false" role="status" aria-live="polite">
   <div class="loader__inner">
     <div class="loader__bar"><span class="loader__bar-fill" id="loaderFill"></span></div>
-    <p class="loader__label">A carregar pré-visualizações</p>
+    <p class="loader__label">
+      <span class="loader__spinner" aria-hidden="true"></span>
+      <span class="loader__label-text">A carregar pré-visualizações</span>
+    </p>
     <p class="loader__hint" id="loaderHint">0 / 0</p>
   </div>
 </div>
+<script>
+  // Marca o body como "loading" imediatamente — bloqueia scroll antes do JS module loader.
+  document.body.setAttribute("data-loading", "true");
+  // Observa o atributo aria-hidden do loader para libertar quando estiver pronto.
+  new MutationObserver((mutations) => {
+    for (const m of mutations) {
+      if (m.attributeName === "aria-hidden" && m.target.getAttribute("aria-hidden") === "true") {
+        document.body.removeAttribute("data-loading");
+      }
+    }
+  }).observe(document.getElementById("loader"), { attributes: true });
+</script>
 <a class="skip-link" href="#main">Saltar para conteúdo</a>
 
 <header class="app-header">
@@ -25,6 +40,7 @@
     <span id="headerLabel">Aprovação</span>
   </div>
   <month-switcher id="monthSwitcher"></month-switcher>
+  <a id="dashboardLink" class="nav-link" hidden>Estatísticas →</a>
   <button type="button" id="helpButton" class="help-trigger" aria-label="Atalhos do teclado" title="Atalhos (?)">?</button>
   <user-menu id="userMenu" aria-hidden="true"></user-menu>
 </header>

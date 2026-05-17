@@ -53,7 +53,7 @@
       "photo"
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:01",
     "scheduled_for": "2026-05-07",
     "hour": "09h"
   },
@@ -111,7 +111,7 @@
       "type"
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:01",
     "scheduled_for": "2026-05-11",
     "hour": "09h"
   },
@@ -169,7 +169,7 @@
       "photo"
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:01",
     "scheduled_for": "2026-05-21",
     "hour": "09h"
   },
@@ -227,7 +227,7 @@
       "photo"
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:01",
     "scheduled_for": "2026-05-25",
     "hour": "09h"
   },
@@ -255,7 +255,7 @@
       1
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:01",
     "scheduled_for": "2026-05-08",
     "hour": "17h"
   },
@@ -279,7 +279,7 @@
     "photos_used": [],
     "photo_positions": [],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:01",
     "scheduled_for": "2026-05-15",
     "hour": "17h"
   },
@@ -303,7 +303,7 @@
     "photos_used": [],
     "photo_positions": [],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:01",
     "scheduled_for": "2026-05-22",
     "hour": "17h"
   },
@@ -327,7 +327,7 @@
     "photos_used": [],
     "photo_positions": [],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:01",
     "scheduled_for": "2026-05-29",
     "hour": "17h"
   },
@@ -367,7 +367,7 @@
     "html_url": "../brands/techbody/output/2026-05/reels/r01-tempo-eficiencia.html",
     "photos_used": [],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:01",
     "scheduled_for": "2026-05-05",
     "hour": "18h"
   },
@@ -407,7 +407,7 @@
     "html_url": "../brands/techbody/output/2026-05/reels/r02-primeira-vez-ems.html",
     "photos_used": [],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:01",
     "scheduled_for": "2026-05-13",
     "hour": "18h"
   },
@@ -447,7 +447,7 @@
     "html_url": "../brands/techbody/output/2026-05/reels/r03-mito-atletas.html",
     "photos_used": [],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:01",
     "scheduled_for": "2026-05-19",
     "hour": "18h"
   },
@@ -487,7 +487,7 @@
     "html_url": "../brands/techbody/output/2026-05/reels/r04-abrir-estudio.html",
     "photos_used": [],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:01",
     "scheduled_for": "2026-05-27",
     "hour": "18h"
   },
@@ -508,7 +508,7 @@
       },
       {
         "role": "development",
-        "text_overlay": "Três peças. Fato EMS. Dispositivo de controlo. Aplicação."
+        "text_overlay": "O sistema chega com o fato EMS e a aplicação que guia a sessão."
       },
       {
         "role": "development",
@@ -516,11 +516,11 @@
       },
       {
         "role": "development",
-        "text_overlay": "Eletrodos secos. Ligação magnética. Aplicação que guia tudo."
+        "text_overlay": "Vestes o fato por cima da roupa. A aplicação acompanha."
       },
       {
         "role": "development",
-        "text_overlay": "Mais de cento e cinquenta músculos activados em simultâneo."
+        "text_overlay": "EMS de corpo inteiro chega aos grandes grupos musculares numa só sessão."
       },
       {
         "role": "cta",
@@ -545,7 +545,7 @@
       "photo"
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:06",
     "scheduled_for": "2026-05-07",
     "hour": "09h"
   },
@@ -574,7 +574,7 @@
       },
       {
         "role": "development",
-        "text_overlay": "Vinte e cinco minutos a queimar 25% mais calorias do que num treino convencional."
+        "text_overlay": "Vinte e cinco minutos de estímulo profundo. Sem cargas pesadas. Sem horas perdidas."
       },
       {
         "role": "development",
@@ -598,12 +598,12 @@
       "type",
       "photo",
       "type",
-      "num",
+      "type",
       "photo",
       "type"
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:06",
     "scheduled_for": "2026-05-11",
     "hour": "09h"
   },
@@ -624,11 +624,11 @@
       },
       {
         "role": "development",
-        "text_overlay": "Sessões guiadas em vídeo. Treinador certificado a explicar cada movimento."
+        "text_overlay": "Sessões guiadas, do aquecimento ao fecho. A aplicação marca o ritmo."
       },
       {
         "role": "development",
-        "text_overlay": "Frequência cardíaca. Calorias. Activação muscular. Tudo em tempo real."
+        "text_overlay": "Cada zona muscular tem o seu nível. Ajustas com toque, no momento."
       },
       {
         "role": "development",
@@ -636,7 +636,7 @@
       },
       {
         "role": "development",
-        "text_overlay": "Pontuação por sessão. Plano semanal. Notificações que te puxam para o tapete."
+        "text_overlay": "Biblioteca de programas — para começar, para definir, para áreas específicas."
       },
       {
         "role": "cta",
@@ -661,7 +661,7 @@
       "type"
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:06",
     "scheduled_for": "2026-05-21",
     "hour": "09h"
   },
@@ -670,7 +670,7 @@
     "brand": "techbody_u",
     "month": "2026-05",
     "format": "carrossel",
-    "theme": "resultados_evidencia",
+    "theme": "transformacao_12_semanas",
     "pilar": "Transformação e bem-estar",
     "audience": "b2c",
     "title": "Doze semanas. É quanto basta para começar a notar.",
@@ -682,26 +682,26 @@
       },
       {
         "role": "development",
-        "text_overlay": "Avaliação inicial pela aplicação. Pontos de partida claros."
+        "text_overlay": "Começas pela avaliação inicial. Pontos de partida claros."
       },
       {
         "role": "development",
-        "text_overlay": "Reavaliação às seis semanas. Vês o que mudou. Ajustas o plano."
+        "text_overlay": "A meio do programa revês. Vês o que mudou. Ajustas o caminho."
       },
       {
         "role": "development",
-        "text_overlay": "Três eixos seguidos: composição corporal, força e bem-estar percebido."
+        "text_overlay": "Composição corporal, força e bem-estar percebido — os três eixos a seguir."
       },
       {
         "role": "development",
-        "text_overlay": "93% dos utilizadores recomendam o TechBody U a alguém próximo."
+        "text_overlay": "Quem termina o programa volta. A constância é o que faz a diferença."
       },
       {
         "role": "cta",
         "text_overlay": "Inicia o programa de doze semanas."
       }
     ],
-    "html_url": "../brands/techbody_u/output/2026-05/carrosseis/c04-resultados-evidencia.html",
+    "html_url": "../brands/techbody_u/output/2026-05/carrosseis/c04-transformacao-12-semanas.html",
     "photos_used": [
       "magnific_environment-variation-3-h_2964143357.png",
       "magnific_b4.-recovery-and-calm-edi_2964142488.png"
@@ -715,11 +715,11 @@
       "photo",
       "type",
       "photo",
-      "num",
+      "type",
       "type"
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:06",
     "scheduled_for": "2026-05-25",
     "hour": "09h"
   },
@@ -747,7 +747,7 @@
       1
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:06",
     "scheduled_for": "2026-05-08",
     "hour": "17h"
   },
@@ -775,7 +775,7 @@
       1
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:06",
     "scheduled_for": "2026-05-15",
     "hour": "17h"
   },
@@ -803,7 +803,7 @@
       1
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:06",
     "scheduled_for": "2026-05-22",
     "hour": "17h"
   },
@@ -831,7 +831,7 @@
       1
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:06",
     "scheduled_for": "2026-05-29",
     "hour": "17h"
   },
@@ -871,7 +871,7 @@
     "html_url": "../brands/techbody_u/output/2026-05/reels/r01-primeira-sessao-casa.html",
     "photos_used": [],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:06",
     "scheduled_for": "2026-05-05",
     "hour": "18h"
   },
@@ -897,11 +897,11 @@
       },
       {
         "role": "demo",
-        "text_overlay": "Para pós-parto. Para costas. Para postura. Programas específicos para o que o corpo pede."
+        "text_overlay": "Programas para áreas específicas. Costas. Pernas. Tronco. Para o que o corpo pede hoje."
       },
       {
         "role": "proof",
-        "text_overlay": "E sessões novas todas as semanas. Não esgotas a biblioteca."
+        "text_overlay": "E biblioteca para cada fase — de quem começa a quem já é da casa."
       },
       {
         "role": "cta",
@@ -911,7 +911,7 @@
     "html_url": "../brands/techbody_u/output/2026-05/reels/r02-colecoes-app.html",
     "photos_used": [],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:06",
     "scheduled_for": "2026-05-13",
     "hour": "18h"
   },
@@ -935,7 +935,7 @@
     "html_url": "../brands/techbody_u/output/2026-05/reels/r03-dialogo-ems.html",
     "photos_used": [],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:06",
     "scheduled_for": "2026-05-19",
     "hour": "18h"
   },
@@ -961,11 +961,11 @@
       },
       {
         "role": "demo",
-        "text_overlay": "Garantia de dois anos no fato e no controlador. Se algo falhar, é nosso problema. Não teu."
+        "text_overlay": "Garantia do fabricante no equipamento. Se algo falhar, é problema nosso. Não teu."
       },
       {
         "role": "proof",
-        "text_overlay": "Dúvida durante uma sessão? Mandas mensagem. Resposta no mesmo dia, treinador certificado."
+        "text_overlay": "Dúvida durante uma sessão? Mandas mensagem. A equipa responde — não ficas sem saber."
       },
       {
         "role": "cta",
@@ -975,7 +975,511 @@
     "html_url": "../brands/techbody_u/output/2026-05/reels/r04-suporte-garantia.html",
     "photos_used": [],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-17T19:28:16",
+    "generated_at": "2026-05-17T23:50:06",
+    "scheduled_for": "2026-05-27",
+    "hour": "18h"
+  },
+  {
+    "id": "luiz_santana-2026-05-c01",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "carrossel",
+    "theme": "barreiras",
+    "pilar": "Barreiras ao exercício",
+    "audience": "b2c",
+    "title": "Não treinar não é fraqueza. É problema de método.",
+    "slides": 6,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Não treinar não é fraqueza. É problema de método."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Para a maioria, a barreira é o tempo. Não a vontade."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Vinte e cinco minutos cabem em qualquer agenda."
+      },
+      {
+        "role": "development",
+        "text_overlay": "EMS de corpo inteiro activa profundidade que o treino convencional dificilmente alcança."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Consistência semanal pesa mais do que duração diária."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Conhece o método TechBody. Marca a primeira sessão."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c01-barreiras.html",
+    "photos_used": [
+      "magnific_a2.-firm-authority-direct_2964371283.png",
+      "magnific_a1-contrarian-firme-e-des_2964293568.png"
+    ],
+    "photo_positions": [
+      2,
+      5
+    ],
+    "styles": [
+      "type",
+      "photo",
+      "type",
+      "type",
+      "photo",
+      "type"
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-17T23:50:06",
+    "scheduled_for": "2026-05-07",
+    "hour": "09h"
+  },
+  {
+    "id": "luiz_santana-2026-05-c02",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "carrossel",
+    "theme": "metodo_ciencia",
+    "pilar": "Método e ciência aplicada",
+    "audience": "b2c",
+    "title": "WB-EMS — o que a evidência mostra.",
+    "slides": 6,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "WB-EMS — o que a evidência mostra."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Treino convencional activa sobretudo as fibras mais acessíveis."
+      },
+      {
+        "role": "development",
+        "text_overlay": "EMS de corpo inteiro chega até 90% das fibras. Profundas incluídas."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Dose certa: duas a três sessões por semana, com acompanhamento."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Janela onde a evolução fica visível: seis a doze semanas."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Vê o método em estúdio. Marca a tua sessão."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c02-metodo-ciencia.html",
+    "photos_used": [
+      "magnific__photo-a-35yearold-mixedrace-man-with-short-black-h__28183.png",
+      "magnific_a4-origem-narrativa-e-rel_2964293900.png"
+    ],
+    "photo_positions": [
+      1,
+      6
+    ],
+    "styles": [
+      "photo",
+      "type",
+      "num",
+      "type",
+      "type",
+      "photo"
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-17T23:50:06",
+    "scheduled_for": "2026-05-11",
+    "hour": "09h"
+  },
+  {
+    "id": "luiz_santana-2026-05-c03",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "carrossel",
+    "theme": "origem_percurso",
+    "pilar": "Origem e percurso",
+    "audience": "b2c",
+    "title": "Mais de uma década a construir o eletrofitness em Portugal.",
+    "slides": 6,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Mais de uma década a construir o eletrofitness em Portugal."
+      },
+      {
+        "role": "development",
+        "text_overlay": "A TechBody nasceu antes do mercado existir."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Aposta clara desde o início. Equipamento certificado e treinador profissional."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Hoje é uma rede de estúdios. E um produto que cabe em casa."
+      },
+      {
+        "role": "development",
+        "text_overlay": "O método é o mesmo. O lugar onde acontece é que mudou."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Descobre o método TechBody."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c03-origem-percurso.html",
+    "photos_used": [
+      "magnific__photo-a-30yearold-man-with-brown-skin-and-short-bl__28181.png",
+      "magnific_a5.-pure-profile-editoria_2964371684.png"
+    ],
+    "photo_positions": [
+      3,
+      5
+    ],
+    "styles": [
+      "type",
+      "type",
+      "photo",
+      "type",
+      "photo",
+      "type"
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-17T23:50:06",
+    "scheduled_for": "2026-05-21",
+    "hour": "09h"
+  },
+  {
+    "id": "luiz_santana-2026-05-c04",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "carrossel",
+    "theme": "b2b_ferramenta",
+    "pilar": "B2B — ferramenta para profissionais",
+    "audience": "b2b",
+    "title": "EMS não é só treino. É linha de negócio.",
+    "slides": 6,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "EMS não é só treino. É linha de negócio."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Para ginásios e clínicas, o EMS opera numa área compacta."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Ticket por sessão superior ao convencional. Frequência regular."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Cada cliente regressa duas a três vezes por semana."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Franchising chave-na-mão. Plano, formação, recrutamento e marketing digital."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Marca uma reunião. Vamos olhar para os teus números."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c04-b2b-ferramenta.html",
+    "photos_used": [
+      "luiz_reference.png",
+      "magnific_a2-convidativa-acolhedora_2964293661.png"
+    ],
+    "photo_positions": [
+      1,
+      5
+    ],
+    "styles": [
+      "photo",
+      "type",
+      "type",
+      "type",
+      "photo",
+      "type"
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-17T23:50:06",
+    "scheduled_for": "2026-05-25",
+    "hour": "09h"
+  },
+  {
+    "id": "luiz_santana-2026-05-s01",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "consistencia",
+    "pilar": "Filosofia do método",
+    "audience": "b2c",
+    "title": "Consistência é o método.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Consistência semanal pesa mais do que duração diária."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/stories/s01-consistencia.html",
+    "photos_used": [
+      "magnific_a7.-proximidade-closeup-h_2964306149.png"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-17T23:50:06",
+    "scheduled_for": "2026-05-08",
+    "hour": "17h"
+  },
+  {
+    "id": "luiz_santana-2026-05-s02",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "dose_certa",
+    "pilar": "Prática supervisionada",
+    "audience": "b2c",
+    "title": "Duas a três sessões. Sempre acompanhadas.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Duas a três sessões por semana. Sempre acompanhadas."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/stories/s02-dose-certa.html",
+    "photos_used": [
+      "magnific_c1.-silhouette-softly-blu_2964372464.png"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-17T23:50:06",
+    "scheduled_for": "2026-05-15",
+    "hour": "17h"
+  },
+  {
+    "id": "luiz_santana-2026-05-s03",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "reabilitacao",
+    "pilar": "Saúde e reabilitação",
+    "audience": "b2c",
+    "title": "EMS é também reabilitação.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "EMS é também reabilitação. Dor, pós-lesão, pós-cirurgia."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/stories/s03-reabilitacao.html",
+    "photos_used": [
+      "magnific_a1.-contrarian-firme-e-de_2964305227.png"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-17T23:50:06",
+    "scheduled_for": "2026-05-22",
+    "hour": "17h"
+  },
+  {
+    "id": "luiz_santana-2026-05-s04",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "rede_estudios",
+    "pilar": "Rede TechBody",
+    "audience": "b2c",
+    "title": "Oito estúdios. Uma rede. Um método.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Oito estúdios TechBody. Uma rede. Um método."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/stories/s04-rede-estudios.html",
+    "photos_used": [
+      "magnific_a7.-seated-confidence-edi_2964371960.png"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-17T23:50:06",
+    "scheduled_for": "2026-05-29",
+    "hour": "17h"
+  },
+  {
+    "id": "luiz_santana-2026-05-r01",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "reel",
+    "kind": "shoot_guide",
+    "theme": "quem_treina_ems",
+    "pilar": "A quem se destina",
+    "audience": "b2c",
+    "title": "Quem treina EMS? Toda a gente.",
+    "slides": 24,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Quem treina EMS? Toda a gente."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Profissionais com pouco tempo. Mães em programa pós-parto. Quem procura reabilitação."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Atletas a complementar treino. Adultos mais velhos a manter força e mobilidade."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "O método ajusta-se. A intensidade é sempre controlada pelo treinador, em tempo real."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Marca a primeira sessão no estúdio TechBody."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/reels/r01-quem-treina-ems.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-17T23:50:06",
+    "scheduled_for": "2026-05-05",
+    "hour": "18h"
+  },
+  {
+    "id": "luiz_santana-2026-05-r02",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "reel",
+    "kind": "shoot_guide",
+    "theme": "primeiro_dia",
+    "pilar": "Onboarding do cliente",
+    "audience": "b2c",
+    "title": "Como é o teu primeiro dia no estúdio.",
+    "slides": 25,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Nunca fizeste EMS? Vou-te contar como é o primeiro dia no estúdio."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Conversa curta sobre os teus objectivos e o teu historial. O treinador percebe de onde partes."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Avaliação inicial. Vestes o fato EMS. O treinador acompanha cada movimento."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "Vinte e cinco minutos depois, sais com a sessão feita. Sem cargas pesadas. Sem desculpas."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Marca a primeira sessão. Sem compromisso."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/reels/r02-primeiro-dia.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-17T23:50:06",
+    "scheduled_for": "2026-05-13",
+    "hour": "18h"
+  },
+  {
+    "id": "luiz_santana-2026-05-r03",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "reel",
+    "kind": "shoot_guide",
+    "theme": "recovery_reabilitacao",
+    "pilar": "Saúde e reabilitação",
+    "audience": "b2c",
+    "title": "EMS para reabilitação. Não só treino.",
+    "slides": 26,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "EMS é também reabilitação. Não só treino."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Dor lombar. Pós-lesão. Pós-cirurgia. Quando o impacto convencional pesa demais."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "O EMS activa fibras profundas sem cargas pesadas. Impacto articular mínimo."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "Cada sessão é supervisionada por treinador certificado. A intensidade é ajustada ao teu corpo, em tempo real."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Marca uma avaliação. Vamos ver se é para ti."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/reels/r03-recovery-reabilitacao.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-17T23:50:06",
+    "scheduled_for": "2026-05-19",
+    "hour": "18h"
+  },
+  {
+    "id": "luiz_santana-2026-05-r04",
+    "brand": "luiz_santana",
+    "month": "2026-05",
+    "format": "reel",
+    "kind": "shoot_guide",
+    "theme": "suporte_franchise",
+    "pilar": "Parceria e suporte",
+    "audience": "b2b",
+    "title": "Não vais sozinho. O método tem suporte.",
+    "slides": 26,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Vais abrir um estúdio TechBody? Não vais sozinho."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Plano de negócio adaptado ao teu mercado. Formação de treinadores em eletroestimulação."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Recrutamento da equipa. Marketing digital de lançamento. Tudo coordenado pela rede."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "Depois do arranque continuamos contigo. Revisão mensal de objectivos. Suporte comercial. Não estás sozinho na operação."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Marca uma reunião. Vamos desenhar o teu estúdio."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/reels/r04-suporte-franchise.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-17T23:50:06",
     "scheduled_for": "2026-05-27",
     "hour": "18h"
   }

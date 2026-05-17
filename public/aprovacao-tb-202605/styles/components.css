@@ -10,6 +10,8 @@
 .loader[aria-hidden="true"] {
   opacity: 0;
   pointer-events: none;
+  visibility: hidden;          /* remove do hit-test depois da animação */
+  transition: opacity 280ms ease, visibility 0s linear 280ms;
 }
 .loader__inner {
   display: grid; gap: 18px;
@@ -30,6 +32,18 @@
   transform-origin: left center;
   transition: transform 200ms ease;
 }
+/* Pequeno spinner ao lado do label — sinaliza "ainda a trabalhar". */
+.loader__spinner {
+  display: inline-block;
+  width: 12px; height: 12px;
+  border: 2px solid var(--text-mute);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: loaderSpin 700ms linear infinite;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+@keyframes loaderSpin { to { transform: rotate(360deg); } }
 .loader__label {
   font: 900 var(--t-sm)/1 var(--font-heavy);
   letter-spacing: -0.01em;
@@ -42,7 +56,18 @@
   text-transform: uppercase;
 }
 
-/* While loading, block interaction with everything underneath. */
+/* Enquanto o loader está visível, bloqueia interacção com o resto da página
+   e mantém o overflow trancado. A regra usa data-loading="true" no <body>
+   (definido por JS, mais robusto que :has em browsers antigos). */
+body[data-loading="true"] {
+  overflow: hidden;
+}
+body[data-loading="true"] main,
+body[data-loading="true"] .app-header,
+body[data-loading="true"] .app-footer {
+  pointer-events: none;
+}
+/* :has fallback para garantir bloqueio mesmo sem o data-attr */
 body:has(.loader[aria-hidden="false"]) { overflow: hidden; }
 
 /* ───── HEADER ───── */
@@ -1301,6 +1326,36 @@ body:has(.loader[aria-hidden="false"]) { overflow: hidden; }
    muita coisa — assim o user-menu fica sempre visível. */
 @media (max-width: 480px) {
   .header-meta { display: none; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   NAV LINK — link para o dashboard (e outras páginas) no header.
+   ───────────────────────────────────────────────────────────────────── */
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: var(--text);
+  color: var(--bg);
+  border: var(--border-w) solid var(--border);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  font: 900 var(--t-xxs)/1 var(--font-heavy);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background var(--d-fast) var(--ease), color var(--d-fast) var(--ease), transform var(--d-fast) var(--ease);
+  flex-shrink: 0;
+}
+.nav-link:hover {
+  background: var(--accent);
+  transform: translateY(-1px);
+}
+.nav-link[hidden] { display: none; }
+@media (max-width: 720px) {
+  .nav-link { padding: 5px 9px; font-size: 9px; }
 }
 
 /* ─────────────────────────────────────────────────────────────────────
