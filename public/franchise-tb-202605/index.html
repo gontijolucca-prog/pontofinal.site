@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>TechBody · Download para franchisados</title>
+<title>Conteúdos TechBody</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;800;900&family=JetBrains+Mono:wght@300;500;700&display=swap" rel="stylesheet" />
 <style>
   *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -125,10 +125,9 @@
 <body>
 
 <header>
-  <h1>Conteúdo TechBody para franchisados.</h1>
+  <h1>Conteúdos TechBody.</h1>
   <p class="sub">
-    Esta página dá acesso aos posts <strong>aprovados</strong> do mês actual da TechBody.
-    Cada estúdio pode descarregar e publicar nos seus canais.
+    Conteúdo do mês actual. Descarrega o que precisares.
   </p>
 </header>
 
@@ -146,7 +145,7 @@
 </div>
 
 <footer>
-  TechBody · Acesso franquia · {month}
+  TechBody · {month}
 </footer>
 
 <script>
@@ -190,7 +189,7 @@
     const dlUrl = isCarousel
       ? url.replace(/\.html$/, ".zip").replace(".playback.zip", ".zip")
       : url.replace(/\.html$/, ".png").replace(".playback.png", ".png");
-    const dlLabel = isCarousel ? "⤓ ZIP (6 slides)" : "⤓ PNG";
+    const dlLabel = isCarousel ? "⤓ Carrossel completo" : "⤓ Imagem";
     const dlName  = isCarousel ? (it.id + ".zip") : (it.id + ".png");
 
     const cap = state.captions[it.id];
@@ -251,7 +250,7 @@
       state.items = items;
       state.captions = captions;
       const month = items[0]?.month || "";
-      document.querySelector("footer").textContent = "TechBody · Acesso franquia · " + monthLabel(month);
+      document.querySelector("footer").textContent = "TechBody · " + monthLabel(month);
       render();
     } catch (err) {
       console.error(err);

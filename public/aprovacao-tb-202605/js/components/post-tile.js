@@ -24,8 +24,10 @@ class PostTile extends HTMLElement {
     let stamp = article.querySelector(":scope > .status-stamp");
     if (state.status === "pending") {
       if (stamp) stamp.remove();
+      article.removeAttribute("data-status");
       return;
     }
+    article.setAttribute("data-status", state.status);
     const label = state.status === "approved" ? "Aprovado" : "Rejeitado";
     if (stamp) {
       stamp.textContent = label;

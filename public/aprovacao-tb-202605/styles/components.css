@@ -334,6 +334,7 @@
 
 /* ───── CARROSSEIS — LIST (each row shows all 6 slides) ───── */
 .carrossel-row {
+  position: relative;
   display: grid;
   grid-template-columns: 320px 1fr auto;
   gap: var(--s-4);
@@ -342,9 +343,26 @@
   box-shadow: var(--shadow);
   padding: var(--s-4);
   margin-bottom: var(--s-5);
-  transition: transform var(--d-fast), box-shadow var(--d-fast);
+  transition: transform var(--d-fast), box-shadow var(--d-fast), border-color var(--d-fast);
 }
 .carrossel-row:hover { transform: translate(-3px, -3px); box-shadow: var(--shadow-lg); }
+/* Visual cues por status — sempre visíveis, sem hover */
+.carrossel-row[data-status="approved"] {
+  border-color: var(--status-approved);
+  box-shadow: 6px 6px 0 0 var(--status-approved);
+}
+.carrossel-row[data-status="rejected"] {
+  border-color: var(--status-rejected);
+  box-shadow: 6px 6px 0 0 var(--status-rejected);
+}
+.tile[data-status="approved"] {
+  border-color: var(--status-approved);
+  box-shadow: 6px 6px 0 0 var(--status-approved);
+}
+.tile[data-status="rejected"] {
+  border-color: var(--status-rejected);
+  box-shadow: 6px 6px 0 0 var(--status-rejected);
+}
 @media (max-width: 1080px) {
   .carrossel-row { grid-template-columns: 1fr; }
 }
