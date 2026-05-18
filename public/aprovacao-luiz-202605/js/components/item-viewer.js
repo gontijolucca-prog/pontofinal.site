@@ -177,47 +177,54 @@ class ItemViewer extends HTMLElement {
           ${navbarHtml}
         </div>
         <aside class="viewer-panel">
-          <div class="viewer-meta">
-            <span class="viewer-brand">${BRAND_LABELS[it.brand] || it.brand}</span>
-            <h3 class="viewer-title">${it.title || it.theme}</h3>
-            <div class="viewer-tags">
-              <span class="tag tag--accent">${it.format}</span>
-              ${it.pilar ? `<span class="tag">${it.pilar}</span>` : ""}
-              ${it.audience ? `<span class="tag tag--solid">${it.audience.toUpperCase()}</span>` : ""}
-              <span class="tag">${it.scheduled_for || ""} ${it.hour || ""}</span>
-            </div>
-          </div>
-          <div class="viewer-slides">
-            ${(it.slides_text || []).map((s, i) => `
-              <div class="viewer-slide">
-                <span class="viewer-slide__num">${String(i + 1).padStart(2, "0")}</span>
-                <p class="viewer-slide__text">${s.text_overlay || s.text || ""}</p>
+          <div class="viewer-panel__scroll">
+            <div class="viewer-meta">
+              <span class="viewer-brand">${BRAND_LABELS[it.brand] || it.brand}</span>
+              <h3 class="viewer-title">${it.title || it.theme}</h3>
+              <div class="viewer-tags">
+                <span class="tag tag--accent">${it.format}</span>
+                ${it.pilar ? `<span class="tag">${it.pilar}</span>` : ""}
+                ${it.audience ? `<span class="tag tag--solid">${it.audience.toUpperCase()}</span>` : ""}
+                <span class="tag">${it.scheduled_for || ""} ${it.hour || ""}</span>
               </div>
-            `).join("")}
+            </div>
+            <details class="viewer-section" open>
+              <summary>Texto dos slides</summary>
+              <div class="viewer-slides">
+                ${(it.slides_text || []).map((s, i) => `
+                  <div class="viewer-slide">
+                    <span class="viewer-slide__num">${String(i + 1).padStart(2, "0")}</span>
+                    <p class="viewer-slide__text">${s.text_overlay || s.text || ""}</p>
+                  </div>
+                `).join("")}
+              </div>
+            </details>
+            ${hasCaption ? `
+            <details class="viewer-section viewer-section--caption" data-caption-status="${captionState.status}">
+              <summary>
+                Descrição Instagram
+                <span class="viewer-caption__badge viewer-caption__badge--${captionState.status}">${captionLabel[captionState.status]}</span>
+              </summary>
+              <div class="viewer-caption">
+                <pre class="viewer-caption__text">${this._escapeForHtml(it.caption)}</pre>
+                ${it.hashtags ? `<pre class="viewer-caption__hashtags">${this._escapeForHtml(it.hashtags)}</pre>` : ""}
+                <div class="viewer-caption__actions">
+                  <textarea data-caption-note placeholder="Sugestão para a descrição (opcional)">${this._escapeForHtml(captionState.note || "")}</textarea>
+                  <button class="btn btn--ghost btn--small" data-action="caption-save-note">Guardar anotação</button>
+                  <span class="viewer-caption__feedback" data-caption-feedback aria-live="polite"></span>
+                  <button class="btn btn--reject btn--small" data-action="caption-reject">Rejeitar descrição</button>
+                  <button class="btn btn--approve btn--small" data-action="caption-approve">Aprovar descrição</button>
+                </div>
+              </div>
+            </details>
+            ` : ""}
+            <details class="viewer-section">
+              <summary>Histórico de aprovação</summary>
+              <div class="viewer-history" data-history>
+                <p class="viewer-history__empty">A carregar…</p>
+              </div>
+            </details>
           </div>
-          ${hasCaption ? `
-          <div class="viewer-caption" data-caption-status="${captionState.status}">
-            <div class="viewer-caption__head">
-              <h4 class="viewer-caption__title">Descrição Instagram</h4>
-              <span class="viewer-caption__badge viewer-caption__badge--${captionState.status}">${captionLabel[captionState.status]}</span>
-            </div>
-            <pre class="viewer-caption__text">${this._escapeForHtml(it.caption)}</pre>
-            ${it.hashtags ? `<pre class="viewer-caption__hashtags">${this._escapeForHtml(it.hashtags)}</pre>` : ""}
-            <div class="viewer-caption__actions">
-              <textarea data-caption-note placeholder="Sugestão para a descrição (opcional)">${this._escapeForHtml(captionState.note || "")}</textarea>
-              <button class="btn btn--ghost btn--small" data-action="caption-save-note">Guardar anotação</button>
-              <span class="viewer-caption__feedback" data-caption-feedback aria-live="polite"></span>
-              <button class="btn btn--reject btn--small" data-action="caption-reject">Rejeitar descrição</button>
-              <button class="btn btn--approve btn--small" data-action="caption-approve">Aprovar descrição</button>
-            </div>
-          </div>
-          ` : ""}
-          <details class="viewer-history-block">
-            <summary>Histórico de aprovação</summary>
-            <div class="viewer-history" data-history>
-              <p class="viewer-history__empty">A carregar…</p>
-            </div>
-          </details>
           <div class="viewer-actions">
             <textarea data-note placeholder="Sugestão de edição (opcional)">${state.note || ""}</textarea>
             <button class="btn btn--ghost" data-action="save-note">Guardar anotação</button>

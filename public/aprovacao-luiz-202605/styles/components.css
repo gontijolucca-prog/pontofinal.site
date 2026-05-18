@@ -576,37 +576,45 @@
   background: rgba(5,5,5,0.78);
   display: none;
   z-index: 100;
-  padding: var(--s-4);
+  padding: clamp(8px, 2vw, var(--s-4));
 }
 .viewer-backdrop[data-open="true"] { display: grid; place-items: center; }
 .viewer-modal {
   position: relative;
-  max-width: 96vw;
-  height: min(94vh, 1000px);
+  width: min(100%, 1200px);
+  max-width: 100%;
+  height: min(100%, 1000px);
+  max-height: 100%;
   background: var(--bg);
   border: var(--border-w-bold) solid var(--border);
   box-shadow: var(--shadow-lg);
   display: flex;
+  flex-direction: row;
   overflow: hidden;
 }
-/* Coluna do conteúdo: aspect-ratio define a largura a partir da altura.
-   Default 4:5 (carrossel); story/reel override para 9:16. */
+/* Frame column: aspect-ratio limits width based on height. 4:5 default, 9:16
+   para story/reel. Em viewport pequeno, encolhe sem cortar nada. */
 .viewer-frame-col {
   display: flex;
   flex-direction: column;
   height: 100%;
   min-height: 0;
   aspect-ratio: 4 / 5;
-  max-width: calc(96vw - 400px);
-  flex-shrink: 0;
+  min-width: 0;
+  flex-shrink: 1;
 }
 .viewer-modal[data-format="story"] .viewer-frame-col,
 .viewer-modal[data-format="reel"]  .viewer-frame-col {
   aspect-ratio: 9 / 16;
 }
 .viewer-panel {
-  width: 400px;
-  flex-shrink: 0;
+  flex: 1 1 380px;
+  min-width: 320px;
+  max-width: 440px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 .viewer-frame-wrap {
   background: var(--bg);
@@ -617,29 +625,39 @@
 }
 .viewer-frame-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
 
+/* Mobile / tablet portrait: stack vertical. Frame mantém aspect-ratio mas
+   limita a altura para o panel ter espaço. Width derivada da altura, centrada.
+   Actions sticky no fundo do panel. */
 @media (max-width: 880px) {
   .viewer-modal {
     flex-direction: column;
-    height: 96vh;
-    max-width: 100vw;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border-width: 2px;
+    align-items: stretch;
   }
   .viewer-frame-col {
     aspect-ratio: 4 / 5;
-    width: 100%;
+    width: fit-content;
     max-width: 100%;
-    height: auto;
-    flex-shrink: 1;
+    max-height: 50vh;
+    height: 50vh;
+    flex-shrink: 0;
+    align-self: center;
   }
   .viewer-modal[data-format="story"] .viewer-frame-col,
   .viewer-modal[data-format="reel"]  .viewer-frame-col {
     aspect-ratio: 9 / 16;
+    max-height: 56vh;
+    height: 56vh;
   }
   .viewer-panel {
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
     flex: 1 1 auto;
-    min-height: 0;
-    overflow-y: auto;
-    border-top: var(--border-w-bold) solid var(--border);
+    border-top: 2px solid var(--border);
     border-left: 0 !important;
   }
 }
@@ -712,13 +730,76 @@
   .viewer-navbar { padding: var(--s-2); }
 }
 .viewer-panel {
-  padding: var(--s-4);
   border-left: var(--border-w-bold) solid var(--border);
   background: var(--bg);
-  display: grid;
-  grid-template-rows: auto 1fr auto auto;
-  gap: var(--s-3);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
   overflow: hidden;
+}
+.viewer-panel__scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: clamp(12px, 1.6vw, var(--s-4));
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+.viewer-panel > .viewer-actions {
+  flex-shrink: 0;
+  padding: clamp(10px, 1.4vw, var(--s-3)) clamp(12px, 1.6vw, var(--s-4));
+  background: var(--bg);
+  border-top: 2px solid var(--border);
+  margin: 0;
+}
+
+/* Collapsible sections inside the scroll area */
+.viewer-section {
+  border: 2px solid var(--border);
+  background: var(--bg-soft);
+}
+.viewer-section > summary {
+  cursor: pointer;
+  padding: var(--s-2) var(--s-3);
+  font: 800 var(--t-xs)/1 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+}
+.viewer-section > summary::-webkit-details-marker { display: none; }
+.viewer-section > summary::after {
+  content: "▾";
+  font-size: 10px;
+  transition: transform var(--d-fast) var(--ease);
+}
+.viewer-section[open] > summary::after { transform: rotate(180deg); }
+.viewer-section[open] > summary {
+  border-bottom: 1px solid var(--border-soft);
+}
+.viewer-section .viewer-slides {
+  padding: var(--s-2) var(--s-3);
+  border: 0;
+  max-height: none;
+}
+.viewer-section .viewer-history {
+  padding: var(--s-2) var(--s-3) var(--s-3);
+  border: 0;
+  max-height: 280px;
+}
+.viewer-section--caption[data-caption-status="approved"] { border-color: var(--status-approved); }
+.viewer-section--caption[data-caption-status="rejected"] { border-color: var(--status-rejected); }
+.viewer-section--caption .viewer-caption {
+  padding: var(--s-3);
+  border: 0;
+  background: transparent;
+  display: grid;
+  gap: var(--s-2);
 }
 .viewer-meta { display: grid; gap: var(--s-2); }
 .viewer-brand {
@@ -810,6 +891,8 @@
   padding: var(--s-2) var(--s-3);
   background: var(--bg);
   border-left: 4px solid var(--accent);
+  max-height: 28vh;
+  overflow-y: auto;
 }
 .viewer-caption__hashtags {
   font-size: var(--t-xs);
@@ -918,13 +1001,19 @@
 }
 .viewer-actions textarea {
   grid-column: 1 / -1;
-  min-height: 80px;
+  min-height: clamp(48px, 8vh, 80px);
+  max-height: 120px;
   border: 3px solid var(--border);
   padding: var(--s-2) var(--s-3);
   font-family: var(--font-mono);
   font-size: var(--t-sm);
   resize: vertical;
   background: var(--bg-soft);
+  width: 100%;
+}
+@media (max-width: 720px) {
+  .viewer-actions textarea { min-height: 44px; }
+  .viewer-actions .btn { padding: var(--s-2) var(--s-2); font-size: var(--t-xs); }
 }
 .viewer-actions [data-action="save-note"],
 .viewer-caption__actions [data-action="caption-save-note"] {
@@ -968,24 +1057,27 @@
    iframe, and bump all action buttons to 44px tap targets.
    ──────────────────────────────────────────────────────────── */
 @media (max-width: 720px) {
-  /* Header — manter logo + user-menu na MESMA linha. Logo encolhe, header-meta
-     desaparece em ≤480px (regra acima). */
+  /* Header — manter logo + month nav na MESMA linha. Esconder header-meta
+     redundante (a info já está na month-nav). Logo encolhe. */
   .app-header {
     flex-direction: row;
     align-items: center;
-    gap: 10px;
-    padding: 10px 14px;
+    gap: 8px;
+    padding: 10px 12px;
+    flex-wrap: nowrap;
   }
   .logo {
-    font-size: 22px;
+    font-size: 18px;
     letter-spacing: -1px;
-    padding: 5px 10px;
+    padding: 5px 9px;
     border-width: 2px;
+    flex-shrink: 0;
   }
   .header-meta {
-    flex-wrap: wrap;
-    gap: 6px;
-    font-size: 10px;
+    display: none;
+  }
+  .nav-link, .help-trigger {
+    flex-shrink: 0;
   }
 
   /* Sections — drop the giant outer padding. */
