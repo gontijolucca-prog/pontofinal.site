@@ -69,6 +69,41 @@ function lsWrite(state) {
 
 // ─── Supabase load + realtime ─────────────────────────────────────────────
 
+// Espelha o cache em localStorage. Funciona como write-through:
+// cada set() / saveNote() chama isto além do upsert ao Supabase.
+// No load, lsRead() é usado como ground truth para entradas mais
+// recentes que o server (ex.: Safari ETP atrasou o write).
+function lsMergeWrite(id, entry) {
+  try {
+    const ls = lsRead();
+    const existing = ls[id];
+    if (existing && existing.updatedAt && entry.updatedAt &&
+        new Date(existing.updatedAt) > new Date(entry.updatedAt)) {
+      return; // existing local é mais recente, manter
+    }
+    ls[id] = entry;
+    lsWrite(ls);
+  } catch (e) {
+    console.warn("[approval-store] lsMergeWrite failed:", e);
+  }
+}
+
+function mergeLocalIntoCache() {
+  const ls = lsRead();
+  for (const id of Object.keys(ls)) {
+    const localEntry = ls[id];
+    const cached = cache[id];
+    // Local mais recente que servidor → usar local. Cobre o caso em que
+    // Safari escreveu mas o servidor ainda não recebeu/respondeu.
+    if (!cached) {
+      cache[id] = localEntry;
+    } else if (localEntry.updatedAt && cached.updatedAt &&
+               new Date(localEntry.updatedAt) > new Date(cached.updatedAt)) {
+      cache[id] = localEntry;
+    }
+  }
+}
+
 async function loadFromSupabase() {
   const { data, error } = await supabase
     .from("approvals")
@@ -86,6 +121,9 @@ async function loadFromSupabase() {
       updatedAt: row.updated_at,
     };
   }
+  // Merge entradas locais que são mais recentes (cobre o caso em que
+  // o utilizador aprovou offline ou o Safari ETP atrasou a escrita).
+  mergeLocalIntoCache();
   emit();
 }
 
@@ -97,28 +135,35 @@ function subscribeRealtime() {
       { event: "*", schema: "public", table: "approvals", filter: `namespace=eq.${NAMESPACE}` },
       (payload) => {
         const row = payload.new || payload.old;
-        if (!row) return;
+        if (!row || !row.item_id) return;
         if (payload.eventType === "DELETE") {
           delete cache[row.item_id];
           emit();
           return;
         }
+        // Defesa: ignorar payloads incompletos (algum brokerage de Realtime
+        // pode entregar a row sem status — não queremos zerar o cache).
+        if (!row.status) {
+          console.warn("[realtime] payload sem status, a ignorar:", row);
+          return;
+        }
         // Defesa contra updates fora de ordem: se o cache tem uma versão
-        // mais recente, ignoramos o payload do server. Evita o sintoma
-        // "aprovo e passado um pouco volta a branco" se o servidor reemitir
-        // o estado pre-write por alguma razão.
+        // mais recente, ignoramos o payload do server.
         const existing = cache[row.item_id];
         if (existing && existing.updatedAt && row.updated_at &&
             new Date(existing.updatedAt) > new Date(row.updated_at)) {
-          console.debug("[realtime] skipping older payload for", row.item_id,
-            existing.updatedAt, ">", row.updated_at);
+          console.debug("[realtime] skipping older payload for", row.item_id);
           return;
         }
-        cache[row.item_id] = {
+        const entry = {
           status: row.status,
           note: row.note || "",
           updatedAt: row.updated_at,
         };
+        cache[row.item_id] = entry;
+        // Também actualiza localStorage para que um reload sem rede mostre
+        // o último estado conhecido.
+        lsMergeWrite(row.item_id, entry);
         emit();
       }
     )
@@ -202,12 +247,13 @@ export const approvalStore = {
 
   async set(id, status, note = "") {
     const updatedAt = new Date().toISOString();
-    cache[id] = { status, note, updatedAt };
+    const entry = { status, note, updatedAt };
+    cache[id] = entry;
+    // Write-through: garante persistência mesmo se Supabase falhar.
+    lsMergeWrite(id, entry);
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       await upsertRow(id, status, note, updatedAt);
-    } else {
-      lsWrite(cache);
     }
   },
 
@@ -220,12 +266,12 @@ export const approvalStore = {
     const nonce = makeNonce();
     const key = buildAnnotationKey(itemId, slideN, nonce);
     const updatedAt = new Date().toISOString();
-    cache[key] = { status: "note", note: trimmed, updatedAt };
+    const entry = { status: "note", note: trimmed, updatedAt };
+    cache[key] = entry;
+    lsMergeWrite(key, entry);
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       await upsertRow(key, "note", trimmed, updatedAt);
-    } else {
-      lsWrite(cache);
     }
     return { key, slide: slideN, note: trimmed, changed_at: updatedAt };
   },
@@ -303,12 +349,12 @@ export const approvalStore = {
   async setCaption(itemId, status, note = "") {
     const key = `${itemId}:caption`;
     const updatedAt = new Date().toISOString();
-    cache[key] = { status, note, updatedAt };
+    const entry = { status, note, updatedAt };
+    cache[key] = entry;
+    lsMergeWrite(key, entry);
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       await upsertRow(key, status, note, updatedAt);
-    } else {
-      lsWrite(cache);
     }
   },
 
