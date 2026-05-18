@@ -477,4 +477,21 @@ async function init() {
   requestAnimationFrame(() => requestAnimationFrame(manageLoader));
 }
 
-init();
+// Safety global: se init() pendurar ou throw (ex.: Supabase bloqueado por
+// extensão/firewall em Safari), o loader esconde-se ao fim de 6s para o
+// utilizador ver pelo menos algum estado em vez de "0/0" indefinidamente.
+function forceHideLoader(reason) {
+  const loader = document.getElementById("loader");
+  if (!loader || loader.getAttribute("aria-hidden") === "true") return;
+  console.warn("[loader] force-hide:", reason);
+  const label = document.querySelector(".loader__label-text");
+  if (label) label.textContent = "Pronto.";
+  loader.setAttribute("aria-hidden", "true");
+  setTimeout(() => { loader.style.display = "none"; }, 250);
+}
+setTimeout(() => forceHideLoader("safety-6s"), 6000);
+
+init().catch((err) => {
+  console.error("[init] failed:", err);
+  forceHideLoader("init-error");
+});
