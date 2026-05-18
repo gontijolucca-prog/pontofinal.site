@@ -17,7 +17,7 @@
 // Evento global emitido sempre que o cache muda: 'approval:changed'.
 
 import { supabase, AUTH_ENABLED, USE_SUPABASE, initSupabase } from "../lib/supabase-client.js";
-import { NAMESPACE } from "../config.js";
+import { NAMESPACE, SUPABASE_URL, SUPABASE_ANON_KEY } from "../config.js";
 
 let cache = {};
 
@@ -252,37 +252,102 @@ function qRemove(item_id, updated_at) {
   updatePendingIndicator(filtered.length);
 }
 
+let _lastSyncError = null;
+
 function updatePendingIndicator(count) {
   if (typeof window === "undefined") return;
   let el = document.getElementById("sync-indicator");
   if (!el && count > 0) {
-    el = document.createElement("div");
+    el = document.createElement("button");
     el.id = "sync-indicator";
-    el.style.cssText = "position:fixed;bottom:12px;right:12px;z-index:9999;background:#FFB81F;color:#050505;font:800 11px/1 'JetBrains Mono',monospace;padding:8px 12px;border:2px solid #050505;box-shadow:3px 3px 0 0 #050505;letter-spacing:0.06em;text-transform:uppercase;";
+    el.type = "button";
+    el.title = "Tocar para forçar sincronização";
+    el.style.cssText = "position:fixed;bottom:12px;right:12px;z-index:9999;background:#FFB81F;color:#050505;font:800 11px/1 'JetBrains Mono',monospace;padding:10px 14px;border:2px solid #050505;box-shadow:3px 3px 0 0 #050505;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;gap:8px;";
+    el.addEventListener("click", async () => {
+      el.textContent = "A sincronizar…";
+      el.disabled = true;
+      await flushQueue(true);
+      el.disabled = false;
+      const remaining = qRead().length;
+      if (remaining === 0) {
+        el.style.background = "#2BB05F";
+        el.style.color = "#FFFFFF";
+        el.textContent = "✓ Sincronizado";
+        setTimeout(() => updatePendingIndicator(0), 1500);
+      } else {
+        updatePendingIndicator(remaining);
+        if (_lastSyncError) {
+          alert(`Não foi possível sincronizar ${remaining}. Erro: ${_lastSyncError}`);
+        }
+      }
+    });
     document.body.appendChild(el);
   }
   if (el) {
     if (count > 0) {
       el.textContent = `↻ ${count} por sincronizar`;
-      el.style.display = "block";
+      el.style.background = "#FFB81F";
+      el.style.color = "#050505";
+      el.style.display = "flex";
     } else {
       el.style.display = "none";
     }
   }
 }
 
+// Direct fetch fallback — used when the supabase-js SDK request is
+// silently dropped (Safari ETP, iCloud Private Relay, ad-blockers can do
+// this without surfacing an error to the SDK).
+async function fetchUpsert(row) {
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/approvals?on_conflict=namespace,item_id`,
+      {
+        method: "POST",
+        headers: {
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+          "Content-Type": "application/json",
+          "Prefer": "resolution=merge-duplicates",
+        },
+        body: JSON.stringify(row),
+        keepalive: true,
+        mode: "cors",
+        credentials: "omit",
+      }
+    );
+    if (!res.ok) {
+      _lastSyncError = `HTTP ${res.status} ${(await res.text()).slice(0, 80)}`;
+      return false;
+    }
+    _lastSyncError = null;
+    return true;
+  } catch (e) {
+    _lastSyncError = e?.message || String(e);
+    return false;
+  }
+}
+
 async function tryUpsertRaw(row) {
-  if (!supabase) return false;
-  const { error } = await supabase
-    .from("approvals")
-    .upsert(row, { onConflict: "namespace,item_id" });
-  return !error;
+  // 1ª tentativa: SDK supabase-js (com auth context)
+  if (supabase) {
+    try {
+      const { error } = await supabase
+        .from("approvals")
+        .upsert(row, { onConflict: "namespace,item_id" });
+      if (!error) { _lastSyncError = null; return true; }
+      _lastSyncError = `SDK: ${error.message}`;
+    } catch (e) {
+      _lastSyncError = `SDK throw: ${e?.message || e}`;
+    }
+  }
+  // 2ª tentativa: fetch directo à REST API com keepalive
+  return await fetchUpsert(row);
 }
 
 let _flushing = false;
-async function flushQueue() {
+async function flushQueue(force = false) {
   if (_flushing) return;
-  if (!supabase) return;
   _flushing = true;
   try {
     const q = qRead();
@@ -292,8 +357,8 @@ async function flushQueue() {
         qRemove(row.item_id, row.updated_at);
         console.debug("[approval-store] queue flush ✓", row.item_id, row.status);
       } else {
-        console.warn("[approval-store] queue flush retry later:", row.item_id);
-        break; // se um falha, parar (rede provavelmente ainda em baixo)
+        console.warn("[approval-store] queue flush retry later:", row.item_id, "—", _lastSyncError);
+        if (!force) break; // se um falha, parar (rede provavelmente em baixo)
       }
     }
   } finally {
