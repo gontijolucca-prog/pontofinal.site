@@ -1,133 +1,95 @@
 {
-  "total_ms": 19732,
+  "total_ms": 17082,
   "chunks": [
     {
-      "text": "Sabias que",
-      "emphasis": null,
+      "text": "Oitenta por cento",
+      "emphasis": "Oitenta por cento",
       "start_ms": 0,
-      "dur_ms": 791
-    },
-    {
-      "text": "oitenta por cento",
-      "emphasis": "oitenta por cento",
-      "start_ms": 791,
-      "dur_ms": 1345,
+      "dur_ms": 1273,
       "graphic": {
         "type": "percent",
         "to": 80
       }
     },
     {
-      "text": "só leem o título",
+      "text": "só lê o título",
       "emphasis": null,
-      "start_ms": 2136,
-      "dur_ms": 1265
+      "start_ms": 1273,
+      "dur_ms": 1048
     },
     {
-      "text": "Oitenta por cento",
-      "emphasis": "Oitenta por cento",
-      "start_ms": 3542,
-      "dur_ms": 1195
-    },
-    {
-      "text": "O resto do texto",
-      "emphasis": null,
-      "start_ms": 4878,
-      "dur_ms": 1228
-    },
-    {
-      "text": "ninguém vê",
-      "emphasis": "ninguém vê",
-      "start_ms": 6106,
-      "dur_ms": 768
-    },
-    {
-      "text": "O título",
-      "emphasis": null,
-      "start_ms": 7015,
-      "dur_ms": 529
-    },
-    {
-      "text": "não é decoração",
-      "emphasis": "não é decoração",
-      "start_ms": 7544,
-      "dur_ms": 991
-    },
-    {
-      "text": "É a única coisa",
-      "emphasis": null,
-      "start_ms": 8676,
-      "dur_ms": 822
-    },
-    {
-      "text": "que decide",
-      "emphasis": "se alguém continua",
-      "start_ms": 9498,
-      "dur_ms": 548
-    },
-    {
-      "text": "se alguém continua",
-      "emphasis": null,
-      "start_ms": 10046,
-      "dur_ms": 986
-    },
-    {
-      "text": "Um título errado",
-      "emphasis": "Um título errado",
-      "start_ms": 11173,
-      "dur_ms": 874
-    },
-    {
-      "text": "custa-te clientes",
-      "emphasis": null,
-      "start_ms": 12047,
-      "dur_ms": 928
-    },
-    {
-      "text": "a cada hora",
-      "emphasis": null,
-      "start_ms": 12975,
-      "dur_ms": 601
-    },
-    {
-      "text": "Mudar uma palavra",
-      "emphasis": null,
-      "start_ms": 13716,
-      "dur_ms": 1022
-    },
-    {
-      "text": "pode duplicar",
-      "emphasis": "duplicar",
-      "start_ms": 14738,
-      "dur_ms": 782,
+      "text": "Vinte por cento",
+      "emphasis": "Vinte por cento",
+      "start_ms": 2462,
+      "dur_ms": 898,
       "graphic": {
-        "type": "stamp",
-        "text": "2X"
+        "type": "percent",
+        "to": 20
       }
     },
     {
-      "text": "as vendas",
+      "text": "lê o resto",
       "emphasis": null,
-      "start_ms": 15520,
-      "dur_ms": 541
+      "start_ms": 3360,
+      "dur_ms": 599
     },
     {
-      "text": "Escrevemos os teus títulos",
-      "emphasis": null,
-      "start_ms": 16201,
-      "dur_ms": 1417
+      "text": "O título é o gatekeeper",
+      "emphasis": "gatekeeper",
+      "start_ms": 4100,
+      "dur_ms": 1869,
+      "graphic": {
+        "type": "stamp",
+        "text": "GATEKEEPER"
+      }
     },
     {
-      "text": "contigo",
-      "emphasis": "contigo",
-      "start_ms": 17618,
-      "dur_ms": 382
+      "text": "Sem promessa clara",
+      "emphasis": null,
+      "start_ms": 6109,
+      "dur_ms": 1635
+    },
+    {
+      "text": "ninguém continua",
+      "emphasis": "ninguém continua",
+      "start_ms": 7744,
+      "dur_ms": 1453
+    },
+    {
+      "text": "Não é copy bonito",
+      "emphasis": null,
+      "start_ms": 9337,
+      "dur_ms": 1045
+    },
+    {
+      "text": "é o filtro",
+      "emphasis": "o filtro",
+      "start_ms": 10382,
+      "dur_ms": 615
+    },
+    {
+      "text": "de tudo o que vem depois",
+      "emphasis": null,
+      "start_ms": 10997,
+      "dur_ms": 1474
+    },
+    {
+      "text": "Reescrevemos títulos",
+      "emphasis": null,
+      "start_ms": 12612,
+      "dur_ms": 1440
+    },
+    {
+      "text": "com base em research",
+      "emphasis": "em research",
+      "start_ms": 14052,
+      "dur_ms": 1439
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 18141,
-      "dur_ms": 1590
+      "start_ms": 15631,
+      "dur_ms": 1451
     }
   ]
 }

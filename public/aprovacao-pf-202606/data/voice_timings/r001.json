@@ -1,17 +1,11 @@
 {
-  "total_ms": 19231,
+  "total_ms": 14550,
   "chunks": [
     {
-      "text": "Sabias que decidem",
-      "emphasis": null,
+      "text": "Três segundos",
+      "emphasis": "Três segundos",
       "start_ms": 0,
-      "dur_ms": 1109
-    },
-    {
-      "text": "em três segundos",
-      "emphasis": "três segundos",
-      "start_ms": 1109,
-      "dur_ms": 986,
+      "dur_ms": 762,
       "graphic": {
         "type": "count",
         "to": 3,
@@ -19,124 +13,46 @@
       }
     },
     {
-      "text": "se ficam no teu site?",
+      "text": "para mostrar o que importa",
       "emphasis": null,
-      "start_ms": 2095,
-      "dur_ms": 1295
+      "start_ms": 762,
+      "dur_ms": 1525
     },
     {
-      "text": "Três",
-      "emphasis": "Três",
-      "start_ms": 3530,
-      "dur_ms": 414
-    },
-    {
-      "text": "Segundos",
+      "text": "Acima da dobra:",
       "emphasis": null,
-      "start_ms": 3944,
-      "dur_ms": 828
+      "start_ms": 2427,
+      "dur_ms": 1893
     },
     {
-      "text": "Antes de leres",
+      "text": "valor, prova social, CTA",
+      "emphasis": "valor, prova, CTA",
+      "start_ms": 4320,
+      "dur_ms": 3029
+    },
+    {
+      "text": "Se não está claro",
       "emphasis": null,
-      "start_ms": 4912,
-      "dur_ms": 793
+      "start_ms": 7490,
+      "dur_ms": 1434
     },
     {
-      "text": "uma palavra",
-      "emphasis": null,
-      "start_ms": 5705,
-      "dur_ms": 623
+      "text": "tráfego pago é dinheiro queimado",
+      "emphasis": "dinheiro queimado",
+      "start_ms": 8924,
+      "dur_ms": 2699
     },
     {
-      "text": "Antes de saber",
-      "emphasis": null,
-      "start_ms": 6468,
-      "dur_ms": 638
-    },
-    {
-      "text": "o que vendes",
-      "emphasis": null,
-      "start_ms": 7106,
-      "dur_ms": 546
-    },
-    {
-      "text": "Antes de ver",
-      "emphasis": null,
-      "start_ms": 7792,
-      "dur_ms": 936
-    },
-    {
-      "text": "preços",
-      "emphasis": null,
-      "start_ms": 8728,
-      "dur_ms": 468
-    },
-    {
-      "text": "O que está",
-      "emphasis": "acima da dobra",
-      "start_ms": 9337,
-      "dur_ms": 604
-    },
-    {
-      "text": "acima da dobra",
-      "emphasis": null,
-      "start_ms": 9941,
-      "dur_ms": 845
-    },
-    {
-      "text": "decide tudo",
-      "emphasis": null,
-      "start_ms": 10786,
-      "dur_ms": 664
-    },
-    {
-      "text": "Sem razão clara",
-      "emphasis": null,
-      "start_ms": 11590,
-      "dur_ms": 1040
-    },
-    {
-      "text": "para ficar",
-      "emphasis": null,
-      "start_ms": 12630,
-      "dur_ms": 693
-    },
-    {
-      "text": "vão-se embora",
-      "emphasis": "vão-se embora",
-      "start_ms": 13323,
-      "dur_ms": 902
-    },
-    {
-      "text": "Põe o essencial",
-      "emphasis": null,
-      "start_ms": 14365,
-      "dur_ms": 896
-    },
-    {
-      "text": "logo à vista",
-      "emphasis": "logo à vista",
-      "start_ms": 15261,
-      "dur_ms": 717
-    },
-    {
-      "text": "Cuidamos disso",
-      "emphasis": null,
-      "start_ms": 16119,
-      "dur_ms": 983
-    },
-    {
-      "text": "por ti",
-      "emphasis": "por ti",
-      "start_ms": 17102,
-      "dur_ms": 421
+      "text": "Auditamos a tua dobra",
+      "emphasis": "Auditamos",
+      "start_ms": 11763,
+      "dur_ms": 1137
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 17664,
-      "dur_ms": 1567
+      "start_ms": 13041,
+      "dur_ms": 1509
     }
   ]
 }

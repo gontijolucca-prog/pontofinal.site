@@ -1,45 +1,39 @@
 {
-  "total_ms": 20717,
+  "total_ms": 17581,
   "chunks": [
     {
-      "text": "Sabias que",
-      "emphasis": null,
+      "text": "Trinta e seis para um",
+      "emphasis": "Trinta e seis para um",
       "start_ms": 0,
-      "dur_ms": 738
-    },
-    {
-      "text": "por cada euro em email",
-      "emphasis": null,
-      "start_ms": 738,
-      "dur_ms": 1624
-    },
-    {
-      "text": "recebes trinta e seis",
-      "emphasis": "trinta e seis",
-      "start_ms": 2362,
-      "dur_ms": 1550,
+      "dur_ms": 1509,
       "graphic": {
         "type": "euro",
         "to": 36
       }
     },
     {
-      "text": "Trinta e seis euros",
-      "emphasis": "Trinta e seis",
-      "start_ms": 4053,
-      "dur_ms": 1358
+      "text": "ROI médio do email marketing",
+      "emphasis": null,
+      "start_ms": 1649,
+      "dur_ms": 2125
     },
     {
-      "text": "No Instagram",
-      "emphasis": null,
-      "start_ms": 5551,
-      "dur_ms": 860
+      "text": "segundo a DMA",
+      "emphasis": "DMA",
+      "start_ms": 3774,
+      "dur_ms": 986
     },
     {
-      "text": "nem chegas",
+      "text": "Paid social?",
       "emphasis": null,
-      "start_ms": 6411,
-      "dur_ms": 717,
+      "start_ms": 4900,
+      "dur_ms": 1040
+    },
+    {
+      "text": "Entre dois e cinco",
+      "emphasis": "dois a cinco",
+      "start_ms": 5940,
+      "dur_ms": 1560,
       "graphic": {
         "type": "bars",
         "items": [
@@ -48,101 +42,53 @@
             "value": 36
           },
           {
-            "label": "Insta",
+            "label": "Paid",
             "value": 5
           }
         ]
       }
     },
     {
-      "text": "a cinco",
-      "emphasis": "cinco",
-      "start_ms": 7128,
-      "dur_ms": 501
-    },
-    {
-      "text": "E há outra",
+      "text": "Ao contrário do Instagram",
       "emphasis": null,
-      "start_ms": 7769,
-      "dur_ms": 611
+      "start_ms": 7641,
+      "dur_ms": 1679
     },
     {
-      "text": "diferença importante",
+      "text": "a tua lista é tua",
+      "emphasis": "é tua",
+      "start_ms": 9320,
+      "dur_ms": 1142
+    },
+    {
+      "text": "Não depende de algoritmos",
       "emphasis": null,
-      "start_ms": 8380,
-      "dur_ms": 1223
+      "start_ms": 10602,
+      "dur_ms": 1432
     },
     {
-      "text": "O Instagram",
+      "text": "nem mudanças de regras",
       "emphasis": null,
-      "start_ms": 9743,
-      "dur_ms": 685
+      "start_ms": 12034,
+      "dur_ms": 1261
     },
     {
-      "text": "pode banir-te",
-      "emphasis": "banir-te",
-      "start_ms": 10428,
-      "dur_ms": 810
-    },
-    {
-      "text": "amanhã",
+      "text": "Construímos lista",
       "emphasis": null,
-      "start_ms": 11238,
-      "dur_ms": 374
+      "start_ms": 13436,
+      "dur_ms": 1046
     },
     {
-      "text": "Pode mudar as regras",
-      "emphasis": null,
-      "start_ms": 11752,
-      "dur_ms": 1209
-    },
-    {
-      "text": "sem aviso",
-      "emphasis": "sem aviso",
-      "start_ms": 12961,
-      "dur_ms": 544
-    },
-    {
-      "text": "A tua lista",
-      "emphasis": null,
-      "start_ms": 13645,
-      "dur_ms": 1007
-    },
-    {
-      "text": "é tua",
-      "emphasis": "para sempre",
-      "start_ms": 14652,
-      "dur_ms": 458
-    },
-    {
-      "text": "para sempre",
-      "emphasis": null,
-      "start_ms": 15110,
-      "dur_ms": 1007
-    },
-    {
-      "text": "Ninguém ta tira",
-      "emphasis": "Ninguém ta tira",
-      "start_ms": 16258,
-      "dur_ms": 940
-    },
-    {
-      "text": "Construímos a tua lista",
-      "emphasis": null,
-      "start_ms": 17338,
-      "dur_ms": 1352
-    },
-    {
-      "text": "do zero",
-      "emphasis": null,
-      "start_ms": 18690,
-      "dur_ms": 412
+      "text": "e automações que vendem",
+      "emphasis": "que vendem",
+      "start_ms": 14482,
+      "dur_ms": 1415
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 19243,
-      "dur_ms": 1474
+      "start_ms": 16037,
+      "dur_ms": 1544
     }
   ]
 }

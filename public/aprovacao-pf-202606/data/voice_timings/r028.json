@@ -1,116 +1,74 @@
 {
-  "total_ms": 19499,
+  "total_ms": 15537,
   "chunks": [
     {
-      "text": "Sabias que mais de",
-      "emphasis": null,
+      "text": "Setenta por cento",
+      "emphasis": "Setenta por cento",
       "start_ms": 0,
-      "dur_ms": 1426
-    },
-    {
-      "text": "setenta por cento",
-      "emphasis": "setenta por cento",
-      "start_ms": 1426,
-      "dur_ms": 1347,
+      "dur_ms": 1321,
       "graphic": {
         "type": "percent",
         "to": 70
       }
     },
     {
-      "text": "visitam pelo telemóvel",
+      "text": "vem do telemóvel",
       "emphasis": null,
-      "start_ms": 2773,
-      "dur_ms": 1743
+      "start_ms": 1321,
+      "dur_ms": 1244
     },
     {
-      "text": "Setenta por cento",
-      "emphasis": "Setenta por cento",
-      "start_ms": 4656,
-      "dur_ms": 1265
+      "text": "Google indexa",
+      "emphasis": "pela versão mobile",
+      "start_ms": 2706,
+      "dur_ms": 1212
     },
     {
-      "text": "Não pelo",
-      "emphasis": "portátil",
-      "start_ms": 6061,
-      "dur_ms": 557
-    },
-    {
-      "text": "portátil",
+      "text": "pela versão mobile",
       "emphasis": null,
-      "start_ms": 6618,
-      "dur_ms": 557
+      "start_ms": 3918,
+      "dur_ms": 1678
     },
     {
-      "text": "Pelo telemóvel",
-      "emphasis": "telemóvel",
-      "start_ms": 7316,
-      "dur_ms": 1253
-    },
-    {
-      "text": "Se o teu site",
+      "text": "Não-mobile-first =",
       "emphasis": null,
-      "start_ms": 8710,
-      "dur_ms": 721
+      "start_ms": 5737,
+      "dur_ms": 1205
     },
     {
-      "text": "não pensado",
-      "emphasis": "ecrã pequeno",
-      "start_ms": 9431,
-      "dur_ms": 610
+      "text": "menos ranking, menos clientes",
+      "emphasis": "menos clientes",
+      "start_ms": 6942,
+      "dur_ms": 1941
     },
     {
-      "text": "para ecrã pequeno",
+      "text": "Não interessa",
       "emphasis": null,
-      "start_ms": 10041,
-      "dur_ms": 944
+      "start_ms": 9023,
+      "dur_ms": 620
     },
     {
-      "text": "Perdeste",
+      "text": "quão bom está no portátil",
       "emphasis": null,
-      "start_ms": 11126,
-      "dur_ms": 476
+      "start_ms": 9643,
+      "dur_ms": 1191
     },
     {
-      "text": "a maior parte",
-      "emphasis": "dos clientes",
-      "start_ms": 11602,
-      "dur_ms": 773
+      "text": "Mobile como base",
+      "emphasis": "como base",
+      "start_ms": 10974,
+      "dur_ms": 1355
     },
     {
-      "text": "dos clientes",
+      "text": "não como adaptação",
       "emphasis": null,
-      "start_ms": 12375,
-      "dur_ms": 713
-    },
-    {
-      "text": "Eles nem vão",
-      "emphasis": null,
-      "start_ms": 13228,
-      "dur_ms": 806
-    },
-    {
-      "text": "olhar duas vezes",
-      "emphasis": "duas vezes",
-      "start_ms": 14034,
-      "dur_ms": 1074
-    },
-    {
-      "text": "Refazemos para",
-      "emphasis": null,
-      "start_ms": 15249,
-      "dur_ms": 1122
-    },
-    {
-      "text": "telemóvel primeiro",
-      "emphasis": "telemóvel primeiro",
-      "start_ms": 16371,
-      "dur_ms": 1443
+      "start_ms": 12329,
+      "dur_ms": 1524
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 17955,
+      "start_ms": 13993,
       "dur_ms": 1544
     }
   ]

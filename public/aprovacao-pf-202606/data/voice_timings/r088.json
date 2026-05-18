@@ -1,145 +1,93 @@
 {
-  "total_ms": 19488,
+  "total_ms": 18209,
   "chunks": [
     {
-      "text": "Reparaste como",
+      "text": "A maioria das marcas",
       "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 1028
+      "dur_ms": 1550
     },
     {
-      "text": "tantas marcas",
+      "text": "deliberadamente vaga",
+      "emphasis": "deliberadamente vaga",
+      "start_ms": 1550,
+      "dur_ms": 1549
+    },
+    {
+      "text": "Acham que mistério",
       "emphasis": null,
-      "start_ms": 1028,
-      "dur_ms": 955
-    },
-    {
-      "text": "são confusas?",
-      "emphasis": "confusas",
-      "start_ms": 1983,
-      "dur_ms": 954
-    },
-    {
-      "text": "Não é",
-      "emphasis": "por acaso",
-      "start_ms": 3077,
-      "dur_ms": 369
-    },
-    {
-      "text": "por acaso",
-      "emphasis": null,
-      "start_ms": 3446,
-      "dur_ms": 664
-    },
-    {
-      "text": "É de propósito",
-      "emphasis": "de propósito",
-      "start_ms": 4250,
-      "dur_ms": 928,
-      "graphic": {
-        "type": "stamp",
-        "text": "DE PROPÓSITO"
-      }
-    },
-    {
-      "text": "Acham que ser vago",
-      "emphasis": null,
-      "start_ms": 5319,
-      "dur_ms": 1064
-    },
-    {
-      "text": "soa sofisticado",
-      "emphasis": null,
-      "start_ms": 6383,
-      "dur_ms": 886
-    },
-    {
-      "text": "Que ser misterioso",
-      "emphasis": null,
-      "start_ms": 7409,
-      "dur_ms": 973
+      "start_ms": 3240,
+      "dur_ms": 1117
     },
     {
       "text": "soa premium",
-      "emphasis": null,
-      "start_ms": 8382,
-      "dur_ms": 594
+      "emphasis": "soa premium",
+      "start_ms": 4357,
+      "dur_ms": 682
     },
     {
-      "text": "Não soa",
-      "emphasis": "Não soa",
-      "start_ms": 9116,
-      "dur_ms": 975
-    },
-    {
-      "text": "É falta de coragem",
+      "text": "Soa a",
       "emphasis": "falta de coragem",
-      "start_ms": 10231,
-      "dur_ms": 1008
-    },
-    {
-      "text": "para dizer claramente",
-      "emphasis": null,
-      "start_ms": 11239,
-      "dur_ms": 1176
-    },
-    {
-      "text": "o que se faz",
-      "emphasis": null,
-      "start_ms": 12415,
-      "dur_ms": 672
-    },
-    {
-      "text": "A clareza",
-      "emphasis": null,
-      "start_ms": 13227,
-      "dur_ms": 698
-    },
-    {
-      "text": "assusta",
-      "emphasis": "assusta",
-      "start_ms": 13925,
-      "dur_ms": 543
-    },
-    {
-      "text": "as marcas",
-      "emphasis": null,
-      "start_ms": 14468,
-      "dur_ms": 697
-    },
-    {
-      "text": "Por isso",
-      "emphasis": null,
-      "start_ms": 15306,
-      "dur_ms": 769
-    },
-    {
-      "text": "é rara",
-      "emphasis": null,
-      "start_ms": 16075,
-      "dur_ms": 577
-    },
-    {
-      "text": "E por isso",
-      "emphasis": "vende",
-      "start_ms": 16793,
-      "dur_ms": 743,
+      "start_ms": 5180,
+      "dur_ms": 356,
       "graphic": {
         "type": "stamp",
-        "text": "VENDE"
+        "text": "FALTA DE CORAGEM"
       }
     },
     {
-      "text": "vende",
+      "text": "falta de coragem",
       "emphasis": null,
-      "start_ms": 17536,
-      "dur_ms": 371
+      "start_ms": 5536,
+      "dur_ms": 1141
+    },
+    {
+      "text": "Quem tem confiança",
+      "emphasis": null,
+      "start_ms": 6818,
+      "dur_ms": 1672
+    },
+    {
+      "text": "diz claramente:",
+      "emphasis": "diz claramente",
+      "start_ms": 8490,
+      "dur_ms": 1393
+    },
+    {
+      "text": "Em quem trabalha",
+      "emphasis": null,
+      "start_ms": 10023,
+      "dur_ms": 1203
+    },
+    {
+      "text": "para quem",
+      "emphasis": null,
+      "start_ms": 11226,
+      "dur_ms": 677
+    },
+    {
+      "text": "o resultado que entrega",
+      "emphasis": "que entrega",
+      "start_ms": 11903,
+      "dur_ms": 1730
+    },
+    {
+      "text": "Posicionamos a marca",
+      "emphasis": null,
+      "start_ms": 13774,
+      "dur_ms": 1331
+    },
+    {
+      "text": "para não ser ignorada",
+      "emphasis": "não ser ignorada",
+      "start_ms": 15105,
+      "dur_ms": 1397
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 18048,
-      "dur_ms": 1439
+      "start_ms": 16642,
+      "dur_ms": 1567
     }
   ]
 }

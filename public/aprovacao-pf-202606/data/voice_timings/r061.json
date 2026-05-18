@@ -1,137 +1,89 @@
 {
-  "total_ms": 19858,
+  "total_ms": 15782,
   "chunks": [
-    {
-      "text": "Sabias que",
-      "emphasis": null,
-      "start_ms": 0,
-      "dur_ms": 894
-    },
-    {
-      "text": "mais de metade",
-      "emphasis": "mais de metade",
-      "start_ms": 894,
-      "dur_ms": 1252,
-      "graphic": {
-        "type": "percent",
-        "to": 53
-      }
-    },
-    {
-      "text": "sai em três segundos",
-      "emphasis": null,
-      "start_ms": 2146,
-      "dur_ms": 1789
-    },
-    {
-      "text": "Cinquenta e três",
-      "emphasis": "53%",
-      "start_ms": 4076,
-      "dur_ms": 995,
-      "graphic": {
-        "type": "percent",
-        "to": 53
-      }
-    },
-    {
-      "text": "por cento",
-      "emphasis": null,
-      "start_ms": 5071,
-      "dur_ms": 560
-    },
-    {
-      "text": "Por causa de",
-      "emphasis": "três segundos",
-      "start_ms": 5772,
-      "dur_ms": 752
-    },
-    {
-      "text": "três segundos",
-      "emphasis": null,
-      "start_ms": 6524,
-      "dur_ms": 815
-    },
-    {
-      "text": "Não importa",
-      "emphasis": null,
-      "start_ms": 7479,
-      "dur_ms": 559
-    },
-    {
-      "text": "quão bom é",
-      "emphasis": null,
-      "start_ms": 8038,
-      "dur_ms": 509
-    },
-    {
-      "text": "o teu produto",
-      "emphasis": null,
-      "start_ms": 8547,
-      "dur_ms": 661
-    },
-    {
-      "text": "Se o site é lento",
-      "emphasis": null,
-      "start_ms": 9349,
-      "dur_ms": 1190
-    },
-    {
-      "text": "perdeste a venda",
-      "emphasis": "perdeste a venda",
-      "start_ms": 10539,
-      "dur_ms": 1120
-    },
-    {
-      "text": "Antes",
-      "emphasis": "de a fazeres",
-      "start_ms": 11799,
-      "dur_ms": 393
-    },
-    {
-      "text": "de a fazeres",
-      "emphasis": null,
-      "start_ms": 12192,
-      "dur_ms": 942
-    },
     {
       "text": "Cada segundo extra",
       "emphasis": null,
-      "start_ms": 13274,
-      "dur_ms": 1072
+      "start_ms": 0,
+      "dur_ms": 1165
     },
     {
-      "text": "reduz vendas em",
+      "text": "derruba sete por cento",
       "emphasis": "sete por cento",
-      "start_ms": 14346,
-      "dur_ms": 893,
+      "start_ms": 1165,
+      "dur_ms": 1423,
       "graphic": {
         "type": "percent",
         "to": 7
       }
     },
     {
-      "text": "sete por cento",
+      "text": "das conversões",
       "emphasis": null,
-      "start_ms": 15239,
-      "dur_ms": 833
+      "start_ms": 2588,
+      "dur_ms": 906
     },
     {
-      "text": "Optimizamos o teu site",
-      "emphasis": null,
-      "start_ms": 16212,
-      "dur_ms": 1498
+      "text": "Estudo da Akamai",
+      "emphasis": "Akamai",
+      "start_ms": 3635,
+      "dur_ms": 1126,
+      "graphic": {
+        "type": "stamp",
+        "text": "AKAMAI"
+      }
     },
     {
-      "text": "até voar",
-      "emphasis": "até voar",
-      "start_ms": 17710,
-      "dur_ms": 545
+      "text": "Mais de três segundos",
+      "emphasis": null,
+      "start_ms": 4901,
+      "dur_ms": 1595
+    },
+    {
+      "text": "perdeste metade",
+      "emphasis": "metade do tráfego",
+      "start_ms": 6496,
+      "dur_ms": 1139,
+      "graphic": {
+        "type": "percent",
+        "to": 53
+      }
+    },
+    {
+      "text": "do tráfego",
+      "emphasis": null,
+      "start_ms": 7635,
+      "dur_ms": 760
+    },
+    {
+      "text": "Google usa isto",
+      "emphasis": null,
+      "start_ms": 8536,
+      "dur_ms": 828
+    },
+    {
+      "text": "como factor de ranking",
+      "emphasis": "factor de ranking",
+      "start_ms": 9364,
+      "dur_ms": 1215
+    },
+    {
+      "text": "Optimizamos imagens",
+      "emphasis": null,
+      "start_ms": 10719,
+      "dur_ms": 1400
+    },
+    {
+      "text": "carregamento crítico, cache",
+      "emphasis": null,
+      "start_ms": 12119,
+      "dur_ms": 1990
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 18395,
-      "dur_ms": 1462
+      "start_ms": 14249,
+      "dur_ms": 1532
     }
   ]
 }

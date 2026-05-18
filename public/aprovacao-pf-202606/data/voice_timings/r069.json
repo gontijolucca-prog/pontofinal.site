@@ -1,141 +1,91 @@
 {
-  "total_ms": 22749,
+  "total_ms": 16315,
   "chunks": [
     {
-      "text": "Sabias que",
-      "emphasis": null,
+      "text": "Noventa e quatro por cento",
+      "emphasis": "94%",
       "start_ms": 0,
-      "dur_ms": 983
-    },
-    {
-      "text": "noventa e quatro por cento",
-      "emphasis": "noventa e quatro",
-      "start_ms": 983,
-      "dur_ms": 2556,
+      "dur_ms": 1439,
       "graphic": {
         "type": "percent",
         "to": 94
       }
     },
     {
+      "text": "da primeira impressão",
+      "emphasis": null,
+      "start_ms": 1439,
+      "dur_ms": 1162
+    },
+    {
       "text": "vem do design",
       "emphasis": null,
-      "start_ms": 3539,
-      "dur_ms": 1279
+      "start_ms": 2601,
+      "dur_ms": 719
     },
     {
-      "text": "Estudo da",
-      "emphasis": null,
-      "start_ms": 4958,
-      "dur_ms": 446
-    },
-    {
-      "text": "universidade de Stanford",
+      "text": "Estudo da Stanford",
       "emphasis": "Stanford",
-      "start_ms": 5404,
-      "dur_ms": 1191
+      "start_ms": 3460,
+      "dur_ms": 1300,
+      "graphic": {
+        "type": "stamp",
+        "text": "STANFORD"
+      }
     },
     {
-      "text": "Antes de leres",
+      "text": "Antes de uma palavra ser lida",
       "emphasis": null,
-      "start_ms": 6735,
-      "dur_ms": 760
+      "start_ms": 4900,
+      "dur_ms": 2171
     },
     {
-      "text": "uma palavra",
+      "text": "o cérebro já decidiu",
+      "emphasis": "se confia",
+      "start_ms": 7071,
+      "dur_ms": 1497
+    },
+    {
+      "text": "Site desactualizado",
       "emphasis": null,
-      "start_ms": 7495,
-      "dur_ms": 598
+      "start_ms": 8709,
+      "dur_ms": 1087
     },
     {
-      "text": "Antes de veres",
-      "emphasis": null,
-      "start_ms": 8233,
-      "dur_ms": 951
-    },
-    {
-      "text": "preços",
-      "emphasis": null,
-      "start_ms": 9184,
-      "dur_ms": 407
-    },
-    {
-      "text": "Antes de saberes",
-      "emphasis": null,
-      "start_ms": 9731,
-      "dur_ms": 963
-    },
-    {
-      "text": "o que fazes",
-      "emphasis": null,
-      "start_ms": 10694,
-      "dur_ms": 662
-    },
-    {
-      "text": "Em segundos",
-      "emphasis": null,
-      "start_ms": 11496,
-      "dur_ms": 815
-    },
-    {
-      "text": "decidem se confiam",
-      "emphasis": "confiam em ti",
-      "start_ms": 12311,
-      "dur_ms": 1334
-    },
-    {
-      "text": "em ti",
-      "emphasis": null,
-      "start_ms": 13645,
-      "dur_ms": 370
-    },
-    {
-      "text": "Site velho",
-      "emphasis": null,
-      "start_ms": 14155,
-      "dur_ms": 864
-    },
-    {
-      "text": "mensagem errada",
-      "emphasis": "mensagem errada",
-      "start_ms": 15019,
-      "dur_ms": 1295
+      "text": "= empresa desactualizada",
+      "emphasis": "desactualizada",
+      "start_ms": 9796,
+      "dur_ms": 1374
     },
     {
       "text": "Mesmo que sejas",
       "emphasis": null,
-      "start_ms": 16454,
-      "dur_ms": 846
+      "start_ms": 11310,
+      "dur_ms": 882
     },
     {
-      "text": "o melhor",
-      "emphasis": "o melhor",
-      "start_ms": 17300,
-      "dur_ms": 451
+      "text": "líder de mercado",
+      "emphasis": "líder de mercado",
+      "start_ms": 12192,
+      "dur_ms": 940
     },
     {
-      "text": "no que fazes",
+      "text": "Repensamos o design",
       "emphasis": null,
-      "start_ms": 17751,
-      "dur_ms": 676
+      "start_ms": 13273,
+      "dur_ms": 1077
     },
     {
-      "text": "Fazemos com que pareças",
-      "emphasis": null,
-      "start_ms": 18568,
-      "dur_ms": 1503
-    },
-    {
-      "text": "tão bom como és",
-      "emphasis": "tão bom como és",
-      "start_ms": 20071,
-      "dur_ms": 981
+      "text": "contigo",
+      "emphasis": "contigo",
+      "start_ms": 14350,
+      "dur_ms": 397
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 21193,
-      "dur_ms": 1555
+      "start_ms": 14887,
+      "dur_ms": 1428
     }
   ]
 }

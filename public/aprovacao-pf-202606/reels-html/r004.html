@@ -6,26 +6,20 @@
 <title>Email marketing não morreu</title>
 <style>
   :root {
-    --bg: #FFFFFF;
-    --ink: #050505;
-    --accent: #FF2A2A;
+    --bg: #FFFFFF; --ink: #050505; --accent: #FF2A2A;
     --dot: rgba(5,5,5,0.85);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
     width: 100%; height: 100%;
-    background: #000;
-    overflow: hidden;
+    background: #000; overflow: hidden;
     font-family: 'Arial Black', 'Helvetica Neue', Impact, sans-serif;
     position: relative;
   }
   .reel {
-    position: absolute;
-    top: 50%; left: 50%;
-    margin-top: -960px;
-    margin-left: -540px;
-    width: 1080px;
-    height: 1920px;
+    position: absolute; top: 50%; left: 50%;
+    margin-top: -960px; margin-left: -540px;
+    width: 1080px; height: 1920px;
     background: var(--bg);
     background-image: radial-gradient(circle, var(--dot) 1.8px, transparent 1.8px);
     background-size: 44px 44px;
@@ -38,16 +32,12 @@
     100% { background-position: 44px 44px; }
   }
   .reel::before {
-    content: "";
-    position: absolute;
-    inset: 60px;
+    content: ""; position: absolute; inset: 60px;
     border: 6px solid var(--ink);
-    pointer-events: none;
-    z-index: 1;
+    pointer-events: none; z-index: 1;
   }
   .brand {
-    position: absolute;
-    top: 96px; left: 50%; transform: translateX(-50%);
+    position: absolute; top: 96px; left: 50%; transform: translateX(-50%);
     z-index: 5;
     background: var(--ink); color: #FFF;
     padding: 14px 28px; border: 4px solid var(--ink);
@@ -55,45 +45,49 @@
     letter-spacing: -0.02em; text-transform: lowercase;
   }
   .progress {
-    position: absolute;
-    top: 60px; left: 60px; right: 60px; height: 8px;
+    position: absolute; top: 60px; left: 60px; right: 60px; height: 8px;
     background: rgba(5,5,5,0.08); z-index: 4;
   }
   .progress::after {
     content: ""; position: absolute; left: 0; top: 0; bottom: 0;
-    background: var(--accent);
-    transform-origin: left center;
-    animation: progress 20.717s linear infinite;
+    background: var(--accent); transform-origin: left center;
+    animation: progress 17.581s linear infinite;
   }
   @keyframes progress {
     0% { transform: scaleX(0); } 100% { transform: scaleX(1); }
   }
-  .stage { position: absolute; inset: 0; z-index: 2; }
-  .chunk {
+
+  /* Graphics layer — TOP 60%, persistent ~2.5s */
+  .g-layer {
     position: absolute;
-    inset: 220px 110px 320px;
+    inset: 220px 90px 880px;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .g-item {
+    position: absolute; inset: 0;
     display: grid; place-items: center;
     opacity: 0;
     will-change: opacity;
   }
-  .chunk__inner {
+
+  /* Chunks (subtitles) — BOTTOM 40% */
+  .chunk {
+    position: absolute;
+    inset: 1120px 110px 280px;
     display: grid; place-items: center;
-    gap: 32px;
-    max-width: 860px;
+    opacity: 0;
+    will-change: opacity;
+    z-index: 2;
   }
   .chunk__text {
-    font: 900 140px/1.04 'Arial Black', sans-serif;
+    font: 900 124px/1.04 'Arial Black', sans-serif;
     color: var(--ink);
     letter-spacing: -0.035em;
     text-transform: uppercase;
     text-align: center;
     max-width: 860px;
     word-break: normal; overflow-wrap: normal; hyphens: manual;
-  }
-  .chunk--with-graphic .chunk__text {
-    font-size: 76px;
-    letter-spacing: -0.02em;
-    color: rgba(5,5,5,0.7);
   }
   .hl {
     display: inline-block;
@@ -104,73 +98,68 @@
     margin: 6px 4px; transform: rotate(-1.4deg);
   }
 
-  /* Motion graphics — neo-brutalist */
+  /* Motion graphic widgets */
   .g-counter {
     display: grid; grid-auto-flow: row; place-items: center;
     text-align: center;
   }
   .g-counter--prefix, .g-counter--percent {
-    grid-auto-flow: column; align-items: baseline; gap: 18px;
+    grid-auto-flow: column; align-items: baseline; gap: 20px;
   }
   .g-counter__num {
-    font: 900 360px/0.95 'Arial Black', sans-serif;
+    font: 900 380px/0.95 'Arial Black', sans-serif;
     color: var(--ink);
     letter-spacing: -0.045em;
     font-variant-numeric: tabular-nums;
   }
   .g-counter__suffix {
-    font: 900 72px/1 'Arial Black', sans-serif;
+    font: 900 76px/1 'Arial Black', sans-serif;
     color: var(--ink);
-    letter-spacing: -0.02em;
-    text-transform: uppercase;
-    margin-top: 12px;
+    letter-spacing: -0.02em; text-transform: uppercase;
+    margin-top: 14px;
   }
   .g-counter__prefix, .g-counter__symbol {
-    font: 900 220px/1 'Arial Black', sans-serif;
+    font: 900 240px/1 'Arial Black', sans-serif;
     color: var(--accent);
     letter-spacing: -0.03em;
   }
   .g-stamp {
     display: inline-block;
     background: var(--accent); color: #FFF;
-    padding: 28px 60px 38px;
+    padding: 32px 70px 44px;
     border: 8px solid var(--ink);
-    box-shadow: 18px 18px 0 0 var(--ink);
+    box-shadow: 20px 20px 0 0 var(--ink);
     transform: rotate(-3.5deg);
     font: 900 130px/1 'Arial Black', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
-    animation: stamp-pop 0.5s cubic-bezier(.2,1.6,.4,1) both;
+    text-transform: uppercase; letter-spacing: -0.02em;
+    animation: stamp-pop 0.55s cubic-bezier(.2,1.6,.4,1) both;
   }
   @keyframes stamp-pop {
-    0%   { transform: rotate(-12deg) scale(0.2); opacity: 0; }
+    0%   { transform: rotate(-12deg) scale(0.25); opacity: 0; }
     60%  { transform: rotate(-1deg) scale(1.08); opacity: 1; }
     100% { transform: rotate(-3.5deg) scale(1); opacity: 1; }
   }
   .g-bars {
-    display: grid; gap: 28px; width: 100%;
+    display: grid; gap: 32px; width: 100%; padding: 0 24px;
   }
   .g-bar {
     display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 18px; align-items: center;
+    grid-template-columns: 220px 1fr;
+    gap: 22px; align-items: center;
   }
   .g-bar__label {
-    font: 900 56px/1 'Arial Black', sans-serif;
-    text-transform: uppercase;
-    color: var(--ink);
+    font: 900 60px/1 'Arial Black', sans-serif;
+    text-transform: uppercase; color: var(--ink);
   }
   .g-bar__track {
-    position: relative;
-    height: 88px;
+    position: relative; height: 92px;
     background: rgba(5,5,5,0.07);
     border: 4px solid var(--ink);
   }
   .g-bar__fill {
     position: absolute; left: 0; top: 0; bottom: 0;
-    width: 0;
-    background: var(--accent);
-    animation: bar-grow 0.9s cubic-bezier(.2,.7,.2,1) both;
+    width: 0; background: var(--accent);
+    animation: bar-grow 1s cubic-bezier(.2,.7,.2,1) both;
   }
   @keyframes bar-grow {
     from { width: 0; }
@@ -179,9 +168,9 @@
   .g-bar__value {
     position: absolute;
     right: -8px; top: 50%; transform: translate(100%, -50%);
-    font: 900 52px/1 'Arial Black', sans-serif;
+    font: 900 54px/1 'Arial Black', sans-serif;
     color: var(--ink);
-    padding-left: 16px;
+    padding-left: 18px;
   }
 
   .footer-arrow {
@@ -196,130 +185,88 @@
     0%, 100% { transform: translate(-50%, 0); }
     50% { transform: translate(-50%, 14px); }
   }
+
   @keyframes chunk0 {
               0% { opacity: 1; }
-              3.548% { opacity: 1; }
-              3.562%, 100% { opacity: 0; }
+              9.362% { opacity: 1; }
+              9.379%, 100% { opacity: 0; }
             }
 @keyframes chunk1 {
-              0%, 3.548% { opacity: 0; }
-              3.562% { opacity: 1; }
-              11.387% { opacity: 1; }
-              11.401%, 100% { opacity: 0; }
+              0%, 9.362% { opacity: 0; }
+              9.379% { opacity: 1; }
+              21.449% { opacity: 1; }
+              21.466%, 100% { opacity: 0; }
             }
 @keyframes chunk2 {
-              0%, 11.387% { opacity: 0; }
-              11.401% { opacity: 1; }
-              19.549% { opacity: 1; }
-              19.564%, 100% { opacity: 0; }
+              0%, 21.449% { opacity: 0; }
+              21.466% { opacity: 1; }
+              27.854% { opacity: 1; }
+              27.871%, 100% { opacity: 0; }
             }
 @keyframes chunk3 {
-              0%, 19.549% { opacity: 0; }
-              19.564% { opacity: 1; }
-              26.780% { opacity: 1; }
-              26.794%, 100% { opacity: 0; }
+              0%, 27.854% { opacity: 0; }
+              27.871% { opacity: 1; }
+              33.769% { opacity: 1; }
+              33.786%, 100% { opacity: 0; }
             }
 @keyframes chunk4 {
-              0%, 26.780% { opacity: 0; }
-              26.794% { opacity: 1; }
-              30.931% { opacity: 1; }
-              30.946%, 100% { opacity: 0; }
+              0%, 33.769% { opacity: 0; }
+              33.786% { opacity: 1; }
+              43.445% { opacity: 1; }
+              43.462%, 100% { opacity: 0; }
             }
 @keyframes chunk5 {
-              0%, 30.931% { opacity: 0; }
-              30.946% { opacity: 1; }
-              34.392% { opacity: 1; }
-              34.407%, 100% { opacity: 0; }
+              0%, 43.445% { opacity: 0; }
+              43.462% { opacity: 1; }
+              52.995% { opacity: 1; }
+              53.012%, 100% { opacity: 0; }
             }
 @keyframes chunk6 {
-              0%, 34.392% { opacity: 0; }
-              34.407% { opacity: 1; }
-              37.486% { opacity: 1; }
-              37.501%, 100% { opacity: 0; }
+              0%, 52.995% { opacity: 0; }
+              53.012% { opacity: 1; }
+              60.287% { opacity: 1; }
+              60.304%, 100% { opacity: 0; }
             }
 @keyframes chunk7 {
-              0%, 37.486% { opacity: 0; }
-              37.501% { opacity: 1; }
-              40.435% { opacity: 1; }
-              40.450%, 100% { opacity: 0; }
+              0%, 60.287% { opacity: 0; }
+              60.304% { opacity: 1; }
+              68.432% { opacity: 1; }
+              68.449%, 100% { opacity: 0; }
             }
 @keyframes chunk8 {
-              0%, 40.435% { opacity: 0; }
-              40.450% { opacity: 1; }
-              47.015% { opacity: 1; }
-              47.029%, 100% { opacity: 0; }
+              0%, 68.432% { opacity: 0; }
+              68.449% { opacity: 1; }
+              76.406% { opacity: 1; }
+              76.423%, 100% { opacity: 0; }
             }
 @keyframes chunk9 {
-              0%, 47.015% { opacity: 0; }
-              47.029% { opacity: 1; }
-              50.321% { opacity: 1; }
-              50.335%, 100% { opacity: 0; }
+              0%, 76.406% { opacity: 0; }
+              76.423% { opacity: 1; }
+              82.356% { opacity: 1; }
+              82.373%, 100% { opacity: 0; }
             }
 @keyframes chunk10 {
-              0%, 50.321% { opacity: 0; }
-              50.335% { opacity: 1; }
-              54.231% { opacity: 1; }
-              54.245%, 100% { opacity: 0; }
+              0%, 82.356% { opacity: 0; }
+              82.373% { opacity: 1; }
+              91.201% { opacity: 1; }
+              91.218%, 100% { opacity: 0; }
             }
 @keyframes chunk11 {
-              0%, 54.231% { opacity: 0; }
-              54.245% { opacity: 1; }
-              56.712% { opacity: 1; }
-              56.726%, 100% { opacity: 0; }
-            }
-@keyframes chunk12 {
-              0%, 56.712% { opacity: 0; }
-              56.726% { opacity: 1; }
-              62.548% { opacity: 1; }
-              62.562%, 100% { opacity: 0; }
-            }
-@keyframes chunk13 {
-              0%, 62.548% { opacity: 0; }
-              62.562% { opacity: 1; }
-              65.849% { opacity: 1; }
-              65.864%, 100% { opacity: 0; }
-            }
-@keyframes chunk14 {
-              0%, 65.849% { opacity: 0; }
-              65.864% { opacity: 1; }
-              70.710% { opacity: 1; }
-              70.725%, 100% { opacity: 0; }
-            }
-@keyframes chunk15 {
-              0%, 70.710% { opacity: 0; }
-              70.725% { opacity: 1; }
-              72.921% { opacity: 1; }
-              72.935%, 100% { opacity: 0; }
-            }
-@keyframes chunk16 {
-              0%, 72.921% { opacity: 0; }
-              72.935% { opacity: 1; }
-              78.462% { opacity: 1; }
-              78.477%, 100% { opacity: 0; }
-            }
-@keyframes chunk17 {
-              0%, 78.462% { opacity: 0; }
-              78.477% { opacity: 1; }
-              83.675% { opacity: 1; }
-              83.690%, 100% { opacity: 0; }
-            }
-@keyframes chunk18 {
-              0%, 83.675% { opacity: 0; }
-              83.690% { opacity: 1; }
-              90.201% { opacity: 1; }
-              90.216%, 100% { opacity: 0; }
-            }
-@keyframes chunk19 {
-              0%, 90.201% { opacity: 0; }
-              90.216% { opacity: 1; }
-              92.871% { opacity: 1; }
-              92.885%, 100% { opacity: 0; }
-            }
-@keyframes chunk20 {
-              0%, 92.871% { opacity: 0; }
-              92.885% { opacity: 1; }
-              99.986% { opacity: 1; }
+              0%, 91.201% { opacity: 0; }
+              91.218% { opacity: 1; }
+              99.983% { opacity: 1; }
               100.000%, 100% { opacity: 0; }
+            }
+  @keyframes graphic0 {
+              0% { opacity: 1; }
+              13.367% { opacity: 1; }
+              14.220%, 100% { opacity: 0; }
+            }
+@keyframes graphic1 {
+              0%, 33.769% { opacity: 0; }
+              33.786% { opacity: 1; }
+              47.153% { opacity: 1; }
+              48.006%, 100% { opacity: 0; }
             }
 </style>
 </head>
@@ -327,28 +274,23 @@
 <section class="reel" aria-label="Email marketing não morreu">
   <div class="progress"></div>
   <div class="brand">Pontofinal.site_</div>
+  <div class="g-layer">
+  <div class="g-item" data-gidx="0" style="animation: graphic0 17.581s linear infinite;"><div class="g-counter g-counter--prefix" data-to="36"><span class="g-counter__prefix">€</span><span class="g-counter__num">0</span></div></div>
+  <div class="g-item" data-gidx="1" style="animation: graphic1 17.581s linear infinite;"><div class="g-bars"><div class="g-bar" data-target="100.00"><span class="g-bar__label">Email</span><div class="g-bar__track"><div class="g-bar__fill"></div><span class="g-bar__value">36</span></div></div><div class="g-bar" data-target="13.89"><span class="g-bar__label">Paid</span><div class="g-bar__track"><div class="g-bar__fill"></div><span class="g-bar__value">5</span></div></div></div></div>
+  </div>
   <div class="stage">
-  <div class="chunk" data-idx="0" style="animation: chunk0 20.717s linear infinite;"><div class="chunk__inner"><p class="chunk__text">Sabias que</p></div></div>
-  <div class="chunk" data-idx="1" style="animation: chunk1 20.717s linear infinite;"><div class="chunk__inner"><p class="chunk__text">por cada euro em email</p></div></div>
-  <div class="chunk chunk--with-graphic" data-idx="2" style="animation: chunk2 20.717s linear infinite;"><div class="chunk__inner"><div class="g-counter g-counter--prefix" data-to="36"><span class="g-counter__prefix">€</span><span class="g-counter__num">0</span></div><p class="chunk__text">recebes <span class="hl">trinta e seis</span></p></div></div>
-  <div class="chunk" data-idx="3" style="animation: chunk3 20.717s linear infinite;"><div class="chunk__inner"><p class="chunk__text"><span class="hl">Trinta e seis</span> euros</p></div></div>
-  <div class="chunk" data-idx="4" style="animation: chunk4 20.717s linear infinite;"><div class="chunk__inner"><p class="chunk__text">No Instagram</p></div></div>
-  <div class="chunk chunk--with-graphic" data-idx="5" style="animation: chunk5 20.717s linear infinite;"><div class="chunk__inner"><div class="g-bars"><div class="g-bar" data-target="100.00"><span class="g-bar__label">Email</span><div class="g-bar__track"><div class="g-bar__fill"></div><span class="g-bar__value">36</span></div></div><div class="g-bar" data-target="13.89"><span class="g-bar__label">Insta</span><div class="g-bar__track"><div class="g-bar__fill"></div><span class="g-bar__value">5</span></div></div></div><p class="chunk__text">nem chegas</p></div></div>
-  <div class="chunk" data-idx="6" style="animation: chunk6 20.717s linear infinite;"><div class="chunk__inner"><p class="chunk__text">a <span class="hl">cinco</span></p></div></div>
-  <div class="chunk" data-idx="7" style="animation: chunk7 20.717s linear infinite;"><div class="chunk__inner"><p class="chunk__text">E há outra</p></div></div>
-  <div class="chunk" data-idx="8" style="animation: chunk8 20.717s linear infinite;"><div class="chunk__inner"><p class="chunk__text">diferença importante</p></div></div>
-  <div class="chunk" data-idx="9" style="animation: chunk9 20.717s linear infinite;"><div class="chunk__inner"><p class="chunk__text">O Instagram</p></div></div>
-  <div class="chunk" data-idx="10" style="animation: chunk10 20.717s linear infinite;"><div class="chunk__inner"><p class="chunk__text">pode <span class="hl">banir-te</span></p></div></div>
-  <div class="chunk" data-idx="11" style="animation: chunk11 20.717s linear infinite;"><div class="chunk__inner"><p class="chunk__text">amanhã</p></div></div>
-  <div class="chunk" data-idx="12" style="animation: chunk12 20.717s linear infinite;"><div class="chunk__inner"><p class="chunk__text">Pode mudar as regras</p></div></div>
-  <div class="chunk" data-idx="13" style="animation: chunk13 20.717s linear infinite;"><div class="chunk__inner"><p class="chunk__text"><span class="hl">sem aviso</span></p></div></div>
-  <div class="chunk" data-idx="14" style="animation: chunk14 20.717s linear infinite;"><div class="chunk__inner"><p class="chunk__text">A tua lista</p></div></div>
-  <div class="chunk" data-idx="15" style="animation: chunk15 20.717s linear infinite;"><div class="chunk__inner"><p class="chunk__text">é tua</p></div></div>
-  <div class="chunk" data-idx="16" style="animation: chunk16 20.717s linear infinite;"><div class="chunk__inner"><p class="chunk__text">para sempre</p></div></div>
-  <div class="chunk" data-idx="17" style="animation: chunk17 20.717s linear infinite;"><div class="chunk__inner"><p class="chunk__text"><span class="hl">Ninguém ta tira</span></p></div></div>
-  <div class="chunk" data-idx="18" style="animation: chunk18 20.717s linear infinite;"><div class="chunk__inner"><p class="chunk__text">Construímos a tua lista</p></div></div>
-  <div class="chunk" data-idx="19" style="animation: chunk19 20.717s linear infinite;"><div class="chunk__inner"><p class="chunk__text">do zero</p></div></div>
-  <div class="chunk" data-idx="20" style="animation: chunk20 20.717s linear infinite;"><div class="chunk__inner"><p class="chunk__text"><span class="hl">PontoFinal.site</span></p></div></div>
+  <div class="chunk" data-idx="0" style="animation: chunk0 17.581s linear infinite;"><p class="chunk__text"><span class="hl">Trinta e seis para um</span></p></div>
+  <div class="chunk" data-idx="1" style="animation: chunk1 17.581s linear infinite;"><p class="chunk__text">ROI médio do email marketing</p></div>
+  <div class="chunk" data-idx="2" style="animation: chunk2 17.581s linear infinite;"><p class="chunk__text">segundo a <span class="hl">DMA</span></p></div>
+  <div class="chunk" data-idx="3" style="animation: chunk3 17.581s linear infinite;"><p class="chunk__text">Paid social?</p></div>
+  <div class="chunk" data-idx="4" style="animation: chunk4 17.581s linear infinite;"><p class="chunk__text">Entre dois e cinco</p></div>
+  <div class="chunk" data-idx="5" style="animation: chunk5 17.581s linear infinite;"><p class="chunk__text">Ao contrário do Instagram</p></div>
+  <div class="chunk" data-idx="6" style="animation: chunk6 17.581s linear infinite;"><p class="chunk__text">a tua lista <span class="hl">é tua</span></p></div>
+  <div class="chunk" data-idx="7" style="animation: chunk7 17.581s linear infinite;"><p class="chunk__text">Não depende de algoritmos</p></div>
+  <div class="chunk" data-idx="8" style="animation: chunk8 17.581s linear infinite;"><p class="chunk__text">nem mudanças de regras</p></div>
+  <div class="chunk" data-idx="9" style="animation: chunk9 17.581s linear infinite;"><p class="chunk__text">Construímos lista</p></div>
+  <div class="chunk" data-idx="10" style="animation: chunk10 17.581s linear infinite;"><p class="chunk__text">e automações <span class="hl">que vendem</span></p></div>
+  <div class="chunk" data-idx="11" style="animation: chunk11 17.581s linear infinite;"><p class="chunk__text"><span class="hl">PontoFinal.site</span></p></div>
   </div>
   <div class="footer-arrow">↓</div>
   <audio id="narration" src="../audio/voices/r004.mp3" preload="auto"></audio>
@@ -356,10 +298,9 @@
 </section>
 <script>
 (function () {
-  const TOTAL_MS = 20717;
-  const COUNTERS = [{"chunk_idx": 2, "to": 36, "start": 2362, "dur": 1550}];
+  const TOTAL_MS = 17581;
+  const COUNTERS = [{"g_idx": 0, "to": 36, "start": 0, "end": 2500}];
 
-  // Responsive scale: fit reel to iframe/window viewport
   const r = document.querySelector('.reel');
   function fit() {
     const sw = window.innerWidth / 1080;
@@ -369,14 +310,14 @@
   fit();
   addEventListener('resize', fit);
 
-  // Auto-fit text: shrink large chunk text until it fits without breaking words.
+  // Auto-fit text: shrink chunk text until it fits without breaking words
   function fitText() {
     document.querySelectorAll('.chunk').forEach(scene => {
       const t = scene.querySelector('.chunk__text');
       if (!t) return;
       t.style.fontSize = '';
       let size = parseFloat(getComputedStyle(t).fontSize);
-      const minSize = 40;
+      const minSize = 50;
       let safety = 60;
       while (safety-- > 0 && size > minSize) {
         const overW = t.scrollWidth > scene.clientWidth;
@@ -394,16 +335,14 @@
   }
   addEventListener('resize', () => setTimeout(fitText, 50));
 
-  // Set bar-grow CSS targets from data attributes
+  // Bar fills
   document.querySelectorAll('.g-bar').forEach(bar => {
     const t = bar.dataset.target || '100';
     const fill = bar.querySelector('.g-bar__fill');
     if (fill) fill.style.setProperty('--target', t + '%');
   });
 
-  // Counter animation timeline: tick at rAF, drive each counter based on
-  // the looping timeline. Uses audio.currentTime when audio is playing,
-  // else page performance.now().
+  // Counter rAF — slower ramp (1.2s) within the graphic's extended window
   const audio = document.getElementById('narration');
   const beat = document.getElementById('beat');
   const t0 = performance.now();
@@ -413,24 +352,22 @@
     }
     return (performance.now() - t0) % TOTAL_MS;
   }
-  const chunkEls = document.querySelectorAll('.chunk');
+  const graphicEls = document.querySelectorAll('.g-item');
   function tick() {
     const t = getT();
     for (const cm of COUNTERS) {
-      const el = chunkEls[cm.chunk_idx];
+      const el = graphicEls[cm.g_idx];
       if (!el) continue;
       const numEl = el.querySelector('.g-counter__num');
       if (!numEl) continue;
-      // Ramp counter during first 60% of the chunk window, capped at 900ms
-      const rampMs = Math.min(cm.dur * 0.6, 900);
+      const window_ms = cm.end - cm.start;
+      const rampMs = Math.min(window_ms * 0.45, 1200);
       const elapsed = t - cm.start;
       let p = 0;
-      if (elapsed >= 0 && elapsed < cm.dur) {
-        p = Math.min(1, elapsed / Math.max(rampMs, 200));
-      } else if (elapsed >= cm.dur) {
+      if (elapsed >= 0 && elapsed < window_ms) {
+        p = Math.min(1, elapsed / Math.max(rampMs, 300));
+      } else if (elapsed >= window_ms) {
         p = 1;
-      } else {
-        p = 0;
       }
       numEl.textContent = Math.round(p * cm.to);
     }
@@ -438,7 +375,7 @@
   }
   requestAnimationFrame(tick);
 
-  // Narration + background beat playback
+  // Narration + beat
   const wantAudio = new URLSearchParams(location.search).get('audio') === '1';
   if (audio) audio.loop = true;
   if (beat) beat.loop = true;
