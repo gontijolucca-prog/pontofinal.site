@@ -1,95 +1,79 @@
 {
-  "total_ms": 17372,
+  "total_ms": 14238,
   "chunks": [
     {
-      "text": "Oitenta por cento",
-      "emphasis": "Oitenta por cento",
+      "text": "Oito em cada dez",
+      "emphasis": "Oito em cada dez",
       "start_ms": 0,
-      "dur_ms": 1400,
+      "dur_ms": 1200,
       "graphic": {
         "type": "percent",
         "to": 80
       }
     },
     {
-      "text": "só lê o título",
+      "text": "só lêem o título",
       "emphasis": null,
-      "start_ms": 1400,
-      "dur_ms": 980
+      "start_ms": 1200,
+      "dur_ms": 1540
     },
     {
-      "text": "Vinte por cento",
-      "emphasis": "Vinte por cento",
-      "start_ms": 2640,
-      "dur_ms": 800,
-      "graphic": {
-        "type": "percent",
-        "to": 20
-      }
+      "text": "O resto",
+      "emphasis": "nem chega lá",
+      "start_ms": 3060,
+      "dur_ms": 360
     },
     {
-      "text": "lê o resto",
+      "text": "nem chega lá",
       "emphasis": null,
-      "start_ms": 3440,
-      "dur_ms": 720
+      "start_ms": 3420,
+      "dur_ms": 1280
     },
     {
-      "text": "O título é o gatekeeper",
-      "emphasis": "gatekeeper",
-      "start_ms": 4380,
-      "dur_ms": 1600,
-      "graphic": {
-        "type": "stamp",
-        "text": "GATEKEEPER"
-      }
-    },
-    {
-      "text": "Sem promessa clara",
+      "text": "Se o título não chama",
       "emphasis": null,
-      "start_ms": 6200,
-      "dur_ms": 1600
+      "start_ms": 4980,
+      "dur_ms": 1000
     },
     {
-      "text": "ninguém continua",
-      "emphasis": "ninguém continua",
-      "start_ms": 8320,
-      "dur_ms": 920
-    },
-    {
-      "text": "Não é copy bonito",
-      "emphasis": null,
-      "start_ms": 9580,
+      "text": "perdeste a venda",
+      "emphasis": "perdeste a venda",
+      "start_ms": 6260,
       "dur_ms": 900
     },
     {
-      "text": "é o filtro",
-      "emphasis": "o filtro",
-      "start_ms": 10940,
-      "dur_ms": 200
+      "text": "É a coisa",
+      "emphasis": "mais importante",
+      "start_ms": 7600,
+      "dur_ms": 600,
+      "graphic": {
+        "type": "stamp",
+        "text": "TUDO"
+      }
     },
     {
-      "text": "de tudo o que vem depois",
+      "text": "mais importante numa página",
       "emphasis": null,
-      "start_ms": 11140,
-      "dur_ms": 1440
+      "start_ms": 8200,
+      "dur_ms": 1140
     },
     {
-      "text": "Reescrevemos títulos",
+      "text": "Reescrevemos os títulos",
       "emphasis": null,
-      "start_ms": 12980,
-      "dur_ms": 820
+      "start_ms": 9640,
+      "dur_ms": 1220
     },
     {
-      "text": "com base em research",
-      "emphasis": "em research",
-      "start_ms": 13800,
-      "dur_ms": 1760
+      "text": "que fazem querer mais",
+      "emphasis": "querer mais",
+      "start_ms": 10860,
+      "dur_ms": 1620
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 15960,
-      "dur_ms": 1000
+      "start_ms": 12760,
+      "dur_ms": 1020
     }
   ]
 }

@@ -1,89 +1,85 @@
 {
-  "total_ms": 15561,
+  "total_ms": 14563,
   "chunks": [
     {
-      "text": "Cada segundo extra",
+      "text": "Cada segundo",
       "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 720
+      "dur_ms": 520
     },
     {
-      "text": "derruba sete por cento",
-      "emphasis": "sete por cento",
-      "start_ms": 720,
-      "dur_ms": 1020,
-      "graphic": {
-        "type": "percent",
-        "to": 7
-      }
-    },
-    {
-      "text": "das conversões",
+      "text": "que demora a abrir",
       "emphasis": null,
-      "start_ms": 1740,
-      "dur_ms": 1500
+      "start_ms": 520,
+      "dur_ms": 1260
     },
     {
-      "text": "Estudo da Akamai",
-      "emphasis": "Akamai",
-      "start_ms": 3640,
-      "dur_ms": 1120,
-      "graphic": {
-        "type": "stamp",
-        "text": "AKAMAI"
-      }
+      "text": "custa-te clientes",
+      "emphasis": "custa-te clientes",
+      "start_ms": 1780,
+      "dur_ms": 1260
     },
     {
-      "text": "Mais de três segundos",
+      "text": "As pessoas hoje",
       "emphasis": null,
-      "start_ms": 5000,
-      "dur_ms": 1780
+      "start_ms": 3300,
+      "dur_ms": 719
     },
     {
-      "text": "perdeste metade",
-      "emphasis": "metade do tráfego",
-      "start_ms": 6780,
-      "dur_ms": 680,
+      "text": "não esperam",
+      "emphasis": "não esperam",
+      "start_ms": 4019,
+      "dur_ms": 781
+    },
+    {
+      "text": "Três segundos",
+      "emphasis": null,
+      "start_ms": 5120,
+      "dur_ms": 480
+    },
+    {
+      "text": "e perdeste metade",
+      "emphasis": "metade",
+      "start_ms": 5600,
+      "dur_ms": 1060,
       "graphic": {
         "type": "percent",
         "to": 53
       }
     },
     {
-      "text": "do tráfego",
-      "emphasis": null,
-      "start_ms": 7460,
-      "dur_ms": 1020
+      "text": "Cinquenta e três por cento",
+      "emphasis": "53%",
+      "start_ms": 6980,
+      "dur_ms": 2200,
+      "graphic": {
+        "type": "percent",
+        "to": 53
+      }
     },
     {
-      "text": "Google usa isto",
+      "text": "evaporado",
       "emphasis": null,
-      "start_ms": 8680,
-      "dur_ms": 320
+      "start_ms": 9180,
+      "dur_ms": 600
     },
     {
-      "text": "como factor de ranking",
-      "emphasis": "factor de ranking",
-      "start_ms": 9000,
-      "dur_ms": 1420
+      "text": "Optimizamos o teu site",
+      "emphasis": null,
+      "start_ms": 10260,
+      "dur_ms": 820
     },
     {
-      "text": "Optimizamos imagens",
-      "emphasis": null,
-      "start_ms": 10919,
-      "dur_ms": 1461
-    },
-    {
-      "text": "carregamento crítico, cache",
-      "emphasis": null,
-      "start_ms": 12380,
-      "dur_ms": 1520
+      "text": "num piscar de olhos",
+      "emphasis": "num piscar de olhos",
+      "start_ms": 11080,
+      "dur_ms": 1740
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 14300,
-      "dur_ms": 720
+      "start_ms": 13220,
+      "dur_ms": 1020
     }
   ]
 }

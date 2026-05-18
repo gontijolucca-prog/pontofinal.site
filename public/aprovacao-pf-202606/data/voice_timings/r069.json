@@ -1,91 +1,91 @@
 {
-  "total_ms": 16527,
+  "total_ms": 15759,
   "chunks": [
     {
-      "text": "Noventa e quatro por cento",
-      "emphasis": "94%",
+      "text": "Antes de leres uma palavra",
+      "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 1920,
+      "dur_ms": 1840
+    },
+    {
+      "text": "já decidiram",
+      "emphasis": "se confiam",
+      "start_ms": 2100,
+      "dur_ms": 540
+    },
+    {
+      "text": "se confiam",
+      "emphasis": null,
+      "start_ms": 2640,
+      "dur_ms": 920
+    },
+    {
+      "text": "Só pelo design",
+      "emphasis": "Só pelo design",
+      "start_ms": 3860,
+      "dur_ms": 720,
       "graphic": {
         "type": "percent",
         "to": 94
       }
     },
     {
-      "text": "da primeira impressão",
-      "emphasis": null,
-      "start_ms": 1920,
-      "dur_ms": 720
-    },
-    {
-      "text": "vem do design",
-      "emphasis": null,
-      "start_ms": 2640,
-      "dur_ms": 620
-    },
-    {
-      "text": "Estudo da Stanford",
-      "emphasis": "Stanford",
-      "start_ms": 3440,
-      "dur_ms": 820,
+      "text": "Noventa e quatro por cento",
+      "emphasis": "94%",
+      "start_ms": 5100,
+      "dur_ms": 1860,
       "graphic": {
-        "type": "stamp",
-        "text": "STANFORD"
+        "type": "percent",
+        "to": 94
       }
     },
     {
-      "text": "Antes de uma palavra ser lida",
+      "text": "é visual",
       "emphasis": null,
-      "start_ms": 4900,
-      "dur_ms": 2140
+      "start_ms": 6960,
+      "dur_ms": 1260
     },
     {
-      "text": "o cérebro já decidiu",
-      "emphasis": "se confia",
-      "start_ms": 7038,
-      "dur_ms": 1521
-    },
-    {
-      "text": "Site desactualizado",
+      "text": "Site antigo",
       "emphasis": null,
-      "start_ms": 8980,
-      "dur_ms": 1060
+      "start_ms": 8580,
+      "dur_ms": 740
     },
     {
-      "text": "= empresa desactualizada",
-      "emphasis": "desactualizada",
-      "start_ms": 10040,
-      "dur_ms": 1120
+      "text": "= empresa antiga",
+      "emphasis": "empresa antiga",
+      "start_ms": 9320,
+      "dur_ms": 1280
     },
     {
       "text": "Mesmo que sejas",
-      "emphasis": null,
-      "start_ms": 11580,
-      "dur_ms": 560
+      "emphasis": "o melhor",
+      "start_ms": 10980,
+      "dur_ms": 940
     },
     {
-      "text": "líder de mercado",
-      "emphasis": "líder de mercado",
-      "start_ms": 12140,
-      "dur_ms": 920
+      "text": "o melhor",
+      "emphasis": null,
+      "start_ms": 11920,
+      "dur_ms": 500
     },
     {
-      "text": "Repensamos o design",
+      "text": "Redesenhamos o teu site",
       "emphasis": null,
-      "start_ms": 13540,
-      "dur_ms": 800
+      "start_ms": 12880,
+      "dur_ms": 880
     },
     {
       "text": "contigo",
       "emphasis": "contigo",
-      "start_ms": 14340,
-      "dur_ms": 660
+      "start_ms": 13760,
+      "dur_ms": 480
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 15140,
-      "dur_ms": 1160
+      "start_ms": 14420,
+      "dur_ms": 1040
     }
   ]
 }

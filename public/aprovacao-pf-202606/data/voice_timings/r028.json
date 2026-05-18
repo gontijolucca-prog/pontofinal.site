@@ -1,75 +1,87 @@
 {
-  "total_ms": 15712,
+  "total_ms": 15677,
   "chunks": [
     {
-      "text": "Setenta por cento",
-      "emphasis": "Setenta por cento",
+      "text": "Sete em cada dez",
+      "emphasis": "Sete em cada dez",
       "start_ms": 0,
-      "dur_ms": 1520,
+      "dur_ms": 1500,
       "graphic": {
         "type": "percent",
         "to": 70
       }
     },
     {
-      "text": "vem do telemóvel",
+      "text": "vêem pelo telemóvel",
       "emphasis": null,
-      "start_ms": 1520,
-      "dur_ms": 1160
+      "start_ms": 1500,
+      "dur_ms": 1780
     },
     {
-      "text": "Google indexa",
-      "emphasis": "pela versão mobile",
-      "start_ms": 2860,
-      "dur_ms": 760
-    },
-    {
-      "text": "pela versão mobile",
+      "text": "Não pelo computador",
       "emphasis": null,
-      "start_ms": 4038,
-      "dur_ms": 1733
+      "start_ms": 3580,
+      "dur_ms": 960
     },
     {
-      "text": "Não-mobile-first =",
+      "text": "Pelo telemóvel",
+      "emphasis": "Pelo telemóvel",
+      "start_ms": 4940,
+      "dur_ms": 1000
+    },
+    {
+      "text": "Se não está pensado",
       "emphasis": null,
-      "start_ms": 6160,
-      "dur_ms": 260
+      "start_ms": 6200,
+      "dur_ms": 920
     },
     {
-      "text": "menos ranking, menos clientes",
-      "emphasis": "menos clientes",
-      "start_ms": 6420,
-      "dur_ms": 2560
+      "text": "para isso",
+      "emphasis": "perdes clientes",
+      "start_ms": 7120,
+      "dur_ms": 680
     },
     {
-      "text": "Não interessa",
+      "text": "perdes a maior parte",
       "emphasis": null,
-      "start_ms": 9260,
-      "dur_ms": 400
+      "start_ms": 8080,
+      "dur_ms": 1460
     },
     {
-      "text": "quão bom está no portátil",
+      "text": "Nem se dão",
       "emphasis": null,
-      "start_ms": 9660,
-      "dur_ms": 1300
+      "start_ms": 9840,
+      "dur_ms": 420
     },
     {
-      "text": "Mobile como base",
-      "emphasis": "como base",
-      "start_ms": 11420,
-      "dur_ms": 1440
+      "text": "ao trabalho",
+      "emphasis": "de tentar",
+      "start_ms": 10260,
+      "dur_ms": 440
     },
     {
-      "text": "não como adaptação",
+      "text": "de tentar",
       "emphasis": null,
-      "start_ms": 12860,
-      "dur_ms": 1320
+      "start_ms": 10700,
+      "dur_ms": 640
+    },
+    {
+      "text": "Fazemos sites",
+      "emphasis": null,
+      "start_ms": 11660,
+      "dur_ms": 640
+    },
+    {
+      "text": "onde as pessoas estão",
+      "emphasis": "onde as pessoas estão",
+      "start_ms": 12496,
+      "dur_ms": 1613
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 14460,
-      "dur_ms": 900
+      "start_ms": 14480,
+      "dur_ms": 840
     }
   ]
 }

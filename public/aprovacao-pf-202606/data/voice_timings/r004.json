@@ -1,39 +1,39 @@
 {
-  "total_ms": 17268,
+  "total_ms": 17083,
   "chunks": [
     {
-      "text": "Trinta e seis para um",
-      "emphasis": "Trinta e seis para um",
+      "text": "Cada euro em email",
+      "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 1360,
+      "dur_ms": 1020
+    },
+    {
+      "text": "traz trinta e seis",
+      "emphasis": "trinta e seis",
+      "start_ms": 1020,
+      "dur_ms": 1640,
       "graphic": {
         "type": "euro",
         "to": 36
       }
     },
     {
-      "text": "ROI médio do email marketing",
+      "text": "de volta",
       "emphasis": null,
-      "start_ms": 1680,
-      "dur_ms": 1300
+      "start_ms": 2660,
+      "dur_ms": 780
     },
     {
-      "text": "segundo a DMA",
-      "emphasis": "DMA",
-      "start_ms": 2980,
-      "dur_ms": 1620
+      "text": "Trinta e seis euros",
+      "emphasis": "Trinta e seis",
+      "start_ms": 3720,
+      "dur_ms": 1180
     },
     {
-      "text": "Paid social?",
+      "text": "É o canal",
       "emphasis": null,
-      "start_ms": 4880,
-      "dur_ms": 1300
-    },
-    {
-      "text": "Entre dois e cinco",
-      "emphasis": "dois a cinco",
-      "start_ms": 5801,
-      "dur_ms": 1561,
+      "start_ms": 5140,
+      "dur_ms": 760,
       "graphic": {
         "type": "bars",
         "items": [
@@ -42,53 +42,65 @@
             "value": 36
           },
           {
-            "label": "Paid",
+            "label": "Insta",
             "value": 5
           }
         ]
       }
     },
     {
-      "text": "Ao contrário do Instagram",
+      "text": "com mais retorno",
+      "emphasis": "mais retorno",
+      "start_ms": 5900,
+      "dur_ms": 1300
+    },
+    {
+      "text": "E quase ninguém",
       "emphasis": null,
-      "start_ms": 7680,
-      "dur_ms": 700
+      "start_ms": 7620,
+      "dur_ms": 580
     },
     {
-      "text": "a tua lista é tua",
+      "text": "em Portugal",
+      "emphasis": "ninguém",
+      "start_ms": 8200,
+      "dur_ms": 420
+    },
+    {
+      "text": "faz isto bem",
+      "emphasis": null,
+      "start_ms": 8620,
+      "dur_ms": 940
+    },
+    {
+      "text": "A lista de emails",
       "emphasis": "é tua",
-      "start_ms": 8380,
-      "dur_ms": 1900
+      "start_ms": 9980,
+      "dur_ms": 840
     },
     {
-      "text": "Não depende de algoritmos",
+      "text": "é tua para sempre",
       "emphasis": null,
       "start_ms": 10820,
-      "dur_ms": 780
+      "dur_ms": 1140
     },
     {
-      "text": "nem mudanças de regras",
+      "text": "Construímos a tua lista",
       "emphasis": null,
-      "start_ms": 11600,
-      "dur_ms": 1420
+      "start_ms": 12380,
+      "dur_ms": 1200
     },
     {
-      "text": "Construímos lista",
+      "text": "tratamos das campanhas",
       "emphasis": null,
-      "start_ms": 13420,
-      "dur_ms": 600
-    },
-    {
-      "text": "e automações que vendem",
-      "emphasis": "que vendem",
-      "start_ms": 14020,
-      "dur_ms": 1700
+      "start_ms": 13580,
+      "dur_ms": 1760
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 15960,
-      "dur_ms": 960
+      "start_ms": 15840,
+      "dur_ms": 940
     }
   ]
 }

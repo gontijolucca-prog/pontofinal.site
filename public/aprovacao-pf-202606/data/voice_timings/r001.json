@@ -1,11 +1,11 @@
 {
-  "total_ms": 14539,
+  "total_ms": 14911,
   "chunks": [
     {
-      "text": "Três segundos",
-      "emphasis": "Três segundos",
+      "text": "Tens três segundos",
+      "emphasis": "três segundos",
       "start_ms": 0,
-      "dur_ms": 480,
+      "dur_ms": 1640,
       "graphic": {
         "type": "count",
         "to": 3,
@@ -13,46 +13,64 @@
       }
     },
     {
-      "text": "para mostrar o que importa",
+      "text": "Três",
       "emphasis": null,
-      "start_ms": 480,
-      "dur_ms": 1600
+      "start_ms": 1492,
+      "dur_ms": 331
     },
     {
-      "text": "Acima da dobra:",
+      "text": "É o tempo que alguém leva",
       "emphasis": null,
-      "start_ms": 2580,
+      "start_ms": 2140,
       "dur_ms": 1660
     },
     {
-      "text": "valor, prova social, CTA",
-      "emphasis": "valor, prova, CTA",
-      "start_ms": 4240,
-      "dur_ms": 2800
+      "text": "a decidir se fica",
+      "emphasis": "se fica",
+      "start_ms": 3800,
+      "dur_ms": 760
     },
     {
-      "text": "Se não está claro",
+      "text": "ou fecha",
       "emphasis": null,
-      "start_ms": 7420,
-      "dur_ms": 1580
+      "start_ms": 4560,
+      "dur_ms": 1080
     },
     {
-      "text": "tráfego pago é dinheiro queimado",
-      "emphasis": "dinheiro queimado",
-      "start_ms": 9560,
-      "dur_ms": 1980
+      "text": "Se não vê um motivo",
+      "emphasis": null,
+      "start_ms": 6000,
+      "dur_ms": 1740
     },
     {
-      "text": "Auditamos a tua dobra",
-      "emphasis": "Auditamos",
-      "start_ms": 11720,
-      "dur_ms": 1220
+      "text": "vai-se embora",
+      "emphasis": "vai-se embora",
+      "start_ms": 7740,
+      "dur_ms": 1560
+    },
+    {
+      "text": "E quase nunca volta",
+      "emphasis": "nunca volta",
+      "start_ms": 9523,
+      "dur_ms": 1347
+    },
+    {
+      "text": "Repensamos a primeira impressão",
+      "emphasis": null,
+      "start_ms": 11340,
+      "dur_ms": 780
+    },
+    {
+      "text": "do teu site contigo",
+      "emphasis": "contigo",
+      "start_ms": 12406,
+      "dur_ms": 856
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 13140,
-      "dur_ms": 1020
+      "start_ms": 13620,
+      "dur_ms": 920
     }
   ]
 }

@@ -1,93 +1,91 @@
 {
-  "total_ms": 17966,
+  "total_ms": 14539,
   "chunks": [
     {
-      "text": "A maioria das marcas",
+      "text": "Há marcas",
       "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 1940
+      "dur_ms": 780
     },
     {
-      "text": "deliberadamente vaga",
-      "emphasis": "deliberadamente vaga",
-      "start_ms": 1940,
-      "dur_ms": 1260
+      "text": "que se escondem",
+      "emphasis": "se escondem",
+      "start_ms": 780,
+      "dur_ms": 760
     },
     {
-      "text": "Acham que mistério",
+      "text": "por trás de palavras grandes",
+      "emphasis": null,
+      "start_ms": 1540,
+      "dur_ms": 1640
+    },
+    {
+      "text": "Acham que assim",
       "emphasis": null,
       "start_ms": 3580,
-      "dur_ms": 660
-    },
-    {
-      "text": "soa premium",
-      "emphasis": "soa premium",
-      "start_ms": 4240,
-      "dur_ms": 680
-    },
-    {
-      "text": "Soa a",
-      "emphasis": "falta de coragem",
-      "start_ms": 5420,
-      "dur_ms": 240,
-      "graphic": {
-        "type": "stamp",
-        "text": "FALTA DE CORAGEM"
-      }
-    },
-    {
-      "text": "falta de coragem",
-      "emphasis": null,
-      "start_ms": 5660,
       "dur_ms": 1160
     },
     {
-      "text": "Quem tem confiança",
-      "emphasis": null,
-      "start_ms": 7120,
-      "dur_ms": 1040
+      "text": "parecem importantes",
+      "emphasis": "importantes",
+      "start_ms": 4740,
+      "dur_ms": 660
     },
     {
-      "text": "diz claramente:",
-      "emphasis": "diz claramente",
-      "start_ms": 8160,
-      "dur_ms": 1700
+      "text": "Não parecem",
+      "emphasis": "Não parecem",
+      "start_ms": 5551,
+      "dur_ms": 1242,
+      "graphic": {
+        "type": "stamp",
+        "text": "NÃO"
+      }
     },
     {
-      "text": "Em quem trabalha",
+      "text": "Parecem confusas",
+      "emphasis": "confusas",
+      "start_ms": 6933,
+      "dur_ms": 1219
+    },
+    {
+      "text": "Quem diz claramente",
       "emphasis": null,
+      "start_ms": 8540,
+      "dur_ms": 880
+    },
+    {
+      "text": "o que faz",
+      "emphasis": null,
+      "start_ms": 9420,
+      "dur_ms": 700
+    },
+    {
+      "text": "é quem vende",
+      "emphasis": "é quem vende",
       "start_ms": 10120,
-      "dur_ms": 1360
+      "dur_ms": 560,
+      "graphic": {
+        "type": "stamp",
+        "text": "VENDE"
+      }
     },
     {
-      "text": "para quem",
+      "text": "Posicionamos a tua marca",
       "emphasis": null,
-      "start_ms": 11480,
-      "dur_ms": 840
+      "start_ms": 11060,
+      "dur_ms": 1120
     },
     {
-      "text": "o resultado que entrega",
-      "emphasis": "que entrega",
-      "start_ms": 12320,
-      "dur_ms": 1400
-    },
-    {
-      "text": "Posicionamos a marca",
-      "emphasis": null,
-      "start_ms": 13900,
-      "dur_ms": 1040
-    },
-    {
-      "text": "para não ser ignorada",
-      "emphasis": "não ser ignorada",
-      "start_ms": 15089,
-      "dur_ms": 1332
+      "text": "para se notar",
+      "emphasis": "para se notar",
+      "start_ms": 12180,
+      "dur_ms": 780
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 16760,
-      "dur_ms": 840
+      "start_ms": 13160,
+      "dur_ms": 880
     }
   ]
 }
