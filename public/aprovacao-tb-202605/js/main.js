@@ -326,114 +326,63 @@ function manageLoader() {
   if (!loader) return;
 
   const start = performance.now();
-  const MIN_VISIBLE_MS = 700;
-  const PER_IFRAME_HARD_TIMEOUT = 60_000; // 60s por iframe — só dispara em casos extremos
-  const ABSOLUTE_SAFETY_MS = 5 * 60_000;  // 5 min absoluto (rede partida)
-  const SETTLE_WINDOW_MS = 400;           // body height tem de estar estável este tempo
-  const SETTLE_POLL_MS = 80;
-  const POST_LOAD_PAINT_MS = 250;
+  const MIN_VISIBLE_MS = 400;
+  const SAFETY_MS = 4000;
 
-  const iframes = Array.from(document.querySelectorAll("iframe"));
-  const total = iframes.length;
+  // Conta imagens visíveis na viewport inicial (above-the-fold). Imagens lazy
+  // off-screen não disparam load, então não fazem parte do total — só contamos
+  // o que o user vê quando entra. Quando essas terminarem, escondemos.
+  const candidates = Array.from(document.querySelectorAll(
+    ".slide-thumb__img, .tile__img, .tile--reel-text"
+  ));
+  const visible = candidates.filter(el => {
+    const r = el.getBoundingClientRect();
+    return r.top < window.innerHeight + 200 && r.bottom > -200;
+  });
+
+  const imgs = visible.filter(el => el.tagName === "IMG");
+  const total = imgs.length;
   let done = 0;
   let hidden = false;
-  let allIframesReady = false;
 
-  function hideNow() {
+  function hide() {
     if (hidden) return;
     hidden = true;
-    setTimeout(() => loader.setAttribute("aria-hidden", "true"), 220);
-  }
-
-  // Espera até a página estar estável (fonts loaded + body height parou de mudar).
-  // Só depois liberta o scroll. Isto resolve o "loader desaparece mas página
-  // continua a saltar" — fica visível enquanto o reflow está em curso.
-  function waitForSettlementThenHide() {
-    if (hidden) return;
-    const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
-    fontsReady.then(() => {
-      let lastHeight = document.body.scrollHeight;
-      let stableSince = performance.now();
-      const poll = () => {
-        if (hidden) return;
-        const h = document.body.scrollHeight;
-        if (h !== lastHeight) {
-          lastHeight = h;
-          stableSince = performance.now();
-        }
-        if (performance.now() - stableSince >= SETTLE_WINDOW_MS) {
-          // Garantir min-visible
-          const elapsed = performance.now() - start;
-          if (elapsed >= MIN_VISIBLE_MS) hideNow();
-          else setTimeout(hideNow, MIN_VISIBLE_MS - elapsed);
-        } else {
-          setTimeout(poll, SETTLE_POLL_MS);
-        }
-      };
-      poll();
-    });
+    const elapsed = performance.now() - start;
+    const wait = Math.max(0, MIN_VISIBLE_MS - elapsed);
+    setTimeout(() => {
+      loader.setAttribute("aria-hidden", "true");
+      setTimeout(() => loader.style.display = "none", 250);
+    }, wait);
   }
 
   function update() {
     const pct = total === 0 ? 1 : done / total;
     if (fill) fill.style.transform = `scaleX(${pct})`;
-    if (hint) hint.textContent = `${done} / ${total}`;
-    if (label && allIframesReady) label.textContent = "Quase pronto…";
-    if (done >= total && !allIframesReady) {
-      allIframesReady = true;
-      if (label) label.textContent = "A finalizar…";
-      // iframes todos reportaram done — agora espera que a página assente.
-      waitForSettlementThenHide();
+    if (hint) hint.textContent = total === 0 ? "" : `${done} / ${total}`;
+    if (label && done >= total) label.textContent = "Quase pronto…";
+    if (done >= total) {
+      const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
+      fontsReady.then(hide);
     }
-  }
-
-  if (total === 0) {
-    update();
-    waitForSettlementThenHide();
-    return;
   }
 
   update();
 
-  iframes.forEach((f) => {
-    let ticked = false;
-    const tick = () => {
-      if (ticked) return;
-      ticked = true;
-      done += 1;
-      update();
-    };
+  if (total === 0) return;
 
-    const onLoad = () => {
-      try {
-        const w = f.contentWindow;
-        const inner = () => requestAnimationFrame(() =>
-          requestAnimationFrame(() => setTimeout(tick, POST_LOAD_PAINT_MS))
-        );
-        if (w && w.document && w.document.readyState === "complete") {
-          inner();
-        } else if (w) {
-          w.addEventListener("load", inner, { once: true });
-        } else {
-          inner();
-        }
-      } catch {
-        setTimeout(tick, POST_LOAD_PAINT_MS);
-      }
-    };
-
-    if (f.contentDocument && f.contentDocument.readyState === "complete") {
-      onLoad();
+  imgs.forEach((img) => {
+    const tick = () => { done += 1; update(); };
+    if (img.complete && img.naturalWidth > 0) {
+      tick();
     } else {
-      f.addEventListener("load",  onLoad, { once: true });
-      f.addEventListener("error", tick,   { once: true });
+      img.addEventListener("load", tick, { once: true });
+      img.addEventListener("error", tick, { once: true });
     }
-
-    setTimeout(tick, PER_IFRAME_HARD_TIMEOUT);
   });
 
-  // Safety absoluta — só dispara se algo for *muito* mal (rede partida).
-  setTimeout(hideNow, ABSOLUTE_SAFETY_MS);
+  // Safety absoluta — em 4s tudo é suposto ter terminado.
+  setTimeout(hide, SAFETY_MS);
 }
 
 async function ensureAuthenticated() {
