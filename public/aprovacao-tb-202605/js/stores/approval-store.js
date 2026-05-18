@@ -100,13 +100,25 @@ function subscribeRealtime() {
         if (!row) return;
         if (payload.eventType === "DELETE") {
           delete cache[row.item_id];
-        } else {
-          cache[row.item_id] = {
-            status: row.status,
-            note: row.note || "",
-            updatedAt: row.updated_at,
-          };
+          emit();
+          return;
         }
+        // Defesa contra updates fora de ordem: se o cache tem uma versão
+        // mais recente, ignoramos o payload do server. Evita o sintoma
+        // "aprovo e passado um pouco volta a branco" se o servidor reemitir
+        // o estado pre-write por alguma razão.
+        const existing = cache[row.item_id];
+        if (existing && existing.updatedAt && row.updated_at &&
+            new Date(existing.updatedAt) > new Date(row.updated_at)) {
+          console.debug("[realtime] skipping older payload for", row.item_id,
+            existing.updatedAt, ">", row.updated_at);
+          return;
+        }
+        cache[row.item_id] = {
+          status: row.status,
+          note: row.note || "",
+          updatedAt: row.updated_at,
+        };
         emit();
       }
     )
@@ -161,17 +173,23 @@ export function init() {
 // ─── Helper de upsert na tabela `approvals` ──────────────────────────────
 
 async function upsertRow(item_id, status, note, updated_at) {
-  if (!((USE_SUPABASE || AUTH_ENABLED) && supabase)) return null;
+  if (!((USE_SUPABASE || AUTH_ENABLED) && supabase)) {
+    console.warn("[approval-store] upsert skipped — supabase not ready", { item_id, status });
+    return null;
+  }
   const userId = (await supabase.auth.getUser())?.data?.user?.id || null;
   const row = { namespace: NAMESPACE, item_id, status, note, updated_at };
   if (userId) row.updated_by = userId;
-  const { error } = await supabase
+  console.debug("[approval-store] upsert →", { item_id, status, hasNote: !!note });
+  const { data, error } = await supabase
     .from("approvals")
-    .upsert(row, { onConflict: "namespace,item_id" });
+    .upsert(row, { onConflict: "namespace,item_id" })
+    .select();
   if (error) {
-    console.error("[approval-store] upsert error:", error);
+    console.error("[approval-store] upsert error:", error, "row:", row);
     return null;
   }
+  console.debug("[approval-store] upsert ✓", data?.[0]);
   return row;
 }
 
