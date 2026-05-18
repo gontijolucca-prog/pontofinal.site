@@ -1257,11 +1257,9 @@
   .tag { font-size: 9px; padding: 2px 6px; }
   .carrossel-row__schedule { font-size: 10px; margin-top: 4px; }
   .slide-strip { gap: 6px; padding-bottom: 4px; }
-  .slide-thumb { flex: 0 0 140px; border-width: 2px; }
-  .slide-thumb iframe {
-    /* 140 / 1080 ≈ 0.1296. Height becomes 140 * 1.25 = 175. */
-    transform: scale(0.1296);
-  }
+  .slide-thumb { flex: 0 0 160px; border-width: 2px; }
+  /* Slide thumbs agora são <img> — sem transforms necessários. */
+  .slide-thumb__img { object-fit: cover; }
   .slide-thumb__num { font-size: 9px; padding: 2px 4px; }
 
   /* Action buttons — one row of 4 small icon-buttons. */
@@ -1299,21 +1297,42 @@
     gap: 14px;
   }
   .tile { border-width: 3px; }
-  /* Stories: still use the scaled-down 380×676 approach so the inner
-     1080-wide layout doesn't reflow at a tiny viewport. */
-  #postsGallery .tile iframe {
-    width: 380px; height: 676px;
-    transform: scale(0.447);
-    transform-origin: top left;
+  /* Stories agora usam <img> em vez de iframe — object-fit:cover trata
+     do scaling sem transforms manuais. */
+  #postsGallery .tile {
+    aspect-ratio: 9 / 16;
+    width: 100%;
   }
-  /* Reels (motion + guides): give the iframe the full tile viewport. The
-     reel/guide HTML uses `min(100vw, 100vh*9/16)` internally so it adapts
-     to whatever viewport size we hand it. */
-  #reelsGallery .tile iframe {
-    width: 100%; height: 100%;
-    transform: none;
+  #postsGallery .tile__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
-  #reelsGallery .tile__label { font-size: 10px; padding: 4px 8px; }
+  /* Reels (text-only): card legível, não com aspect ratio forçado. */
+  #reelsGallery .tile--reel-text {
+    min-height: auto;
+    width: 100%;
+  }
+  #reelsGallery .tile--reel-text .reel-tile__head {
+    padding: 14px 16px 10px;
+  }
+  #reelsGallery .reel-tile__title {
+    font-size: 16px;
+    line-height: 1.2;
+  }
+  #reelsGallery .tile--reel-text .reel-tile__script {
+    padding: 10px 16px;
+    gap: 10px;
+  }
+  #reelsGallery .reel-tile__line-text {
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  #reelsGallery .reel-tile__line-num { font-size: 10px; }
+  #reelsGallery .reel-tile__line-role { font-size: 8.5px; }
+  #reelsGallery .tile__label { font-size: 9.5px; padding: 3px 7px; }
+  #reelsGallery .reel-tile__foot { padding: 8px 16px; }
+  #reelsGallery .reel-tile__foot span { font-size: 10.5px; }
   #reelsGallery .tile__caption { padding: 8px 10px 10px; }
   #reelsGallery .tile__caption strong { font-size: 13px; }
   .tile__label { font-size: 9px; padding: 2px 6px; }
@@ -1403,8 +1422,9 @@
 @media (max-width: 360px) {
   .section__heading h2 { font-size: 24px; }
   .gallery { gap: 8px; }
-  .slide-thumb { flex: 0 0 132px; }
-  .slide-thumb iframe { transform: scale(0.1222); }
+  .slide-thumb { flex: 0 0 140px; }
+  #reelsGallery .reel-tile__title { font-size: 15px; }
+  #reelsGallery .reel-tile__line-text { font-size: 12.5px; }
 }
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -2058,7 +2078,7 @@ filter-bar { display: block; }
   flex-direction: column;
   background: var(--bg);
   color: var(--text);
-  aspect-ratio: auto;
+  aspect-ratio: auto !important;
   min-height: 360px;
   padding: 0;
   overflow: hidden;
