@@ -88,19 +88,16 @@ function lsMergeWrite(id, entry) {
   }
 }
 
-function mergeLocalIntoCache() {
-  const ls = lsRead();
-  for (const id of Object.keys(ls)) {
-    const localEntry = ls[id];
-    const cached = cache[id];
-    // Local mais recente que servidor → usar local. Cobre o caso em que
-    // Safari escreveu mas o servidor ainda não recebeu/respondeu.
-    if (!cached) {
-      cache[id] = localEntry;
-    } else if (localEntry.updatedAt && cached.updatedAt &&
-               new Date(localEntry.updatedAt) > new Date(cached.updatedAt)) {
-      cache[id] = localEntry;
-    }
+// Aplica entries da queue (writes ainda não confirmados pelo Supabase) ao
+// cache. Garante optimistic UI enquanto o flushQueue trata do retry.
+function applyQueueToCache() {
+  const q = qRead();
+  for (const row of q) {
+    cache[row.item_id] = {
+      status: row.status,
+      note: row.note || "",
+      updatedAt: row.updated_at,
+    };
   }
 }
 
@@ -121,9 +118,9 @@ async function loadFromSupabase() {
       updatedAt: row.updated_at,
     };
   }
-  // Merge entradas locais que são mais recentes (cobre o caso em que
-  // o utilizador aprovou offline ou o Safari ETP atrasou a escrita).
-  mergeLocalIntoCache();
+  // Aplica writes ainda pendentes na queue (caso o flush ainda não tenha
+  // entregue ao server) por cima do snapshot do server.
+  applyQueueToCache();
   emit();
 }
 
@@ -161,9 +158,6 @@ function subscribeRealtime() {
           updatedAt: row.updated_at,
         };
         cache[row.item_id] = entry;
-        // Também actualiza localStorage para que um reload sem rede mostre
-        // o último estado conhecido.
-        lsMergeWrite(row.item_id, entry);
         emit();
       }
     )
@@ -417,8 +411,6 @@ export const approvalStore = {
     const updatedAt = new Date().toISOString();
     const entry = { status, note, updatedAt };
     cache[id] = entry;
-    // Write-through: garante persistência mesmo se Supabase falhar.
-    lsMergeWrite(id, entry);
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       await upsertRow(id, status, note, updatedAt);
@@ -436,7 +428,6 @@ export const approvalStore = {
     const updatedAt = new Date().toISOString();
     const entry = { status: "pending", note: trimmed, updatedAt };
     cache[key] = entry;
-    lsMergeWrite(key, entry);
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       await upsertRow(key, "pending", trimmed, updatedAt);
@@ -519,7 +510,6 @@ export const approvalStore = {
     const updatedAt = new Date().toISOString();
     const entry = { status, note, updatedAt };
     cache[key] = entry;
-    lsMergeWrite(key, entry);
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       await upsertRow(key, status, note, updatedAt);
