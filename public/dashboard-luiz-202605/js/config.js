@@ -6,6 +6,8 @@ export const BRANDS = ["luiz_santana"];
 export const BRAND_LABEL = "Luiz";
 export const PERIOD_LABEL = "Maio 2026";
 export const MONTH = "2026-05";
+export const APPROVAL_URL = "../aprovacao-luiz-202605/";
+
 export const AUTH_ENABLED =
   SUPABASE_URL.startsWith("https://") &&
   !SUPABASE_URL.includes("YOUR_PROJECT") &&

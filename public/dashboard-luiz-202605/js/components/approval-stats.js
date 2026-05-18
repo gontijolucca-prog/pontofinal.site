@@ -90,19 +90,6 @@ class ApprovalStats extends HTMLElement {
         }).join("")}
       </div>
 
-      <h3 class="block-title">Por pilar editorial</h3>
-      <div class="pilar-list">
-        ${pilars.map(([name, b]) => {
-          const pct = b.total ? Math.round((b.approved / b.total) * 100) : 0;
-          return `
-            <div class="pilar-row">
-              <span class="pilar-row__name">${this._escape(name)}</span>
-              <div class="pilar-row__bar"><span style="width:${pct}%"></span></div>
-              <span class="pilar-row__count">${b.approved} / ${b.total}</span>
-            </div>
-          `;
-        }).join("")}
-      </div>
     `;
   }
 

@@ -56,19 +56,11 @@
   text-transform: uppercase;
 }
 
-/* Enquanto o loader está visível, bloqueia interacção com o resto da página
-   e mantém o overflow trancado. A regra usa data-loading="true" no <body>
-   (definido por JS, mais robusto que :has em browsers antigos). */
-body[data-loading="true"] {
-  overflow: hidden;
-}
-body[data-loading="true"] main,
-body[data-loading="true"] .app-header,
-body[data-loading="true"] .app-footer {
-  pointer-events: none;
-}
-/* :has fallback para garantir bloqueio mesmo sem o data-attr */
-body:has(.loader[aria-hidden="false"]) { overflow: hidden; }
+/* Loader cobre tudo visualmente via z-index. NÃO bloqueamos overflow nem
+   pointer-events do body — se algo correr mal com o loader, o user ainda
+   consegue scroll/clicar. Antes tínhamos body[data-loading] + :has(...) a
+   prender overflow:hidden, o que deixava o user "locked in a section" se
+   o loader ficasse stuck. */
 
 /* ───── HEADER ───── */
 .app-header {

@@ -2,7 +2,7 @@
 
 import { supabase, AUTH_ENABLED } from "./lib/supabase-client.js";
 import { loadThemes, loadItems, loadApprovals, subscribeApprovals } from "./lib/data-loader.js";
-import { BRAND_LABEL } from "./config.js";
+import { BRAND_LABEL, APPROVAL_URL } from "./config.js";
 import { monthShortLabel } from "./components/month-switcher.js";
 
 const state = {
@@ -26,6 +26,11 @@ const els = {
 function applyConfig() {
   els.brandLogo().textContent = `${BRAND_LABEL}_`;
   els.periodLabel().textContent = `Dashboard · ${BRAND_LABEL}`;
+  const back = document.getElementById("approvalLink");
+  if (back && APPROVAL_URL) {
+    back.href = APPROVAL_URL;
+    back.hidden = false;
+  }
 }
 
 function inferMonth(item) {

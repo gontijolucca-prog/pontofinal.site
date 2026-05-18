@@ -442,6 +442,33 @@
   cursor: pointer;
 }
 
+/* ───── NAV LINK (back to approval) ───── */
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: var(--text);
+  color: var(--bg);
+  border: var(--border-w) solid var(--border);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  font: 900 var(--t-xxs)/1 var(--font-heavy);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+  flex-shrink: 0;
+}
+.nav-link:hover {
+  background: var(--accent);
+  transform: translateY(-1px);
+}
+.nav-link[hidden] { display: none; }
+@media (max-width: 720px) {
+  .nav-link { padding: 5px 9px; font-size: 9px; }
+}
+
 /* ───── USER MENU ───── */
 .user-menu {
   display: flex; align-items: center; gap: var(--s-2);

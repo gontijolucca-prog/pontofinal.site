@@ -20,18 +20,6 @@
     <p class="loader__hint" id="loaderHint">0 / 0</p>
   </div>
 </div>
-<script>
-  // Marca o body como "loading" imediatamente — bloqueia scroll antes do JS module loader.
-  document.body.setAttribute("data-loading", "true");
-  // Observa o atributo aria-hidden do loader para libertar quando estiver pronto.
-  new MutationObserver((mutations) => {
-    for (const m of mutations) {
-      if (m.attributeName === "aria-hidden" && m.target.getAttribute("aria-hidden") === "true") {
-        document.body.removeAttribute("data-loading");
-      }
-    }
-  }).observe(document.getElementById("loader"), { attributes: true });
-</script>
 <a class="skip-link" href="#main">Saltar para conteúdo</a>
 
 <header class="app-header">
