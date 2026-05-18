@@ -10,6 +10,16 @@ class ItemViewer extends HTMLElement {
     this.classList.add("viewer-backdrop");
     this._slide = 1;
     this._notes = null;
+    // Re-renderiza notas e badges quando o cache muda (ex.: realtime do
+    // Supabase entregou uma nova anotação de outro device).
+    this._onApprovalChange = () => {
+      if (!this._item || this.getAttribute("data-open") !== "true") return;
+      const fresh = approvalStore.listNotes(this._item.id);
+      this._notes = fresh;
+      this._renderNotes();
+      this._updateCaptionBadge();
+    };
+    window.addEventListener("approval:changed", this._onApprovalChange);
     this.addEventListener("click", (e) => { if (e.target === this) this.close(); });
     document.addEventListener("keydown", (e) => {
       if (this.getAttribute("data-open") !== "true") return;
