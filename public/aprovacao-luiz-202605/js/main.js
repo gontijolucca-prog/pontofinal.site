@@ -325,54 +325,46 @@ function manageLoader() {
   const label  = document.querySelector(".loader__label-text") || document.querySelector(".loader__label");
   if (!loader) return;
 
-  const start = performance.now();
-  const MIN_VISIBLE_MS = 400;
-  const SAFETY_MS = 4000;
-
-  // Conta imagens visíveis na viewport inicial (above-the-fold). Imagens lazy
-  // off-screen não disparam load, então não fazem parte do total — só contamos
-  // o que o user vê quando entra. Quando essas terminarem, escondemos.
-  const candidates = Array.from(document.querySelectorAll(
-    ".slide-thumb__img, .tile__img, .tile--reel-text"
-  ));
-  const visible = candidates.filter(el => {
-    const r = el.getBoundingClientRect();
-    return r.top < window.innerHeight + 200 && r.bottom > -200;
-  });
-
-  const imgs = visible.filter(el => el.tagName === "IMG");
-  const total = imgs.length;
-  let done = 0;
   let hidden = false;
-
-  function hide() {
+  const hide = () => {
     if (hidden) return;
     hidden = true;
-    const elapsed = performance.now() - start;
-    const wait = Math.max(0, MIN_VISIBLE_MS - elapsed);
-    setTimeout(() => {
-      loader.setAttribute("aria-hidden", "true");
-      setTimeout(() => loader.style.display = "none", 250);
-    }, wait);
-  }
+    if (fill) fill.style.transform = "scaleX(1)";
+    if (hint) hint.textContent = "";
+    if (label) label.textContent = "Pronto.";
+    loader.setAttribute("aria-hidden", "true");
+    setTimeout(() => { loader.style.display = "none"; }, 250);
+  };
 
-  function update() {
-    const pct = total === 0 ? 1 : done / total;
+  // Como já não há iframes pesados nos tiles (substituídos por <img> com
+  // loading="lazy"), o render é síncrono. Não bloquear em fonts.ready
+  // (Safari pode demorar/penurar). Mostrar progresso curto e esconder.
+  const imgs = Array.from(document.querySelectorAll(".slide-thumb__img, .tile__img"))
+    .filter(img => {
+      try {
+        const r = img.getBoundingClientRect();
+        return r.top < window.innerHeight + 400;
+      } catch { return false; }
+    });
+  const total = imgs.length;
+  let done = 0;
+
+  const tick = () => {
+    done += 1;
+    const pct = total === 0 ? 1 : Math.min(1, done / total);
     if (fill) fill.style.transform = `scaleX(${pct})`;
-    if (hint) hint.textContent = total === 0 ? "" : `${done} / ${total}`;
-    if (label && done >= total) label.textContent = "Quase pronto…";
-    if (done >= total) {
-      const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
-      fontsReady.then(hide);
-    }
+    if (hint) hint.textContent = `${done} / ${total}`;
+    if (done >= total) hide();
+  };
+
+  if (total === 0) {
+    // Nada visível para esperar — esconder no próximo frame.
+    requestAnimationFrame(() => requestAnimationFrame(hide));
+    return;
   }
 
-  update();
-
-  if (total === 0) return;
-
+  if (hint) hint.textContent = `0 / ${total}`;
   imgs.forEach((img) => {
-    const tick = () => { done += 1; update(); };
     if (img.complete && img.naturalWidth > 0) {
       tick();
     } else {
@@ -381,8 +373,8 @@ function manageLoader() {
     }
   });
 
-  // Safety absoluta — em 4s tudo é suposto ter terminado.
-  setTimeout(hide, SAFETY_MS);
+  // Safety: hide em 2.5s mesmo que algum load não dispare.
+  setTimeout(hide, 2500);
 }
 
 async function ensureAuthenticated() {
