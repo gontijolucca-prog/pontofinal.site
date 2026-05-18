@@ -1194,23 +1194,31 @@
   .app-header {
     flex-direction: row;
     align-items: center;
-    gap: 8px;
-    padding: 10px 12px;
+    gap: 6px;
+    padding: 8px 10px;
     flex-wrap: nowrap;
+    max-width: 100vw;
+    overflow: hidden;
   }
   .logo {
-    font-size: 18px;
+    font-size: 16px;
     letter-spacing: -1px;
-    padding: 5px 9px;
+    padding: 4px 7px;
     border-width: 2px;
     flex-shrink: 0;
   }
-  .header-meta {
-    display: none;
-  }
-  .nav-link, .help-trigger {
+  .header-meta { display: none; }
+  /* Esconder "Estatísticas →" em mobile — link existe em pull-out menu / só
+     ocupa espaço no header. */
+  .nav-link { display: none !important; }
+  .help-trigger {
     flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
   }
+  /* O month-switcher é o item principal do header — deixar levar o espaço. */
+  month-switcher { flex: 1 1 auto; min-width: 0; }
 
   /* Sections — drop the giant outer padding. */
   .section { padding: 22px 16px; }
@@ -1249,6 +1257,13 @@
     margin-bottom: 18px;
     border-width: 2px;
     box-shadow: var(--shadow);
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .slide-strip {
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
   }
   .carrossel-row__meta { gap: 6px; }
   .carrossel-row__brand { font-size: 9px; padding: 3px 7px; }
@@ -1310,8 +1325,9 @@
   }
   /* Reels (text-only): card legível, não com aspect ratio forçado. */
   #reelsGallery .tile--reel-text {
-    min-height: auto;
+    min-height: 260px;
     width: 100%;
+    max-width: 100%;
   }
   #reelsGallery .tile--reel-text .reel-tile__head {
     padding: 14px 16px 10px;

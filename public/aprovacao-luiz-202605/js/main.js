@@ -443,21 +443,23 @@ async function init() {
     dashLink.hidden = false;
   }
 
-  // ORDEM: items.json primeiro (não depende de rede externa). Render
-  // arranca assim que tivermos dados. Supabase (CDN externo) é iniciado
-  // em paralelo — se falhar por ETP/firewall do Safari, a app continua
-  // em modo só-leitura local (aprovações ficam em localStorage).
-  const supabaseInit = withTimeout(
-    ensureAuthenticated(),
-    4000,
+  // Carregar items.json e Supabase em paralelo. Esperamos por ambos antes
+  // de render() para que os stamps (aprovado/rejeitado) apareçam logo.
+  // Timeouts generosos: se Supabase pendurar (ETP/extensão), continua-se
+  // em modo localStorage; mas se carregar normalmente, persiste tudo.
+  const itemsP = withTimeout(loadItems(), 8000, [], "loadItems");
+  const supabaseP = withTimeout(
+    (async () => {
+      await ensureAuthenticated();
+      await initApprovalStore();
+    })(),
+    6000,
     null,
-    "ensureAuthenticated"
-  ).then(() => withTimeout(initApprovalStore(), 3000, null, "initApprovalStore"));
+    "supabase+approvals"
+  );
 
-  state.items = await withTimeout(loadItems(), 8000, [], "loadItems");
-  // Tenta aguardar Supabase só por um curto período, mas continua mesmo
-  // se o CDN bloquear — o utilizador deve ver os tiles imediatamente.
-  await withTimeout(supabaseInit, 100, null, "supabase-secondary");
+  state.items = await itemsP;
+  await supabaseP;
   bindOpen();
   window.addEventListener("approval:changed", () => {
     updateCounts();

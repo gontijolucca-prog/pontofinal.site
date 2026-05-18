@@ -206,6 +206,11 @@ export function init() {
       await migrateLocalStorageIfNeeded();
       await loadFromSupabase();
       subscribeRealtime();
+      // Mostra indicador se há writes pendentes da sessão anterior, e
+      // tenta sincronizar.
+      const pendingCount = qRead().length;
+      updatePendingIndicator(pendingCount);
+      if (pendingCount > 0) flushQueue();
     })();
   } else {
     cache = lsRead();
@@ -215,26 +220,116 @@ export function init() {
   return _initPromise;
 }
 
+// ─── Write queue + retry ─────────────────────────────────────────────────
+// Sintoma: aprovações feitas no telemóvel não aparecem no desktop. Causa
+// provável: Safari ETP/iCloud Private Relay/extensão bloqueia o request
+// para supabase.co silenciosamente. Para sobreviver, cada write entra
+// numa fila persistente em localStorage e é re-tentado periodicamente.
+
+const QUEUE_KEY = `${NAMESPACE}-pending-writes`;
+
+function qRead() {
+  try { return JSON.parse(localStorage.getItem(QUEUE_KEY)) || []; }
+  catch { return []; }
+}
+function qWrite(q) {
+  try { localStorage.setItem(QUEUE_KEY, JSON.stringify(q)); } catch {}
+}
+function qPush(row) {
+  const q = qRead();
+  // Dedupe por item_id — fica só o mais recente.
+  const filtered = q.filter(r => r.item_id !== row.item_id);
+  filtered.push(row);
+  qWrite(filtered);
+  updatePendingIndicator(filtered.length);
+}
+function qRemove(item_id, updated_at) {
+  const q = qRead();
+  const filtered = q.filter(r =>
+    !(r.item_id === item_id && r.updated_at === updated_at)
+  );
+  qWrite(filtered);
+  updatePendingIndicator(filtered.length);
+}
+
+function updatePendingIndicator(count) {
+  if (typeof window === "undefined") return;
+  let el = document.getElementById("sync-indicator");
+  if (!el && count > 0) {
+    el = document.createElement("div");
+    el.id = "sync-indicator";
+    el.style.cssText = "position:fixed;bottom:12px;right:12px;z-index:9999;background:#FFB81F;color:#050505;font:800 11px/1 'JetBrains Mono',monospace;padding:8px 12px;border:2px solid #050505;box-shadow:3px 3px 0 0 #050505;letter-spacing:0.06em;text-transform:uppercase;";
+    document.body.appendChild(el);
+  }
+  if (el) {
+    if (count > 0) {
+      el.textContent = `↻ ${count} por sincronizar`;
+      el.style.display = "block";
+    } else {
+      el.style.display = "none";
+    }
+  }
+}
+
+async function tryUpsertRaw(row) {
+  if (!supabase) return false;
+  const { error } = await supabase
+    .from("approvals")
+    .upsert(row, { onConflict: "namespace,item_id" });
+  return !error;
+}
+
+let _flushing = false;
+async function flushQueue() {
+  if (_flushing) return;
+  if (!supabase) return;
+  _flushing = true;
+  try {
+    const q = qRead();
+    for (const row of q) {
+      const ok = await tryUpsertRaw(row);
+      if (ok) {
+        qRemove(row.item_id, row.updated_at);
+        console.debug("[approval-store] queue flush ✓", row.item_id, row.status);
+      } else {
+        console.warn("[approval-store] queue flush retry later:", row.item_id);
+        break; // se um falha, parar (rede provavelmente ainda em baixo)
+      }
+    }
+  } finally {
+    _flushing = false;
+  }
+}
+
+// Periodically retry pending writes (every 5s) + on visibility change.
+if (typeof window !== "undefined") {
+  setInterval(() => { flushQueue(); }, 5000);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) flushQueue();
+  });
+  window.addEventListener("online", flushQueue);
+}
+
 // ─── Helper de upsert na tabela `approvals` ──────────────────────────────
 
 async function upsertRow(item_id, status, note, updated_at) {
-  if (!((USE_SUPABASE || AUTH_ENABLED) && supabase)) {
-    console.warn("[approval-store] upsert skipped — supabase not ready", { item_id, status });
-    return null;
-  }
-  const userId = (await supabase.auth.getUser())?.data?.user?.id || null;
+  const userId = supabase ? (await supabase.auth.getUser())?.data?.user?.id || null : null;
   const row = { namespace: NAMESPACE, item_id, status, note, updated_at };
   if (userId) row.updated_by = userId;
-  console.debug("[approval-store] upsert →", { item_id, status, hasNote: !!note });
-  const { data, error } = await supabase
-    .from("approvals")
-    .upsert(row, { onConflict: "namespace,item_id" })
-    .select();
-  if (error) {
-    console.error("[approval-store] upsert error:", error, "row:", row);
-    return null;
+  console.debug("[approval-store] upsert →", { item_id, status });
+  // Coloca já na fila (write-ahead) — se falhar, o retry encarrega-se.
+  qPush(row);
+  if (!((USE_SUPABASE || AUTH_ENABLED) && supabase)) {
+    console.warn("[approval-store] upsert deferred — supabase not ready, queued");
+    return row;
   }
-  console.debug("[approval-store] upsert ✓", data?.[0]);
+  const ok = await tryUpsertRaw(row);
+  if (ok) {
+    qRemove(item_id, updated_at);
+    console.debug("[approval-store] upsert ✓", item_id);
+  } else {
+    console.warn("[approval-store] upsert falhou, ficou na fila para retry:", item_id);
+  }
   return row;
 }
 
