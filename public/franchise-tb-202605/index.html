@@ -127,9 +127,11 @@
 <header>
   <h1>Conteúdos TechBody.</h1>
   <p class="sub">
-    Conteúdo do mês actual. Descarrega o que precisares.
+    Conteúdo aprovado, prontos a descarregar. Escolhe o mês.
   </p>
 </header>
+
+<div class="filters" id="monthFilters" style="margin-bottom:8px"></div>
 
 <div class="filters" id="filters">
   <button class="filter-chip" data-active="true" data-filter="all">Todos</button>
@@ -149,16 +151,21 @@
 </footer>
 
 <script>
-  // Sem Supabase — franchise mostra todos os items do mês (não filtra por
-  // aprovação, porque o login foi temporariamente removido). Cada estúdio
-  // descarrega o que precisar.
+  // Franchise consulta Supabase directamente (REST) para obter as
+  // aprovações feitas na página de preview. Só items com status="approved"
+  // aparecem aqui. Sem SDK — fetch puro para evitar peso e bloqueios ETP.
   const ALLOWED_BRAND = "techbody";
-  const state = { items: [], captions: {}, filter: "all" };
+  const NAMESPACE = "cm-approval-tb-v1";
+  const SUPABASE_URL = "https://ojbigtskkhmnerrppdjq.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9qYmlndHNra2htbmVycnBwZGpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwMjk1MDksImV4cCI6MjA5NDYwNTUwOX0.gFcdOh19siLqTzTsmoYDs2ZjA4l3uykRs01sRebkdZQ";
+
+  const state = { items: [], captions: {}, approvals: {}, filter: "all", month: "" };
   const els = {
     grid: document.getElementById("grid"),
     state: document.getElementById("state"),
     empty: document.getElementById("empty"),
     filters: document.getElementById("filters"),
+    monthFilters: document.getElementById("monthFilters"),
   };
 
   function monthLabel(yyyymm) {
@@ -177,6 +184,22 @@
       const res = await fetch("data/captions.json", { cache: "no-store" });
       return await res.json();
     } catch { return {}; }
+  }
+  async function loadApprovals() {
+    try {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/approvals?namespace=eq.${NAMESPACE}&status=eq.approved&select=item_id`,
+        { headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` } }
+      );
+      if (!res.ok) return {};
+      const rows = await res.json();
+      const out = {};
+      for (const r of rows) out[r.item_id] = true;
+      return out;
+    } catch (e) {
+      console.warn("[franchise] approvals fetch falhou:", e);
+      return {};
+    }
   }
 
   function escapeHtml(s) {
@@ -218,10 +241,23 @@
     `;
   }
 
+  function renderMonthFilters() {
+    const months = Array.from(new Set(state.items.map(it => it.month).filter(Boolean))).sort().reverse();
+    if (months.length === 0) { els.monthFilters.innerHTML = ""; return; }
+    if (!state.month || !months.includes(state.month)) state.month = months[0];
+    els.monthFilters.innerHTML = months.map(m => `
+      <button class="filter-chip" data-month="${m}" data-active="${m === state.month}">${monthLabel(m)}</button>
+    `).join("");
+  }
+
   function render() {
+    const approvedItems = state.items.filter(it => state.approvals[it.id]);
+    const monthFiltered = state.month
+      ? approvedItems.filter(it => it.month === state.month)
+      : approvedItems;
     const visible = state.filter === "all"
-      ? state.items
-      : state.items.filter(it => it.format === state.filter);
+      ? monthFiltered
+      : monthFiltered.filter(it => it.format === state.filter);
 
     els.state.hidden = true;
     if (visible.length === 0) {
@@ -244,13 +280,29 @@
     render();
   });
 
+  els.monthFilters.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-month]");
+    if (!btn) return;
+    state.month = btn.dataset.month;
+    els.monthFilters.querySelectorAll("[data-month]").forEach(b => {
+      b.dataset.active = b === btn ? "true" : "false";
+    });
+    document.querySelector("footer").textContent = "TechBody · " + monthLabel(state.month);
+    render();
+  });
+
   (async () => {
     try {
-      const [items, captions] = await Promise.all([loadItems(), loadCaptions()]);
+      const [items, captions, approvals] = await Promise.all([
+        loadItems(),
+        loadCaptions(),
+        loadApprovals(),
+      ]);
       state.items = items;
       state.captions = captions;
-      const month = items[0]?.month || "";
-      document.querySelector("footer").textContent = "TechBody · " + monthLabel(month);
+      state.approvals = approvals;
+      renderMonthFilters();
+      document.querySelector("footer").textContent = "TechBody · " + monthLabel(state.month);
       render();
     } catch (err) {
       console.error(err);
