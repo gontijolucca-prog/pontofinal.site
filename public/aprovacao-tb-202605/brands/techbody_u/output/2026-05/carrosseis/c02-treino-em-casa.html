@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TechBody U · treino_em_casa</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,400;0,700;0,800;1,200;1,400;1,800&family=Manrope:wght@200;400;500;700&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #F2EDE4;
+  --primary: #14160F;
+  --accent: #C36F49;
+  --text: #14160F;
+  --text-mute: rgba(20, 22, 15, 0.55);
+  --text-faint: rgba(20, 22, 15, 0.35);
+  --line: rgba(20, 22, 15, 0.12);
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Manrope', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+/* Carousel slides at Instagram portrait 4:5 (1080×1350). Iframe parent é 4:5. */
+.carousel {
+  display: flex;
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  height: 100vh;
+  width: 100vw;
+}
+.carousel::-webkit-scrollbar { display: none; }
+.slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: clamp(40px, 6vw, 72px);
+  background: var(--bg);
+  color: var(--text);
+}
+.slide__top {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font: 500 12px/1 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+.slide__top .brand {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-style: italic;
+  font-size: clamp(20px, 2.4vw, 26px);
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  text-transform: none;
+}
+.slide__bottom {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font: 500 12px/1 var(--font-body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+.slide__cta {
+  background: var(--accent);
+  color: var(--bg);
+  padding: 10px 22px;
+  font: 700 13px/1 var(--font-body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.slide__body { display: grid; align-content: center; }
+
+/* ─── style: photo (split 2-col layout) ─── */
+.slide--photo .slide__body {
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 4vw, 56px);
+  align-items: center;
+}
+.slide--photo h1 {
+  font: 200 clamp(40px, 6vw, 92px)/0.94 var(--font-display);
+  font-style: italic;
+  letter-spacing: -0.025em;
+  color: var(--text);
+}
+.slide--photo h1 em {
+  color: var(--accent);
+  font-style: italic;
+  font-weight: 800;
+}
+.slide--photo .photo {
+  aspect-ratio: 4/5;
+  background-size: cover;
+  background-position: center;
+  border-radius: 2px;
+}
+/* When the hook line is short, allow a more poetic mix-case heading. */
+
+/* ─── style: typographic (centered serif) ─── */
+.slide--type .slide__body {
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+}
+.slide--type h1 {
+  font: 200 clamp(40px, 7vw, 108px)/0.96 var(--font-display);
+  font-style: italic;
+  letter-spacing: -0.025em;
+  max-width: 14ch;
+  color: var(--text);
+}
+.slide--type h1 em { color: var(--accent); font-weight: 800; }
+
+/* ─── style: numeric (large terracotta number) ─── */
+.slide--num .slide__body {
+  align-content: center;
+  gap: 18px;
+}
+.slide--num .num {
+  font: 800 clamp(120px, 22vw, 280px)/0.84 var(--font-display);
+  font-style: italic;
+  letter-spacing: -0.06em;
+  color: var(--accent);
+}
+.slide--num h1 {
+  font: 400 clamp(28px, 3.6vw, 48px)/1.1 var(--font-display);
+  font-style: italic;
+  letter-spacing: -0.02em;
+  max-width: 22ch;
+  color: var(--text);
+}
+
+/* ─── style: quote (italic blockquote) ─── */
+.slide--quote .slide__body {
+  align-content: center;
+  gap: 16px;
+  border-left: 3px solid var(--accent);
+  padding-left: clamp(20px, 3vw, 36px);
+}
+.slide--quote blockquote {
+  font: 200 clamp(28px, 4.4vw, 56px)/1.18 var(--font-display);
+  font-style: italic;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  max-width: 22ch;
+}
+.slide--quote cite {
+  font: 500 12px/1 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  font-style: normal;
+}
+</style>
+</head>
+<body>
+<section class="carousel" aria-label="Carrossel TechBody U — treino_em_casa">
+<article class="slide slide--type" id="slide-1"><div class="slide__top">  <span class="brand">TechBody U</span></div><div class="slide__body"><h1>A casa pode ser o teu estúdio.</h1></div><div class="slide__bottom">  <span>01/06</span></div></article>
+<article class="slide slide--photo" id="slide-2"><div class="slide__top">  <span class="brand">TechBody U</span></div><div class="slide__body">  <h1><em>Não</em> precisas de máquinas. Não precisas de horários. Não precisas de marcar.</h1>  <div class="photo" style="background-image:url('../../../assets/photos/magnific_e2-aquecimento-controlado_2964228670.png')"></div></div><div class="slide__bottom">  <span>02/06</span></div></article>
+<article class="slide slide--type" id="slide-3"><div class="slide__top">  <span class="brand">TechBody U</span></div><div class="slide__body"><h1>Vestes o fato. Abres a aplicação. Começas em menos de um minuto.</h1></div><div class="slide__bottom">  <span>03/06</span></div></article>
+<article class="slide slide--type" id="slide-4"><div class="slide__top">  <span class="brand">TechBody U</span></div><div class="slide__body"><h1>Vinte e cinco minutos de estímulo profundo. Sem cargas pesadas. Sem horas perdidas.</h1></div><div class="slide__bottom">  <span>04/06</span></div></article>
+<article class="slide slide--photo" id="slide-5"><div class="slide__top">  <span class="brand">TechBody U</span></div><div class="slide__body">  <h1><em>Acabas,</em> dobras o fato. O treino some. O resultado fica.</h1>  <div class="photo" style="background-image:url('../../../assets/photos/magnific_e1-chegada-ao-estudio-pes_2964211125.png')"></div></div><div class="slide__bottom">  <span>05/06</span></div></article>
+<article class="slide slide--type" id="slide-6"><div class="slide__top">  <span class="brand">TechBody U</span></div><div class="slide__body"><h1>Marca uma demonstração. Experimenta o fato vestido.</h1></div><div class="slide__bottom">  <span class="slide__cta">Conhece o método →</span></div></article>
+</section>
+<script>
+  (function () {
+    var carousel = document.querySelector('.carousel');
+    function go() {
+      var m = (location.hash || '').match(/^#slide-(\d+)$/);
+      if (!m || !carousel) return;
+      var el = document.getElementById('slide-' + m[1]);
+      if (!el) return;
+      // Disable snap during programmatic scroll; restore after a tick.
+      var prev = carousel.style.scrollSnapType;
+      carousel.style.scrollSnapType = 'none';
+      carousel.scrollLeft = el.offsetLeft;
+      requestAnimationFrame(function () {
+        carousel.style.scrollSnapType = prev || '';
+      });
+    }
+    window.addEventListener('hashchange', go);
+    if (document.readyState === 'complete') go();
+    else window.addEventListener('load', go);
+  })();
+</script>
+</body>
+</html>

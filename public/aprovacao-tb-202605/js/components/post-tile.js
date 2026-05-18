@@ -46,7 +46,7 @@ class PostTile extends HTMLElement {
     this.innerHTML = `
       <article class="tile" data-item-id="${it.id}">
         <span class="tile__label">Story · ${BRAND_LABELS[it.brand]?.toUpperCase() || it.brand}</span>
-        <iframe src="${it.html_url}" loading="eager" tabindex="-1" onload="this.classList.add('is-loaded')"></iframe>
+        <iframe data-src="${it.html_url}" loading="lazy" tabindex="-1" onload="this.classList.add('is-loaded')"></iframe>
         <a class="tile__download" href="${pngUrl}" download="${it.id}.png" title="Descarregar PNG 1080×1920" aria-label="Descarregar story">⤓</a>
         <div class="tile__caption">
           <strong>${it.title || it.theme}</strong>
@@ -56,10 +56,29 @@ class PostTile extends HTMLElement {
     `;
 
     this.querySelector(".tile").addEventListener("click", (e) => {
-      // Don't open viewer when clicking the download icon.
       if (e.target.closest(".tile__download")) return;
       this.dispatchEvent(new CustomEvent("item:open", { bubbles: true, detail: { id: it.id } }));
     });
+
+    this._observeLazy();
+  }
+
+  _observeLazy() {
+    const iframe = this.querySelector("iframe[data-src]");
+    if (!iframe) return;
+    if (!("IntersectionObserver" in window)) {
+      iframe.src = iframe.dataset.src;
+      return;
+    }
+    const io = new IntersectionObserver((entries, obs) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          iframe.src = iframe.dataset.src;
+          obs.unobserve(iframe);
+        }
+      }
+    }, { rootMargin: "200px" });
+    io.observe(iframe);
   }
 }
 

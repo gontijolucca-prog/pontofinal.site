@@ -1,0 +1,63 @@
+{
+  "voice": "Joana (macOS) + Piper tugão",
+  "format": "dialogue",
+  "total_ms": 23234,
+  "chunks": [
+    {
+      "role": "q",
+      "voice": "Joana (macOS)",
+      "text": "O que é EMS?",
+      "start_ms": 0,
+      "dur_ms": 1227
+    },
+    {
+      "role": "a",
+      "voice": "Piper tugão",
+      "text": "Treino com eletroestimulação. O fato envia impulsos suaves enquanto te mexes.",
+      "start_ms": 1367,
+      "dur_ms": 3735
+    },
+    {
+      "role": "q",
+      "voice": "Joana (macOS)",
+      "text": "Substitui o ginásio?",
+      "start_ms": 5382,
+      "dur_ms": 1671
+    },
+    {
+      "role": "a",
+      "voice": "Piper tugão",
+      "text": "Pode complementar ou substituir. Vinte e cinco minutos chegam para uma sessão completa.",
+      "start_ms": 7193,
+      "dur_ms": 4440
+    },
+    {
+      "role": "q",
+      "voice": "Joana (macOS)",
+      "text": "Posso treinar em casa sozinho?",
+      "start_ms": 11913,
+      "dur_ms": 1959
+    },
+    {
+      "role": "a",
+      "voice": "Piper tugão",
+      "text": "Sim. Vestes o fato e a aplicação guia toda a sessão. Tu controlas o ritmo.",
+      "start_ms": 14012,
+      "dur_ms": 4310
+    },
+    {
+      "role": "q",
+      "voice": "Joana (macOS)",
+      "text": "Quanto custa?",
+      "start_ms": 18602,
+      "dur_ms": 940
+    },
+    {
+      "role": "a",
+      "voice": "Piper tugão",
+      "text": "Compra única ou subscrição mensal. Os detalhes estão no site.",
+      "start_ms": 19682,
+      "dur_ms": 3552
+    }
+  ]
+}

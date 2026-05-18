@@ -54,7 +54,7 @@ class ReelTile extends HTMLElement {
     this.innerHTML = `
       <article class="tile tile--reel ${kindClass}" data-item-id="${it.id}">
         <span class="tile__label">${kindLabel} · ${BRAND_LABELS[it.brand]?.toUpperCase() || it.brand}</span>
-        <iframe src="${it.html_url}" loading="eager" tabindex="-1" onload="this.classList.add('is-loaded')"></iframe>
+        <iframe data-src="${it.html_url}" loading="lazy" tabindex="-1" onload="this.classList.add('is-loaded')"></iframe>
         <div class="tile__caption">
           <strong>${it.title || it.theme}</strong>
           <span>${it.scheduled_for || ""} · ${it.hour || ""} · ${duration}s · ${kindDesc}</span>
@@ -65,6 +65,20 @@ class ReelTile extends HTMLElement {
     this.querySelector(".tile").addEventListener("click", () => {
       this.dispatchEvent(new CustomEvent("item:open", { bubbles: true, detail: { id: it.id } }));
     });
+
+    this._observeLazy();
+  }
+
+  _observeLazy() {
+    const iframe = this.querySelector("iframe[data-src]");
+    if (!iframe) return;
+    if (!("IntersectionObserver" in window)) { iframe.src = iframe.dataset.src; return; }
+    const io = new IntersectionObserver((entries, obs) => {
+      for (const e of entries) {
+        if (e.isIntersecting) { iframe.src = iframe.dataset.src; obs.unobserve(iframe); }
+      }
+    }, { rootMargin: "200px" });
+    io.observe(iframe);
   }
 }
 

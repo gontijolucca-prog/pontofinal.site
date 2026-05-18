@@ -33,26 +33,42 @@ function buildStorage() {
   };
 }
 
-// Lazy: só importa o SDK quando há credenciais reais. Em modo fallback (sem
-// Supabase configurado), 'supabase' fica null e o resto do sistema usa
-// localStorage.
+// supabase é populado por initSupabase() — sem top-level await porque o
+// Safari < 15 quebra com isso e o restante código deixa de carregar.
 export let supabase = null;
+let _initPromise = null;
 
-if (AUTH_ENABLED) {
-  try {
-    const mod = await import("https://esm.sh/@supabase/supabase-js@2");
-    supabase = mod.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-      auth: {
-        storage: buildStorage(),
-        persistSession: true,
-        autoRefreshToken: true,
-        detectSessionInUrl: true,
-      },
-    });
-  } catch (err) {
-    console.error("[supabase-client] falhou a carregar SDK do CDN, fallback localStorage:", err);
-    supabase = null;
-  }
+const CDN_URLS = [
+  "https://esm.sh/@supabase/supabase-js@2",
+  "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm",
+];
+
+export function initSupabase() {
+  if (!AUTH_ENABLED) return Promise.resolve(null);
+  if (_initPromise) return _initPromise;
+  _initPromise = (async () => {
+    let lastErr;
+    for (const url of CDN_URLS) {
+      try {
+        const mod = await import(/* @vite-ignore */ url);
+        supabase = mod.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+          auth: {
+            storage: buildStorage(),
+            persistSession: true,
+            autoRefreshToken: true,
+            detectSessionInUrl: true,
+          },
+        });
+        return supabase;
+      } catch (err) {
+        lastErr = err;
+        console.warn(`[supabase-client] CDN ${url} falhou, a tentar próximo…`, err?.message || err);
+      }
+    }
+    console.error("[supabase-client] todos os CDNs falharam:", lastErr);
+    return null;
+  })();
+  return _initPromise;
 }
 
 export { AUTH_ENABLED };

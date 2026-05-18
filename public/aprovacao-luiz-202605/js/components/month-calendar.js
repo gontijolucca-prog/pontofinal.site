@@ -114,6 +114,15 @@ class MonthCalendar extends HTMLElement {
   _cellHTML(c) {
     if (c.blank) return `<div class="cal-day cal-day--blank"></div>`;
     const chips = c.items.map(it => {
+      if (it._ghost) {
+        return `
+          <span class="cal-chip cal-chip--ghost" data-format="${it.format}" data-brand="${it.brand}" title="Por produzir — ${it.title || it.theme || ''}">
+            <span class="cal-chip__brand">${BRAND_SHORT[it.brand] || it.brand}</span>
+            <span class="cal-chip__fmt">${FMT_LABEL[it.format] || it.format}</span>
+            <span class="cal-chip__hour">${it.hour || ""}</span>
+          </span>
+        `;
+      }
       const status = this._statusFor(it.id);
       const glyph = STATUS_GLYPH[status] || "";
       return `
@@ -136,6 +145,16 @@ class MonthCalendar extends HTMLElement {
   _agendaRowHTML(day, items) {
     const weekday = weekdayLabel(this._year, this._month, day);
     const rows = items.map(it => {
+      if (it._ghost) {
+        return `
+          <li class="agenda-item agenda-item--ghost" data-format="${it.format}" data-brand="${it.brand}">
+            <span class="agenda-item__hour">${it.hour || ""}</span>
+            <span class="agenda-item__brand">${BRAND_SHORT[it.brand] || it.brand}</span>
+            <span class="agenda-item__fmt">${FMT_LABEL[it.format] || it.format}</span>
+            <span class="agenda-item__title">Por produzir</span>
+          </li>
+        `;
+      }
       const status = this._statusFor(it.id);
       const glyph = STATUS_GLYPH[status] || "";
       return `

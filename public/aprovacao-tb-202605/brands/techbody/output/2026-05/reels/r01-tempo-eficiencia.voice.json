@@ -1,0 +1,36 @@
+{
+  "voice": "piper-pt-tugão-medium-dramatic",
+  "total_ms": 7947,
+  "chunks": [
+    {
+      "text": "25 minutos.",
+      "start_ms": 0,
+      "dur_ms": 1195
+    },
+    {
+      "text": "Menos do que esperas no café.",
+      "start_ms": 1415,
+      "dur_ms": 1544
+    },
+    {
+      "text": "Menos do que um episódio.",
+      "start_ms": 3179,
+      "dur_ms": 1242
+    },
+    {
+      "text": "Sessão completa.",
+      "start_ms": 4641,
+      "dur_ms": 1010
+    },
+    {
+      "text": "Treino sério.",
+      "start_ms": 5871,
+      "dur_ms": 928
+    },
+    {
+      "text": "Marca sessão →",
+      "start_ms": 7019,
+      "dur_ms": 928
+    }
+  ]
+}

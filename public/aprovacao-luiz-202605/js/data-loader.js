@@ -2,16 +2,36 @@
 
 import { BRANDS_FILTER } from "./config.js";
 
+async function loadCaptions() {
+  try {
+    const res = await fetch('data/captions.json', { cache: 'no-store' });
+    if (!res.ok) return {};
+    const data = await res.json();
+    return (data && typeof data === 'object') ? data : {};
+  } catch {
+    return {};
+  }
+}
+
 export async function loadItems() {
   try {
     const res = await fetch('data/items.json', { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     let items = await res.json();
     if (!Array.isArray(items)) throw new Error('items.json must be an array');
-    // Per-deploy brand filter: items.json é partilhado entre deploys mas cada
-    // deploy só mostra as suas marcas (definidas em config.js BRANDS_FILTER).
     if (BRANDS_FILTER && BRANDS_FILTER.length > 0) {
       items = items.filter(it => BRANDS_FILTER.includes(it.brand));
+    }
+    const captions = await loadCaptions();
+    for (const it of items) {
+      const c = captions[it.id];
+      if (c) {
+        it.caption = c.caption || "";
+        it.hashtags = c.hashtags || "";
+      } else {
+        it.caption = "";
+        it.hashtags = "";
+      }
     }
     return items;
   } catch (err) {

@@ -764,6 +764,80 @@
   color: var(--text);
 }
 
+/* ───── DESCRIÇÃO INSTAGRAM (caption + hashtags) ───── */
+.viewer-caption {
+  border: var(--border-w) solid var(--border);
+  background: var(--bg-soft);
+  padding: var(--s-3);
+  display: grid;
+  gap: var(--s-2);
+}
+.viewer-caption[data-caption-status="approved"] { border-color: var(--status-approved); background: color-mix(in srgb, var(--status-approved) 8%, var(--bg-soft)); }
+.viewer-caption[data-caption-status="rejected"] { border-color: var(--status-rejected); background: color-mix(in srgb, var(--status-rejected) 8%, var(--bg-soft)); }
+.viewer-caption__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s-3);
+}
+.viewer-caption__title {
+  font: 800 var(--t-sm)/1 var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0;
+  color: var(--text);
+}
+.viewer-caption__badge {
+  font: 800 var(--t-xxs)/1 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 8px;
+  border: 2px solid var(--border);
+  white-space: nowrap;
+}
+.viewer-caption__badge--approved { background: var(--status-approved); color: var(--bg); }
+.viewer-caption__badge--rejected { background: var(--status-rejected); color: var(--bg); }
+.viewer-caption__badge--pending  { background: var(--bg); color: var(--text); }
+.viewer-caption__text,
+.viewer-caption__hashtags {
+  font-family: var(--font-mono);
+  font-size: var(--t-sm);
+  line-height: 1.5;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+  padding: var(--s-2) var(--s-3);
+  background: var(--bg);
+  border-left: 4px solid var(--accent);
+}
+.viewer-caption__hashtags {
+  font-size: var(--t-xs);
+  color: var(--text-mute);
+  border-left-color: var(--text-mute);
+  line-height: 1.5;
+}
+.viewer-caption__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-2);
+  margin-top: var(--s-1);
+}
+.viewer-caption__actions textarea {
+  grid-column: 1 / -1;
+  min-height: 56px;
+  border: 3px solid var(--border);
+  padding: var(--s-2) var(--s-3);
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  resize: vertical;
+  background: var(--bg);
+}
+.viewer-caption__actions .btn--small {
+  padding: var(--s-2) var(--s-3);
+  font-size: var(--t-xs);
+}
+
 /* ───── HISTÓRICO DE APROVAÇÃO (audit log) ───── */
 .viewer-history-block {
   border: var(--border-w) solid var(--border);
@@ -852,6 +926,22 @@
   resize: vertical;
   background: var(--bg-soft);
 }
+.viewer-actions [data-action="save-note"],
+.viewer-caption__actions [data-action="caption-save-note"] {
+  grid-column: 1 / -1;
+}
+.viewer-actions__feedback,
+.viewer-caption__feedback {
+  grid-column: 1 / -1;
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--status-approved);
+  opacity: 0;
+  transition: opacity var(--d-fast) var(--ease);
+  text-align: right;
+}
+.viewer-actions__feedback.is-visible,
+.viewer-caption__feedback.is-visible { opacity: 1; }
 
 /* ───── FOOTER ───── */
 .app-footer {
@@ -1630,57 +1720,107 @@ filter-bar { display: block; }
 }
 
 /* ─────────────────────────────────────────────────────────────────────
-   MONTH SWITCHER — chip group no header. Permite alternar entre meses
-   presentes em items.json. Escondido quando há só um mês.
+   MONTH NAVIGATION — arrows ◀ Mês YYYY ▶ + botão "Hoje". Infinito.
    ───────────────────────────────────────────────────────────────────── */
 
-.month-switcher {
-  display: flex;
-  gap: 4px;
-  flex-shrink: 1;
-  flex-wrap: wrap;
+.month-nav {
+  display: inline-flex;
+  align-items: stretch;
+  gap: 6px;
+  flex-shrink: 0;
 }
-.month-switcher__chip {
+.month-nav__arrow {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 10px;
+  justify-content: center;
+  width: 36px;
   background: var(--bg);
+  border: var(--border-w) solid var(--border);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform var(--d-fast) var(--ease), background var(--d-fast) var(--ease);
+}
+.month-nav__arrow:hover { background: var(--text); color: var(--bg); transform: translateY(-1px); }
+.month-nav__center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 14px;
+  background: var(--text);
+  color: var(--bg);
+  border: var(--border-w) solid var(--border);
+  box-shadow: var(--shadow-sm);
+  min-width: 168px;
+}
+.month-nav__label {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--t-md);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.month-nav__label[data-content="no"] {
+  text-decoration: line-through;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  opacity: 0.85;
+}
+.month-nav__sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: color-mix(in srgb, var(--bg) 60%, transparent);
+  margin-top: 2px;
+}
+.month-nav__today {
+  padding: 4px 10px;
+  background: var(--accent);
+  color: var(--bg);
   border: var(--border-w) solid var(--border);
   box-shadow: var(--shadow-sm);
   font-family: var(--font-mono);
   font-size: var(--t-xxs);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
   cursor: pointer;
-  transition: background var(--d-fast) var(--ease), color var(--d-fast) var(--ease), transform var(--d-fast) var(--ease);
+  transition: transform var(--d-fast) var(--ease);
 }
-.month-switcher__chip:hover {
-  transform: translateY(-1px);
+.month-nav__today:hover { transform: translateY(-1px); }
+
+/* Ghost chips — slots de publicação sem conteúdo produzido */
+.cal-chip--ghost {
+  opacity: 0.45;
+  pointer-events: none;
+  border-style: dashed;
+  background: transparent !important;
 }
-.month-switcher__chip[aria-selected="true"] {
-  background: var(--text);
-  color: var(--bg);
-  transform: rotate(-1deg);
+.cal-chip--ghost .cal-chip__brand,
+.cal-chip--ghost .cal-chip__fmt,
+.cal-chip--ghost .cal-chip__hour {
+  filter: grayscale(0.6);
 }
-.month-switcher__chip[aria-selected="true"] .month-switcher__count {
-  background: var(--accent);
-  color: var(--bg);
+.agenda-item--ghost {
+  opacity: 0.55;
+  font-style: italic;
 }
-.month-switcher__count {
-  display: inline-block;
-  min-width: 22px;
-  text-align: center;
-  background: var(--bg-soft, color-mix(in srgb, var(--text) 8%, transparent));
-  color: var(--text);
-  padding: 2px 5px;
-  font-family: var(--font-heavy);
-  font-weight: 900;
-  letter-spacing: 0;
-  border: 1px solid var(--border);
+
+.filter-empty-state__sub {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--text-mute);
+  margin-top: var(--s-2);
+  line-height: 1.5;
 }
+
 @media (max-width: 720px) {
-  .month-switcher { gap: 3px; }
-  .month-switcher__chip { padding: 4px 7px; font-size: 9px; }
-  .month-switcher__count { padding: 1px 4px; min-width: 18px; }
+  .month-nav__arrow { width: 32px; font-size: 18px; }
+  .month-nav__center { min-width: 130px; padding: 4px 8px; }
+  .month-nav__label { font-size: var(--t-sm); }
+  .month-nav__sub { font-size: 8px; }
 }

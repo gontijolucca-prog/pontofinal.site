@@ -1,0 +1,32 @@
+[
+  {
+    "slide_number": 1,
+    "role": "hook",
+    "text_overlay": "A casa é o novo estúdio."
+  },
+  {
+    "slide_number": 2,
+    "role": "development",
+    "text_overlay": "Bastam 4 metros quadrados livres. Sem máquinas. Sem deslocações."
+  },
+  {
+    "slide_number": 3,
+    "role": "development",
+    "text_overlay": "Em 20 minutos chega-se a uma activação equivalente a uma hora de treino convencional."
+  },
+  {
+    "slide_number": 4,
+    "role": "development",
+    "text_overlay": "A rotina entra no calendário. A consistência deixa de ser obstáculo."
+  },
+  {
+    "slide_number": 5,
+    "role": "development",
+    "text_overlay": "\"O treino mais eficaz é aquele que existe na rotina real.\""
+  },
+  {
+    "slide_number": 6,
+    "role": "cta",
+    "text_overlay": "Descobre como funciona. Marca uma demonstração."
+  }
+]

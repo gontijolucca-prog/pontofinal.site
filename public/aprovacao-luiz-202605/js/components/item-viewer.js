@@ -128,6 +128,20 @@ class ItemViewer extends HTMLElement {
     iframe.src = `${this._item.html_url}#slide-${this._slide}`;
   }
 
+  _updateCaptionBadge() {
+    if (!this._item) return;
+    const captionState = approvalStore.getCaption(this._item.id);
+    const wrap = this.querySelector(".viewer-caption");
+    if (!wrap) return;
+    wrap.setAttribute("data-caption-status", captionState.status);
+    const badge = wrap.querySelector(".viewer-caption__badge");
+    if (badge) {
+      badge.className = `viewer-caption__badge viewer-caption__badge--${captionState.status}`;
+      const map = { approved: "Aprovada", rejected: "Rejeitada", pending: "Pendente" };
+      badge.textContent = map[captionState.status];
+    }
+  }
+
   _updateCounter() {
     const el = this.querySelector(".viewer-counter");
     if (el && this._item) el.textContent = `${this._slide} / ${this._item.slides}`;
@@ -141,7 +155,10 @@ class ItemViewer extends HTMLElement {
     const it = this._item;
     if (!it) return;
     const state = approvalStore.get(it.id);
+    const captionState = approvalStore.getCaption(it.id);
     const isCarousel = it.format === "carrossel" && it.slides > 1;
+    const captionLabel = { approved: "Aprovada", rejected: "Rejeitada", pending: "Pendente" };
+    const hasCaption = !!(it.caption && it.caption.trim());
 
     const navbarHtml = isCarousel ? `
       <div class="viewer-navbar">
@@ -178,6 +195,23 @@ class ItemViewer extends HTMLElement {
               </div>
             `).join("")}
           </div>
+          ${hasCaption ? `
+          <div class="viewer-caption" data-caption-status="${captionState.status}">
+            <div class="viewer-caption__head">
+              <h4 class="viewer-caption__title">Descrição Instagram</h4>
+              <span class="viewer-caption__badge viewer-caption__badge--${captionState.status}">${captionLabel[captionState.status]}</span>
+            </div>
+            <pre class="viewer-caption__text">${this._escapeForHtml(it.caption)}</pre>
+            ${it.hashtags ? `<pre class="viewer-caption__hashtags">${this._escapeForHtml(it.hashtags)}</pre>` : ""}
+            <div class="viewer-caption__actions">
+              <textarea data-caption-note placeholder="Sugestão para a descrição (opcional)">${this._escapeForHtml(captionState.note || "")}</textarea>
+              <button class="btn btn--ghost btn--small" data-action="caption-save-note">Guardar anotação</button>
+              <span class="viewer-caption__feedback" data-caption-feedback aria-live="polite"></span>
+              <button class="btn btn--reject btn--small" data-action="caption-reject">Rejeitar descrição</button>
+              <button class="btn btn--approve btn--small" data-action="caption-approve">Aprovar descrição</button>
+            </div>
+          </div>
+          ` : ""}
           <details class="viewer-history-block">
             <summary>Histórico de aprovação</summary>
             <div class="viewer-history" data-history>
@@ -186,6 +220,8 @@ class ItemViewer extends HTMLElement {
           </details>
           <div class="viewer-actions">
             <textarea data-note placeholder="Sugestão de edição (opcional)">${state.note || ""}</textarea>
+            <button class="btn btn--ghost" data-action="save-note">Guardar anotação</button>
+            <span class="viewer-actions__feedback" data-feedback aria-live="polite"></span>
             <button class="btn btn--reject" data-action="reject">Rejeitar</button>
             <button class="btn btn--approve" data-action="approve">Aprovar</button>
           </div>
@@ -203,12 +239,43 @@ class ItemViewer extends HTMLElement {
       if (action === "close") return this.close();
       if (action === "prev")  return this._step(-1);
       if (action === "next")  return this._step(+1);
+      if (action === "save-note") {
+        const note = this.querySelector("textarea[data-note]")?.value || "";
+        approvalStore.saveNote(this._item.id, note);
+        const fb = this.querySelector("[data-feedback]");
+        if (fb) {
+          fb.textContent = "✓ Guardado";
+          fb.classList.add("is-visible");
+          setTimeout(() => { fb.classList.remove("is-visible"); fb.textContent = ""; }, 1800);
+        }
+        this._loadHistory();
+        return;
+      }
       if (action === "approve" || action === "reject") {
         const note = this.querySelector("textarea[data-note]")?.value || "";
         const desired = action === "approve" ? "approved" : "rejected";
         const current = approvalStore.get(this._item.id).status;
         approvalStore.set(this._item.id, current === desired ? "pending" : desired, note);
         this.close();
+      }
+      if (action === "caption-save-note") {
+        const note = this.querySelector("textarea[data-caption-note]")?.value || "";
+        const current = approvalStore.getCaption(this._item.id);
+        approvalStore.setCaption(this._item.id, current.status, note);
+        const fb = this.querySelector("[data-caption-feedback]");
+        if (fb) {
+          fb.textContent = "✓ Guardado";
+          fb.classList.add("is-visible");
+          setTimeout(() => { fb.classList.remove("is-visible"); fb.textContent = ""; }, 1800);
+        }
+        return;
+      }
+      if (action === "caption-approve" || action === "caption-reject") {
+        const note = this.querySelector("textarea[data-caption-note]")?.value || "";
+        const desired = action === "caption-approve" ? "approved" : "rejected";
+        const current = approvalStore.getCaption(this._item.id).status;
+        approvalStore.setCaption(this._item.id, current === desired ? "pending" : desired, note);
+        this._updateCaptionBadge();
       }
     });
   }

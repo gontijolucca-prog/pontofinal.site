@@ -148,16 +148,35 @@ export const approvalStore = {
     emit();
 
     if (AUTH_ENABLED && supabase) {
+      const userId = (await supabase.auth.getUser())?.data?.user?.id || null;
+      const row = { namespace: NAMESPACE, item_id: id, status, note, updated_at: updatedAt };
+      if (userId) row.updated_by = userId;
       const { error } = await supabase
         .from("approvals")
-        .upsert(
-          { namespace: NAMESPACE, item_id: id, status, note, updated_at: updatedAt },
-          { onConflict: "namespace,item_id" }
-        );
+        .upsert(row, { onConflict: "namespace,item_id" });
       if (error) {
         console.error("[approval-store] set error:", error);
-        // Não revertemos o cache — UX continua optimist.
       }
+    } else {
+      lsWrite(cache);
+    }
+  },
+
+  // Guardar SÓ a nota, sem alterar o status. Útil quando o user quer apenas
+  // registar uma observação enquanto decide.
+  async saveNote(id, note) {
+    const current = cache[id] || defaultState();
+    const updatedAt = new Date().toISOString();
+    cache[id] = { status: current.status, note, updatedAt };
+    emit();
+    if (AUTH_ENABLED && supabase) {
+      const userId = (await supabase.auth.getUser())?.data?.user?.id || null;
+      const row = { namespace: NAMESPACE, item_id: id, status: current.status, note, updated_at: updatedAt };
+      if (userId) row.updated_by = userId;
+      const { error } = await supabase
+        .from("approvals")
+        .upsert(row, { onConflict: "namespace,item_id" });
+      if (error) console.error("[approval-store] saveNote error:", error);
     } else {
       lsWrite(cache);
     }
@@ -170,9 +189,43 @@ export const approvalStore = {
   counts() {
     const out = { approved: 0, rejected: 0, pending: 0 };
     for (const id in cache) {
+      if (id.endsWith(":caption")) continue;
       out[cache[id].status] = (out[cache[id].status] || 0) + 1;
     }
     return out;
+  },
+
+  captionCounts() {
+    const out = { approved: 0, rejected: 0, pending: 0 };
+    for (const id in cache) {
+      if (!id.endsWith(":caption")) continue;
+      out[cache[id].status] = (out[cache[id].status] || 0) + 1;
+    }
+    return out;
+  },
+
+  getCaption(itemId) {
+    const key = `${itemId}:caption`;
+    return cache[key] ? { ...cache[key] } : defaultState();
+  },
+
+  async setCaption(itemId, status, note = "") {
+    const key = `${itemId}:caption`;
+    const updatedAt = new Date().toISOString();
+    cache[key] = { status, note, updatedAt };
+    emit();
+
+    if (AUTH_ENABLED && supabase) {
+      const userId = (await supabase.auth.getUser())?.data?.user?.id || null;
+      const row = { namespace: NAMESPACE, item_id: key, status, note, updated_at: updatedAt };
+      if (userId) row.updated_by = userId;
+      const { error } = await supabase
+        .from("approvals")
+        .upsert(row, { onConflict: "namespace,item_id" });
+      if (error) console.error("[approval-store] setCaption error:", error);
+    } else {
+      lsWrite(cache);
+    }
   },
 
   export() {

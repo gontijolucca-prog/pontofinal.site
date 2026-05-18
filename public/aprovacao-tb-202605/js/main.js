@@ -2,13 +2,18 @@
 
 import { loadItems } from "./data-loader.js";
 import { approvalStore, init as initApprovalStore } from "./stores/approval-store.js";
-import { supabase, AUTH_ENABLED } from "./lib/supabase-client.js";
+import { supabase, AUTH_ENABLED, initSupabase } from "./lib/supabase-client.js";
 import { monthShortLabel } from "./components/month-switcher.js";
 import { DASHBOARD_URL } from "./config.js";
 
+function todayYYYYMM() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+}
+
 const state = {
   items: [],
-  currentMonth: "all",
+  currentMonth: todayYYYYMM(),
   currentBrand:  "all",
   currentFormat: "all",
 };
@@ -37,11 +42,64 @@ function sortBySchedule(a, b) {
 
 function visibleItems() {
   return state.items.filter(i => {
-    if (state.currentMonth  !== "all" && inferMonth(i) !== state.currentMonth)  return false;
-    if (state.currentBrand  !== "all" && i.brand        !== state.currentBrand)  return false;
-    if (state.currentFormat !== "all" && i.format       !== state.currentFormat) return false;
+    if (inferMonth(i) !== state.currentMonth) return false;
+    if (state.currentBrand  !== "all" && i.brand  !== state.currentBrand)  return false;
+    if (state.currentFormat !== "all" && i.format !== state.currentFormat) return false;
     return true;
   });
+}
+
+// Extrai padrão de publicação a partir dos items reais (qualquer mês).
+// Retorna lista de { day, hour, brand, format, title }.
+function publishPattern() {
+  // Usa o primeiro mês com items como template (assumimos cadência mensal).
+  const months = activeMonths();
+  if (!months.length) return [];
+  const template = months[0];
+  const pattern = [];
+  for (const it of state.items) {
+    if (inferMonth(it) !== template) continue;
+    if (!it.scheduled_for) continue;
+    const day = parseInt(it.scheduled_for.split("-")[2], 10);
+    if (!day) continue;
+    pattern.push({
+      day,
+      hour: it.hour || "",
+      brand: it.brand,
+      format: it.format,
+      theme: it.theme || "",
+      title: it.title || it.theme || "",
+    });
+  }
+  return pattern;
+}
+
+// Constrói "ghost items" (não-clicáveis, placeholder) para um mês sem conteúdo.
+// Aplica os mesmos brand/format filters do state para coerência visual.
+function ghostItemsFor(yyyymm) {
+  return publishPattern()
+    .filter(p => state.currentBrand === "all" || p.brand === state.currentBrand)
+    .filter(p => state.currentFormat === "all" || p.format === state.currentFormat)
+    .map((p, i) => ({
+      id: `ghost-${yyyymm}-${i}`,
+      _ghost: true,
+      brand: p.brand,
+      format: p.format,
+      scheduled_for: `${yyyymm}-${String(p.day).padStart(2, "0")}`,
+      hour: p.hour,
+      theme: p.theme,
+      title: p.title,
+    }));
+}
+
+function activeMonths() {
+  // Meses que têm pelo menos 1 item real.
+  const set = new Set();
+  for (const it of state.items) {
+    const m = inferMonth(it);
+    if (m) set.add(m);
+  }
+  return Array.from(set).sort();
 }
 
 // ─── URL state persistence ───────────────────────────────────────────────
@@ -60,7 +118,7 @@ function writeUrlState() {
   const apply = (k, v, def) => {
     if (!v || v === def) u.delete(k); else u.set(k, v);
   };
-  apply("month",  state.currentMonth,  "all");
+  apply("month",  state.currentMonth,  todayYYYYMM());
   apply("brand",  state.currentBrand,  "all");
   apply("format", state.currentFormat, "all");
   const qs = u.toString();
@@ -73,8 +131,8 @@ function writeUrlState() {
 function brandCounts() {
   const map = new Map();
   for (const it of state.items) {
-    if (state.currentMonth  !== "all" && inferMonth(it) !== state.currentMonth)  continue;
-    if (state.currentFormat !== "all" && it.format      !== state.currentFormat) continue;
+    if (inferMonth(it) !== state.currentMonth) continue;
+    if (state.currentFormat !== "all" && it.format !== state.currentFormat) continue;
     map.set(it.brand, (map.get(it.brand) || 0) + 1);
   }
   return Array.from(map.entries()).sort().map(([value, count]) => ({ value, count }));
@@ -83,11 +141,10 @@ function brandCounts() {
 function formatCounts() {
   const map = new Map();
   for (const it of state.items) {
-    if (state.currentMonth !== "all" && inferMonth(it) !== state.currentMonth) continue;
-    if (state.currentBrand !== "all" && it.brand       !== state.currentBrand) continue;
+    if (inferMonth(it) !== state.currentMonth) continue;
+    if (state.currentBrand !== "all" && it.brand !== state.currentBrand) continue;
     map.set(it.format, (map.get(it.format) || 0) + 1);
   }
-  // Ordem natural: carrossel → story → reel
   const ORDER = { carrossel: 0, story: 1, reel: 2 };
   return Array.from(map.entries())
     .sort(([a], [b]) => (ORDER[a] ?? 99) - (ORDER[b] ?? 99))
@@ -103,45 +160,23 @@ function inferMonth(item) {
   return null;
 }
 
-function availableMonths() {
-  const map = new Map();
-  for (const it of state.items) {
-    const m = inferMonth(it);
-    if (!m) continue;
-    map.set(m, (map.get(m) || 0) + 1);
-  }
-  return Array.from(map.entries())
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([value, count]) => ({ value, count }));
-}
-
-function pickDefaultMonth(months) {
-  if (months.length <= 1) return months[0]?.value || "all";
-  // Default to the *first* month containing the current date, or the latest month otherwise.
-  const today = new Date();
-  const ym = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}`;
-  if (months.some(m => m.value === ym)) return ym;
-  return months[months.length - 1].value; // most recent
-}
-
 function render() {
   const items = visibleItems();
+  const monthHasContent = items.length > 0
+    || state.items.some(i => inferMonth(i) === state.currentMonth);
 
-  // Calendar reflects current month (or first month if "all"). Chips no calendário
-  // respeitam o filtro brand/format actual.
-  const calendarMonthScope = state.currentMonth !== "all"
-    ? state.currentMonth
-    : (availableMonths()[0]?.value || null);
-  if (calendarMonthScope) {
-    els.calendar().setMonth(calendarMonthScope);
-    const calendarItems = state.items.filter(i =>
-      inferMonth(i) === calendarMonthScope
+  // Calendário mostra sempre o mês actual. Se este mês tem conteúdo real,
+  // mostra os items reais; senão, mostra "ghost" placeholders no padrão.
+  els.calendar().setMonth(state.currentMonth);
+  if (monthHasContent) {
+    const realCalendarItems = state.items.filter(i =>
+      inferMonth(i) === state.currentMonth
       && (state.currentBrand  === "all" || i.brand  === state.currentBrand)
       && (state.currentFormat === "all" || i.format === state.currentFormat)
     );
-    els.calendar().setItems(calendarItems);
+    els.calendar().setItems(realCalendarItems);
   } else {
-    els.calendar().setItems(items);
+    els.calendar().setItems(ghostItemsFor(state.currentMonth));
   }
 
   const carrosseis = items.filter(i => i.format === "carrossel").sort(sortBySchedule);
@@ -172,9 +207,16 @@ function render() {
     rg.appendChild(tile);
   });
 
-  // Empty state: se todos os filtros activos resultam em zero items,
-  // mostrar mensagem clara em cima da lista de carrosseis.
-  toggleEmptyState(items.length === 0 && hasActiveFilters());
+  // Empty state: distinguir entre "mês sem conteúdo ainda" e "filtros vazios".
+  const monthEmpty = items.length === 0;
+  const otherMonthsHaveContent = activeMonths().length > 0;
+  if (monthEmpty && otherMonthsHaveContent && !state.items.some(i => inferMonth(i) === state.currentMonth)) {
+    toggleEmptyState("month-empty");
+  } else if (monthEmpty && hasActiveFilters()) {
+    toggleEmptyState("filter-empty");
+  } else {
+    toggleEmptyState(null);
+  }
 
   setCount(els.totalCount(),      items.length);
   setCount(els.carrosseisCount(), carrosseis.length);
@@ -191,12 +233,9 @@ function render() {
     );
   }
 
-  // Header label reflects current scope.
   const headerLabel = els.headerLabel();
   if (headerLabel) {
-    headerLabel.textContent = state.currentMonth === "all"
-      ? "Aprovação · Todos os meses"
-      : `Aprovação · ${monthShortLabel(state.currentMonth)}`;
+    headerLabel.textContent = `Aprovação · ${monthShortLabel(state.currentMonth)}`;
   }
 
   writeUrlState();
@@ -204,17 +243,24 @@ function render() {
 }
 
 function hasActiveFilters() {
-  return state.currentBrand !== "all"
-      || state.currentFormat !== "all"
-      || state.currentMonth !== "all";
+  return state.currentBrand !== "all" || state.currentFormat !== "all";
 }
 
-function toggleEmptyState(visible) {
+function toggleEmptyState(kind) {
   let el = document.getElementById("filterEmptyState");
-  if (visible && !el) {
-    el = document.createElement("div");
-    el.id = "filterEmptyState";
-    el.className = "filter-empty-state";
+  if (!kind) { el?.remove(); return; }
+  if (el && el.dataset.kind === kind) return;
+  el?.remove();
+  el = document.createElement("div");
+  el.id = "filterEmptyState";
+  el.className = "filter-empty-state";
+  el.dataset.kind = kind;
+  if (kind === "month-empty") {
+    el.innerHTML = `
+      <p class="filter-empty-state__title">Sem conteúdo produzido para ${monthShortLabel(state.currentMonth)}.</p>
+      <p class="filter-empty-state__sub">O calendário mostra o padrão de publicação (dias e horas) — os posts serão produzidos mais perto da data.</p>
+    `;
+  } else {
     el.innerHTML = `
       <p class="filter-empty-state__title">Nenhum item para estes filtros.</p>
       <button type="button" class="filter-empty-state__reset">Limpar filtros</button>
@@ -224,10 +270,8 @@ function toggleEmptyState(visible) {
       state.currentFormat = "all";
       render();
     });
-    document.getElementById("carrosseisSection").before(el);
-  } else if (!visible && el) {
-    el.remove();
   }
+  document.getElementById("carrosseisSection").before(el);
 }
 
 function setCount(el, n) {
@@ -397,7 +441,9 @@ async function ensureAuthenticated() {
   const authModal = document.getElementById("authModal");
   const userMenu  = document.getElementById("userMenu");
 
-  const { data: { session } } = await supabase.auth.getSession();
+  const client = await initSupabase();
+  if (!client) return null; // CDN falhou — fallback localStorage
+  const { data: { session } } = await client.auth.getSession();
   if (session) {
     userMenu.setSession(session);
     return session;
@@ -441,30 +487,42 @@ async function init() {
     els.calendar()?.render?.();
   });
 
-  // Wire the month switcher: list available months + pick default.
-  const months = availableMonths();
+  const months = activeMonths();
   const urlState = readUrlState();
-  state.currentMonth  = urlState.month  || pickDefaultMonth(months);
+  state.currentMonth  = urlState.month  || todayYYYYMM();
   state.currentBrand  = urlState.brand  || "all";
   state.currentFormat = urlState.format || "all";
 
   const switcher = els.monthSwitcher();
   if (switcher) {
-    switcher.setMonths(months, state.currentMonth);
+    switcher.setActiveMonths(months);
+    switcher.setMonth(state.currentMonth);
     switcher.addEventListener("month:change", e => {
+      const prevY = window.scrollY;
       state.currentMonth = e.detail.month;
       render();
-      requestAnimationFrame(() => requestAnimationFrame(manageLoader));
+      requestAnimationFrame(() => {
+        const maxY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+        window.scrollTo(0, Math.min(prevY, maxY));
+      });
     });
   }
 
   const filterBar = els.filterBar();
   if (filterBar) {
     filterBar.addEventListener("filter:change", e => {
+      const prevY = window.scrollY;
       state.currentBrand  = e.detail.brand;
       state.currentFormat = e.detail.format;
       render();
-      requestAnimationFrame(() => requestAnimationFrame(manageLoader));
+      // Restaurar scroll DEPOIS do render (a página pode encolher e o
+      // browser snap-to-max levaria o user "para o meio"). Não voltamos
+      // a chamar manageLoader — filtros são interacções rápidas, sem
+      // re-show do loader.
+      requestAnimationFrame(() => {
+        const maxY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+        window.scrollTo(0, Math.min(prevY, maxY));
+      });
     });
   }
 

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="pt-PT"><head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>25 minutos é menos do que estás à espera.</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,400;0,800;1,200;1,400;1,800&family=Manrope:wght@200;400;500;700;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+
+:root {
+  --bg: #1a1a1a;
+  --accent: #d4773b;
+  --text: #ffffff;
+  --mute: color-mix(in srgb, var(--text) 55%, transparent);
+  --line: color-mix(in srgb, var(--text) 12%, transparent);
+  --font-display: 'Manrope', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%;
+  background: #050507;
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+.reel {
+  position: relative;
+  /* Fill parent (iframe já enforça 9:16; em browser direto ocupa a janela). */
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+.reel__brand {
+  position: absolute; top: clamp(20px, 3.4vw, 38px);
+  left: clamp(20px, 3.4vw, 38px);
+  z-index: 10;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-style: normal;
+  font-size: clamp(18px, 2.2vw, 26px);
+  letter-spacing: -0.015em;
+  color: var(--accent);
+}
+.reel__progress {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: rgba(255,255,255,0.06);
+  z-index: 11;
+}
+.reel__progress::before {
+  content: ""; position: absolute; inset: 0;
+  background: var(--accent);
+  transform-origin: left center;
+  animation: reel-progress 15s linear infinite;
+}
+@keyframes reel-progress {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+
+.stage {
+  position: absolute; inset: 0;
+  display: grid; place-items: center; gap: 28px;
+  padding: 110px 48px 70px;
+  grid-template-rows: auto auto 1fr auto;
+}
+.label {
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--mute);
+}
+.ring {
+  position: relative;
+  width: min(78%, 360px); aspect-ratio: 1/1;
+  border-radius: 50%;
+  background: conic-gradient(var(--accent) calc(var(--p, 1) * 360deg), rgba(255,255,255,0.06) 0);
+  --p: 1;
+  animation: drain 15s linear infinite;
+}
+@keyframes drain {
+  0% { --p: 1; }
+  92% { --p: 0; }
+  100% { --p: 0; }
+}
+@property --p { syntax: "<number>"; inherits: false; initial-value: 1; }
+.ring__fill { position: absolute; inset: 9px; background: var(--bg); border-radius: 50%; }
+.ring__inner {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+}
+.ring__time {
+  position: absolute;
+  font-family: var(--font-display); font-weight: 200;
+  font-size: clamp(48px, 9vw, 88px);
+  letter-spacing: -0.04em; line-height: 1;
+  color: var(--text); opacity: 0;
+  animation-duration: 15s; animation-iteration-count: infinite;
+}
+.t1 { animation-name: rt1; }
+.t2 { animation-name: rt2; }
+.t3 { animation-name: rt3; }
+.t4 { animation-name: rt4; }
+.t5 { animation-name: rt5; color: var(--accent); }
+@keyframes rt1 { 0% { opacity: 1; } 18% { opacity: 1; } 20% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes rt2 { 0%, 20% { opacity: 0; } 22% { opacity: 1; } 38% { opacity: 1; } 40% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes rt3 { 0%, 40% { opacity: 0; } 42% { opacity: 1; } 58% { opacity: 1; } 60% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes rt4 { 0%, 60% { opacity: 0; } 62% { opacity: 1; } 78% { opacity: 1; } 80% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes rt5 { 0%, 80% { opacity: 0; } 84% { opacity: 1; } 100% { opacity: 1; } }
+.overlays {
+  position: relative;
+  display: grid; place-items: center;
+  height: 100%;
+}
+.ov {
+  position: absolute;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(24px, 3.8vw, 38px);
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  opacity: 0;
+  text-align: center;
+  max-width: 18ch;
+  animation-duration: 15s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+}
+.ov1 { animation-name: ov1; }
+.ov2 { animation-name: ov2; }
+.ov3 { animation-name: ov3; color: var(--accent); font-weight: 700; }
+.ov4 { animation-name: ov4; }
+@keyframes ov1 { 0% { opacity: 0; transform: translateY(8px); } 5% { opacity: 1; transform: translateY(0); } 18% { opacity: 1; } 22% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes ov2 { 0%, 22% { opacity: 0; } 26% { opacity: 1; } 42% { opacity: 1; } 46% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes ov3 { 0%, 50% { opacity: 0; } 56% { opacity: 1; transform: scale(1); } 72% { opacity: 1; transform: scale(1.04); } 76% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes ov4 { 0%, 80% { opacity: 0; } 86% { opacity: 1; transform: translateY(0); } 98% { opacity: 1; } 100% { opacity: 0; } }
+.cta {
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--mute); padding-top: 16px;
+  border-top: 1px solid var(--line);
+  width: 100%; text-align: center;
+}
+
+</style></head>
+<body>
+<section class="reel" aria-label="Reel TechBody — 25 minutos é menos do que estás à espera.">
+  <div class="reel__progress"></div>
+  <span class="reel__brand">TechBody</span>
+
+<div class="stage">
+  <span class="label">SESSÃO</span>
+  <div class="ring">
+    <div class="ring__fill"></div>
+    <div class="ring__inner">
+      <span class="ring__time t1">25:00</span>
+      <span class="ring__time t2">18:42</span>
+      <span class="ring__time t3">10:08</span>
+      <span class="ring__time t4">03:21</span>
+      <span class="ring__time t5">00:00</span>
+    </div>
+  </div>
+  <div class="overlays">
+    <span class="ov ov1">Vinte e cinco minutos é tudo o que precisas.</span>
+    <span class="ov ov2">Vestes o fato — a sessão começa em dois minutos.</span>
+    <span class="ov ov3">EMS activa até 90% das fibras musculares.</span>
+    <span class="ov ov4">Sais com o treino feito. Voltas ao teu dia.</span>
+  </div>
+  <span class="cta">Marca a tua sessão experimental →</span>
+</div>
+
+</section>
+</body></html>

@@ -64,7 +64,7 @@ class CarrosselRow extends HTMLElement {
         <div class="slide-strip">
           ${Array.from({ length: it.slides || 6 }).map((_, i) => `
             <div class="slide-thumb" data-slide-index="${i}">
-              <iframe src="${it.html_url}#slide-${i + 1}" loading="eager" tabindex="-1" onload="this.classList.add('is-loaded')"></iframe>
+              <iframe data-src="${it.html_url}#slide-${i + 1}" loading="lazy" tabindex="-1" onload="this.classList.add('is-loaded')"></iframe>
               <span class="slide-thumb__num">${String(i + 1).padStart(2, "0")} / ${it.slides}</span>
             </div>
           `).join("")}
@@ -102,10 +102,30 @@ class CarrosselRow extends HTMLElement {
       } else if (action === "approve" || action === "reject") {
         const desired = action === "approve" ? "approved" : "rejected";
         const current = approvalStore.get(it.id).status;
-        // Click the same button again → back to pending
         approvalStore.set(it.id, current === desired ? "pending" : desired, "");
       }
     });
+
+    this._observeLazy();
+  }
+
+  _observeLazy() {
+    const iframes = this.querySelectorAll("iframe[data-src]");
+    if (!iframes.length) return;
+    if (!("IntersectionObserver" in window)) {
+      iframes.forEach(f => f.src = f.dataset.src);
+      return;
+    }
+    const io = new IntersectionObserver((entries, obs) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          const f = e.target;
+          f.src = f.dataset.src;
+          obs.unobserve(f);
+        }
+      }
+    }, { rootMargin: "300px" });
+    iframes.forEach(f => io.observe(f));
   }
 }
 
