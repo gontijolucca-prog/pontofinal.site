@@ -1,5 +1,5 @@
 // <post-tile> — single 9:16 tile representing a "post" (Instagram story).
-// Stays mounted across approve/reject; only the status stamp is toggled.
+// Usa <img> em vez de iframe — muito mais rápido. Iframe só na vista detalhada.
 
 import { approvalStore } from "../stores/approval-store.js";
 
@@ -43,12 +43,14 @@ class PostTile extends HTMLElement {
     const it = this._item;
     if (!it) return;
 
-    const pngUrl = (it.html_url || "").replace(/\.html$/, ".png");
+    const base = (it.html_url || "").replace(/\.html$/, "");
+    const jpgUrl = `${base}.jpg`;
+    const pngUrl = `${base}.png`;
 
     this.innerHTML = `
-      <article class="tile" data-item-id="${it.id}">
+      <article class="tile tile--img" data-item-id="${it.id}">
         <span class="tile__label">Story · ${BRAND_LABELS[it.brand]?.toUpperCase() || it.brand}</span>
-        <iframe data-src="${it.html_url}" loading="lazy" tabindex="-1" onload="this.classList.add('is-loaded')"></iframe>
+        <img class="tile__img" loading="lazy" decoding="async" src="${jpgUrl}" alt="${(it.title || it.theme || "").replace(/"/g, "&quot;")}" onerror="this.onerror=null;this.src='${pngUrl}'" />
         <a class="tile__download" href="${pngUrl}" download="${it.id}.png" title="Descarregar PNG 1080×1920" aria-label="Descarregar story">⤓</a>
         <div class="tile__caption">
           <strong>${it.title || it.theme}</strong>
@@ -61,26 +63,6 @@ class PostTile extends HTMLElement {
       if (e.target.closest(".tile__download")) return;
       this.dispatchEvent(new CustomEvent("item:open", { bubbles: true, detail: { id: it.id } }));
     });
-
-    this._observeLazy();
-  }
-
-  _observeLazy() {
-    const iframe = this.querySelector("iframe[data-src]");
-    if (!iframe) return;
-    if (!("IntersectionObserver" in window)) {
-      iframe.src = iframe.dataset.src;
-      return;
-    }
-    const io = new IntersectionObserver((entries, obs) => {
-      for (const e of entries) {
-        if (e.isIntersecting) {
-          iframe.src = iframe.dataset.src;
-          obs.unobserve(iframe);
-        }
-      }
-    }, { rootMargin: "200px" });
-    io.observe(iframe);
   }
 }
 

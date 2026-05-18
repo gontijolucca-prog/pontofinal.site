@@ -1,23 +1,24 @@
-// approval-store.js — store de aprovações com backend Supabase + realtime.
+// approval-store.js — store de aprovações + anotações com backend Supabase.
 //
-// API pública (idêntica à versão localStorage anterior):
-//   get(id)            → { status, note, updatedAt }
-//   set(id, status, n) → upsert assíncrono; cache update optimistic
-//   all()              → mapa completo do cache
-//   counts()           → { approved, rejected, pending }
-//   export() / import(json) / reset()  → admin helpers
+// Esquema de chaves na tabela `approvals` (PK = namespace + item_id):
+//   • `${itemId}`                                — aprovação do item (status + nota primária)
+//   • `${itemId}:caption`                        — aprovação da descrição IG
+//   • `${itemId}#note_${nonce}`                  — anotação geral do item
+//   • `${itemId}#slide${N}#note_${nonce}`        — anotação ligada ao slide N
+//
+// API:
+//   get(id) / set(id, status, note)
+//   getCaption(id) / setCaption(id, status, note)
+//   saveNote(itemId, note, opts={slideN}) → cria nova anotação
+//   listNotes(itemId) → lista de anotações deste item (ordenada cronologicamente)
+//   deleteNote(key)   → soft-delete (UPDATE note="") — RLS não permite DELETE
+//   counts() / captionCounts() / all() / export() / import() / reset()
 //
 // Evento global emitido sempre que o cache muda: 'approval:changed'.
-//
-// Se AUTH_ENABLED for false (credenciais Supabase não configuradas), faz
-// fallback automático para localStorage — útil em dev e enquanto o setup
-// remoto ainda não está pronto. Schema do localStorage continua compatível.
 
 import { supabase, AUTH_ENABLED, USE_SUPABASE, initSupabase } from "../lib/supabase-client.js";
 import { NAMESPACE } from "../config.js";
 
-// ─── Cache em memória ────────────────────────────────────────────────────
-// { [item_id]: { status, note, updatedAt } }
 let cache = {};
 
 function emit() {
@@ -28,7 +29,32 @@ function defaultState() {
   return { status: "pending", note: "", updatedAt: null };
 }
 
-// ─── Fallback localStorage (quando AUTH_ENABLED=false) ───────────────────
+const NOTE_RE = /#note_/;
+const SLIDE_RE = /#slide(\d+)/;
+const CAPTION_SUFFIX = ":caption";
+
+function isAnnotationKey(key) { return NOTE_RE.test(key); }
+function isCaptionKey(key)    { return key.endsWith(CAPTION_SUFFIX); }
+function isBaseItemKey(key)   { return !isAnnotationKey(key) && !isCaptionKey(key); }
+
+function parseAnnotationKey(key) {
+  const m = key.match(/^(.+?)(?:#slide(\d+))?#note_(.+)$/);
+  if (!m) return null;
+  return { itemId: m[1], slide: m[2] ? parseInt(m[2], 10) : null, nonce: m[3] };
+}
+
+function makeNonce() {
+  const t = Date.now().toString(36);
+  const r = Math.random().toString(36).slice(2, 8);
+  return `${t}_${r}`;
+}
+
+function buildAnnotationKey(itemId, slideN, nonce) {
+  const slidePart = slideN ? `#slide${slideN}` : "";
+  return `${itemId}${slidePart}#note_${nonce}`;
+}
+
+// ─── Fallback localStorage ───────────────────────────────────────────────
 
 const LS_KEY = `${NAMESPACE}`;
 const LS_MIGRATED_KEY = `${NAMESPACE}-migrated`;
@@ -41,7 +67,7 @@ function lsWrite(state) {
   localStorage.setItem(LS_KEY, JSON.stringify(state));
 }
 
-// ─── Modo Supabase ───────────────────────────────────────────────────────
+// ─── Supabase load + realtime ─────────────────────────────────────────────
 
 async function loadFromSupabase() {
   const { data, error } = await supabase
@@ -106,16 +132,13 @@ async function migrateLocalStorageIfNeeded() {
     .from("approvals")
     .upsert(rows, { onConflict: "namespace,item_id" });
   if (error) {
-    console.warn("[approval-store] migration error (não bloqueia):", error);
+    console.warn("[approval-store] migration error:", error);
     return;
   }
   localStorage.setItem(LS_MIGRATED_KEY, "true");
-  console.info(`[approval-store] migrado ${rows.length} approvals do localStorage para Supabase.`);
 }
 
-// ─── Inicialização ───────────────────────────────────────────────────────
-// init() é chamado por main.js DEPOIS de garantir sessão autenticada.
-// Em modo localStorage, init() apenas hidrata o cache inicial.
+// ─── Init ────────────────────────────────────────────────────────────────
 
 let _initPromise = null;
 
@@ -135,20 +158,24 @@ export function init() {
   return _initPromise;
 }
 
-// ─── Surface pública ─────────────────────────────────────────────────────
+// ─── Helper de upsert na tabela `approvals` ──────────────────────────────
 
-// Insere uma entry em approval_history. Falha em silêncio (warn) se a tabela
-// não existir ou se RLS bloquear — o fluxo principal já guardou em `approvals`.
-async function insertHistory({ item_id, status, note, changed_at }) {
-  if (!((USE_SUPABASE || AUTH_ENABLED) && supabase)) return;
-  const row = { namespace: NAMESPACE, item_id, status, note: note || "", changed_at };
-  try {
-    const userEmail = (await supabase.auth.getUser())?.data?.user?.email || null;
-    if (userEmail) row.changed_by_email = userEmail;
-  } catch { /* anon — sem email */ }
-  const { error } = await supabase.from("approval_history").insert(row);
-  if (error) console.warn("[approval-store] history insert error:", error.message);
+async function upsertRow(item_id, status, note, updated_at) {
+  if (!((USE_SUPABASE || AUTH_ENABLED) && supabase)) return null;
+  const userId = (await supabase.auth.getUser())?.data?.user?.id || null;
+  const row = { namespace: NAMESPACE, item_id, status, note, updated_at };
+  if (userId) row.updated_by = userId;
+  const { error } = await supabase
+    .from("approvals")
+    .upsert(row, { onConflict: "namespace,item_id" });
+  if (error) {
+    console.error("[approval-store] upsert error:", error);
+    return null;
+  }
+  return row;
 }
+
+// ─── API pública ─────────────────────────────────────────────────────────
 
 export const approvalStore = {
   get(id) {
@@ -159,47 +186,74 @@ export const approvalStore = {
     const updatedAt = new Date().toISOString();
     cache[id] = { status, note, updatedAt };
     emit();
-
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
-      const userId = (await supabase.auth.getUser())?.data?.user?.id || null;
-      const row = { namespace: NAMESPACE, item_id: id, status, note, updated_at: updatedAt };
-      if (userId) row.updated_by = userId;
-      const { error } = await supabase
-        .from("approvals")
-        .upsert(row, { onConflict: "namespace,item_id" });
-      if (error) {
-        console.error("[approval-store] set error:", error);
-      } else {
-        await insertHistory({ item_id: id, status, note, changed_at: updatedAt });
-      }
+      await upsertRow(id, status, note, updatedAt);
     } else {
       lsWrite(cache);
     }
   },
 
-  // Guardar SÓ a nota, sem alterar o status. Útil quando o user quer apenas
-  // registar uma observação enquanto decide.
-  async saveNote(id, note) {
-    const current = cache[id] || defaultState();
+  // Cria uma nova anotação. Cada chamada com texto cria uma nova entrada
+  // (nonce único). opts.slideN para anotações por slide.
+  async saveNote(itemId, note, opts = {}) {
+    const trimmed = (note || "").trim();
+    if (!trimmed) return null;
+    const slideN = opts.slideN || null;
+    const nonce = makeNonce();
+    const key = buildAnnotationKey(itemId, slideN, nonce);
     const updatedAt = new Date().toISOString();
-    cache[id] = { status: current.status, note, updatedAt };
+    cache[key] = { status: "note", note: trimmed, updatedAt };
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
-      const userId = (await supabase.auth.getUser())?.data?.user?.id || null;
-      const row = { namespace: NAMESPACE, item_id: id, status: current.status, note, updated_at: updatedAt };
-      if (userId) row.updated_by = userId;
-      const { error } = await supabase
-        .from("approvals")
-        .upsert(row, { onConflict: "namespace,item_id" });
-      if (error) {
-        console.error("[approval-store] saveNote error:", error);
-      } else {
-        await insertHistory({ item_id: id, status: current.status, note, changed_at: updatedAt });
-      }
+      await upsertRow(key, "note", trimmed, updatedAt);
     } else {
       lsWrite(cache);
     }
+    return { key, slide: slideN, note: trimmed, changed_at: updatedAt };
   },
+
+  // Lista de anotações deste item (incluindo anotações ligadas a slides).
+  // Ordem cronológica: mais recente primeiro.
+  listNotes(itemId) {
+    const prefix = `${itemId}#`;
+    const out = [];
+    for (const key in cache) {
+      if (!key.startsWith(prefix)) continue;
+      if (!isAnnotationKey(key)) continue;
+      const note = cache[key].note;
+      if (!note || !note.trim()) continue;  // soft-deleted
+      const parsed = parseAnnotationKey(key);
+      out.push({
+        key,
+        id: key,                       // back-compat com callers antigos
+        slide: parsed?.slide || null,
+        note,
+        status: cache[key].status,
+        changed_at: cache[key].updatedAt,
+        changed_by_email: null,
+      });
+    }
+    out.sort((a, b) => (b.changed_at || "").localeCompare(a.changed_at || ""));
+    return out;
+  },
+
+  // Soft-delete: RLS não permite DELETE como anon. Marcamos como vazio.
+  async deleteNote(key) {
+    if (!key || !isAnnotationKey(key)) return false;
+    const updatedAt = new Date().toISOString();
+    if (cache[key]) cache[key].note = "";
+    cache[key] = { status: "note", note: "", updatedAt };
+    emit();
+    if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
+      const r = await upsertRow(key, "note", "", updatedAt);
+      return !!r;
+    }
+    lsWrite(cache);
+    return true;
+  },
+
+  // Alias para retrocompatibilidade.
+  async history(itemId) { return this.listNotes(itemId); },
 
   all() {
     return { ...cache };
@@ -208,8 +262,7 @@ export const approvalStore = {
   counts() {
     const out = { approved: 0, rejected: 0, pending: 0 };
     for (const id in cache) {
-      if (id.endsWith(":caption")) continue;
-      if (id.includes("#slide")) continue;
+      if (!isBaseItemKey(id)) continue;
       out[cache[id].status] = (out[cache[id].status] || 0) + 1;
     }
     return out;
@@ -218,7 +271,7 @@ export const approvalStore = {
   captionCounts() {
     const out = { approved: 0, rejected: 0, pending: 0 };
     for (const id in cache) {
-      if (!id.endsWith(":caption")) continue;
+      if (!isCaptionKey(id)) continue;
       out[cache[id].status] = (out[cache[id].status] || 0) + 1;
     }
     return out;
@@ -229,65 +282,13 @@ export const approvalStore = {
     return cache[key] ? { ...cache[key] } : defaultState();
   },
 
-  // Anotações por slide (carrosseis). Cada slide tem o seu próprio note.
-  // Key no store: `${itemId}#slide${n}` (n = 1-based).
-  getSlideNote(itemId, slideN) {
-    const key = `${itemId}#slide${slideN}`;
-    return cache[key] ? { ...cache[key] } : defaultState();
-  },
-
-  async saveSlideNote(itemId, slideN, note) {
-    const key = `${itemId}#slide${slideN}`;
-    const updatedAt = new Date().toISOString();
-    cache[key] = { status: "pending", note, updatedAt };
-    emit();
-    if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
-      const userId = (await supabase.auth.getUser())?.data?.user?.id || null;
-      const row = { namespace: NAMESPACE, item_id: key, status: "pending", note, updated_at: updatedAt };
-      if (userId) row.updated_by = userId;
-      const { error } = await supabase
-        .from("approvals")
-        .upsert(row, { onConflict: "namespace,item_id" });
-      if (error) {
-        console.error("[approval-store] saveSlideNote error:", error);
-      } else {
-        await insertHistory({ item_id: key, status: "pending", note, changed_at: updatedAt });
-      }
-    } else {
-      lsWrite(cache);
-    }
-  },
-
-  getAllSlideNotes(itemId) {
-    const prefix = `${itemId}#slide`;
-    const out = {};
-    for (const k in cache) {
-      if (k.startsWith(prefix)) {
-        const m = k.match(/#slide(\d+)$/);
-        if (m) out[parseInt(m[1], 10)] = { ...cache[k] };
-      }
-    }
-    return out;
-  },
-
   async setCaption(itemId, status, note = "") {
     const key = `${itemId}:caption`;
     const updatedAt = new Date().toISOString();
     cache[key] = { status, note, updatedAt };
     emit();
-
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
-      const userId = (await supabase.auth.getUser())?.data?.user?.id || null;
-      const row = { namespace: NAMESPACE, item_id: key, status, note, updated_at: updatedAt };
-      if (userId) row.updated_by = userId;
-      const { error } = await supabase
-        .from("approvals")
-        .upsert(row, { onConflict: "namespace,item_id" });
-      if (error) {
-        console.error("[approval-store] setCaption error:", error);
-      } else {
-        await insertHistory({ item_id: key, status, note, changed_at: updatedAt });
-      }
+      await upsertRow(key, status, note, updatedAt);
     } else {
       lsWrite(cache);
     }
@@ -328,24 +329,5 @@ export const approvalStore = {
     } else {
       localStorage.removeItem(LS_KEY);
     }
-  },
-
-  // Histórico de mudanças de estado para um item. Retorna [] se Supabase não
-  // estiver activo, ou se ainda não houver registos (ou se a tabela history
-  // não existir, o que dá graceful empty array).
-  async history(itemId) {
-    if (!(USE_SUPABASE || AUTH_ENABLED) || !supabase) return [];
-    const { data, error } = await supabase
-      .from("approval_history")
-      .select("status, note, changed_at, changed_by_email")
-      .eq("namespace", NAMESPACE)
-      .eq("item_id", itemId)
-      .order("changed_at", { ascending: false })
-      .limit(50);
-    if (error) {
-      console.warn("[approval-store] history not available:", error.message);
-      return [];
-    }
-    return data || [];
   },
 };

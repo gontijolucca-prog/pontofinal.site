@@ -1,15 +1,25 @@
+import { lazy, Suspense } from 'react';
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import Terms from './pages/Terms';
-import Admin from './pages/Admin';
-import Proposta from './pages/Proposta';
-import PropostaPlan from './pages/PropostaPlan';
-import Contrato from './pages/Contrato';
-import MapaConteudos from './pages/MapaConteudos';
-import CRM from './pages/CRM';
+
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const Terms = lazy(() => import('./pages/Terms'));
+const Admin = lazy(() => import('./pages/Admin'));
+const Proposta = lazy(() => import('./pages/Proposta'));
+const PropostaPlan = lazy(() => import('./pages/PropostaPlan'));
+const Contrato = lazy(() => import('./pages/Contrato'));
+const MapaConteudos = lazy(() => import('./pages/MapaConteudos'));
+const CRM = lazy(() => import('./pages/CRM'));
+
+function RouteFallback() {
+  return (
+    <div className="flex items-center justify-center min-h-[50vh]">
+      <div className="animate-pulse text-sm text-neutral-500">A carregar…</div>
+    </div>
+  );
+}
 
 function Layout() {
   const location = useLocation();
@@ -23,17 +33,19 @@ function Layout() {
     <div className="min-h-screen flex flex-col">
       {!isFullPage && <Navbar />}
       <div className="flex-grow">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/privacidade" element={<PrivacyPolicy />} />
-          <Route path="/termos" element={<Terms />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/proposta" element={<Proposta />} />
-          <Route path="/proposta/:planId" element={<PropostaPlan />} />
-          <Route path="/contrato" element={<Contrato />} />
-          <Route path="/mapa-conteudos" element={<MapaConteudos />} />
-          <Route path="/crm" element={<CRM />} />
-        </Routes>
+        <Suspense fallback={<RouteFallback />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/privacidade" element={<PrivacyPolicy />} />
+            <Route path="/termos" element={<Terms />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/proposta" element={<Proposta />} />
+            <Route path="/proposta/:planId" element={<PropostaPlan />} />
+            <Route path="/contrato" element={<Contrato />} />
+            <Route path="/mapa-conteudos" element={<MapaConteudos />} />
+            <Route path="/crm" element={<CRM />} />
+          </Routes>
+        </Suspense>
       </div>
       {!isFullPage && <Footer />}
     </div>

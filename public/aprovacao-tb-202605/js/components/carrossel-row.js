@@ -62,12 +62,16 @@ class CarrosselRow extends HTMLElement {
           </div>
         </div>
         <div class="slide-strip">
-          ${Array.from({ length: it.slides || 6 }).map((_, i) => `
-            <div class="slide-thumb" data-slide-index="${i}">
-              <iframe data-src="${it.html_url}#slide-${i + 1}" loading="lazy" tabindex="-1" onload="this.classList.add('is-loaded')"></iframe>
-              <span class="slide-thumb__num">${String(i + 1).padStart(2, "0")} / ${it.slides}</span>
-            </div>
-          `).join("")}
+          ${Array.from({ length: it.slides || 6 }).map((_, i) => {
+            const shotBase = (it.html_url || "").replace(/\.html$/, "");
+            const shotJpg = `${shotBase}_shots/slide_${String(i + 1).padStart(2, "0")}.jpg`;
+            return `
+              <div class="slide-thumb slide-thumb--img" data-slide-index="${i}">
+                <img class="slide-thumb__img" loading="lazy" decoding="async" src="${shotJpg}" alt="Slide ${i + 1}" />
+                <span class="slide-thumb__num">${String(i + 1).padStart(2, "0")} / ${it.slides}</span>
+              </div>
+            `;
+          }).join("")}
         </div>
         <div class="carrossel-row__actions">
           <button class="btn btn--ghost" data-action="open">Ver detalhe</button>
@@ -106,26 +110,6 @@ class CarrosselRow extends HTMLElement {
       }
     });
 
-    this._observeLazy();
-  }
-
-  _observeLazy() {
-    const iframes = this.querySelectorAll("iframe[data-src]");
-    if (!iframes.length) return;
-    if (!("IntersectionObserver" in window)) {
-      iframes.forEach(f => f.src = f.dataset.src);
-      return;
-    }
-    const io = new IntersectionObserver((entries, obs) => {
-      for (const e of entries) {
-        if (e.isIntersecting) {
-          const f = e.target;
-          f.src = f.dataset.src;
-          obs.unobserve(f);
-        }
-      }
-    }, { rootMargin: "300px" });
-    iframes.forEach(f => io.observe(f));
   }
 }
 

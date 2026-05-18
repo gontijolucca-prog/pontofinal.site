@@ -1,9 +1,25 @@
-// <reel-tile> — 9:16 tile that loads the reel storyboard HTML inside an iframe,
-// scaled like the carousel slide thumbs. Stays mounted across approve/reject.
+// <reel-tile> — text-only script card. Sem iframe, sem imagens/vídeos.
+// Mostra título, role markers e o texto que vai ser dito/escrito no reel.
 
 import { approvalStore } from "../stores/approval-store.js";
 
 const BRAND_LABELS = { techbody: "TechBody", techbody_u: "TechBody U", luiz_santana: "Luiz Santana" };
+
+const ROLE_LABELS = {
+  hook: "Hook",
+  demo: "Desenvolvimento",
+  proof: "Prova",
+  development: "Desenvolvimento",
+  cta: "CTA",
+  outro: "Fecho",
+  intro: "Intro",
+};
+
+function escapeHtml(s) {
+  return String(s ?? "").replace(/[&<>"']/g, c =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
+  );
+}
 
 class ReelTile extends HTMLElement {
   setItem(item) {
@@ -43,23 +59,35 @@ class ReelTile extends HTMLElement {
     const it = this._item;
     if (!it) return;
     const duration = it.slides || 15;
-    const isGuide = it.kind === "shoot_guide";
-    const isVideo = it.kind === "video";
-    const kindClass = isGuide ? "tile--guide" : (isVideo ? "tile--video" : "");
-    const kindLabel = isGuide ? `Guia ${duration}s`
-                    : isVideo ? `Vídeo ${duration}s`
-                    : `Reel ${duration}s`;
-    const kindDesc  = isGuide ? "guia de gravação"
-                    : isVideo ? "vídeo aprovado · pronto a publicar"
-                    : "motion graphics";
+    const brandLabel = (BRAND_LABELS[it.brand] || it.brand).toUpperCase();
+    const slides = Array.isArray(it.slides_text) ? it.slides_text : [];
+
+    const linesHtml = slides.map((s, i) => {
+      const role = s.role || "";
+      const roleLabel = ROLE_LABELS[role] || role.toUpperCase();
+      const text = s.text_overlay || s.text || "";
+      return `
+        <div class="reel-tile__line">
+          <div class="reel-tile__line-head">
+            <span class="reel-tile__line-num">${String(i + 1).padStart(2, "0")}</span>
+            ${roleLabel ? `<span class="reel-tile__line-role">${escapeHtml(roleLabel)}</span>` : ""}
+          </div>
+          <p class="reel-tile__line-text">${escapeHtml(text)}</p>
+        </div>
+      `;
+    }).join("");
 
     this.innerHTML = `
-      <article class="tile tile--reel ${kindClass}" data-item-id="${it.id}">
-        <span class="tile__label">${kindLabel} · ${BRAND_LABELS[it.brand]?.toUpperCase() || it.brand}</span>
-        <iframe data-src="${it.html_url}" loading="lazy" tabindex="-1" onload="this.classList.add('is-loaded')"></iframe>
-        <div class="tile__caption">
-          <strong>${it.title || it.theme}</strong>
-          <span>${it.scheduled_for || ""} · ${it.hour || ""} · ${duration}s · ${kindDesc}</span>
+      <article class="tile tile--reel tile--reel-text" data-item-id="${it.id}">
+        <header class="reel-tile__head">
+          <span class="tile__label">Reel ${duration}s · ${brandLabel}</span>
+          <h3 class="reel-tile__title">${escapeHtml(it.title || it.theme || "")}</h3>
+        </header>
+        <div class="reel-tile__script">
+          ${linesHtml || `<p class="reel-tile__empty">Sem script.</p>`}
+        </div>
+        <div class="tile__caption reel-tile__foot">
+          <span>${escapeHtml(it.scheduled_for || "")} · ${escapeHtml(it.hour || "")} · script para gravação</span>
         </div>
       </article>
     `;
@@ -67,20 +95,6 @@ class ReelTile extends HTMLElement {
     this.querySelector(".tile").addEventListener("click", () => {
       this.dispatchEvent(new CustomEvent("item:open", { bubbles: true, detail: { id: it.id } }));
     });
-
-    this._observeLazy();
-  }
-
-  _observeLazy() {
-    const iframe = this.querySelector("iframe[data-src]");
-    if (!iframe) return;
-    if (!("IntersectionObserver" in window)) { iframe.src = iframe.dataset.src; return; }
-    const io = new IntersectionObserver((entries, obs) => {
-      for (const e of entries) {
-        if (e.isIntersecting) { iframe.src = iframe.dataset.src; obs.unobserve(iframe); }
-      }
-    }, { rootMargin: "200px" });
-    io.observe(iframe);
   }
 }
 

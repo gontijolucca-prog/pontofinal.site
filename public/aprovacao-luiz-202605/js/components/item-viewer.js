@@ -1,7 +1,7 @@
 // <item-viewer> — modal preview with prev/next arrows for carousels, close button
 // outside the image area, side panel with copy + approval actions.
 
-import { approvalStore } from "../stores/approval-store.js";
+import { approvalStore, init as initApprovalStore } from "../stores/approval-store.js";
 
 const BRAND_LABELS = { techbody: "TechBody", techbody_u: "TechBody U", luiz_santana: "Luiz Santana" };
 
@@ -9,17 +9,16 @@ class ItemViewer extends HTMLElement {
   connectedCallback() {
     this.classList.add("viewer-backdrop");
     this._slide = 1;
+    this._notes = null;
     this.addEventListener("click", (e) => { if (e.target === this) this.close(); });
     document.addEventListener("keydown", (e) => {
       if (this.getAttribute("data-open") !== "true") return;
-      // Ignorar atalhos se o user estiver a escrever uma nota.
       const tag = (e.target?.tagName || "").toLowerCase();
-      const typing = tag === "input" || tag === "textarea" || e.target?.isContentEditable;
+      const typing = tag === "input" || tag === "textarea" || tag === "select" || e.target?.isContentEditable;
       if (e.key === "Escape") return this.close();
       if (e.key === "ArrowRight") return this._step(+1);
       if (e.key === "ArrowLeft")  return this._step(-1);
       if (typing) return;
-      // Atalhos action — só fora de inputs.
       const key = e.key.toLowerCase();
       if (key === "a") { e.preventDefault(); this._actAndAdvance("approve"); return; }
       if (key === "r") { e.preventDefault(); this._actAndAdvance("reject");  return; }
@@ -34,13 +33,10 @@ class ItemViewer extends HTMLElement {
     const desired = action === "approve" ? "approved" : "rejected";
     const current = approvalStore.get(this._item.id).status;
     approvalStore.set(this._item.id, current === desired ? "pending" : desired, note);
-    // Avança para o próximo item visível, OU fecha se estava no último.
     if (!this._advanceItem(+1)) this.close();
   }
 
   _advanceItem(direction) {
-    // Pede ao main.js para encontrar o próximo item visível na mesma direcção
-    // e abri-lo se existir. Retorna true se conseguiu mover.
     if (!this._item) return false;
     const ev = new CustomEvent("viewer:advance", {
       bubbles: true,
@@ -48,7 +44,6 @@ class ItemViewer extends HTMLElement {
       detail: { currentId: this._item.id, direction, callback: null },
     });
     this.dispatchEvent(ev);
-    // main.js terá preenchido callback com o item para abrir, ou null.
     const next = ev.detail.next;
     if (!next) return false;
     this.open(next);
@@ -58,45 +53,46 @@ class ItemViewer extends HTMLElement {
   open(item) {
     this._item = item;
     this._slide = 1;
-    this._history = null;
+    this._notes = null;
     this.setAttribute("data-open", "true");
     this.setAttribute("aria-hidden", "false");
     this.render();
-    this._loadHistory();
+    this._loadNotes();
   }
 
-  async _loadHistory() {
+  async _loadNotes() {
     if (!this._item) return;
     const itemId = this._item.id;
-    const rows = await approvalStore.history(itemId);
-    if (!this._item || this._item.id !== itemId) return; // changed item meanwhile
-    this._history = rows;
-    this._renderHistory();
+    await initApprovalStore();
+    if (!this._item || this._item.id !== itemId) return;
+    this._notes = approvalStore.listNotes(itemId);
+    this._renderNotes();
   }
 
-  _renderHistory() {
-    const wrap = this.querySelector(".viewer-history");
+  _renderNotes() {
+    const wrap = this.querySelector(".viewer-notes");
     if (!wrap) return;
-    const rows = this._history || [];
+    const rows = this._notes || [];
     const counter = this.querySelector("[data-notes-count]");
-    const noteRows = rows.filter(r => r.note);
-    if (counter) counter.textContent = noteRows.length > 0 ? `(${noteRows.length})` : "";
+    if (counter) counter.textContent = rows.length > 0 ? `(${rows.length})` : "";
 
     if (!rows.length) {
-      wrap.innerHTML = `<p class="viewer-history__empty">Ainda não há anotações guardadas. Escreve uma em baixo e carrega "Guardar anotação".</p>`;
+      wrap.innerHTML = `<p class="viewer-notes__empty">Ainda não há anotações. Escreve uma em baixo e carrega "Guardar anotação".</p>`;
       return;
     }
     const fmt = (iso) => {
       const d = new Date(iso);
       return d.toLocaleString("pt-PT", { dateStyle: "short", timeStyle: "short" });
     };
-    const statusLabel = { approved: "Aprovado", rejected: "Rejeitado", pending: "Anotação", deleted: "Apagado" };
-    // Ordem cronológica: mais recente primeiro
     wrap.innerHTML = rows.map(r => `
-      <div class="viewer-history__row viewer-history__row--${r.status}">
-        <span class="viewer-history__status">${statusLabel[r.status] || r.status}</span>
-        <span class="viewer-history__meta">${fmt(r.changed_at)}</span>
-        ${r.note ? `<p class="viewer-history__note">${this._escapeForHtml(r.note)}</p>` : ""}
+      <div class="viewer-note" data-note-key="${this._escapeForHtml(r.key)}">
+        <div class="viewer-note__meta">
+          ${r.slide ? `<span class="viewer-note__slide">Slide ${String(r.slide).padStart(2, "0")}</span>` : ""}
+          <span class="viewer-note__time">${fmt(r.changed_at)}</span>
+          ${r.changed_by_email ? `<span class="viewer-note__author">· ${this._escapeForHtml(r.changed_by_email)}</span>` : ""}
+          <button type="button" class="viewer-note__delete" data-action="delete-note" data-note-key="${this._escapeForHtml(r.key)}" aria-label="Apagar anotação" title="Apagar anotação">✕</button>
+        </div>
+        <p class="viewer-note__text">${this._escapeForHtml(r.note)}</p>
       </div>
     `).join("");
   }
@@ -109,6 +105,7 @@ class ItemViewer extends HTMLElement {
 
   close() {
     this._item = null;
+    this._notes = null;
     this.removeAttribute("data-open");
     this.setAttribute("aria-hidden", "true");
     this.innerHTML = "";
@@ -123,6 +120,9 @@ class ItemViewer extends HTMLElement {
     this._slide = next;
     this._syncIframeHash();
     this._updateCounter();
+    // Sincronizar dropdown "Slide" da zona de anotação com o slide actual
+    const sel = this.querySelector("[data-slide-select]");
+    if (sel) sel.value = String(this._slide);
   }
 
   _syncIframeHash() {
@@ -160,6 +160,7 @@ class ItemViewer extends HTMLElement {
     const state = approvalStore.get(it.id);
     const captionState = approvalStore.getCaption(it.id);
     const isCarousel = it.format === "carrossel" && it.slides > 1;
+    const isReel = it.format === "reel";
     const captionLabel = { approved: "Aprovada", rejected: "Rejeitada", pending: "Pendente" };
     const hasCaption = !!(it.caption && it.caption.trim());
 
@@ -171,11 +172,54 @@ class ItemViewer extends HTMLElement {
       </div>
     ` : "";
 
+    const ROLE_LABELS = { hook: "Hook", demo: "Desenvolvimento", proof: "Prova", development: "Desenvolvimento", cta: "CTA", outro: "Fecho", intro: "Intro" };
+    const reelScriptHtml = isReel ? `
+      <div class="viewer-reel-script">
+        <div class="viewer-reel-script__head">
+          <span class="viewer-reel-script__badge">Script para gravação</span>
+          <span class="viewer-reel-script__duration">Reel ${it.slides || 15}s</span>
+        </div>
+        <ol class="viewer-reel-script__list">
+          ${(it.slides_text || []).map((s, i) => {
+            const role = s.role || "";
+            const roleLabel = ROLE_LABELS[role] || role.toUpperCase();
+            const text = s.text_overlay || s.text || "";
+            return `
+              <li class="viewer-reel-script__line">
+                <div class="viewer-reel-script__line-head">
+                  <span class="viewer-reel-script__line-num">${String(i + 1).padStart(2, "0")}</span>
+                  ${roleLabel ? `<span class="viewer-reel-script__line-role">${this._escapeForHtml(roleLabel)}</span>` : ""}
+                </div>
+                <p class="viewer-reel-script__line-text">${this._escapeForHtml(text)}</p>
+              </li>
+            `;
+          }).join("")}
+        </ol>
+      </div>
+    ` : "";
+
+    // Dropdown de slide para o textarea principal (só em carrosseis).
+    const slideSelectHtml = isCarousel ? `
+      <label class="viewer-actions__slide-label">
+        <span>Slide:</span>
+        <select data-slide-select aria-label="Slide a que se refere a anotação">
+          <option value="0">— Geral (sem slide) —</option>
+          ${(it.slides_text || []).map((s, i) => {
+            const n = i + 1;
+            const preview = (s.text_overlay || s.text || "").slice(0, 40);
+            return `<option value="${n}" ${n === this._slide ? "selected" : ""}>${String(n).padStart(2, "0")} — ${this._escapeForHtml(preview)}</option>`;
+          }).join("")}
+        </select>
+      </label>
+    ` : "";
+
     this.innerHTML = `
       <div class="viewer-modal" data-format="${it.format}" role="dialog" aria-modal="true" aria-label="${it.title || it.theme}">
         <div class="viewer-frame-col">
           <div class="viewer-frame-wrap">
-            ${it.html_url ? `<iframe src="${it.html_url}${isCarousel ? "#slide-1" : ""}" title="${it.title}"></iframe>` : ``}
+            ${isReel
+              ? reelScriptHtml
+              : (it.html_url ? `<iframe src="${it.html_url}${isCarousel ? "#slide-1" : ""}" title="${it.title}"></iframe>` : ``)}
           </div>
           ${navbarHtml}
         </div>
@@ -194,27 +238,12 @@ class ItemViewer extends HTMLElement {
             <details class="viewer-section" open>
               <summary>Texto dos slides</summary>
               <div class="viewer-slides">
-                ${(it.slides_text || []).map((s, i) => {
-                  const n = i + 1;
-                  const sn = approvalStore.getSlideNote(it.id, n);
-                  const hasNote = !!(sn.note && sn.note.trim());
-                  return `
-                  <div class="viewer-slide" data-slide-n="${n}">
-                    <div class="viewer-slide__row">
-                      <span class="viewer-slide__num">${String(n).padStart(2, "0")}</span>
-                      <p class="viewer-slide__text">${s.text_overlay || s.text || ""}</p>
-                      <button type="button" class="viewer-slide__btn ${hasNote ? "viewer-slide__btn--has-note" : ""}" data-action="toggle-slide-note" data-slide-n="${n}" aria-label="${hasNote ? "Editar anotação do slide" : "Anotar slide"} ${n}" title="${hasNote ? "Editar anotação do slide" : "Anotar slide"} ${n}">${hasNote ? "✎" : "+"}</button>
-                    </div>
-                    <p class="viewer-slide__current" data-slide-current="${n}" ${hasNote ? "" : "hidden"}>${this._escapeForHtml(sn.note || "")}</p>
-                    <div class="viewer-slide__editor" data-slide-editor="${n}" hidden>
-                      <textarea data-slide-input="${n}" placeholder="Anotação para o slide ${n}">${this._escapeForHtml(sn.note || "")}</textarea>
-                      <div class="viewer-slide__editor-actions">
-                        <button type="button" class="btn btn--ghost btn--small" data-action="save-slide-note" data-slide-n="${n}">Guardar</button>
-                        <span class="viewer-slide__feedback" data-slide-feedback="${n}" aria-live="polite"></span>
-                      </div>
-                    </div>
-                  </div>`;
-                }).join("")}
+                ${(it.slides_text || []).map((s, i) => `
+                  <div class="viewer-slide">
+                    <span class="viewer-slide__num">${String(i + 1).padStart(2, "0")}</span>
+                    <p class="viewer-slide__text">${s.text_overlay || s.text || ""}</p>
+                  </div>
+                `).join("")}
               </div>
             </details>
             ${hasCaption ? `
@@ -238,16 +267,17 @@ class ItemViewer extends HTMLElement {
             ` : ""}
             <details class="viewer-section" data-notes-section open>
               <summary>
-                Anotações e histórico
+                Anotações
                 <span class="viewer-section__counter" data-notes-count></span>
               </summary>
-              <div class="viewer-history" data-history>
-                <p class="viewer-history__empty">A carregar…</p>
+              <div class="viewer-notes" data-notes>
+                <p class="viewer-notes__empty">A carregar…</p>
               </div>
             </details>
           </div>
           <div class="viewer-actions">
-            <textarea data-note placeholder="Sugestão de edição (opcional)">${state.note || ""}</textarea>
+            ${slideSelectHtml}
+            <textarea data-note placeholder="Escreve uma anotação"></textarea>
             <button class="btn btn--ghost" data-action="save-note">Guardar anotação</button>
             <span class="viewer-actions__feedback" data-feedback aria-live="polite"></span>
             <button class="btn btn--reject" data-action="reject">Rejeitar</button>
@@ -260,7 +290,7 @@ class ItemViewer extends HTMLElement {
 
     this._updateCounter();
 
-    this.querySelector(".viewer-modal").addEventListener("click", (e) => {
+    this.querySelector(".viewer-modal").addEventListener("click", async (e) => {
       const btn = e.target.closest("[data-action]");
       if (!btn) return;
       const action = btn.dataset.action;
@@ -268,97 +298,71 @@ class ItemViewer extends HTMLElement {
       if (action === "prev")  return this._step(-1);
       if (action === "next")  return this._step(+1);
       if (action === "save-note") {
-        const note = this.querySelector("textarea[data-note]")?.value || "";
-        approvalStore.saveNote(this._item.id, note);
+        const ta = this.querySelector("textarea[data-note]");
+        const note = (ta?.value || "").trim();
+        if (!note) {
+          const fb = this.querySelector("[data-feedback]");
+          if (fb) {
+            fb.textContent = "Escreve algo antes de guardar.";
+            fb.classList.add("is-visible");
+            setTimeout(() => { fb.classList.remove("is-visible"); fb.textContent = ""; }, 1800);
+          }
+          return;
+        }
+        const sel = this.querySelector("[data-slide-select]");
+        const slideN = sel ? parseInt(sel.value, 10) || null : null;
+        await approvalStore.saveNote(this._item.id, note, slideN ? { slideN } : {});
+        if (ta) ta.value = "";
         const fb = this.querySelector("[data-feedback]");
         if (fb) {
-          fb.textContent = "✓ Anotação guardada";
+          fb.textContent = slideN ? `✓ Anotação guardada (slide ${slideN})` : "✓ Anotação guardada";
           fb.classList.add("is-visible");
           setTimeout(() => { fb.classList.remove("is-visible"); fb.textContent = ""; }, 2200);
         }
-        // Limpar a textarea após guardar para deixar espaço para outra
-        const ta = this.querySelector("textarea[data-note]");
-        if (ta) ta.value = "";
-        // Recarregar histórico (após delay para o INSERT do trigger propagar)
-        setTimeout(() => this._loadHistory(), 600);
-        // Garantir que o painel das anotações está aberto
         const notesPanel = this.querySelector('details[data-notes-section]');
         if (notesPanel && !notesPanel.open) notesPanel.open = true;
+        await this._loadNotes();
+        return;
+      }
+      if (action === "delete-note") {
+        const key = btn.dataset.noteKey;
+        if (!key) return;
+        if (!window.confirm("Apagar esta anotação? Esta acção não pode ser desfeita.")) return;
+        const ok = await approvalStore.deleteNote(key);
+        if (!ok) {
+          window.alert("Não foi possível apagar a anotação. Tenta de novo.");
+          return;
+        }
+        await this._loadNotes();
         return;
       }
       if (action === "approve" || action === "reject") {
-        const note = this.querySelector("textarea[data-note]")?.value || "";
+        const note = (this.querySelector("textarea[data-note]")?.value || "").trim();
         const desired = action === "approve" ? "approved" : "rejected";
         const current = approvalStore.get(this._item.id).status;
-        approvalStore.set(this._item.id, current === desired ? "pending" : desired, note);
+        await approvalStore.set(this._item.id, current === desired ? "pending" : desired, note);
         this.close();
       }
       if (action === "caption-save-note") {
-        const note = this.querySelector("textarea[data-caption-note]")?.value || "";
+        const note = (this.querySelector("textarea[data-caption-note]")?.value || "").trim();
         const current = approvalStore.getCaption(this._item.id);
-        approvalStore.setCaption(this._item.id, current.status, note);
+        await approvalStore.setCaption(this._item.id, current.status, note);
         const fb = this.querySelector("[data-caption-feedback]");
         if (fb) {
           fb.textContent = "✓ Guardado";
           fb.classList.add("is-visible");
           setTimeout(() => { fb.classList.remove("is-visible"); fb.textContent = ""; }, 1800);
         }
+        await this._loadNotes();
         return;
       }
       if (action === "caption-approve" || action === "caption-reject") {
-        const note = this.querySelector("textarea[data-caption-note]")?.value || "";
+        const note = (this.querySelector("textarea[data-caption-note]")?.value || "").trim();
         const desired = action === "caption-approve" ? "approved" : "rejected";
         const current = approvalStore.getCaption(this._item.id).status;
-        approvalStore.setCaption(this._item.id, current === desired ? "pending" : desired, note);
+        await approvalStore.setCaption(this._item.id, current === desired ? "pending" : desired, note);
         this._updateCaptionBadge();
-      }
-      if (action === "toggle-slide-note") {
-        const n = btn.dataset.slideN;
-        const editor = this.querySelector(`[data-slide-editor="${n}"]`);
-        if (!editor) return;
-        editor.hidden = !editor.hidden;
-        if (!editor.hidden) {
-          const ta = editor.querySelector("textarea");
-          ta?.focus();
-          const len = ta?.value.length || 0;
-          ta?.setSelectionRange(len, len);
-        }
-        return;
-      }
-      if (action === "save-slide-note") {
-        const n = btn.dataset.slideN;
-        const slideN = parseInt(n, 10);
-        const ta = this.querySelector(`[data-slide-input="${n}"]`);
-        const note = (ta?.value || "").trim();
-        approvalStore.saveSlideNote(this._item.id, slideN, note);
-        // Atualizar visualização do current
-        const current = this.querySelector(`[data-slide-current="${n}"]`);
-        if (current) {
-          if (note) {
-            current.textContent = note;
-            current.hidden = false;
-          } else {
-            current.textContent = "";
-            current.hidden = true;
-          }
-        }
-        // Atualizar ícone do botão toggle
-        const toggleBtn = this.querySelector(`button[data-action="toggle-slide-note"][data-slide-n="${n}"]`);
-        if (toggleBtn) {
-          toggleBtn.textContent = note ? "✎" : "+";
-          toggleBtn.classList.toggle("viewer-slide__btn--has-note", !!note);
-          const label = note ? `Editar anotação do slide ${n}` : `Anotar slide ${n}`;
-          toggleBtn.setAttribute("aria-label", label);
-          toggleBtn.setAttribute("title", label);
-        }
-        // Feedback inline
-        const fb = this.querySelector(`[data-slide-feedback="${n}"]`);
-        if (fb) {
-          fb.textContent = "✓ Guardado";
-          fb.classList.add("is-visible");
-          setTimeout(() => { fb.classList.remove("is-visible"); fb.textContent = ""; }, 1500);
-        }
-        return;
+        await this._loadNotes();
       }
     });
   }
