@@ -415,6 +415,26 @@ async function ensureAuthenticated() {
   });
 }
 
+// Helper: race a promise with a timeout. Resolve com `fallback` se o timeout
+// disparar antes (não rejeita — para o init não morrer).
+function withTimeout(promise, ms, fallback, label) {
+  let timer;
+  const timeout = new Promise((resolve) => {
+    timer = setTimeout(() => {
+      console.warn(`[init] timeout ${ms}ms em "${label}", a continuar com fallback`);
+      resolve(fallback);
+    }, ms);
+  });
+  return Promise.race([
+    Promise.resolve(promise).then((v) => { clearTimeout(timer); return v; }),
+    timeout,
+  ]).catch((err) => {
+    clearTimeout(timer);
+    console.warn(`[init] erro em "${label}":`, err?.message || err);
+    return fallback;
+  });
+}
+
 async function init() {
   // Dashboard link no header — visível se config.js definir DASHBOARD_URL.
   const dashLink = document.getElementById("dashboardLink");
@@ -423,9 +443,21 @@ async function init() {
     dashLink.hidden = false;
   }
 
-  await ensureAuthenticated();
-  await initApprovalStore();
-  state.items = await loadItems();
+  // ORDEM: items.json primeiro (não depende de rede externa). Render
+  // arranca assim que tivermos dados. Supabase (CDN externo) é iniciado
+  // em paralelo — se falhar por ETP/firewall do Safari, a app continua
+  // em modo só-leitura local (aprovações ficam em localStorage).
+  const supabaseInit = withTimeout(
+    ensureAuthenticated(),
+    4000,
+    null,
+    "ensureAuthenticated"
+  ).then(() => withTimeout(initApprovalStore(), 3000, null, "initApprovalStore"));
+
+  state.items = await withTimeout(loadItems(), 8000, [], "loadItems");
+  // Tenta aguardar Supabase só por um curto período, mas continua mesmo
+  // se o CDN bloquear — o utilizador deve ver os tiles imediatamente.
+  await withTimeout(supabaseInit, 100, null, "supabase-secondary");
   bindOpen();
   window.addEventListener("approval:changed", () => {
     updateCounts();
@@ -480,14 +512,39 @@ async function init() {
 // Safety global: se init() pendurar ou throw (ex.: Supabase bloqueado por
 // extensão/firewall em Safari), o loader esconde-se ao fim de 6s para o
 // utilizador ver pelo menos algum estado em vez de "0/0" indefinidamente.
+// Se nessa altura ainda não houver galleries renderizados, tenta carregar
+// items.json directamente e dar render fallback.
 function forceHideLoader(reason) {
   const loader = document.getElementById("loader");
-  if (!loader || loader.getAttribute("aria-hidden") === "true") return;
-  console.warn("[loader] force-hide:", reason);
-  const label = document.querySelector(".loader__label-text");
-  if (label) label.textContent = "Pronto.";
-  loader.setAttribute("aria-hidden", "true");
-  setTimeout(() => { loader.style.display = "none"; }, 250);
+  if (loader && loader.getAttribute("aria-hidden") !== "true") {
+    console.warn("[loader] force-hide:", reason);
+    const label = document.querySelector(".loader__label-text");
+    if (label) label.textContent = "Pronto.";
+    loader.setAttribute("aria-hidden", "true");
+    setTimeout(() => { loader.style.display = "none"; }, 250);
+  }
+  // Fallback: se o init pendurou e não há galleries renderizadas, força
+  // um carregamento mínimo só com items.json + render.
+  const main = document.getElementById("main");
+  const hasGalleries = main && main.querySelector("post-tile, carrossel-row, reel-tile");
+  if (!hasGalleries && reason !== "manual") {
+    console.warn("[loader] render fallback: a tentar render sem Supabase");
+    (async () => {
+      try {
+        if (!state.items || state.items.length === 0) {
+          state.items = await loadItems();
+        }
+        if (!state.currentMonth) {
+          state.currentMonth = readUrlState().month || todayYYYYMM();
+          state.currentBrand = "all";
+          state.currentFormat = "all";
+        }
+        render();
+      } catch (e) {
+        console.error("[loader] render fallback falhou:", e);
+      }
+    })();
+  }
 }
 setTimeout(() => forceHideLoader("safety-6s"), 6000);
 
