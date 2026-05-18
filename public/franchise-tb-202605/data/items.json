@@ -1,0 +1,494 @@
+[
+  {
+    "id": "techbody-2026-05-c01",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "carrossel",
+    "theme": "experiencia_sessao",
+    "pilar": "Experiência no estúdio",
+    "audience": "b2c",
+    "title": "Vinte e cinco minutos. Treino completo.",
+    "slides": 6,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Vinte e cinco minutos. Treino completo."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Sem horas no ginásio. Sem cargas pesadas. Sem desculpas."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Vestes o fato. O treinador acompanha cada movimento."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Até 90% das fibras musculares activadas em cada sessão."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Sais do estúdio em menos de meia hora. A rotina não para."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Marca a tua sessão experimental no estúdio TechBody."
+      }
+    ],
+    "html_url": "../aprovacao-tb-202605/brands/techbody/output/2026-05/carrosseis/c01-experiencia-sessao.html",
+    "photos_used": [
+      "magnific_e4-pico-de-intensidade-im_2964580645.png",
+      "magnific_estudio-postreino-pessoa-_2968056754.png"
+    ],
+    "photo_positions": [
+      1,
+      6
+    ],
+    "styles": [
+      "photo",
+      "type",
+      "type",
+      "num",
+      "type",
+      "photo"
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:35:00",
+    "scheduled_for": "2026-05-07",
+    "hour": "09h"
+  },
+  {
+    "id": "techbody-2026-05-c02",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "carrossel",
+    "theme": "ciencia_ems",
+    "pilar": "Ciência e método",
+    "audience": "b2c",
+    "title": "EMS é estímulo profundo. Não é truque.",
+    "slides": 6,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "EMS é estímulo profundo. Não é truque."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Treino convencional trabalha sobretudo a parte superficial do músculo."
+      },
+      {
+        "role": "development",
+        "text_overlay": "EMS de corpo inteiro chega até 90% das fibras — incluindo as profundas."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Duas a três sessões por semana. Sempre com acompanhamento profissional."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Cada estímulo é ajustado ao teu corpo, em tempo real, pelo treinador."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Conhece o método. Marca a primeira sessão."
+      }
+    ],
+    "html_url": "../aprovacao-tb-202605/brands/techbody/output/2026-05/carrosseis/c02-ciencia-ems.html",
+    "photos_used": [
+      "magnific_e3-forca-guiada-por-app-f_2964580559.png",
+      "magnific_e5-serie-de-resistencia-f_2964580719.png"
+    ],
+    "photo_positions": [
+      1,
+      3
+    ],
+    "styles": [
+      "photo",
+      "type",
+      "photo",
+      "type",
+      "type",
+      "type"
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:35:00",
+    "scheduled_for": "2026-05-11",
+    "hour": "09h"
+  },
+  {
+    "id": "techbody-2026-05-c03",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "carrossel",
+    "theme": "resultados_evidencia",
+    "pilar": "Resultados e transformação",
+    "audience": "b2c",
+    "title": "Resultado é o que se mede. Não o que se imagina.",
+    "slides": 6,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Resultado é o que se mede. Não o que se imagina."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Tudo começa com uma avaliação inicial. Saber de onde partes muda tudo."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Doze semanas é o ciclo onde a evolução fica visível."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Três eixos medidos: composição corporal, força e bem-estar percebido."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Reavaliação às seis semanas. Sabes onde estás. Sabes para onde vais."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Marca a tua avaliação inicial no estúdio TechBody."
+      }
+    ],
+    "html_url": "../aprovacao-tb-202605/brands/techbody/output/2026-05/carrosseis/c03-resultados-evidencia.html",
+    "photos_used": [
+      "magnific_estudio-aquecimento-contr_2968055318.png",
+      "magnific_e2.-aquecimento-controlad_2964620617.png"
+    ],
+    "photo_positions": [
+      3,
+      6
+    ],
+    "styles": [
+      "type",
+      "type",
+      "photo",
+      "type",
+      "type",
+      "photo"
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:35:00",
+    "scheduled_for": "2026-05-21",
+    "hour": "09h"
+  },
+  {
+    "id": "techbody-2026-05-c04",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "carrossel",
+    "theme": "modelo_franchising",
+    "pilar": "Modelo de negócio e franchising",
+    "audience": "b2b",
+    "title": "Tens um ginásio? Cabe-te aqui uma linha de receita nova.",
+    "slides": 6,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Tens um ginásio? Cabe-te aqui uma linha de receita nova."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Um estúdio TechBody opera numa área compacta dentro do teu espaço."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Ticket por sessão superior ao convencional. Recorrência regular."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Cada cliente regressa duas a três vezes por semana. Recorrência por design."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Franchising chave-na-mão: plano de negócio, formação, recrutamento e marketing digital."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Marca uma reunião. Vamos olhar para os teus números."
+      }
+    ],
+    "html_url": "../aprovacao-tb-202605/brands/techbody/output/2026-05/carrosseis/c04-modelo-franchising.html",
+    "photos_used": [
+      "magnific_estudio-pico-de-intensida_2968056176.png",
+      "magnific_e6.-postreino-recuperacao_2964620915.png"
+    ],
+    "photo_positions": [
+      1,
+      6
+    ],
+    "styles": [
+      "photo",
+      "type",
+      "type",
+      "type",
+      "type",
+      "photo"
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:35:00",
+    "scheduled_for": "2026-05-25",
+    "hour": "09h"
+  },
+  {
+    "id": "techbody-2026-05-s01",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "pos_parto",
+    "pilar": "Programas especializados",
+    "audience": "b2c",
+    "title": "Pós-parto. Programa para reactivar o corpo.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Pós-parto. Programa para reactivar o corpo."
+      }
+    ],
+    "html_url": "../aprovacao-tb-202605/brands/techbody/output/2026-05/stories/s01-pos-parto.html",
+    "photos_used": [
+      "magnific_e6-postreino-imagem-edito_2964580806.png"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:35:00",
+    "scheduled_for": "2026-05-08",
+    "hour": "17h"
+  },
+  {
+    "id": "techbody-2026-05-s02",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "reabilitacao_dor",
+    "pilar": "Saúde e reabilitação",
+    "audience": "b2c",
+    "title": "Dor lombar? EMS é também reabilitação.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Dor lombar? EMS é também reabilitação."
+      }
+    ],
+    "html_url": "../aprovacao-tb-202605/brands/techbody/output/2026-05/stories/s02-reabilitacao-dor.html",
+    "photos_used": [],
+    "photo_positions": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:35:00",
+    "scheduled_for": "2026-05-15",
+    "hour": "17h"
+  },
+  {
+    "id": "techbody-2026-05-s03",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "estudios_pt",
+    "pilar": "Rede TechBody",
+    "audience": "b2c",
+    "title": "Oito estúdios. De Lisboa a Anadia.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Oito estúdios em Portugal. De Lisboa a Anadia."
+      }
+    ],
+    "html_url": "../aprovacao-tb-202605/brands/techbody/output/2026-05/stories/s03-estudios-pt.html",
+    "photos_used": [],
+    "photo_positions": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:35:00",
+    "scheduled_for": "2026-05-22",
+    "hour": "17h"
+  },
+  {
+    "id": "techbody-2026-05-s04",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "confianca_treinador",
+    "pilar": "Experiência no estúdio",
+    "audience": "b2c",
+    "title": "Não tens de pensar. O treinador pensa por ti.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Não tens de pensar. O treinador pensa por ti."
+      }
+    ],
+    "html_url": "../aprovacao-tb-202605/brands/techbody/output/2026-05/stories/s04-confianca-treinador.html",
+    "photos_used": [],
+    "photo_positions": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:35:00",
+    "scheduled_for": "2026-05-29",
+    "hour": "17h"
+  },
+  {
+    "id": "techbody-2026-05-r01",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "reel",
+    "kind": "motion",
+    "theme": "tempo_eficiencia",
+    "pilar": "Tempo e eficiência",
+    "audience": "b2c",
+    "title": "25 minutos é menos do que estás à espera.",
+    "slides": 15,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "25 minutos."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Menos do que esperas no café."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Menos do que um episódio."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "Sessão completa. Treino sério."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Marca sessão →"
+      }
+    ],
+    "html_url": "../aprovacao-tb-202605/brands/techbody/output/2026-05/reels/r01-tempo-eficiencia.playback.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:35:00",
+    "scheduled_for": "2026-05-05",
+    "hour": "18h"
+  },
+  {
+    "id": "techbody-2026-05-r02",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "reel",
+    "kind": "shoot_guide",
+    "theme": "primeira_vez_ems",
+    "pilar": "Onboarding do cliente",
+    "audience": "b2c",
+    "title": "Nunca fizeste EMS? Vou-te contar.",
+    "slides": 24,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Nunca fizeste EMS? Vou-te contar como é a primeira vez."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Chegas. Conversamos uns minutos. Falamos dos teus objectivos e do que o teu corpo aguenta hoje."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Vestes o fato por cima da roupa. Não precisas de te equipar como num ginásio. Em três minutos estamos prontos."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "Começamos com intensidade baixa. Tu controlas. Só subimos se te sentires confortável. Vinte e cinco minutos depois, está feito."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Marca a primeira sessão. Sem compromisso. Link na bio."
+      }
+    ],
+    "html_url": "../aprovacao-tb-202605/brands/techbody/output/2026-05/reels/r02-primeira-vez-ems.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:35:00",
+    "scheduled_for": "2026-05-13",
+    "hour": "18h"
+  },
+  {
+    "id": "techbody-2026-05-r03",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "reel",
+    "kind": "shoot_guide",
+    "theme": "mito_atletas",
+    "pilar": "A quem se destina",
+    "audience": "b2c",
+    "title": "Mito: EMS é só para atletas.",
+    "slides": 24,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Mito: EMS é só para atletas."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "A maior parte das pessoas que treinam aqui são profissionais com pouco tempo. Mães e pais em programa pós-parto. Gente com dor lombar a procurar uma alternativa."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Pessoas em recuperação. Adultos mais velhos a manter força e mobilidade. O método ajusta-se à pessoa que está à frente."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "A intensidade é sempre controlada pelo treinador, em tempo real. Tu marcas o ritmo. Nunca trabalhas além do que aguentas."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Marca a primeira sessão. Sem compromisso. Link na bio."
+      }
+    ],
+    "html_url": "../aprovacao-tb-202605/brands/techbody/output/2026-05/reels/r03-mito-atletas.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:35:00",
+    "scheduled_for": "2026-05-19",
+    "hour": "18h"
+  },
+  {
+    "id": "techbody-2026-05-r04",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "reel",
+    "kind": "shoot_guide",
+    "theme": "abrir_estudio",
+    "pilar": "Abrir um estúdio",
+    "audience": "b2b",
+    "title": "Como abrir um estúdio TechBody.",
+    "slides": 26,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Estás a pensar abrir um estúdio TechBody? Vou-te dizer os passos."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Primeiro, uma reunião. Percebemos o teu mercado, o capital disponível, o que faz sentido na tua cidade."
+      },
+      {
+        "role": "demo",
+        "text_overlay": "Depois, plano de negócio e escolha do espaço. A seguir, formação dos treinadores em eletroestimulação."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "Marketing digital de lançamento. Acompanhamento mensal nos primeiros doze meses. Não abres o estúdio sozinho."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Marca uma reunião. Olhamos para os teus números juntos. Link na bio."
+      }
+    ],
+    "html_url": "../aprovacao-tb-202605/brands/techbody/output/2026-05/reels/r04-abrir-estudio.html",
+    "photos_used": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:35:00",
+    "scheduled_for": "2026-05-27",
+    "hour": "18h"
+  }
+]

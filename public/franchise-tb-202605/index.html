@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TechBody · Download para franchisados</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;800;900&family=JetBrains+Mono:wght@300;500;700&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f5f3ee; --text: #0a0a0a; --mute: #6b6862; --accent: #FF2A2A;
+    --line: #0a0a0a;
+  }
+  html, body { background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; min-height: 100%; }
+  body { padding: 32px 24px 80px; }
+
+  header { max-width: 1100px; margin: 0 auto 48px; }
+  h1 { font: 800 clamp(32px, 5vw, 64px)/0.96 'Fraunces', serif; letter-spacing: -0.03em; max-width: 14ch; }
+  .sub { margin-top: 12px; font-size: 14px; color: var(--mute); max-width: 50ch; line-height: 1.5; }
+
+  .filters {
+    max-width: 1100px; margin: 24px auto;
+    display: flex; gap: 8px; flex-wrap: wrap;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .filter-chip {
+    padding: 6px 12px;
+    background: transparent;
+    border: 2px solid var(--line);
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 700;
+    transition: all 120ms;
+  }
+  .filter-chip[data-active="true"] { background: var(--line); color: var(--bg); }
+  .filter-chip:hover { transform: translateY(-1px); }
+
+  .grid {
+    max-width: 1100px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .card {
+    background: #fff;
+    border: 2px solid var(--line);
+    display: grid; grid-template-rows: auto 1fr auto;
+    overflow: hidden;
+  }
+  .card__preview {
+    aspect-ratio: 4/5;
+    background: #f0eee8;
+    overflow: hidden;
+    position: relative;
+  }
+  .card__preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card__preview iframe { width: 100%; height: 100%; border: 0; display: block; pointer-events: none; transform: scale(1.0); transform-origin: top left; }
+  .card[data-format="story"] .card__preview,
+  .card[data-format="reel"]  .card__preview { aspect-ratio: 9/16; }
+  .card__body { padding: 16px; }
+  .card__title { font: 800 16px/1.2 'Fraunces', serif; letter-spacing: -0.01em; margin-bottom: 6px; }
+  .card__meta { font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+  .card__actions {
+    border-top: 2px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .card__btn {
+    padding: 12px;
+    border: 0;
+    border-left: 2px solid var(--line);
+    background: var(--bg);
+    cursor: pointer;
+    font: 700 11px/1 'JetBrains Mono';
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    text-decoration: none;
+    text-align: center;
+  }
+  .card__btn:first-child { border-left: 0; }
+  .card__btn:hover { background: var(--accent); color: var(--bg); }
+  .card__btn--primary { background: var(--text); color: var(--bg); }
+  .card__btn--primary:hover { background: var(--accent); }
+
+  .empty {
+    max-width: 600px; margin: 80px auto;
+    text-align: center;
+    padding: 40px 24px;
+    border: 2px dashed var(--mute);
+  }
+  .empty p { font-size: 14px; color: var(--mute); line-height: 1.6; }
+
+  .caption-block {
+    padding: 12px 16px;
+    background: #fafaf8;
+    border-top: 1px dashed var(--mute);
+    font-size: 11px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    color: var(--text);
+    max-height: 160px;
+    overflow-y: auto;
+  }
+  .caption-block strong { display: block; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px; color: var(--mute); }
+
+  footer {
+    max-width: 1100px; margin: 80px auto 0;
+    padding-top: 24px;
+    border-top: 2px solid var(--line);
+    font-size: 10px;
+    color: var(--mute);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+  }
+  .loader-state {
+    max-width: 600px; margin: 80px auto;
+    text-align: center;
+    padding: 40px;
+    font-family: 'JetBrains Mono';
+    color: var(--mute);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Conteúdo TechBody para franchisados.</h1>
+  <p class="sub">
+    Esta página dá acesso aos posts <strong>aprovados</strong> do mês actual da TechBody.
+    Cada estúdio pode descarregar e publicar nos seus canais.
+  </p>
+</header>
+
+<div class="filters" id="filters">
+  <button class="filter-chip" data-active="true" data-filter="all">Todos</button>
+  <button class="filter-chip" data-filter="carrossel">Carrosséis</button>
+  <button class="filter-chip" data-filter="story">Stories</button>
+  <button class="filter-chip" data-filter="reel">Reels</button>
+</div>
+
+<div id="state" class="loader-state">A carregar conteúdo aprovado…</div>
+<div id="grid" class="grid" hidden></div>
+<div id="empty" class="empty" hidden>
+  <p>Ainda não existem posts aprovados para este mês. Verifica novamente em breve.</p>
+</div>
+
+<footer>
+  TechBody · Acesso franquia · {month}
+</footer>
+
+<script>
+  // Sem Supabase — franchise mostra todos os items do mês (não filtra por
+  // aprovação, porque o login foi temporariamente removido). Cada estúdio
+  // descarrega o que precisar.
+  const ALLOWED_BRAND = "techbody";
+  const state = { items: [], captions: {}, filter: "all" };
+  const els = {
+    grid: document.getElementById("grid"),
+    state: document.getElementById("state"),
+    empty: document.getElementById("empty"),
+    filters: document.getElementById("filters"),
+  };
+
+  function monthLabel(yyyymm) {
+    const map = {"01":"Janeiro","02":"Fevereiro","03":"Março","04":"Abril","05":"Maio","06":"Junho","07":"Julho","08":"Agosto","09":"Setembro","10":"Outubro","11":"Novembro","12":"Dezembro"};
+    const [y, m] = (yyyymm || "").split("-");
+    return (map[m] || m) + " " + y;
+  }
+
+  async function loadItems() {
+    const res = await fetch("data/items.json", { cache: "no-store" });
+    const items = await res.json();
+    return items.filter(it => it.brand === ALLOWED_BRAND);
+  }
+  async function loadCaptions() {
+    try {
+      const res = await fetch("data/captions.json", { cache: "no-store" });
+      return await res.json();
+    } catch { return {}; }
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
+
+  function renderCard(it) {
+    const isCarousel = it.format === "carrossel";
+    const url = it.html_url;
+    const dlUrl = isCarousel
+      ? url.replace(/\.html$/, ".zip").replace(".playback.zip", ".zip")
+      : url.replace(/\.html$/, ".png").replace(".playback.png", ".png");
+    const dlLabel = isCarousel ? "⤓ ZIP (6 slides)" : "⤓ PNG";
+    const dlName  = isCarousel ? (it.id + ".zip") : (it.id + ".png");
+
+    const cap = state.captions[it.id];
+    const captionHtml = cap ? `
+      <div class="caption-block">
+        <strong>Caption Instagram</strong>
+        ${escapeHtml(cap.caption || "")}${cap.hashtags ? "\n\n" + escapeHtml(cap.hashtags) : ""}
+      </div>
+    ` : "";
+
+    return `
+      <article class="card" data-format="${it.format}">
+        <div class="card__preview">
+          <iframe src="${url}" loading="lazy" aria-label="${escapeHtml(it.title || "")}"></iframe>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">${escapeHtml(it.title || it.theme)}</h3>
+          <p class="card__meta">${it.format} · ${it.scheduled_for || ""} · ${it.hour || ""}</p>
+        </div>
+        ${captionHtml}
+        <div class="card__actions">
+          <a class="card__btn" href="${url}" target="_blank" rel="noopener">Abrir</a>
+          <a class="card__btn card__btn--primary" href="${dlUrl}" download="${dlName}">${dlLabel}</a>
+        </div>
+      </article>
+    `;
+  }
+
+  function render() {
+    const visible = state.filter === "all"
+      ? state.items
+      : state.items.filter(it => it.format === state.filter);
+
+    els.state.hidden = true;
+    if (visible.length === 0) {
+      els.grid.hidden = true;
+      els.empty.hidden = false;
+      return;
+    }
+    els.empty.hidden = true;
+    els.grid.hidden = false;
+    els.grid.innerHTML = visible.map(renderCard).join("");
+  }
+
+  els.filters.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-filter]");
+    if (!btn) return;
+    state.filter = btn.dataset.filter;
+    els.filters.querySelectorAll("[data-filter]").forEach(b => {
+      b.dataset.active = b === btn ? "true" : "false";
+    });
+    render();
+  });
+
+  (async () => {
+    try {
+      const [items, captions] = await Promise.all([loadItems(), loadCaptions()]);
+      state.items = items;
+      state.captions = captions;
+      const month = items[0]?.month || "";
+      document.querySelector("footer").textContent = "TechBody · Acesso franquia · " + monthLabel(month);
+      render();
+    } catch (err) {
+      console.error(err);
+      els.state.textContent = "Falha a carregar. Tenta de novo mais tarde.";
+    }
+  })();
+</script>
+
+</body>
+</html>
