@@ -71,14 +71,21 @@
     will-change: opacity;
   }
 
-  /* Chunks (subtitles) — BOTTOM 40% */
+  /* Chunks — position changes whether a graphic is concurrently visible */
   .chunk {
     position: absolute;
-    inset: 1120px 110px 280px;
     display: grid; place-items: center;
     opacity: 0;
     will-change: opacity;
     z-index: 2;
+  }
+  .chunk--center {
+    /* No concurrent graphic — text vertically centered in main area */
+    inset: 360px 110px 460px;
+  }
+  .chunk--lower {
+    /* Concurrent graphic — text in lower third, graphic occupies upper */
+    inset: 1140px 110px 280px;
   }
   .chunk__text {
     font: 900 124px/1.04 'Arial Black', sans-serif;
@@ -266,17 +273,17 @@
   <div class="g-item" data-gidx="0" style="animation: graphic0 14.911s linear infinite;"><div class="g-counter" data-to="3"><span class="g-counter__num">0</span><span class="g-counter__suffix">segundos</span></div></div>
   </div>
   <div class="stage">
-  <div class="chunk" data-idx="0" style="animation: chunk0 14.911s linear infinite;"><p class="chunk__text">Tens <span class="hl">três segundos</span></p></div>
-  <div class="chunk" data-idx="1" style="animation: chunk1 14.911s linear infinite;"><p class="chunk__text">Três</p></div>
-  <div class="chunk" data-idx="2" style="animation: chunk2 14.911s linear infinite;"><p class="chunk__text">É o tempo que alguém leva</p></div>
-  <div class="chunk" data-idx="3" style="animation: chunk3 14.911s linear infinite;"><p class="chunk__text">a decidir <span class="hl">se fica</span></p></div>
-  <div class="chunk" data-idx="4" style="animation: chunk4 14.911s linear infinite;"><p class="chunk__text">ou fecha</p></div>
-  <div class="chunk" data-idx="5" style="animation: chunk5 14.911s linear infinite;"><p class="chunk__text">Se não vê um motivo</p></div>
-  <div class="chunk" data-idx="6" style="animation: chunk6 14.911s linear infinite;"><p class="chunk__text"><span class="hl">vai-se embora</span></p></div>
-  <div class="chunk" data-idx="7" style="animation: chunk7 14.911s linear infinite;"><p class="chunk__text">E quase <span class="hl">nunca volta</span></p></div>
-  <div class="chunk" data-idx="8" style="animation: chunk8 14.911s linear infinite;"><p class="chunk__text">Repensamos a primeira impressão</p></div>
-  <div class="chunk" data-idx="9" style="animation: chunk9 14.911s linear infinite;"><p class="chunk__text">do teu site <span class="hl">contigo</span></p></div>
-  <div class="chunk" data-idx="10" style="animation: chunk10 14.911s linear infinite;"><p class="chunk__text"><span class="hl">PontoFinal.site</span></p></div>
+  <div class="chunk chunk--lower" data-idx="0" style="animation: chunk0 14.911s linear infinite;"><p class="chunk__text">Tens <span class="hl">três segundos</span></p></div>
+  <div class="chunk chunk--lower" data-idx="1" style="animation: chunk1 14.911s linear infinite;"><p class="chunk__text">Três</p></div>
+  <div class="chunk chunk--lower" data-idx="2" style="animation: chunk2 14.911s linear infinite;"><p class="chunk__text">É o tempo que alguém leva</p></div>
+  <div class="chunk chunk--center" data-idx="3" style="animation: chunk3 14.911s linear infinite;"><p class="chunk__text">a decidir <span class="hl">se fica</span></p></div>
+  <div class="chunk chunk--center" data-idx="4" style="animation: chunk4 14.911s linear infinite;"><p class="chunk__text">ou fecha</p></div>
+  <div class="chunk chunk--center" data-idx="5" style="animation: chunk5 14.911s linear infinite;"><p class="chunk__text">Se não vê um motivo</p></div>
+  <div class="chunk chunk--center" data-idx="6" style="animation: chunk6 14.911s linear infinite;"><p class="chunk__text"><span class="hl">vai-se embora</span></p></div>
+  <div class="chunk chunk--center" data-idx="7" style="animation: chunk7 14.911s linear infinite;"><p class="chunk__text">E quase <span class="hl">nunca volta</span></p></div>
+  <div class="chunk chunk--center" data-idx="8" style="animation: chunk8 14.911s linear infinite;"><p class="chunk__text">Repensamos a primeira impressão</p></div>
+  <div class="chunk chunk--center" data-idx="9" style="animation: chunk9 14.911s linear infinite;"><p class="chunk__text">do teu site <span class="hl">contigo</span></p></div>
+  <div class="chunk chunk--center" data-idx="10" style="animation: chunk10 14.911s linear infinite;"><p class="chunk__text"><span class="hl">PontoFinal.site</span></p></div>
   </div>
   <div class="footer-arrow">↓</div>
   <audio id="narration" src="../audio/voices/r001.mp3" preload="auto"></audio>

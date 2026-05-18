@@ -71,14 +71,21 @@
     will-change: opacity;
   }
 
-  /* Chunks (subtitles) — BOTTOM 40% */
+  /* Chunks — position changes whether a graphic is concurrently visible */
   .chunk {
     position: absolute;
-    inset: 1120px 110px 280px;
     display: grid; place-items: center;
     opacity: 0;
     will-change: opacity;
     z-index: 2;
+  }
+  .chunk--center {
+    /* No concurrent graphic — text vertically centered in main area */
+    inset: 360px 110px 460px;
+  }
+  .chunk--lower {
+    /* Concurrent graphic — text in lower third, graphic occupies upper */
+    inset: 1140px 110px 280px;
   }
   .chunk__text {
     font: 900 124px/1.04 'Arial Black', sans-serif;
@@ -292,20 +299,20 @@
   <div class="g-item" data-gidx="1" style="animation: graphic1 17.083s linear infinite;"><div class="g-bars"><div class="g-bar" data-target="100.00"><span class="g-bar__label">Email</span><div class="g-bar__track"><div class="g-bar__fill"></div><span class="g-bar__value">36</span></div></div><div class="g-bar" data-target="13.89"><span class="g-bar__label">Insta</span><div class="g-bar__track"><div class="g-bar__fill"></div><span class="g-bar__value">5</span></div></div></div></div>
   </div>
   <div class="stage">
-  <div class="chunk" data-idx="0" style="animation: chunk0 17.083s linear infinite;"><p class="chunk__text">Cada euro em email</p></div>
-  <div class="chunk" data-idx="1" style="animation: chunk1 17.083s linear infinite;"><p class="chunk__text">traz <span class="hl">trinta e seis</span></p></div>
-  <div class="chunk" data-idx="2" style="animation: chunk2 17.083s linear infinite;"><p class="chunk__text">de volta</p></div>
-  <div class="chunk" data-idx="3" style="animation: chunk3 17.083s linear infinite;"><p class="chunk__text"><span class="hl">Trinta e seis</span> euros</p></div>
-  <div class="chunk" data-idx="4" style="animation: chunk4 17.083s linear infinite;"><p class="chunk__text">É o canal</p></div>
-  <div class="chunk" data-idx="5" style="animation: chunk5 17.083s linear infinite;"><p class="chunk__text">com <span class="hl">mais retorno</span></p></div>
-  <div class="chunk" data-idx="6" style="animation: chunk6 17.083s linear infinite;"><p class="chunk__text">E quase ninguém</p></div>
-  <div class="chunk" data-idx="7" style="animation: chunk7 17.083s linear infinite;"><p class="chunk__text">em Portugal</p></div>
-  <div class="chunk" data-idx="8" style="animation: chunk8 17.083s linear infinite;"><p class="chunk__text">faz isto bem</p></div>
-  <div class="chunk" data-idx="9" style="animation: chunk9 17.083s linear infinite;"><p class="chunk__text">A lista de emails</p></div>
-  <div class="chunk" data-idx="10" style="animation: chunk10 17.083s linear infinite;"><p class="chunk__text">é tua para sempre</p></div>
-  <div class="chunk" data-idx="11" style="animation: chunk11 17.083s linear infinite;"><p class="chunk__text">Construímos a tua lista</p></div>
-  <div class="chunk" data-idx="12" style="animation: chunk12 17.083s linear infinite;"><p class="chunk__text">tratamos das campanhas</p></div>
-  <div class="chunk" data-idx="13" style="animation: chunk13 17.083s linear infinite;"><p class="chunk__text"><span class="hl">PontoFinal.site</span></p></div>
+  <div class="chunk chunk--center" data-idx="0" style="animation: chunk0 17.083s linear infinite;"><p class="chunk__text">Cada euro em email</p></div>
+  <div class="chunk chunk--lower" data-idx="1" style="animation: chunk1 17.083s linear infinite;"><p class="chunk__text">traz <span class="hl">trinta e seis</span></p></div>
+  <div class="chunk chunk--lower" data-idx="2" style="animation: chunk2 17.083s linear infinite;"><p class="chunk__text">de volta</p></div>
+  <div class="chunk chunk--center" data-idx="3" style="animation: chunk3 17.083s linear infinite;"><p class="chunk__text"><span class="hl">Trinta e seis</span> euros</p></div>
+  <div class="chunk chunk--lower" data-idx="4" style="animation: chunk4 17.083s linear infinite;"><p class="chunk__text">É o canal</p></div>
+  <div class="chunk chunk--lower" data-idx="5" style="animation: chunk5 17.083s linear infinite;"><p class="chunk__text">com <span class="hl">mais retorno</span></p></div>
+  <div class="chunk chunk--lower" data-idx="6" style="animation: chunk6 17.083s linear infinite;"><p class="chunk__text">E quase ninguém</p></div>
+  <div class="chunk chunk--center" data-idx="7" style="animation: chunk7 17.083s linear infinite;"><p class="chunk__text">em Portugal</p></div>
+  <div class="chunk chunk--center" data-idx="8" style="animation: chunk8 17.083s linear infinite;"><p class="chunk__text">faz isto bem</p></div>
+  <div class="chunk chunk--center" data-idx="9" style="animation: chunk9 17.083s linear infinite;"><p class="chunk__text">A lista de emails</p></div>
+  <div class="chunk chunk--center" data-idx="10" style="animation: chunk10 17.083s linear infinite;"><p class="chunk__text">é tua para sempre</p></div>
+  <div class="chunk chunk--center" data-idx="11" style="animation: chunk11 17.083s linear infinite;"><p class="chunk__text">Construímos a tua lista</p></div>
+  <div class="chunk chunk--center" data-idx="12" style="animation: chunk12 17.083s linear infinite;"><p class="chunk__text">tratamos das campanhas</p></div>
+  <div class="chunk chunk--center" data-idx="13" style="animation: chunk13 17.083s linear infinite;"><p class="chunk__text"><span class="hl">PontoFinal.site</span></p></div>
   </div>
   <div class="footer-arrow">↓</div>
   <audio id="narration" src="../audio/voices/r004.mp3" preload="auto"></audio>

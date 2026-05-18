@@ -71,14 +71,21 @@
     will-change: opacity;
   }
 
-  /* Chunks (subtitles) — BOTTOM 40% */
+  /* Chunks — position changes whether a graphic is concurrently visible */
   .chunk {
     position: absolute;
-    inset: 1120px 110px 280px;
     display: grid; place-items: center;
     opacity: 0;
     will-change: opacity;
     z-index: 2;
+  }
+  .chunk--center {
+    /* No concurrent graphic — text vertically centered in main area */
+    inset: 360px 110px 460px;
+  }
+  .chunk--lower {
+    /* Concurrent graphic — text in lower third, graphic occupies upper */
+    inset: 1140px 110px 280px;
   }
   .chunk__text {
     font: 900 124px/1.04 'Arial Black', sans-serif;
@@ -273,17 +280,17 @@
   <div class="g-item" data-gidx="1" style="animation: graphic1 14.238s linear infinite;"><div class="g-stamp"><span>TUDO</span></div></div>
   </div>
   <div class="stage">
-  <div class="chunk" data-idx="0" style="animation: chunk0 14.238s linear infinite;"><p class="chunk__text"><span class="hl">Oito em cada dez</span></p></div>
-  <div class="chunk" data-idx="1" style="animation: chunk1 14.238s linear infinite;"><p class="chunk__text">só lêem o título</p></div>
-  <div class="chunk" data-idx="2" style="animation: chunk2 14.238s linear infinite;"><p class="chunk__text">O resto</p></div>
-  <div class="chunk" data-idx="3" style="animation: chunk3 14.238s linear infinite;"><p class="chunk__text">nem chega lá</p></div>
-  <div class="chunk" data-idx="4" style="animation: chunk4 14.238s linear infinite;"><p class="chunk__text">Se o título não chama</p></div>
-  <div class="chunk" data-idx="5" style="animation: chunk5 14.238s linear infinite;"><p class="chunk__text"><span class="hl">perdeste a venda</span></p></div>
-  <div class="chunk" data-idx="6" style="animation: chunk6 14.238s linear infinite;"><p class="chunk__text">É a coisa</p></div>
-  <div class="chunk" data-idx="7" style="animation: chunk7 14.238s linear infinite;"><p class="chunk__text">mais importante numa página</p></div>
-  <div class="chunk" data-idx="8" style="animation: chunk8 14.238s linear infinite;"><p class="chunk__text">Reescrevemos os títulos</p></div>
-  <div class="chunk" data-idx="9" style="animation: chunk9 14.238s linear infinite;"><p class="chunk__text">que fazem <span class="hl">querer mais</span></p></div>
-  <div class="chunk" data-idx="10" style="animation: chunk10 14.238s linear infinite;"><p class="chunk__text"><span class="hl">PontoFinal.site</span></p></div>
+  <div class="chunk chunk--lower" data-idx="0" style="animation: chunk0 14.238s linear infinite;"><p class="chunk__text"><span class="hl">Oito em cada dez</span></p></div>
+  <div class="chunk chunk--lower" data-idx="1" style="animation: chunk1 14.238s linear infinite;"><p class="chunk__text">só lêem o título</p></div>
+  <div class="chunk chunk--center" data-idx="2" style="animation: chunk2 14.238s linear infinite;"><p class="chunk__text">O resto</p></div>
+  <div class="chunk chunk--center" data-idx="3" style="animation: chunk3 14.238s linear infinite;"><p class="chunk__text">nem chega lá</p></div>
+  <div class="chunk chunk--center" data-idx="4" style="animation: chunk4 14.238s linear infinite;"><p class="chunk__text">Se o título não chama</p></div>
+  <div class="chunk chunk--center" data-idx="5" style="animation: chunk5 14.238s linear infinite;"><p class="chunk__text"><span class="hl">perdeste a venda</span></p></div>
+  <div class="chunk chunk--lower" data-idx="6" style="animation: chunk6 14.238s linear infinite;"><p class="chunk__text">É a coisa</p></div>
+  <div class="chunk chunk--lower" data-idx="7" style="animation: chunk7 14.238s linear infinite;"><p class="chunk__text">mais importante numa página</p></div>
+  <div class="chunk chunk--lower" data-idx="8" style="animation: chunk8 14.238s linear infinite;"><p class="chunk__text">Reescrevemos os títulos</p></div>
+  <div class="chunk chunk--center" data-idx="9" style="animation: chunk9 14.238s linear infinite;"><p class="chunk__text">que fazem <span class="hl">querer mais</span></p></div>
+  <div class="chunk chunk--center" data-idx="10" style="animation: chunk10 14.238s linear infinite;"><p class="chunk__text"><span class="hl">PontoFinal.site</span></p></div>
   </div>
   <div class="footer-arrow">↓</div>
   <audio id="narration" src="../audio/voices/r082.mp3" preload="auto"></audio>

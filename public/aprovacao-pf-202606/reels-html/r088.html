@@ -71,14 +71,21 @@
     will-change: opacity;
   }
 
-  /* Chunks (subtitles) — BOTTOM 40% */
+  /* Chunks — position changes whether a graphic is concurrently visible */
   .chunk {
     position: absolute;
-    inset: 1120px 110px 280px;
     display: grid; place-items: center;
     opacity: 0;
     will-change: opacity;
     z-index: 2;
+  }
+  .chunk--center {
+    /* No concurrent graphic — text vertically centered in main area */
+    inset: 360px 110px 460px;
+  }
+  .chunk--lower {
+    /* Concurrent graphic — text in lower third, graphic occupies upper */
+    inset: 1140px 110px 280px;
   }
   .chunk__text {
     font: 900 124px/1.04 'Arial Black', sans-serif;
@@ -286,19 +293,19 @@
   <div class="g-item" data-gidx="1" style="animation: graphic1 14.539s linear infinite;"><div class="g-stamp"><span>VENDE</span></div></div>
   </div>
   <div class="stage">
-  <div class="chunk" data-idx="0" style="animation: chunk0 14.539s linear infinite;"><p class="chunk__text">Há marcas</p></div>
-  <div class="chunk" data-idx="1" style="animation: chunk1 14.539s linear infinite;"><p class="chunk__text">que <span class="hl">se escondem</span></p></div>
-  <div class="chunk" data-idx="2" style="animation: chunk2 14.539s linear infinite;"><p class="chunk__text">por trás de palavras grandes</p></div>
-  <div class="chunk" data-idx="3" style="animation: chunk3 14.539s linear infinite;"><p class="chunk__text">Acham que assim</p></div>
-  <div class="chunk" data-idx="4" style="animation: chunk4 14.539s linear infinite;"><p class="chunk__text">parecem <span class="hl">importantes</span></p></div>
-  <div class="chunk" data-idx="5" style="animation: chunk5 14.539s linear infinite;"><p class="chunk__text"><span class="hl">Não parecem</span></p></div>
-  <div class="chunk" data-idx="6" style="animation: chunk6 14.539s linear infinite;"><p class="chunk__text">Parecem <span class="hl">confusas</span></p></div>
-  <div class="chunk" data-idx="7" style="animation: chunk7 14.539s linear infinite;"><p class="chunk__text">Quem diz claramente</p></div>
-  <div class="chunk" data-idx="8" style="animation: chunk8 14.539s linear infinite;"><p class="chunk__text">o que faz</p></div>
-  <div class="chunk" data-idx="9" style="animation: chunk9 14.539s linear infinite;"><p class="chunk__text"><span class="hl">é quem vende</span></p></div>
-  <div class="chunk" data-idx="10" style="animation: chunk10 14.539s linear infinite;"><p class="chunk__text">Posicionamos a tua marca</p></div>
-  <div class="chunk" data-idx="11" style="animation: chunk11 14.539s linear infinite;"><p class="chunk__text"><span class="hl">para se notar</span></p></div>
-  <div class="chunk" data-idx="12" style="animation: chunk12 14.539s linear infinite;"><p class="chunk__text"><span class="hl">PontoFinal.site</span></p></div>
+  <div class="chunk chunk--center" data-idx="0" style="animation: chunk0 14.539s linear infinite;"><p class="chunk__text">Há marcas</p></div>
+  <div class="chunk chunk--center" data-idx="1" style="animation: chunk1 14.539s linear infinite;"><p class="chunk__text">que <span class="hl">se escondem</span></p></div>
+  <div class="chunk chunk--center" data-idx="2" style="animation: chunk2 14.539s linear infinite;"><p class="chunk__text">por trás de palavras grandes</p></div>
+  <div class="chunk chunk--center" data-idx="3" style="animation: chunk3 14.539s linear infinite;"><p class="chunk__text">Acham que assim</p></div>
+  <div class="chunk chunk--center" data-idx="4" style="animation: chunk4 14.539s linear infinite;"><p class="chunk__text">parecem <span class="hl">importantes</span></p></div>
+  <div class="chunk chunk--lower" data-idx="5" style="animation: chunk5 14.539s linear infinite;"><p class="chunk__text"><span class="hl">Não parecem</span></p></div>
+  <div class="chunk chunk--lower" data-idx="6" style="animation: chunk6 14.539s linear infinite;"><p class="chunk__text">Parecem <span class="hl">confusas</span></p></div>
+  <div class="chunk chunk--center" data-idx="7" style="animation: chunk7 14.539s linear infinite;"><p class="chunk__text">Quem diz claramente</p></div>
+  <div class="chunk chunk--center" data-idx="8" style="animation: chunk8 14.539s linear infinite;"><p class="chunk__text">o que faz</p></div>
+  <div class="chunk chunk--lower" data-idx="9" style="animation: chunk9 14.539s linear infinite;"><p class="chunk__text"><span class="hl">é quem vende</span></p></div>
+  <div class="chunk chunk--lower" data-idx="10" style="animation: chunk10 14.539s linear infinite;"><p class="chunk__text">Posicionamos a tua marca</p></div>
+  <div class="chunk chunk--lower" data-idx="11" style="animation: chunk11 14.539s linear infinite;"><p class="chunk__text"><span class="hl">para se notar</span></p></div>
+  <div class="chunk chunk--center" data-idx="12" style="animation: chunk12 14.539s linear infinite;"><p class="chunk__text"><span class="hl">PontoFinal.site</span></p></div>
   </div>
   <div class="footer-arrow">↓</div>
   <audio id="narration" src="../audio/voices/r088.mp3" preload="auto"></audio>
