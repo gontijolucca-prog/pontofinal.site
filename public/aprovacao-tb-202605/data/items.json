@@ -508,23 +508,23 @@
       },
       {
         "role": "development",
-        "text_overlay": "O sistema chega com o fato EMS e a aplicação que guia a sessão."
+        "text_overlay": "O sistema chega com o fato de electroestimulação e a aplicação que guia a sessão."
       },
       {
         "role": "development",
-        "text_overlay": "Sessões de vinte e cinco minutos no horário que te dá jeito."
+        "text_overlay": "Sessões de vinte e cinco minutos no horário que dá jeito."
       },
       {
         "role": "development",
-        "text_overlay": "Vestes o fato por cima da roupa. A aplicação acompanha."
+        "text_overlay": "Veste o fato por cima da roupa. A aplicação acompanha."
       },
       {
         "role": "development",
-        "text_overlay": "EMS de corpo inteiro chega aos grandes grupos musculares numa só sessão."
+        "text_overlay": "A electroestimulação de corpo inteiro chega aos grandes grupos musculares numa só sessão."
       },
       {
         "role": "cta",
-        "text_overlay": "Conhece o TechBody U. Compra ou subscrição mensal."
+        "text_overlay": "Conheça o TechBody U. Compra ou subscrição mensal."
       }
     ],
     "html_url": "../brands/techbody_u/output/2026-05/carrosseis/c01-introducao-produto.html",
@@ -557,20 +557,20 @@
     "theme": "treino_em_casa",
     "pilar": "Rotina e conveniência",
     "audience": "b2c",
-    "title": "A casa pode ser o teu estúdio.",
+    "title": "A sua casa pode ser o seu próprio ginásio.",
     "slides": 6,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "A casa pode ser o teu estúdio."
+        "text_overlay": "A sua casa pode ser o seu próprio ginásio."
       },
       {
         "role": "development",
-        "text_overlay": "Não precisas de máquinas. Não precisas de horários. Não precisas de marcar."
+        "text_overlay": "Não precisa de máquinas. Não precisa de horários. Não precisa de marcar."
       },
       {
         "role": "development",
-        "text_overlay": "Vestes o fato. Abres a aplicação. Começas em menos de um minuto."
+        "text_overlay": "Veste o fato. Abre a aplicação. Começa em menos de um minuto."
       },
       {
         "role": "development",
@@ -578,11 +578,11 @@
       },
       {
         "role": "development",
-        "text_overlay": "Acabas, dobras o fato. O treino some. O resultado fica."
+        "text_overlay": "Acaba, dobra o fato. O treino some. O resultado fica."
       },
       {
         "role": "cta",
-        "text_overlay": "Marca uma demonstração. Experimenta o fato vestido."
+        "text_overlay": "Marque uma demonstração. Experimente o fato vestido."
       }
     ],
     "html_url": "../brands/techbody_u/output/2026-05/carrosseis/c02-treino-em-casa.html",
@@ -615,12 +615,12 @@
     "theme": "app_acompanhamento",
     "pilar": "App e autonomia",
     "audience": "b2c",
-    "title": "A aplicação é o teu treinador digital.",
+    "title": "A aplicação é o seu treinador digital.",
     "slides": 6,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "A aplicação é o teu treinador digital."
+        "text_overlay": "A aplicação é o seu treinador digital."
       },
       {
         "role": "development",
@@ -628,11 +628,11 @@
       },
       {
         "role": "development",
-        "text_overlay": "Cada zona muscular tem o seu nível. Ajustas com toque, no momento."
+        "text_overlay": "Cada zona muscular tem o seu nível. Ajusta com toque, no momento."
       },
       {
         "role": "development",
-        "text_overlay": "Histórico das sessões sempre visível. Vês de onde vens e para onde vais."
+        "text_overlay": "Histórico das sessões sempre visível. Vê de onde vem e para onde vai."
       },
       {
         "role": "development",
@@ -640,7 +640,7 @@
       },
       {
         "role": "cta",
-        "text_overlay": "Vê a aplicação em acção. Marca uma demonstração."
+        "text_overlay": "Comenta e explicamos tudo. Peça mais informações por DM."
       }
     ],
     "html_url": "../brands/techbody_u/output/2026-05/carrosseis/c03-app-acompanhamento.html",
@@ -682,11 +682,11 @@
       },
       {
         "role": "development",
-        "text_overlay": "Começas pela avaliação inicial. Pontos de partida claros."
+        "text_overlay": "Começa pela avaliação inicial. Pontos de partida claros."
       },
       {
         "role": "development",
-        "text_overlay": "A meio do programa revês. Vês o que mudou. Ajustas o caminho."
+        "text_overlay": "A meio do programa revê. Vê o que mudou. Ajusta o caminho."
       },
       {
         "role": "development",
@@ -698,7 +698,7 @@
       },
       {
         "role": "cta",
-        "text_overlay": "Inicia o programa de doze semanas."
+        "text_overlay": "Inicie o programa de doze semanas."
       }
     ],
     "html_url": "../brands/techbody_u/output/2026-05/carrosseis/c04-transformacao-12-semanas.html",
@@ -731,12 +731,12 @@
     "theme": "portabilidade",
     "pilar": "Liberdade de uso",
     "audience": "b2c",
-    "title": "Onde queres treinar hoje?",
+    "title": "Onde quer treinar hoje?",
     "slides": 1,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Onde queres treinar hoje? O fato vai contigo."
+        "text_overlay": "Onde quer treinar hoje? O fato vai consigo."
       }
     ],
     "html_url": "../brands/techbody_u/output/2026-05/stories/s01-portabilidade.html",
@@ -759,12 +759,12 @@
     "theme": "efeito_metabolico",
     "pilar": "Ciência do estímulo",
     "audience": "b2c",
-    "title": "O treino continua quando o tiras.",
+    "title": "O treino continua quando o tira.",
     "slides": 1,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "O treino continua mesmo depois de tirares o fato."
+        "text_overlay": "O treino continua mesmo depois de tirar o fato."
       }
     ],
     "html_url": "../brands/techbody_u/output/2026-05/stories/s02-efeito-metabolico.html",
@@ -844,7 +844,7 @@
     "theme": "modo_silencio",
     "pilar": "Conforto e privacidade",
     "audience": "b2c",
-    "title": "Treina sem barulho. Sem espelhos. Sem pressa.",
+    "title": "Treine sem barulho. Sem espelhos. Sem pressa.",
     "slides": 25,
     "slides_text": [
       {
@@ -853,11 +853,11 @@
       },
       {
         "role": "demo",
-        "text_overlay": "Vestes o fato. Sem pressa. Sem música a martelar."
+        "text_overlay": "Veste o fato. Sem pressa. Sem música a martelar."
       },
       {
         "role": "demo",
-        "text_overlay": "A aplicação guia em silêncio. Tu controlas o ritmo."
+        "text_overlay": "A aplicação guia em silêncio. Controla o ritmo."
       },
       {
         "role": "proof",
@@ -865,7 +865,7 @@
       },
       {
         "role": "cta",
-        "text_overlay": "TechBody U. O treino que cabe na tua privacidade."
+        "text_overlay": "TechBody U. O treino que cabe na sua privacidade."
       }
     ],
     "html_url": "../brands/techbody_u/output/2026-05/reels/r01-modo-silencio.html",
@@ -889,7 +889,7 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "A aplicação do TechBody U tem coleções para tudo. Vou-te mostrar."
+        "text_overlay": "A aplicação do TechBody U tem coleções para tudo."
       },
       {
         "role": "demo",
@@ -905,7 +905,7 @@
       },
       {
         "role": "cta",
-        "text_overlay": "Vê a biblioteca da aplicação TechBody U. Link na bio."
+        "text_overlay": "Veja a biblioteca da aplicação TechBody U. Link na bio."
       }
     ],
     "html_url": "../brands/techbody_u/output/2026-05/reels/r02-colecoes-app.html",
@@ -924,12 +924,12 @@
     "theme": "dialogo_ems",
     "pilar": "Voz da marca",
     "audience": "b2c",
-    "title": "EMS, em conversa.",
+    "title": "Electroestimulação, em conversa.",
     "slides": 20,
     "slides_text": [
       {
         "role": "video",
-        "text_overlay": "iMessage entre TechBody U e utilizador — Q&A rápido sobre EMS, fechando no site."
+        "text_overlay": "iMessage entre TechBody U e utilizador — Q&A rápido sobre electroestimulação, fechando no site."
       }
     ],
     "html_url": "../brands/techbody_u/output/2026-05/reels/r03-dialogo-ems.playback.html",
@@ -948,24 +948,24 @@
     "theme": "suporte_garantia",
     "pilar": "Suporte e garantia",
     "audience": "b2c",
-    "title": "Não compras sozinho. Vem com suporte.",
+    "title": "Não compra sozinho. Vem com suporte.",
     "slides": 24,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Compras o TechBody U? Não vens sozinho."
+        "text_overlay": "Compra o TechBody U? Não vem sozinho."
       },
       {
         "role": "demo",
-        "text_overlay": "Tens onboarding em videochamada com um treinador certificado. Ele explica tudo: fato, controlador, aplicação."
+        "text_overlay": "Tem onboarding em videochamada com um treinador certificado. Ele explica tudo: fato, controlador, aplicação."
       },
       {
         "role": "demo",
-        "text_overlay": "Garantia do fabricante no equipamento. Se algo falhar, é problema nosso. Não teu."
+        "text_overlay": "Garantia do fabricante no equipamento. Se algo falhar, é problema nosso. Não seu."
       },
       {
         "role": "proof",
-        "text_overlay": "Dúvida durante uma sessão? Mandas mensagem. A equipa responde — não ficas sem saber."
+        "text_overlay": "Dúvida durante uma sessão? Manda mensagem. A equipa responde — não fica sem saber."
       },
       {
         "role": "cta",
@@ -1103,12 +1103,12 @@
     "theme": "origem_percurso",
     "pilar": "Origem e percurso",
     "audience": "b2c",
-    "title": "Mais de uma década a construir o eletrofitness em Portugal.",
+    "title": "Mais de uma década a construir o treino inteligente em Portugal.",
     "slides": 6,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Mais de uma década a construir o eletrofitness em Portugal."
+        "text_overlay": "Mais de uma década a construir o treino inteligente em Portugal."
       },
       {
         "role": "development",

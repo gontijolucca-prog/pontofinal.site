@@ -194,12 +194,27 @@ class ItemViewer extends HTMLElement {
             <details class="viewer-section" open>
               <summary>Texto dos slides</summary>
               <div class="viewer-slides">
-                ${(it.slides_text || []).map((s, i) => `
-                  <div class="viewer-slide">
-                    <span class="viewer-slide__num">${String(i + 1).padStart(2, "0")}</span>
-                    <p class="viewer-slide__text">${s.text_overlay || s.text || ""}</p>
-                  </div>
-                `).join("")}
+                ${(it.slides_text || []).map((s, i) => {
+                  const n = i + 1;
+                  const sn = approvalStore.getSlideNote(it.id, n);
+                  const hasNote = !!(sn.note && sn.note.trim());
+                  return `
+                  <div class="viewer-slide" data-slide-n="${n}">
+                    <div class="viewer-slide__row">
+                      <span class="viewer-slide__num">${String(n).padStart(2, "0")}</span>
+                      <p class="viewer-slide__text">${s.text_overlay || s.text || ""}</p>
+                      <button type="button" class="viewer-slide__btn ${hasNote ? "viewer-slide__btn--has-note" : ""}" data-action="toggle-slide-note" data-slide-n="${n}" aria-label="${hasNote ? "Editar anotação do slide" : "Anotar slide"} ${n}" title="${hasNote ? "Editar anotação do slide" : "Anotar slide"} ${n}">${hasNote ? "✎" : "+"}</button>
+                    </div>
+                    <p class="viewer-slide__current" data-slide-current="${n}" ${hasNote ? "" : "hidden"}>${this._escapeForHtml(sn.note || "")}</p>
+                    <div class="viewer-slide__editor" data-slide-editor="${n}" hidden>
+                      <textarea data-slide-input="${n}" placeholder="Anotação para o slide ${n}">${this._escapeForHtml(sn.note || "")}</textarea>
+                      <div class="viewer-slide__editor-actions">
+                        <button type="button" class="btn btn--ghost btn--small" data-action="save-slide-note" data-slide-n="${n}">Guardar</button>
+                        <span class="viewer-slide__feedback" data-slide-feedback="${n}" aria-live="polite"></span>
+                      </div>
+                    </div>
+                  </div>`;
+                }).join("")}
               </div>
             </details>
             ${hasCaption ? `
@@ -296,6 +311,54 @@ class ItemViewer extends HTMLElement {
         const current = approvalStore.getCaption(this._item.id).status;
         approvalStore.setCaption(this._item.id, current === desired ? "pending" : desired, note);
         this._updateCaptionBadge();
+      }
+      if (action === "toggle-slide-note") {
+        const n = btn.dataset.slideN;
+        const editor = this.querySelector(`[data-slide-editor="${n}"]`);
+        if (!editor) return;
+        editor.hidden = !editor.hidden;
+        if (!editor.hidden) {
+          const ta = editor.querySelector("textarea");
+          ta?.focus();
+          const len = ta?.value.length || 0;
+          ta?.setSelectionRange(len, len);
+        }
+        return;
+      }
+      if (action === "save-slide-note") {
+        const n = btn.dataset.slideN;
+        const slideN = parseInt(n, 10);
+        const ta = this.querySelector(`[data-slide-input="${n}"]`);
+        const note = (ta?.value || "").trim();
+        approvalStore.saveSlideNote(this._item.id, slideN, note);
+        // Atualizar visualização do current
+        const current = this.querySelector(`[data-slide-current="${n}"]`);
+        if (current) {
+          if (note) {
+            current.textContent = note;
+            current.hidden = false;
+          } else {
+            current.textContent = "";
+            current.hidden = true;
+          }
+        }
+        // Atualizar ícone do botão toggle
+        const toggleBtn = this.querySelector(`button[data-action="toggle-slide-note"][data-slide-n="${n}"]`);
+        if (toggleBtn) {
+          toggleBtn.textContent = note ? "✎" : "+";
+          toggleBtn.classList.toggle("viewer-slide__btn--has-note", !!note);
+          const label = note ? `Editar anotação do slide ${n}` : `Anotar slide ${n}`;
+          toggleBtn.setAttribute("aria-label", label);
+          toggleBtn.setAttribute("title", label);
+        }
+        // Feedback inline
+        const fb = this.querySelector(`[data-slide-feedback="${n}"]`);
+        if (fb) {
+          fb.textContent = "✓ Guardado";
+          fb.classList.add("is-visible");
+          setTimeout(() => { fb.classList.remove("is-visible"); fb.textContent = ""; }, 1500);
+        }
+        return;
       }
     });
   }

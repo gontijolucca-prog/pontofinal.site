@@ -137,6 +137,19 @@ export function init() {
 
 // ─── Surface pública ─────────────────────────────────────────────────────
 
+// Insere uma entry em approval_history. Falha em silêncio (warn) se a tabela
+// não existir ou se RLS bloquear — o fluxo principal já guardou em `approvals`.
+async function insertHistory({ item_id, status, note, changed_at }) {
+  if (!((USE_SUPABASE || AUTH_ENABLED) && supabase)) return;
+  const row = { namespace: NAMESPACE, item_id, status, note: note || "", changed_at };
+  try {
+    const userEmail = (await supabase.auth.getUser())?.data?.user?.email || null;
+    if (userEmail) row.changed_by_email = userEmail;
+  } catch { /* anon — sem email */ }
+  const { error } = await supabase.from("approval_history").insert(row);
+  if (error) console.warn("[approval-store] history insert error:", error.message);
+}
+
 export const approvalStore = {
   get(id) {
     return cache[id] ? { ...cache[id] } : defaultState();
@@ -156,6 +169,8 @@ export const approvalStore = {
         .upsert(row, { onConflict: "namespace,item_id" });
       if (error) {
         console.error("[approval-store] set error:", error);
+      } else {
+        await insertHistory({ item_id: id, status, note, changed_at: updatedAt });
       }
     } else {
       lsWrite(cache);
@@ -176,7 +191,11 @@ export const approvalStore = {
       const { error } = await supabase
         .from("approvals")
         .upsert(row, { onConflict: "namespace,item_id" });
-      if (error) console.error("[approval-store] saveNote error:", error);
+      if (error) {
+        console.error("[approval-store] saveNote error:", error);
+      } else {
+        await insertHistory({ item_id: id, status: current.status, note, changed_at: updatedAt });
+      }
     } else {
       lsWrite(cache);
     }
@@ -190,6 +209,7 @@ export const approvalStore = {
     const out = { approved: 0, rejected: 0, pending: 0 };
     for (const id in cache) {
       if (id.endsWith(":caption")) continue;
+      if (id.includes("#slide")) continue;
       out[cache[id].status] = (out[cache[id].status] || 0) + 1;
     }
     return out;
@@ -209,6 +229,47 @@ export const approvalStore = {
     return cache[key] ? { ...cache[key] } : defaultState();
   },
 
+  // Anotações por slide (carrosseis). Cada slide tem o seu próprio note.
+  // Key no store: `${itemId}#slide${n}` (n = 1-based).
+  getSlideNote(itemId, slideN) {
+    const key = `${itemId}#slide${slideN}`;
+    return cache[key] ? { ...cache[key] } : defaultState();
+  },
+
+  async saveSlideNote(itemId, slideN, note) {
+    const key = `${itemId}#slide${slideN}`;
+    const updatedAt = new Date().toISOString();
+    cache[key] = { status: "pending", note, updatedAt };
+    emit();
+    if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
+      const userId = (await supabase.auth.getUser())?.data?.user?.id || null;
+      const row = { namespace: NAMESPACE, item_id: key, status: "pending", note, updated_at: updatedAt };
+      if (userId) row.updated_by = userId;
+      const { error } = await supabase
+        .from("approvals")
+        .upsert(row, { onConflict: "namespace,item_id" });
+      if (error) {
+        console.error("[approval-store] saveSlideNote error:", error);
+      } else {
+        await insertHistory({ item_id: key, status: "pending", note, changed_at: updatedAt });
+      }
+    } else {
+      lsWrite(cache);
+    }
+  },
+
+  getAllSlideNotes(itemId) {
+    const prefix = `${itemId}#slide`;
+    const out = {};
+    for (const k in cache) {
+      if (k.startsWith(prefix)) {
+        const m = k.match(/#slide(\d+)$/);
+        if (m) out[parseInt(m[1], 10)] = { ...cache[k] };
+      }
+    }
+    return out;
+  },
+
   async setCaption(itemId, status, note = "") {
     const key = `${itemId}:caption`;
     const updatedAt = new Date().toISOString();
@@ -222,7 +283,11 @@ export const approvalStore = {
       const { error } = await supabase
         .from("approvals")
         .upsert(row, { onConflict: "namespace,item_id" });
-      if (error) console.error("[approval-store] setCaption error:", error);
+      if (error) {
+        console.error("[approval-store] setCaption error:", error);
+      } else {
+        await insertHistory({ item_id: key, status, note, changed_at: updatedAt });
+      }
     } else {
       lsWrite(cache);
     }
