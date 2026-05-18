@@ -181,7 +181,9 @@ async function migrateLocalStorageIfNeeded() {
   const rows = ids.map(id => ({
     namespace: NAMESPACE,
     item_id: id,
-    status: legacy[id].status,
+    // CHECK constraint só permite approved/rejected/pending.
+    // Anotações (legacy com status="note") são re-mapeadas para pending.
+    status: legacy[id].status === "note" ? "pending" : legacy[id].status,
     note: legacy[id].note || "",
     updated_at: legacy[id].updatedAt || new Date().toISOString(),
   }));
@@ -229,8 +231,14 @@ export function init() {
 const QUEUE_KEY = `${NAMESPACE}-pending-writes`;
 
 function qRead() {
-  try { return JSON.parse(localStorage.getItem(QUEUE_KEY)) || []; }
-  catch { return []; }
+  try {
+    const raw = JSON.parse(localStorage.getItem(QUEUE_KEY)) || [];
+    // Migração defensiva: a tabela `approvals` tem CHECK status IN
+    // ('approved','rejected','pending'). Rows antigas da fila com
+    // status='note' têm de ser convertidas senão ficam presas para
+    // sempre a dar HTTP 400.
+    return raw.map(r => (r.status === "note" ? { ...r, status: "pending" } : r));
+  } catch { return []; }
 }
 function qWrite(q) {
   try { localStorage.setItem(QUEUE_KEY, JSON.stringify(q)); } catch {}
@@ -426,12 +434,12 @@ export const approvalStore = {
     const nonce = makeNonce();
     const key = buildAnnotationKey(itemId, slideN, nonce);
     const updatedAt = new Date().toISOString();
-    const entry = { status: "note", note: trimmed, updatedAt };
+    const entry = { status: "pending", note: trimmed, updatedAt };
     cache[key] = entry;
     lsMergeWrite(key, entry);
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
-      await upsertRow(key, "note", trimmed, updatedAt);
+      await upsertRow(key, "pending", trimmed, updatedAt);
     }
     return { key, slide: slideN, note: trimmed, changed_at: updatedAt };
   },
@@ -466,10 +474,10 @@ export const approvalStore = {
     if (!key || !isAnnotationKey(key)) return false;
     const updatedAt = new Date().toISOString();
     if (cache[key]) cache[key].note = "";
-    cache[key] = { status: "note", note: "", updatedAt };
+    cache[key] = { status: "pending", note: "", updatedAt };
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
-      const r = await upsertRow(key, "note", "", updatedAt);
+      const r = await upsertRow(key, "pending", "", updatedAt);
       return !!r;
     }
     lsWrite(cache);
