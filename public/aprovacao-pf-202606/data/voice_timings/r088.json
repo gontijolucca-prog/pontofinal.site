@@ -1,91 +1,35 @@
 {
-  "total_ms": 14539,
+  "total_ms": 17350,
   "chunks": [
     {
-      "text": "Há marcas",
-      "emphasis": null,
-      "start_ms": 0,
-      "dur_ms": 780
-    },
-    {
-      "text": "que se escondem",
-      "emphasis": "se escondem",
-      "start_ms": 780,
-      "dur_ms": 760
-    },
-    {
-      "text": "por trás de palavras grandes",
-      "emphasis": null,
-      "start_ms": 1540,
-      "dur_ms": 1640
-    },
-    {
-      "text": "Acham que assim",
-      "emphasis": null,
-      "start_ms": 3580,
-      "dur_ms": 1160
-    },
-    {
-      "text": "parecem importantes",
-      "emphasis": "importantes",
-      "start_ms": 4740,
-      "dur_ms": 660
-    },
-    {
-      "text": "Não parecem",
-      "emphasis": "Não parecem",
-      "start_ms": 5551,
-      "dur_ms": 1242,
-      "graphic": {
-        "type": "stamp",
-        "text": "NÃO"
-      }
-    },
-    {
-      "text": "Parecem confusas",
+      "text": "Por que são as marcas confusas?",
       "emphasis": "confusas",
-      "start_ms": 6933,
-      "dur_ms": 1219
+      "start_ms": 0,
+      "dur_ms": 3550
     },
     {
-      "text": "Quem diz claramente",
-      "emphasis": null,
-      "start_ms": 8540,
-      "dur_ms": 880
+      "text": "Propositalmente.",
+      "emphasis": "Propositalmente",
+      "start_ms": 3550,
+      "dur_ms": 2800
     },
     {
-      "text": "o que faz",
-      "emphasis": null,
-      "start_ms": 9420,
-      "dur_ms": 700
+      "text": "Acham que vago é sofisticado.",
+      "emphasis": "sofisticado",
+      "start_ms": 6350,
+      "dur_ms": 3450
     },
     {
-      "text": "é quem vende",
-      "emphasis": "é quem vende",
-      "start_ms": 10120,
-      "dur_ms": 560,
-      "graphic": {
-        "type": "stamp",
-        "text": "VENDE"
-      }
+      "text": "Clareza é rara. Por isso vale.",
+      "emphasis": "vale",
+      "start_ms": 9800,
+      "dur_ms": 3500
     },
     {
-      "text": "Posicionamos a tua marca",
-      "emphasis": null,
-      "start_ms": 11060,
-      "dur_ms": 1120
-    },
-    {
-      "text": "para se notar",
-      "emphasis": "para se notar",
-      "start_ms": 12180,
-      "dur_ms": 780
-    },
-    {
-      "text": "PontoFinal.site",
+      "text": "Quem é claro, destaca-se. PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 13160,
-      "dur_ms": 880
+      "start_ms": 13300,
+      "dur_ms": 4050
     }
   ]
 }

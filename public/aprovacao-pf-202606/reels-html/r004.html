@@ -25,7 +25,7 @@
     background-size: 44px 44px;
     overflow: hidden;
     transform-origin: center center;
-    animation: bg-drift 6s linear infinite;
+    animation: bg-drift 4s linear infinite;
   }
   @keyframes bg-drift {
     0%   { background-position: 0 0; }
@@ -51,7 +51,7 @@
   .progress::after {
     content: ""; position: absolute; left: 0; top: 0; bottom: 0;
     background: var(--accent); transform-origin: left center;
-    animation: progress 17.083s linear infinite;
+    animation: progress 17.200s linear infinite;
   }
   @keyframes progress {
     0% { transform: scaleX(0); } 100% { transform: scaleX(1); }
@@ -195,98 +195,44 @@
 
   @keyframes chunk0 {
               0% { opacity: 1; }
-              5.953% { opacity: 1; }
-              5.971%, 100% { opacity: 0; }
+              18.006% { opacity: 1; }
+              18.023%, 100% { opacity: 0; }
             }
 @keyframes chunk1 {
-              0%, 5.953% { opacity: 0; }
-              5.971% { opacity: 1; }
-              15.553% { opacity: 1; }
-              15.571%, 100% { opacity: 0; }
+              0%, 18.006% { opacity: 0; }
+              18.023% { opacity: 1; }
+              36.610% { opacity: 1; }
+              36.628%, 100% { opacity: 0; }
             }
 @keyframes chunk2 {
-              0%, 15.553% { opacity: 0; }
-              15.571% { opacity: 1; }
-              21.758% { opacity: 1; }
-              21.776%, 100% { opacity: 0; }
+              0%, 36.610% { opacity: 0; }
+              36.628% { opacity: 1; }
+              53.471% { opacity: 1; }
+              53.488%, 100% { opacity: 0; }
             }
 @keyframes chunk3 {
-              0%, 21.758% { opacity: 0; }
-              21.776% { opacity: 1; }
-              30.071% { opacity: 1; }
-              30.088%, 100% { opacity: 0; }
+              0%, 53.471% { opacity: 0; }
+              53.488% { opacity: 1; }
+              76.727% { opacity: 1; }
+              76.744%, 100% { opacity: 0; }
             }
 @keyframes chunk4 {
-              0%, 30.071% { opacity: 0; }
-              30.088% { opacity: 1; }
-              34.520% { opacity: 1; }
-              34.537%, 100% { opacity: 0; }
-            }
-@keyframes chunk5 {
-              0%, 34.520% { opacity: 0; }
-              34.537% { opacity: 1; }
-              44.588% { opacity: 1; }
-              44.606%, 100% { opacity: 0; }
-            }
-@keyframes chunk6 {
-              0%, 44.588% { opacity: 0; }
-              44.606% { opacity: 1; }
-              47.983% { opacity: 1; }
-              48.001%, 100% { opacity: 0; }
-            }
-@keyframes chunk7 {
-              0%, 47.983% { opacity: 0; }
-              48.001% { opacity: 1; }
-              50.442% { opacity: 1; }
-              50.460%, 100% { opacity: 0; }
-            }
-@keyframes chunk8 {
-              0%, 50.442% { opacity: 0; }
-              50.460% { opacity: 1; }
-              58.403% { opacity: 1; }
-              58.421%, 100% { opacity: 0; }
-            }
-@keyframes chunk9 {
-              0%, 58.403% { opacity: 0; }
-              58.421% { opacity: 1; }
-              63.320% { opacity: 1; }
-              63.338%, 100% { opacity: 0; }
-            }
-@keyframes chunk10 {
-              0%, 63.320% { opacity: 0; }
-              63.338% { opacity: 1; }
-              72.452% { opacity: 1; }
-              72.470%, 100% { opacity: 0; }
-            }
-@keyframes chunk11 {
-              0%, 72.452% { opacity: 0; }
-              72.470% { opacity: 1; }
-              79.477% { opacity: 1; }
-              79.494%, 100% { opacity: 0; }
-            }
-@keyframes chunk12 {
-              0%, 79.477% { opacity: 0; }
-              79.494% { opacity: 1; }
-              92.706% { opacity: 1; }
-              92.724%, 100% { opacity: 0; }
-            }
-@keyframes chunk13 {
-              0%, 92.706% { opacity: 0; }
-              92.724% { opacity: 1; }
-              99.982% { opacity: 1; }
+              0%, 76.727% { opacity: 0; }
+              76.744% { opacity: 1; }
+              99.983% { opacity: 1; }
               100.000%, 100% { opacity: 0; }
             }
   @keyframes graphic0 {
-              0%, 5.953% { opacity: 0; }
-              5.971% { opacity: 1; }
-              19.727% { opacity: 1; }
-              20.605%, 100% { opacity: 0; }
+              0%, 18.006% { opacity: 0; }
+              18.023% { opacity: 1; }
+              31.686% { opacity: 1; }
+              32.558%, 100% { opacity: 0; }
             }
 @keyframes graphic1 {
-              0%, 30.071% { opacity: 0; }
-              30.088% { opacity: 1; }
-              43.845% { opacity: 1; }
-              44.723%, 100% { opacity: 0; }
+              0%, 36.610% { opacity: 0; }
+              36.628% { opacity: 1; }
+              50.291% { opacity: 1; }
+              51.163%, 100% { opacity: 0; }
             }
 </style>
 </head>
@@ -295,33 +241,25 @@
   <div class="progress"></div>
   <div class="brand">Pontofinal.site_</div>
   <div class="g-layer">
-  <div class="g-item" data-gidx="0" style="animation: graphic0 17.083s linear infinite;"><div class="g-counter g-counter--prefix" data-to="36"><span class="g-counter__prefix">€</span><span class="g-counter__num">0</span></div></div>
-  <div class="g-item" data-gidx="1" style="animation: graphic1 17.083s linear infinite;"><div class="g-bars"><div class="g-bar" data-target="100.00"><span class="g-bar__label">Email</span><div class="g-bar__track"><div class="g-bar__fill"></div><span class="g-bar__value">36</span></div></div><div class="g-bar" data-target="13.89"><span class="g-bar__label">Insta</span><div class="g-bar__track"><div class="g-bar__fill"></div><span class="g-bar__value">5</span></div></div></div></div>
+  <div class="g-item" data-gidx="0" style="animation: graphic0 17.200s linear infinite;"><div class="g-counter g-counter--prefix" data-to="36"><span class="g-counter__prefix">€</span><span class="g-counter__num">0</span></div></div>
+  <div class="g-item" data-gidx="1" style="animation: graphic1 17.200s linear infinite;"><div class="g-counter g-counter--prefix" data-to="5"><span class="g-counter__prefix">€</span><span class="g-counter__num">0</span></div></div>
   </div>
   <div class="stage">
-  <div class="chunk chunk--center" data-idx="0" style="animation: chunk0 17.083s linear infinite;"><p class="chunk__text">Cada euro em email</p></div>
-  <div class="chunk chunk--lower" data-idx="1" style="animation: chunk1 17.083s linear infinite;"><p class="chunk__text">traz <span class="hl">trinta e seis</span></p></div>
-  <div class="chunk chunk--lower" data-idx="2" style="animation: chunk2 17.083s linear infinite;"><p class="chunk__text">de volta</p></div>
-  <div class="chunk chunk--center" data-idx="3" style="animation: chunk3 17.083s linear infinite;"><p class="chunk__text"><span class="hl">Trinta e seis</span> euros</p></div>
-  <div class="chunk chunk--lower" data-idx="4" style="animation: chunk4 17.083s linear infinite;"><p class="chunk__text">É o canal</p></div>
-  <div class="chunk chunk--lower" data-idx="5" style="animation: chunk5 17.083s linear infinite;"><p class="chunk__text">com <span class="hl">mais retorno</span></p></div>
-  <div class="chunk chunk--lower" data-idx="6" style="animation: chunk6 17.083s linear infinite;"><p class="chunk__text">E quase ninguém</p></div>
-  <div class="chunk chunk--center" data-idx="7" style="animation: chunk7 17.083s linear infinite;"><p class="chunk__text">em Portugal</p></div>
-  <div class="chunk chunk--center" data-idx="8" style="animation: chunk8 17.083s linear infinite;"><p class="chunk__text">faz isto bem</p></div>
-  <div class="chunk chunk--center" data-idx="9" style="animation: chunk9 17.083s linear infinite;"><p class="chunk__text">A lista de emails</p></div>
-  <div class="chunk chunk--center" data-idx="10" style="animation: chunk10 17.083s linear infinite;"><p class="chunk__text">é tua para sempre</p></div>
-  <div class="chunk chunk--center" data-idx="11" style="animation: chunk11 17.083s linear infinite;"><p class="chunk__text">Construímos a tua lista</p></div>
-  <div class="chunk chunk--center" data-idx="12" style="animation: chunk12 17.083s linear infinite;"><p class="chunk__text">tratamos das campanhas</p></div>
-  <div class="chunk chunk--center" data-idx="13" style="animation: chunk13 17.083s linear infinite;"><p class="chunk__text"><span class="hl">PontoFinal.site</span></p></div>
+  <div class="chunk chunk--center" data-idx="0" style="animation: chunk0 17.200s linear infinite;"><p class="chunk__text">Email morreu? <span class="hl">Mentira</span>.</p></div>
+  <div class="chunk chunk--lower" data-idx="1" style="animation: chunk1 17.200s linear infinite;"><p class="chunk__text">Por cada €1, devolve <span class="hl">€36</span></p></div>
+  <div class="chunk chunk--lower" data-idx="2" style="animation: chunk2 17.200s linear infinite;"><p class="chunk__text">Instagram? Nem <span class="hl">€5</span>.</p></div>
+  <div class="chunk chunk--center" data-idx="3" style="animation: chunk3 17.200s linear infinite;"><p class="chunk__text">O Instagram não é teu. <span class="hl">A tua lista, sim</span>.</p></div>
+  <div class="chunk chunk--center" data-idx="4" style="animation: chunk4 17.200s linear infinite;"><p class="chunk__text">Construímos a tua lista. <span class="hl">PontoFinal.site</span></p></div>
   </div>
   <div class="footer-arrow">↓</div>
-  <audio id="narration" src="../audio/voices/r004.mp3" preload="auto"></audio>
   <audio id="beat" src="../audio/beat.mp3" loop preload="auto"></audio>
 </section>
 <script>
 (function () {
-  const TOTAL_MS = 17083;
-  const COUNTERS = [{"g_idx": 0, "to": 36, "start": 1020, "end": 3520}];
+  const TOTAL_MS = 17200;
+  const COUNTERS = [{"g_idx": 0, "to": 36, "start": 3100, "end": 5600}, {"g_idx": 1, "to": 5, "start": 6300, "end": 8800}];
+  const CHUNK_STARTS = [0, 3100, 6300, 9200, 13200];
+  const NOTIF_URL = '../audio/notif.mp3';
 
   const r = document.querySelector('.reel');
   function fit() {
@@ -364,19 +302,52 @@
     if (fill) fill.style.setProperty('--target', t + '%');
   });
 
-  // Counter rAF — slower ramp (1.2s) within the graphic's extended window
-  const audio = document.getElementById('narration');
+  // Web Audio: load notification SFX once, replay per chunk entrance (allows overlap)
+  const AC = window.AudioContext || window.webkitAudioContext;
+  const audioCtx = AC ? new AC() : null;
+  let notifBuf = null;
+  if (audioCtx) {
+    fetch(NOTIF_URL).then(r => r.arrayBuffer())
+      .then(b => audioCtx.decodeAudioData(b))
+      .then(buf => { notifBuf = buf; })
+      .catch(() => {});
+  }
+  function playNotif() {
+    // Gate on state — without this, all suspended-queue starts fire at once when context resumes
+    if (!audioCtx || !notifBuf || audioCtx.state !== 'running') return;
+    const src = audioCtx.createBufferSource();
+    src.buffer = notifBuf;
+    const gain = audioCtx.createGain();
+    gain.gain.value = 0.55;
+    src.connect(gain).connect(audioCtx.destination);
+    try { src.start(); } catch (e) {}
+  }
+
   const beat = document.getElementById('beat');
   const t0 = performance.now();
-  function getT() {
-    if (audio && !audio.paused && !audio.muted && audio.currentTime > 0) {
-      return (audio.currentTime * 1000) % TOTAL_MS;
-    }
-    return (performance.now() - t0) % TOTAL_MS;
-  }
+  function getT() { return (performance.now() - t0) % TOTAL_MS; }
+
   const graphicEls = document.querySelectorAll('.g-item');
+  let lastChunkPlayed = -1;
+  let lastLoop = -1;
   function tick() {
-    const t = getT();
+    const elapsed = performance.now() - t0;
+    const loopIdx = Math.floor(elapsed / TOTAL_MS);
+    const t = elapsed % TOTAL_MS;
+
+    if (loopIdx !== lastLoop) {
+      lastChunkPlayed = -1;
+      lastLoop = loopIdx;
+    }
+    let cur = -1;
+    for (let i = 0; i < CHUNK_STARTS.length; i++) {
+      if (CHUNK_STARTS[i] <= t) cur = i; else break;
+    }
+    if (cur > lastChunkPlayed) {
+      playNotif();
+      lastChunkPlayed = cur;
+    }
+
     for (const cm of COUNTERS) {
       const el = graphicEls[cm.g_idx];
       if (!el) continue;
@@ -384,11 +355,11 @@
       if (!numEl) continue;
       const window_ms = cm.end - cm.start;
       const rampMs = Math.min(window_ms * 0.45, 1200);
-      const elapsed = t - cm.start;
+      const elapsedT = t - cm.start;
       let p = 0;
-      if (elapsed >= 0 && elapsed < window_ms) {
-        p = Math.min(1, elapsed / Math.max(rampMs, 300));
-      } else if (elapsed >= window_ms) {
+      if (elapsedT >= 0 && elapsedT < window_ms) {
+        p = Math.min(1, elapsedT / Math.max(rampMs, 300));
+      } else if (elapsedT >= window_ms) {
         p = 1;
       }
       numEl.textContent = Math.round(p * cm.to);
@@ -397,20 +368,20 @@
   }
   requestAnimationFrame(tick);
 
-  // Narration + beat
+  // Audio gate (browsers require user gesture to start AudioContext)
   const wantAudio = new URLSearchParams(location.search).get('audio') === '1';
-  if (audio) audio.loop = true;
   if (beat) beat.loop = true;
+  function unlock() {
+    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+    if (beat) { beat.muted = false; beat.volume = 0.15; beat.play().catch(() => {}); }
+  }
   if (wantAudio) {
-    if (audio) { audio.muted = false; audio.volume = 1.0; audio.play().catch(() => {}); }
-    if (beat)  { beat.muted  = false; beat.volume  = 0.15; beat.play().catch(() => {}); }
-    ['click','touchstart'].forEach(e => addEventListener(e, () => {
-      if (audio) audio.play().catch(() => {});
-      if (beat)  beat.play().catch(() => {});
-    }, {once: true}));
+    unlock();
+    ['click','touchstart','keydown'].forEach(e => addEventListener(e, unlock, {once: true}));
   } else {
-    if (audio) audio.muted = true;
-    if (beat)  beat.muted  = true;
+    if (beat) beat.muted = true;
+    // Even when muted overall, allow click to enable audio mid-preview
+    ['click','touchstart'].forEach(e => addEventListener(e, unlock, {once: true}));
   }
 })();
 </script>

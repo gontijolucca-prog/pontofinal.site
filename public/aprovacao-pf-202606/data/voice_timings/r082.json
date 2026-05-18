@@ -1,79 +1,40 @@
 {
-  "total_ms": 14238,
+  "total_ms": 18650,
   "chunks": [
     {
-      "text": "Oito em cada dez",
-      "emphasis": "Oito em cada dez",
+      "text": "Ginásio top. Site invisível.",
+      "emphasis": "invisível",
       "start_ms": 0,
-      "dur_ms": 1200,
+      "dur_ms": 3400
+    },
+    {
+      "text": "Quem procurava online, achava o concorrente",
+      "emphasis": "o concorrente",
+      "start_ms": 3400,
+      "dur_ms": 4150
+    },
+    {
+      "text": "Site novo. Fotos. Preços. Turmas.",
+      "emphasis": "Preços",
+      "start_ms": 7550,
+      "dur_ms": 3650
+    },
+    {
+      "text": "43 inscrições no 1.º mês",
+      "emphasis": "43",
+      "start_ms": 11200,
+      "dur_ms": 3200,
       "graphic": {
-        "type": "percent",
-        "to": 80
+        "type": "count",
+        "to": 43,
+        "suffix": "inscrições"
       }
     },
     {
-      "text": "só lêem o título",
-      "emphasis": null,
-      "start_ms": 1200,
-      "dur_ms": 1540
-    },
-    {
-      "text": "O resto",
-      "emphasis": "nem chega lá",
-      "start_ms": 3060,
-      "dur_ms": 360
-    },
-    {
-      "text": "nem chega lá",
-      "emphasis": null,
-      "start_ms": 3420,
-      "dur_ms": 1280
-    },
-    {
-      "text": "Se o título não chama",
-      "emphasis": null,
-      "start_ms": 4980,
-      "dur_ms": 1000
-    },
-    {
-      "text": "perdeste a venda",
-      "emphasis": "perdeste a venda",
-      "start_ms": 6260,
-      "dur_ms": 900
-    },
-    {
-      "text": "É a coisa",
-      "emphasis": "mais importante",
-      "start_ms": 7600,
-      "dur_ms": 600,
-      "graphic": {
-        "type": "stamp",
-        "text": "TUDO"
-      }
-    },
-    {
-      "text": "mais importante numa página",
-      "emphasis": null,
-      "start_ms": 8200,
-      "dur_ms": 1140
-    },
-    {
-      "text": "Reescrevemos os títulos",
-      "emphasis": null,
-      "start_ms": 9640,
-      "dur_ms": 1220
-    },
-    {
-      "text": "que fazem querer mais",
-      "emphasis": "querer mais",
-      "start_ms": 10860,
-      "dur_ms": 1620
-    },
-    {
-      "text": "PontoFinal.site",
+      "text": "O teu site mostra o que tens? PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 12760,
-      "dur_ms": 1020
+      "start_ms": 14400,
+      "dur_ms": 4250
     }
   ]
 }

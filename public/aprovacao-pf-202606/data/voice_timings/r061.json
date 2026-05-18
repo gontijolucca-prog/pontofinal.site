@@ -1,85 +1,40 @@
 {
-  "total_ms": 14563,
+  "total_ms": 17400,
   "chunks": [
     {
-      "text": "Cada segundo",
-      "emphasis": null,
+      "text": "Alguém ligou pelo teu chefe?",
+      "emphasis": "teu chefe",
       "start_ms": 0,
-      "dur_ms": 520
+      "dur_ms": 3400
     },
     {
-      "text": "que demora a abrir",
-      "emphasis": null,
-      "start_ms": 520,
-      "dur_ms": 1260
+      "text": "Pode não ser ele.",
+      "emphasis": "não ser",
+      "start_ms": 3400,
+      "dur_ms": 2850
     },
     {
-      "text": "custa-te clientes",
-      "emphasis": "custa-te clientes",
-      "start_ms": 1780,
-      "dur_ms": 1260
-    },
-    {
-      "text": "As pessoas hoje",
-      "emphasis": null,
-      "start_ms": 3300,
-      "dur_ms": 719
-    },
-    {
-      "text": "não esperam",
-      "emphasis": "não esperam",
-      "start_ms": 4019,
-      "dur_ms": 781
-    },
-    {
-      "text": "Três segundos",
-      "emphasis": null,
-      "start_ms": 5120,
-      "dur_ms": 480
-    },
-    {
-      "text": "e perdeste metade",
-      "emphasis": "metade",
-      "start_ms": 5600,
-      "dur_ms": 1060,
+      "text": "A IA clona vozes em 5 minutos.",
+      "emphasis": "5 minutos",
+      "start_ms": 6250,
+      "dur_ms": 3500,
       "graphic": {
-        "type": "percent",
-        "to": 53
+        "type": "count",
+        "to": 5,
+        "suffix": "minutos"
       }
     },
     {
-      "text": "Cinquenta e três por cento",
-      "emphasis": "53%",
-      "start_ms": 6980,
-      "dur_ms": 2200,
-      "graphic": {
-        "type": "percent",
-        "to": 53
-      }
+      "text": "Verifica sempre por outro canal.",
+      "emphasis": "outro canal",
+      "start_ms": 9750,
+      "dur_ms": 3600
     },
     {
-      "text": "evaporado",
-      "emphasis": null,
-      "start_ms": 9180,
-      "dur_ms": 600
-    },
-    {
-      "text": "Optimizamos o teu site",
-      "emphasis": null,
-      "start_ms": 10260,
-      "dur_ms": 820
-    },
-    {
-      "text": "num piscar de olhos",
-      "emphasis": "num piscar de olhos",
-      "start_ms": 11080,
-      "dur_ms": 1740
-    },
-    {
-      "text": "PontoFinal.site",
+      "text": "Protegemos o teu negócio. PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 13220,
-      "dur_ms": 1020
+      "start_ms": 13350,
+      "dur_ms": 4050
     }
   ]
 }

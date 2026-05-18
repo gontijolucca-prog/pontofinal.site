@@ -1,87 +1,40 @@
 {
-  "total_ms": 15677,
+  "total_ms": 17400,
   "chunks": [
     {
-      "text": "Sete em cada dez",
-      "emphasis": "Sete em cada dez",
+      "text": "Quantas horas a fazer o mesmo?",
+      "emphasis": "a fazer o mesmo",
       "start_ms": 0,
-      "dur_ms": 1500,
+      "dur_ms": 3500
+    },
+    {
+      "text": "20h por mês a copy-paste",
+      "emphasis": "20h",
+      "start_ms": 3500,
+      "dur_ms": 3200,
       "graphic": {
-        "type": "percent",
-        "to": 70
+        "type": "count",
+        "to": 20,
+        "suffix": "horas/mês"
       }
     },
     {
-      "text": "vêem pelo telemóvel",
-      "emphasis": null,
-      "start_ms": 1500,
-      "dur_ms": 1780
+      "text": "Configuras uma vez. Esqueces.",
+      "emphasis": "Esqueces",
+      "start_ms": 6700,
+      "dur_ms": 3450
     },
     {
-      "text": "Não pelo computador",
-      "emphasis": null,
-      "start_ms": 3580,
-      "dur_ms": 960
+      "text": "Esse tempo, usa para vender",
+      "emphasis": "para vender",
+      "start_ms": 10150,
+      "dur_ms": 3350
     },
     {
-      "text": "Pelo telemóvel",
-      "emphasis": "Pelo telemóvel",
-      "start_ms": 4940,
-      "dur_ms": 1000
-    },
-    {
-      "text": "Se não está pensado",
-      "emphasis": null,
-      "start_ms": 6200,
-      "dur_ms": 920
-    },
-    {
-      "text": "para isso",
-      "emphasis": "perdes clientes",
-      "start_ms": 7120,
-      "dur_ms": 680
-    },
-    {
-      "text": "perdes a maior parte",
-      "emphasis": null,
-      "start_ms": 8080,
-      "dur_ms": 1460
-    },
-    {
-      "text": "Nem se dão",
-      "emphasis": null,
-      "start_ms": 9840,
-      "dur_ms": 420
-    },
-    {
-      "text": "ao trabalho",
-      "emphasis": "de tentar",
-      "start_ms": 10260,
-      "dur_ms": 440
-    },
-    {
-      "text": "de tentar",
-      "emphasis": null,
-      "start_ms": 10700,
-      "dur_ms": 640
-    },
-    {
-      "text": "Fazemos sites",
-      "emphasis": null,
-      "start_ms": 11660,
-      "dur_ms": 640
-    },
-    {
-      "text": "onde as pessoas estão",
-      "emphasis": "onde as pessoas estão",
-      "start_ms": 12496,
-      "dur_ms": 1613
-    },
-    {
-      "text": "PontoFinal.site",
+      "text": "Automatizamos contigo. PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 14480,
-      "dur_ms": 840
+      "start_ms": 13500,
+      "dur_ms": 3900
     }
   ]
 }

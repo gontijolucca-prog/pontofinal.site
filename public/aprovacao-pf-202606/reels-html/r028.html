@@ -25,7 +25,7 @@
     background-size: 44px 44px;
     overflow: hidden;
     transform-origin: center center;
-    animation: bg-drift 6s linear infinite;
+    animation: bg-drift 4s linear infinite;
   }
   @keyframes bg-drift {
     0%   { background-position: 0 0; }
@@ -51,7 +51,7 @@
   .progress::after {
     content: ""; position: absolute; left: 0; top: 0; bottom: 0;
     background: var(--accent); transform-origin: left center;
-    animation: progress 15.677s linear infinite;
+    animation: progress 17.400s linear infinite;
   }
   @keyframes progress {
     0% { transform: scaleX(0); } 100% { transform: scaleX(1); }
@@ -195,85 +195,38 @@
 
   @keyframes chunk0 {
               0% { opacity: 1; }
-              9.549% { opacity: 1; }
-              9.568%, 100% { opacity: 0; }
+              20.098% { opacity: 1; }
+              20.115%, 100% { opacity: 0; }
             }
 @keyframes chunk1 {
-              0%, 9.549% { opacity: 0; }
-              9.568% { opacity: 1; }
-              22.817% { opacity: 1; }
-              22.836%, 100% { opacity: 0; }
+              0%, 20.098% { opacity: 0; }
+              20.115% { opacity: 1; }
+              38.489% { opacity: 1; }
+              38.506%, 100% { opacity: 0; }
             }
 @keyframes chunk2 {
-              0%, 22.817% { opacity: 0; }
-              22.836% { opacity: 1; }
-              31.492% { opacity: 1; }
-              31.511%, 100% { opacity: 0; }
+              0%, 38.489% { opacity: 0; }
+              38.506% { opacity: 1; }
+              58.316% { opacity: 1; }
+              58.333%, 100% { opacity: 0; }
             }
 @keyframes chunk3 {
-              0%, 31.492% { opacity: 0; }
-              31.511% { opacity: 1; }
-              39.529% { opacity: 1; }
-              39.548%, 100% { opacity: 0; }
+              0%, 58.316% { opacity: 0; }
+              58.333% { opacity: 1; }
+              77.569% { opacity: 1; }
+              77.586%, 100% { opacity: 0; }
             }
 @keyframes chunk4 {
-              0%, 39.529% { opacity: 0; }
-              39.548% { opacity: 1; }
-              45.398% { opacity: 1; }
-              45.417%, 100% { opacity: 0; }
-            }
-@keyframes chunk5 {
-              0%, 45.398% { opacity: 0; }
-              45.417% { opacity: 1; }
-              51.521% { opacity: 1; }
-              51.540%, 100% { opacity: 0; }
-            }
-@keyframes chunk6 {
-              0%, 51.521% { opacity: 0; }
-              51.540% { opacity: 1; }
-              62.748% { opacity: 1; }
-              62.767%, 100% { opacity: 0; }
-            }
-@keyframes chunk7 {
-              0%, 62.748% { opacity: 0; }
-              62.767% { opacity: 1; }
-              65.427% { opacity: 1; }
-              65.446%, 100% { opacity: 0; }
-            }
-@keyframes chunk8 {
-              0%, 65.427% { opacity: 0; }
-              65.446% { opacity: 1; }
-              68.234% { opacity: 1; }
-              68.253%, 100% { opacity: 0; }
-            }
-@keyframes chunk9 {
-              0%, 68.234% { opacity: 0; }
-              68.253% { opacity: 1; }
-              74.357% { opacity: 1; }
-              74.376%, 100% { opacity: 0; }
-            }
-@keyframes chunk10 {
-              0%, 74.357% { opacity: 0; }
-              74.376% { opacity: 1; }
-              79.690% { opacity: 1; }
-              79.709%, 100% { opacity: 0; }
-            }
-@keyframes chunk11 {
-              0%, 79.690% { opacity: 0; }
-              79.709% { opacity: 1; }
-              92.345% { opacity: 1; }
-              92.365%, 100% { opacity: 0; }
-            }
-@keyframes chunk12 {
-              0%, 92.345% { opacity: 0; }
-              92.365% { opacity: 1; }
-              99.981% { opacity: 1; }
+              0%, 77.569% { opacity: 0; }
+              77.586% { opacity: 1; }
+              99.983% { opacity: 1; }
               100.000%, 100% { opacity: 0; }
             }
   @keyframes graphic0 {
-              0% { opacity: 1; }
-              14.990% { opacity: 1; }
-              15.947%, 100% { opacity: 0; }
+              0%, 20.098% { opacity: 0; }
+              20.115% { opacity: 1; }
+              33.621% { opacity: 1; }
+              34.483%, 100% { opacity: 0; }
             }
 </style>
 </head>
@@ -282,31 +235,24 @@
   <div class="progress"></div>
   <div class="brand">Pontofinal.site_</div>
   <div class="g-layer">
-  <div class="g-item" data-gidx="0" style="animation: graphic0 15.677s linear infinite;"><div class="g-counter g-counter--percent" data-to="70"><span class="g-counter__num">0</span><span class="g-counter__symbol">%</span></div></div>
+  <div class="g-item" data-gidx="0" style="animation: graphic0 17.400s linear infinite;"><div class="g-counter" data-to="20"><span class="g-counter__num">0</span><span class="g-counter__suffix">horas/mês</span></div></div>
   </div>
   <div class="stage">
-  <div class="chunk chunk--lower" data-idx="0" style="animation: chunk0 15.677s linear infinite;"><p class="chunk__text"><span class="hl">Sete em cada dez</span></p></div>
-  <div class="chunk chunk--lower" data-idx="1" style="animation: chunk1 15.677s linear infinite;"><p class="chunk__text">vêem pelo telemóvel</p></div>
-  <div class="chunk chunk--center" data-idx="2" style="animation: chunk2 15.677s linear infinite;"><p class="chunk__text">Não pelo computador</p></div>
-  <div class="chunk chunk--center" data-idx="3" style="animation: chunk3 15.677s linear infinite;"><p class="chunk__text"><span class="hl">Pelo telemóvel</span></p></div>
-  <div class="chunk chunk--center" data-idx="4" style="animation: chunk4 15.677s linear infinite;"><p class="chunk__text">Se não está pensado</p></div>
-  <div class="chunk chunk--center" data-idx="5" style="animation: chunk5 15.677s linear infinite;"><p class="chunk__text">para isso</p></div>
-  <div class="chunk chunk--center" data-idx="6" style="animation: chunk6 15.677s linear infinite;"><p class="chunk__text">perdes a maior parte</p></div>
-  <div class="chunk chunk--center" data-idx="7" style="animation: chunk7 15.677s linear infinite;"><p class="chunk__text">Nem se dão</p></div>
-  <div class="chunk chunk--center" data-idx="8" style="animation: chunk8 15.677s linear infinite;"><p class="chunk__text">ao trabalho</p></div>
-  <div class="chunk chunk--center" data-idx="9" style="animation: chunk9 15.677s linear infinite;"><p class="chunk__text">de tentar</p></div>
-  <div class="chunk chunk--center" data-idx="10" style="animation: chunk10 15.677s linear infinite;"><p class="chunk__text">Fazemos sites</p></div>
-  <div class="chunk chunk--center" data-idx="11" style="animation: chunk11 15.677s linear infinite;"><p class="chunk__text"><span class="hl">onde as pessoas estão</span></p></div>
-  <div class="chunk chunk--center" data-idx="12" style="animation: chunk12 15.677s linear infinite;"><p class="chunk__text"><span class="hl">PontoFinal.site</span></p></div>
+  <div class="chunk chunk--center" data-idx="0" style="animation: chunk0 17.400s linear infinite;"><p class="chunk__text">Quantas horas <span class="hl">a fazer o mesmo</span>?</p></div>
+  <div class="chunk chunk--lower" data-idx="1" style="animation: chunk1 17.400s linear infinite;"><p class="chunk__text"><span class="hl">20h</span> por mês a copy-paste</p></div>
+  <div class="chunk chunk--center" data-idx="2" style="animation: chunk2 17.400s linear infinite;"><p class="chunk__text">Configuras uma vez. <span class="hl">Esqueces</span>.</p></div>
+  <div class="chunk chunk--center" data-idx="3" style="animation: chunk3 17.400s linear infinite;"><p class="chunk__text">Esse tempo, usa <span class="hl">para vender</span></p></div>
+  <div class="chunk chunk--center" data-idx="4" style="animation: chunk4 17.400s linear infinite;"><p class="chunk__text">Automatizamos contigo. <span class="hl">PontoFinal.site</span></p></div>
   </div>
   <div class="footer-arrow">↓</div>
-  <audio id="narration" src="../audio/voices/r028.mp3" preload="auto"></audio>
   <audio id="beat" src="../audio/beat.mp3" loop preload="auto"></audio>
 </section>
 <script>
 (function () {
-  const TOTAL_MS = 15677;
-  const COUNTERS = [{"g_idx": 0, "to": 70, "start": 0, "end": 2500}];
+  const TOTAL_MS = 17400;
+  const COUNTERS = [{"g_idx": 0, "to": 20, "start": 3500, "end": 6000}];
+  const CHUNK_STARTS = [0, 3500, 6700, 10150, 13500];
+  const NOTIF_URL = '../audio/notif.mp3';
 
   const r = document.querySelector('.reel');
   function fit() {
@@ -349,19 +295,52 @@
     if (fill) fill.style.setProperty('--target', t + '%');
   });
 
-  // Counter rAF — slower ramp (1.2s) within the graphic's extended window
-  const audio = document.getElementById('narration');
+  // Web Audio: load notification SFX once, replay per chunk entrance (allows overlap)
+  const AC = window.AudioContext || window.webkitAudioContext;
+  const audioCtx = AC ? new AC() : null;
+  let notifBuf = null;
+  if (audioCtx) {
+    fetch(NOTIF_URL).then(r => r.arrayBuffer())
+      .then(b => audioCtx.decodeAudioData(b))
+      .then(buf => { notifBuf = buf; })
+      .catch(() => {});
+  }
+  function playNotif() {
+    // Gate on state — without this, all suspended-queue starts fire at once when context resumes
+    if (!audioCtx || !notifBuf || audioCtx.state !== 'running') return;
+    const src = audioCtx.createBufferSource();
+    src.buffer = notifBuf;
+    const gain = audioCtx.createGain();
+    gain.gain.value = 0.55;
+    src.connect(gain).connect(audioCtx.destination);
+    try { src.start(); } catch (e) {}
+  }
+
   const beat = document.getElementById('beat');
   const t0 = performance.now();
-  function getT() {
-    if (audio && !audio.paused && !audio.muted && audio.currentTime > 0) {
-      return (audio.currentTime * 1000) % TOTAL_MS;
-    }
-    return (performance.now() - t0) % TOTAL_MS;
-  }
+  function getT() { return (performance.now() - t0) % TOTAL_MS; }
+
   const graphicEls = document.querySelectorAll('.g-item');
+  let lastChunkPlayed = -1;
+  let lastLoop = -1;
   function tick() {
-    const t = getT();
+    const elapsed = performance.now() - t0;
+    const loopIdx = Math.floor(elapsed / TOTAL_MS);
+    const t = elapsed % TOTAL_MS;
+
+    if (loopIdx !== lastLoop) {
+      lastChunkPlayed = -1;
+      lastLoop = loopIdx;
+    }
+    let cur = -1;
+    for (let i = 0; i < CHUNK_STARTS.length; i++) {
+      if (CHUNK_STARTS[i] <= t) cur = i; else break;
+    }
+    if (cur > lastChunkPlayed) {
+      playNotif();
+      lastChunkPlayed = cur;
+    }
+
     for (const cm of COUNTERS) {
       const el = graphicEls[cm.g_idx];
       if (!el) continue;
@@ -369,11 +348,11 @@
       if (!numEl) continue;
       const window_ms = cm.end - cm.start;
       const rampMs = Math.min(window_ms * 0.45, 1200);
-      const elapsed = t - cm.start;
+      const elapsedT = t - cm.start;
       let p = 0;
-      if (elapsed >= 0 && elapsed < window_ms) {
-        p = Math.min(1, elapsed / Math.max(rampMs, 300));
-      } else if (elapsed >= window_ms) {
+      if (elapsedT >= 0 && elapsedT < window_ms) {
+        p = Math.min(1, elapsedT / Math.max(rampMs, 300));
+      } else if (elapsedT >= window_ms) {
         p = 1;
       }
       numEl.textContent = Math.round(p * cm.to);
@@ -382,20 +361,20 @@
   }
   requestAnimationFrame(tick);
 
-  // Narration + beat
+  // Audio gate (browsers require user gesture to start AudioContext)
   const wantAudio = new URLSearchParams(location.search).get('audio') === '1';
-  if (audio) audio.loop = true;
   if (beat) beat.loop = true;
+  function unlock() {
+    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+    if (beat) { beat.muted = false; beat.volume = 0.15; beat.play().catch(() => {}); }
+  }
   if (wantAudio) {
-    if (audio) { audio.muted = false; audio.volume = 1.0; audio.play().catch(() => {}); }
-    if (beat)  { beat.muted  = false; beat.volume  = 0.15; beat.play().catch(() => {}); }
-    ['click','touchstart'].forEach(e => addEventListener(e, () => {
-      if (audio) audio.play().catch(() => {});
-      if (beat)  beat.play().catch(() => {});
-    }, {once: true}));
+    unlock();
+    ['click','touchstart','keydown'].forEach(e => addEventListener(e, unlock, {once: true}));
   } else {
-    if (audio) audio.muted = true;
-    if (beat)  beat.muted  = true;
+    if (beat) beat.muted = true;
+    // Even when muted overall, allow click to enable audio mid-preview
+    ['click','touchstart'].forEach(e => addEventListener(e, unlock, {once: true}));
   }
 })();
 </script>

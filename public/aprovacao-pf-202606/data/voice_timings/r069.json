@@ -1,91 +1,39 @@
 {
-  "total_ms": 15759,
+  "total_ms": 18250,
   "chunks": [
     {
-      "text": "Antes de leres uma palavra",
-      "emphasis": null,
+      "text": "Clínica sem marcação online",
+      "emphasis": "sem marcação",
       "start_ms": 0,
-      "dur_ms": 1840
+      "dur_ms": 3350
     },
     {
-      "text": "já decidiram",
-      "emphasis": "se confiam",
-      "start_ms": 2100,
-      "dur_ms": 540
+      "text": "Recepcionista ao telefone o dia inteiro",
+      "emphasis": "o dia inteiro",
+      "start_ms": 3350,
+      "dur_ms": 3950
     },
     {
-      "text": "se confiam",
-      "emphasis": null,
-      "start_ms": 2640,
-      "dur_ms": 920
+      "text": "Adicionámos agendamento. 2 meses.",
+      "emphasis": "2 meses",
+      "start_ms": 7300,
+      "dur_ms": 3650
     },
     {
-      "text": "Só pelo design",
-      "emphasis": "Só pelo design",
-      "start_ms": 3860,
-      "dur_ms": 720,
+      "text": "+40% consultas. Sem telefonemas.",
+      "emphasis": "+40%",
+      "start_ms": 10950,
+      "dur_ms": 3600,
       "graphic": {
         "type": "percent",
-        "to": 94
+        "to": 40
       }
     },
     {
-      "text": "Noventa e quatro por cento",
-      "emphasis": "94%",
-      "start_ms": 5100,
-      "dur_ms": 1860,
-      "graphic": {
-        "type": "percent",
-        "to": 94
-      }
-    },
-    {
-      "text": "é visual",
-      "emphasis": null,
-      "start_ms": 6960,
-      "dur_ms": 1260
-    },
-    {
-      "text": "Site antigo",
-      "emphasis": null,
-      "start_ms": 8580,
-      "dur_ms": 740
-    },
-    {
-      "text": "= empresa antiga",
-      "emphasis": "empresa antiga",
-      "start_ms": 9320,
-      "dur_ms": 1280
-    },
-    {
-      "text": "Mesmo que sejas",
-      "emphasis": "o melhor",
-      "start_ms": 10980,
-      "dur_ms": 940
-    },
-    {
-      "text": "o melhor",
-      "emphasis": null,
-      "start_ms": 11920,
-      "dur_ms": 500
-    },
-    {
-      "text": "Redesenhamos o teu site",
-      "emphasis": null,
-      "start_ms": 12880,
-      "dur_ms": 880
-    },
-    {
-      "text": "contigo",
-      "emphasis": "contigo",
-      "start_ms": 13760,
-      "dur_ms": 480
-    },
-    {
-      "text": "PontoFinal.site",
+      "text": "Pomos no teu site. PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 14420,
-      "dur_ms": 1040
+      "start_ms": 14550,
+      "dur_ms": 3700
     }
   ]
 }

@@ -1,106 +1,43 @@
 {
-  "total_ms": 17083,
+  "total_ms": 17200,
   "chunks": [
     {
-      "text": "Cada euro em email",
-      "emphasis": null,
+      "text": "Email morreu? Mentira.",
+      "emphasis": "Mentira",
       "start_ms": 0,
-      "dur_ms": 1020
+      "dur_ms": 3100
     },
     {
-      "text": "traz trinta e seis",
-      "emphasis": "trinta e seis",
-      "start_ms": 1020,
-      "dur_ms": 1640,
+      "text": "Por cada €1, devolve €36",
+      "emphasis": "€36",
+      "start_ms": 3100,
+      "dur_ms": 3200,
       "graphic": {
         "type": "euro",
         "to": 36
       }
     },
     {
-      "text": "de volta",
-      "emphasis": null,
-      "start_ms": 2660,
-      "dur_ms": 780
-    },
-    {
-      "text": "Trinta e seis euros",
-      "emphasis": "Trinta e seis",
-      "start_ms": 3720,
-      "dur_ms": 1180
-    },
-    {
-      "text": "É o canal",
-      "emphasis": null,
-      "start_ms": 5140,
-      "dur_ms": 760,
+      "text": "Instagram? Nem €5.",
+      "emphasis": "€5",
+      "start_ms": 6300,
+      "dur_ms": 2900,
       "graphic": {
-        "type": "bars",
-        "items": [
-          {
-            "label": "Email",
-            "value": 36
-          },
-          {
-            "label": "Insta",
-            "value": 5
-          }
-        ]
+        "type": "euro",
+        "to": 5
       }
     },
     {
-      "text": "com mais retorno",
-      "emphasis": "mais retorno",
-      "start_ms": 5900,
-      "dur_ms": 1300
+      "text": "O Instagram não é teu. A tua lista, sim.",
+      "emphasis": "A tua lista, sim",
+      "start_ms": 9200,
+      "dur_ms": 4000
     },
     {
-      "text": "E quase ninguém",
-      "emphasis": null,
-      "start_ms": 7620,
-      "dur_ms": 580
-    },
-    {
-      "text": "em Portugal",
-      "emphasis": "ninguém",
-      "start_ms": 8200,
-      "dur_ms": 420
-    },
-    {
-      "text": "faz isto bem",
-      "emphasis": null,
-      "start_ms": 8620,
-      "dur_ms": 940
-    },
-    {
-      "text": "A lista de emails",
-      "emphasis": "é tua",
-      "start_ms": 9980,
-      "dur_ms": 840
-    },
-    {
-      "text": "é tua para sempre",
-      "emphasis": null,
-      "start_ms": 10820,
-      "dur_ms": 1140
-    },
-    {
-      "text": "Construímos a tua lista",
-      "emphasis": null,
-      "start_ms": 12380,
-      "dur_ms": 1200
-    },
-    {
-      "text": "tratamos das campanhas",
-      "emphasis": null,
-      "start_ms": 13580,
-      "dur_ms": 1760
-    },
-    {
-      "text": "PontoFinal.site",
+      "text": "Construímos a tua lista. PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 15840,
-      "dur_ms": 940
+      "start_ms": 13200,
+      "dur_ms": 4000
     }
   ]
 }
