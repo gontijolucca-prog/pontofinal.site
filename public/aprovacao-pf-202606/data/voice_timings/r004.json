@@ -1,11 +1,11 @@
 {
-  "total_ms": 17581,
+  "total_ms": 17268,
   "chunks": [
     {
       "text": "Trinta e seis para um",
       "emphasis": "Trinta e seis para um",
       "start_ms": 0,
-      "dur_ms": 1509,
+      "dur_ms": 1360,
       "graphic": {
         "type": "euro",
         "to": 36
@@ -14,26 +14,26 @@
     {
       "text": "ROI médio do email marketing",
       "emphasis": null,
-      "start_ms": 1649,
-      "dur_ms": 2125
+      "start_ms": 1680,
+      "dur_ms": 1300
     },
     {
       "text": "segundo a DMA",
       "emphasis": "DMA",
-      "start_ms": 3774,
-      "dur_ms": 986
+      "start_ms": 2980,
+      "dur_ms": 1620
     },
     {
       "text": "Paid social?",
       "emphasis": null,
-      "start_ms": 4900,
-      "dur_ms": 1040
+      "start_ms": 4880,
+      "dur_ms": 1300
     },
     {
       "text": "Entre dois e cinco",
       "emphasis": "dois a cinco",
-      "start_ms": 5940,
-      "dur_ms": 1560,
+      "start_ms": 5801,
+      "dur_ms": 1561,
       "graphic": {
         "type": "bars",
         "items": [
@@ -51,44 +51,44 @@
     {
       "text": "Ao contrário do Instagram",
       "emphasis": null,
-      "start_ms": 7641,
-      "dur_ms": 1679
+      "start_ms": 7680,
+      "dur_ms": 700
     },
     {
       "text": "a tua lista é tua",
       "emphasis": "é tua",
-      "start_ms": 9320,
-      "dur_ms": 1142
+      "start_ms": 8380,
+      "dur_ms": 1900
     },
     {
       "text": "Não depende de algoritmos",
       "emphasis": null,
-      "start_ms": 10602,
-      "dur_ms": 1432
+      "start_ms": 10820,
+      "dur_ms": 780
     },
     {
       "text": "nem mudanças de regras",
       "emphasis": null,
-      "start_ms": 12034,
-      "dur_ms": 1261
+      "start_ms": 11600,
+      "dur_ms": 1420
     },
     {
       "text": "Construímos lista",
       "emphasis": null,
-      "start_ms": 13436,
-      "dur_ms": 1046
+      "start_ms": 13420,
+      "dur_ms": 600
     },
     {
       "text": "e automações que vendem",
       "emphasis": "que vendem",
-      "start_ms": 14482,
-      "dur_ms": 1415
+      "start_ms": 14020,
+      "dur_ms": 1700
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 16037,
-      "dur_ms": 1544
+      "start_ms": 15960,
+      "dur_ms": 960
     }
   ]
 }

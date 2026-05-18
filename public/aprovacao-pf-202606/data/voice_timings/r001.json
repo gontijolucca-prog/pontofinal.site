@@ -1,11 +1,11 @@
 {
-  "total_ms": 14550,
+  "total_ms": 14539,
   "chunks": [
     {
       "text": "Três segundos",
       "emphasis": "Três segundos",
       "start_ms": 0,
-      "dur_ms": 762,
+      "dur_ms": 480,
       "graphic": {
         "type": "count",
         "to": 3,
@@ -15,44 +15,44 @@
     {
       "text": "para mostrar o que importa",
       "emphasis": null,
-      "start_ms": 762,
-      "dur_ms": 1525
+      "start_ms": 480,
+      "dur_ms": 1600
     },
     {
       "text": "Acima da dobra:",
       "emphasis": null,
-      "start_ms": 2427,
-      "dur_ms": 1893
+      "start_ms": 2580,
+      "dur_ms": 1660
     },
     {
       "text": "valor, prova social, CTA",
       "emphasis": "valor, prova, CTA",
-      "start_ms": 4320,
-      "dur_ms": 3029
+      "start_ms": 4240,
+      "dur_ms": 2800
     },
     {
       "text": "Se não está claro",
       "emphasis": null,
-      "start_ms": 7490,
-      "dur_ms": 1434
+      "start_ms": 7420,
+      "dur_ms": 1580
     },
     {
       "text": "tráfego pago é dinheiro queimado",
       "emphasis": "dinheiro queimado",
-      "start_ms": 8924,
-      "dur_ms": 2699
+      "start_ms": 9560,
+      "dur_ms": 1980
     },
     {
       "text": "Auditamos a tua dobra",
       "emphasis": "Auditamos",
-      "start_ms": 11763,
-      "dur_ms": 1137
+      "start_ms": 11720,
+      "dur_ms": 1220
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 13041,
-      "dur_ms": 1509
+      "start_ms": 13140,
+      "dur_ms": 1020
     }
   ]
 }

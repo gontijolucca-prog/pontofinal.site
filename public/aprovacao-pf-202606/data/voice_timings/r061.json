@@ -1,17 +1,17 @@
 {
-  "total_ms": 15782,
+  "total_ms": 15561,
   "chunks": [
     {
       "text": "Cada segundo extra",
       "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 1165
+      "dur_ms": 720
     },
     {
       "text": "derruba sete por cento",
       "emphasis": "sete por cento",
-      "start_ms": 1165,
-      "dur_ms": 1423,
+      "start_ms": 720,
+      "dur_ms": 1020,
       "graphic": {
         "type": "percent",
         "to": 7
@@ -20,14 +20,14 @@
     {
       "text": "das conversões",
       "emphasis": null,
-      "start_ms": 2588,
-      "dur_ms": 906
+      "start_ms": 1740,
+      "dur_ms": 1500
     },
     {
       "text": "Estudo da Akamai",
       "emphasis": "Akamai",
-      "start_ms": 3635,
-      "dur_ms": 1126,
+      "start_ms": 3640,
+      "dur_ms": 1120,
       "graphic": {
         "type": "stamp",
         "text": "AKAMAI"
@@ -36,14 +36,14 @@
     {
       "text": "Mais de três segundos",
       "emphasis": null,
-      "start_ms": 4901,
-      "dur_ms": 1595
+      "start_ms": 5000,
+      "dur_ms": 1780
     },
     {
       "text": "perdeste metade",
       "emphasis": "metade do tráfego",
-      "start_ms": 6496,
-      "dur_ms": 1139,
+      "start_ms": 6780,
+      "dur_ms": 680,
       "graphic": {
         "type": "percent",
         "to": 53
@@ -52,38 +52,38 @@
     {
       "text": "do tráfego",
       "emphasis": null,
-      "start_ms": 7635,
-      "dur_ms": 760
+      "start_ms": 7460,
+      "dur_ms": 1020
     },
     {
       "text": "Google usa isto",
       "emphasis": null,
-      "start_ms": 8536,
-      "dur_ms": 828
+      "start_ms": 8680,
+      "dur_ms": 320
     },
     {
       "text": "como factor de ranking",
       "emphasis": "factor de ranking",
-      "start_ms": 9364,
-      "dur_ms": 1215
+      "start_ms": 9000,
+      "dur_ms": 1420
     },
     {
       "text": "Optimizamos imagens",
       "emphasis": null,
-      "start_ms": 10719,
-      "dur_ms": 1400
+      "start_ms": 10919,
+      "dur_ms": 1461
     },
     {
       "text": "carregamento crítico, cache",
       "emphasis": null,
-      "start_ms": 12119,
-      "dur_ms": 1990
+      "start_ms": 12380,
+      "dur_ms": 1520
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 14249,
-      "dur_ms": 1532
+      "start_ms": 14300,
+      "dur_ms": 720
     }
   ]
 }

@@ -1,35 +1,35 @@
 {
-  "total_ms": 18209,
+  "total_ms": 17966,
   "chunks": [
     {
       "text": "A maioria das marcas",
       "emphasis": null,
       "start_ms": 0,
-      "dur_ms": 1550
+      "dur_ms": 1940
     },
     {
       "text": "deliberadamente vaga",
       "emphasis": "deliberadamente vaga",
-      "start_ms": 1550,
-      "dur_ms": 1549
+      "start_ms": 1940,
+      "dur_ms": 1260
     },
     {
       "text": "Acham que mistério",
       "emphasis": null,
-      "start_ms": 3240,
-      "dur_ms": 1117
+      "start_ms": 3580,
+      "dur_ms": 660
     },
     {
       "text": "soa premium",
       "emphasis": "soa premium",
-      "start_ms": 4357,
-      "dur_ms": 682
+      "start_ms": 4240,
+      "dur_ms": 680
     },
     {
       "text": "Soa a",
       "emphasis": "falta de coragem",
-      "start_ms": 5180,
-      "dur_ms": 356,
+      "start_ms": 5420,
+      "dur_ms": 240,
       "graphic": {
         "type": "stamp",
         "text": "FALTA DE CORAGEM"
@@ -38,56 +38,56 @@
     {
       "text": "falta de coragem",
       "emphasis": null,
-      "start_ms": 5536,
-      "dur_ms": 1141
+      "start_ms": 5660,
+      "dur_ms": 1160
     },
     {
       "text": "Quem tem confiança",
       "emphasis": null,
-      "start_ms": 6818,
-      "dur_ms": 1672
+      "start_ms": 7120,
+      "dur_ms": 1040
     },
     {
       "text": "diz claramente:",
       "emphasis": "diz claramente",
-      "start_ms": 8490,
-      "dur_ms": 1393
+      "start_ms": 8160,
+      "dur_ms": 1700
     },
     {
       "text": "Em quem trabalha",
       "emphasis": null,
-      "start_ms": 10023,
-      "dur_ms": 1203
+      "start_ms": 10120,
+      "dur_ms": 1360
     },
     {
       "text": "para quem",
       "emphasis": null,
-      "start_ms": 11226,
-      "dur_ms": 677
+      "start_ms": 11480,
+      "dur_ms": 840
     },
     {
       "text": "o resultado que entrega",
       "emphasis": "que entrega",
-      "start_ms": 11903,
-      "dur_ms": 1730
+      "start_ms": 12320,
+      "dur_ms": 1400
     },
     {
       "text": "Posicionamos a marca",
       "emphasis": null,
-      "start_ms": 13774,
-      "dur_ms": 1331
+      "start_ms": 13900,
+      "dur_ms": 1040
     },
     {
       "text": "para não ser ignorada",
       "emphasis": "não ser ignorada",
-      "start_ms": 15105,
-      "dur_ms": 1397
+      "start_ms": 15089,
+      "dur_ms": 1332
     },
     {
       "text": "PontoFinal.site",
       "emphasis": "PontoFinal.site",
-      "start_ms": 16642,
-      "dur_ms": 1567
+      "start_ms": 16760,
+      "dur_ms": 840
     }
   ]
 }
