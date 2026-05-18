@@ -22,7 +22,10 @@ export const DASHBOARD_URL = "../dashboard-luiz-202605/";
 //   - aprovacao-luiz-202605: ["luiz_santana"]
 export const BRANDS_FILTER = ["luiz_santana"];
 
-// Login por email removido temporariamente — o magic-link estava a bloquear
-// admins. Em vez disso usamos localStorage como backend de aprovações (cada
-// device tem o seu estado). Quando voltarmos a activar auth, mudar para true.
+// Persistência no Supabase SEM login — usa anon key directo. RLS está aberta
+// para anon (politicas anon_read/anon_insert/anon_update). Aprovações e notas
+// persistem cross-device e sobrevivem a refreshes.
+export const USE_SUPABASE = true;
+// Login por email continua removido (magic-link bloqueava admins). Mantido false
+// para retro-compatibilidade de código que ainda lê AUTH_ENABLED.
 export const AUTH_ENABLED = false;

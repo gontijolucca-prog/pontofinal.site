@@ -2,7 +2,7 @@
 
 import { loadItems } from "./data-loader.js";
 import { approvalStore, init as initApprovalStore } from "./stores/approval-store.js";
-import { supabase, AUTH_ENABLED, initSupabase } from "./lib/supabase-client.js";
+import { supabase, AUTH_ENABLED, USE_SUPABASE, initSupabase } from "./lib/supabase-client.js";
 import { monthShortLabel } from "./components/month-switcher.js";
 import { DASHBOARD_URL } from "./config.js";
 
@@ -437,12 +437,17 @@ function manageLoader() {
 }
 
 async function ensureAuthenticated() {
-  if (!AUTH_ENABLED) return null; // modo dev: salta auth, usa localStorage
+  // USE_SUPABASE mode: init Supabase (anon), skip auth modal completely.
+  if (USE_SUPABASE && !AUTH_ENABLED) {
+    await initSupabase();
+    return null;
+  }
+  if (!AUTH_ENABLED) return null;
   const authModal = document.getElementById("authModal");
   const userMenu  = document.getElementById("userMenu");
 
   const client = await initSupabase();
-  if (!client) return null; // CDN falhou — fallback localStorage
+  if (!client) return null;
   const { data: { session } } = await client.auth.getSession();
   if (session) {
     userMenu.setSession(session);

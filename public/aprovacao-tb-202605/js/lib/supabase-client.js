@@ -11,7 +11,7 @@
 // 'cm-auth-storage'. Quem alterna a preferência tem de fazê-lo ANTES do
 // signInWithOtp para a sessão (escrita após o magic-link) cair no sítio certo.
 
-import { SUPABASE_URL, SUPABASE_ANON_KEY, AUTH_ENABLED } from "../config.js";
+import { SUPABASE_URL, SUPABASE_ANON_KEY, AUTH_ENABLED, USE_SUPABASE } from "../config.js";
 
 const STORAGE_PREF_KEY = "cm-auth-storage";
 
@@ -44,7 +44,7 @@ const CDN_URLS = [
 ];
 
 export function initSupabase() {
-  if (!AUTH_ENABLED) return Promise.resolve(null);
+  if (!USE_SUPABASE && !AUTH_ENABLED) return Promise.resolve(null);
   if (_initPromise) return _initPromise;
   _initPromise = (async () => {
     let lastErr;
@@ -71,4 +71,4 @@ export function initSupabase() {
   return _initPromise;
 }
 
-export { AUTH_ENABLED };
+export { AUTH_ENABLED, USE_SUPABASE };

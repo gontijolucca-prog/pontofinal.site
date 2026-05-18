@@ -78,22 +78,25 @@ class ItemViewer extends HTMLElement {
     const wrap = this.querySelector(".viewer-history");
     if (!wrap) return;
     const rows = this._history || [];
+    const counter = this.querySelector("[data-notes-count]");
+    const noteRows = rows.filter(r => r.note);
+    if (counter) counter.textContent = noteRows.length > 0 ? `(${noteRows.length})` : "";
+
     if (!rows.length) {
-      wrap.innerHTML = `<p class="viewer-history__empty">Sem histórico ainda.</p>`;
+      wrap.innerHTML = `<p class="viewer-history__empty">Ainda não há anotações guardadas. Escreve uma em baixo e carrega "Guardar anotação".</p>`;
       return;
     }
     const fmt = (iso) => {
       const d = new Date(iso);
       return d.toLocaleString("pt-PT", { dateStyle: "short", timeStyle: "short" });
     };
-    const statusLabel = { approved: "Aprovado", rejected: "Rejeitado", pending: "Pendente", deleted: "Apagado" };
+    const statusLabel = { approved: "Aprovado", rejected: "Rejeitado", pending: "Anotação", deleted: "Apagado" };
+    // Ordem cronológica: mais recente primeiro
     wrap.innerHTML = rows.map(r => `
       <div class="viewer-history__row viewer-history__row--${r.status}">
         <span class="viewer-history__status">${statusLabel[r.status] || r.status}</span>
-        <span class="viewer-history__meta">
-          ${this._escapeForHtml(r.changed_by_email || "—")} · ${fmt(r.changed_at)}
-        </span>
-        ${r.note ? `<p class="viewer-history__note">"${this._escapeForHtml(r.note)}"</p>` : ""}
+        <span class="viewer-history__meta">${fmt(r.changed_at)}</span>
+        ${r.note ? `<p class="viewer-history__note">${this._escapeForHtml(r.note)}</p>` : ""}
       </div>
     `).join("");
   }
@@ -218,8 +221,11 @@ class ItemViewer extends HTMLElement {
               </div>
             </details>
             ` : ""}
-            <details class="viewer-section">
-              <summary>Histórico de aprovação</summary>
+            <details class="viewer-section" data-notes-section open>
+              <summary>
+                Anotações e histórico
+                <span class="viewer-section__counter" data-notes-count></span>
+              </summary>
               <div class="viewer-history" data-history>
                 <p class="viewer-history__empty">A carregar…</p>
               </div>
@@ -251,11 +257,18 @@ class ItemViewer extends HTMLElement {
         approvalStore.saveNote(this._item.id, note);
         const fb = this.querySelector("[data-feedback]");
         if (fb) {
-          fb.textContent = "✓ Guardado";
+          fb.textContent = "✓ Anotação guardada";
           fb.classList.add("is-visible");
-          setTimeout(() => { fb.classList.remove("is-visible"); fb.textContent = ""; }, 1800);
+          setTimeout(() => { fb.classList.remove("is-visible"); fb.textContent = ""; }, 2200);
         }
-        this._loadHistory();
+        // Limpar a textarea após guardar para deixar espaço para outra
+        const ta = this.querySelector("textarea[data-note]");
+        if (ta) ta.value = "";
+        // Recarregar histórico (após delay para o INSERT do trigger propagar)
+        setTimeout(() => this._loadHistory(), 600);
+        // Garantir que o painel das anotações está aberto
+        const notesPanel = this.querySelector('details[data-notes-section]');
+        if (notesPanel && !notesPanel.open) notesPanel.open = true;
         return;
       }
       if (action === "approve" || action === "reject") {

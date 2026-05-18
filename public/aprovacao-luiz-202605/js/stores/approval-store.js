@@ -13,7 +13,7 @@
 // fallback automático para localStorage — útil em dev e enquanto o setup
 // remoto ainda não está pronto. Schema do localStorage continua compatível.
 
-import { supabase, AUTH_ENABLED } from "../lib/supabase-client.js";
+import { supabase, AUTH_ENABLED, USE_SUPABASE, initSupabase } from "../lib/supabase-client.js";
 import { NAMESPACE } from "../config.js";
 
 // ─── Cache em memória ────────────────────────────────────────────────────
@@ -121,7 +121,7 @@ let _initPromise = null;
 
 export function init() {
   if (_initPromise) return _initPromise;
-  if (AUTH_ENABLED && supabase) {
+  if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
     _initPromise = (async () => {
       await migrateLocalStorageIfNeeded();
       await loadFromSupabase();
@@ -147,7 +147,7 @@ export const approvalStore = {
     cache[id] = { status, note, updatedAt };
     emit();
 
-    if (AUTH_ENABLED && supabase) {
+    if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       const userId = (await supabase.auth.getUser())?.data?.user?.id || null;
       const row = { namespace: NAMESPACE, item_id: id, status, note, updated_at: updatedAt };
       if (userId) row.updated_by = userId;
@@ -169,7 +169,7 @@ export const approvalStore = {
     const updatedAt = new Date().toISOString();
     cache[id] = { status: current.status, note, updatedAt };
     emit();
-    if (AUTH_ENABLED && supabase) {
+    if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       const userId = (await supabase.auth.getUser())?.data?.user?.id || null;
       const row = { namespace: NAMESPACE, item_id: id, status: current.status, note, updated_at: updatedAt };
       if (userId) row.updated_by = userId;
@@ -215,7 +215,7 @@ export const approvalStore = {
     cache[key] = { status, note, updatedAt };
     emit();
 
-    if (AUTH_ENABLED && supabase) {
+    if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       const userId = (await supabase.auth.getUser())?.data?.user?.id || null;
       const row = { namespace: NAMESPACE, item_id: key, status, note, updated_at: updatedAt };
       if (userId) row.updated_by = userId;
@@ -237,7 +237,7 @@ export const approvalStore = {
     if (typeof data !== "object" || Array.isArray(data)) throw new Error("Invalid format");
     cache = data;
     emit();
-    if (AUTH_ENABLED && supabase) {
+    if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       const rows = Object.keys(data).map(id => ({
         namespace: NAMESPACE,
         item_id: id,
@@ -257,7 +257,7 @@ export const approvalStore = {
   async reset() {
     cache = {};
     emit();
-    if (AUTH_ENABLED && supabase) {
+    if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       const { error } = await supabase.from("approvals").delete().eq("namespace", NAMESPACE);
       if (error) console.error("[approval-store] reset error:", error);
     } else {
