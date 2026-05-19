@@ -850,7 +850,39 @@
   letter-spacing: 0.02em;
 }
 .viewer-author strong { font-weight: 800; }
-.status-stamp { cursor: help; }
+
+/* Status stamp tooltip — mostra "Aprovado por <nome>" em hover/tap.
+   Usa data-author (não title) para evitar o tooltip nativo lento do browser. */
+.status-stamp[data-author] {
+  cursor: help;
+  position: absolute;
+}
+.status-stamp[data-author]::after {
+  content: attr(data-author);
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--text);
+  color: var(--bg);
+  padding: 6px 10px;
+  font: 700 11px/1.2 var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.04em;
+  text-transform: none;
+  white-space: nowrap;
+  border: 2px solid var(--border);
+  box-shadow: 4px 4px 0 0 var(--border);
+  transform: rotate(0) translateY(-4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease, transform 120ms ease;
+  z-index: 10;
+}
+.status-stamp[data-author]:hover::after,
+.status-stamp[data-author]:focus::after,
+.status-stamp[data-author].is-tapped::after {
+  opacity: 1;
+  transform: rotate(0) translateY(0);
+}
 .viewer-brand {
   background: var(--text); color: var(--bg);
   padding: 4px 10px;

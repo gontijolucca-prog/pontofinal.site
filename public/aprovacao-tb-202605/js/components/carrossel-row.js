@@ -32,17 +32,26 @@ class CarrosselRow extends HTMLElement {
     }
     article.setAttribute("data-status", state.status);
     const label = state.status === "approved" ? "Aprovado" : "Rejeitado";
-    const tooltip = state.author ? `${label} por ${state.author}` : label;
-    if (stamp) {
-      stamp.textContent = label;
-      stamp.className = `status-stamp status-stamp--${state.status}`;
-      stamp.title = tooltip;
-    } else {
+    const tooltipText = state.author ? `${label} por ${state.author}` : "";
+    if (!stamp) {
       stamp = document.createElement("span");
-      stamp.className = `status-stamp status-stamp--${state.status}`;
-      stamp.textContent = label;
-      stamp.title = tooltip;
       article.prepend(stamp);
+      stamp.addEventListener("click", (e) => {
+        e.stopPropagation();
+        stamp.classList.toggle("is-tapped");
+        setTimeout(() => stamp.classList.remove("is-tapped"), 2400);
+      });
+    }
+    stamp.textContent = label;
+    stamp.className = `status-stamp status-stamp--${state.status}`;
+    if (tooltipText) {
+      stamp.setAttribute("data-author", tooltipText);
+      stamp.setAttribute("aria-label", tooltipText);
+      stamp.setAttribute("tabindex", "0");
+    } else {
+      stamp.removeAttribute("data-author");
+      stamp.removeAttribute("aria-label");
+      stamp.removeAttribute("tabindex");
     }
   }
 
