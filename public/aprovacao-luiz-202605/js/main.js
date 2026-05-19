@@ -40,6 +40,40 @@ function sortBySchedule(a, b) {
   return (a.scheduled_for || "").localeCompare(b.scheduled_for || "");
 }
 
+// Lê overrides de data do Supabase (via approvalStore) e aplica em
+// state.items. Garante que reagendamentos manuais persistem cross-device.
+function applyDateOverrides() {
+  const overrides = approvalStore.getAllDateOverrides?.() || {};
+  let mutated = false;
+  for (const it of state.items) {
+    const ov = overrides[it.id]?.date;
+    if (!ov) continue;
+    if (it.scheduled_for !== ov) {
+      it.scheduled_for = ov;
+      mutated = true;
+    }
+    if (ov.length >= 7 && it.month !== ov.slice(0, 7)) {
+      it.month = ov.slice(0, 7);
+      mutated = true;
+    }
+  }
+  return mutated;
+}
+
+function applyHourOverrides() {
+  const overrides = approvalStore.getAllHourOverrides?.() || {};
+  let mutated = false;
+  for (const it of state.items) {
+    const ov = overrides[it.id]?.hour;
+    if (!ov) continue;
+    if (it.hour !== ov) {
+      it.hour = ov;
+      mutated = true;
+    }
+  }
+  return mutated;
+}
+
 function visibleItems() {
   return state.items.filter(i => {
     if (inferMonth(i) !== state.currentMonth) return false;
@@ -460,11 +494,45 @@ async function init() {
 
   state.items = await itemsP;
   await supabaseP;
+  applyDateOverrides();
+  applyHourOverrides();
   bindOpen();
   window.addEventListener("approval:changed", () => {
     updateCounts();
-    // Re-render calendar para actualizar os badges. Galerias mantêm-se.
-    els.calendar()?.render?.();
+    // Por defeito só o calendário precisa de re-renderizar (chips de status).
+    // Se chegou um reagendamento de outro device, aplica e faz render completo
+    // para mover chips + actualizar labels das tiles.
+    const dateMutated = applyDateOverrides();
+    const hourMutated = applyHourOverrides();
+    if (dateMutated || hourMutated) {
+      render();
+    } else {
+      els.calendar()?.render?.();
+    }
+  });
+
+  // Reagendamento manual via item-viewer: muta state.items e re-renderiza
+  // tudo (galerias incluídas) para que o chip do calendário e a label da
+  // tile mostrem a nova data imediatamente.
+  document.addEventListener("item:date-changed", (e) => {
+    const { id, date } = e.detail || {};
+    if (!id || !date) return;
+    const it = state.items.find(i => i.id === id);
+    if (!it) return;
+    it.scheduled_for = date;
+    // inferMonth prefere item.month sobre scheduled_for — sincronizar aqui
+    // para que mudar de mês mova o item para o calendário correcto.
+    if (date.length >= 7) it.month = date.slice(0, 7);
+    render();
+  });
+
+  document.addEventListener("item:hour-changed", (e) => {
+    const { id, hour } = e.detail || {};
+    if (!id || !hour) return;
+    const it = state.items.find(i => i.id === id);
+    if (!it) return;
+    it.hour = hour;
+    render();
   });
 
   const months = activeMonths();

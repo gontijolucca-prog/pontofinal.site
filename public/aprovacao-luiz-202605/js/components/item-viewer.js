@@ -260,7 +260,12 @@ class ItemViewer extends HTMLElement {
                 <span class="tag tag--accent">${it.format}</span>
                 ${it.pilar ? `<span class="tag">${it.pilar}</span>` : ""}
                 ${it.audience ? `<span class="tag tag--solid">${it.audience.toUpperCase()}</span>` : ""}
-                <span class="tag">${it.scheduled_for || ""} ${it.hour || ""}</span>
+                <label class="tag tag--date" title="Alterar data de publicação">
+                  <input type="date" data-edit-date value="${it.scheduled_for || ""}" />
+                </label>
+                <label class="tag tag--date" title="Alterar hora de publicação">
+                  <input type="time" data-edit-hour value="${it.hour || ""}" />
+                </label>
               </div>
               ${state.status !== "pending" && state.author ? `
                 <p class="viewer-author" title="${this._escapeForHtml(state.author)}">
@@ -324,6 +329,56 @@ class ItemViewer extends HTMLElement {
     `;
 
     this._updateCounter();
+
+    // Edição da data de publicação. Quando o user escolhe nova data:
+    // 1) Persiste em Supabase via approvalStore.setDate
+    // 2) Muta _item.scheduled_for em memória
+    // 3) Emite item:date-changed para o main.js mutar state.items + render()
+    const dateInput = this.querySelector("input[data-edit-date]");
+    if (dateInput) {
+      dateInput.addEventListener("change", async (e) => {
+        const newDate = e.target.value;
+        if (!newDate || !this._item) return;
+        const oldDate = this._item.scheduled_for;
+        if (newDate === oldDate) return;
+        this._item.scheduled_for = newDate;
+        try {
+          await approvalStore.setDate(this._item.id, newDate);
+        } catch (err) {
+          console.error("[viewer] setDate failed:", err);
+          this._item.scheduled_for = oldDate;
+          e.target.value = oldDate || "";
+          return;
+        }
+        this.dispatchEvent(new CustomEvent("item:date-changed", {
+          bubbles: true,
+          detail: { id: this._item.id, date: newDate, oldDate },
+        }));
+      });
+    }
+
+    const hourInput = this.querySelector("input[data-edit-hour]");
+    if (hourInput) {
+      hourInput.addEventListener("change", async (e) => {
+        const newHour = e.target.value;
+        if (!newHour || !this._item) return;
+        const oldHour = this._item.hour;
+        if (newHour === oldHour) return;
+        this._item.hour = newHour;
+        try {
+          await approvalStore.setHour(this._item.id, newHour);
+        } catch (err) {
+          console.error("[viewer] setHour failed:", err);
+          this._item.hour = oldHour;
+          e.target.value = oldHour || "";
+          return;
+        }
+        this.dispatchEvent(new CustomEvent("item:hour-changed", {
+          bubbles: true,
+          detail: { id: this._item.id, hour: newHour, oldHour },
+        }));
+      });
+    }
 
     this.querySelector(".viewer-modal").addEventListener("click", async (e) => {
       const btn = e.target.closest("[data-action]");

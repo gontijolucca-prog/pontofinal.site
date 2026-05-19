@@ -32,10 +32,14 @@ function defaultState() {
 const NOTE_RE = /#note_/;
 const SLIDE_RE = /#slide(\d+)/;
 const CAPTION_SUFFIX = ":caption";
+const DATE_SUFFIX = ":date";
+const HOUR_SUFFIX = ":hour";
 
 function isAnnotationKey(key) { return NOTE_RE.test(key); }
 function isCaptionKey(key)    { return key.endsWith(CAPTION_SUFFIX); }
-function isBaseItemKey(key)   { return !isAnnotationKey(key) && !isCaptionKey(key); }
+function isDateKey(key)       { return key.endsWith(DATE_SUFFIX); }
+function isHourKey(key)       { return key.endsWith(HOUR_SUFFIX); }
+function isBaseItemKey(key)   { return !isAnnotationKey(key) && !isCaptionKey(key) && !isDateKey(key) && !isHourKey(key); }
 
 function parseAnnotationKey(key) {
   const m = key.match(/^(.+?)(?:#slide(\d+))?#note_(.+)$/);
@@ -619,6 +623,69 @@ export const approvalStore = {
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       await upsertRow(key, status, encodeNote(note, author), updatedAt);
     }
+  },
+
+  // Reagendamento manual de um item. dateStr em YYYY-MM-DD (ou "" para limpar).
+  // Guardado em `${itemId}:date` com status=pending, data no campo note.
+  async setDate(itemId, dateStr) {
+    const author = await ensureAuthor();
+    const key = `${itemId}${DATE_SUFFIX}`;
+    const updatedAt = new Date().toISOString();
+    const value = (dateStr || "").trim();
+    const entry = { status: "pending", note: value, author, updatedAt };
+    cache[key] = entry;
+    emit();
+    if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
+      await upsertRow(key, "pending", encodeNote(value, author), updatedAt);
+    }
+  },
+
+  getDate(itemId) {
+    const key = `${itemId}${DATE_SUFFIX}`;
+    if (!cache[key] || !cache[key].note) return null;
+    return { date: cache[key].note, author: cache[key].author || null };
+  },
+
+  getAllDateOverrides() {
+    const out = {};
+    for (const k in cache) {
+      if (!isDateKey(k)) continue;
+      if (!cache[k] || !cache[k].note) continue;
+      const itemId = k.slice(0, -DATE_SUFFIX.length);
+      out[itemId] = { date: cache[k].note, author: cache[k].author || null };
+    }
+    return out;
+  },
+
+  // Reagendamento da hora. hourStr em HH:MM (ou "" para limpar).
+  async setHour(itemId, hourStr) {
+    const author = await ensureAuthor();
+    const key = `${itemId}${HOUR_SUFFIX}`;
+    const updatedAt = new Date().toISOString();
+    const value = (hourStr || "").trim();
+    const entry = { status: "pending", note: value, author, updatedAt };
+    cache[key] = entry;
+    emit();
+    if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
+      await upsertRow(key, "pending", encodeNote(value, author), updatedAt);
+    }
+  },
+
+  getHour(itemId) {
+    const key = `${itemId}${HOUR_SUFFIX}`;
+    if (!cache[key] || !cache[key].note) return null;
+    return { hour: cache[key].note, author: cache[key].author || null };
+  },
+
+  getAllHourOverrides() {
+    const out = {};
+    for (const k in cache) {
+      if (!isHourKey(k)) continue;
+      if (!cache[k] || !cache[k].note) continue;
+      const itemId = k.slice(0, -HOUR_SUFFIX.length);
+      out[itemId] = { hour: cache[k].note, author: cache[k].author || null };
+    }
+    return out;
   },
 
   export() {

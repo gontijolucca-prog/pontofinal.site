@@ -99,14 +99,71 @@ class ReelTile extends HTMLElement {
           ${linesHtml || `<p class="reel-tile__empty">Sem script.</p>`}
         </div>
         <div class="tile__caption reel-tile__foot">
-          <span>${escapeHtml(it.scheduled_for || "")} · ${escapeHtml(it.hour || "")} · script para gravação</span>
+          <span class="tile__date-line">
+            <label class="inline-date" title="Alterar data de publicação">
+              <input type="date" data-edit-date value="${it.scheduled_for || ""}" />
+            </label>
+            ·
+            <label class="inline-date" title="Alterar hora de publicação">
+              <input type="time" data-edit-hour value="${it.hour || ""}" />
+            </label>
+            · script para gravação
+          </span>
         </div>
       </article>
     `;
 
-    this.querySelector(".tile").addEventListener("click", () => {
+    this.querySelector(".tile").addEventListener("click", (e) => {
+      if (e.target.closest(".inline-date")) return;
       this.dispatchEvent(new CustomEvent("item:open", { bubbles: true, detail: { id: it.id } }));
     });
+
+    const dateInput = this.querySelector("input[data-edit-date]");
+    if (dateInput) {
+      dateInput.addEventListener("click", e => e.stopPropagation());
+      dateInput.addEventListener("change", async (e) => {
+        e.stopPropagation();
+        const newDate = e.target.value;
+        if (!newDate || newDate === it.scheduled_for) return;
+        const oldDate = it.scheduled_for;
+        it.scheduled_for = newDate;
+        try {
+          await approvalStore.setDate(it.id, newDate);
+        } catch (err) {
+          console.error("[reel-tile] setDate failed:", err);
+          it.scheduled_for = oldDate;
+          e.target.value = oldDate || "";
+          return;
+        }
+        this.dispatchEvent(new CustomEvent("item:date-changed", {
+          bubbles: true,
+          detail: { id: it.id, date: newDate, oldDate },
+        }));
+      });
+    }
+    const hourInput = this.querySelector("input[data-edit-hour]");
+    if (hourInput) {
+      hourInput.addEventListener("click", e => e.stopPropagation());
+      hourInput.addEventListener("change", async (e) => {
+        e.stopPropagation();
+        const newHour = e.target.value;
+        if (!newHour || newHour === it.hour) return;
+        const oldHour = it.hour;
+        it.hour = newHour;
+        try {
+          await approvalStore.setHour(it.id, newHour);
+        } catch (err) {
+          console.error("[reel-tile] setHour failed:", err);
+          it.hour = oldHour;
+          e.target.value = oldHour || "";
+          return;
+        }
+        this.dispatchEvent(new CustomEvent("item:hour-changed", {
+          bubbles: true,
+          detail: { id: it.id, hour: newHour, oldHour },
+        }));
+      });
+    }
   }
 }
 

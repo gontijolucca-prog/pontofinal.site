@@ -70,7 +70,13 @@ class CarrosselRow extends HTMLElement {
             <span class="tag tag--accent">${it.slides} slides</span>
           </div>
           <div class="carrossel-row__schedule">
-            ${it.scheduled_for || ""} · ${it.hour || ""}
+            <label class="inline-date" title="Alterar data de publicação">
+              <input type="date" data-edit-date value="${it.scheduled_for || ""}" />
+            </label>
+            ·
+            <label class="inline-date" title="Alterar hora de publicação">
+              <input type="time" data-edit-hour value="${it.hour || ""}" />
+            </label>
           </div>
         </div>
         <div class="slide-strip">
@@ -122,6 +128,53 @@ class CarrosselRow extends HTMLElement {
       }
     });
 
+    // Edição inline da data e hora — não propaga clicks (não abre o detalhe).
+    const dateInput = this.querySelector("input[data-edit-date]");
+    if (dateInput) {
+      dateInput.addEventListener("click", e => e.stopPropagation());
+      dateInput.addEventListener("change", async (e) => {
+        e.stopPropagation();
+        const newDate = e.target.value;
+        if (!newDate || newDate === it.scheduled_for) return;
+        const oldDate = it.scheduled_for;
+        it.scheduled_for = newDate;
+        try {
+          await approvalStore.setDate(it.id, newDate);
+        } catch (err) {
+          console.error("[carrossel-row] setDate failed:", err);
+          it.scheduled_for = oldDate;
+          e.target.value = oldDate || "";
+          return;
+        }
+        this.dispatchEvent(new CustomEvent("item:date-changed", {
+          bubbles: true,
+          detail: { id: it.id, date: newDate, oldDate },
+        }));
+      });
+    }
+    const hourInput = this.querySelector("input[data-edit-hour]");
+    if (hourInput) {
+      hourInput.addEventListener("click", e => e.stopPropagation());
+      hourInput.addEventListener("change", async (e) => {
+        e.stopPropagation();
+        const newHour = e.target.value;
+        if (!newHour || newHour === it.hour) return;
+        const oldHour = it.hour;
+        it.hour = newHour;
+        try {
+          await approvalStore.setHour(it.id, newHour);
+        } catch (err) {
+          console.error("[carrossel-row] setHour failed:", err);
+          it.hour = oldHour;
+          e.target.value = oldHour || "";
+          return;
+        }
+        this.dispatchEvent(new CustomEvent("item:hour-changed", {
+          bubbles: true,
+          detail: { id: it.id, hour: newHour, oldHour },
+        }));
+      });
+    }
   }
 }
 
