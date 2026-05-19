@@ -83,17 +83,21 @@ html, body { height: 100%; background: #0a0a0c; color: var(--text); font-family:
 .story-single--type h1 {
   font-family: 'Manrope', sans-serif;
   font-weight: 500;
-  font-size: clamp(40px, 8vw, 110px);
-  line-height: 1.04; letter-spacing: -0.028em;
+  font-size: clamp(18px, 8vw, 110px);
+  line-height: 1.1; letter-spacing: -0.028em;
   text-transform: none;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .story-single--type-soft h1 {
   font-family: 'Fraunces', serif;
   font-weight: 200; font-style: italic;
-  font-size: clamp(44px, 9.4vw, 132px);
-  line-height: 0.96; letter-spacing: -0.025em;
+  font-size: clamp(20px, 9.4vw, 132px);
+  line-height: 1.08; letter-spacing: -0.025em;
   max-width: 16ch;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .story-single--type-soft h1 em { color: var(--accent); font-style: italic; font-weight: 800; }
 
@@ -101,17 +105,19 @@ html, body { height: 100%; background: #0a0a0c; color: var(--text); font-family:
   font-family: 'Fraunces', serif;
   font-weight: 800;
   font-style: italic;
-  font-size: clamp(160px, 32vw, 320px);
+  font-size: clamp(72px, 32vw, 320px);
   line-height: 0.86; letter-spacing: -0.06em;
   color: var(--accent);
 }
 .story-single--num h1 {
   font-family: 'Manrope', sans-serif;
   font-weight: 500;
-  font-size: clamp(22px, 3.2vw, 38px);
+  font-size: clamp(14px, 3.2vw, 38px);
   line-height: 1.15; letter-spacing: -0.018em;
   text-transform: none;
   max-width: 22ch;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .story-single--num-soft .num {
   font-family: 'Fraunces', serif;
@@ -128,10 +134,12 @@ html, body { height: 100%; background: #0a0a0c; color: var(--text); font-family:
 .story-single--quote blockquote {
   font-family: 'Fraunces', serif; font-style: italic;
   font-weight: 200;
-  font-size: clamp(34px, 6.4vw, 78px);
+  font-size: clamp(16px, 6.4vw, 78px);
   line-height: 1.12; letter-spacing: -0.022em;
   color: var(--text);
   max-width: 18ch;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .story-single--quote::before {
   content: "";
@@ -167,7 +175,7 @@ html, body { height: 100%; background: #0a0a0c; color: var(--text); font-family:
 <section class="story-single story-single--type-soft" aria-label="Story TechBody U — sessao_25min">
   <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_b7.-home-studio-corner-ed_2964142762.jpg')"></div>
   <div class="story-single__top">
-    <span class="brand">TechBody U</span>
+    <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span>
   </div>
   <div class="story-single__body"><h1><em>Vinte</em> e cinco minutos. Sessão completa. Em casa.</h1></div>
   <div class="story-single__bottom"></div>

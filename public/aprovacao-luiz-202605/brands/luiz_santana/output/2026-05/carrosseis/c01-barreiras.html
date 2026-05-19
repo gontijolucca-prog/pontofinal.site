@@ -21,24 +21,23 @@
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-display); -webkit-font-smoothing: antialiased; }
-/* Carousel slides at Instagram portrait 4:5 (1080×1350). O contentor iframe
-   é 4:5 — cada slide ocupa 100% da largura para snap perfeito. */
+/* Carousel slides at Instagram portrait 4:5 (1080×1350). */
 .carousel {
   display: flex;
   scroll-snap-type: x mandatory;
   overflow-x: auto;
   scroll-behavior: smooth;
   scrollbar-width: none;
-  height: 100vh;
+  /* Use the smaller of viewport height vs aspect-derived height to keep 4:5 visible. */
+  height: min(100vh, calc(100vw * 1.25));
   width: 100vw;
 }
 .carousel::-webkit-scrollbar { display: none; }
 .slide {
-  flex: 0 0 100%;
-  width: 100%;
-  height: 100%;
+  /* Each slide is 4:5 — width derived from height so it fits the iframe viewport exactly. */
+  flex: 0 0 calc(min(100vh, calc(100vw * 1.25)) * 0.8);
+  height: min(100vh, calc(100vw * 1.25));
   scroll-snap-align: start;
-  scroll-snap-stop: always;
   position: relative;
   overflow: hidden;
   display: grid;
@@ -70,14 +69,11 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .slide--photo .slide__body h1 {
   font-family: var(--font-display);
   font-weight: var(--w-strong);
-  font-size: clamp(15px, 6vw, 72px);
+  font-size: clamp(30px, 6vw, 72px);
   line-height: 1.02;
   letter-spacing: -0.025em;
   max-width: 16ch;
-
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  hyphens: auto;}
+}
 .slide--photo .slide__body p { font-family: var(--font-mono); font-size: clamp(13px, 1.4vw, 16px); max-width: 38ch; color: rgba(255,255,255,0.78); }
 
 /* style: typographic */
@@ -85,15 +81,12 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .slide--type .slide__body h1 {
   font-family: var(--font-display);
   font-weight: var(--w-strong);
-  font-size: clamp(18px, 7vw, 104px);
+  font-size: clamp(36px, 7vw, 104px);
   line-height: 1.02;
   letter-spacing: -0.025em;
   max-width: 14ch;
   color: var(--text);
-
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  hyphens: auto;}
+}
 .slide--type .slide__body h1 em { color: var(--accent); font-style: normal; font-weight: var(--w-black); }
 .slide--type .slide__body p { font-family: var(--font-mono); font-size: clamp(13px, 1.3vw, 15px); max-width: 42ch; color: rgba(255,255,255,0.55); }
 
@@ -104,7 +97,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: var(--w-black);
-  font-size: clamp(55px, 19vw, 240px);
+  font-size: clamp(110px, 19vw, 240px);
   line-height: 0.85;
   letter-spacing: -0.05em;
   color: var(--accent);
@@ -112,14 +105,11 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .slide--num .slide__body h1 {
   font-family: var(--font-display);
   font-weight: var(--w-mid);
-  font-size: clamp(14px, 3vw, 38px);
+  font-size: clamp(22px, 3vw, 38px);
   line-height: 1.18;
   letter-spacing: -0.01em;
   max-width: 22ch;
-
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  hyphens: auto;}
+}
 .slide--num .slide__body p { font-family: var(--font-mono); font-size: clamp(12px, 1.3vw, 15px); max-width: 44ch; color: rgba(255,255,255,0.55); }
 
 /* style: quote — italic serif, restrained */
@@ -134,7 +124,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 200;
-  font-size: clamp(14px, 4vw, 50px);
+  font-size: clamp(26px, 4vw, 50px);
   line-height: 1.22;
   letter-spacing: -0.018em;
   max-width: 22ch;
@@ -175,7 +165,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 
 <article class="slide slide--type" id="slide-4">
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span></div>
-  <div class="slide__body"><h1>EMS de corpo inteiro activa profundidade que o treino convencional dificilmente alcança.</h1></div>
+  <div class="slide__body"><h1>A electroestimulação de corpo inteiro chega a profundidade que o treino convencional dificilmente alcança.</h1></div>
   <div class="slide__bottom"><span>04/06</span><span class="arrow">→</span></div>
 </article>
 
@@ -191,7 +181,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 
 <article class="slide slide--type" id="slide-6">
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span></div>
-  <div class="slide__body"><h1>Conhece o método TechBody. Marca a primeira sessão.</h1></div>
+  <div class="slide__body"><h1>Se ainda não encontraste o treino certo para ti, a TechBody pode ser a solução. Comenta — eu digo-te como podes experimentar.</h1></div>
   <div class="slide__bottom"><span>06/06</span></div>
 </article>
 

@@ -7,7 +7,7 @@
   {
     "slide_number": 2,
     "role": "development",
-    "text_overlay": "Inclui fato EMS de corpo inteiro, dispositivo de controlo e aplicação dedicada."
+    "text_overlay": "Inclui fato Electroestimulação de corpo inteiro, dispositivo de controlo e aplicação dedicada."
   },
   {
     "slide_number": 3,
@@ -27,6 +27,6 @@
   {
     "slide_number": 6,
     "role": "cta",
-    "text_overlay": "Conhece o ecossistema TechBody U."
+    "text_overlay": "Conheça o ecossistema TechBody U."
   }
 ]
