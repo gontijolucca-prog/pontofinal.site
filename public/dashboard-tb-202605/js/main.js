@@ -123,7 +123,6 @@ async function reloadApprovals() {
 
 async function init() {
   applyConfig();
-  await ensureAuthenticated();
 
   const [themes, items, approvals] = await Promise.all([
     loadThemes(),

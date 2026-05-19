@@ -839,6 +839,18 @@
   gap: var(--s-2);
 }
 .viewer-meta { display: grid; gap: var(--s-2); }
+.viewer-author {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--text);
+  background: var(--bg-soft);
+  border: 2px solid var(--border);
+  padding: 6px 10px;
+  margin: 6px 0 0;
+  letter-spacing: 0.02em;
+}
+.viewer-author strong { font-weight: 800; }
+.status-stamp { cursor: help; }
 .viewer-brand {
   background: var(--text); color: var(--bg);
   padding: 4px 10px;

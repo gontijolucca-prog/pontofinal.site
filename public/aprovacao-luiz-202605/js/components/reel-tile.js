@@ -45,13 +45,16 @@ class ReelTile extends HTMLElement {
     }
     article.setAttribute("data-status", state.status);
     const label = state.status === "approved" ? "Aprovado" : "Rejeitado";
+    const tooltip = state.author ? `${label} por ${state.author}` : label;
     if (stamp) {
       stamp.textContent = label;
       stamp.className = `status-stamp status-stamp--${state.status}`;
+      stamp.title = tooltip;
     } else {
       stamp = document.createElement("span");
       stamp.className = `status-stamp status-stamp--${state.status}`;
       stamp.textContent = label;
+      stamp.title = tooltip;
       article.prepend(stamp);
     }
   }

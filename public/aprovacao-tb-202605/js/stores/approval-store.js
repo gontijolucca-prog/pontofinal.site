@@ -54,6 +54,100 @@ function buildAnnotationKey(itemId, slideN, nonce) {
   return `${itemId}${slidePart}#note_${nonce}`;
 }
 
+// ─── Autor (assinatura) ──────────────────────────────────────────────────
+// Cada utilizador identifica-se com um nome na primeira ação. O nome fica
+// guardado em localStorage e é incorporado em cada escrita ao Supabase via
+// note encoding JSON ({a: author, t: text}). Reads decodificam de volta;
+// entradas plain (legacy) são tratadas como sem autor.
+
+const AUTHOR_KEY = "cm-approval-author";
+
+export function getAuthor() {
+  try { return (localStorage.getItem(AUTHOR_KEY) || "").trim() || null; }
+  catch { return null; }
+}
+
+export function setAuthor(name) {
+  const trimmed = (name || "").trim();
+  if (!trimmed) return;
+  try { localStorage.setItem(AUTHOR_KEY, trimmed); } catch {}
+}
+
+let _authorPromise = null;
+export function ensureAuthor() {
+  const existing = getAuthor();
+  if (existing) return Promise.resolve(existing);
+  if (_authorPromise) return _authorPromise;
+  _authorPromise = openAuthorModal().then((name) => {
+    _authorPromise = null;
+    if (name) setAuthor(name);
+    return name || null;
+  });
+  return _authorPromise;
+}
+
+function openAuthorModal() {
+  return new Promise((resolve) => {
+    let backdrop = document.getElementById("authorModalBackdrop");
+    if (backdrop) backdrop.remove();
+    backdrop = document.createElement("div");
+    backdrop.id = "authorModalBackdrop";
+    backdrop.style.cssText = "position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.55);display:grid;place-items:center;padding:16px;";
+    backdrop.innerHTML = `
+      <form style="background:#FFFFFF;color:#050505;width:min(420px,100%);border:4px solid #050505;box-shadow:10px 10px 0 0 #050505;padding:24px 22px;font-family:'JetBrains Mono',ui-monospace,monospace;">
+        <h2 style="font:800 22px/1.1 'Arial Black',Impact,sans-serif;letter-spacing:-0.02em;margin:0 0 8px;">Assina</h2>
+        <p style="font-size:12.5px;line-height:1.45;color:rgba(5,5,5,0.7);margin:0 0 18px;">
+          Só para sabermos quem está a fazer esta alteração. Pedimos-te o nome
+          uma única vez.
+        </p>
+        <input id="authorModalInput" type="text" autocomplete="name" placeholder="O teu nome"
+          required minlength="2" maxlength="80"
+          style="width:100%;padding:12px 14px;font:600 14px/1.2 'JetBrains Mono',ui-monospace,monospace;border:3px solid #050505;background:#F4F4F2;color:#050505;outline:none;" />
+        <button type="submit" style="margin-top:14px;width:100%;padding:12px;background:#050505;color:#FFFFFF;font:800 12px/1 'Arial Black',Impact,sans-serif;letter-spacing:0.08em;text-transform:uppercase;border:3px solid #050505;cursor:pointer;">
+          Continuar
+        </button>
+      </form>
+    `;
+    document.body.appendChild(backdrop);
+    const form = backdrop.querySelector("form");
+    const input = backdrop.querySelector("input");
+    setTimeout(() => input.focus(), 50);
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const v = input.value.trim();
+      if (v.length < 2) { input.focus(); return; }
+      backdrop.remove();
+      resolve(v);
+    });
+  });
+}
+
+// Encoding do campo `note` para incluir autor (sem coluna nova no DB).
+// Formato JSON: {"a": "Nome", "t": "texto"}. Reads aceitam plain strings
+// (legacy) também.
+function encodeNote(text, author) {
+  const obj = {};
+  if (author) obj.a = author;
+  if (text) obj.t = text;
+  if (!obj.a && !obj.t) return "";
+  return JSON.stringify(obj);
+}
+function decodeNote(raw) {
+  if (!raw) return { author: null, text: "" };
+  if (typeof raw !== "string") return { author: null, text: String(raw) };
+  const s = raw.trim();
+  if (s.startsWith("{") && s.endsWith("}")) {
+    try {
+      const obj = JSON.parse(s);
+      if (obj && typeof obj === "object") {
+        return { author: obj.a || null, text: obj.t || "" };
+      }
+    } catch {}
+  }
+  // Legacy plain string — sem autor.
+  return { author: null, text: raw };
+}
+
 // ─── Fallback localStorage ───────────────────────────────────────────────
 
 const LS_KEY = `${NAMESPACE}`;
@@ -93,9 +187,11 @@ function lsMergeWrite(id, entry) {
 function applyQueueToCache() {
   const q = qRead();
   for (const row of q) {
+    const decoded = decodeNote(row.note || "");
     cache[row.item_id] = {
       status: row.status,
-      note: row.note || "",
+      note: decoded.text,
+      author: decoded.author,
       updatedAt: row.updated_at,
     };
   }
@@ -112,9 +208,11 @@ async function loadFromSupabase() {
   }
   cache = {};
   for (const row of data || []) {
+    const decoded = decodeNote(row.note || "");
     cache[row.item_id] = {
       status: row.status,
-      note: row.note || "",
+      note: decoded.text,
+      author: decoded.author,
       updatedAt: row.updated_at,
     };
   }
@@ -152,9 +250,11 @@ function subscribeRealtime() {
           console.debug("[realtime] skipping older payload for", row.item_id);
           return;
         }
+        const decoded = decodeNote(row.note || "");
         const entry = {
           status: row.status,
-          note: row.note || "",
+          note: decoded.text,
+          author: decoded.author,
           updatedAt: row.updated_at,
         };
         cache[row.item_id] = entry;
@@ -408,12 +508,13 @@ export const approvalStore = {
   },
 
   async set(id, status, note = "") {
+    const author = await ensureAuthor();
     const updatedAt = new Date().toISOString();
-    const entry = { status, note, updatedAt };
+    const entry = { status, note, author, updatedAt };
     cache[id] = entry;
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
-      await upsertRow(id, status, note, updatedAt);
+      await upsertRow(id, status, encodeNote(note, author), updatedAt);
     }
   },
 
@@ -422,17 +523,18 @@ export const approvalStore = {
   async saveNote(itemId, note, opts = {}) {
     const trimmed = (note || "").trim();
     if (!trimmed) return null;
+    const author = await ensureAuthor();
     const slideN = opts.slideN || null;
     const nonce = makeNonce();
     const key = buildAnnotationKey(itemId, slideN, nonce);
     const updatedAt = new Date().toISOString();
-    const entry = { status: "pending", note: trimmed, updatedAt };
+    const entry = { status: "pending", note: trimmed, author, updatedAt };
     cache[key] = entry;
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
-      await upsertRow(key, "pending", trimmed, updatedAt);
+      await upsertRow(key, "pending", encodeNote(trimmed, author), updatedAt);
     }
-    return { key, slide: slideN, note: trimmed, changed_at: updatedAt };
+    return { key, slide: slideN, note: trimmed, author, changed_at: updatedAt };
   },
 
   // Lista de anotações deste item (incluindo anotações ligadas a slides).
@@ -451,9 +553,10 @@ export const approvalStore = {
         id: key,                       // back-compat com callers antigos
         slide: parsed?.slide || null,
         note,
+        author: cache[key].author || null,
         status: cache[key].status,
         changed_at: cache[key].updatedAt,
-        changed_by_email: null,
+        changed_by_email: cache[key].author || null,
       });
     }
     out.sort((a, b) => (b.changed_at || "").localeCompare(a.changed_at || ""));
@@ -463,12 +566,13 @@ export const approvalStore = {
   // Soft-delete: RLS não permite DELETE como anon. Marcamos como vazio.
   async deleteNote(key) {
     if (!key || !isAnnotationKey(key)) return false;
+    const author = await ensureAuthor();
     const updatedAt = new Date().toISOString();
     if (cache[key]) cache[key].note = "";
-    cache[key] = { status: "pending", note: "", updatedAt };
+    cache[key] = { status: "pending", note: "", author, updatedAt };
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
-      const r = await upsertRow(key, "pending", "", updatedAt);
+      const r = await upsertRow(key, "pending", encodeNote("", author), updatedAt);
       return !!r;
     }
     lsWrite(cache);
@@ -506,13 +610,14 @@ export const approvalStore = {
   },
 
   async setCaption(itemId, status, note = "") {
+    const author = await ensureAuthor();
     const key = `${itemId}:caption`;
     const updatedAt = new Date().toISOString();
-    const entry = { status, note, updatedAt };
+    const entry = { status, note, author, updatedAt };
     cache[key] = entry;
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
-      await upsertRow(key, status, note, updatedAt);
+      await upsertRow(key, status, encodeNote(note, author), updatedAt);
     }
   },
 

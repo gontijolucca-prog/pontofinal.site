@@ -244,8 +244,14 @@ class ItemViewer extends HTMLElement {
                 ${it.audience ? `<span class="tag tag--solid">${it.audience.toUpperCase()}</span>` : ""}
                 <span class="tag">${it.scheduled_for || ""} ${it.hour || ""}</span>
               </div>
+              ${state.status !== "pending" && state.author ? `
+                <p class="viewer-author" title="${this._escapeForHtml(state.author)}">
+                  ${state.status === "approved" ? "Aprovado" : "Rejeitado"} por
+                  <strong>${this._escapeForHtml(state.author)}</strong>
+                </p>
+              ` : ""}
             </div>
-            <details class="viewer-section" open>
+            <details class="viewer-section">
               <summary>Texto dos slides</summary>
               <div class="viewer-slides">
                 ${(it.slides_text || []).map((s, i) => `
