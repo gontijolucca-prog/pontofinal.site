@@ -26,11 +26,9 @@ html, body { height: 100%; background: #0a0a0c; color: var(--text); font-family:
   margin: 0 auto;
   background: var(--bg);
   color: var(--text);
-  display: grid;
-  grid-template-rows: 33% 34% 33%;
-  padding: clamp(40px, 6vw, 84px);
   overflow: hidden;
   font-family: 'Manrope', sans-serif;
+  padding: 0; /* posicionamento absoluto cuida do espaçamento interno */
 }
 
 /* Atmospheric backdrop */
@@ -61,6 +59,10 @@ html, body { height: 100%; background: #0a0a0c; color: var(--text); font-family:
 .story-single__bottom { position: relative; z-index: 2; }
 
 .story-single__top {
+  position: absolute;
+  top: clamp(20px, 3.4%, 60px);
+  left: clamp(20px, 4%, 60px);
+  right: clamp(20px, 4%, 60px);
   display: flex; justify-content: space-between; align-items: baseline;
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
@@ -75,65 +77,63 @@ html, body { height: 100%; background: #0a0a0c; color: var(--text); font-family:
 }
 
 .story-single__body {
+  position: absolute;
+  top: 7%;
+  left: clamp(20px, 4%, 60px);
+  right: clamp(20px, 4%, 60px);
+  height: 26%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 100%;
-  max-width: 100%;
-  padding: 0 clamp(4px, 1vw, 20px);
-  /* terço superior — texto full-width */
+  /* TERÇO SUPERIOR — texto full-width */
 }
 
 /* placeholder visual da sondagem Instagram — cobre terço médio + parte do inferior.
    Quando o story for publicado, o sticker real de Enquete fica por cima e tapa isto. */
 .poll-placeholder {
-  position: relative;
+  position: absolute;
   z-index: 3;
-  width: 86%;
-  max-width: 920px;
-  margin: 0 auto;
-  align-self: center;
-  background: rgba(255,255,255,0.92);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 36%;
+  max-width: 380px;
+  background: rgba(255,255,255,0.94);
   color: #0a0a0c;
-  border-radius: clamp(18px, 2.6vw, 32px);
-  padding: clamp(20px, 3.6vh, 44px) clamp(22px, 3vw, 40px);
-  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  border-radius: clamp(10px, 1.4vw, 16px);
+  padding: clamp(8px, 1vh, 12px) clamp(10px, 1.4vw, 16px);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.30);
   display: flex; flex-direction: column;
-  gap: clamp(14px, 2.2vh, 24px);
+  gap: clamp(4px, 0.7vh, 8px);
   font-family: 'Manrope', sans-serif;
+  /* sticker-sized: extra pequeno para o Luiz tapar com o sticker real do IG */
 }
-.poll-placeholder__label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: clamp(11px, 1.3vw, 13px);
-  letter-spacing: 0.28em; text-transform: uppercase;
-  color: rgba(10,10,12,0.55);
-  text-align: center;
-}
+.poll-placeholder__label { display: none; }
 .poll-placeholder__q {
   font-family: 'Manrope', sans-serif;
-  font-weight: 700;
-  font-size: clamp(20px, 3vw, 32px);
-  line-height: 1.18;
-  letter-spacing: -0.012em;
+  font-weight: 600;
+  font-size: clamp(11px, 1.4vw, 15px);
+  line-height: 1.15;
+  letter-spacing: -0.008em;
   text-align: center;
   color: #0a0a0c;
 }
 .poll-placeholder__opts {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: clamp(10px, 1.5vw, 16px);
+  gap: clamp(4px, 0.6vw, 8px);
 }
 .poll-placeholder__opt {
   background: rgba(10,10,12,0.05);
   border: 1px solid rgba(10,10,12,0.10);
-  border-radius: clamp(12px, 1.6vw, 18px);
-  padding: clamp(14px, 2vh, 20px) clamp(10px, 1.5vw, 16px);
+  border-radius: clamp(6px, 0.8vw, 10px);
+  padding: clamp(4px, 0.6vh, 6px) clamp(4px, 0.8vw, 8px);
   font-family: 'Manrope', sans-serif;
-  font-weight: 600;
-  font-size: clamp(15px, 2vw, 20px);
+  font-weight: 500;
+  font-size: clamp(10px, 1.2vw, 13px);
   color: #0a0a0c;
   text-align: center;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.003em;
 }
 .story-single__bottom { z-index: 2; }
 
@@ -209,6 +209,10 @@ html, body { height: 100%; background: #0a0a0c; color: var(--text); font-family:
 }
 
 .story-single__bottom {
+  position: absolute;
+  bottom: clamp(20px, 3.4%, 60px);
+  left: clamp(20px, 4%, 60px);
+  right: clamp(20px, 4%, 60px);
   display: flex; justify-content: space-between; align-items: end;
   font-family: 'JetBrains Mono', monospace; font-size: 11px;
   letter-spacing: 0.18em; text-transform: uppercase;
