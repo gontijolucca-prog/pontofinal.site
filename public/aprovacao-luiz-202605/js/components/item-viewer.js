@@ -147,14 +147,29 @@ class ItemViewer extends HTMLElement {
   _updateCaptionBadge() {
     if (!this._item) return;
     const captionState = approvalStore.getCaption(this._item.id);
-    const wrap = this.querySelector(".viewer-caption");
-    if (!wrap) return;
-    wrap.setAttribute("data-caption-status", captionState.status);
-    const badge = wrap.querySelector(".viewer-caption__badge");
+    // Procura do <details> para apanhar tanto o badge (no <summary>)
+    // como o div .viewer-caption (filho directo).
+    const details = this.querySelector(".viewer-section--caption");
+    if (!details) return;
+    details.setAttribute("data-caption-status", captionState.status);
+    const wrap = details.querySelector(".viewer-caption");
+    if (wrap) wrap.setAttribute("data-caption-status", captionState.status);
+    const badge = details.querySelector(".viewer-caption__badge");
     if (badge) {
       badge.className = `viewer-caption__badge viewer-caption__badge--${captionState.status}`;
       const map = { approved: "Aprovada", rejected: "Rejeitada", pending: "Pendente" };
       badge.textContent = map[captionState.status];
+    }
+    const authorEl = details.querySelector("[data-caption-author]");
+    if (authorEl) {
+      if (captionState.status !== "pending" && captionState.author) {
+        const label = captionState.status === "approved" ? "Aprovada" : "Rejeitada";
+        authorEl.innerHTML = `${label} por <strong>${this._escapeForHtml(captionState.author)}</strong>`;
+        authorEl.hidden = false;
+      } else {
+        authorEl.innerHTML = "";
+        authorEl.hidden = true;
+      }
     }
   }
 
@@ -271,7 +286,8 @@ class ItemViewer extends HTMLElement {
                 Descrição Instagram
                 <span class="viewer-caption__badge viewer-caption__badge--${captionState.status}">${captionLabel[captionState.status]}</span>
               </summary>
-              <div class="viewer-caption">
+              <div class="viewer-caption" data-caption-status="${captionState.status}">
+                <p class="viewer-caption__author" data-caption-author ${captionState.status === "pending" || !captionState.author ? "hidden" : ""}>${captionState.status !== "pending" && captionState.author ? `${captionState.status === "approved" ? "Aprovada" : "Rejeitada"} por <strong>${this._escapeForHtml(captionState.author)}</strong>` : ""}</p>
                 <pre class="viewer-caption__text">${this._escapeForHtml(it.caption)}</pre>
                 ${it.hashtags ? `<pre class="viewer-caption__hashtags">${this._escapeForHtml(it.hashtags)}</pre>` : ""}
                 <div class="viewer-caption__actions">

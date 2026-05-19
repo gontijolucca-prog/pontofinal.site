@@ -1031,6 +1031,19 @@
 }
 .viewer-caption[data-caption-status="approved"] { border-color: var(--status-approved); background: color-mix(in srgb, var(--status-approved) 8%, var(--bg-soft)); }
 .viewer-caption[data-caption-status="rejected"] { border-color: var(--status-rejected); background: color-mix(in srgb, var(--status-rejected) 8%, var(--bg-soft)); }
+.viewer-caption__author {
+  font: 700 11px/1.2 var(--font-mono, ui-monospace, monospace);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--text);
+  color: var(--bg);
+  border: 2px solid var(--border);
+  padding: 6px 10px;
+  margin: 0;
+  justify-self: start;
+}
+.viewer-caption__author[hidden] { display: none; }
+.viewer-caption__author strong { font-weight: 800; }
 .viewer-caption__head {
   display: flex;
   justify-content: space-between;
