@@ -67,6 +67,9 @@ class ItemViewer extends HTMLElement {
     this.setAttribute("data-open", "true");
     this.setAttribute("aria-hidden", "false");
     this.render();
+    // Defensivo: força "Texto dos slides" e "Descrição Instagram" fechados.
+    // Anotações fica aberto (tem data-notes-section).
+    this.querySelectorAll("details.viewer-section:not([data-notes-section])").forEach(d => { d.open = false; });
     this._loadNotes();
   }
 
