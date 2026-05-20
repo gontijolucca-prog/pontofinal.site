@@ -98,13 +98,23 @@ class ItemViewer extends HTMLElement {
       return d.toLocaleString("pt-PT", { dateStyle: "short", timeStyle: "short" });
     };
     wrap.innerHTML = rows.map(r => {
-      const isDeleted = r.deleted || !r.note || !r.note.trim();
-      const bodyHtml = isDeleted
-        ? `<p class="viewer-note__text viewer-note__text--deleted"><em>[anotação apagada — texto original perdido]</em></p>`
-        : `<p class="viewer-note__text">${this._escapeForHtml(r.note)}</p>`;
-      const deleteBtn = isDeleted
-        ? ``  // já está apagada, não dá para apagar de novo
-        : `<button type="button" class="viewer-note__delete" data-action="delete-note" data-note-key="${this._escapeForHtml(r.key)}" aria-label="Apagar anotação" title="Apagar anotação">✕</button>`;
+      const isDeleted = r.deleted;
+      const hasText = r.note && r.note.trim();
+      // Três visuais possíveis:
+      //   activa            → texto normal + botão ✕ apagar
+      //   apagada-com-texto → texto riscado + tag "apagada" + botão "↺ restaurar"
+      //   apagada-sem-texto → placeholder (legacy soft-delete que zerou texto)
+      let bodyHtml, rightBtn;
+      if (!isDeleted) {
+        bodyHtml = `<p class="viewer-note__text">${this._escapeForHtml(r.note)}</p>`;
+        rightBtn = `<button type="button" class="viewer-note__delete" data-action="delete-note" data-note-key="${this._escapeForHtml(r.key)}" aria-label="Apagar anotação" title="Apagar anotação">✕</button>`;
+      } else if (hasText) {
+        bodyHtml = `<p class="viewer-note__text viewer-note__text--struck">${this._escapeForHtml(r.note)}</p>`;
+        rightBtn = `<button type="button" class="viewer-note__restore" data-action="restore-note" data-note-key="${this._escapeForHtml(r.key)}" aria-label="Restaurar anotação" title="Restaurar anotação">↺</button>`;
+      } else {
+        bodyHtml = `<p class="viewer-note__text viewer-note__text--deleted"><em>[anotação apagada — texto original perdido]</em></p>`;
+        rightBtn = ``;
+      }
       const deletedTag = isDeleted ? `<span class="viewer-note__deleted-tag">apagada</span>` : "";
       return `
       <div class="viewer-note${isDeleted ? ' viewer-note--deleted' : ''}" data-note-key="${this._escapeForHtml(r.key)}">
@@ -113,7 +123,7 @@ class ItemViewer extends HTMLElement {
           ${deletedTag}
           <span class="viewer-note__time">${fmt(r.changed_at)}</span>
           ${r.changed_by_email ? `<span class="viewer-note__author">· ${this._escapeForHtml(r.changed_by_email)}</span>` : ""}
-          ${deleteBtn}
+          ${rightBtn}
         </div>
         ${bodyHtml}
       </div>
@@ -428,10 +438,21 @@ class ItemViewer extends HTMLElement {
       if (action === "delete-note") {
         const key = btn.dataset.noteKey;
         if (!key) return;
-        if (!window.confirm("Apagar esta anotação? Esta acção não pode ser desfeita.")) return;
+        if (!window.confirm("Apagar esta anotação? O texto fica preservado e podes restaurar mais tarde.")) return;
         const ok = await approvalStore.deleteNote(key);
         if (!ok) {
           window.alert("Não foi possível apagar a anotação. Tenta de novo.");
+          return;
+        }
+        await this._loadNotes();
+        return;
+      }
+      if (action === "restore-note") {
+        const key = btn.dataset.noteKey;
+        if (!key) return;
+        const ok = await approvalStore.restoreNote(key);
+        if (!ok) {
+          window.alert("Não foi possível restaurar a anotação (texto original perdido).");
           return;
         }
         await this._loadNotes();

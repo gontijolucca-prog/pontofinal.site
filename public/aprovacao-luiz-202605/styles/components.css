@@ -1088,6 +1088,33 @@
   font-style: italic;
   color: var(--mute, #6b6862);
 }
+.viewer-note__text--struck {
+  text-decoration: line-through;
+  text-decoration-color: rgba(192, 57, 43, 0.6);
+  text-decoration-thickness: 1.5px;
+  color: rgba(0, 0, 0, 0.55);
+}
+.viewer-note__restore {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid var(--mute, #6b6862);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+}
+.viewer-note__restore:hover {
+  background: var(--status-approved, #2BB05F);
+  color: #fff;
+  border-color: var(--status-approved, #2BB05F);
+}
 .viewer-note__deleted-tag {
   display: inline-block;
   padding: 1px 6px;

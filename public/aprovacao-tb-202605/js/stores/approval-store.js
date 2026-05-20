@@ -126,30 +126,34 @@ function openAuthorModal() {
   });
 }
 
-// Encoding do campo `note` para incluir autor (sem coluna nova no DB).
-// Formato JSON: {"a": "Nome", "t": "texto"}. Reads aceitam plain strings
-// (legacy) também.
-function encodeNote(text, author) {
+// Encoding do campo `note` para incluir autor + flag de apagada
+// (sem coluna nova no DB). Formato JSON:
+//   {"a": "Nome", "t": "texto"}              — anotação activa
+//   {"a": "Quem-apagou", "t": "texto", "d": true} — apagada mas com texto preservado
+//   ""                                        — apagada legacy (texto perdido)
+// Reads aceitam plain strings (legacy) também.
+function encodeNote(text, author, opts) {
   const obj = {};
   if (author) obj.a = author;
   if (text) obj.t = text;
-  if (!obj.a && !obj.t) return "";
+  if (opts && opts.deleted) obj.d = true;
+  if (!obj.a && !obj.t && !obj.d) return "";
   return JSON.stringify(obj);
 }
 function decodeNote(raw) {
-  if (!raw) return { author: null, text: "" };
-  if (typeof raw !== "string") return { author: null, text: String(raw) };
+  if (!raw) return { author: null, text: "", deleted: false };
+  if (typeof raw !== "string") return { author: null, text: String(raw), deleted: false };
   const s = raw.trim();
   if (s.startsWith("{") && s.endsWith("}")) {
     try {
       const obj = JSON.parse(s);
       if (obj && typeof obj === "object") {
-        return { author: obj.a || null, text: obj.t || "" };
+        return { author: obj.a || null, text: obj.t || "", deleted: !!obj.d };
       }
     } catch {}
   }
   // Legacy plain string — sem autor.
-  return { author: null, text: raw };
+  return { author: null, text: raw, deleted: false };
 }
 
 // ─── Fallback localStorage ───────────────────────────────────────────────
@@ -203,6 +207,7 @@ function applyQueueToCache() {
       status: row.status,
       note: decoded.text,
       author: decoded.author,
+      deleted: decoded.deleted,
       updatedAt: row.updated_at,
     };
   }
@@ -218,6 +223,7 @@ function mergeServerSnapshot(rows) {
       status: row.status,
       note: decoded.text,
       author: decoded.author,
+      deleted: decoded.deleted,
       updatedAt: row.updated_at,
     };
   }
@@ -465,6 +471,7 @@ function subscribeRealtime() {
           status: row.status,
           note: decoded.text,
           author: decoded.author,
+          deleted: decoded.deleted,
           updatedAt: row.updated_at,
         };
         cache[row.item_id] = entry;
@@ -742,46 +749,82 @@ export const approvalStore = {
 
   // Lista de anotações deste item (incluindo anotações ligadas a slides).
   // Ordem cronológica: mais recente primeiro.
-  // Devolve TODAS as anotações deste item, incluindo as soft-deleted
-  // (que ficam com `deleted: true` e `note: ""`). O caller decide se as
-  // mostra com estilo diferente ou se filtra. Mantemos o histórico
-  // visível para o user poder recuperar contexto manualmente.
+  // Devolve TODAS as anotações deste item, incluindo as apagadas.
+  // Cada entry inclui flag `deleted` baseada no JSON do note ({d: true})
+  // OU em note vazio (legacy soft-delete que zerava o texto). A UI usa
+  // esta flag para mostrar tag "apagada" e estilo atenuado.
   listNotes(itemId) {
     const prefix = `${itemId}#`;
     const out = [];
     for (const key in cache) {
       if (!key.startsWith(prefix)) continue;
       if (!isAnnotationKey(key)) continue;
-      const note = cache[key].note || "";
-      const isDeleted = !note.trim();
+      const entry = cache[key];
+      const note = entry.note || "";
+      // Apagada se flag explícita OU se texto vazio (legacy).
+      const isDeleted = !!entry.deleted || !note.trim();
       const parsed = parseAnnotationKey(key);
       out.push({
         key,
         id: key,                       // back-compat com callers antigos
         slide: parsed?.slide || null,
         note,
-        deleted: isDeleted,            // true se a anotação foi apagada (note vazio)
-        author: cache[key].author || null,
-        status: cache[key].status,
-        changed_at: cache[key].updatedAt,
-        changed_by_email: cache[key].author || null,
+        deleted: isDeleted,
+        author: entry.author || null,
+        status: entry.status,
+        changed_at: entry.updatedAt,
+        changed_by_email: entry.author || null,
       });
     }
     out.sort((a, b) => (b.changed_at || "").localeCompare(a.changed_at || ""));
     return out;
   },
 
-  // Soft-delete: RLS não permite DELETE como anon. Marcamos como vazio.
+  // Soft-delete COM preservação de texto. RLS não permite DELETE como anon,
+  // pelo que actualizamos a row com flag {d: true} no JSON encoded. O texto
+  // original fica preservado para o user poder auditar/recuperar mais tarde.
+  // (Substitui o comportamento antigo que zerava o texto.)
   async deleteNote(key) {
     if (!key || !isAnnotationKey(key)) return false;
     const author = await ensureAuthor();
     const updatedAt = new Date().toISOString();
-    if (cache[key]) cache[key].note = "";
-    cache[key] = { status: "pending", note: "", author, updatedAt };
+    // Preserva o texto original — se existir.
+    const existingText = (cache[key]?.note || "").trim();
+    const entry = { status: "pending", note: existingText, author, deleted: true, updatedAt };
+    cache[key] = entry;
     lsSnapshot();
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
-      const r = await upsertRow(key, "pending", encodeNote("", author), updatedAt);
+      const r = await upsertRow(
+        key,
+        "pending",
+        encodeNote(existingText, author, { deleted: true }),
+        updatedAt
+      );
+      return !!r;
+    }
+    return true;
+  },
+
+  // Reactivar uma anotação previamente apagada — remove a flag d e mantém
+  // o texto. Útil quando o user apagou por engano.
+  async restoreNote(key) {
+    if (!key || !isAnnotationKey(key)) return false;
+    const author = await ensureAuthor();
+    const updatedAt = new Date().toISOString();
+    const existingText = (cache[key]?.note || "").trim();
+    if (!existingText) return false; // sem texto preservado, não há nada a restaurar
+    const entry = { status: "pending", note: existingText, author, deleted: false, updatedAt };
+    cache[key] = entry;
+    lsSnapshot();
+    emit();
+    if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
+      const r = await upsertRow(
+        key,
+        "pending",
+        encodeNote(existingText, author, { deleted: false }),
+        updatedAt
+      );
       return !!r;
     }
     return true;
