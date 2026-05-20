@@ -742,20 +742,25 @@ export const approvalStore = {
 
   // Lista de anotações deste item (incluindo anotações ligadas a slides).
   // Ordem cronológica: mais recente primeiro.
+  // Devolve TODAS as anotações deste item, incluindo as soft-deleted
+  // (que ficam com `deleted: true` e `note: ""`). O caller decide se as
+  // mostra com estilo diferente ou se filtra. Mantemos o histórico
+  // visível para o user poder recuperar contexto manualmente.
   listNotes(itemId) {
     const prefix = `${itemId}#`;
     const out = [];
     for (const key in cache) {
       if (!key.startsWith(prefix)) continue;
       if (!isAnnotationKey(key)) continue;
-      const note = cache[key].note;
-      if (!note || !note.trim()) continue;  // soft-deleted
+      const note = cache[key].note || "";
+      const isDeleted = !note.trim();
       const parsed = parseAnnotationKey(key);
       out.push({
         key,
         id: key,                       // back-compat com callers antigos
         slide: parsed?.slide || null,
         note,
+        deleted: isDeleted,            // true se a anotação foi apagada (note vazio)
         author: cache[key].author || null,
         status: cache[key].status,
         changed_at: cache[key].updatedAt,

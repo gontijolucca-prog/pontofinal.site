@@ -1073,6 +1073,34 @@
   margin: 0;
 }
 
+/* Anotações soft-deleted — mostradas para arquivo, com visual atenuado */
+.viewer-note--deleted {
+  opacity: 0.62;
+  background: repeating-linear-gradient(
+    135deg,
+    transparent 0,
+    transparent 6px,
+    rgba(0,0,0,0.04) 6px,
+    rgba(0,0,0,0.04) 7px
+  );
+}
+.viewer-note__text--deleted {
+  font-style: italic;
+  color: var(--mute, #6b6862);
+}
+.viewer-note__deleted-tag {
+  display: inline-block;
+  padding: 1px 6px;
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: #c0392b;
+  color: #fff;
+  border-radius: 2px;
+  margin-right: 4px;
+}
+
 /* ───── DROPDOWN DE SLIDE NA ZONA DE AÇÕES ───── */
 .viewer-actions__slide-label {
   display: flex;

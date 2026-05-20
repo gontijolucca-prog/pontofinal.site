@@ -97,17 +97,28 @@ class ItemViewer extends HTMLElement {
       const d = new Date(iso);
       return d.toLocaleString("pt-PT", { dateStyle: "short", timeStyle: "short" });
     };
-    wrap.innerHTML = rows.map(r => `
-      <div class="viewer-note" data-note-key="${this._escapeForHtml(r.key)}">
+    wrap.innerHTML = rows.map(r => {
+      const isDeleted = r.deleted || !r.note || !r.note.trim();
+      const bodyHtml = isDeleted
+        ? `<p class="viewer-note__text viewer-note__text--deleted"><em>[anotação apagada — texto original perdido]</em></p>`
+        : `<p class="viewer-note__text">${this._escapeForHtml(r.note)}</p>`;
+      const deleteBtn = isDeleted
+        ? ``  // já está apagada, não dá para apagar de novo
+        : `<button type="button" class="viewer-note__delete" data-action="delete-note" data-note-key="${this._escapeForHtml(r.key)}" aria-label="Apagar anotação" title="Apagar anotação">✕</button>`;
+      const deletedTag = isDeleted ? `<span class="viewer-note__deleted-tag">apagada</span>` : "";
+      return `
+      <div class="viewer-note${isDeleted ? ' viewer-note--deleted' : ''}" data-note-key="${this._escapeForHtml(r.key)}">
         <div class="viewer-note__meta">
           ${r.slide ? `<span class="viewer-note__slide">Slide ${String(r.slide).padStart(2, "0")}</span>` : ""}
+          ${deletedTag}
           <span class="viewer-note__time">${fmt(r.changed_at)}</span>
           ${r.changed_by_email ? `<span class="viewer-note__author">· ${this._escapeForHtml(r.changed_by_email)}</span>` : ""}
-          <button type="button" class="viewer-note__delete" data-action="delete-note" data-note-key="${this._escapeForHtml(r.key)}" aria-label="Apagar anotação" title="Apagar anotação">✕</button>
+          ${deleteBtn}
         </div>
-        <p class="viewer-note__text">${this._escapeForHtml(r.note)}</p>
+        ${bodyHtml}
       </div>
-    `).join("");
+      `;
+    }).join("");
   }
 
   _escapeForHtml(s) {
