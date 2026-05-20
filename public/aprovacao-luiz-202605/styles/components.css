@@ -1115,6 +1115,30 @@
   color: #fff;
   border-color: var(--status-approved, #2BB05F);
 }
+
+/* Bloco de anotações dentro da secção da Descrição IG */
+.viewer-caption__notes-block {
+  margin-top: var(--s-3, 12px);
+  padding-top: var(--s-3, 12px);
+  border-top: 1px dashed rgba(0, 0, 0, 0.18);
+}
+.viewer-caption__notes-head {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 800;
+  margin-bottom: var(--s-2, 8px);
+  color: var(--text);
+}
+.viewer-caption__notes-head .viewer-section__counter {
+  font-weight: 500;
+  color: var(--mute, #6b6862);
+  margin-left: 4px;
+}
+.viewer-caption__notes {
+  margin-bottom: var(--s-3, 12px);
+}
 .viewer-note__deleted-tag {
   display: inline-block;
   padding: 1px 6px;

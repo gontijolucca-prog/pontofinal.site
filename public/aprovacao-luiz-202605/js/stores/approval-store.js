@@ -53,9 +53,54 @@ function makeNonce() {
   return `${t}_${r}`;
 }
 
-function buildAnnotationKey(itemId, slideN, nonce) {
+function buildAnnotationKey(itemId, slideN, nonce, opts) {
+  const captionPart = opts && opts.caption ? CAPTION_SUFFIX : "";
   const slidePart = slideN ? `#slide${slideN}` : "";
-  return `${itemId}${slidePart}#note_${nonce}`;
+  return `${itemId}${captionPart}${slidePart}#note_${nonce}`;
+}
+
+// Detecta se a key é uma nota da caption. Padrão:
+//   ${itemId}:caption#note_${nonce}
+function isCaptionNoteKey(key) {
+  return /:caption#note_/.test(key);
+}
+
+// Implementação partilhada entre listNotes (slides) e listCaptionNotes.
+function _listNotesInternal(itemId, scope) {
+  const prefix = `${itemId}`; // bate slides (itemId#) e captions (itemId:caption#)
+  const out = [];
+  for (const key in cache) {
+    if (!key.startsWith(prefix)) continue;
+    if (!isAnnotationKey(key)) continue;
+    const isCap = isCaptionNoteKey(key);
+    if (scope === "slide" && isCap) continue;
+    if (scope === "caption" && !isCap) continue;
+    // Garantir que pertence mesmo a este itemId (não a outro com prefixo
+    // partilhado tipo "foo" vs "foo-extra").
+    const captionStart = prefix + CAPTION_SUFFIX + "#note_";
+    const slideStart = prefix + "#";
+    if (!key.startsWith(captionStart) && !key.startsWith(slideStart)) continue;
+    const entry = cache[key];
+    const note = entry.note || "";
+    const hasText = !!note.trim();
+    const explicitDeleted = !!entry.deleted;
+    if (!hasText && !explicitDeleted) continue;
+    const parsed = parseAnnotationKey(key);
+    out.push({
+      key,
+      id: key,
+      slide: parsed?.slide || null,
+      caption: isCap,
+      note,
+      deleted: explicitDeleted,
+      author: entry.author || null,
+      status: entry.status,
+      changed_at: entry.updatedAt,
+      changed_by_email: entry.author || null,
+    });
+  }
+  out.sort((a, b) => (b.changed_at || "").localeCompare(a.changed_at || ""));
+  return out;
 }
 
 // ─── Autor (assinatura) ──────────────────────────────────────────────────
@@ -728,14 +773,16 @@ export const approvalStore = {
   },
 
   // Cria uma nova anotação. Cada chamada com texto cria uma nova entrada
-  // (nonce único). opts.slideN para anotações por slide.
+  // (nonce único). Opções:
+  //   opts.slideN — anotação ligada a um slide específico (slides)
+  //   opts.caption — anotação da descrição IG (key fica ${id}:caption#note_)
   async saveNote(itemId, note, opts = {}) {
     const trimmed = (note || "").trim();
     if (!trimmed) return null;
     const author = await ensureAuthor();
     const slideN = opts.slideN || null;
     const nonce = makeNonce();
-    const key = buildAnnotationKey(itemId, slideN, nonce);
+    const key = buildAnnotationKey(itemId, slideN, nonce, { caption: opts.caption });
     const updatedAt = new Date().toISOString();
     const entry = { status: "pending", note: trimmed, author, updatedAt };
     cache[key] = entry;
@@ -749,35 +796,16 @@ export const approvalStore = {
 
   // Lista de anotações deste item (incluindo anotações ligadas a slides).
   // Ordem cronológica: mais recente primeiro.
-  // Devolve TODAS as anotações deste item, incluindo as apagadas.
-  // Cada entry inclui flag `deleted` baseada no JSON do note ({d: true})
-  // OU em note vazio (legacy soft-delete que zerava o texto). A UI usa
-  // esta flag para mostrar tag "apagada" e estilo atenuado.
+  // Devolve as anotações dos slides deste item. Caption notes (key contém
+  // :caption#note_) são excluídas — para essas usar listCaptionNotes.
+  // Filtra legacy zeroed (note="" sem flag d=true) por segurança visual.
   listNotes(itemId) {
-    const prefix = `${itemId}#`;
-    const out = [];
-    for (const key in cache) {
-      if (!key.startsWith(prefix)) continue;
-      if (!isAnnotationKey(key)) continue;
-      const entry = cache[key];
-      const note = entry.note || "";
-      // Apagada se flag explícita OU se texto vazio (legacy).
-      const isDeleted = !!entry.deleted || !note.trim();
-      const parsed = parseAnnotationKey(key);
-      out.push({
-        key,
-        id: key,                       // back-compat com callers antigos
-        slide: parsed?.slide || null,
-        note,
-        deleted: isDeleted,
-        author: entry.author || null,
-        status: entry.status,
-        changed_at: entry.updatedAt,
-        changed_by_email: entry.author || null,
-      });
-    }
-    out.sort((a, b) => (b.changed_at || "").localeCompare(a.changed_at || ""));
-    return out;
+    return _listNotesInternal(itemId, "slide");
+  },
+
+  // Devolve apenas as anotações da caption deste item.
+  listCaptionNotes(itemId) {
+    return _listNotesInternal(itemId, "caption");
   },
 
   // Soft-delete COM preservação de texto. RLS não permite DELETE como anon,

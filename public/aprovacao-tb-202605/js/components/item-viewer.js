@@ -79,31 +79,33 @@ class ItemViewer extends HTMLElement {
     await initApprovalStore();
     if (!this._item || this._item.id !== itemId) return;
     this._notes = approvalStore.listNotes(itemId);
+    this._captionNotes = approvalStore.listCaptionNotes(itemId);
     this._renderNotes();
+    this._renderCaptionNotes();
   }
 
-  _renderNotes() {
-    const wrap = this.querySelector(".viewer-notes");
+  _renderCaptionNotes() {
+    const wrap = this.querySelector("[data-caption-notes]");
     if (!wrap) return;
-    const rows = this._notes || [];
-    const counter = this.querySelector("[data-notes-count]");
+    const rows = this._captionNotes || [];
+    const counter = this.querySelector("[data-caption-notes-count]");
     if (counter) counter.textContent = rows.length > 0 ? `(${rows.length})` : "";
-
     if (!rows.length) {
       wrap.innerHTML = `<p class="viewer-notes__empty">Ainda não há anotações. Escreve uma em baixo e carrega "Guardar anotação".</p>`;
       return;
     }
+    wrap.innerHTML = this._buildNoteRowsHtml(rows);
+  }
+
+  // Helper partilhado para renderizar rows de anotações (slides ou caption).
+  _buildNoteRowsHtml(rows) {
     const fmt = (iso) => {
       const d = new Date(iso);
       return d.toLocaleString("pt-PT", { dateStyle: "short", timeStyle: "short" });
     };
-    wrap.innerHTML = rows.map(r => {
+    return rows.map(r => {
       const isDeleted = r.deleted;
       const hasText = r.note && r.note.trim();
-      // Três visuais possíveis:
-      //   activa            → texto normal + botão ✕ apagar
-      //   apagada-com-texto → texto riscado + tag "apagada" + botão "↺ restaurar"
-      //   apagada-sem-texto → placeholder (legacy soft-delete que zerou texto)
       let bodyHtml, rightBtn;
       if (!isDeleted) {
         bodyHtml = `<p class="viewer-note__text">${this._escapeForHtml(r.note)}</p>`;
@@ -116,10 +118,11 @@ class ItemViewer extends HTMLElement {
         rightBtn = ``;
       }
       const deletedTag = isDeleted ? `<span class="viewer-note__deleted-tag">apagada</span>` : "";
+      const slideTag = r.slide ? `<span class="viewer-note__slide">Slide ${String(r.slide).padStart(2, "0")}</span>` : "";
       return `
       <div class="viewer-note${isDeleted ? ' viewer-note--deleted' : ''}" data-note-key="${this._escapeForHtml(r.key)}">
         <div class="viewer-note__meta">
-          ${r.slide ? `<span class="viewer-note__slide">Slide ${String(r.slide).padStart(2, "0")}</span>` : ""}
+          ${slideTag}
           ${deletedTag}
           <span class="viewer-note__time">${fmt(r.changed_at)}</span>
           ${r.changed_by_email ? `<span class="viewer-note__author">· ${this._escapeForHtml(r.changed_by_email)}</span>` : ""}
@@ -129,6 +132,20 @@ class ItemViewer extends HTMLElement {
       </div>
       `;
     }).join("");
+  }
+
+  _renderNotes() {
+    const wrap = this.querySelector("[data-notes]");
+    if (!wrap) return;
+    const rows = this._notes || [];
+    const counter = this.querySelector("[data-notes-count]");
+    if (counter) counter.textContent = rows.length > 0 ? `(${rows.length})` : "";
+
+    if (!rows.length) {
+      wrap.innerHTML = `<p class="viewer-notes__empty">Ainda não há anotações. Escreve uma em baixo e carrega "Guardar anotação".</p>`;
+      return;
+    }
+    wrap.innerHTML = this._buildNoteRowsHtml(rows);
   }
 
   _escapeForHtml(s) {
@@ -316,8 +333,16 @@ class ItemViewer extends HTMLElement {
                 <p class="viewer-caption__author" data-caption-author ${captionState.status === "pending" || !captionState.author ? "hidden" : ""}>${captionState.status !== "pending" && captionState.author ? `${captionState.status === "approved" ? "Aprovada" : "Rejeitada"} por <strong>${this._escapeForHtml(captionState.author)}</strong>` : ""}</p>
                 <pre class="viewer-caption__text">${this._escapeForHtml(it.caption)}</pre>
                 ${it.hashtags ? `<pre class="viewer-caption__hashtags">${this._escapeForHtml(it.hashtags)}</pre>` : ""}
+                <div class="viewer-caption__notes-block">
+                  <div class="viewer-caption__notes-head">
+                    Anotações <span class="viewer-section__counter" data-caption-notes-count></span>
+                  </div>
+                  <div class="viewer-notes viewer-caption__notes" data-caption-notes>
+                    <p class="viewer-notes__empty">A carregar…</p>
+                  </div>
+                </div>
                 <div class="viewer-caption__actions">
-                  <textarea data-caption-note placeholder="Sugestão para a descrição (opcional)">${this._escapeForHtml(captionState.note || "")}</textarea>
+                  <textarea data-caption-note placeholder="Escreve uma anotação sobre a descrição"></textarea>
                   <button class="btn btn--ghost btn--small" data-action="caption-save-note">Guardar anotação</button>
                   <span class="viewer-caption__feedback" data-caption-feedback aria-live="polite"></span>
                   <button class="btn btn--reject btn--small" data-action="caption-reject">Rejeitar descrição</button>
@@ -466,9 +491,11 @@ class ItemViewer extends HTMLElement {
         this.close();
       }
       if (action === "caption-save-note") {
-        const note = (this.querySelector("textarea[data-caption-note]")?.value || "").trim();
-        const current = approvalStore.getCaption(this._item.id);
-        await approvalStore.setCaption(this._item.id, current.status, note);
+        const ta = this.querySelector("textarea[data-caption-note]");
+        const text = (ta?.value || "").trim();
+        if (!text) return;
+        await approvalStore.saveNote(this._item.id, text, { caption: true });
+        if (ta) ta.value = "";
         const fb = this.querySelector("[data-caption-feedback]");
         if (fb) {
           fb.textContent = "✓ Guardado";
@@ -479,10 +506,11 @@ class ItemViewer extends HTMLElement {
         return;
       }
       if (action === "caption-approve" || action === "caption-reject") {
-        const note = (this.querySelector("textarea[data-caption-note]")?.value || "").trim();
         const desired = action === "caption-approve" ? "approved" : "rejected";
         const current = approvalStore.getCaption(this._item.id).status;
-        await approvalStore.setCaption(this._item.id, current === desired ? "pending" : desired, note);
+        // Aprovação/rejeição da caption — note vazia, a opinião fica nas
+        // anotações dedicadas via saveNote({caption:true}).
+        await approvalStore.setCaption(this._item.id, current === desired ? "pending" : desired, "");
         this._updateCaptionBadge();
         await this._loadNotes();
       }
