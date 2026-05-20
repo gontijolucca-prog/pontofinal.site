@@ -247,6 +247,9 @@ const APPROVALS_ENDPOINTS = [
   `${SUPABASE_URL}/rest/v1/approvals`,
 ];
 
+let _lastFetchError = null;
+let _lastFetchEndpoint = null;
+
 async function fetchApprovals(query) {
   for (const base of APPROVALS_ENDPOINTS) {
     const isProxy = base.startsWith("/api/");
@@ -264,9 +267,22 @@ async function fetchApprovals(query) {
         credentials: "omit",
         cache: "no-store",
       });
-      if (!res.ok) continue;
+      if (!res.ok) {
+        _lastFetchError = `HTTP ${res.status} via ${base}`;
+        continue;
+      }
+      // O proxy pode devolver HTML (SPA fallback) com status 200 se _routes.json
+      // não estiver configurado. Detectamos pelo content-type.
+      const ct = res.headers.get("content-type") || "";
+      if (!ct.includes("json")) {
+        _lastFetchError = `Resposta não-JSON (${ct.slice(0,40)}) via ${base}`;
+        continue;
+      }
+      _lastFetchEndpoint = base;
+      _lastFetchError = null;
       return await res.json();
     } catch (e) {
+      _lastFetchError = `${base}: ${e?.message || e}`;
       console.warn(`[approval-store] fetch via ${base} falhou:`, e?.message || e);
     }
   }
@@ -360,13 +376,16 @@ function updateSyncIndicator(state) {
   const now = new Date();
   const t = `${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}:${String(now.getSeconds()).padStart(2,"0")}`;
   if (state === "ok") {
-    _syncIndicatorEl.textContent = `✓ ao vivo · ${t}`;
+    const via = _lastFetchEndpoint ? (_lastFetchEndpoint.startsWith("/api/") ? "(proxy)" : "(direct)") : "";
+    _syncIndicatorEl.textContent = `✓ ao vivo ${via} · ${t}`;
     _syncIndicatorEl.style.background = "#E8F5E9";
     _syncIndicatorEl.style.color = "#1B5E20";
+    _syncIndicatorEl.title = "Tudo sincronizado.";
   } else {
-    _syncIndicatorEl.textContent = "⚠ Offline";
+    _syncIndicatorEl.textContent = `⚠ Offline · ${(_lastFetchError || "?").slice(0,80)}`;
     _syncIndicatorEl.style.background = "#FFF3CD";
     _syncIndicatorEl.style.color = "#856404";
+    _syncIndicatorEl.title = _lastFetchError || "Sem ligação";
   }
 }
 

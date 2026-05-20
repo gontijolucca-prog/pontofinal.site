@@ -66,6 +66,9 @@ export async function onRequest(context) {
   respHeaders.set("Access-Control-Allow-Origin", "*");
   respHeaders.set("Access-Control-Allow-Methods", "GET,POST,PATCH,DELETE,OPTIONS");
   respHeaders.set("Access-Control-Allow-Headers", "*");
+  // Nunca cachear — queremos sempre o estado mais recente do Supabase.
+  respHeaders.set("Cache-Control", "no-store, no-cache, must-revalidate");
+  respHeaders.set("Pragma", "no-cache");
 
   return new Response(upstream.body, {
     status: upstream.status,
