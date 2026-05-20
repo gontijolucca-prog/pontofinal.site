@@ -1,0 +1,13 @@
+# Cloudflare Pages — cache headers
+#
+# Dashboards e páginas de aprovação iteram com frequência. Revalidar sempre
+# por ETag em vez de servir versão cacheada cega.
+
+/dashboard-*/*
+  Cache-Control: no-cache, must-revalidate
+
+/aprovacao-*/*
+  Cache-Control: no-cache, must-revalidate
+
+/franchise-*/*
+  Cache-Control: no-cache, must-revalidate
