@@ -1,29 +1,20 @@
-name: Deploy to GitHub Pages
+name: Deploy to Cloudflare Pages
 
 on:
-  # Executa este workflow sempre que houver um push para a branch "main"
   push:
     branches: ['main']
-  # Permite executar este workflow manualmente no separador "Actions"
   workflow_dispatch:
 
-# Define as permissões necessárias para o GITHUB_TOKEN
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Permite apenas um deployment concorrente, cancelando os que estiverem em progresso
 concurrency:
-  group: "pages"
+  group: "cf-pages"
   cancel-in-progress: true
 
 jobs:
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,15 +31,9 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
         with:
-          # O Vite compila o site para a pasta "dist"
-          path: './dist'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=pontofinal-site --branch=main
