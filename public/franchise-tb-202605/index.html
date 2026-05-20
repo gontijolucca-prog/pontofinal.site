@@ -305,6 +305,10 @@
 
     els.state.hidden = true;
     if (visible.length === 0) {
+      // Esvazia + esconde — o CSS `.grid { display: grid }` tem prioridade sobre
+      // o atributo [hidden], então se mantivermos children o card antigo
+      // continua a renderizar mesmo com hidden=true. Limpar innerHTML resolve.
+      els.grid.innerHTML = "";
       els.grid.hidden = true;
       els.empty.hidden = false;
       return;
