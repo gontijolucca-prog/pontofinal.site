@@ -1073,7 +1073,9 @@
   margin: 0;
 }
 
-/* Anotações soft-deleted — mostradas para arquivo, com visual atenuado */
+/* Anotações soft-deleted — mostradas para arquivo, com visual atenuado.
+   Renderizadas como <details> para drop-down: fechadas por defeito, mostram
+   só a meta (data, autor, tags). Click no header expande para ver o texto. */
 .viewer-note--deleted {
   opacity: 0.62;
   background: repeating-linear-gradient(
@@ -1083,6 +1085,36 @@
     rgba(0,0,0,0.04) 6px,
     rgba(0,0,0,0.04) 7px
   );
+}
+details.viewer-note--deleted {
+  padding: 0;
+}
+details.viewer-note--deleted > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: var(--s-2);
+  user-select: none;
+}
+details.viewer-note--deleted > summary::-webkit-details-marker { display: none; }
+details.viewer-note--deleted > summary::marker { display: none; content: ""; }
+.viewer-note__caret {
+  display: inline-block;
+  font-size: 10px;
+  width: 10px;
+  color: var(--text-mute);
+  transition: transform 0.15s ease;
+}
+details.viewer-note--deleted[open] > summary .viewer-note__caret {
+  transform: rotate(90deg);
+}
+details.viewer-note--deleted > .viewer-note__text,
+details.viewer-note--deleted > .viewer-note__text--struck,
+details.viewer-note--deleted > .viewer-note__text--deleted {
+  padding: 0 var(--s-2) var(--s-2) var(--s-2);
+  margin-top: calc(-1 * var(--s-1));
+}
+.viewer-note__meta--summary {
+  margin: 0;
 }
 .viewer-note__text--deleted {
   font-style: italic;

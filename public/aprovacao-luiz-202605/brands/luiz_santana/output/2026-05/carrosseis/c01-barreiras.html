@@ -134,6 +134,13 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 
 /* brand mark — refined, not maximal */
 .brand-glyph { font-family: var(--font-display); font-weight: var(--w-strong); letter-spacing: -0.02em; color: var(--accent); font-size: clamp(16px, 1.8vw, 20px); }
+
+/* Tipografia: evitar orphans (palavra curta sozinha na linha).
+   text-wrap: pretty -> Chrome 117+/Safari 17.5+. Fallback graceful em browsers antigos. */
+h1, h2, h3, p, blockquote, .num {
+  text-wrap: balance;
+  text-wrap: pretty;
+}
 </style>
 </head>
 <body>

@@ -149,8 +149,28 @@ class ItemViewer extends HTMLElement {
       const deletedTag = isDeleted ? `<span class="viewer-note__deleted-tag">apagada</span>` : "";
       const resolvedTag = r.resolved ? `<span class="viewer-note__resolved-tag" title="Esta anotação já foi processada e o feedback aplicado">✓ corrigido</span>` : "";
       const slideTag = r.slide ? `<span class="viewer-note__slide">Slide ${String(r.slide).padStart(2, "0")}</span>` : "";
+      if (isDeleted) {
+        // Apagada: colapsada por defeito; <details>/<summary> dá UX de drop-down
+        // nativa. Clicar em qualquer ponto da meta abre/fecha. O botão restore
+        // continua acessível dentro do summary (não dispara o toggle quando
+        // o handler chama stopPropagation).
+        return `
+        <details class="viewer-note viewer-note--deleted${r.resolved ? ' viewer-note--resolved' : ''}" data-note-key="${this._escapeForHtml(r.key)}">
+          <summary class="viewer-note__meta viewer-note__meta--summary">
+            <span class="viewer-note__caret" aria-hidden="true">▸</span>
+            ${slideTag}
+            ${deletedTag}
+            <span class="viewer-note__time">${fmt(r.changed_at)}</span>
+            ${resolvedTag}
+            ${r.changed_by_email ? `<span class="viewer-note__author">· ${this._escapeForHtml(r.changed_by_email)}</span>` : ""}
+            ${rightBtn}
+          </summary>
+          ${bodyHtml}
+        </details>
+        `;
+      }
       return `
-      <div class="viewer-note${isDeleted ? ' viewer-note--deleted' : ''}${r.resolved ? ' viewer-note--resolved' : ''}" data-note-key="${this._escapeForHtml(r.key)}">
+      <div class="viewer-note${r.resolved ? ' viewer-note--resolved' : ''}" data-note-key="${this._escapeForHtml(r.key)}">
         <div class="viewer-note__meta">
           ${slideTag}
           ${deletedTag}
@@ -553,6 +573,9 @@ class ItemViewer extends HTMLElement {
         return;
       }
       if (action === "restore-note") {
+        // Botão vive dentro do <summary> da nota apagada — impede o toggle
+        // nativo do <details> de disparar (o re-render encarrega-se do estado).
+        e.preventDefault();
         const key = btn.dataset.noteKey;
         if (!key) return;
         const ok = await approvalStore.restoreNote(key);
