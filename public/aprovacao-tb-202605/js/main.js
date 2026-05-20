@@ -350,6 +350,7 @@ function updateCounts() {
   els.approvedCount().textContent = String(approved);
   els.rejectedCount().textContent = String(rejected);
   els.pendingCount().textContent  = String(pending);
+  // Sincronizar chips do header (mesma fonte de verdade)
   const hA = document.getElementById("headerApprovedCount");
   const hR = document.getElementById("headerRejectedCount");
   const hP = document.getElementById("headerPendingCount");
@@ -360,9 +361,12 @@ function updateCounts() {
     const chip = hP.closest(".header-progress__chip");
     if (chip) chip.dataset.hasPending = pending > 0 ? "true" : "false";
   }
+  // Hero action banner — banner CTA proeminente no topo
   updateHeroAction(approved, rejected, pending);
 }
 
+// Banner CTA proeminente que diz "tens X pendentes" + botao para abrir
+// o proximo. Esconde-se quando pending === 0 (passa a "tudo revisto").
 function updateHeroAction(approved, rejected, pending) {
   const hero = document.getElementById("heroAction");
   if (!hero) return;
@@ -389,6 +393,9 @@ function updateHeroAction(approved, rejected, pending) {
   }
 }
 
+// Abre o 1o item pendente no viewer (CTA do hero-action banner).
+// Procura por items que NAO estao em status approved/rejected. Items
+// sem entrada no cache contam como pending (default).
 function openNextPending() {
   const items = visibleItems();
   const next = items.find(it => {
@@ -400,6 +407,8 @@ function openNextPending() {
   if (viewer && typeof viewer.open === "function") viewer.open(next);
 }
 
+// Toggle do calendario — colapsa/expande para libertar foco para as
+// listas abaixo. Estado persiste em localStorage.
 function initCalendarToggle() {
   const btn = document.getElementById("calendarToggle");
   const section = document.getElementById("calendarSection");
