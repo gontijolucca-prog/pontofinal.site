@@ -238,36 +238,81 @@ function mergeServerSnapshot(rows) {
   emit();
 }
 
-// Carrega do Supabase via REST directa (sem SDK). Funciona mesmo quando o
-// CDN do supabase-js está bloqueado (Safari ETP/extensões/iCloud Private
-// Relay). É o caminho FIABLE — chamado no init e em polling.
-async function loadFromSupabaseFetch() {
-  try {
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/approvals?namespace=eq.${encodeURIComponent(NAMESPACE)}&select=item_id,status,note,updated_at`,
-      {
-        headers: {
-          apikey: SUPABASE_ANON_KEY,
-          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-        },
+// Endpoints possíveis para a tabela approvals. O proxy same-origin é
+// preferido — first-party requests passam por Brave Shields, Safari
+// content blockers e extensões que bloqueiam o domínio supabase.co
+// directo. Caímos para o supabase.co directo só se o proxy falhar.
+const APPROVALS_ENDPOINTS = [
+  `/api/approvals`,
+  `${SUPABASE_URL}/rest/v1/approvals`,
+];
+
+async function fetchApprovals(query) {
+  for (const base of APPROVALS_ENDPOINTS) {
+    const isProxy = base.startsWith("/api/");
+    try {
+      const headers = { "Content-Type": "application/json" };
+      // O proxy injecta as credenciais server-side. Em fallback directo
+      // precisamos das enviar.
+      if (!isProxy) {
+        headers.apikey = SUPABASE_ANON_KEY;
+        headers.Authorization = `Bearer ${SUPABASE_ANON_KEY}`;
+      }
+      const res = await fetch(`${base}?${query}`, {
+        headers,
         mode: "cors",
         credentials: "omit",
         cache: "no-store",
-      }
-    );
-    if (!res.ok) {
-      console.warn("[approval-store] REST load HTTP", res.status);
-      return false;
+      });
+      if (!res.ok) continue;
+      return await res.json();
+    } catch (e) {
+      console.warn(`[approval-store] fetch via ${base} falhou:`, e?.message || e);
     }
-    const data = await res.json();
-    mergeServerSnapshot(data);
-    updateSyncIndicator("ok");
-    return true;
-  } catch (e) {
-    console.warn("[approval-store] REST load failed:", e?.message || e);
+  }
+  return null;
+}
+
+async function upsertApprovals(row) {
+  for (const base of APPROVALS_ENDPOINTS) {
+    const isProxy = base.startsWith("/api/");
+    try {
+      const headers = {
+        "Content-Type": "application/json",
+        "Prefer": "resolution=merge-duplicates",
+      };
+      if (!isProxy) {
+        headers.apikey = SUPABASE_ANON_KEY;
+        headers.Authorization = `Bearer ${SUPABASE_ANON_KEY}`;
+      }
+      const res = await fetch(`${base}?on_conflict=namespace,item_id`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify(row),
+        mode: "cors",
+        credentials: "omit",
+        keepalive: true,
+      });
+      if (res.ok) return true;
+      _lastSyncError = `HTTP ${res.status} via ${base}`;
+    } catch (e) {
+      _lastSyncError = `${base}: ${e?.message || e}`;
+    }
+  }
+  return false;
+}
+
+// Carrega do Supabase via REST (proxy same-origin com fallback directo).
+// Funciona mesmo quando o domínio supabase.co é bloqueado pelo browser.
+async function loadFromSupabaseFetch() {
+  const data = await fetchApprovals(`namespace=eq.${encodeURIComponent(NAMESPACE)}&select=item_id,status,note,updated_at`);
+  if (data === null) {
     updateSyncIndicator("offline");
     return false;
   }
+  mergeServerSnapshot(data);
+  updateSyncIndicator("ok");
+  return true;
 }
 
 async function loadFromSupabase() {
@@ -515,37 +560,13 @@ function updatePendingIndicator(count) {
   }
 }
 
-// Direct fetch fallback — used when the supabase-js SDK request is
-// silently dropped (Safari ETP, iCloud Private Relay, ad-blockers can do
-// this without surfacing an error to the SDK).
+// Direct fetch fallback — usa o proxy same-origin primeiro, supabase.co
+// directo como segundo. Resolve writes que o SDK não consegue entregar
+// por causa de extensões/shields que bloqueiam o domínio externo.
 async function fetchUpsert(row) {
-  try {
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/approvals?on_conflict=namespace,item_id`,
-      {
-        method: "POST",
-        headers: {
-          "apikey": SUPABASE_ANON_KEY,
-          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
-          "Content-Type": "application/json",
-          "Prefer": "resolution=merge-duplicates",
-        },
-        body: JSON.stringify(row),
-        keepalive: true,
-        mode: "cors",
-        credentials: "omit",
-      }
-    );
-    if (!res.ok) {
-      _lastSyncError = `HTTP ${res.status} ${(await res.text()).slice(0, 80)}`;
-      return false;
-    }
-    _lastSyncError = null;
-    return true;
-  } catch (e) {
-    _lastSyncError = e?.message || String(e);
-    return false;
-  }
+  const ok = await upsertApprovals(row);
+  if (ok) _lastSyncError = null;
+  return ok;
 }
 
 async function tryUpsertRaw(row) {
