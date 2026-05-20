@@ -2719,6 +2719,72 @@ body {
   .swipe-hint { display: none; }
 }
 
+/* ─────────────────────────────────────────────────────────────────────
+   HEADER PROGRESS — chips de Aprovados / Rejeitados / Pendentes no
+   header. Visivel sem scroll, com pulse no pending se > 0.
+   ───────────────────────────────────────────────────────────────────── */
+.header-progress {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.header-progress__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border: 2px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-weight: 700;
+  line-height: 1;
+}
+.header-progress__chip strong {
+  font: 900 13px/1 var(--font-heavy);
+  letter-spacing: 0;
+}
+.header-progress__icon {
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 4px;
+  border-radius: 2px;
+  letter-spacing: 0;
+}
+.header-progress__chip--approved .header-progress__icon {
+  background: var(--status-approved, #2BB05F);
+  color: #fff;
+}
+.header-progress__chip--rejected .header-progress__icon {
+  background: var(--status-rejected, var(--accent, #FF4D2E));
+  color: #fff;
+}
+.header-progress__chip--pending .header-progress__icon {
+  background: var(--text);
+  color: var(--bg);
+}
+/* Pulse subtil se ha pendentes — chama atencao do user a accao */
+@keyframes pf-pending-chip-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 transparent; }
+  50% { transform: scale(1.04); box-shadow: 0 0 0 4px color-mix(in srgb, var(--text) 8%, transparent); }
+}
+.header-progress__chip--pending[data-has-pending="true"] {
+  animation: pf-pending-chip-pulse 2.5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .header-progress__chip--pending[data-has-pending="true"] { animation: none; }
+}
+@media (max-width: 720px) {
+  .header-progress { font-size: 10px; gap: 4px; }
+  .header-progress__chip { padding: 3px 6px; }
+  .header-progress__chip strong { font-size: 12px; }
+  .header-progress__icon { font-size: 8px; padding: 1px 3px; }
+}
+
 /* Toast de confirmacao apos aprovar/rejeitar — slides up from bottom */
 @keyframes pf-toast-in {
   from { opacity: 0; transform: translateX(-50%) translateY(20px); }

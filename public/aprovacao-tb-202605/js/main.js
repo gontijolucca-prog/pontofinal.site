@@ -350,6 +350,16 @@ function updateCounts() {
   els.approvedCount().textContent = String(approved);
   els.rejectedCount().textContent = String(rejected);
   els.pendingCount().textContent  = String(pending);
+  const hA = document.getElementById("headerApprovedCount");
+  const hR = document.getElementById("headerRejectedCount");
+  const hP = document.getElementById("headerPendingCount");
+  if (hA) hA.textContent = String(approved);
+  if (hR) hR.textContent = String(rejected);
+  if (hP) {
+    hP.textContent = String(pending);
+    const chip = hP.closest(".header-progress__chip");
+    if (chip) chip.dataset.hasPending = pending > 0 ? "true" : "false";
+  }
 }
 
 function manageLoader() {

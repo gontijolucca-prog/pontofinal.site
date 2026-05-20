@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="app-version" content="20260520-1420" />
+<meta name="app-version" content="20260520-1435" />
 <title>Aprovação · Conteúdo</title>
 
 <script>
@@ -81,6 +81,20 @@
     <span id="headerLabel">Aprovação</span>
   </div>
   <month-switcher id="monthSwitcher"></month-switcher>
+  <div class="header-progress" id="headerProgress" aria-label="Progresso de aprovação">
+    <span class="header-progress__chip header-progress__chip--approved" title="Aprovados">
+      <span class="header-progress__icon" aria-hidden="true">OK</span>
+      <strong id="headerApprovedCount">0</strong>
+    </span>
+    <span class="header-progress__chip header-progress__chip--rejected" title="Rejeitados">
+      <span class="header-progress__icon" aria-hidden="true">X</span>
+      <strong id="headerRejectedCount">0</strong>
+    </span>
+    <span class="header-progress__chip header-progress__chip--pending" title="Pendentes — clica num item para aprovar ou rejeitar">
+      <span class="header-progress__icon" aria-hidden="true">...</span>
+      <strong id="headerPendingCount">0</strong>
+    </span>
+  </div>
   <a id="dashboardLink" class="nav-link" hidden>Estatísticas →</a>
   <button type="button" id="helpButton" class="help-trigger" aria-label="Atalhos do teclado" title="Atalhos (?)">?</button>
   <user-menu id="userMenu" aria-hidden="true"></user-menu>
