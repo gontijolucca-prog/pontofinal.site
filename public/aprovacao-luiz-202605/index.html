@@ -3,29 +3,34 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="app-version" content="20260520-1215" />
 <title>Aprovação · Conteúdo</title>
 
 <script>
-  // Auto cache-bust por sessão. Safari (e em menor grau Brave) por vezes
-  // ignoram Cache-Control: no-store para subresources de uma página HTML
-  // já cached. Sintoma: deploy novo, user faz Cmd+R e continua a ver JS
-  // antigo até "Clear History" manual.
+  // Auto cache-bust por VERSÃO da app (não por sessão). Cenário que isto
+  // resolve: user manteve a tab aberta há 3 dias com versão antiga. Faz
+  // Cmd+R. O HTML revalida (no-store), chega versão nova com meta
+  // app-version actualizada. Comparamos com o que está em sessionStorage
+  // — se for diferente, força redirect com timestamp único → todos os
+  // subresources (JS/CSS) refetchados frescos do servidor.
   //
-  // Fix: na primeira carga de cada sessão (sessionStorage flag), redireciona
-  // a página para a mesma URL + ?_=<timestamp>. Browser trata como URL nova
-  // e refetcha tudo. Como sessionStorage morre quando a tab fecha, cada nova
-  // tab volta a fazer o bust → cada deploy é apanhado naturalmente sem
-  // intervenção do user. localStorage (aprovações offline) NÃO é afectado.
+  // Diferença vs aproach anterior (só "primeira sessão"): aquele falhava
+  // quando a sessionStorage flag ficava '1' permanente. Agora a flag
+  // contém A VERSÃO — qualquer deploy novo invalida-a automaticamente.
+  // localStorage (aprovações offline) NÃO é afectado.
   (function() {
     try {
-      if (sessionStorage.getItem('pf-session-bust') !== '1' &&
+      var meta = document.querySelector('meta[name="app-version"]');
+      var current = meta ? meta.getAttribute('content') : '';
+      if (current && sessionStorage.getItem('pf-bust-v') !== current &&
           !window.location.search.includes('_=')) {
-        sessionStorage.setItem('pf-session-bust', '1');
+        sessionStorage.setItem('pf-bust-v', current);
         window.location.replace(
           window.location.pathname + '?_=' + Date.now() + window.location.hash
         );
+        return; // evita executar mais código antes do redirect
       }
-    } catch (e) { /* sessionStorage indisponível — segue normal */ }
+    } catch (e) { /* storage indisponível — segue normal */ }
   })();
 
   // Service Worker — uma vez registado, força network-first para todos
