@@ -1,51 +1,79 @@
 # Cloudflare Pages — cache headers
 #
-# Páginas de aprovação iteram com frequência. NUNCA cachear o HTML nem o
-# JS — o user tem de ver imediatamente o último código após cada deploy.
-# Sem regras nested explícitas, Cloudflare aplicava o cache default de 4h
-# aos ficheiros JS dentro de /js/, causando Safari/Chrome a servir versões
-# antigas mesmo após hard refresh.
+# Cloudflare Pages _headers só faz match no PRIMEIRO segmento com `*`.
+# Wildcards no meio do path NÃO funcionam consistentemente. Por isso
+# listamos paths explícitos para cada página de aprovação/dashboard.
 
-/aprovacao-*/*
+# Páginas de aprovação Luiz (Maio 2026)
+/aprovacao-luiz-202605/*
+  Cache-Control: no-store, no-cache, must-revalidate
+  Pragma: no-cache
+/aprovacao-luiz-202605/js/*
+  Cache-Control: no-store, no-cache, must-revalidate
+/aprovacao-luiz-202605/js/components/*
+  Cache-Control: no-store, no-cache, must-revalidate
+/aprovacao-luiz-202605/js/stores/*
+  Cache-Control: no-store, no-cache, must-revalidate
+/aprovacao-luiz-202605/js/lib/*
+  Cache-Control: no-store, no-cache, must-revalidate
+/aprovacao-luiz-202605/styles/*
+  Cache-Control: no-store, no-cache, must-revalidate
+/aprovacao-luiz-202605/data/*
+  Cache-Control: no-store, no-cache, must-revalidate
+
+# Páginas de aprovação TechBody / TechBody U (Maio 2026)
+/aprovacao-tb-202605/*
+  Cache-Control: no-store, no-cache, must-revalidate
+  Pragma: no-cache
+/aprovacao-tb-202605/js/*
+  Cache-Control: no-store, no-cache, must-revalidate
+/aprovacao-tb-202605/js/components/*
+  Cache-Control: no-store, no-cache, must-revalidate
+/aprovacao-tb-202605/js/stores/*
+  Cache-Control: no-store, no-cache, must-revalidate
+/aprovacao-tb-202605/js/lib/*
+  Cache-Control: no-store, no-cache, must-revalidate
+/aprovacao-tb-202605/styles/*
+  Cache-Control: no-store, no-cache, must-revalidate
+/aprovacao-tb-202605/data/*
+  Cache-Control: no-store, no-cache, must-revalidate
+
+# Páginas de aprovação PontoFinal (Junho 2026)
+/aprovacao-pf-202606/*
+  Cache-Control: no-store, no-cache, must-revalidate
+  Pragma: no-cache
+/aprovacao-pf-202606/js/*
+  Cache-Control: no-store, no-cache, must-revalidate
+/aprovacao-pf-202606/data/*
+  Cache-Control: no-store, no-cache, must-revalidate
+
+# Dashboards
+/dashboard-luiz-202605/*
+  Cache-Control: no-store, no-cache, must-revalidate
+  Pragma: no-cache
+/dashboard-luiz-202605/js/*
+  Cache-Control: no-store, no-cache, must-revalidate
+/dashboard-luiz-202605/js/components/*
+  Cache-Control: no-store, no-cache, must-revalidate
+/dashboard-luiz-202605/styles/*
+  Cache-Control: no-store, no-cache, must-revalidate
+
+/dashboard-tb-202605/*
+  Cache-Control: no-store, no-cache, must-revalidate
+  Pragma: no-cache
+/dashboard-tb-202605/js/*
+  Cache-Control: no-store, no-cache, must-revalidate
+/dashboard-tb-202605/js/components/*
+  Cache-Control: no-store, no-cache, must-revalidate
+/dashboard-tb-202605/styles/*
+  Cache-Control: no-store, no-cache, must-revalidate
+
+# Franchise
+/franchise-tb-202605/*
   Cache-Control: no-store, no-cache, must-revalidate
   Pragma: no-cache
 
-/aprovacao-*/js/*
-  Cache-Control: no-store, no-cache, must-revalidate
-  Pragma: no-cache
-
-/aprovacao-*/js/components/*
-  Cache-Control: no-store, no-cache, must-revalidate
-  Pragma: no-cache
-
-/aprovacao-*/js/stores/*
-  Cache-Control: no-store, no-cache, must-revalidate
-  Pragma: no-cache
-
-/aprovacao-*/js/lib/*
-  Cache-Control: no-store, no-cache, must-revalidate
-  Pragma: no-cache
-
-/aprovacao-*/styles/*
-  Cache-Control: no-store, no-cache, must-revalidate
-
-/aprovacao-*/data/*
-  Cache-Control: no-store, no-cache, must-revalidate
-
-/dashboard-*/*
-  Cache-Control: no-store, no-cache, must-revalidate
-  Pragma: no-cache
-
-/dashboard-*/js/*
-  Cache-Control: no-store, no-cache, must-revalidate
-
-/dashboard-*/js/components/*
-  Cache-Control: no-store, no-cache, must-revalidate
-
-/franchise-*/*
-  Cache-Control: no-store, no-cache, must-revalidate
-  Pragma: no-cache
-
+# API proxy
 /api/*
   Cache-Control: no-store, no-cache, must-revalidate
   Pragma: no-cache
