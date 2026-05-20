@@ -162,7 +162,14 @@ function lsRead() {
   catch { return {}; }
 }
 function lsWrite(state) {
-  localStorage.setItem(LS_KEY, JSON.stringify(state));
+  try { localStorage.setItem(LS_KEY, JSON.stringify(state)); }
+  catch (e) { console.warn("[approval-store] lsWrite failed:", e); }
+}
+// Snapshot do cache em localStorage. Chamado após cada mutação para que
+// a próxima abertura — mesmo com Supabase a falhar/lento — mostre o
+// último estado conhecido em vez de UI vazia.
+function lsSnapshot() {
+  lsWrite(cache);
 }
 
 // ─── Supabase load + realtime ─────────────────────────────────────────────
@@ -207,22 +214,36 @@ async function loadFromSupabase() {
     .select("item_id, status, note, updated_at")
     .eq("namespace", NAMESPACE);
   if (error) {
-    console.error("[approval-store] load error:", error);
+    console.error("[approval-store] load error — keeping LS-hydrated cache:", error);
+    emit();
     return;
   }
-  cache = {};
+  // Constrói snapshot do server num objecto separado.
+  const next = {};
   for (const row of data || []) {
     const decoded = decodeNote(row.note || "");
-    cache[row.item_id] = {
+    next[row.item_id] = {
       status: row.status,
       note: decoded.text,
       author: decoded.author,
       updatedAt: row.updated_at,
     };
   }
-  // Aplica writes ainda pendentes na queue (caso o flush ainda não tenha
-  // entregue ao server) por cima do snapshot do server.
+  // Faz merge com o snapshot local: se uma entrada local for mais recente
+  // que a do server (writes feitos antes do load resolver), mantemos a
+  // versão local — o flushQueue trata de a enviar.
+  const ls = lsRead();
+  for (const id in ls) {
+    const srv = next[id];
+    const loc = ls[id];
+    if (!loc) continue;
+    if (!srv || (loc.updatedAt && (!srv.updatedAt || new Date(loc.updatedAt) > new Date(srv.updatedAt)))) {
+      next[id] = loc;
+    }
+  }
+  cache = next;
   applyQueueToCache();
+  lsSnapshot(); // grava snapshot fresco para próximas sessões
   emit();
 }
 
@@ -262,6 +283,7 @@ function subscribeRealtime() {
           updatedAt: row.updated_at,
         };
         cache[row.item_id] = entry;
+        lsSnapshot();
         emit();
       }
     )
@@ -301,6 +323,13 @@ let _initPromise = null;
 
 export function init() {
   if (_initPromise) return _initPromise;
+  // Hidrata cache do LS PRIMEIRO (síncrono). Garante render imediato com
+  // o último estado conhecido mesmo que o Supabase demore ou seja bloqueado
+  // por ETP/extensão/timeout. O loadFromSupabase corre por cima e faz merge.
+  try { cache = lsRead() || {}; } catch { cache = {}; }
+  applyQueueToCache();
+  queueMicrotask(emit);
+
   if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
     _initPromise = (async () => {
       await migrateLocalStorageIfNeeded();
@@ -313,9 +342,7 @@ export function init() {
       if (pendingCount > 0) flushQueue();
     })();
   } else {
-    cache = lsRead();
     _initPromise = Promise.resolve();
-    queueMicrotask(emit);
   }
   return _initPromise;
 }
@@ -516,6 +543,7 @@ export const approvalStore = {
     const updatedAt = new Date().toISOString();
     const entry = { status, note, author, updatedAt };
     cache[id] = entry;
+    lsSnapshot();
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       await upsertRow(id, status, encodeNote(note, author), updatedAt);
@@ -534,6 +562,7 @@ export const approvalStore = {
     const updatedAt = new Date().toISOString();
     const entry = { status: "pending", note: trimmed, author, updatedAt };
     cache[key] = entry;
+    lsSnapshot();
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       await upsertRow(key, "pending", encodeNote(trimmed, author), updatedAt);
@@ -574,12 +603,12 @@ export const approvalStore = {
     const updatedAt = new Date().toISOString();
     if (cache[key]) cache[key].note = "";
     cache[key] = { status: "pending", note: "", author, updatedAt };
+    lsSnapshot();
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       const r = await upsertRow(key, "pending", encodeNote("", author), updatedAt);
       return !!r;
     }
-    lsWrite(cache);
     return true;
   },
 
@@ -619,6 +648,7 @@ export const approvalStore = {
     const updatedAt = new Date().toISOString();
     const entry = { status, note, author, updatedAt };
     cache[key] = entry;
+    lsSnapshot();
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       await upsertRow(key, status, encodeNote(note, author), updatedAt);
@@ -634,6 +664,7 @@ export const approvalStore = {
     const value = (dateStr || "").trim();
     const entry = { status: "pending", note: value, author, updatedAt };
     cache[key] = entry;
+    lsSnapshot();
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       await upsertRow(key, "pending", encodeNote(value, author), updatedAt);
@@ -665,6 +696,7 @@ export const approvalStore = {
     const value = (hourStr || "").trim();
     const entry = { status: "pending", note: value, author, updatedAt };
     cache[key] = entry;
+    lsSnapshot();
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       await upsertRow(key, "pending", encodeNote(value, author), updatedAt);
@@ -696,6 +728,7 @@ export const approvalStore = {
     const data = JSON.parse(json);
     if (typeof data !== "object" || Array.isArray(data)) throw new Error("Invalid format");
     cache = data;
+    lsSnapshot();
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       const rows = Object.keys(data).map(id => ({
@@ -709,13 +742,12 @@ export const approvalStore = {
         .from("approvals")
         .upsert(rows, { onConflict: "namespace,item_id" });
       if (error) console.error("[approval-store] import error:", error);
-    } else {
-      lsWrite(cache);
     }
   },
 
   async reset() {
     cache = {};
+    lsSnapshot();
     emit();
     if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
       const { error } = await supabase.from("approvals").delete().eq("namespace", NAMESPACE);

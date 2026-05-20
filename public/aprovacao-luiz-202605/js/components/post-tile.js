@@ -56,13 +56,13 @@ class PostTile extends HTMLElement {
     if (!it) return;
 
     const base = (it.html_url || "").replace(/\.html$/, "");
-    const jpgUrl = `${base}.jpg`;
     const pngUrl = `${base}.png`;
+    const jpgUrl = `${base}.jpg`;
 
     this.innerHTML = `
       <article class="tile tile--img" data-item-id="${it.id}">
         <span class="tile__label">Story · ${BRAND_LABELS[it.brand]?.toUpperCase() || it.brand}</span>
-        <img class="tile__img" loading="lazy" decoding="async" src="${jpgUrl}" alt="${(it.title || it.theme || "").replace(/"/g, "&quot;")}" onerror="this.onerror=null;this.src='${pngUrl}'" />
+        <img class="tile__img" loading="lazy" decoding="async" src="${pngUrl}" alt="${(it.title || it.theme || "").replace(/"/g, "&quot;")}" onerror="this.onerror=null;this.src='${jpgUrl}'" />
         <a class="tile__download" href="${pngUrl}" download="${it.id}.png" title="Descarregar PNG 1080×1920" aria-label="Descarregar story">⤓</a>
         <div class="tile__caption">
           <strong>${it.title || it.theme}</strong>

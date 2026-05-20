@@ -82,11 +82,13 @@ class CarrosselRow extends HTMLElement {
         <div class="slide-strip">
           ${Array.from({ length: it.slides || 6 }).map((_, i) => {
             const shotBase = (it.html_url || "").replace(/\.html$/, "");
-            const shotJpg = `${shotBase}_shots/slide_${String(i + 1).padStart(2, "0")}.jpg`;
+            const n = String(i + 1).padStart(2, "0");
+            const shotPng = `${shotBase}_shots/slide_${n}.png`;
+            const shotJpg = `${shotBase}_shots/slide_${n}.jpg`;
             return `
               <div class="slide-thumb slide-thumb--img" data-slide-index="${i}">
-                <img class="slide-thumb__img" loading="lazy" decoding="async" src="${shotJpg}" alt="Slide ${i + 1}" />
-                <span class="slide-thumb__num">${String(i + 1).padStart(2, "0")} / ${it.slides}</span>
+                <img class="slide-thumb__img" loading="lazy" decoding="async" src="${shotPng}" alt="Slide ${i + 1}" onerror="this.onerror=null;this.src='${shotJpg}'" />
+                <span class="slide-thumb__num">${n} / ${it.slides}</span>
               </div>
             `;
           }).join("")}
