@@ -111,12 +111,28 @@ class ItemViewer extends HTMLElement {
     this._captionNotes = approvalStore.listCaptionNotes(itemId);
     this._renderNotes();
     this._renderCaptionNotes();
+    // Re-avalia badge da caption: agora que sabemos das anotações, podemos
+    // detectar se há substitute (resolved && !deleted) e mostrar visualmente
+    // como "✓ Novo copy" em vez de "Rejeitada".
+    this._updateCaptionBadge();
+  }
+
+  // Devolve a anotação que substituiu o copy (resolved && !deleted). Quando
+  // uma caption é rejeitada e o cliente deixa o copy alternativo numa nota,
+  // marcamos essa nota como resolved — ela "vira" a caption e desaparece da
+  // lista normal. Esta é a regra do workflow caption-rejeitada.
+  _getCaptionSubstitute() {
+    const rows = this._captionNotes || [];
+    return rows.find(r => r.resolved && !r.deleted) || null;
   }
 
   _renderCaptionNotes() {
     const wrap = this.querySelector("[data-caption-notes]");
     if (!wrap) return;
-    const rows = this._captionNotes || [];
+    const all = this._captionNotes || [];
+    // Esconder anotações resolved não-deleted — elas viraram a caption nova.
+    // Continuamos a mostrar resolved+deleted no <details> colapsado (auditoria).
+    const rows = all.filter(r => !(r.resolved && !r.deleted));
     const counter = this.querySelector("[data-caption-notes-count]");
     if (counter) counter.textContent = rows.length > 0 ? `(${rows.length})` : "";
     if (!rows.length) {
@@ -257,22 +273,30 @@ class ItemViewer extends HTMLElement {
   _updateCaptionBadge() {
     if (!this._item) return;
     const captionState = approvalStore.getCaption(this._item.id);
-    // Procura do <details> para apanhar tanto o badge (no <summary>)
-    // como o div .viewer-caption (filho directo).
+    const sub = this._getCaptionSubstitute();
+    // Status visual: se a caption foi rejeitada MAS já existe uma anotação
+    // resolved (= copy substituto definitivo), tratamos como "substituída"
+    // — badge verde com checkmark. O status real no Supabase fica rejected,
+    // isto é só apresentação.
+    const visualStatus = sub && captionState.status === "rejected" ? "substituted" : captionState.status;
     const details = this.querySelector(".viewer-section--caption");
     if (!details) return;
-    details.setAttribute("data-caption-status", captionState.status);
+    details.setAttribute("data-caption-status", visualStatus);
     const wrap = details.querySelector(".viewer-caption");
-    if (wrap) wrap.setAttribute("data-caption-status", captionState.status);
+    if (wrap) wrap.setAttribute("data-caption-status", visualStatus);
     const badge = details.querySelector(".viewer-caption__badge");
     if (badge) {
-      badge.className = `viewer-caption__badge viewer-caption__badge--${captionState.status}`;
-      const map = { approved: "Aprovada", rejected: "Rejeitada", pending: "Pendente" };
-      badge.textContent = map[captionState.status];
+      badge.className = `viewer-caption__badge viewer-caption__badge--${visualStatus}`;
+      const map = { approved: "Aprovada", rejected: "Rejeitada", pending: "Pendente", substituted: "✓ Novo copy" };
+      badge.textContent = map[visualStatus] || map.pending;
     }
     const authorEl = details.querySelector("[data-caption-author]");
     if (authorEl) {
-      if (captionState.status !== "pending" && captionState.author) {
+      if (sub && captionState.status === "rejected") {
+        const subAuthor = sub.author || sub.changed_by_email || "cliente";
+        authorEl.innerHTML = `Novo copy aprovado — substituído pela anotação de <strong>${this._escapeForHtml(subAuthor)}</strong>`;
+        authorEl.hidden = false;
+      } else if (captionState.status !== "pending" && captionState.author) {
         const label = captionState.status === "approved" ? "Aprovada" : "Rejeitada";
         authorEl.innerHTML = `${label} por <strong>${this._escapeForHtml(captionState.author)}</strong>`;
         authorEl.hidden = false;

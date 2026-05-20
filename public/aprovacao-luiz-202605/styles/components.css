@@ -1272,6 +1272,15 @@ details.viewer-note--deleted > .viewer-note__text--deleted {
 .viewer-caption__badge--approved { background: var(--status-approved); color: var(--bg); }
 .viewer-caption__badge--rejected { background: var(--status-rejected); color: var(--bg); }
 .viewer-caption__badge--pending  { background: var(--bg); color: var(--text); }
+/* Caption foi rejeitada mas a anotação resolved virou o copy oficial.
+   Visual: verde como approved + checkmark indica "novo copy aprovado". */
+.viewer-caption__badge--substituted {
+  background: var(--status-approved);
+  color: var(--bg);
+}
+.viewer-caption[data-caption-status="substituted"] .viewer-caption__author {
+  color: var(--status-approved);
+}
 .viewer-caption__text,
 .viewer-caption__hashtags {
   font-family: var(--font-mono);
