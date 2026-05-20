@@ -1,7 +1,7 @@
 // <user-menu> — chip discreto no canto que mostra o email do utilizador
 // autenticado e dá um botão de sair. Esconde-se sozinho se não houver sessão.
 
-import { supabase } from "../lib/supabase-client.js?v=20260520b";
+import { supabase } from "../lib/supabase-client.js?v=20260520c";
 
 class UserMenu extends HTMLElement {
   connectedCallback() {

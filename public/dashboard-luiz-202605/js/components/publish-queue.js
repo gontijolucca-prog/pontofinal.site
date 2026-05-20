@@ -2,8 +2,8 @@
 // Mostra o que está agendado/publicado/falhou, com botões manuais para
 // publicar-agora ou cancelar uma queued.
 
-import { supabase } from "../lib/supabase-client.js?v=20260520b";
-import { BRANDS } from "../config.js?v=20260520b";
+import { supabase } from "../lib/supabase-client.js?v=20260520c";
+import { BRANDS } from "../config.js?v=20260520c";
 
 const BRAND_LABEL = {
   techbody: "TechBody", techbody_u: "TechBody U", luiz_santana: "Luiz Santana", pontofinal: "PontoFinal",
