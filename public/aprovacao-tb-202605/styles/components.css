@@ -1947,13 +1947,13 @@
    ───────────────────────────────────────────────────────────────────── */
 
 .help-trigger {
-  width: 30px;
-  height: 30px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: var(--border-w) solid var(--border);
   background: var(--bg);
   color: var(--text);
-  font: 900 16px/1 var(--font-heavy);
+  font: 900 18px/1 var(--font-heavy);
   cursor: pointer;
   box-shadow: var(--shadow-sm);
   transition: background var(--d-fast) var(--ease), color var(--d-fast) var(--ease), transform var(--d-fast) var(--ease);
@@ -1965,7 +1965,7 @@
   transform: rotate(8deg);
 }
 @media (max-width: 720px) {
-  .help-trigger { width: 26px; height: 26px; font-size: 13px; }
+  .help-trigger { width: 44px; height: 44px; font-size: 17px; }
 }
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -2492,4 +2492,89 @@ filter-bar { display: block; }
 }
 .viewer-actions .btn {
   min-width: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   P1 MOBILE UX — touch targets ≥44px, badge sem colidir com X, action
+   bar pegajosa no fundo do viewer no telefone. Auditado 2026-05-20.
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Live-sync badge: no mobile, vai para o canto inferior esquerdo, longe
+   do botão de fechar (top-right) e do botão de aprovação (bottom).      */
+@media (max-width: 720px) {
+  #live-sync-indicator {
+    top: auto !important;
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px)) !important;
+    left: 8px !important;
+    right: auto !important;
+    font-size: 9px !important;
+    padding: 5px 8px !important;
+    max-width: calc(100vw - 16px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  /* Quando o viewer está aberto, sobe o badge para o topo-esquerda
+     (libertando o fundo para a action bar Aprovar/Rejeitar).            */
+  body:has(item-viewer .viewer-overlay:not([hidden])) #live-sync-indicator,
+  body.viewer-open #live-sync-indicator {
+    top: calc(8px + env(safe-area-inset-top, 0px)) !important;
+    bottom: auto !important;
+    left: 8px !important;
+    right: auto !important;
+  }
+}
+
+/* Touch targets ≥44px nos botões críticos do viewer no telefone */
+@media (max-width: 720px) {
+  .viewer-close {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 22px !important;
+    top: calc(8px + env(safe-area-inset-top, 0px)) !important;
+    right: 8px !important;
+  }
+  .viewer-nav { width: 48px !important; height: 48px !important; font-size: 22px; }
+  .viewer-note__delete { width: 44px; height: 44px; font-size: 16px; }
+  .viewer-note__restore { width: 44px; height: 44px; font-size: 16px; }
+}
+
+/* Action bar pegajosa no fundo do painel no telefone — Aprovar / Rejeitar
+   sempre visíveis sem necessitar scroll até ao fundo.                    */
+@media (max-width: 720px) {
+  .viewer-panel > .viewer-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    padding-bottom: calc(var(--s-3) + env(safe-area-inset-bottom, 0px));
+    background: var(--bg);
+    border-top: 3px solid var(--border);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+  }
+  /* Hierarquia visual clara: Aprovar/Rejeitar primeiro, depois nota */
+  .viewer-actions {
+    grid-template-areas:
+      "approve reject"
+      "slide   slide"
+      "note    note"
+      "save    save"
+      "feedback feedback";
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .viewer-actions [data-action="approve"] { grid-area: approve; min-height: 52px; font-size: 14px; }
+  .viewer-actions [data-action="reject"]  { grid-area: reject;  min-height: 52px; font-size: 14px; }
+  .viewer-actions__slide-label            { grid-area: slide; }
+  .viewer-actions textarea                { grid-area: note; }
+  .viewer-actions [data-action="save-note"] { grid-area: save; min-height: 44px; }
+  .viewer-actions__feedback               { grid-area: feedback; }
+}
+
+/* Header buttons (month switcher arrows etc.) ≥44px no telefone */
+@media (max-width: 720px) {
+  .month-switcher__arrow,
+  .month-switcher button {
+    min-width: 44px;
+    min-height: 44px;
+  }
 }

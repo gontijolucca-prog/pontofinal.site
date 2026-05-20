@@ -66,6 +66,7 @@ class ItemViewer extends HTMLElement {
     this._notes = null;
     this.setAttribute("data-open", "true");
     this.setAttribute("aria-hidden", "false");
+    document.body.classList.add("viewer-open");
     this.render();
     // Defensivo: força "Texto dos slides" e "Descrição Instagram" fechados.
     // Anotações fica aberto (tem data-notes-section).
@@ -159,6 +160,7 @@ class ItemViewer extends HTMLElement {
     this._notes = null;
     this.removeAttribute("data-open");
     this.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("viewer-open");
     this.innerHTML = "";
   }
 
