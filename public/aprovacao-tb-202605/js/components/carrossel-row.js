@@ -2,6 +2,7 @@
 // Stays mounted; approve/reject only toggles the status stamp so the iframes never reload.
 
 import { approvalStore } from "../stores/approval-store.js";
+import { APP_VERSION } from "../config.js";
 
 const BRAND_LABELS = { techbody: "TechBody", techbody_u: "TechBody U", luiz_santana: "Luiz Santana" };
 
@@ -83,8 +84,12 @@ class CarrosselRow extends HTMLElement {
           ${Array.from({ length: it.slides || 6 }).map((_, i) => {
             const shotBase = (it.html_url || "").replace(/\.html$/, "");
             const n = String(i + 1).padStart(2, "0");
-            const shotPng = `${shotBase}_shots/slide_${n}.png`;
-            const shotJpg = `${shotBase}_shots/slide_${n}.jpg`;
+            // ?v=APP_VERSION força refresh dos thumbnails a cada deploy. Estes
+            // PNGs vivem em /brands/ (fora do scope do Service Worker), por
+            // isso o browser cacheia até max-age expirar. Sem este bust, copy
+            // antiga continua visível mesmo após push novo.
+            const shotPng = `${shotBase}_shots/slide_${n}.png?v=${APP_VERSION}`;
+            const shotJpg = `${shotBase}_shots/slide_${n}.jpg?v=${APP_VERSION}`;
             return `
               <div class="slide-thumb slide-thumb--img" data-slide-index="${i}">
                 <img class="slide-thumb__img" loading="lazy" decoding="async" src="${shotPng}" alt="Slide ${i + 1}" onerror="this.onerror=null;this.src='${shotJpg}'" />

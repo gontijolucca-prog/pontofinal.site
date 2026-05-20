@@ -2,6 +2,7 @@
 // Usa <img> em vez de iframe — muito mais rápido. Iframe só na vista detalhada.
 
 import { approvalStore } from "../stores/approval-store.js";
+import { APP_VERSION } from "../config.js";
 
 const BRAND_LABELS = { techbody: "TechBody", techbody_u: "TechBody U", luiz_santana: "Luiz Santana" };
 
@@ -56,14 +57,18 @@ class PostTile extends HTMLElement {
     if (!it) return;
 
     const base = (it.html_url || "").replace(/\.html$/, "");
-    const pngUrl = `${base}.png`;
-    const jpgUrl = `${base}.jpg`;
+    // ?v=APP_VERSION força refresh do PNG a cada deploy (PNGs vivem em /brands/,
+    // fora do scope do Service Worker). pngDownloadUrl é a versão sem query —
+    // o atributo download não deve incluir querystring no nome do ficheiro.
+    const pngUrl = `${base}.png?v=${APP_VERSION}`;
+    const jpgUrl = `${base}.jpg?v=${APP_VERSION}`;
+    const pngDownloadUrl = `${base}.png`;
 
     this.innerHTML = `
       <article class="tile tile--img" data-item-id="${it.id}">
         <span class="tile__label">Story · ${BRAND_LABELS[it.brand]?.toUpperCase() || it.brand}</span>
         <img class="tile__img" loading="lazy" decoding="async" src="${pngUrl}" alt="${(it.title || it.theme || "").replace(/"/g, "&quot;")}" onerror="this.onerror=null;this.src='${jpgUrl}'" />
-        <a class="tile__download" href="${pngUrl}" download="${it.id}.png" title="Descarregar PNG 1080×1920" aria-label="Descarregar story">⤓</a>
+        <a class="tile__download" href="${pngDownloadUrl}" download="${it.id}.png" title="Descarregar PNG 1080×1920" aria-label="Descarregar story">⤓</a>
         <div class="tile__quick">
           <button class="tile__quick-btn tile__quick-btn--reject" data-quick="reject" aria-label="Rejeitar" title="Rejeitar (sem abrir detalhe)">X</button>
           <button class="tile__quick-btn tile__quick-btn--approve" data-quick="approve" aria-label="Aprovar" title="Aprovar (sem abrir detalhe)">OK</button>
