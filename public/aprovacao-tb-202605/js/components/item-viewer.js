@@ -68,6 +68,7 @@ class ItemViewer extends HTMLElement {
     this.setAttribute("aria-hidden", "false");
     document.body.classList.add("viewer-open");
     this.render();
+    this._maybeShowSwipeHint();
     // Defensivo: força "Texto dos slides" e "Descrição Instagram" fechados.
     // Anotações fica aberto (tem data-notes-section).
     this.querySelectorAll("details.viewer-section:not([data-notes-section])").forEach(d => { d.open = false; });
@@ -162,6 +163,26 @@ class ItemViewer extends HTMLElement {
     this.setAttribute("aria-hidden", "true");
     document.body.classList.remove("viewer-open");
     this.innerHTML = "";
+  }
+
+  // Mostra hint de swipe uma vez por sessão em mobile — só na primeira
+  // abertura do viewer. Persiste em sessionStorage para não chatear.
+  _maybeShowSwipeHint() {
+    try {
+      if (window.innerWidth > 720) return;
+      if (sessionStorage.getItem("pf-swipe-hint-seen") === "1") return;
+      const hint = document.createElement("div");
+      hint.className = "swipe-hint";
+      hint.innerHTML = `
+        <div class="swipe-hint__row">
+          <span class="swipe-hint__arrow">‹</span>
+          <span>desliza para navegar</span>
+          <span class="swipe-hint__arrow">›</span>
+        </div>`;
+      document.body.appendChild(hint);
+      setTimeout(() => hint.remove(), 2600);
+      sessionStorage.setItem("pf-swipe-hint-seen", "1");
+    } catch {}
   }
 
   _step(delta) {
@@ -345,10 +366,10 @@ class ItemViewer extends HTMLElement {
                 </div>
                 <div class="viewer-caption__actions">
                   <textarea data-caption-note placeholder="Escreve uma anotação sobre a descrição"></textarea>
-                  <button class="btn btn--ghost btn--small" data-action="caption-save-note">Guardar anotação</button>
+                  <button class="btn btn--ghost btn--small" data-action="caption-save-note"><span class="btn__icon" aria-hidden="true">✎</span> Guardar anotação</button>
                   <span class="viewer-caption__feedback" data-caption-feedback aria-live="polite"></span>
-                  <button class="btn btn--reject btn--small" data-action="caption-reject">Rejeitar descrição</button>
-                  <button class="btn btn--approve btn--small" data-action="caption-approve">Aprovar descrição</button>
+                  <button class="btn btn--reject btn--small" data-action="caption-reject"><span class="btn__icon" aria-hidden="true">✕</span> Rejeitar descrição</button>
+                  <button class="btn btn--approve btn--small" data-action="caption-approve"><span class="btn__icon" aria-hidden="true">✓</span> Aprovar descrição</button>
                 </div>
               </div>
             </details>
@@ -366,10 +387,10 @@ class ItemViewer extends HTMLElement {
           <div class="viewer-actions">
             ${slideSelectHtml}
             <textarea data-note placeholder="Escreve uma anotação"></textarea>
-            <button class="btn btn--ghost" data-action="save-note">Guardar anotação</button>
+            <button class="btn btn--ghost" data-action="save-note"><span class="btn__icon" aria-hidden="true">✎</span> Guardar anotação</button>
             <span class="viewer-actions__feedback" data-feedback aria-live="polite"></span>
-            <button class="btn btn--reject" data-action="reject">Rejeitar</button>
-            <button class="btn btn--approve" data-action="approve">Aprovar</button>
+            <button class="btn btn--reject" data-action="reject"><span class="btn__icon" aria-hidden="true">✕</span> Rejeitar</button>
+            <button class="btn btn--approve" data-action="approve"><span class="btn__icon" aria-hidden="true">✓</span> Aprovar</button>
           </div>
         </aside>
         <button class="viewer-close" data-action="close" aria-label="Fechar">×</button>
@@ -427,6 +448,34 @@ class ItemViewer extends HTMLElement {
         }));
       });
     }
+
+    // Swipe gestures (mobile) — swipe horizontal no modal navega entre items.
+    // Ignora swipes dentro de áreas de scroll, inputs ou na action bar
+    // (caso contrário o user perde a anotação a meio).
+    const modalEl = this.querySelector(".viewer-modal");
+    let _tsX = 0, _tsY = 0, _tsT = 0, _tsValid = false;
+    modalEl.addEventListener("touchstart", (e) => {
+      _tsValid = false;
+      if (e.touches.length !== 1) return;
+      const t = e.target;
+      if (t.closest("textarea, select, input, button, a, iframe, .viewer-panel__scroll, .viewer-actions, .viewer-caption__actions")) return;
+      _tsX = e.touches[0].clientX;
+      _tsY = e.touches[0].clientY;
+      _tsT = Date.now();
+      _tsValid = true;
+    }, { passive: true });
+    modalEl.addEventListener("touchend", (e) => {
+      if (!_tsValid) return;
+      _tsValid = false;
+      const dx = e.changedTouches[0].clientX - _tsX;
+      const dy = e.changedTouches[0].clientY - _tsY;
+      const dt = Date.now() - _tsT;
+      if (dt > 500) return;
+      if (Math.abs(dy) > Math.abs(dx)) return;
+      if (Math.abs(dx) < 70) return;
+      if (dx < 0) this._advanceItem(+1);
+      else this._advanceItem(-1);
+    }, { passive: true });
 
     this.querySelector(".viewer-modal").addEventListener("click", async (e) => {
       const btn = e.target.closest("[data-action]");

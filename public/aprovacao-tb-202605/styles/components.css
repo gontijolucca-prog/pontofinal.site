@@ -2578,3 +2578,143 @@ filter-bar { display: block; }
     min-height: 44px;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────
+   P3 — AFFORDANCES VISUAIS
+   Hover/active/focus states mais ricos; icons inline em botões; cards
+   com cursor pointer; pulse subtil em CTAs primários.
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Icon dentro de botão — ✓ ✕ ✎ */
+.btn__icon {
+  display: inline-block;
+  margin-right: 6px;
+  font: 900 1.1em/1 var(--font-heavy);
+  vertical-align: -1px;
+  letter-spacing: 0;
+}
+
+/* Foco visível para teclado — acessibilidade básica que faltava */
+.btn:focus-visible,
+.viewer-close:focus-visible,
+.viewer-nav:focus-visible,
+.help-trigger:focus-visible,
+.viewer-note__delete:focus-visible,
+.viewer-note__restore:focus-visible {
+  outline: 3px solid var(--accent, #FF4D2E);
+  outline-offset: 3px;
+}
+
+/* Hover/tap mais energético no botão principal — micro-animação que
+   indica que reagiu ao input do user. */
+.btn--approve:hover {
+  filter: brightness(1.06);
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0 0 color-mix(in srgb, var(--status-approved) 60%, var(--border));
+}
+.btn--reject:hover {
+  filter: brightness(1.06);
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0 0 color-mix(in srgb, var(--status-rejected, var(--accent)) 60%, var(--border));
+}
+
+/* Cards — cursor pointer + leve scale no tap, indica que é interactivo */
+.carrossel-row,
+.tile {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.carrossel-row:active,
+.tile:active {
+  transform: translate(0, 0);
+  box-shadow: 0 0 0 0 var(--border);
+}
+
+/* Pulse subtil em items pendentes para chamar atenção do user.
+   Só roda uma vez ao chegar (fadeIn no mount), depois respira lentamente. */
+@keyframes pf-pending-breathe {
+  0%, 100% { box-shadow: var(--shadow); }
+  50% { box-shadow: var(--shadow-lg); }
+}
+.carrossel-row:not([data-status="approved"]):not([data-status="rejected"]) {
+  animation: pf-pending-breathe 6s ease-in-out infinite;
+}
+/* Mas só se o user não preferir reduzir movimento */
+@media (prefers-reduced-motion: reduce) {
+  .carrossel-row:not([data-status="approved"]):not([data-status="rejected"]) {
+    animation: none;
+  }
+}
+
+/* Empty state mais convidativo */
+.viewer-notes__empty {
+  color: var(--mute, #6b6862);
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  padding: var(--s-3);
+  text-align: center;
+  border: 2px dashed color-mix(in srgb, var(--border) 40%, transparent);
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   P4 — HIERARQUIA & LAYOUT
+   Background atmosférico no app-shell, header mais marcado, tipografia
+   com jumps maiores entre níveis.
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Background com gradient mesh subtil — atmosphera em vez de flat white */
+body {
+  background:
+    radial-gradient(at 12% 20%, color-mix(in srgb, var(--accent) 6%, transparent) 0px, transparent 50%),
+    radial-gradient(at 88% 8%, color-mix(in srgb, var(--status-approved, #2BB05F) 4%, transparent) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, color-mix(in srgb, var(--text) 3%, transparent) 0px, transparent 60%),
+    var(--bg);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Header com mais peso visual + sombra atmosférica */
+.app-header {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Swipe hint — pequena dica visual no primeiro abrir do viewer em mobile.
+   Mostra durante 2.5s e desaparece. */
+@keyframes pf-swipe-hint {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+  15% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  85% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+}
+.swipe-hint {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background: rgba(5, 5, 5, 0.78);
+  color: #fff;
+  padding: 14px 22px;
+  font: 700 12px/1.3 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 2px solid #fff;
+  pointer-events: none;
+  animation: pf-swipe-hint 2500ms ease-in-out forwards;
+}
+.swipe-hint__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.swipe-hint__arrow {
+  font-size: 18px;
+  font-weight: 900;
+}
+@media (min-width: 721px) {
+  .swipe-hint { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .swipe-hint { display: none; }
+}
