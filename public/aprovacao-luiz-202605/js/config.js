@@ -29,3 +29,8 @@ export const USE_SUPABASE = true;
 // Login por email continua removido (magic-link bloqueava admins). Mantido false
 // para retro-compatibilidade de código que ainda lê AUTH_ENABLED.
 export const AUTH_ENABLED = false;
+
+// Versão do app. Comparada periodicamente contra /version.txt no servidor.
+// Se divergir, o badge muda para "🔄 Nova versão" e o user sabe que está
+// numa sessão desactualizada. Bump em cada deploy importante.
+export const APP_VERSION = "20260520-1149";

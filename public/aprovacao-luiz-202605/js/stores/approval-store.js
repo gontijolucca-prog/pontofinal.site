@@ -17,7 +17,7 @@
 // Evento global emitido sempre que o cache muda: 'approval:changed'.
 
 import { supabase, AUTH_ENABLED, USE_SUPABASE, initSupabase } from "../lib/supabase-client.js";
-import { NAMESPACE, SUPABASE_URL, SUPABASE_ANON_KEY } from "../config.js";
+import { NAMESPACE, SUPABASE_URL, SUPABASE_ANON_KEY, APP_VERSION } from "../config.js";
 
 let cache = {};
 
@@ -345,6 +345,23 @@ async function loadFromSupabase() {
   updateSyncIndicator("ok");
 }
 
+// ─── Detecção de versão antiga ────────────────────────────────────────────
+// Periodicamente fetcha /version.txt. Se a versão do servidor não bater com
+// a APP_VERSION compilada no JS deste cliente, é sinal que houve deploy.
+// O badge muda para "🔄 Versão antiga — recarrega" para o user saber.
+let _versionMismatch = false;
+async function checkAppVersion() {
+  try {
+    const res = await fetch("version.txt", { cache: "no-store" });
+    if (!res.ok) return;
+    const serverVersion = (await res.text()).trim();
+    if (serverVersion && serverVersion !== APP_VERSION) {
+      _versionMismatch = true;
+      updateSyncIndicator("ok"); // re-render badge com novo estado
+    }
+  } catch { /* sem rede — irrelevante para a verificação */ }
+}
+
 // Polling: pull do server a cada 7s para garantir convergência em browsers
 // onde realtime WebSocket está bloqueado. Visualmente é o que faz "ao vivo"
 // para o utilizador — convergência típica ~7s entre devices.
@@ -355,9 +372,12 @@ function startServerPolling() {
     if (typeof document !== "undefined" && document.hidden) return; // poupar quando hidden
     loadFromSupabaseFetch();
   }, 5000);
+  // Verificação de versão a cada 30s — menos frequente que sync de dados.
+  checkAppVersion();
+  setInterval(() => { if (!document.hidden) checkAppVersion(); }, 30000);
   // Pull imediato quando o user volta ao tab.
   document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) loadFromSupabaseFetch();
+    if (!document.hidden) { loadFromSupabaseFetch(); checkAppVersion(); }
   });
 }
 
@@ -375,17 +395,40 @@ function updateSyncIndicator(state) {
   }
   const now = new Date();
   const t = `${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}:${String(now.getSeconds()).padStart(2,"0")}`;
-  if (state === "ok") {
+  // Estado tem 3 níveis de prioridade visual:
+  //   1. Versão antiga (vermelho)   → tem de recarregar para ter os fixes
+  //   2. Offline (amarelo)          → sync falhou, mostra erro literal
+  //   3. OK (verde)                 → tudo sincronizado, mostra hora + endpoint
+  if (_versionMismatch) {
+    _syncIndicatorEl.textContent = "🔄 versão antiga — fecha e abre nova aba";
+    _syncIndicatorEl.style.background = "#F8D7DA";
+    _syncIndicatorEl.style.color = "#721C24";
+    _syncIndicatorEl.style.cursor = "pointer";
+    _syncIndicatorEl.style.pointerEvents = "auto";
+    _syncIndicatorEl.title = `Versão local: ${APP_VERSION} — Servidor tem versão mais recente. Fecha esta aba e abre nova para apanhar.`;
+    _syncIndicatorEl.onclick = () => {
+      // Helper: redirect com timestamp limpa para forçar fetch fresco do HTML
+      // e de todos os subresources sem o user ter de fechar manualmente.
+      try { sessionStorage.removeItem("pf-session-bust"); } catch {}
+      window.location.replace(window.location.pathname + "?_=" + Date.now());
+    };
+  } else if (state === "ok") {
     const via = _lastFetchEndpoint ? (_lastFetchEndpoint.startsWith("/api/") ? "(proxy)" : "(direct)") : "";
     _syncIndicatorEl.textContent = `✓ ao vivo ${via} · ${t}`;
     _syncIndicatorEl.style.background = "#E8F5E9";
     _syncIndicatorEl.style.color = "#1B5E20";
-    _syncIndicatorEl.title = "Tudo sincronizado.";
+    _syncIndicatorEl.style.cursor = "default";
+    _syncIndicatorEl.style.pointerEvents = "none";
+    _syncIndicatorEl.title = `Tudo sincronizado. Versão ${APP_VERSION}.`;
+    _syncIndicatorEl.onclick = null;
   } else {
     _syncIndicatorEl.textContent = `⚠ Offline · ${(_lastFetchError || "?").slice(0,80)}`;
     _syncIndicatorEl.style.background = "#FFF3CD";
     _syncIndicatorEl.style.color = "#856404";
+    _syncIndicatorEl.style.cursor = "default";
+    _syncIndicatorEl.style.pointerEvents = "none";
     _syncIndicatorEl.title = _lastFetchError || "Sem ligação";
+    _syncIndicatorEl.onclick = null;
   }
 }
 
