@@ -5,6 +5,30 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Aprovação · Conteúdo</title>
 
+<script>
+  // Auto cache-bust por sessão. Safari (e em menor grau Brave) por vezes
+  // ignoram Cache-Control: no-store para subresources de uma página HTML
+  // já cached. Sintoma: deploy novo, user faz Cmd+R e continua a ver JS
+  // antigo até "Clear History" manual.
+  //
+  // Fix: na primeira carga de cada sessão (sessionStorage flag), redireciona
+  // a página para a mesma URL + ?_=<timestamp>. Browser trata como URL nova
+  // e refetcha tudo. Como sessionStorage morre quando a tab fecha, cada nova
+  // tab volta a fazer o bust → cada deploy é apanhado naturalmente sem
+  // intervenção do user. localStorage (aprovações offline) NÃO é afectado.
+  (function() {
+    try {
+      if (sessionStorage.getItem('pf-session-bust') !== '1' &&
+          !window.location.search.includes('_=')) {
+        sessionStorage.setItem('pf-session-bust', '1');
+        window.location.replace(
+          window.location.pathname + '?_=' + Date.now() + window.location.hash
+        );
+      }
+    } catch (e) { /* sessionStorage indisponível — segue normal */ }
+  })();
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preconnect" href="https://ojbigtskkhmnerrppdjq.supabase.co" crossorigin />
