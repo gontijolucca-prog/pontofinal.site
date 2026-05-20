@@ -20,6 +20,11 @@
   Cache-Control: no-store, no-cache, must-revalidate
 /aprovacao-luiz-202605/data/*
   Cache-Control: no-store, no-cache, must-revalidate
+/aprovacao-luiz-202605/sw.js
+  Cache-Control: no-store, no-cache, must-revalidate
+  Service-Worker-Allowed: /aprovacao-luiz-202605/
+/aprovacao-luiz-202605/version.txt
+  Cache-Control: no-store, no-cache, must-revalidate
 
 # Páginas de aprovação TechBody / TechBody U (Maio 2026)
 /aprovacao-tb-202605/*
@@ -36,6 +41,11 @@
 /aprovacao-tb-202605/styles/*
   Cache-Control: no-store, no-cache, must-revalidate
 /aprovacao-tb-202605/data/*
+  Cache-Control: no-store, no-cache, must-revalidate
+/aprovacao-tb-202605/sw.js
+  Cache-Control: no-store, no-cache, must-revalidate
+  Service-Worker-Allowed: /aprovacao-tb-202605/
+/aprovacao-tb-202605/version.txt
   Cache-Control: no-store, no-cache, must-revalidate
 
 # Páginas de aprovação PontoFinal (Junho 2026)

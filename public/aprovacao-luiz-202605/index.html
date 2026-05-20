@@ -27,6 +27,16 @@
       }
     } catch (e) { /* sessionStorage indisponível — segue normal */ }
   })();
+
+  // Service Worker — uma vez registado, força network-first para todos
+  // os subresources (HTML/JS/CSS). Resolve definitivamente o problema de
+  // Chrome/Safari mobile servirem versão antiga apesar dos headers no-store.
+  // Próxima visita após este SW estar activo: nunca mais cache stale.
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    });
+  }
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
