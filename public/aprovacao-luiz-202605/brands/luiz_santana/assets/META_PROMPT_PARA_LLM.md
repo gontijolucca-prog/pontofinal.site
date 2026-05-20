@@ -15,7 +15,7 @@ Tu és um director de fotografia e especialista em identidade visual pessoal par
 
 **Sobre a pessoa:**
 - Luiz Santana é o rosto da marca TechBody em Portugal
-- Doutorado em WB-EMS, empreendedor desde 2012
+- Doutorado em Electroestimulação, empreendedor desde 2012
 - Posicionamento: "premium, sustentado por evidência académica num sector frequentemente desprovido de rigor técnico"
 - Nas carrosséis, aparece como "brand presence" (~20-25% opacidade), não como foco principal
 
