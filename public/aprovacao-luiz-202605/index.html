@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="app-version" content="20260520-1435" />
+<meta name="app-version" content="20260520-1500" />
 <title>Aprovação · Conteúdo</title>
 
 <script>
@@ -102,15 +102,33 @@
 
 <main id="main">
 
+  <!-- HERO ACTION — direcciona o user ao próximo item pendente -->
+  <section class="hero-action" id="heroAction" hidden>
+    <div class="hero-action__inner">
+      <div class="hero-action__text">
+        <strong class="hero-action__count" id="heroActionCount">0</strong>
+        <span class="hero-action__label" id="heroActionLabel">items por rever</span>
+      </div>
+      <button type="button" class="hero-action__cta" id="heroActionCta">
+        Rever próximo
+        <span class="hero-action__arrow" aria-hidden="true">→</span>
+      </button>
+    </div>
+    <div class="hero-action__bar" aria-hidden="true">
+      <div class="hero-action__bar-fill" id="heroActionBarFill" style="width:0%"></div>
+    </div>
+  </section>
+
   <!-- FILTROS -->
   <filter-bar id="filterBar"></filter-bar>
 
   <!-- CALENDÁRIO -->
-  <section class="section">
+  <section class="section" id="calendarSection">
     <div class="section__heading">
       <h2>Calendário</h2>
       <span class="count" id="totalCount">0</span>
       <span class="section__hint">Toda a publicação agendada deste mês</span>
+      <button type="button" class="section__toggle" id="calendarToggle" aria-expanded="true" aria-controls="calendar">Esconder</button>
     </div>
     <month-calendar id="calendar"></month-calendar>
   </section>

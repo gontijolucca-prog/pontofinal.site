@@ -95,6 +95,10 @@ class ReelTile extends HTMLElement {
           <span class="tile__label">Reel ${duration}s · ${brandLabel}</span>
           <h3 class="reel-tile__title">${escapeHtml(it.title || it.theme || "")}</h3>
         </header>
+        <div class="tile__quick">
+          <button class="tile__quick-btn tile__quick-btn--reject" data-quick="reject" aria-label="Rejeitar" title="Rejeitar (sem abrir detalhe)">X</button>
+          <button class="tile__quick-btn tile__quick-btn--approve" data-quick="approve" aria-label="Aprovar" title="Aprovar (sem abrir detalhe)">OK</button>
+        </div>
         <div class="reel-tile__script">
           ${linesHtml || `<p class="reel-tile__empty">Sem script.</p>`}
         </div>
@@ -115,6 +119,15 @@ class ReelTile extends HTMLElement {
 
     this.querySelector(".tile").addEventListener("click", (e) => {
       if (e.target.closest(".inline-date")) return;
+      const quick = e.target.closest("[data-quick]");
+      if (quick) {
+        e.stopPropagation();
+        const action = quick.dataset.quick;
+        const desired = action === "approve" ? "approved" : "rejected";
+        const current = approvalStore.get(it.id).status;
+        approvalStore.set(it.id, current === desired ? "pending" : desired, "");
+        return;
+      }
       this.dispatchEvent(new CustomEvent("item:open", { bubbles: true, detail: { id: it.id } }));
     });
 

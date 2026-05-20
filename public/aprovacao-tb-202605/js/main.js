@@ -360,6 +360,64 @@ function updateCounts() {
     const chip = hP.closest(".header-progress__chip");
     if (chip) chip.dataset.hasPending = pending > 0 ? "true" : "false";
   }
+  updateHeroAction(approved, rejected, pending);
+}
+
+function updateHeroAction(approved, rejected, pending) {
+  const hero = document.getElementById("heroAction");
+  if (!hero) return;
+  const count = document.getElementById("heroActionCount");
+  const label = document.getElementById("heroActionLabel");
+  const fill  = document.getElementById("heroActionBarFill");
+  const total = approved + rejected + pending;
+  const reviewed = approved + rejected;
+  const pct = total > 0 ? Math.round((reviewed / total) * 100) : 100;
+  if (pending > 0) {
+    hero.removeAttribute("hidden");
+    hero.removeAttribute("data-state");
+    if (count) count.textContent = String(pending);
+    if (label) label.textContent = pending === 1 ? "item por rever" : "items por rever";
+    if (fill)  fill.style.width = pct + "%";
+  } else if (total > 0) {
+    hero.removeAttribute("hidden");
+    hero.setAttribute("data-state", "done");
+    if (count) count.textContent = String(approved);
+    if (label) label.textContent = approved === 1 ? "item revisto — tudo pronto" : "items revistos — tudo pronto";
+    if (fill)  fill.style.width = "100%";
+  } else {
+    hero.setAttribute("hidden", "");
+  }
+}
+
+function openNextPending() {
+  const items = visibleItems();
+  const next = items.find(it => {
+    const s = approvalStore.get(it.id)?.status;
+    return s !== "approved" && s !== "rejected";
+  });
+  if (!next) return;
+  const viewer = document.querySelector("item-viewer");
+  if (viewer && typeof viewer.open === "function") viewer.open(next);
+}
+
+function initCalendarToggle() {
+  const btn = document.getElementById("calendarToggle");
+  const section = document.getElementById("calendarSection");
+  if (!btn || !section) return;
+  const STORAGE_KEY = "pf-calendar-collapsed";
+  const apply = (collapsed) => {
+    section.classList.toggle("section--collapsed", collapsed);
+    btn.setAttribute("aria-expanded", collapsed ? "false" : "true");
+    btn.textContent = collapsed ? "Mostrar" : "Esconder";
+  };
+  let initial = false;
+  try { initial = localStorage.getItem(STORAGE_KEY) === "1"; } catch {}
+  apply(initial);
+  btn.addEventListener("click", () => {
+    const now = !section.classList.contains("section--collapsed");
+    apply(now);
+    try { localStorage.setItem(STORAGE_KEY, now ? "1" : "0"); } catch {}
+  });
 }
 
 function manageLoader() {
@@ -507,6 +565,9 @@ async function init() {
   applyDateOverrides();
   applyHourOverrides();
   bindOpen();
+  initCalendarToggle();
+  const heroCta = document.getElementById("heroActionCta");
+  if (heroCta) heroCta.addEventListener("click", openNextPending);
   window.addEventListener("approval:changed", () => {
     updateCounts();
     // Por defeito só o calendário precisa de re-renderizar (chips de status).

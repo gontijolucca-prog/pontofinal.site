@@ -64,6 +64,10 @@ class PostTile extends HTMLElement {
         <span class="tile__label">Story · ${BRAND_LABELS[it.brand]?.toUpperCase() || it.brand}</span>
         <img class="tile__img" loading="lazy" decoding="async" src="${pngUrl}" alt="${(it.title || it.theme || "").replace(/"/g, "&quot;")}" onerror="this.onerror=null;this.src='${jpgUrl}'" />
         <a class="tile__download" href="${pngUrl}" download="${it.id}.png" title="Descarregar PNG 1080×1920" aria-label="Descarregar story">⤓</a>
+        <div class="tile__quick">
+          <button class="tile__quick-btn tile__quick-btn--reject" data-quick="reject" aria-label="Rejeitar" title="Rejeitar (sem abrir detalhe)">X</button>
+          <button class="tile__quick-btn tile__quick-btn--approve" data-quick="approve" aria-label="Aprovar" title="Aprovar (sem abrir detalhe)">OK</button>
+        </div>
         <div class="tile__caption">
           <strong>${it.title || it.theme}</strong>
           <span class="tile__date-line">
@@ -82,6 +86,15 @@ class PostTile extends HTMLElement {
     this.querySelector(".tile").addEventListener("click", (e) => {
       if (e.target.closest(".tile__download")) return;
       if (e.target.closest(".inline-date")) return;
+      const quick = e.target.closest("[data-quick]");
+      if (quick) {
+        e.stopPropagation();
+        const action = quick.dataset.quick;
+        const desired = action === "approve" ? "approved" : "rejected";
+        const current = approvalStore.get(it.id).status;
+        approvalStore.set(it.id, current === desired ? "pending" : desired, "");
+        return;
+      }
       this.dispatchEvent(new CustomEvent("item:open", { bubbles: true, detail: { id: it.id } }));
     });
 

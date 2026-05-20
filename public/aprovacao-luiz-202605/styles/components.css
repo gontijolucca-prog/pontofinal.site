@@ -2720,6 +2720,152 @@ body {
 }
 
 /* ─────────────────────────────────────────────────────────────────────
+   HERO ACTION — banner proeminente apos o header. Diz ao user
+   exactamente quantos items tem para rever e oferece um botao para
+   abrir o proximo. Esconde-se quando nao ha pendentes (status "tudo
+   aprovado", inferido por count = 0).
+   ───────────────────────────────────────────────────────────────────── */
+.hero-action {
+  position: relative;
+  padding: clamp(16px, 2.4vw, 28px) clamp(16px, 3vw, 32px);
+  background: linear-gradient(135deg,
+    var(--accent, #FF4D2E) 0%,
+    color-mix(in srgb, var(--accent, #FF4D2E) 88%, #050505) 100%);
+  color: #fff;
+  border-bottom: 4px solid var(--border, #050505);
+  box-shadow: 0 4px 16px rgba(255, 77, 46, 0.18);
+  overflow: hidden;
+}
+.hero-action[hidden] { display: none; }
+.hero-action::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent 0,
+    transparent 14px,
+    rgba(255, 255, 255, 0.06) 14px,
+    rgba(255, 255, 255, 0.06) 15px
+  );
+  pointer-events: none;
+}
+.hero-action__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3, 12px);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.hero-action__text {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  min-width: 0;
+}
+.hero-action__count {
+  font: 900 clamp(40px, 6vw, 64px)/0.9 var(--font-display, "JetBrains Mono", monospace);
+  letter-spacing: -0.02em;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+.hero-action__label {
+  font: 800 clamp(14px, 1.6vw, 18px)/1.1 var(--font-mono, monospace);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #fff;
+  opacity: 0.92;
+}
+.hero-action__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  color: var(--border, #050505);
+  border: 3px solid var(--border, #050505);
+  padding: 14px 22px;
+  font: 900 14px/1 var(--font-heavy, "JetBrains Mono", monospace);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.25);
+  transition: transform var(--d-fast, 0.15s), box-shadow var(--d-fast, 0.15s);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.hero-action__cta:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 7px 7px 0 0 rgba(0, 0, 0, 0.4);
+}
+.hero-action__cta:active {
+  transform: translate(0, 0);
+  box-shadow: 0 0 0 0 transparent;
+}
+.hero-action__arrow {
+  font-size: 18px;
+  font-weight: 900;
+}
+.hero-action__bar {
+  position: relative;
+  margin-top: 14px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.22);
+  border: 2px solid var(--border, #050505);
+  overflow: hidden;
+}
+.hero-action__bar-fill {
+  height: 100%;
+  background: #fff;
+  transition: width 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Estado "tudo aprovado" — verde em vez de vermelho */
+.hero-action[data-state="done"] {
+  background: linear-gradient(135deg,
+    var(--status-approved, #2BB05F) 0%,
+    color-mix(in srgb, var(--status-approved, #2BB05F) 80%, #050505) 100%);
+  box-shadow: 0 4px 16px rgba(43, 176, 95, 0.18);
+}
+.hero-action[data-state="done"] .hero-action__cta {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .hero-action__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+  .hero-action__cta {
+    justify-content: center;
+    padding: 16px 22px;
+    font-size: 13px;
+  }
+}
+
+/* Section toggle (collapse/expand calendar etc.) */
+.section__toggle {
+  margin-left: auto;
+  background: transparent;
+  border: 2px solid var(--border);
+  padding: 6px 12px;
+  font: 800 11px/1 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  color: var(--text);
+}
+.section__toggle:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+.section--collapsed > :not(.section__heading) {
+  display: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
    HEADER PROGRESS — chips de Aprovados / Rejeitados / Pendentes no
    header. Visivel sem scroll, com pulse no pending se > 0.
    ───────────────────────────────────────────────────────────────────── */
@@ -2783,6 +2929,55 @@ body {
   .header-progress__chip { padding: 3px 6px; }
   .header-progress__chip strong { font-size: 12px; }
   .header-progress__icon { font-size: 8px; padding: 1px 3px; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   TILE QUICK ACTIONS — botoes Aprovar/Rejeitar inline na tile, no canto
+   superior esquerdo. Desktop: aparecem no hover. Mobile: sempre visiveis.
+   ───────────────────────────────────────────────────────────────────── */
+.tile__quick {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 4;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 160ms ease, transform 160ms ease;
+  pointer-events: none;
+}
+.tile:hover .tile__quick,
+.tile:focus-within .tile__quick {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.tile__quick-btn {
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--border, #050505);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--border, #050505);
+  font: 900 11px/1 var(--font-mono, monospace);
+  cursor: pointer;
+  display: inline-grid;
+  place-items: center;
+  box-shadow: 2px 2px 0 0 var(--border, #050505);
+  transition: transform 120ms ease, background 120ms ease;
+  padding: 0;
+}
+.tile__quick-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 0 var(--border, #050505);
+}
+.tile__quick-btn--approve { background: var(--status-approved, #2BB05F); color: #fff; }
+.tile__quick-btn--reject  { background: var(--status-rejected, var(--accent, #FF4D2E)); color: #fff; }
+.tile__quick-btn--approve:hover { background: color-mix(in srgb, var(--status-approved, #2BB05F) 90%, #fff); }
+.tile__quick-btn--reject:hover  { background: color-mix(in srgb, var(--status-rejected, var(--accent, #FF4D2E)) 90%, #fff); }
+@media (max-width: 720px) {
+  .tile__quick { opacity: 1; pointer-events: auto; transform: none; }
+  .tile__quick-btn { width: 40px; height: 40px; }
 }
 
 /* Toast de confirmacao apos aprovar/rejeitar — slides up from bottom */
