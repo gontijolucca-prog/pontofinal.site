@@ -1,13 +1,51 @@
 # Cloudflare Pages — cache headers
 #
-# Dashboards e páginas de aprovação iteram com frequência. Revalidar sempre
-# por ETag em vez de servir versão cacheada cega.
-
-/dashboard-*/*
-  Cache-Control: no-cache, must-revalidate
+# Páginas de aprovação iteram com frequência. NUNCA cachear o HTML nem o
+# JS — o user tem de ver imediatamente o último código após cada deploy.
+# Sem regras nested explícitas, Cloudflare aplicava o cache default de 4h
+# aos ficheiros JS dentro de /js/, causando Safari/Chrome a servir versões
+# antigas mesmo após hard refresh.
 
 /aprovacao-*/*
-  Cache-Control: no-cache, must-revalidate
+  Cache-Control: no-store, no-cache, must-revalidate
+  Pragma: no-cache
+
+/aprovacao-*/js/*
+  Cache-Control: no-store, no-cache, must-revalidate
+  Pragma: no-cache
+
+/aprovacao-*/js/components/*
+  Cache-Control: no-store, no-cache, must-revalidate
+  Pragma: no-cache
+
+/aprovacao-*/js/stores/*
+  Cache-Control: no-store, no-cache, must-revalidate
+  Pragma: no-cache
+
+/aprovacao-*/js/lib/*
+  Cache-Control: no-store, no-cache, must-revalidate
+  Pragma: no-cache
+
+/aprovacao-*/styles/*
+  Cache-Control: no-store, no-cache, must-revalidate
+
+/aprovacao-*/data/*
+  Cache-Control: no-store, no-cache, must-revalidate
+
+/dashboard-*/*
+  Cache-Control: no-store, no-cache, must-revalidate
+  Pragma: no-cache
+
+/dashboard-*/js/*
+  Cache-Control: no-store, no-cache, must-revalidate
+
+/dashboard-*/js/components/*
+  Cache-Control: no-store, no-cache, must-revalidate
 
 /franchise-*/*
-  Cache-Control: no-cache, must-revalidate
+  Cache-Control: no-store, no-cache, must-revalidate
+  Pragma: no-cache
+
+/api/*
+  Cache-Control: no-store, no-cache, must-revalidate
+  Pragma: no-cache
