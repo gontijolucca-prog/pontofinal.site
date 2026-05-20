@@ -1,9 +1,9 @@
 // main.js — dashboard bootstrap. Auth gate → load themes + items + approvals.
 
-import { supabase, AUTH_ENABLED } from "./lib/supabase-client.js?v=20260520c";
-import { loadThemes, loadItems, loadApprovals, subscribeApprovals } from "./lib/data-loader.js?v=20260520c";
-import { BRAND_LABEL, APPROVAL_URL } from "./config.js?v=20260520c";
-import { monthShortLabel } from "./components/month-switcher.js?v=20260520c";
+import { supabase, AUTH_ENABLED } from "./lib/supabase-client.js";
+import { loadThemes, loadItems, loadApprovals, subscribeApprovals } from "./lib/data-loader.js";
+import { BRAND_LABEL, APPROVAL_URL } from "./config.js";
+import { monthShortLabel } from "./components/month-switcher.js";
 
 const state = {
   items: [],

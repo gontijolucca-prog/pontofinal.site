@@ -3,8 +3,16 @@
 // realtime). Mantemos a assinatura subscribeApprovals para o dashboard reagir
 // a aprovações novas em tempo real.
 
-import { supabase } from "./supabase-client.js?v=20260520c";
-import { BRANDS, NAMESPACE, ITEMS_URL } from "../config.js?v=20260520c";
+import { supabase } from "./supabase-client.js";
+import { BRANDS, NAMESPACE, ITEMS_URL, SUPABASE_URL, SUPABASE_ANON_KEY } from "../config.js";
+
+// Endpoints para approvals — proxy same-origin preferido (resolve Brave
+// Shields / Safari content-blockers que bloqueiam supabase.co). Fallback
+// para Supabase REST directo se o proxy não responder.
+const APPROVALS_ENDPOINTS = [
+  "/api/approvals",
+  `${SUPABASE_URL}/rest/v1/approvals`,
+];
 
 // items.json usa "format" (carrossel/story/reel); o resto do dashboard usa "kind"
 // (carousel/story/reel). Normalizamos no loader.
@@ -74,26 +82,44 @@ function decodeNote(raw) {
 }
 
 export async function loadApprovals() {
-  if (!supabase) return {};
-  const { data, error } = await supabase
-    .from("approvals")
-    .select("item_id, status, note, updated_at")
-    .eq("namespace", NAMESPACE);
-  if (error) {
-    console.warn("[data-loader] approvals:", error.message);
-    return {};
+  // Tenta proxy same-origin primeiro, depois Supabase directo. Garante
+  // funcionamento em browsers com Brave Shields / Safari ITP que bloqueiam
+  // fetches para subdomínios randomized de supabase.co.
+  const query = `namespace=eq.${encodeURIComponent(NAMESPACE)}&select=item_id,status,note,updated_at`;
+  for (const base of APPROVALS_ENDPOINTS) {
+    const isProxy = base.startsWith("/api/");
+    try {
+      const headers = { "Content-Type": "application/json" };
+      if (!isProxy) {
+        headers.apikey = SUPABASE_ANON_KEY;
+        headers.Authorization = `Bearer ${SUPABASE_ANON_KEY}`;
+      }
+      const res = await fetch(`${base}?${query}`, {
+        headers,
+        cache: "no-store",
+        mode: "cors",
+        credentials: "omit",
+      });
+      if (!res.ok) continue;
+      const ct = res.headers.get("content-type") || "";
+      if (!ct.includes("json")) continue; // proxy a devolver HTML (SPA fallback)
+      const data = await res.json();
+      const map = {};
+      for (const r of data || []) {
+        const decoded = decodeNote(r.note);
+        map[r.item_id] = {
+          status: r.status,
+          note: decoded.text,
+          author: decoded.author,
+          updatedAt: r.updated_at,
+        };
+      }
+      return map;
+    } catch (e) {
+      console.warn(`[data-loader] approvals via ${base} falhou:`, e?.message || e);
+    }
   }
-  const map = {};
-  for (const r of data || []) {
-    const decoded = decodeNote(r.note);
-    map[r.item_id] = {
-      status: r.status,
-      note: decoded.text,
-      author: decoded.author,
-      updatedAt: r.updated_at,
-    };
-  }
-  return map;
+  return {};
 }
 
 export function subscribeApprovals(onChange) {

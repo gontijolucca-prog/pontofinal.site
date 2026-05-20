@@ -1,8 +1,8 @@
 // <dm-activity> — view read-only de dm_events + dm_outbound (últimos 30
 // eventos). Vazio até o bot arrancar. Realtime via Supabase channel.
 
-import { supabase } from "../lib/supabase-client.js?v=20260520c";
-import { BRANDS } from "../config.js?v=20260520c";
+import { supabase } from "../lib/supabase-client.js";
+import { BRANDS } from "../config.js";
 
 const EVENT_LABEL = {
   message: "DM recebida",

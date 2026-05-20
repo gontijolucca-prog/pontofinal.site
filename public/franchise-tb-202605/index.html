@@ -4,6 +4,32 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Conteúdos TechBody</title>
+<meta name="app-version" content="20260520-1215" />
+
+<script>
+  // Auto cache-bust por versão + Service Worker registration.
+  // Garante que cada deploy é apanhado automaticamente em todos os browsers.
+  (function() {
+    try {
+      var meta = document.querySelector('meta[name="app-version"]');
+      var current = meta ? meta.getAttribute('content') : '';
+      if (current && sessionStorage.getItem('pf-bust-v') !== current &&
+          !window.location.search.includes('_=')) {
+        sessionStorage.setItem('pf-bust-v', current);
+        window.location.replace(
+          window.location.pathname + '?_=' + Date.now() + window.location.hash
+        );
+        return;
+      }
+    } catch (e) {}
+  })();
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('sw.js').catch(function() {});
+    });
+  }
+</script>
+
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;800;900&family=JetBrains+Mono:wght@300;500;700&display=swap" rel="stylesheet" />
 <style>
   *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -207,25 +233,35 @@
     return { author: null, text: raw };
   }
 
+  // Proxy same-origin primeiro (passa Brave Shields / Safari ITP),
+  // fallback para Supabase REST directo.
+  const APPROVALS_ENDPOINTS = ["/api/approvals", `${SUPABASE_URL}/rest/v1/approvals`];
   async function loadApprovals() {
-    try {
-      // Inclui note e updated_at para mostrar autor e data da aprovação.
-      const res = await fetch(
-        `${SUPABASE_URL}/rest/v1/approvals?namespace=eq.${NAMESPACE}&status=eq.approved&select=item_id,note,updated_at`,
-        { headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` } }
-      );
-      if (!res.ok) return {};
-      const rows = await res.json();
-      const out = {};
-      for (const r of rows) {
-        const dec = decodeNote(r.note);
-        out[r.item_id] = { author: dec.author || "anónimo", approvedAt: r.updated_at };
+    const query = `namespace=eq.${encodeURIComponent(NAMESPACE)}&status=eq.approved&select=item_id,note,updated_at`;
+    for (const base of APPROVALS_ENDPOINTS) {
+      const isProxy = base.startsWith("/api/");
+      try {
+        const headers = { "Content-Type": "application/json" };
+        if (!isProxy) {
+          headers.apikey = SUPABASE_ANON_KEY;
+          headers.Authorization = `Bearer ${SUPABASE_ANON_KEY}`;
+        }
+        const res = await fetch(`${base}?${query}`, { headers, cache: "no-store" });
+        if (!res.ok) continue;
+        const ct = res.headers.get("content-type") || "";
+        if (!ct.includes("json")) continue;
+        const rows = await res.json();
+        const out = {};
+        for (const r of rows) {
+          const dec = decodeNote(r.note);
+          out[r.item_id] = { author: dec.author || "anónimo", approvedAt: r.updated_at };
+        }
+        return out;
+      } catch (e) {
+        console.warn(`[franchise] approvals via ${base} falhou:`, e);
       }
-      return out;
-    } catch (e) {
-      console.warn("[franchise] approvals fetch falhou:", e);
-      return {};
     }
+    return {};
   }
 
   function escapeHtml(s) {

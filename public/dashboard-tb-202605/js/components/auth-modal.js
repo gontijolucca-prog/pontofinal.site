@@ -9,7 +9,7 @@
 // Não tem estado próprio fora do DOM; quem o monta controla quando desaparece
 // (em main.js: após detectar sessão, simplesmente esconde-se).
 
-import { supabase, setStoragePref } from "../lib/supabase-client.js?v=20260520c";
+import { supabase, setStoragePref } from "../lib/supabase-client.js";
 
 const RE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
