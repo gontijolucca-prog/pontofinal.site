@@ -208,19 +208,11 @@ function applyQueueToCache() {
   }
 }
 
-async function loadFromSupabase() {
-  const { data, error } = await supabase
-    .from("approvals")
-    .select("item_id, status, note, updated_at")
-    .eq("namespace", NAMESPACE);
-  if (error) {
-    console.error("[approval-store] load error — keeping LS-hydrated cache:", error);
-    emit();
-    return;
-  }
-  // Constrói snapshot do server num objecto separado.
+// Faz merge de um snapshot de rows do server com o cache local, preservando
+// writes locais mais recentes. Chamado pelo SDK load e pelo fetch polling.
+function mergeServerSnapshot(rows) {
   const next = {};
-  for (const row of data || []) {
+  for (const row of rows || []) {
     const decoded = decodeNote(row.note || "");
     next[row.item_id] = {
       status: row.status,
@@ -229,9 +221,8 @@ async function loadFromSupabase() {
       updatedAt: row.updated_at,
     };
   }
-  // Faz merge com o snapshot local: se uma entrada local for mais recente
-  // que a do server (writes feitos antes do load resolver), mantemos a
-  // versão local — o flushQueue trata de a enviar.
+  // Preserva writes locais mais recentes que o server (writes feitos antes
+  // do load resolver, ou que ainda não fizeram flush para o server).
   const ls = lsRead();
   for (const id in ls) {
     const srv = next[id];
@@ -243,8 +234,95 @@ async function loadFromSupabase() {
   }
   cache = next;
   applyQueueToCache();
-  lsSnapshot(); // grava snapshot fresco para próximas sessões
+  lsSnapshot();
   emit();
+}
+
+// Carrega do Supabase via REST directa (sem SDK). Funciona mesmo quando o
+// CDN do supabase-js está bloqueado (Safari ETP/extensões/iCloud Private
+// Relay). É o caminho FIABLE — chamado no init e em polling.
+async function loadFromSupabaseFetch() {
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/approvals?namespace=eq.${encodeURIComponent(NAMESPACE)}&select=item_id,status,note,updated_at`,
+      {
+        headers: {
+          apikey: SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+        mode: "cors",
+        credentials: "omit",
+        cache: "no-store",
+      }
+    );
+    if (!res.ok) {
+      console.warn("[approval-store] REST load HTTP", res.status);
+      return false;
+    }
+    const data = await res.json();
+    mergeServerSnapshot(data);
+    updateSyncIndicator("ok");
+    return true;
+  } catch (e) {
+    console.warn("[approval-store] REST load failed:", e?.message || e);
+    updateSyncIndicator("offline");
+    return false;
+  }
+}
+
+async function loadFromSupabase() {
+  if (!supabase) return loadFromSupabaseFetch();
+  const { data, error } = await supabase
+    .from("approvals")
+    .select("item_id, status, note, updated_at")
+    .eq("namespace", NAMESPACE);
+  if (error) {
+    console.error("[approval-store] SDK load error, a tentar REST fallback:", error);
+    return loadFromSupabaseFetch();
+  }
+  mergeServerSnapshot(data);
+  updateSyncIndicator("ok");
+}
+
+// Polling: pull do server a cada 7s para garantir convergência em browsers
+// onde realtime WebSocket está bloqueado. Visualmente é o que faz "ao vivo"
+// para o utilizador — convergência típica ~7s entre devices.
+let _pollTimer = null;
+function startServerPolling() {
+  if (_pollTimer) return;
+  _pollTimer = setInterval(() => {
+    if (typeof document !== "undefined" && document.hidden) return; // poupar quando hidden
+    loadFromSupabaseFetch();
+  }, 7000);
+  // Pull imediato quando o user volta ao tab.
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) loadFromSupabaseFetch();
+  });
+}
+
+// Indicador visual de sync no canto superior direito. Estados:
+//   "ok"      → "✓ sincronizado · HH:MM:SS"
+//   "offline" → "⚠ Offline — escritas guardadas localmente"
+let _syncIndicatorEl = null;
+function updateSyncIndicator(state) {
+  if (typeof document === "undefined") return;
+  if (!_syncIndicatorEl) {
+    _syncIndicatorEl = document.createElement("div");
+    _syncIndicatorEl.id = "live-sync-indicator";
+    _syncIndicatorEl.style.cssText = "position:fixed;top:8px;right:8px;z-index:9998;font:600 10px/1 'JetBrains Mono',ui-monospace,monospace;padding:6px 10px;border:2px solid #050505;letter-spacing:0.05em;text-transform:uppercase;pointer-events:none;";
+    document.body.appendChild(_syncIndicatorEl);
+  }
+  const now = new Date();
+  const t = `${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}:${String(now.getSeconds()).padStart(2,"0")}`;
+  if (state === "ok") {
+    _syncIndicatorEl.textContent = `✓ ao vivo · ${t}`;
+    _syncIndicatorEl.style.background = "#E8F5E9";
+    _syncIndicatorEl.style.color = "#1B5E20";
+  } else {
+    _syncIndicatorEl.textContent = "⚠ Offline";
+    _syncIndicatorEl.style.background = "#FFF3CD";
+    _syncIndicatorEl.style.color = "#856404";
+  }
 }
 
 function subscribeRealtime() {
@@ -330,20 +408,29 @@ export function init() {
   applyQueueToCache();
   queueMicrotask(emit);
 
-  if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
-    _initPromise = (async () => {
-      await migrateLocalStorageIfNeeded();
-      await loadFromSupabase();
-      subscribeRealtime();
-      // Mostra indicador se há writes pendentes da sessão anterior, e
-      // tenta sincronizar.
-      const pendingCount = qRead().length;
-      updatePendingIndicator(pendingCount);
-      if (pendingCount > 0) flushQueue();
-    })();
-  } else {
-    _initPromise = Promise.resolve();
-  }
+  _initPromise = (async () => {
+    // Caminho FIABLE: REST directo, sem dependência do CDN do SDK.
+    // Carrega sempre por aqui — funciona em Safari/Brave/Chrome igualmente.
+    await loadFromSupabaseFetch();
+    // Inicia polling de 7s para sync ao vivo entre browsers e devices,
+    // independente de WebSockets (Safari ETP/extensões podem bloquear).
+    startServerPolling();
+    // Em paralelo, tenta upgrade para SDK + realtime WebSocket (mais
+    // rápido que polling quando funciona). Se o CDN estiver bloqueado,
+    // o polling continua a garantir convergência.
+    if (USE_SUPABASE || AUTH_ENABLED) {
+      try {
+        await migrateLocalStorageIfNeeded();
+        if (supabase) subscribeRealtime();
+      } catch (e) {
+        console.warn("[approval-store] realtime upgrade falhou:", e?.message || e);
+      }
+    }
+    // Mostra indicador de writes pendentes da sessão anterior e tenta sync.
+    const pendingCount = qRead().length;
+    updatePendingIndicator(pendingCount);
+    if (pendingCount > 0) flushQueue();
+  })();
   return _initPromise;
 }
 
