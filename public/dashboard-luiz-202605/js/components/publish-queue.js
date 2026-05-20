@@ -36,12 +36,24 @@ class PublishQueue extends HTMLElement {
       this.render();
       return;
     }
-    const [{ data: q }, { data: h }] = await Promise.all([
+    const [qRes, hRes] = await Promise.all([
       supabase.from("publish_queue").select("*").in("brand", BRANDS).order("scheduled_for"),
       supabase.from("publish_history").select("*").in("brand", BRANDS).order("created_at", { ascending: false }).limit(20),
     ]);
-    this._queue = q || [];
-    this._history = h || [];
+    // Feature ainda não está pronta no Supabase: tabela em falta OU schema
+    // diferente do esperado (coluna não existe). Trata os dois casos.
+    const featureNotReady = (err) =>
+      err && /not find the table|relation .* does not exist|column .* does not exist/i.test(String(err.message || err));
+    if (featureNotReady(qRes.error) || featureNotReady(hRes.error)) {
+      this._notReady = true;
+      this._queue = [];
+      this._history = [];
+      this._loading = false;
+      this.render();
+      return;
+    }
+    this._queue = qRes.data || [];
+    this._history = hRes.data || [];
     this._loading = false;
     this.render();
   }
@@ -75,6 +87,17 @@ class PublishQueue extends HTMLElement {
   render() {
     if (this._loading) {
       this.innerHTML = `<p class="publish-queue__state">A carregar fila…</p>`;
+      return;
+    }
+    if (this._notReady) {
+      this.innerHTML = `
+        <div class="placeholder-card">
+          <p class="placeholder-card__title">Em breve</p>
+          <p class="placeholder-card__body">
+            Os items aprovados com data agendada entram aqui automaticamente
+            quando ligarmos a fila de publicação Instagram à pipeline.
+          </p>
+        </div>`;
       return;
     }
 

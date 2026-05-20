@@ -7,6 +7,7 @@ export const BRAND_LABEL = "TechBody";
 export const PERIOD_LABEL = "Maio 2026";
 export const MONTH = "2026-05";
 export const APPROVAL_URL = "../aprovacao-tb-202605/";
+export const ITEMS_URL    = "../aprovacao-tb-202605/data/items.json";
 
 export const AUTH_ENABLED =
   SUPABASE_URL.startsWith("https://") &&

@@ -49,7 +49,17 @@ class DmRules extends HTMLElement {
       .in("brand", BRANDS)
       .order("created_at", { ascending: false });
     if (error) {
-      this._error = error.message;
+      // Tabela ainda não existe (Phase 2 do roadmap Supabase) — degrade amistoso
+      const msg = String(error.message || error);
+      if (/not find the table|relation .* does not exist|column .* does not exist/i.test(msg)) {
+        this._notReady = true;
+        this._rules = [];
+        this._loading = false;
+        this._error = null;
+        this.render();
+        return;
+      }
+      this._error = msg;
       this._loading = false;
       this.render();
       return;
@@ -111,6 +121,18 @@ class DmRules extends HTMLElement {
   render() {
     if (this._loading) {
       this.innerHTML = `<p class="dm-rules__state">A carregar regras…</p>`;
+      return;
+    }
+    if (this._notReady) {
+      this.innerHTML = `
+        <div class="placeholder-card">
+          <p class="placeholder-card__title">Em breve</p>
+          <p class="placeholder-card__body">
+            O bot de DM começa a operar assim que ligarmos a conta Instagram
+            Business e o webhook Meta. As regras serão configuráveis a partir
+            deste painel.
+          </p>
+        </div>`;
       return;
     }
     if (this._error) {

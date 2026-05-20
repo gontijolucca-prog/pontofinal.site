@@ -39,12 +39,22 @@ class DmActivity extends HTMLElement {
       this.render();
       return;
     }
-    const [{ data: ev }, { data: out }] = await Promise.all([
+    const [evRes, outRes] = await Promise.all([
       supabase.from("dm_events").select("*").in("brand", BRANDS).order("received_at", { ascending: false }).limit(30),
       supabase.from("dm_outbound").select("*").in("brand", BRANDS).order("sent_at", { ascending: false }).limit(30),
     ]);
-    this._events = ev || [];
-    this._outbound = out || [];
+    const featureNotReady = (err) =>
+      err && /not find the table|relation .* does not exist|column .* does not exist/i.test(String(err.message || err));
+    if (featureNotReady(evRes.error) || featureNotReady(outRes.error)) {
+      this._notReady = true;
+      this._events = [];
+      this._outbound = [];
+      this._loading = false;
+      this.render();
+      return;
+    }
+    this._events = evRes.data || [];
+    this._outbound = outRes.data || [];
     this._loading = false;
     this.render();
   }
@@ -61,6 +71,17 @@ class DmActivity extends HTMLElement {
   render() {
     if (this._loading) {
       this.innerHTML = `<p class="dm-activity__state">A carregar actividade…</p>`;
+      return;
+    }
+    if (this._notReady) {
+      this.innerHTML = `
+        <div class="placeholder-card">
+          <p class="placeholder-card__title">Em breve</p>
+          <p class="placeholder-card__body">
+            O registo de eventos e DMs enviadas começa assim que o webhook Meta
+            estiver ligado.
+          </p>
+        </div>`;
       return;
     }
     const ev = this._events.length;
