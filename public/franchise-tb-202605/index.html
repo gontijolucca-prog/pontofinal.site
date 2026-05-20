@@ -60,6 +60,15 @@
   .card__body { padding: 16px; }
   .card__title { font: 800 16px/1.2 'Fraunces', serif; letter-spacing: -0.01em; margin-bottom: 6px; }
   .card__meta { font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+  .card__approved-by {
+    margin-top: 10px;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    border-top: 1px dashed rgba(10,10,10,0.25);
+    padding-top: 10px;
+  }
+  .card__approved-by strong { font-weight: 800; color: var(--accent); }
   .card__actions {
     border-top: 2px solid var(--line);
     display: grid;
@@ -185,16 +194,33 @@
       return await res.json();
     } catch { return {}; }
   }
+  function decodeNote(raw) {
+    if (!raw) return { author: null, text: "" };
+    if (typeof raw !== "string") return { author: null, text: String(raw) };
+    const s = raw.trim();
+    if (s.startsWith("{") && s.endsWith("}")) {
+      try {
+        const o = JSON.parse(s);
+        if (o && typeof o === "object") return { author: o.a || null, text: o.t || "" };
+      } catch {}
+    }
+    return { author: null, text: raw };
+  }
+
   async function loadApprovals() {
     try {
+      // Inclui note e updated_at para mostrar autor e data da aprovação.
       const res = await fetch(
-        `${SUPABASE_URL}/rest/v1/approvals?namespace=eq.${NAMESPACE}&status=eq.approved&select=item_id`,
+        `${SUPABASE_URL}/rest/v1/approvals?namespace=eq.${NAMESPACE}&status=eq.approved&select=item_id,note,updated_at`,
         { headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` } }
       );
       if (!res.ok) return {};
       const rows = await res.json();
       const out = {};
-      for (const r of rows) out[r.item_id] = true;
+      for (const r of rows) {
+        const dec = decodeNote(r.note);
+        out[r.item_id] = { author: dec.author || "anónimo", approvedAt: r.updated_at };
+      }
       return out;
     } catch (e) {
       console.warn("[franchise] approvals fetch falhou:", e);
@@ -204,6 +230,18 @@
 
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
+
+  function fmtApprovedAt(iso) {
+    if (!iso) return "";
+    try {
+      const d = new Date(iso);
+      const diff = (Date.now() - d.getTime()) / 1000;
+      if (diff < 60) return "agora";
+      if (diff < 3600) return `há ${Math.floor(diff / 60)} min`;
+      if (diff < 86400) return `há ${Math.floor(diff / 3600)} h`;
+      return d.toLocaleDateString("pt-PT", { day: "2-digit", month: "short" });
+    } catch { return ""; }
   }
 
   function renderCard(it) {
@@ -223,6 +261,11 @@
       </div>
     ` : "";
 
+    const apr = state.approvals[it.id];
+    const approvedBy = apr && apr.author
+      ? `<p class="card__approved-by">Aprovado por <strong>${escapeHtml(apr.author)}</strong>${apr.approvedAt ? ` · ${fmtApprovedAt(apr.approvedAt)}` : ""}</p>`
+      : "";
+
     return `
       <article class="card" data-format="${it.format}">
         <div class="card__preview">
@@ -231,6 +274,7 @@
         <div class="card__body">
           <h3 class="card__title">${escapeHtml(it.title || it.theme)}</h3>
           <p class="card__meta">${it.format} · ${it.scheduled_for || ""} · ${it.hour || ""}</p>
+          ${approvedBy}
         </div>
         ${captionHtml}
         <div class="card__actions">
@@ -304,6 +348,32 @@
       renderMonthFilters();
       document.querySelector("footer").textContent = "TechBody · " + monthLabel(state.month);
       render();
+
+      // Polling 5s — quando uma aprovação chega via página /aprovacao-*/,
+      // este loop pega no diff e re-rendariza. Mantém-se simples sem WS,
+      // funciona mesmo se Supabase Realtime estiver desligado.
+      setInterval(async () => {
+        if (document.hidden) return;
+        try {
+          const next = await loadApprovals();
+          const before = Object.keys(state.approvals).length;
+          const after = Object.keys(next).length;
+          // Detecta também mudanças no autor / approvedAt de items existentes
+          let changed = before !== after;
+          if (!changed) {
+            for (const id in next) {
+              const a = state.approvals[id], b = next[id];
+              if (!a || a.author !== b.author || a.approvedAt !== b.approvedAt) { changed = true; break; }
+            }
+          }
+          if (changed) {
+            state.approvals = next;
+            render();
+          }
+        } catch (e) {
+          console.warn("[franchise] poll falhou:", e);
+        }
+      }, 5000);
     } catch (err) {
       console.error(err);
       els.state.textContent = "Falha a carregar. Tenta de novo mais tarde.";

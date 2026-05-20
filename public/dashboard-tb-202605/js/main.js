@@ -147,8 +147,13 @@ async function init() {
 
   renderAll();
 
-  // Realtime: alterações às aprovações refletem-se de imediato no dashboard.
+  // Realtime: alterações às aprovações refletem-se de imediato (se o
+  // Supabase Realtime estiver activo na tabela). Polling 5s é fallback que
+  // cobre quando Realtime não está ligado, ou quando a ligação WS cai.
   if (AUTH_ENABLED) subscribeApprovals(reloadApprovals);
+  setInterval(() => {
+    if (!document.hidden) reloadApprovals().catch(err => console.warn("[dashboard] poll falhou:", err));
+  }, 5000);
 }
 
 init().catch(err => {

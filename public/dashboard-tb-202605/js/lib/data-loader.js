@@ -57,6 +57,22 @@ export async function loadThemes() {
   });
 }
 
+// Decode JSON-encoded notes ({"a":"Nome","t":"texto"}) — formato usado pela
+// página de aprovação para guardar autor sem coluna nova. Entradas plain
+// (legacy) ficam sem autor.
+function decodeNote(raw) {
+  if (!raw) return { author: null, text: "" };
+  if (typeof raw !== "string") return { author: null, text: String(raw) };
+  const s = raw.trim();
+  if (s.startsWith("{") && s.endsWith("}")) {
+    try {
+      const obj = JSON.parse(s);
+      if (obj && typeof obj === "object") return { author: obj.a || null, text: obj.t || "" };
+    } catch {}
+  }
+  return { author: null, text: raw };
+}
+
 export async function loadApprovals() {
   if (!supabase) return {};
   const { data, error } = await supabase
@@ -69,7 +85,13 @@ export async function loadApprovals() {
   }
   const map = {};
   for (const r of data || []) {
-    map[r.item_id] = { status: r.status, note: r.note || "", updatedAt: r.updated_at };
+    const decoded = decodeNote(r.note);
+    map[r.item_id] = {
+      status: r.status,
+      note: decoded.text,
+      author: decoded.author,
+      updatedAt: r.updated_at,
+    };
   }
   return map;
 }
