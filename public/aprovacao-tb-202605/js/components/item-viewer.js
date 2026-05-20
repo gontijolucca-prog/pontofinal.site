@@ -376,7 +376,7 @@ class ItemViewer extends HTMLElement {
             ${hasCaption ? `
             <details class="viewer-section viewer-section--caption" data-caption-status="${captionState.status}">
               <summary>
-                Descrição Instagram
+                Sugestão de copy
                 <span class="viewer-caption__badge viewer-caption__badge--${captionState.status}">${captionLabel[captionState.status]}</span>
               </summary>
               <div class="viewer-caption" data-caption-status="${captionState.status}">
@@ -392,11 +392,11 @@ class ItemViewer extends HTMLElement {
                   </div>
                 </div>
                 <div class="viewer-caption__actions">
-                  <textarea data-caption-note placeholder="Escreve uma anotação sobre a descrição"></textarea>
+                  <textarea data-caption-note placeholder="Escreve uma anotação sobre a copy"></textarea>
                   <button class="btn btn--ghost btn--small" data-action="caption-save-note"><span class="btn__icon" aria-hidden="true">✎</span> Guardar anotação</button>
                   <span class="viewer-caption__feedback" data-caption-feedback aria-live="polite"></span>
-                  <button class="btn btn--reject btn--small" data-action="caption-reject"><span class="btn__icon" aria-hidden="true">✕</span> Rejeitar descrição</button>
-                  <button class="btn btn--approve btn--small" data-action="caption-approve"><span class="btn__icon" aria-hidden="true">✓</span> Aprovar descrição</button>
+                  <button class="btn btn--reject btn--small" data-action="caption-reject"><span class="btn__icon" aria-hidden="true">✕</span> Rejeitar copy</button>
+                  <button class="btn btn--approve btn--small" data-action="caption-approve"><span class="btn__icon" aria-hidden="true">✓</span> Aprovar copy</button>
                 </div>
               </div>
             </details>
