@@ -338,7 +338,7 @@ function startServerPolling() {
   _pollTimer = setInterval(() => {
     if (typeof document !== "undefined" && document.hidden) return; // poupar quando hidden
     loadFromSupabaseFetch();
-  }, 7000);
+  }, 5000);
   // Pull imediato quando o user volta ao tab.
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden) loadFromSupabaseFetch();
