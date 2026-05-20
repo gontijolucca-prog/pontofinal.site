@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>PontoFinal.site · sinais-perder-clientes</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@200;400;700;800;900&family=JetBrains+Mono:wght@300;400;600&family=Fraunces:ital,wght@0,200;0,800;1,400&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #FFFFFF;
+  --primary: #050505;
+  --accent: #FF2A2A;
+  --text: #050505;
+  --w-thin: 200;
+  --w-black: 900;
+  --font-display: 'Barlow', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-serif: 'Fraunces', serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-display); -webkit-font-smoothing: antialiased; }
+.carousel {
+  display: flex;
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  height: 100vh;
+  width: 100vw;
+}
+.carousel::-webkit-scrollbar { display: none; }
+.slide {
+  flex: 0 0 100%;
+  height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: clamp(40px, 6vw, 80px);
+  background: var(--bg);
+}
+.slide__top, .slide__body, .slide__bottom { position: relative; z-index: 1; }
+.slide__top { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: clamp(11px,1.2vw,14px); letter-spacing: 0.18em; text-transform: uppercase; color: rgba(5,5,5,0.5); }
+.slide__bottom { display: flex; justify-content: space-between; align-items: end; font-family: var(--font-mono); font-size: clamp(11px,1.2vw,14px); letter-spacing: 0.18em; text-transform: uppercase; color: rgba(5,5,5,0.45); }
+.slide__bottom .arrow { font-size: clamp(20px,2.4vw,28px); }
+.slide__body { display: grid; align-content: center; gap: 22px; }
+
+.brand-glyph { font-family: var(--font-display); font-weight: var(--w-black); letter-spacing: -0.04em; color: var(--accent); font-size: clamp(15px,1.6vw,20px); text-transform: none; }
+
+/* HOOK / TYPE */
+.slide--type .slide__body h1 {
+  font-family: var(--font-display);
+  font-weight: var(--w-black);
+  font-size: clamp(56px, 11vw, 168px);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  max-width: 12ch;
+  color: var(--text);
+}
+.slide--type .slide__body h1 em { color: var(--accent); font-style: normal; }
+.slide--type .slide__body p { font-family: var(--font-mono); font-size: clamp(14px,1.5vw,18px); max-width: 44ch; color: rgba(5,5,5,0.55); }
+
+/* NUM */
+.slide--num .slide__body { gap: 12px; }
+.slide--num .num {
+  font-family: var(--font-display);
+  font-weight: var(--w-black);
+  font-size: clamp(150px, 26vw, 360px);
+  line-height: 0.84;
+  letter-spacing: -0.07em;
+  color: var(--accent);
+}
+.slide--num h1 {
+  font-family: var(--font-display);
+  font-weight: var(--w-black);
+  font-size: clamp(30px, 4.2vw, 56px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  max-width: 18ch;
+}
+.slide--num p { font-family: var(--font-mono); font-size: clamp(13px,1.5vw,16px); max-width: 44ch; color: rgba(5,5,5,0.55); margin-top: 6px; }
+
+/* QUOTE */
+.slide--quote { background: var(--bg); }
+.slide--quote .slide__body { align-content: center; }
+.slide--quote .mark {
+  font-family: var(--font-serif);
+  font-weight: var(--w-thin);
+  font-size: clamp(100px, 16vw, 240px);
+  line-height: 0.6;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.slide--quote blockquote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(32px, 5.2vw, 72px);
+  line-height: 1.16;
+  max-width: 18ch;
+  color: var(--text);
+}
+.slide--quote cite { font-family: var(--font-mono); font-size: clamp(12px,1.2vw,14px); color: rgba(5,5,5,0.45); font-style: normal; margin-top: 18px; display: block; }
+
+/* CTA — accent bg */
+.slide--cta { background: var(--accent); color: #FFFFFF; }
+.slide--cta .brand-glyph { color: #FFFFFF; }
+.slide--cta .slide__top, .slide--cta .slide__bottom { color: rgba(255,255,255,0.7); }
+.slide--cta h1 {
+  font-family: var(--font-display);
+  font-weight: var(--w-black);
+  font-size: clamp(54px, 11vw, 160px);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  max-width: 13ch;
+  color: #FFFFFF;
+}
+.slide--cta p {
+  font-family: var(--font-mono);
+  font-size: clamp(14px,1.7vw,20px);
+  max-width: 38ch;
+  color: rgba(255,255,255,0.85);
+  margin-top: 12px;
+}
+.slide--cta .url {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: clamp(16px,2vw,24px);
+  letter-spacing: -0.01em;
+  color: #FFFFFF;
+  border-top: 2px solid rgba(255,255,255,0.5);
+  padding-top: 18px;
+  margin-top: 28px;
+  display: inline-block;
+}
+</style>
+</head>
+<body>
+<section class="carousel" aria-label="Carrossel PontoFinal.site — sinais perder clientes">
+
+<article class="slide slide--type" id="slide-1">
+  <div class="slide__top"><span class="brand-glyph">PontoFinal.site</span><span>HOOK</span></div>
+  <div class="slide__body"><h1><em>8 sinais</em> que o teu site está a fazer-te perder clientes.</h1></div>
+  <div class="slide__bottom"><span>01/08</span><span class="arrow">→</span></div>
+</article>
+
+<article class="slide slide--num" id="slide-2">
+  <div class="slide__top"><span class="brand-glyph">PontoFinal.site</span><span>VELOCIDADE</span></div>
+  <div class="slide__body">
+    <div class="num">3s</div>
+    <h1>Demora mais de 3 segundos a abrir.</h1>
+    <p>53% dos visitantes saem antes do primeiro clique. Google penaliza no ranking.</p>
+  </div>
+  <div class="slide__bottom"><span>02/08</span><span class="arrow">→</span></div>
+</article>
+
+<article class="slide slide--type" id="slide-3">
+  <div class="slide__top"><span class="brand-glyph">PontoFinal.site</span><span>MOBILE</span></div>
+  <div class="slide__body">
+    <h1>Não <em>respira</em> bem no telemóvel.</h1>
+    <p>Texto sobreposto, botões impossíveis de tocar, imagens cortadas. 63% das visitas vêm de mobile.</p>
+  </div>
+  <div class="slide__bottom"><span>03/08</span><span class="arrow">→</span></div>
+</article>
+
+<article class="slide slide--num" id="slide-4">
+  <div class="slide__top"><span class="brand-glyph">PontoFinal.site</span><span>COPY</span></div>
+  <div class="slide__body">
+    <div class="num">8s</div>
+    <h1>Não dizes o que resolves — só o que fazes.</h1>
+    <p>Em 8 segundos o visitante decide se fica. Se a primeira frase é sobre ti, perdeste-o.</p>
+  </div>
+  <div class="slide__bottom"><span>04/08</span><span class="arrow">→</span></div>
+</article>
+
+<article class="slide slide--quote" id="slide-5">
+  <div class="slide__top"><span class="brand-glyph">PontoFinal.site</span><span>CONVERSÃO</span></div>
+  <div class="slide__body">
+    <div class="mark">"</div>
+    <blockquote>Um site bonito que não converte é um folheto caro.</blockquote>
+    <cite>— Princípio do PontoFinal</cite>
+  </div>
+  <div class="slide__bottom"><span>05/08</span><span class="arrow">→</span></div>
+</article>
+
+<article class="slide slide--type" id="slide-6">
+  <div class="slide__top"><span class="brand-glyph">PontoFinal.site</span><span>CTA AMBÍGUO</span></div>
+  <div class="slide__body">
+    <h1>Sem <em>chamada</em> clara para acção.</h1>
+    <p>"Saiba mais", "contacte-nos", "veja os serviços". Três botões. Zero direcção. Zero conversão.</p>
+  </div>
+  <div class="slide__bottom"><span>06/08</span><span class="arrow">→</span></div>
+</article>
+
+<article class="slide slide--num" id="slide-7">
+  <div class="slide__top"><span class="brand-glyph">PontoFinal.site</span><span>CONFIANÇA</span></div>
+  <div class="slide__body">
+    <div class="num">0</div>
+    <h1>Zero provas sociais visíveis.</h1>
+    <p>Sem testemunhos, sem cases, sem números. O visitante não tem motivos para acreditar — e não acredita.</p>
+  </div>
+  <div class="slide__bottom"><span>07/08</span><span class="arrow">→</span></div>
+</article>
+
+<article class="slide slide--cta" id="slide-8">
+  <div class="slide__top"><span class="brand-glyph">PontoFinal.site</span><span>ÚLTIMA</span></div>
+  <div class="slide__body">
+    <h1>Auditoria gratuita ao teu site.</h1>
+    <p>30 minutos. Identificamos os 3 buracos mais críticos e o que falta para os fechar. Sem compromisso.</p>
+    <span class="url">→ pontofinal.site</span>
+  </div>
+  <div class="slide__bottom"><span>08/08</span></div>
+</article>
+
+</section>
+<script>
+(function () {
+  var carousel = document.querySelector('.carousel');
+  function go() {
+    var m = (location.hash || '').match(/^#slide-(\d+)$/);
+    if (!m || !carousel) return;
+    var el = document.getElementById('slide-' + m[1]);
+    if (!el) return;
+    var prev = carousel.style.scrollSnapType;
+    carousel.style.scrollSnapType = 'none';
+    carousel.scrollLeft = el.offsetLeft;
+    requestAnimationFrame(function () { carousel.style.scrollSnapType = prev || ''; });
+  }
+  window.addEventListener('hashchange', go);
+  if (document.readyState === 'complete') go();
+  else window.addEventListener('load', go);
+})();
+</script>
+</body>
+</html>
