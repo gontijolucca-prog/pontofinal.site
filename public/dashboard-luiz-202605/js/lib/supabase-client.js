@@ -11,7 +11,7 @@
 // 'cm-auth-storage'. Quem alterna a preferência tem de fazê-lo ANTES do
 // signInWithOtp para a sessão (escrita após o magic-link) cair no sítio certo.
 
-import { SUPABASE_URL, SUPABASE_ANON_KEY, AUTH_ENABLED } from "../config.js?v=20260520a";
+import { SUPABASE_URL, SUPABASE_ANON_KEY, AUTH_ENABLED } from "../config.js?v=20260520b";
 
 const STORAGE_PREF_KEY = "cm-auth-storage";
 

@@ -3,8 +3,8 @@
 // realtime). Mantemos a assinatura subscribeApprovals para o dashboard reagir
 // a aprovações novas em tempo real.
 
-import { supabase } from "./supabase-client.js?v=20260520a";
-import { BRANDS, NAMESPACE, ITEMS_URL } from "../config.js?v=20260520a";
+import { supabase } from "./supabase-client.js?v=20260520b";
+import { BRANDS, NAMESPACE, ITEMS_URL } from "../config.js?v=20260520b";
 
 // items.json usa "format" (carrossel/story/reel); o resto do dashboard usa "kind"
 // (carousel/story/reel). Normalizamos no loader.

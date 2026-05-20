@@ -5,8 +5,8 @@
 //   id (uuid), brand, trigger_kind, trigger_value, match_mode, case_sensitive,
 //   action_kind, action_payload (jsonb {text?, link?}), active, notes
 
-import { supabase } from "../lib/supabase-client.js?v=20260520a";
-import { BRANDS } from "../config.js?v=20260520a";
+import { supabase } from "../lib/supabase-client.js?v=20260520b";
+import { BRANDS } from "../config.js?v=20260520b";
 
 const TRIGGER_KIND_LABEL = {
   comment_keyword: "Comentário com palavra-chave",
