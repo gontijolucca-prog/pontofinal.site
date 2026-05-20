@@ -340,28 +340,28 @@
     "theme": "primeira_vez_ems",
     "pilar": "Onboarding do cliente",
     "audience": "b2c",
-    "title": "Nunca fizeste EMS? Vou-te contar.",
+    "title": "Nunca fez electroestimulação? Vamos contar-lhe.",
     "slides": 24,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Nunca fizeste EMS? Vou-te contar como é a primeira vez."
+        "text_overlay": "Nunca fez electroestimulação? Vamos contar-lhe como é a primeira vez."
       },
       {
         "role": "demo",
-        "text_overlay": "Chegas. Conversamos uns minutos. Falamos dos teus objectivos e do que o teu corpo aguenta hoje."
+        "text_overlay": "Chega. Conversamos uns minutos. Falamos dos seus objectivos e do que o seu corpo aguenta hoje."
       },
       {
         "role": "demo",
-        "text_overlay": "Vestes o fato por cima da roupa. Não precisas de te equipar como num ginásio. Em três minutos estamos prontos."
+        "text_overlay": "Veste o TecSuit. Não precisa de se equipar como num ginásio. Em três minutos estamos prontos."
       },
       {
         "role": "proof",
-        "text_overlay": "Começamos com intensidade baixa. Tu controlas. Só subimos se te sentires confortável. Vinte e cinco minutos depois, está feito."
+        "text_overlay": "Começamos com intensidade baixa. Sob o seu controlo. Só subimos se se sentir confortável. Vinte e cinco minutos depois, está feito."
       },
       {
         "role": "cta",
-        "text_overlay": "Marca a primeira sessão. Sem compromisso. Link na bio."
+        "text_overlay": "Marque a primeira sessão. Sem compromisso. Link na bio."
       }
     ],
     "html_url": "../brands/techbody/output/2026-05/reels/r02-primeira-vez-ems.html",
@@ -425,11 +425,11 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Estás a pensar abrir um estúdio TechBody? Vou-te dizer os passos."
+        "text_overlay": "Está a pensar abrir um estúdio TechBody? Vamos dizer-lhe os passos."
       },
       {
         "role": "demo",
-        "text_overlay": "Primeiro, uma reunião. Percebemos o teu mercado, o capital disponível, o que faz sentido na tua cidade."
+        "text_overlay": "Primeiro, uma reunião. Percebemos o seu mercado, o capital disponível, o que faz sentido na sua cidade."
       },
       {
         "role": "demo",
@@ -437,11 +437,11 @@
       },
       {
         "role": "proof",
-        "text_overlay": "Marketing digital de lançamento. Acompanhamento mensal nos primeiros doze meses. Não abres o estúdio sozinho."
+        "text_overlay": "Marketing digital de lançamento. Acompanhamento mensal nos primeiros doze meses. Não abre o estúdio sozinho."
       },
       {
         "role": "cta",
-        "text_overlay": "Marca uma reunião. Olhamos para os teus números juntos. Link na bio."
+        "text_overlay": "Marque uma reunião. Olhamos para os seus números juntos. Link na bio."
       }
     ],
     "html_url": "../brands/techbody/output/2026-05/reels/r04-abrir-estudio.html",

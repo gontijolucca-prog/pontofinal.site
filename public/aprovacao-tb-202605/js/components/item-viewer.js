@@ -147,13 +147,15 @@ class ItemViewer extends HTMLElement {
         rightBtn = ``;
       }
       const deletedTag = isDeleted ? `<span class="viewer-note__deleted-tag">apagada</span>` : "";
+      const resolvedTag = r.resolved ? `<span class="viewer-note__resolved-tag" title="Esta anotação já foi processada e o feedback aplicado">✓ corrigido</span>` : "";
       const slideTag = r.slide ? `<span class="viewer-note__slide">Slide ${String(r.slide).padStart(2, "0")}</span>` : "";
       return `
-      <div class="viewer-note${isDeleted ? ' viewer-note--deleted' : ''}" data-note-key="${this._escapeForHtml(r.key)}">
+      <div class="viewer-note${isDeleted ? ' viewer-note--deleted' : ''}${r.resolved ? ' viewer-note--resolved' : ''}" data-note-key="${this._escapeForHtml(r.key)}">
         <div class="viewer-note__meta">
           ${slideTag}
           ${deletedTag}
           <span class="viewer-note__time">${fmt(r.changed_at)}</span>
+          ${resolvedTag}
           ${r.changed_by_email ? `<span class="viewer-note__author">· ${this._escapeForHtml(r.changed_by_email)}</span>` : ""}
           ${rightBtn}
         </div>

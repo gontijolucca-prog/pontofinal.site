@@ -84,6 +84,7 @@ function _listNotesInternal(itemId, scope) {
     const note = entry.note || "";
     const hasText = !!note.trim();
     const explicitDeleted = !!entry.deleted;
+    const explicitResolved = !!entry.resolved;
     if (!hasText && !explicitDeleted) continue;
     const parsed = parseAnnotationKey(key);
     out.push({
@@ -93,6 +94,7 @@ function _listNotesInternal(itemId, scope) {
       caption: isCap,
       note,
       deleted: explicitDeleted,
+      resolved: explicitResolved,
       author: entry.author || null,
       status: entry.status,
       changed_at: entry.updatedAt,
@@ -182,23 +184,24 @@ function encodeNote(text, author, opts) {
   if (author) obj.a = author;
   if (text) obj.t = text;
   if (opts && opts.deleted) obj.d = true;
-  if (!obj.a && !obj.t && !obj.d) return "";
+  if (opts && opts.resolved) obj.r = true;
+  if (!obj.a && !obj.t && !obj.d && !obj.r) return "";
   return JSON.stringify(obj);
 }
 function decodeNote(raw) {
-  if (!raw) return { author: null, text: "", deleted: false };
-  if (typeof raw !== "string") return { author: null, text: String(raw), deleted: false };
+  if (!raw) return { author: null, text: "", deleted: false, resolved: false };
+  if (typeof raw !== "string") return { author: null, text: String(raw), deleted: false, resolved: false };
   const s = raw.trim();
   if (s.startsWith("{") && s.endsWith("}")) {
     try {
       const obj = JSON.parse(s);
       if (obj && typeof obj === "object") {
-        return { author: obj.a || null, text: obj.t || "", deleted: !!obj.d };
+        return { author: obj.a || null, text: obj.t || "", deleted: !!obj.d, resolved: !!obj.r };
       }
     } catch {}
   }
   // Legacy plain string — sem autor.
-  return { author: null, text: raw, deleted: false };
+  return { author: null, text: raw, deleted: false, resolved: false };
 }
 
 // ─── Fallback localStorage ───────────────────────────────────────────────
@@ -253,6 +256,7 @@ function applyQueueToCache() {
       note: decoded.text,
       author: decoded.author,
       deleted: decoded.deleted,
+      resolved: decoded.resolved,
       updatedAt: row.updated_at,
     };
   }
@@ -269,6 +273,7 @@ function mergeServerSnapshot(rows) {
       note: decoded.text,
       author: decoded.author,
       deleted: decoded.deleted,
+      resolved: decoded.resolved,
       updatedAt: row.updated_at,
     };
   }
@@ -517,6 +522,7 @@ function subscribeRealtime() {
           note: decoded.text,
           author: decoded.author,
           deleted: decoded.deleted,
+          resolved: decoded.resolved,
           updatedAt: row.updated_at,
         };
         cache[row.item_id] = entry;

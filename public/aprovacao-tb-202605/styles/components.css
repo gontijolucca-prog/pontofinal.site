@@ -1152,6 +1152,26 @@
   margin-right: 4px;
 }
 
+/* Badge "corrigido" verde — anotação processada (feedback ja aplicado).
+   Aparece a seguir a data; visualmente lateral com border verde. */
+.viewer-note__resolved-tag {
+  display: inline-block;
+  padding: 1px 6px;
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: var(--status-approved, #2BB05F);
+  color: #fff;
+  border-radius: 2px;
+  margin-left: 6px;
+  white-space: nowrap;
+}
+.viewer-note--resolved {
+  border-left: 3px solid var(--status-approved, #2BB05F);
+  padding-left: 8px;
+}
+
 /* ───── DROPDOWN DE SLIDE NA ZONA DE AÇÕES ───── */
 .viewer-actions__slide-label {
   display: flex;
