@@ -42,8 +42,35 @@ class ItemViewer extends HTMLElement {
     const note = this.querySelector("textarea[data-note]")?.value || "";
     const desired = action === "approve" ? "approved" : "rejected";
     const current = approvalStore.get(this._item.id).status;
-    approvalStore.set(this._item.id, current === desired ? "pending" : desired, note);
+    const finalStatus = current === desired ? "pending" : desired;
+    approvalStore.set(this._item.id, finalStatus, note);
+    this._showActionToast(finalStatus);
     if (!this._advanceItem(+1)) this.close();
+  }
+
+  // Toast de confirmacao apos aprovar/rejeitar. Fornece feedback visivel
+  // imediato — sem isto, o viewer fecha em silencio e o user fica em duvida
+  // se a accao foi mesmo registada.
+  _showActionToast(status) {
+    try {
+      const cfg = {
+        approved: { icon: "OK", text: "Aprovado", color: "#2BB05F" },
+        rejected: { icon: "X",  text: "Rejeitado", color: "#FF4D2E" },
+        pending:  { icon: "...", text: "Pendente", color: "#888" }
+      };
+      const c = cfg[status] || cfg.pending;
+      const toast = document.createElement("div");
+      toast.className = "action-toast";
+      toast.style.cssText = `position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:${c.color};color:#fff;padding:14px 24px;font:900 14px/1 var(--font-heavy);letter-spacing:0.08em;text-transform:uppercase;border:3px solid #050505;box-shadow:6px 6px 0 0 #050505;z-index:9999;display:flex;align-items:center;gap:10px;animation:pf-toast-in 240ms ease-out;`;
+      toast.innerHTML = `<span style="font-size:18px">${c.icon}</span>${c.text}`;
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        toast.style.transition = "opacity 200ms, transform 200ms";
+        toast.style.opacity = "0";
+        toast.style.transform = "translateX(-50%) translateY(10px)";
+        setTimeout(() => toast.remove(), 220);
+      }, 1400);
+    } catch {}
   }
 
   _advanceItem(direction) {
@@ -538,7 +565,9 @@ class ItemViewer extends HTMLElement {
         const note = (this.querySelector("textarea[data-note]")?.value || "").trim();
         const desired = action === "approve" ? "approved" : "rejected";
         const current = approvalStore.get(this._item.id).status;
-        await approvalStore.set(this._item.id, current === desired ? "pending" : desired, note);
+        const finalStatus = current === desired ? "pending" : desired;
+        await approvalStore.set(this._item.id, finalStatus, note);
+        this._showActionToast(finalStatus);
         this.close();
       }
       if (action === "caption-save-note") {

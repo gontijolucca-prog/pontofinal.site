@@ -2718,3 +2718,15 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .swipe-hint { display: none; }
 }
+
+/* Toast de confirmacao apos aprovar/rejeitar — slides up from bottom */
+@keyframes pf-toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+.action-toast {
+  font-family: var(--font-heavy, "JetBrains Mono", ui-monospace, monospace);
+}
+@media (prefers-reduced-motion: reduce) {
+  .action-toast { animation: none !important; }
+}
