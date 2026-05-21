@@ -141,17 +141,33 @@ h1, h2, h3, p, blockquote, .num {
   text-wrap: balance;
   text-wrap: pretty;
 }
+
+/* slide-1 editorial cover v3 */
+#slide-1 { padding: clamp(36px, 5vw, 64px) !important; }
+#slide-1 .slide__top { gap: clamp(16px, 3vw, 32px); }
+#slide-1 .cap-index { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
+#slide-1 .bg-number { position: absolute; bottom: -10%; right: -6%; font-family: var(--font-serif); font-style: italic; font-weight: 200; font-size: clamp(360px, 58vw, 760px); color: rgba(255,255,255,0.045); line-height: 0.85; letter-spacing: -0.06em; user-select: none; pointer-events: none; z-index: 0; }
+#slide-1.slide--photo .bg-number { display: none; }
+#slide-1 .slide__body { display: grid !important; grid-template-rows: auto auto 1fr auto !important; align-content: stretch !important; gap: clamp(20px, 3.2vh, 40px) !important; position: relative; z-index: 1; padding-top: clamp(20px, 5vh, 60px); padding-bottom: clamp(10px, 3vh, 30px); }
+#slide-1 .slide__body h1 { font-family: var(--font-display) !important; font-weight: 700 !important; font-size: clamp(32px, 5.2vw, 68px) !important; line-height: 1.04 !important; letter-spacing: -0.025em !important; max-width: 19ch !important; justify-self: start; text-wrap: balance; }
+#slide-1 .accent-rule { width: clamp(44px, 7vw, 96px); height: 2px; background: var(--accent); justify-self: start; align-self: start; }
+#slide-1 .slide__hook { font-family: var(--font-serif) !important; font-style: italic; font-weight: 200; font-size: clamp(22px, 3vw, 40px) !important; line-height: 1.25; color: rgba(255,255,255,0.88) !important; max-width: 22ch !important; justify-self: end !important; text-align: right; align-self: end; text-wrap: pretty; }
+#slide-1.slide--photo .slide__hook { color: rgba(255,255,255,0.96) !important; text-shadow: 0 2px 18px rgba(0,0,0,0.45); }
+#slide-1.slide--photo .slide__body h1 { text-shadow: 0 2px 22px rgba(0,0,0,0.55); }
 </style>
 </head>
 <body>
 <section class="carousel" aria-label="Carrossel Luiz Santana — metodo_ciencia">
 
 <article class="slide slide--photo" id="slide-1">
-  <div class="slide__photo" style="background-image:url('../../../assets/photos/magnific__photo-a-35yearold-mixedrace-man-with-short-black-h__28183.jpg')"></div>
-  <div class="slide__top"><span class="brand-glyph">Luiz Santana</span></div>
+  
+  <div class="bg-number" aria-hidden="true">02</div>
+  <div class="slide__top"><span class="brand-glyph">Luiz Santana</span><span class="cap-index">Cap. 02 — Método</span></div>
   <div class="slide__body">
-        <h1>Treino convencional activa fibras musculares de&nbsp;forma seletiva.</h1>
-        </div>
+    <h1>Electroestimulação — o&nbsp;que a&nbsp;evidência mostra.</h1>
+    <div class="accent-rule"></div>
+    <p class="slide__hook">Treinas há&nbsp;anos. Quantas fibras estás mesmo a&nbsp;activar?</p>
+  </div>
   <div class="slide__bottom"><span>01/06</span><span class="arrow">→</span></div>
 </article>
 
