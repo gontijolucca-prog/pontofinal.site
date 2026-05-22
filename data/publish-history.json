@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "description": "Histórico de publicações IG @pontofinal.site. Commitado pelo workflow .github/workflows/pontofinal-publish.yml após cada slot. Não editar à mão.",
+    "schema": "v1",
+    "ig_account": "pontofinal.site",
+    "ig_user_id": "17841439350962641"
+  },
+  "published": [
+    { "slug": "r01-7-em-10-google",            "reel_at": "2026-05-21T15:10:36Z", "reel_id": "DYmvBVaFXpz", "story_at": null, "story_id": null },
+    { "slug": "r02-arranque-claro",            "reel_at": "2026-05-21T15:46:02Z", "reel_id": "DYmzEQhDxUJ", "story_at": null, "story_id": null },
+    { "slug": "r03-saiba-mais-nao-vende",      "reel_at": "2026-05-21T16:01:39Z", "reel_id": "DYm02syAs_r", "story_at": null, "story_id": null },
+    { "slug": "r04-titulos-que-vendem",        "reel_at": "2026-05-21T16:19:11Z", "reel_id": "DYm22s0lcun", "story_at": null, "story_id": null },
+    { "slug": "r05-sobre-nos-sem-ego",         "reel_at": "2026-05-21T16:58:40Z", "reel_id": "DYm7YzWFF9b", "story_at": null, "story_id": null },
+    { "slug": "r26-sobre-nos-dicionario",      "reel_at": "2026-05-21T17:30:39Z", "reel_id": "DYm_Cx9AhuS", "story_at": null, "story_id": null },
+    { "slug": "r27-cinco-mitos-manifesto",     "reel_at": "2026-05-21T18:20:29Z", "reel_id": "DYnEwPkkd1_", "story_at": null, "story_id": null },
+    { "slug": "r28-wix-recibo",                "reel_at": "2026-05-21T19:10:29Z", "reel_id": "DYnKenBj1WN", "story_at": null, "story_id": null },
+    { "slug": "r29-urgencia-data-carimbada",   "reel_at": "2026-05-21T20:01:32Z", "reel_id": "DYnQT0bjyHc", "story_at": null, "story_id": null },
+    { "slug": "r30-instagram-funil",           "reel_at": "2026-05-21T20:50:36Z", "reel_id": "DYnV7YQAovU", "story_at": null, "story_id": null },
+    { "slug": "r31-preco-etiquetas",           "reel_at": "2026-05-21T21:40:30Z", "reel_id": "DYnbpPtk-Ae", "story_at": null, "story_id": null },
+    { "slug": "r32-restaurante-menu",          "reel_at": "2026-05-21T22:30:29Z", "reel_id": "DYnhXcxlT2R", "story_at": null, "story_id": null }
+  ],
+  "queue": [
+    "r06-email-primeiro-contacto",
+    "r07-anatomia-pagina-vende",
+    "r08-mostrar-precos",
+    "r09-formularios-curtos",
+    "r10-sinais-de-confianca",
+    "r11-urgencia-sem-mentir",
+    "r12-tres-palavras-google",
+    "r13-site-lento-google",
+    "r14-instagram-alimenta-site",
+    "r15-carrossel-novo-artigo",
+    "r16-5-mitos-sites",
+    "r17-wix-diy-custo",
+    "r18-site-restaurante",
+    "r19-site-advogado",
+    "r20-site-loja-online",
+    "r21-site-freelancer",
+    "r22-site-profissional-desporto",
+    "r23-quatro-segundos",
+    "r24-tres-palavras-google",
+    "r25-email-chat-bubbles"
+  ]
+}

@@ -1,0 +1,13 @@
+Cinco segundos a abrir é cinco segundos a perder o cliente para o concorrente.
+
+E o Google sabe. O algoritmo da pesquisa empurra para baixo todos os sites que demoram mais de 3 segundos a aparecer. Tu podes ter o melhor copy do mundo. Se ninguém chega à página, nada disso conta.
+
+Imagens enormes sem comprimir, três temas activos ao mesmo tempo, plugins esquecidos de 2019. Cada um deles é meio segundo a mais. Soma quatro deles e estás fora.
+
+Abre pagespeed.web.dev. Põe o teu domínio. Vê o número que aparece. Se for inferior a 70, tens problema.
+
+Marca já a tua reunião em pontofinal.site. Link na bio.
+
+—
+
+#pontofinal #website #velocidade #google #pequenosnegocios #pmeportugal #portugal #marketingpt #digitalpt #empreender

@@ -1,0 +1,67 @@
+name: PontoFinal — auto-publish (10/dia Reel+Story)
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry-run (não publica)"
+        required: false
+        default: "false"
+  schedule:
+    # Slots em UTC (PT = UTC+1 verão). Cobrir 11h00, 12h30, 14h00, 15h30, 17h00, 18h30, 20h00, 21h00, 22h00, 22h45 PT.
+    - cron: "0 10 * * *"   # 11:00 PT
+    - cron: "30 11 * * *"  # 12:30 PT
+    - cron: "0 13 * * *"   # 14:00 PT
+    - cron: "30 14 * * *"  # 15:30 PT
+    - cron: "0 16 * * *"   # 17:00 PT
+    - cron: "30 17 * * *"  # 18:30 PT
+    - cron: "0 19 * * *"   # 20:00 PT
+    - cron: "0 20 * * *"   # 21:00 PT
+    - cron: "0 21 * * *"   # 22:00 PT
+    - cron: "45 21 * * *"  # 22:45 PT
+
+concurrency:
+  group: "pontofinal-publish"
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Publish next reel + story
+        env:
+          META_ACCESS_TOKEN: ${{ secrets.META_ACCESS_TOKEN }}
+          META_IG_USER_ID: ${{ secrets.META_IG_USER_ID }}
+          PUBLIC_BASE_URL: https://pontofinal.site
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            echo "DRY RUN — não publica"
+            python3 -c "import json; h=json.load(open('data/publish-history.json')); print('Próximo:', h['queue'][0] if h['queue'] else 'fila vazia')"
+            exit 0
+          fi
+          python3 scripts/publish_next.py
+
+      - name: Commit history
+        if: success() && inputs.dry_run != 'true'
+        run: |
+          git config user.name "pontofinal-bot"
+          git config user.email "bot@pontofinal.site"
+          git add data/publish-history.json
+          if git diff --staged --quiet; then
+            echo "Sem mudanças (queue vazia?)"
+          else
+            git commit -m "publish: auto-update history $(date -u +%FT%TZ)"
+            git push
+          fi
