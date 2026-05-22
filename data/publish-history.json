@@ -152,10 +152,16 @@
       "reel_id": "17867380443545153",
       "story_at": "2026-05-22T21:09:27Z",
       "story_id": "17965175657917357"
+    },
+    {
+      "slug": "r08-mostrar-precos",
+      "reel_at": "2026-05-22T21:39:00Z",
+      "reel_id": "18088695041524233",
+      "story_at": "2026-05-22T21:39:00Z",
+      "story_id": "17870535579527049"
     }
   ],
   "queue": [
-    "r08-mostrar-precos",
     "r09-formularios-curtos",
     "r10-sinais-de-confianca",
     "r11-urgencia-sem-mentir",
