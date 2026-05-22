@@ -187,9 +187,10 @@ function passesQualityCheck(reply: string, userText: string): boolean {
   return true;
 }
 
-// ─── Meta Graph API (send DM) ────────────────────────────────────────────
+// ─── Instagram Graph API (send DM) ───────────────────────────────────────
+// IG Business Login API uses graph.instagram.com/me/messages.
 async function sendDM(recipientId: string, text: string, env: Env): Promise<void> {
-  const url = `https://graph.facebook.com/v23.0/${env.META_IG_USER_ID}/messages`;
+  const url = `https://graph.instagram.com/v23.0/me/messages`;
   const r = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
