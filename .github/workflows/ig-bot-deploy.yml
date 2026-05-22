@@ -1,0 +1,83 @@
+name: IG Bot — Deploy & Configure
+
+# Deploys the Maria IG bot to Cloudflare Workers.
+#
+# Adds to repo secrets first (one-time, via gh secret set ou UI GitHub):
+#   META_APP_SECRET                — Meta Developer → App → Settings → Basic → App Secret
+#   META_VERIFY_TOKEN              — string aleatória (gerada local em ~/.config/credentials/pontofinal-ig-bot-verify-token)
+#   META_ACCESS_TOKEN              — já existe (long-lived IG token)
+#   META_IG_USER_ID                — já existe (17841439350962641)
+#   OPENROUTER_KEY                 — chave OpenRouter
+#   SUPABASE_URL                   — https://ojbigtskkhmnerrppdjq.supabase.co
+#   SUPABASE_SERVICE_KEY           — service_role key Supabase
+#   CLOUDFLARE_API_TOKEN           — token com perm Workers (não o Pages-only actual)
+#   CLOUDFLARE_ACCOUNT_ID          — já existe
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'workers/ig-bot/**'
+      - '.github/workflows/ig-bot-deploy.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: workers/ig-bot
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install wrangler
+        run: npm install --no-save wrangler@4
+
+      - name: Push secrets to Worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -e
+          # wrangler secret put accepts value via stdin
+          push_secret() {
+            local name=$1; local value=$2
+            if [ -z "$value" ]; then
+              echo "::warning::Secret $name is empty — skipping"
+              return
+            fi
+            printf '%s' "$value" | npx wrangler secret put "$name"
+          }
+          push_secret META_APP_SECRET       "${{ secrets.META_APP_SECRET }}"
+          push_secret META_VERIFY_TOKEN     "${{ secrets.META_VERIFY_TOKEN }}"
+          push_secret META_ACCESS_TOKEN     "${{ secrets.META_ACCESS_TOKEN }}"
+          push_secret META_IG_USER_ID       "${{ secrets.META_IG_USER_ID }}"
+          push_secret OPENROUTER_KEY        "${{ secrets.OPENROUTER_KEY }}"
+          push_secret SUPABASE_URL          "${{ secrets.SUPABASE_URL }}"
+          push_secret SUPABASE_SERVICE_KEY  "${{ secrets.SUPABASE_SERVICE_KEY }}"
+
+      - name: Deploy Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: workers/ig-bot
+          command: deploy
+
+      - name: Smoke test — webhook verification
+        run: |
+          sleep 8
+          URL="https://pontofinal.site/api/ig-webhook"
+          TOKEN="${{ secrets.META_VERIFY_TOKEN }}"
+          CHALLENGE="testchallenge42"
+          RESPONSE=$(curl -s "$URL?hub.mode=subscribe&hub.verify_token=$TOKEN&hub.challenge=$CHALLENGE")
+          if [ "$RESPONSE" = "$CHALLENGE" ]; then
+            echo "✅ Webhook handshake OK"
+          else
+            echo "❌ Handshake failed. Response: $RESPONSE"
+            exit 1
+          fi
