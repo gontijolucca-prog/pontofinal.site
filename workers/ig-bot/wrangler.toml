@@ -1,0 +1,18 @@
+name = "pontofinal-ig-bot"
+main = "src/index.ts"
+compatibility_date = "2026-05-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Custom domain — sirvo a partir de pontofinal.site/api/ig-webhook
+[[routes]]
+pattern = "pontofinal.site/api/ig-webhook"
+zone_name = "pontofinal.site"
+
+# Secrets configurados via `wrangler secret put NAME`:
+#   META_APP_SECRET       — Meta Developer → App → Settings → Basic → App Secret
+#   META_VERIFY_TOKEN     — string aleatória definida por nós (também colada na config webhook)
+#   META_ACCESS_TOKEN     — token longo-prazo (já temos)
+#   META_IG_USER_ID       — 17841439350962641 (PontoFinal IG ID)
+#   OPENROUTER_KEY        — chave em ~/.config/credentials/openrouter-key
+#   SUPABASE_URL          — https://ojbigtskkhmnerrppdjq.supabase.co
+#   SUPABASE_SERVICE_KEY  — service_role key
