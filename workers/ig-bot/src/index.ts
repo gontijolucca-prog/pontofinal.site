@@ -180,9 +180,27 @@ function passesQualityCheck(reply: string, userText: string): boolean {
   const botTokens = ["sou um bot", "sou uma ia", "sou uma inteligência artificial", "language model", "ai assistant", "modelo de linguagem"];
   if (botTokens.some(t => low.includes(t))) return false;
 
-  // PT-BR markers (case sensitive for "você" because "você" never appears in PT-PT)
-  const ptBr = ["você ", "gerenciamento", "gerenciar", "usuário", "celular", " tela ", " arquivo ", "ônibus", "trem ", "banheiro", "geladeira"];
+  // PT-BR vocabulary markers
+  const ptBr = [
+    "você", "vocês", "gerenciamento", "gerenciar", "usuário", "celular", " tela ", " arquivo ",
+    "ônibus", "trem ", "banheiro", "geladeira", "café da manhã", "sorvete", "time ",
+    "bacana", "valeu", "blz", " tô ", " tá ", "legal!", "que legal", "engagement", "feedback ",
+    "vou estar ", "estou indo", "tô indo", "tô aqui",
+  ];
   if (ptBr.some(t => low.includes(t))) return false;
+
+  // PT-BR próclise abusiva (clitic-before-verb without an attractor like não/já/que/quando/se/porque)
+  // Pattern: standalone "me/te/se/lhe/nos" immediately followed by a verb form, with NO attractor
+  // immediately preceding the pronoun. Common offenders:
+  const procliseTraps = [
+    /\b(pode|podes|posso|podem)\s+(me|te|se|lhe|nos)\s+\w+r/i,        // "pode me ajudar"
+    /\b(vou|vais|vai|vamos|vão)\s+(me|te|se|lhe|nos)\s+\w+r/i,        // "vou te mandar"
+    /\b(quero|queres|quer|queremos)\s+(me|te|se|lhe|nos)\s+\w+r/i,    // "quero te dizer"
+    /\b(consegue|consegues|consigo|conseguem)\s+(me|te|se|lhe|nos)\s+\w+r/i,
+    /\b(precisa|precisas|preciso)\s+(me|te|se|lhe|nos)\s+\w+r/i,
+    /(^|[.!?]\s+)(me|te|se|lhe|nos)\s+(diz|envia|manda|conta|explica|mostra|ajuda|esclarece|fala|dá|deixa|chama|liga)/i,
+  ];
+  if (procliseTraps.some(re => re.test(reply))) return false;
 
   // Letter-format leak (writing email to third party)
   if (reply.includes("---") && reply.length > 200) return false;
