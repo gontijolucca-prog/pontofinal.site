@@ -181,7 +181,7 @@
     "theme": "b2b_ferramenta",
     "pilar": "B2B — ferramenta para profissionais",
     "audience": "b2b",
-    "title": "EMS não é só treino. É linha de negócio.",
+    "title": "A eletroestimulação não é só treino. É linha de negócio.",
     "slides": 6,
     "slides_text": [
       {
@@ -342,12 +342,12 @@
     "theme": "quem_treina_ems",
     "pilar": "A quem se destina",
     "audience": "b2c",
-    "title": "Quem treina EMS? Toda a gente.",
+    "title": "Quem treina eletroestimulação? Toda a gente.",
     "slides": 24,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Quem treina EMS? Toda a gente."
+        "text_overlay": "Quem treina eletroestimulação? Toda a gente."
       },
       {
         "role": "demo",
@@ -387,7 +387,7 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Nunca fizeste EMS? Vou-te contar como é o primeiro dia no estúdio."
+        "text_overlay": "Nunca fizeste eletroestimulação? Vou-te contar como é o primeiro dia no estúdio."
       },
       {
         "role": "demo",
@@ -395,7 +395,7 @@
       },
       {
         "role": "demo",
-        "text_overlay": "Avaliação inicial. Vestes o fato EMS. O treinador acompanha cada movimento."
+        "text_overlay": "Avaliação inicial. Vestes o fato de eletroestimulação. O treinador acompanha cada movimento."
       },
       {
         "role": "proof",
@@ -422,12 +422,12 @@
     "theme": "recovery_reabilitacao",
     "pilar": "Saúde e reabilitação",
     "audience": "b2c",
-    "title": "EMS para reabilitação. Não só treino.",
+    "title": "Eletroestimulação para reabilitação. Não só treino.",
     "slides": 26,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "EMS é também reabilitação. Não só treino."
+        "text_overlay": "A eletroestimulação é também reabilitação. Não só treino."
       },
       {
         "role": "demo",
@@ -435,7 +435,7 @@
       },
       {
         "role": "demo",
-        "text_overlay": "O EMS activa fibras profundas sem cargas pesadas. Impacto articular mínimo."
+        "text_overlay": "A eletroestimulação activa fibras profundas sem cargas pesadas. Impacto articular mínimo."
       },
       {
         "role": "proof",
