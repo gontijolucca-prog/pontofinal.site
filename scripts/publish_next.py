@@ -24,7 +24,7 @@ HISTORY = ROOT / "data" / "publish-history.json"
 CAPTIONS_DIR = ROOT / "data" / "captions"
 REELS_DIR_REL = "brands/pontofinal_site/output/2026-05/static-reels"
 
-GRAPH = "https://graph.facebook.com/v23.0"
+GRAPH = "https://graph.instagram.com/v23.0"
 TOKEN = os.environ["META_ACCESS_TOKEN"]
 IG_USER_ID = os.environ.get("META_IG_USER_ID", "17841439350962641")
 BASE = os.environ.get("PUBLIC_BASE_URL", "https://pontofinal.site").rstrip("/")
