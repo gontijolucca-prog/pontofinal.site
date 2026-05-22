@@ -138,10 +138,16 @@
       "reel_id": "18050415548727589",
       "story_at": "2026-05-22T19:17:27Z",
       "story_id": "17858914914638671"
+    },
+    {
+      "slug": "r06-email-primeiro-contacto",
+      "reel_at": "2026-05-22T20:43:17Z",
+      "reel_id": "18103416890064164",
+      "story_at": "2026-05-22T20:43:17Z",
+      "story_id": "18096736135897795"
     }
   ],
   "queue": [
-    "r06-email-primeiro-contacto",
     "r07-anatomia-pagina-vende",
     "r08-mostrar-precos",
     "r09-formularios-curtos",
