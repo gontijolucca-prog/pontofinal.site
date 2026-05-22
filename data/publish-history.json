@@ -145,10 +145,16 @@
       "reel_id": "18103416890064164",
       "story_at": "2026-05-22T20:43:17Z",
       "story_id": "18096736135897795"
+    },
+    {
+      "slug": "r07-anatomia-pagina-vende",
+      "reel_at": "2026-05-22T21:09:27Z",
+      "reel_id": "17867380443545153",
+      "story_at": "2026-05-22T21:09:27Z",
+      "story_id": "17965175657917357"
     }
   ],
   "queue": [
-    "r07-anatomia-pagina-vende",
     "r08-mostrar-precos",
     "r09-formularios-curtos",
     "r10-sinais-de-confianca",
