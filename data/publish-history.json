@@ -159,10 +159,16 @@
       "reel_id": "18088695041524233",
       "story_at": "2026-05-22T21:39:00Z",
       "story_id": "17870535579527049"
+    },
+    {
+      "slug": "r09-formularios-curtos",
+      "reel_at": "2026-05-22T23:51:29Z",
+      "reel_id": "18080763566158005",
+      "story_at": "2026-05-22T23:51:29Z",
+      "story_id": "18082653920136097"
     }
   ],
   "queue": [
-    "r09-formularios-curtos",
     "r10-sinais-de-confianca",
     "r11-urgencia-sem-mentir",
     "r12-tres-palavras-google",
