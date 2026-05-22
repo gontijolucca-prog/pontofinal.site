@@ -117,10 +117,16 @@
       "reel_id": "17998302821768829",
       "story_at": "2026-05-22T15:48:21Z",
       "story_id": "17894683722329449"
+    },
+    {
+      "slug": "r10-sinais-de-confianca",
+      "reel_at": "2026-05-22T16:46:47Z",
+      "reel_id": "18099838628115195",
+      "story_at": "2026-05-22T16:46:47Z",
+      "story_id": "18104505292800158"
     }
   ],
   "queue": [
-    "r10-sinais-de-confianca",
     "r11-urgencia-sem-mentir",
     "r12-tres-palavras-google",
     "r13-site-lento-google",
