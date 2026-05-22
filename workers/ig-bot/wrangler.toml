@@ -2,11 +2,11 @@ name = "pontofinal-ig-bot"
 main = "src/index.ts"
 compatibility_date = "2026-05-01"
 compatibility_flags = ["nodejs_compat"]
+workers_dev = true
 
-# Custom domain — sirvo a partir de pontofinal.site/api/ig-webhook
-[[routes]]
-pattern = "pontofinal.site/api/ig-webhook"
-zone_name = "pontofinal.site"
+# Worker served at https://pontofinal-ig-bot.<account>.workers.dev
+# Meta webhook URL aponta para esse subdomain workers.dev (HTTPS válido).
+# Migrar para custom domain pontofinal.site/api/ig-webhook requer token com Zone:Workers Routes.
 
 # Secrets configurados via `wrangler secret put NAME`:
 #   META_APP_SECRET       — Meta Developer → App → Settings → Basic → App Secret
