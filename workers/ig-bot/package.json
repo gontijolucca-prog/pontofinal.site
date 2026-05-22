@@ -2,7 +2,7 @@
   "name": "pontofinal-ig-bot",
   "version": "0.1.0",
   "private": true,
-  "description": "Instagram DM bot (Maria) for PontoFinal.site — Cloudflare Worker + OpenRouter/free + Supabase",
+  "description": "Instagram DM bot (Alberto) for PontoFinal.site — Cloudflare Worker + OpenRouter/free + Supabase",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",

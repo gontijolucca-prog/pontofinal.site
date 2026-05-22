@@ -1,7 +1,7 @@
 -- ── PontoFinal IG Bot — schema inicial ──────────────────────────────────
 -- Aplica em https://supabase.com/dashboard/project/ojbigtskkhmnerrppdjq/sql/new
 
--- Leads (uma linha por seguidor que falou com a Maria)
+-- Leads (uma linha por seguidor que falou com o Alberto)
 create table if not exists public.ig_leads (
   sender_id        text primary key,
   ig_username      text,

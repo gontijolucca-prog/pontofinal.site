@@ -1,6 +1,6 @@
-# PontoFinal IG Bot — Maria
+# PontoFinal IG Bot — Alberto
 
-Cloudflare Worker que mantém conversas DM no Instagram em nome da **Maria** (assistente humana da PontoFinal.site).
+Cloudflare Worker que mantém conversas DM no Instagram em nome do **Alberto** (assistente humano da PontoFinal.site).
 
 - LLM: `openrouter/free` (auto-router entre modelos free) com defesa em código (retry + quality check)
 - Storage: Supabase (projecto `content-machine`, tabelas `ig_leads` + `ig_messages`)
