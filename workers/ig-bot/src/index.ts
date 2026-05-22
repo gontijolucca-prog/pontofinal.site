@@ -19,6 +19,7 @@ import { MANIFESTO } from "./manifesto";
 
 export interface Env {
   META_APP_SECRET: string;
+  IG_APP_SECRET: string;
   META_VERIFY_TOKEN: string;
   META_ACCESS_TOKEN: string;
   META_IG_USER_ID: string;
@@ -60,7 +61,11 @@ function handleVerification(url: URL, env: Env): Response {
 async function handleEvent(req: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
   const raw = await req.text();
   const sig = req.headers.get("x-hub-signature-256") ?? "";
-  if (!(await verifySignature(raw, sig, env.META_APP_SECRET))) {
+  // Meta can sign with EITHER Meta App Secret OR IG App Secret depending on
+  // which subscription path triggered (app-level vs IG-account-level).
+  const sigOk = (await verifySignature(raw, sig, env.META_APP_SECRET)) ||
+                (env.IG_APP_SECRET && await verifySignature(raw, sig, env.IG_APP_SECRET));
+  if (!sigOk) {
     return new Response("bad signature", { status: 403 });
   }
   const body = JSON.parse(raw);
@@ -79,8 +84,8 @@ async function processEvent(body: any, env: Env): Promise<void> {
       if (senderId === env.META_IG_USER_ID) continue; // ignore echo
       try {
         await respondToMessage(senderId, text, env);
-      } catch (e) {
-        console.error("respond failed", e);
+      } catch (e: any) {
+        console.error(`[respondToMessage] failed: ${e?.message ?? e}`);
       }
     }
     // TODO: handle entry.changes for comments/mentions
@@ -191,17 +196,21 @@ function passesQualityCheck(reply: string, userText: string): boolean {
 // IG Business Login API uses graph.instagram.com/me/messages.
 async function sendDM(recipientId: string, text: string, env: Env): Promise<void> {
   const url = `https://graph.instagram.com/v23.0/me/messages`;
-  const r = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      recipient: { id: recipientId },
-      message: { text },
-      access_token: env.META_ACCESS_TOKEN,
-    }),
-  });
-  if (!r.ok) {
-    console.error("sendDM error", r.status, await r.text());
+  try {
+    const r = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        recipient: { id: recipientId },
+        message: { text },
+        access_token: env.META_ACCESS_TOKEN,
+      }),
+    });
+    if (!r.ok) {
+      console.error(`[sendDM] status=${r.status} body=${(await r.text()).slice(0, 300)}`);
+    }
+  } catch (e: any) {
+    console.error(`[sendDM] exception: ${e?.message ?? e}`);
   }
 }
 
