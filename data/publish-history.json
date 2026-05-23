@@ -173,10 +173,16 @@
       "reel_id": "18103842625959443",
       "story_at": "2026-05-23T00:37:18Z",
       "story_id": "18119904010678441"
+    },
+    {
+      "slug": "r11-urgencia-sem-mentir",
+      "reel_at": "2026-05-23T12:13:15Z",
+      "reel_id": "17870115810529752",
+      "story_at": "2026-05-23T12:13:15Z",
+      "story_id": "18596072161001237"
     }
   ],
   "queue": [
-    "r11-urgencia-sem-mentir",
     "r12-tres-palavras-google",
     "r13-site-lento-google",
     "r14-instagram-alimenta-site",
