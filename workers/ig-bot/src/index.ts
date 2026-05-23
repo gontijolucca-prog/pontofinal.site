@@ -207,6 +207,32 @@ function passesQualityCheck(reply: string, userText: string): boolean {
   if (/^(olá|prezado|estimado|caro)\s+[A-Z][a-z]+,/m.test(reply)) return false;
   if (low.includes("atenciosamente") || low.includes("cumprimentos,")) return false;
 
+  // Leak de dados pessoais — Lucca / Gontijo / Rodrigues / emails / telefones
+  const personalData = [
+    "lucca", "gontijo", "rodrigues",
+    "geral@pontofinal", "info@pontofinal", "@pontofinal.site",
+    "founder", "fundador",
+  ];
+  if (personalData.some(t => low.includes(t))) return false;
+  // Portuguese phone (9 digits starting 2/9, optionally with +351)
+  if (/(\+?\s*351\s*)?\b[29]\d{2}[\s.-]?\d{3}[\s.-]?\d{3}\b/.test(reply)) return false;
+
+  // Ofertas/lead-magnets proibidas
+  const forbiddenOffers = [
+    "guia pdf", "guia em pdf", "guia gratuito", "guia grátis",
+    "ebook", "e-book", "checklist", "infografia",
+    "12 erros", "auditoria grátis", "auditoria gratuita",
+    "diagnóstico grátis", "diagnóstico gratuito",
+    "call grátis", "call gratuita", "demo grátis", "demo gratuita",
+    "código promocional", "código promo", "cupão", "cupom", "desconto especial",
+    "lead magnet", "mando-te o guia", "mandar-te o guia", "envio-te o guia",
+    "te mando o guia", "envio o guia", "te envio o guia",
+  ];
+  if (forbiddenOffers.some(t => low.includes(t))) return false;
+
+  // Off-topic: tem que mencionar negócio (site/web/redes/conteúdo/instagram/posts) OU ser uma intro/saudação curta
+  // (We don't enforce this strictly — too risky. Manifesto handles it via system prompt.)
+
   return true;
 }
 
