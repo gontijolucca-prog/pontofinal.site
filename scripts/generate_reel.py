@@ -388,7 +388,7 @@ async def render(html_path: Path, slug: str) -> tuple[Path, Path]:
         try:
             ctx = await br.new_context(viewport={"width":W,"height":H})
             p = await ctx.new_page()
-            await p.goto(f"file://{html_path.resolve()}", wait_until="networkidle")
+            await p.goto(f"file://{html_path.resolve()}", wait_until="load", timeout=20000)
             try: await p.evaluate("document.fonts.ready")
             except: pass
             await p.wait_for_timeout(800)
@@ -399,7 +399,7 @@ async def render(html_path: Path, slug: str) -> tuple[Path, Path]:
             rec = await br.new_context(viewport={"width":W,"height":H},
                 record_video_dir=str(vid), record_video_size={"width":W,"height":H})
             rp = await rec.new_page()
-            await rp.goto(f"file://{html_path.resolve()}", wait_until="networkidle")
+            await rp.goto(f"file://{html_path.resolve()}", wait_until="load", timeout=20000)
             try: await rp.evaluate("document.fonts.ready")
             except: pass
             await rp.wait_for_timeout(int(DUR*1000)+400)
