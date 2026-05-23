@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<title>PontoFinal — auto-202605232114-mostra-teu-trabalho-nao</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#F5F2EA;--text:#0A0A0A;--primary:#FF2A2A;--accent:#1A4DFF;
+    --font-display:'Archivo Black',Impact,sans-serif; --font-body:'Archivo',sans-serif; --font-mono:'Space Mono',monospace; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:1080px;height:1920px;font-family:var(--font-body);background:var(--bg);color:var(--text);overflow:hidden;position:relative;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;}
+  .circle{position:absolute;width:600px;height:600px;border-radius:50%;background:var(--primary);top:-200px;right:-150px;z-index:1;}
+  .triangle{position:absolute;width:0;height:0;border-left:280px solid transparent;border-right:280px solid transparent;border-bottom:480px solid var(--accent);bottom:-150px;left:-100px;z-index:1;opacity:.85;transform:rotate(-12deg);}
+  .bar{position:absolute;height:24px;background:var(--text);z-index:1;}
+  .bar.b1{width:180px;top:230px;left:0;}
+  .bar.b2{width:120px;bottom:240px;left:0;background:var(--primary);}
+  .number{position:absolute;font-family:var(--font-display);font-size:380px;font-weight:900;line-height:1;color:var(--primary);opacity:.12;z-index:1;}
+  .number.n1{top:260px;right:80px;}
+  .container{position:relative;width:100%;height:100%;display:flex;flex-direction:column;padding:130px 100px;z-index:3;}
+  .brand-header{font-family:var(--font-mono);font-weight:700;font-size:30px;letter-spacing:.05em;text-transform:uppercase;}
+  .brand-header .dot{color:var(--primary);}
+  .main{flex:1;display:flex;flex-direction:column;justify-content:center;}
+  .hero{font-family:var(--font-display);font-size:130px;font-weight:900;line-height:.9;letter-spacing:-.045em;text-wrap:balance;margin-bottom:64px;}
+  .hero .red{color:var(--primary);position:relative;display:inline-block;}
+  .hero .red::after{content:"";position:absolute;left:-4px;right:-4px;bottom:-2px;height:10px;background:var(--accent);z-index:-1;opacity:.55;}
+  .body{font-size:44px;font-weight:500;line-height:1.28;letter-spacing:-.012em;text-wrap:pretty;max-width:820px;margin-bottom:90px;}
+  .cta-row{display:flex;align-items:center;gap:32px;}
+  .cta-pill{background:var(--text);color:var(--bg);padding:30px 56px;border-radius:80px;font-family:var(--font-display);font-size:46px;font-weight:900;line-height:1;letter-spacing:-.02em;text-transform:uppercase;}
+  .cta-mark{font-family:var(--font-display);font-size:72px;color:var(--primary);line-height:1;}
+  .footer{font-family:var(--font-mono);font-size:22px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.7;}
+</style></head><body>
+<div class="circle"></div>
+<div class="triangle"></div>
+<div class="bar b1"></div>
+<div class="bar b2"></div>
+<div class="number n1">01</div>
+<div class="container">
+  <div class="brand-header">Ponto Final<span class="dot">.</span></div>
+  <div class="main">
+    <h1 class="hero">Mostra <span class='red'>teu trabalho</span>, não o teu CV</h1>
+    <p class="body">Um portfólio visual atrai clientes melhor que lista de competências. Mostra o que fazes, não onde estudaste.</p>
+    <div class="cta-row">
+      <div class="cta-mark">→</div>
+      <div class="cta-pill">fala comigo</div>
+    </div>
+  </div>
+  <div class="footer">pontofinal.site · link na bio</div>
+</div></body></html>
