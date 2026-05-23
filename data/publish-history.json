@@ -208,10 +208,16 @@
       "reel_id": "17957000324961967",
       "story_at": "2026-05-23T15:46:05Z",
       "story_id": "18080621381634312"
+    },
+    {
+      "slug": "auto-202605231702-testemunhos-que-vendem-mais",
+      "reel_at": "2026-05-23T17:03:55Z",
+      "reel_id": "17986486631995791",
+      "story_at": "2026-05-23T17:03:55Z",
+      "story_id": "17862349278587182"
     }
   ],
   "queue": [
-    "auto-202605231702-testemunhos-que-vendem-mais",
     "auto-202605231428-negócio-no-mapa-à",
     "r14-instagram-alimenta-site",
     "r15-carrossel-novo-artigo",
