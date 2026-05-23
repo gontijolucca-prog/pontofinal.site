@@ -215,10 +215,16 @@
       "reel_id": "17986486631995791",
       "story_at": "2026-05-23T17:03:55Z",
       "story_id": "17862349278587182"
+    },
+    {
+      "slug": "auto-202605231838-transforma-o-erro-404",
+      "reel_at": "2026-05-23T18:40:06Z",
+      "reel_id": "17870157525616827",
+      "story_at": "2026-05-23T18:40:06Z",
+      "story_id": "18110500741926828"
     }
   ],
   "queue": [
-    "auto-202605231838-transforma-o-erro-404",
     "auto-202605231428-negócio-no-mapa-à",
     "r14-instagram-alimenta-site",
     "r15-carrossel-novo-artigo",
