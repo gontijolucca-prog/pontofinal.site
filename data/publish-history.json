@@ -187,10 +187,16 @@
       "reel_id": "18007985840879701",
       "story_at": "2026-05-23T14:01:14Z",
       "story_id": "18180069022386258"
+    },
+    {
+      "slug": "r13-site-lento-google",
+      "reel_at": "2026-05-23T14:13:14Z",
+      "reel_id": "17945901336195457",
+      "story_at": "2026-05-23T14:13:14Z",
+      "story_id": "17973423738024279"
     }
   ],
   "queue": [
-    "r13-site-lento-google",
     "r14-instagram-alimenta-site",
     "r15-carrossel-novo-artigo",
     "r16-5-mitos-sites",
