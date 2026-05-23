@@ -229,10 +229,16 @@
       "reel_id": "17870055441617028",
       "story_at": "2026-05-23T20:07:57Z",
       "story_id": "17967470874103681"
+    },
+    {
+      "slug": "auto-202605232050-um-404-pode-ser",
+      "reel_at": "2026-05-23T20:52:58Z",
+      "reel_id": "18115978885763577",
+      "story_at": "2026-05-23T20:52:58Z",
+      "story_id": "17956322711964105"
     }
   ],
   "queue": [
-    "auto-202605232050-um-404-pode-ser",
     "auto-202605231428-negócio-no-mapa-à",
     "r14-instagram-alimenta-site",
     "r15-carrossel-novo-artigo",
