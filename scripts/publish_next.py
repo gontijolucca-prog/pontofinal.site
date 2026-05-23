@@ -25,7 +25,33 @@ CAPTIONS_DIR = ROOT / "data" / "captions"
 REELS_DIR_REL = "brands/pontofinal_site/output/2026-05/static-reels"
 
 GRAPH = "https://graph.instagram.com/v23.0"
-TOKEN = os.environ["META_ACCESS_TOKEN"]
+
+
+def _refresh_token(current: str) -> str:
+    """Refresh the IG long-lived token before each publish.
+
+    IG long-lived tokens expire after 60 days. Refreshing on every publish (≤24h apart)
+    keeps the token always 60 days from now — never within 1 day of expiry. The refreshed
+    token is identical in capability; only the expiry resets. Safe to call as often as we
+    want (IG allows refresh once per 24h per token; 10/day publish means at most 1 succeeds
+    per 24h window — extras return the same token unchanged).
+    """
+    try:
+        r = urllib.request.urlopen(
+            f"https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token={current}",
+            timeout=15,
+        )
+        d = json.loads(r.read())
+        new = d.get("access_token")
+        if new:
+            print(f"[token] refreshed (expires in {d.get('expires_in',0)//86400}d)")
+            return new
+    except Exception as e:
+        print(f"[token] refresh failed (using current): {e}")
+    return current
+
+
+TOKEN = _refresh_token(os.environ["META_ACCESS_TOKEN"])
 IG_USER_ID = os.environ.get("META_IG_USER_ID", "17841439350962641")
 BASE = os.environ.get("PUBLIC_BASE_URL", "https://pontofinal.site").rstrip("/")
 

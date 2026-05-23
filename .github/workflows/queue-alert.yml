@@ -1,0 +1,39 @@
+name: Queue health check
+
+# Daily inspection: if publish queue gets dangerously low (< 5 reels = ~12h of fuel),
+# open a GitHub issue. Uses GITHUB_TOKEN (no extra setup needed).
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 8 * * *"  # Daily 09:00 PT / 08:00 UTC
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect queue + open issue if low
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          QLEN=$(python3 -c "import json;h=json.load(open('data/publish-history.json'));print(len(h['queue']))")
+          echo "queue length: $QLEN"
+          [ "$QLEN" -ge 5 ] && { echo "healthy"; exit 0; }
+
+          EXISTING=$(curl -sS -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${REPO}/issues?state=open&labels=queue-low" \
+            | python3 -c "import json,sys;print(len(json.load(sys.stdin)))")
+          [ "$EXISTING" -gt 0 ] && { echo "Issue already open"; exit 0; }
+
+          BODY="Publish queue tem **$QLEN reels** restantes (~$((QLEN / 10 + 1)) dia(s) de combustível). Repor: edita data/publish-history.json + adiciona slugs ao array queue. Cada slug precisa de MP4+cover.jpg em public/brands/pontofinal_site/output/2026-05/static-reels/ + caption em data/captions/."
+          curl -sS -X POST -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${REPO}/issues" \
+            -d "{\"title\":\"Publish queue baixa ($QLEN reels)\",\"body\":\"$BODY\",\"labels\":[\"queue-low\"]}"
+          echo "Issue created"
