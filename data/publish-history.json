@@ -201,10 +201,16 @@
       "reel_id": "18000713552933452",
       "story_at": "2026-05-23T14:21:05Z",
       "story_id": "18152790076467548"
+    },
+    {
+      "slug": "auto-202605231543-cada-seca-do-site",
+      "reel_at": "2026-05-23T15:46:05Z",
+      "reel_id": "17957000324961967",
+      "story_at": "2026-05-23T15:46:05Z",
+      "story_id": "18080621381634312"
     }
   ],
   "queue": [
-    "auto-202605231543-cada-seca-do-site",
     "auto-202605231428-negócio-no-mapa-à",
     "r14-instagram-alimenta-site",
     "r15-carrossel-novo-artigo",
