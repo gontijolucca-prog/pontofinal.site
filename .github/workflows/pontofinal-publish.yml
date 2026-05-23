@@ -45,23 +45,12 @@ jobs:
           META_ACCESS_TOKEN: ${{ secrets.META_ACCESS_TOKEN }}
           META_IG_USER_ID: ${{ secrets.META_IG_USER_ID }}
           PUBLIC_BASE_URL: https://cdn.jsdelivr.net/gh/gontijolucca-prog/pontofinal.site@main/public
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           if [ "${{ inputs.dry_run }}" = "true" ]; then
             echo "DRY RUN — não publica"
             python3 -c "import json; h=json.load(open('data/publish-history.json')); print('Próximo:', h['queue'][0] if h['queue'] else 'fila vazia')"
             exit 0
           fi
-          python3 scripts/publish_next.py
-
-      - name: Commit history
-        if: success() && inputs.dry_run != 'true'
-        run: |
-          git config user.name "pontofinal-bot"
-          git config user.email "bot@pontofinal.site"
-          git add data/publish-history.json
-          if git diff --staged --quiet; then
-            echo "Sem mudanças (queue vazia?)"
-          else
-            git commit -m "publish: auto-update history $(date -u +%FT%TZ)"
-            git push
-          fi
+          python3 -u scripts/publish_next.py
