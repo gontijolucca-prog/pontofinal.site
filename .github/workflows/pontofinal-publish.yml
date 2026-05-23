@@ -40,6 +40,32 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Install ffmpeg + Playwright
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+          pip install --quiet playwright
+          playwright install --with-deps chromium
+
+      - name: Generate fresh reel if queue is low
+        env:
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          QUEUE_THRESHOLD: "3"
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            echo "DRY RUN — não gera"
+            exit 0
+          fi
+          python3 -u scripts/generate_reel.py || echo "[warn] generate failed — falling back to existing queue"
+
+      - name: Re-checkout main (pick up commit from generator)
+        if: inputs.dry_run != 'true'
+        run: |
+          git fetch origin main
+          git reset --hard origin/main
+
       - name: Publish next reel + story
         env:
           META_ACCESS_TOKEN: ${{ secrets.META_ACCESS_TOKEN }}
