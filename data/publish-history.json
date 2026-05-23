@@ -222,10 +222,16 @@
       "reel_id": "17870157525616827",
       "story_at": "2026-05-23T18:40:06Z",
       "story_id": "18110500741926828"
+    },
+    {
+      "slug": "auto-202605232005-site-lento-afasta-clientes",
+      "reel_at": "2026-05-23T20:07:57Z",
+      "reel_id": "17870055441617028",
+      "story_at": "2026-05-23T20:07:57Z",
+      "story_id": "17967470874103681"
     }
   ],
   "queue": [
-    "auto-202605232005-site-lento-afasta-clientes",
     "auto-202605231428-negócio-no-mapa-à",
     "r14-instagram-alimenta-site",
     "r15-carrossel-novo-artigo",
