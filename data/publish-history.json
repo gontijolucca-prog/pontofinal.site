@@ -180,10 +180,16 @@
       "reel_id": "17870115810529752",
       "story_at": "2026-05-23T12:13:15Z",
       "story_id": "18596072161001237"
+    },
+    {
+      "slug": "r12-tres-palavras-google",
+      "reel_at": "2026-05-23T14:01:14Z",
+      "reel_id": "18007985840879701",
+      "story_at": "2026-05-23T14:01:14Z",
+      "story_id": "18180069022386258"
     }
   ],
   "queue": [
-    "r12-tres-palavras-google",
     "r13-site-lento-google",
     "r14-instagram-alimenta-site",
     "r15-carrossel-novo-artigo",
