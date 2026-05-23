@@ -458,7 +458,7 @@ def _append_to_queue_and_commit_repo(slug: str, mp4: Path, cover: Path, caption:
     # 1. Re-read latest history.json (don't trust local copy)
     h_resp = gh("GET", "/contents/data/publish-history.json?ref=main")
     cur_history = json.loads(base64.b64decode(h_resp["content"]))
-    cur_history.setdefault("queue", []).append(slug)
+    cur_history.setdefault("queue", []).insert(0, slug)
     history_bytes = (json.dumps(cur_history, indent=2, ensure_ascii=False) + "\n").encode()
 
     # 2. Upload 5 blobs (html, mp4, cover, caption, history)
@@ -496,7 +496,7 @@ def _append_to_queue_and_commit_repo(slug: str, mp4: Path, cover: Path, caption:
         "committer": {"name": "pontofinal-bot", "email": "bot@pontofinal.site"},
     })
     gh("PATCH", "/git/refs/heads/main", {"sha": commit["sha"]})
-    print(f"  ✓ committed {commit['sha'][:7]} (added '{slug}' to queue)")
+    print(f"  ✓ committed {commit['sha'][:7]} (prepended '{slug}' to queue head — publishes next)")
 
     # 5. Purge jsdelivr cache so publish_next.py sees fresh MP4
     for ext in [".mp4", "-cover.jpg"]:

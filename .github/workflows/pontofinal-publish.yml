@@ -56,7 +56,7 @@ jobs:
           OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          QUEUE_THRESHOLD: ${{ inputs.force_generate == 'true' && '9999' || '3' }}
+          QUEUE_THRESHOLD: "9999"  # sempre gera + prepend; queue serve só como fallback
         run: |
           if [ "${{ inputs.dry_run }}" = "true" ]; then
             echo "DRY RUN — não gera"
