@@ -163,6 +163,40 @@ def main() -> None:
     print(f"[done] {slug} → reel={reel_id} story={story_id}")
     print(f"[done] queue remaining: {len(h['queue'])}")
 
+    # Idempotency safeguard: commit publish-history.json via Contents API directly,
+    # so if the workflow's subsequent `git push` step fails, the queue state is still
+    # advanced on main. Prevents the next cron from republishing the same slug.
+    gh_token = os.environ.get("GITHUB_TOKEN")
+    gh_repo = os.environ.get("GITHUB_REPOSITORY")
+    if gh_token and gh_repo:
+        try:
+            import base64
+            api_base = f"https://api.github.com/repos/{gh_repo}"
+            # GET current SHA
+            req = urllib.request.Request(
+                f"{api_base}/contents/data/publish-history.json?ref=main",
+                headers={"Authorization": f"Bearer {gh_token}", "Accept": "application/vnd.github+json"},
+            )
+            cur_sha = json.loads(urllib.request.urlopen(req, timeout=20).read())["sha"]
+            # PUT new content
+            new_content = HISTORY.read_bytes()
+            body = json.dumps({
+                "message": f"publish: {slug} → reel={reel_id} story={story_id}",
+                "content": base64.b64encode(new_content).decode("ascii"),
+                "sha": cur_sha,
+                "branch": "main",
+                "committer": {"name": "pontofinal-publish-bot", "email": "bot@pontofinal.site"},
+            }).encode()
+            req = urllib.request.Request(
+                f"{api_base}/contents/data/publish-history.json",
+                data=body, method="PUT",
+                headers={"Authorization": f"Bearer {gh_token}", "Accept": "application/vnd.github+json", "Content-Type": "application/json"},
+            )
+            urllib.request.urlopen(req, timeout=20)
+            print(f"[commit] history updated on main via Contents API")
+        except Exception as e:
+            print(f"[commit] Contents API push failed: {e} — workflow git step will retry")
+
 
 if __name__ == "__main__":
     main()
