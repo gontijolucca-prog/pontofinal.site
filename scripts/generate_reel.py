@@ -60,7 +60,7 @@ REGRAS DE OUTPUT (estritas):
 3. `hero`: frase impactante, MÁX 8 palavras. Linguagem visual, concreta, surpreendente. Evita verbos reflexivos no início.
 4. `accent`: 1-3 palavras EXACTAS que aparecem em `hero` (vão a vermelho).
 5. `body`: 1-2 frases que explicam o hero. MÁX 25 palavras total. Frases curtas, sem floreados.
-6. `cta_label`: 2-4 palavras. APENAS uma destas formas: "marca reunião", "fala connosco", "quero ajuda", "fala comigo", "fica visível", "vê como", "quero saber". NUNCA mandes o utilizador FAZER o trabalho sozinho (proibido: "regista", "configura", "implementa", "instala").
+6. `cta_label`: 2-4 palavras. APENAS uma destas formas: "marca reunião", "fala conosco", "quero ajuda", "fala comigo", "fica visível", "vê como", "quero saber". NUNCA mandes o utilizador FAZER o trabalho sozinho (proibido: "regista", "configura", "implementa", "instala").
 7. `caption`: legenda completa para o post IG. 3-5 parágrafos curtos. Termina SEMPRE com: "Marca já a tua reunião em pontofinal.site. Link na bio." seguido de "—" e bloco de hashtags.
 
 REGRAS DE COPY (não-negociáveis — qualquer violação = output rejeitado):
@@ -93,7 +93,7 @@ ESTRUTURAS DE HERO QUE FUNCIONAM (escolhe um padrão):
 - Comando claro: "Mostra preços. Atrai clientes."
 
 EXEMPLO de output válido (formato exacto):
-{"hero": "Sites bonitos não vendem sozinhos.", "accent": "não vendem", "body": "Uma página que vende tem ordem: gancho, prova, ação. Sem isso, o visitante sai em 5 segundos.", "cta_label": "fala connosco", "caption": "Sites bonitos não vendem sozinhos.\\n\\nUma página bem desenhada chama atenção. Uma página que vende leva o visitante pela mão: primeiro o gancho, depois a prova, no fim a ação.\\n\\nQuando estes três blocos faltam, o visitante sai em cinco segundos. E nunca mais volta.\\n\\nMarca já a tua reunião em pontofinal.site. Link na bio.\\n\\n—\\n\\n#pontofinal #website #pequenosnegocios #portugal #digitalpt"}
+{"hero": "Sites bonitos não vendem sozinhos.", "accent": "não vendem", "body": "Uma página que vende tem ordem: gancho, prova, ação. Sem isso, o visitante sai em 5 segundos.", "cta_label": "fala conosco", "caption": "Sites bonitos não vendem sozinhos.\\n\\nUma página bem desenhada chama atenção. Uma página que vende leva o visitante pela mão: primeiro o gancho, depois a prova, no fim a ação.\\n\\nQuando estes três blocos faltam, o visitante sai em cinco segundos. E nunca mais volta.\\n\\nMarca já a tua reunião em pontofinal.site. Link na bio.\\n\\n—\\n\\n#pontofinal #website #pequenosnegocios #portugal #digitalpt"}
 """
 
 # ────────── Quality checks ──────────
@@ -135,10 +135,11 @@ AO90_TRAPS = [
     ("respectivo","respetivo"),("adoptar","adotar"),("adopção","adoção"),
     ("activo","ativo"),("colectivo","coletivo"),("perfeição","perfeição"),
     ("efectivo","efetivo"),("electrónico","eletrónico"),
+    ("connosco","conosco"),  # preferência Lucca 2026-05-23
 ]
 # CTA whitelist — labels permitidos (lowercase)
 ALLOWED_CTAS = {
-    "marca reunião","marca já","fala connosco","fala comigo","quero ajuda","quero saber",
+    "marca reunião","marca já","fala conosco","fala comigo","quero ajuda","quero saber",
     "fica visível","vê como","quero ver","ajuda-me","ensina-me","mostra-me",
     "como fazer","contacta-nos","quero falar","fala com a equipa",
 }
@@ -254,90 +255,133 @@ def generate(theme: str) -> dict:
 
 
 # ────────── HTML template ──────────
-HTML_TEMPLATE = """<!DOCTYPE html>
+_BASE_HEAD = """<!DOCTYPE html>
 <html lang="pt-PT">
 <head>
 <meta charset="UTF-8">
 <title>PontoFinal — {slug}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&family=Archivo+Black&display=swap" rel="stylesheet">
-<style>
-  :root {{
-    --bg: #FFFFFF; --text: #050505; --primary: #FF2A2A; --muted: #6a6a6a;
-    --font-display: 'Archivo Black', Impact, sans-serif;
-    --font-body: 'Archivo', sans-serif;
-  }}
-  * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-  html, body {{
-    width: 1080px; height: 1920px;
-    font-family: var(--font-body); background: var(--bg); color: var(--text);
-    overflow: hidden; position: relative;
-    text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased;
-  }}
-  .dots-bg {{
-    position: absolute; inset: -60px;
-    background-image: radial-gradient(circle, #050505 1.3px, transparent 1.3px);
-    background-size: 32px 32px; opacity: 0.42;
-    pointer-events: none; z-index: 1;
-    animation: dots-drift 18s linear infinite;
-  }}
-  @keyframes dots-drift {{
-    0%   {{ background-position: 0 0; }}
-    100% {{ background-position: 64px 64px; }}
-  }}
-  .container {{
-    position: relative; width: 100%; height: 100%;
-    display: flex; flex-direction: column;
-    padding: 130px 110px 130px; z-index: 2;
-  }}
-  .brand-header {{
-    font-family: var(--font-body); font-weight: 800; font-size: 34px;
-    letter-spacing: -0.02em; text-align: center;
-  }}
-  .brand-header .dot {{ color: var(--primary); }}
-  .main {{ flex: 1; display: flex; flex-direction: column; justify-content: center; }}
-  .hero {{
-    font-family: var(--font-display); font-size: 124px; font-weight: 900;
-    line-height: 0.93; letter-spacing: -0.04em;
-    text-wrap: balance; margin-bottom: 56px; text-align: center;
-  }}
-  .hero .red {{ color: var(--primary); }}
-  .body {{
-    font-family: var(--font-body); font-size: 44px; font-weight: 500;
-    line-height: 1.28; letter-spacing: -0.012em;
-    text-wrap: pretty; max-width: 820px; margin: 0 auto 80px;
-    text-align: center; color: var(--text);
-  }}
-  .cta-box {{
-    background: var(--primary); color: #FFFFFF;
-    padding: 28px 56px; border: 5px solid var(--text);
-    box-shadow: 12px 12px 0 0 var(--text);
-    font-family: var(--font-display); font-size: 48px; font-weight: 900;
-    line-height: 1; letter-spacing: -0.02em;
-    text-transform: uppercase; align-self: center;
-    transform: rotate(-1.2deg);
-  }}
-  .footer {{
-    font-family: var(--font-body); font-size: 24px; font-weight: 600;
-    letter-spacing: 0.02em; text-align: center; color: var(--text); opacity: 0.65;
-  }}
-</style>
-</head>
-<body>
-  <div class="dots-bg"></div>
-  <div class="container">
-    <div class="brand-header">Ponto Final<span class="dot">.</span></div>
-    <div class="main">
-      <h1 class="hero">{hero_html}</h1>
-      <p class="body">{body}</p>
-      <div class="cta-box">{cta_label}</div>
-    </div>
-    <div class="footer">pontofinal.site · link na bio</div>
-  </div>
-</body>
-</html>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 """
+
+# Template A — clássico vermelho com dots (o original)
+TEMPLATE_A = _BASE_HEAD + """<style>
+  :root {{ --bg:#FFFFFF;--text:#050505;--primary:#FF2A2A;
+    --font-display:'Archivo Black',Impact,sans-serif; --font-body:'Archivo',sans-serif; }}
+  *{{margin:0;padding:0;box-sizing:border-box;}}
+  html,body{{width:1080px;height:1920px;font-family:var(--font-body);background:var(--bg);color:var(--text);overflow:hidden;position:relative;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;}}
+  .dots-bg{{position:absolute;inset:-60px;background-image:radial-gradient(circle,#050505 1.3px,transparent 1.3px);background-size:32px 32px;opacity:.42;pointer-events:none;z-index:1;animation:dots-drift 18s linear infinite;}}
+  @keyframes dots-drift{{0%{{background-position:0 0;}}100%{{background-position:64px 64px;}}}}
+  .container{{position:relative;width:100%;height:100%;display:flex;flex-direction:column;padding:130px 110px;z-index:2;}}
+  .brand-header{{font-weight:800;font-size:34px;letter-spacing:-.02em;text-align:center;}}
+  .brand-header .dot{{color:var(--primary);}}
+  .main{{flex:1;display:flex;flex-direction:column;justify-content:center;}}
+  .hero{{font-family:var(--font-display);font-size:124px;font-weight:900;line-height:.93;letter-spacing:-.04em;text-wrap:balance;margin-bottom:56px;text-align:center;}}
+  .hero .red{{color:var(--primary);}}
+  .body{{font-size:44px;font-weight:500;line-height:1.28;letter-spacing:-.012em;text-wrap:pretty;max-width:820px;margin:0 auto 80px;text-align:center;}}
+  .cta-box{{background:var(--primary);color:#FFFFFF;padding:28px 56px;border:5px solid var(--text);box-shadow:12px 12px 0 0 var(--text);font-family:var(--font-display);font-size:48px;font-weight:900;line-height:1;letter-spacing:-.02em;text-transform:uppercase;align-self:center;transform:rotate(-1.2deg);}}
+  .footer{{font-size:24px;font-weight:600;letter-spacing:.02em;text-align:center;opacity:.65;}}
+</style></head><body>
+<div class="dots-bg"></div>
+<div class="container">
+  <div class="brand-header">Ponto Final<span class="dot">.</span></div>
+  <div class="main">
+    <h1 class="hero">{hero_html}</h1>
+    <p class="body">{body}</p>
+    <div class="cta-box">{cta_label}</div>
+  </div>
+  <div class="footer">pontofinal.site · link na bio</div>
+</div></body></html>"""
+
+# Template B — negativo: preto + amarelo, asterisks decorativos, hero alinhado à esquerda
+TEMPLATE_B = _BASE_HEAD + """<style>
+  :root {{ --bg:#0A0A0A;--text:#FFFFFF;--accent:#FFD400;--muted:#a0a0a0;
+    --font-display:'Archivo Black',Impact,sans-serif; --font-body:'Archivo',sans-serif; --font-mono:'Space Mono',monospace; }}
+  *{{margin:0;padding:0;box-sizing:border-box;}}
+  html,body{{width:1080px;height:1920px;font-family:var(--font-body);background:var(--bg);color:var(--text);overflow:hidden;position:relative;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;}}
+  .grid-bg{{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:80px 80px;pointer-events:none;z-index:1;animation:grid-pan 22s linear infinite;}}
+  @keyframes grid-pan{{0%{{background-position:0 0;}}100%{{background-position:80px 80px;}}}}
+  .stamp{{position:absolute;top:60px;right:80px;font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--accent);border:2px solid var(--accent);padding:8px 16px;letter-spacing:.1em;z-index:5;transform:rotate(3deg);}}
+  .asterisk{{position:absolute;color:var(--accent);font-family:var(--font-display);font-size:200px;line-height:1;pointer-events:none;z-index:1;}}
+  .asterisk.a1{{top:380px;right:-40px;transform:rotate(-15deg);opacity:.85;}}
+  .asterisk.a2{{bottom:140px;left:-30px;font-size:140px;transform:rotate(20deg);opacity:.6;}}
+  .container{{position:relative;width:100%;height:100%;display:flex;flex-direction:column;padding:160px 100px 130px;z-index:2;}}
+  .brand-header{{font-weight:800;font-size:34px;letter-spacing:-.02em;color:var(--accent);}}
+  .main{{flex:1;display:flex;flex-direction:column;justify-content:center;}}
+  .eyebrow{{font-family:var(--font-mono);font-size:24px;font-weight:700;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:32px;}}
+  .hero{{font-family:var(--font-display);font-size:128px;font-weight:900;line-height:.92;letter-spacing:-.04em;text-wrap:balance;margin-bottom:56px;}}
+  .hero .red{{color:var(--accent);background:linear-gradient(transparent 65%,rgba(255,212,0,.25) 65%);}}
+  .body{{font-size:42px;font-weight:500;line-height:1.3;letter-spacing:-.012em;text-wrap:pretty;max-width:820px;margin-bottom:80px;color:#e0e0e0;}}
+  .cta-arrow{{display:inline-flex;align-items:center;gap:24px;font-family:var(--font-display);font-size:54px;font-weight:900;color:var(--bg);background:var(--accent);padding:24px 48px;text-transform:uppercase;letter-spacing:-.02em;align-self:flex-start;}}
+  .cta-arrow::after{{content:"→";font-size:64px;}}
+  .footer{{font-family:var(--font-mono);font-size:22px;font-weight:700;letter-spacing:.05em;color:var(--accent);margin-top:auto;}}
+</style></head><body>
+<div class="grid-bg"></div>
+<div class="asterisk a1">✱</div>
+<div class="asterisk a2">✱</div>
+<div class="stamp">PT · 2026</div>
+<div class="container">
+  <div class="brand-header">Ponto Final<span style="color:#fff">.</span></div>
+  <div class="main">
+    <h1 class="hero">{hero_html}</h1>
+    <p class="body">{body}</p>
+    <div class="cta-arrow">{cta_label}</div>
+  </div>
+  <div class="footer">pontofinal.site // link na bio</div>
+</div></body></html>"""
+
+# Template C — geométrico: branco + grandes formas vermelhas (círculo, triângulo, barras)
+TEMPLATE_C = _BASE_HEAD + """<style>
+  :root {{ --bg:#F5F2EA;--text:#0A0A0A;--primary:#FF2A2A;--accent:#1A4DFF;
+    --font-display:'Archivo Black',Impact,sans-serif; --font-body:'Archivo',sans-serif; --font-mono:'Space Mono',monospace; }}
+  *{{margin:0;padding:0;box-sizing:border-box;}}
+  html,body{{width:1080px;height:1920px;font-family:var(--font-body);background:var(--bg);color:var(--text);overflow:hidden;position:relative;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;}}
+  .circle{{position:absolute;width:600px;height:600px;border-radius:50%;background:var(--primary);top:-200px;right:-150px;z-index:1;}}
+  .triangle{{position:absolute;width:0;height:0;border-left:280px solid transparent;border-right:280px solid transparent;border-bottom:480px solid var(--accent);bottom:-150px;left:-100px;z-index:1;opacity:.85;transform:rotate(-12deg);}}
+  .bar{{position:absolute;height:24px;background:var(--text);z-index:1;}}
+  .bar.b1{{width:180px;top:230px;left:0;}}
+  .bar.b2{{width:120px;bottom:240px;left:0;background:var(--primary);}}
+  .number{{position:absolute;font-family:var(--font-display);font-size:380px;font-weight:900;line-height:1;color:var(--primary);opacity:.12;z-index:1;}}
+  .number.n1{{top:260px;right:80px;}}
+  .container{{position:relative;width:100%;height:100%;display:flex;flex-direction:column;padding:130px 100px;z-index:3;}}
+  .brand-header{{font-family:var(--font-mono);font-weight:700;font-size:30px;letter-spacing:.05em;text-transform:uppercase;}}
+  .brand-header .dot{{color:var(--primary);}}
+  .main{{flex:1;display:flex;flex-direction:column;justify-content:center;}}
+  .hero{{font-family:var(--font-display);font-size:130px;font-weight:900;line-height:.9;letter-spacing:-.045em;text-wrap:balance;margin-bottom:64px;}}
+  .hero .red{{color:var(--primary);position:relative;display:inline-block;}}
+  .hero .red::after{{content:"";position:absolute;left:-4px;right:-4px;bottom:-2px;height:10px;background:var(--accent);z-index:-1;opacity:.55;}}
+  .body{{font-size:44px;font-weight:500;line-height:1.28;letter-spacing:-.012em;text-wrap:pretty;max-width:820px;margin-bottom:90px;}}
+  .cta-row{{display:flex;align-items:center;gap:32px;}}
+  .cta-pill{{background:var(--text);color:var(--bg);padding:30px 56px;border-radius:80px;font-family:var(--font-display);font-size:46px;font-weight:900;line-height:1;letter-spacing:-.02em;text-transform:uppercase;}}
+  .cta-mark{{font-family:var(--font-display);font-size:72px;color:var(--primary);line-height:1;}}
+  .footer{{font-family:var(--font-mono);font-size:22px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.7;}}
+</style></head><body>
+<div class="circle"></div>
+<div class="triangle"></div>
+<div class="bar b1"></div>
+<div class="bar b2"></div>
+<div class="number n1">01</div>
+<div class="container">
+  <div class="brand-header">Ponto Final<span class="dot">.</span></div>
+  <div class="main">
+    <h1 class="hero">{hero_html}</h1>
+    <p class="body">{body}</p>
+    <div class="cta-row">
+      <div class="cta-mark">→</div>
+      <div class="cta-pill">{cta_label}</div>
+    </div>
+  </div>
+  <div class="footer">pontofinal.site · link na bio</div>
+</div></body></html>"""
+
+TEMPLATES = [TEMPLATE_A, TEMPLATE_B, TEMPLATE_C]
+
+
+def _pick_template_idx(slug: str) -> int:
+    """Deterministic template choice by slug hash — same slug always picks same template."""
+    h = int(hashlib.sha256(slug.encode("utf-8")).hexdigest(), 16)
+    return h % len(TEMPLATES)
 
 
 def build_html(d: dict, slug: str) -> str:
@@ -350,7 +394,10 @@ def build_html(d: dict, slug: str) -> str:
         hero_html = f"{hero[:idx]}<span class='red'>{hero[idx:end]}</span>{hero[end:]}"
     else:
         hero_html = hero
-    return HTML_TEMPLATE.format(slug=slug, hero_html=hero_html, body=d["body"], cta_label=d["cta_label"])
+    tpl_idx = _pick_template_idx(slug)
+    tpl_name = chr(ord("A") + tpl_idx)
+    print(f"  template: {tpl_name}")
+    return TEMPLATES[tpl_idx].format(slug=slug, hero_html=hero_html, body=d["body"], cta_label=d["cta_label"])
 
 
 # ────────── Render ──────────
