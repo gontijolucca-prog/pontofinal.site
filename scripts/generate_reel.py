@@ -461,9 +461,11 @@ async def render(html_path: Path, slug: str) -> tuple[Path, Path]:
 
 # ────────── Slug + CLI ──────────
 def make_slug(d: dict) -> str:
+    import unicodedata
     ts = datetime.now().strftime("%Y%m%d%H%M")
-    # 3-5 word slug from hero
-    words = re.findall(r"\w+", d["hero"].lower())
+    # Strip diacritics → ASCII (jsdelivr + IG Graph API rejeitam paths não-ASCII)
+    ascii_hero = unicodedata.normalize("NFKD", d["hero"].lower()).encode("ascii","ignore").decode()
+    words = re.findall(r"[a-z0-9]+", ascii_hero)
     short = "-".join(words[:4])[:40]
     return f"auto-{ts}-{short}"
 
