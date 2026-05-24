@@ -91,14 +91,15 @@ COMPONENT_KEYWORDS = [
 
 
 def _pick_component(theme: str, slug_seed: str = "") -> str:
-    """Pick a component for this theme. Deterministic per (theme+seed)."""
+    """Pick a component for this theme. Deterministic per (theme+seed).
+    When the theme matches a keyword bucket, picks ONLY a rich component (no simple fallback).
+    Simple is reserved for unmatched themes."""
     theme_low = theme.lower()
-    candidates: list[str] = ["simple"]  # always allow simple as fallback
+    candidates: list[str] = ["simple"]
     for kws, comps in COMPONENT_KEYWORDS:
         if any(k in theme_low for k in kws):
-            candidates = list(comps) + ["simple"]
+            candidates = list(comps)  # rich-only; no simple to avoid boring output
             break
-    # Disambiguate with hash so same theme picks varied component each day
     seed = (slug_seed or theme) + datetime.now().strftime("%Y%m%d")
     h = int(hashlib.sha256(seed.encode()).hexdigest(), 16)
     return candidates[h % len(candidates)]
