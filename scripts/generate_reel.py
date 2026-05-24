@@ -340,27 +340,64 @@ def call_llm(theme: str, model: str, component: str) -> dict:
         raise RuntimeError("empty content")
     text = re.sub(r"^```(?:json)?\s*", "", text)
     text = re.sub(r"\s*```$", "", text)
-    return json.loads(text)
+    # Tolerant parse: many free models leak literal newlines/tabs inside string values.
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        cleaned = _sanitize_json_string_literals(text)
+        return json.loads(cleaned)
+
+
+def _sanitize_json_string_literals(s: str) -> str:
+    """Escape literal newlines/tabs that appear inside double-quoted string values.
+    Walks the text and tracks whether we're inside a string; replaces \\n→\\\\n inside."""
+    out = []
+    in_str = False
+    escape = False
+    for ch in s:
+        if in_str:
+            if escape:
+                out.append(ch); escape = False
+            elif ch == "\\":
+                out.append(ch); escape = True
+            elif ch == '"':
+                out.append(ch); in_str = False
+            elif ch == "\n":
+                out.append("\\n")
+            elif ch == "\r":
+                out.append("\\r")
+            elif ch == "\t":
+                out.append("\\t")
+            else:
+                out.append(ch)
+        else:
+            if ch == '"': in_str = True
+            out.append(ch)
+    return "".join(out)
 
 
 def generate(theme: str, component: str) -> dict:
-    """Try each model in the pool; on each, up to 2 attempts before moving on."""
-    last_errs = []
-    for model in MODEL_POOL:
-        for attempt in range(1, 3):
-            try:
-                d = call_llm(theme, model, component)
-                d["_component"] = component
-                errs = validate(d)
-                if not errs:
-                    print(f"  [llm] {model} attempt {attempt} OK ({component})", flush=True)
-                    return d
-                print(f"  [llm] {model} attempt {attempt} failed: {errs[:3]}", flush=True)
-                last_errs = errs
-            except Exception as e:
-                print(f"  [llm] {model} attempt {attempt} exception: {e}", flush=True)
-                break  # move to next model
-    raise SystemExit(f"[fatal] all models exhausted. last_errs={last_errs}")
+    """Try each model with the chosen component. If exhausted AND component != 'simple',
+    retry the whole pool with component='simple' (more forgiving — no slots)."""
+    for comp_attempt in [component, "simple"] if component != "simple" else ["simple"]:
+        last_errs = []
+        for model in MODEL_POOL:
+            for attempt in range(1, 3):
+                try:
+                    d = call_llm(theme, model, comp_attempt)
+                    d["_component"] = comp_attempt
+                    errs = validate(d)
+                    if not errs:
+                        print(f"  [llm] {model} attempt {attempt} OK ({comp_attempt})", flush=True)
+                        return d
+                    print(f"  [llm] {model} attempt {attempt} failed: {errs[:3]}", flush=True)
+                    last_errs = errs
+                except Exception as e:
+                    print(f"  [llm] {model} attempt {attempt} exception: {e}", flush=True)
+                    break  # move to next model
+        if comp_attempt != "simple":
+            print(f"  [fallback] {component} exhausted — retrying with 'simple'", flush=True)
+    raise SystemExit(f"[fatal] all models exhausted across components. last_errs={last_errs}")
 
 
 # ────────── HTML template ──────────
