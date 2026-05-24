@@ -271,10 +271,16 @@
       "reel_id": "18594630718040306",
       "story_at": "2026-05-24T00:23:28Z",
       "story_id": "18163242304435096"
+    },
+    {
+      "slug": "auto-202605240027-cada-seccao-tem-um",
+      "reel_at": "2026-05-24T00:29:07Z",
+      "reel_id": "17991934367793736",
+      "story_at": "2026-05-24T00:29:07Z",
+      "story_id": "18082506158385341"
     }
   ],
   "queue": [
-    "auto-202605240027-cada-seccao-tem-um",
     "r15-carrossel-novo-artigo",
     "r16-5-mitos-sites",
     "r17-wix-diy-custo",
