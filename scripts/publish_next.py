@@ -143,12 +143,8 @@ def main() -> None:
     print(f"[next] cover={cover_url}")
 
     reel_id = publish_reel(video_url, cover_url, caption)
-    time.sleep(5)
-    try:
-        story_id = publish_story(video_url)
-    except SystemExit as e:
-        print(f"[story] failed but reel published. err={e}")
-        story_id = None
+    # Stories disabled per Lucca 2026-05-24 — só publica reel, sem mirror em story.
+    story_id = None
 
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     h["published"].append({
