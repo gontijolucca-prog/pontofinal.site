@@ -49,6 +49,60 @@ THEMES = [
     "Loja online: 3 erros que matam vendas",
 ]
 
+# ────────── Visual components ──────────
+# Each theme is rendered via 1 of 4 components (simple/vs-list/big-stat/mock-search).
+# Component is picked by theme keywords + slug-hash; LLM only fills slot data for the picked component.
+COMPONENT_DEFS = {
+    "simple": {
+        "slots": [],
+        "describe": "Sem visual extra. Só hero + body + CTA centrados.",
+        "schema_hint": '"slots": {}',
+    },
+    "vs-list": {
+        "slots": ["bad_label", "good_label", "bad", "good"],
+        "describe": "Lista lado-a-lado: má prática (✗) vs boa prática (→). 2-3 items de cada.",
+        "schema_hint": ('"slots": {"bad_label": "rótulo curto", "good_label": "rótulo curto", '
+                        '"bad": ["item 1 (3-5 palavras)", "item 2"], "good": ["item 1 (3-5 palavras)", "item 2"]}'),
+    },
+    "big-stat": {
+        "slots": ["number", "label"],
+        "describe": "Estatística-shock: número/medida ENORME + label curto (4-7 palavras).",
+        "schema_hint": '"slots": {"number": "X%" ou "5 segundos", "label": "descrição curta — máx 7 palavras"}',
+    },
+    "mock-search": {
+        "slots": ["bad_query", "bad_result", "good_query", "good_result"],
+        "describe": "2 search bars: query genérica = ZERO, query específica = MILHARES.",
+        "schema_hint": ('"slots": {"bad_query": "exemplo de query genérica", "bad_result": "ZERO" ou "POUCOS", '
+                        '"good_query": "exemplo concreto + cidade", "good_result": "MILHARES" ou "MUITOS"}'),
+    },
+}
+
+# Keyword → preferred component (first match wins). Hash desempata se múltiplos.
+COMPONENT_KEYWORDS = [
+    (["formulário","formulários","campo","campos"], ["vs-list","big-stat"]),
+    (["google","pesquisa","keyword","palavra","procura","perto"], ["mock-search","vs-list"]),
+    (["%","segundo","segundos","velocidade","lento","rápido"], ["big-stat","vs-list"]),
+    (["3 erros","5 erros","mitos","erros que matam","matam vendas"], ["vs-list","simple"]),
+    (["confiança","testemunho","prova","social"], ["vs-list","simple"]),
+    (["404","erro 404","rodapé","footer"], ["vs-list","simple"]),
+    (["anatomia","secções","decompor","blocos","estrutura"], ["vs-list","simple"]),
+    (["advogado","freelancer","restaurante","loja","dentista"], ["vs-list","mock-search"]),
+]
+
+
+def _pick_component(theme: str, slug_seed: str = "") -> str:
+    """Pick a component for this theme. Deterministic per (theme+seed)."""
+    theme_low = theme.lower()
+    candidates: list[str] = ["simple"]  # always allow simple as fallback
+    for kws, comps in COMPONENT_KEYWORDS:
+        if any(k in theme_low for k in kws):
+            candidates = list(comps) + ["simple"]
+            break
+    # Disambiguate with hash so same theme picks varied component each day
+    seed = (slug_seed or theme) + datetime.now().strftime("%Y%m%d")
+    h = int(hashlib.sha256(seed.encode()).hexdigest(), 16)
+    return candidates[h % len(candidates)]
+
 # ────────── System prompt ──────────
 SYSTEM_PROMPT = """És copywriter sénior da PontoFinal.site, agência portuguesa de sites e gestão de redes sociais para pequenos negócios.
 
@@ -92,8 +146,42 @@ ESTRUTURAS DE HERO QUE FUNCIONAM (escolhe um padrão):
 - Antes/depois: "Trocaste o teu cartão. Mantiveste o site de 2015."
 - Comando claro: "Mostra preços. Atrai clientes."
 
-EXEMPLO de output válido (formato exacto):
-{"hero": "Sites bonitos não vendem sozinhos.", "accent": "não vendem", "body": "Uma página que vende tem ordem: gancho, prova, ação. Sem isso, o visitante sai em 5 segundos.", "cta_label": "fala conosco", "caption": "Sites bonitos não vendem sozinhos.\\n\\nUma página bem desenhada chama atenção. Uma página que vende leva o visitante pela mão: primeiro o gancho, depois a prova, no fim a ação.\\n\\nQuando estes três blocos faltam, o visitante sai em cinco segundos. E nunca mais volta.\\n\\nMarca já a tua reunião em pontofinal.site. Link na bio.\\n\\n—\\n\\n#pontofinal #website #pequenosnegocios #portugal #digitalpt"}
+EXEMPLO de output válido (formato exacto, componente "simple"):
+{"hero": "Sites bonitos não vendem sozinhos.", "accent": "não vendem", "body": "Uma página que vende tem ordem: gancho, prova, ação. Sem isso, o visitante sai em 5 segundos.", "cta_label": "fala conosco", "slots": {}, "caption": "Sites bonitos não vendem sozinhos.\\n\\nUma página bem desenhada chama atenção. Uma página que vende leva o visitante pela mão: primeiro o gancho, depois a prova, no fim a ação.\\n\\nQuando estes três blocos faltam, o visitante sai em cinco segundos. E nunca mais volta.\\n\\nMarca já a tua reunião em pontofinal.site. Link na bio.\\n\\n—\\n\\n#pontofinal #website #pequenosnegocios #portugal #digitalpt"}
+"""
+
+# Appended per call — explains the chosen visual component + the slots to fill.
+def _component_prompt(component: str) -> str:
+    cd = COMPONENT_DEFS[component]
+    extra = ""
+    if component == "vs-list":
+        extra = """
+EXEMPLO para vs-list (formulários):
+{"hero": "Pede só o essencial no formulário.", "accent": "só o essencial", "body": "Cada campo extra perde contactos. Reduz ao mínimo e os pedidos sobem.", "cta_label": "fala comigo", "slots": {"bad_label": "12 campos", "good_label": "3 campos", "bad": ["Nome completo", "Email", "Telefone", "NIF", "Morada", "Empresa"], "good": ["Nome", "Email", "Mensagem"]}, "caption": "..."}
+"""
+    elif component == "big-stat":
+        extra = """
+EXEMPLO para big-stat:
+{"hero": "Cada campo extra corta 10% dos contactos.", "accent": "10% dos contactos", "body": "Quando o formulário cresce, o visitante desiste. Pede só o essencial.", "cta_label": "fala comigo", "slots": {"number": "10%", "label": "perdidos por cada campo extra"}, "caption": "..."}
+"""
+    elif component == "mock-search":
+        extra = """
+EXEMPLO para mock-search:
+{"hero": "Ninguém pesquisa frases genéricas.", "accent": "frases genéricas", "body": "Escolhe a query que o cliente real escreve no Google. Quanto mais concreta, melhor.", "cta_label": "fala comigo", "slots": {"bad_query": "soluções premium", "bad_result": "ZERO", "good_query": "dentista Porto centro", "good_result": "MILHARES"}, "caption": "..."}
+"""
+    return f"""
+COMPONENTE VISUAL ESCOLHIDO: {component}
+DESCRIÇÃO: {cd['describe']}
+
+SCHEMA OBRIGATÓRIO (acrescenta ao JSON ao lado dos campos hero/accent/body/cta_label/caption):
+{cd['schema_hint']}
+{extra}
+Regras dos slots:
+- Conteúdo PT-PT impecável, sem siglas, sem brasileirismos, sem AO45.
+- Sem dados pessoais nem nomes de pessoas reais.
+- Sem números inventados (excepto "10%", "5 segundos" e similares que são verdades-tipo).
+- Bad/good labels: 2-3 palavras MÁX.
+- Bad/good items: 1-4 palavras cada, no máximo 6 items.
 """
 
 # ────────── Quality checks ──────────
@@ -200,19 +288,39 @@ def validate(d: dict) -> list[str]:
     if re.match(r"^(encontra|regista|inscreve|junta)-te\b", d["hero"].lower()):
         errs.append("hero starts with awkward reflexive imperative")
 
+    # Slots validation per chosen component
+    comp = d.get("_component", "simple")
+    slots = d.get("slots") or {}
+    cd = COMPONENT_DEFS.get(comp, COMPONENT_DEFS["simple"])
+    for k in cd["slots"]:
+        if k not in slots:
+            errs.append(f"slot '{k}' missing for component '{comp}'")
+        else:
+            v = slots[k]
+            if k in ("bad","good"):
+                if not isinstance(v, list) or len(v) < 2 or len(v) > 6:
+                    errs.append(f"slot '{k}' must be list of 2-6 strings")
+                else:
+                    for item in v:
+                        if not isinstance(item, str) or len(item.split()) > 5:
+                            errs.append(f"slot '{k}' item too long: {item!r}")
+            elif not isinstance(v, str) or not v.strip():
+                errs.append(f"slot '{k}' empty/invalid")
+
     return errs
 
 
 # ────────── OpenRouter call ──────────
-def call_llm(theme: str, model: str) -> dict:
+def call_llm(theme: str, model: str, component: str) -> dict:
+    sys_full = SYSTEM_PROMPT + "\n\n" + _component_prompt(component)
     body = json.dumps({
         "model": model,
         "messages": [
-            {"role":"system","content":SYSTEM_PROMPT},
-            {"role":"user","content":f"TEMA: {theme}\n\nGera o JSON."},
+            {"role":"system","content":sys_full},
+            {"role":"user","content":f"TEMA: {theme}\nCOMPONENTE: {component}\n\nGera o JSON com os slots correctos."},
         ],
         "temperature": 0.75,
-        "max_tokens": 900,
+        "max_tokens": 1200,
         "response_format": {"type":"json_object"},
     }).encode()
     req = urllib.request.Request(
@@ -235,16 +343,17 @@ def call_llm(theme: str, model: str) -> dict:
     return json.loads(text)
 
 
-def generate(theme: str) -> dict:
+def generate(theme: str, component: str) -> dict:
     """Try each model in the pool; on each, up to 2 attempts before moving on."""
     last_errs = []
     for model in MODEL_POOL:
         for attempt in range(1, 3):
             try:
-                d = call_llm(theme, model)
+                d = call_llm(theme, model, component)
+                d["_component"] = component
                 errs = validate(d)
                 if not errs:
-                    print(f"  [llm] {model} attempt {attempt} OK", flush=True)
+                    print(f"  [llm] {model} attempt {attempt} OK ({component})", flush=True)
                     return d
                 print(f"  [llm] {model} attempt {attempt} failed: {errs[:3]}", flush=True)
                 last_errs = errs
@@ -267,8 +376,8 @@ _BASE_HEAD = """<!DOCTYPE html>
 
 # Template A — clássico vermelho com dots (o original)
 TEMPLATE_A = _BASE_HEAD + """<style>
-  :root {{ --bg:#FFFFFF;--text:#050505;--primary:#FF2A2A;
-    --font-display:'Archivo Black',Impact,sans-serif; --font-body:'Archivo',sans-serif; }}
+  :root {{ --bg:#FFFFFF;--text:#050505;--primary:#FF2A2A;--accent:#FF2A2A;
+    --font-display:'Archivo Black',Impact,sans-serif; --font-body:'Archivo',sans-serif; --font-mono:'Space Mono',monospace; }}
   *{{margin:0;padding:0;box-sizing:border-box;}}
   html,body{{width:1080px;height:1920px;font-family:var(--font-body);background:var(--bg);color:var(--text);overflow:hidden;position:relative;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;}}
   .dots-bg{{position:absolute;inset:-60px;background-image:radial-gradient(circle,#050505 1.3px,transparent 1.3px);background-size:32px 32px;opacity:.42;pointer-events:none;z-index:1;animation:dots-drift 18s linear infinite;}}
@@ -277,26 +386,19 @@ TEMPLATE_A = _BASE_HEAD + """<style>
   .brand-header{{font-weight:800;font-size:34px;letter-spacing:-.02em;text-align:center;}}
   .brand-header .dot{{color:var(--primary);}}
   .main{{flex:1;display:flex;flex-direction:column;justify-content:center;}}
-  .hero{{font-family:var(--font-display);font-size:124px;font-weight:900;line-height:.93;letter-spacing:-.04em;text-wrap:balance;margin-bottom:56px;text-align:center;}}
-  .hero .red{{color:var(--primary);}}
-  .body{{font-size:44px;font-weight:500;line-height:1.28;letter-spacing:-.012em;text-wrap:pretty;max-width:820px;margin:0 auto 80px;text-align:center;}}
-  .cta-box{{background:var(--primary);color:#FFFFFF;padding:28px 56px;border:5px solid var(--text);box-shadow:12px 12px 0 0 var(--text);font-family:var(--font-display);font-size:48px;font-weight:900;line-height:1;letter-spacing:-.02em;text-transform:uppercase;align-self:center;transform:rotate(-1.2deg);}}
   .footer{{font-size:24px;font-weight:600;letter-spacing:.02em;text-align:center;opacity:.65;}}
+  {component_css}
 </style></head><body>
 <div class="dots-bg"></div>
 <div class="container">
   <div class="brand-header">Ponto Final<span class="dot">.</span></div>
-  <div class="main">
-    <h1 class="hero">{hero_html}</h1>
-    <p class="body">{body}</p>
-    <div class="cta-box">{cta_label}</div>
-  </div>
+  <div class="main">{content_block}</div>
   <div class="footer">pontofinal.site · link na bio</div>
 </div></body></html>"""
 
 # Template B — negativo: preto + amarelo, asterisks decorativos, hero alinhado à esquerda
 TEMPLATE_B = _BASE_HEAD + """<style>
-  :root {{ --bg:#0A0A0A;--text:#FFFFFF;--accent:#FFD400;--muted:#a0a0a0;
+  :root {{ --bg:#0A0A0A;--text:#FFFFFF;--accent:#FFD400;--primary:#FFD400;--muted:#a0a0a0;
     --font-display:'Archivo Black',Impact,sans-serif; --font-body:'Archivo',sans-serif; --font-mono:'Space Mono',monospace; }}
   *{{margin:0;padding:0;box-sizing:border-box;}}
   html,body{{width:1080px;height:1920px;font-family:var(--font-body);background:var(--bg);color:var(--text);overflow:hidden;position:relative;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;}}
@@ -309,13 +411,8 @@ TEMPLATE_B = _BASE_HEAD + """<style>
   .container{{position:relative;width:100%;height:100%;display:flex;flex-direction:column;padding:160px 100px 130px;z-index:2;}}
   .brand-header{{font-weight:800;font-size:34px;letter-spacing:-.02em;color:var(--accent);}}
   .main{{flex:1;display:flex;flex-direction:column;justify-content:center;}}
-  .eyebrow{{font-family:var(--font-mono);font-size:24px;font-weight:700;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:32px;}}
-  .hero{{font-family:var(--font-display);font-size:128px;font-weight:900;line-height:.92;letter-spacing:-.04em;text-wrap:balance;margin-bottom:56px;}}
-  .hero .red{{color:var(--accent);background:linear-gradient(transparent 65%,rgba(255,212,0,.25) 65%);}}
-  .body{{font-size:42px;font-weight:500;line-height:1.3;letter-spacing:-.012em;text-wrap:pretty;max-width:820px;margin-bottom:80px;color:#e0e0e0;}}
-  .cta-arrow{{display:inline-flex;align-items:center;gap:24px;font-family:var(--font-display);font-size:54px;font-weight:900;color:var(--bg);background:var(--accent);padding:24px 48px;text-transform:uppercase;letter-spacing:-.02em;align-self:flex-start;}}
-  .cta-arrow::after{{content:"→";font-size:64px;}}
   .footer{{font-family:var(--font-mono);font-size:22px;font-weight:700;letter-spacing:.05em;color:var(--accent);margin-top:auto;}}
+  {component_css}
 </style></head><body>
 <div class="grid-bg"></div>
 <div class="asterisk a1">✱</div>
@@ -323,11 +420,7 @@ TEMPLATE_B = _BASE_HEAD + """<style>
 <div class="stamp">PT · 2026</div>
 <div class="container">
   <div class="brand-header">Ponto Final<span style="color:#fff">.</span></div>
-  <div class="main">
-    <h1 class="hero">{hero_html}</h1>
-    <p class="body">{body}</p>
-    <div class="cta-arrow">{cta_label}</div>
-  </div>
+  <div class="main">{content_block}</div>
   <div class="footer">pontofinal.site // link na bio</div>
 </div></body></html>"""
 
@@ -342,40 +435,25 @@ TEMPLATE_C = _BASE_HEAD + """<style>
   .bar{{position:absolute;height:24px;background:var(--text);z-index:1;}}
   .bar.b1{{width:180px;top:230px;left:0;}}
   .bar.b2{{width:120px;bottom:240px;left:0;background:var(--primary);}}
-  .number{{position:absolute;font-family:var(--font-display);font-size:380px;font-weight:900;line-height:1;color:var(--primary);opacity:.12;z-index:1;}}
-  .number.n1{{top:260px;right:80px;}}
   .container{{position:relative;width:100%;height:100%;display:flex;flex-direction:column;padding:130px 100px;z-index:3;}}
   .brand-header{{font-family:var(--font-mono);font-weight:700;font-size:30px;letter-spacing:.05em;text-transform:uppercase;}}
   .brand-header .dot{{color:var(--primary);}}
   .main{{flex:1;display:flex;flex-direction:column;justify-content:center;}}
-  .hero{{font-family:var(--font-display);font-size:130px;font-weight:900;line-height:.9;letter-spacing:-.045em;text-wrap:balance;margin-bottom:64px;}}
-  .hero .red{{color:var(--primary);position:relative;display:inline-block;}}
-  .hero .red::after{{content:"";position:absolute;left:-4px;right:-4px;bottom:-2px;height:10px;background:var(--accent);z-index:-1;opacity:.55;}}
-  .body{{font-size:44px;font-weight:500;line-height:1.28;letter-spacing:-.012em;text-wrap:pretty;max-width:820px;margin-bottom:90px;}}
-  .cta-row{{display:flex;align-items:center;gap:32px;}}
-  .cta-pill{{background:var(--text);color:var(--bg);padding:30px 56px;border-radius:80px;font-family:var(--font-display);font-size:46px;font-weight:900;line-height:1;letter-spacing:-.02em;text-transform:uppercase;}}
-  .cta-mark{{font-family:var(--font-display);font-size:72px;color:var(--primary);line-height:1;}}
   .footer{{font-family:var(--font-mono);font-size:22px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.7;}}
+  {component_css}
 </style></head><body>
 <div class="circle"></div>
 <div class="triangle"></div>
 <div class="bar b1"></div>
 <div class="bar b2"></div>
-<div class="number n1">01</div>
 <div class="container">
   <div class="brand-header">Ponto Final<span class="dot">.</span></div>
-  <div class="main">
-    <h1 class="hero">{hero_html}</h1>
-    <p class="body">{body}</p>
-    <div class="cta-row">
-      <div class="cta-mark">→</div>
-      <div class="cta-pill">{cta_label}</div>
-    </div>
-  </div>
+  <div class="main">{content_block}</div>
   <div class="footer">pontofinal.site · link na bio</div>
 </div></body></html>"""
 
 TEMPLATES = [TEMPLATE_A, TEMPLATE_B, TEMPLATE_C]
+TEMPLATE_NAMES = ["A","B","C"]
 
 
 def _pick_template_idx(slug: str) -> int:
@@ -384,20 +462,119 @@ def _pick_template_idx(slug: str) -> int:
     return h % len(TEMPLATES)
 
 
-def build_html(d: dict, slug: str) -> str:
-    accent = d["accent"]
-    hero = d["hero"]
-    # Replace accent in hero with red span (case-insensitive, first occurrence)
+def _hero_with_accent(hero: str, accent: str) -> str:
     idx = hero.lower().find(accent.lower())
-    if idx >= 0:
-        end = idx + len(accent)
-        hero_html = f"{hero[:idx]}<span class='red'>{hero[idx:end]}</span>{hero[end:]}"
-    else:
-        hero_html = hero
+    if idx < 0: return hero
+    end = idx + len(accent)
+    return f"{hero[:idx]}<span class='red'>{hero[idx:end]}</span>{hero[end:]}"
+
+
+def _render_simple(d: dict) -> tuple[str,str]:
+    css = """
+    .hero{font-family:var(--font-display);font-size:122px;font-weight:900;line-height:.93;letter-spacing:-.04em;text-wrap:balance;margin-bottom:50px;text-align:center;}
+    .hero .red{color:var(--primary);}
+    .body{font-size:42px;font-weight:500;line-height:1.28;letter-spacing:-.012em;text-wrap:pretty;max-width:820px;margin:0 auto 72px;text-align:center;}
+    .cta-box{background:var(--primary);color:#FFFFFF;padding:28px 56px;border:5px solid var(--text);box-shadow:12px 12px 0 0 var(--text);font-family:var(--font-display);font-size:48px;font-weight:900;line-height:1;letter-spacing:-.02em;text-transform:uppercase;align-self:center;transform:rotate(-1.2deg);}
+    """
+    hero_html = _hero_with_accent(d["hero"], d["accent"])
+    html = f'<h1 class="hero">{hero_html}</h1><p class="body">{d["body"]}</p><div class="cta-box">{d["cta_label"]}</div>'
+    return html, css
+
+
+def _render_vs_list(d: dict) -> tuple[str,str]:
+    s = d["slots"]
+    css = """
+    .hero{font-family:var(--font-display);font-size:96px;font-weight:900;line-height:.95;letter-spacing:-.04em;text-wrap:balance;margin-bottom:60px;text-align:center;}
+    .hero .red{color:var(--primary);}
+    .vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:70px;}
+    .vs-col{display:flex;flex-direction:column;gap:18px;}
+    .vs-header{font-family:var(--font-mono);font-size:24px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-bottom:10px;}
+    .vs-header.bad{color:var(--primary);}
+    .vs-item{font-size:34px;font-weight:600;line-height:1.2;display:flex;align-items:flex-start;gap:14px;}
+    .vs-item .ico{font-family:var(--font-display);font-size:38px;line-height:1;flex-shrink:0;width:32px;}
+    .vs-item.bad{opacity:.55;text-decoration:line-through;text-decoration-color:var(--primary);text-decoration-thickness:3px;}
+    .vs-item.bad .ico{color:var(--primary);opacity:1;}
+    .vs-item.good .ico{color:var(--primary);}
+    .cta-box{background:var(--primary);color:#FFFFFF;padding:24px 48px;border:5px solid var(--text);box-shadow:10px 10px 0 0 var(--text);font-family:var(--font-display);font-size:42px;font-weight:900;line-height:1;letter-spacing:-.02em;text-transform:uppercase;align-self:center;transform:rotate(-1.2deg);}
+    """
+    bad_items = "".join(f'<div class="vs-item bad"><span class="ico">✗</span><span>{b}</span></div>' for b in s["bad"][:4])
+    good_items = "".join(f'<div class="vs-item good"><span class="ico">→</span><span>{g}</span></div>' for g in s["good"][:4])
+    hero_html = _hero_with_accent(d["hero"], d["accent"])
+    html = f"""
+    <h1 class="hero">{hero_html}</h1>
+    <div class="vs-grid">
+      <div class="vs-col"><div class="vs-header bad">{s["bad_label"]}</div>{bad_items}</div>
+      <div class="vs-col"><div class="vs-header">{s["good_label"]}</div>{good_items}</div>
+    </div>
+    <div class="cta-box">{d["cta_label"]}</div>
+    """
+    return html, css
+
+
+def _render_big_stat(d: dict) -> tuple[str,str]:
+    s = d["slots"]
+    css = """
+    .hero{font-family:var(--font-display);font-size:80px;font-weight:900;line-height:.95;letter-spacing:-.04em;text-wrap:balance;margin-bottom:40px;text-align:center;}
+    .hero .red{color:var(--primary);}
+    .stat-num{font-family:var(--font-display);font-size:340px;font-weight:900;line-height:.85;letter-spacing:-.06em;text-align:center;color:var(--primary);margin-bottom:24px;}
+    .stat-label{font-size:38px;font-weight:600;line-height:1.2;text-align:center;text-wrap:balance;max-width:780px;margin:0 auto 56px;opacity:.85;}
+    .cta-box{background:var(--primary);color:#FFFFFF;padding:24px 48px;border:5px solid var(--text);box-shadow:10px 10px 0 0 var(--text);font-family:var(--font-display);font-size:42px;font-weight:900;line-height:1;letter-spacing:-.02em;text-transform:uppercase;align-self:center;transform:rotate(-1.2deg);}
+    """
+    hero_html = _hero_with_accent(d["hero"], d["accent"])
+    html = f"""
+    <h1 class="hero">{hero_html}</h1>
+    <div class="stat-num">{s["number"]}</div>
+    <div class="stat-label">{s["label"]}</div>
+    <div class="cta-box">{d["cta_label"]}</div>
+    """
+    return html, css
+
+
+def _render_mock_search(d: dict) -> tuple[str,str]:
+    s = d["slots"]
+    css = """
+    .hero{font-family:var(--font-display);font-size:96px;font-weight:900;line-height:.95;letter-spacing:-.04em;text-wrap:balance;margin-bottom:60px;text-align:center;}
+    .hero .red{color:var(--primary);}
+    .search-stack{display:flex;flex-direction:column;gap:30px;margin-bottom:64px;}
+    .search-bar{display:flex;align-items:center;background:#fff;border:3px solid var(--text);border-radius:60px;padding:24px 40px;gap:20px;}
+    .search-bar.bad{opacity:.55;border-color:#888;}
+    .search-bar.bad .q{text-decoration:line-through;color:#666;}
+    .search-bar.good{border-color:var(--primary);box-shadow:8px 8px 0 0 var(--text);}
+    .search-bar .ico{font-family:var(--font-display);font-size:38px;color:var(--primary);width:48px;}
+    .search-bar .q{flex:1;font-family:var(--font-mono);font-size:34px;font-weight:700;color:var(--text);}
+    .search-bar .result{font-family:var(--font-mono);font-size:24px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
+    .search-bar.bad .result{color:#888;}
+    .search-bar.good .result{color:var(--primary);}
+    .cta-box{background:var(--primary);color:#FFFFFF;padding:24px 48px;border:5px solid var(--text);box-shadow:10px 10px 0 0 var(--text);font-family:var(--font-display);font-size:42px;font-weight:900;line-height:1;letter-spacing:-.02em;text-transform:uppercase;align-self:center;transform:rotate(-1.2deg);}
+    """
+    hero_html = _hero_with_accent(d["hero"], d["accent"])
+    html = f"""
+    <h1 class="hero">{hero_html}</h1>
+    <div class="search-stack">
+      <div class="search-bar bad"><span class="ico">⌕</span><span class="q">{s["bad_query"]}</span><span class="result">{s["bad_result"]}</span></div>
+      <div class="search-bar good"><span class="ico">⌕</span><span class="q">{s["good_query"]}</span><span class="result">{s["good_result"]}</span></div>
+    </div>
+    <div class="cta-box">{d["cta_label"]}</div>
+    """
+    return html, css
+
+
+COMPONENT_RENDERERS = {
+    "simple": _render_simple,
+    "vs-list": _render_vs_list,
+    "big-stat": _render_big_stat,
+    "mock-search": _render_mock_search,
+}
+
+
+def build_html(d: dict, slug: str) -> str:
     tpl_idx = _pick_template_idx(slug)
-    tpl_name = chr(ord("A") + tpl_idx)
-    print(f"  template: {tpl_name}")
-    return TEMPLATES[tpl_idx].format(slug=slug, hero_html=hero_html, body=d["body"], cta_label=d["cta_label"])
+    tpl_name = TEMPLATE_NAMES[tpl_idx]
+    comp = d.get("_component", "simple")
+    print(f"  template: {tpl_name} + component: {comp}")
+    renderer = COMPONENT_RENDERERS.get(comp, _render_simple)
+    content_block, component_css = renderer(d)
+    return TEMPLATES[tpl_idx].format(slug=slug, content_block=content_block, component_css=component_css)
 
 
 # ────────── Render ──────────
@@ -567,13 +744,16 @@ def main():
     else:
         theme = sys.argv[1]
     print(f"→ theme: {theme}")
+    component = _pick_component(theme)
+    print(f"→ component: {component}")
 
     print("→ calling LLM…")
-    d = generate(theme)
+    d = generate(theme, component)
     print(f"  hero: {d['hero']!r}")
     print(f"  accent: {d['accent']!r}")
     print(f"  body: {d['body']!r}")
     print(f"  cta: {d['cta_label']!r}")
+    if d.get("slots"): print(f"  slots: {d['slots']}")
 
     slug = make_slug(d)
     print(f"→ slug: {slug}")
