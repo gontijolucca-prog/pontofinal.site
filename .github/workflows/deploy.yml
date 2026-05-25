@@ -35,5 +35,7 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # Account ID fixo (não é segredo) — o secret CLOUDFLARE_ACCOUNT_ID apontava para a conta errada,
+          # onde o projeto pontofinal-site não existe → "Project not found". A conta correta é esta.
+          accountId: a2cff0602323a3b179fd8581371c603d
           command: pages deploy dist --project-name=pontofinal-site --branch=main
