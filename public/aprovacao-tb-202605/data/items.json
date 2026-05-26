@@ -19,7 +19,7 @@
         "role": "development"
       },
       {
-        "text_overlay": "Veste o fato. O treinador acompanha cada movimento.",
+        "text_overlay": "Vista o fato. O treinador acompanha cada movimento.",
         "role": "development"
       },
       {
@@ -27,11 +27,11 @@
         "role": "development"
       },
       {
-        "text_overlay": "Sai do estúdio em menos de meia hora. A rotina não para.",
+        "text_overlay": "Saia do estúdio em menos de meia hora. A rotina não para.",
         "role": "development"
       },
       {
-        "text_overlay": "Marque a sua sessão experimental no estúdio TechBody.",
+        "text_overlay": "Marque o seu treino experimental no estúdio TechBody.",
         "role": "cta"
       }
     ],
@@ -89,7 +89,7 @@
         "role": "development"
       },
       {
-        "text_overlay": "Conheça o método. Marque a primeira sessão.",
+        "text_overlay": "Conheça o método. Marque o seu treino experimental.",
         "role": "cta"
       }
     ],
@@ -131,7 +131,7 @@
         "role": "hook"
       },
       {
-        "text_overlay": "Tudo começa com uma avaliação inicial. Saber de onde partes muda tudo.",
+        "text_overlay": "Tudo começa com uma avaliação inicial. Saber de onde parte muda tudo.",
         "role": "development"
       },
       {
@@ -143,11 +143,11 @@
         "role": "development"
       },
       {
-        "text_overlay": "Reavaliação às seis semanas. Sabe onde está. Sabe para onde vais.",
+        "text_overlay": "Reavaliação às seis semanas. Saiba onde está. Saiba para onde vai.",
         "role": "development"
       },
       {
-        "text_overlay": "Marque a sua avaliação inicial no estúdio TechBody.",
+        "text_overlay": "Marque o seu treino experimental no estúdio TechBody.",
         "role": "cta"
       }
     ],
@@ -181,11 +181,11 @@
     "theme": "modelo_franchising",
     "pilar": "Modelo de negócio e franchising",
     "audience": "b2b",
-    "title": "Tem um ginásio? Cabe-te aqui uma linha de receita nova.",
+    "title": "Tem um ginásio? Cabe-lhe aqui uma linha de receita nova.",
     "slides": 6,
     "slides_text": [
       {
-        "text_overlay": "Tem um ginásio? Cabe-te aqui uma linha de receita nova.",
+        "text_overlay": "Tem um ginásio? Cabe-lhe aqui uma linha de receita nova.",
         "role": "hook"
       },
       {
