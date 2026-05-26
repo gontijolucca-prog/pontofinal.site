@@ -150,6 +150,11 @@ class ItemViewer extends HTMLElement {
     };
     return rows.map(r => {
       const isDeleted = r.deleted;
+      // Auto-resolvido: o texto atual do slide/caption já corresponde ao que
+      // a anotação pediu → o feedback foi aplicado. Combina com o resolved
+      // explícito (workflow caption-rejeitada) para mostrar o selo verde.
+      const autoCorrected = this._isAutoCorrected(r);
+      const showResolved = !!r.resolved || autoCorrected;
       const hasText = r.note && r.note.trim();
       let bodyHtml, rightBtn;
       if (!isDeleted) {
@@ -163,7 +168,9 @@ class ItemViewer extends HTMLElement {
         rightBtn = ``;
       }
       const deletedTag = isDeleted ? `<span class="viewer-note__deleted-tag">apagada</span>` : "";
-      const resolvedTag = r.resolved ? `<span class="viewer-note__resolved-tag" title="Esta anotação já foi processada e o feedback aplicado">✓ corrigido</span>` : "";
+      const resolvedTag = showResolved
+        ? `<span class="viewer-note__resolved-tag" title="${this._escapeForHtml(autoCorrected && !r.resolved ? "O texto atual do post já corresponde a esta anotação — feedback aplicado" : "Esta anotação já foi processada e o feedback aplicado")}">${r.caption ? "✓ correcto" : "✓ corrigido"}</span>`
+        : "";
       const slideTag = r.slide ? `<span class="viewer-note__slide">Slide ${String(r.slide).padStart(2, "0")}</span>` : "";
       if (isDeleted) {
         // Apagada: colapsada por defeito; <details>/<summary> dá UX de drop-down
@@ -171,7 +178,7 @@ class ItemViewer extends HTMLElement {
         // continua acessível dentro do summary (não dispara o toggle quando
         // o handler chama stopPropagation).
         return `
-        <details class="viewer-note viewer-note--deleted${r.resolved ? ' viewer-note--resolved' : ''}" data-note-key="${this._escapeForHtml(r.key)}">
+        <details class="viewer-note viewer-note--deleted${showResolved ? ' viewer-note--resolved' : ''}" data-note-key="${this._escapeForHtml(r.key)}">
           <summary class="viewer-note__meta viewer-note__meta--summary">
             <span class="viewer-note__caret" aria-hidden="true">▸</span>
             ${slideTag}
@@ -186,7 +193,7 @@ class ItemViewer extends HTMLElement {
         `;
       }
       return `
-      <div class="viewer-note${r.resolved ? ' viewer-note--resolved' : ''}" data-note-key="${this._escapeForHtml(r.key)}">
+      <div class="viewer-note${showResolved ? ' viewer-note--resolved' : ''}" data-note-key="${this._escapeForHtml(r.key)}">
         <div class="viewer-note__meta">
           ${slideTag}
           ${deletedTag}
@@ -219,6 +226,50 @@ class ItemViewer extends HTMLElement {
     return String(s).replace(/[&<>"']/g, c =>
       ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
     );
+  }
+
+  // Normaliza texto para comparar anotação ↔ texto do post: tira nbsp,
+  // uniformiza aspas/travessões, baixa caixa, colapsa espaços e remove
+  // aspas/colchetes que envolvam o texto (cliente às vezes cola "entre aspas").
+  _normTxt(s) {
+    return String(s || "")
+      .normalize("NFC")
+      .replace(/ /g, " ")
+      .replace(/[«»“”„]/g, '"')
+      .replace(/[‘’]/g, "'")
+      .replace(/[–—]/g, "-")
+      .toLowerCase()
+      .replace(/\s+/g, " ")
+      .trim()
+      .replace(/^["'«»\[\]]+|["'«»\[\]]+$/g, "")
+      .trim();
+  }
+
+  // True quando o texto atual do post já corresponde ao que a anotação pediu.
+  // Anotação de slide compara com o slide-alvo; anotação de caption compara
+  // com a descrição; anotação geral compara com qualquer slide ou a caption.
+  _isAutoCorrected(r) {
+    const item = this._item;
+    if (!item || !r || r.deleted) return false;
+    // O cliente costuma prefixar a sugestão ("Copy:", "Mudar para:", …).
+    // Tiramos esse rótulo de instrução antes de comparar com o texto real.
+    const stripped = String(r.note || "").replace(
+      /^\s*(copys?|mudar(?: para)?|alterar(?: para)?|trocar(?: para)?|substituir(?: por)?|sugest[ãa]o)\s*:?\s*/i,
+      ""
+    );
+    const target = this._normTxt(stripped);
+    if (!target) return false;
+    const slides = item.slides_text || [];
+    if (r.caption) {
+      return this._normTxt(item.caption || "") === target;
+    }
+    if (r.slide) {
+      const s = slides[r.slide - 1];
+      const txt = s ? (s.text_overlay || s.text || "") : "";
+      return this._normTxt(txt) === target;
+    }
+    if (slides.some(s => this._normTxt(s.text_overlay || s.text || "") === target)) return true;
+    return this._normTxt(item.caption || "") === target;
   }
 
   close() {
