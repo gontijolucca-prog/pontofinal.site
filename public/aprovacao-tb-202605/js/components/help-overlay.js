@@ -27,8 +27,6 @@ const SHORTCUTS = [
   { keys: ["?"],            label: "Mostrar/esconder esta ajuda" },
 ];
 
-const SEEN_KEY = "pf_guia_visto_v1";
-
 class HelpOverlay extends HTMLElement {
   connectedCallback() {
     this.setAttribute("aria-hidden", "true");
@@ -49,30 +47,28 @@ class HelpOverlay extends HTMLElement {
       }
     });
 
-    // 1ª visita: abre o guia sozinho, mas só depois de um eventual modal de
-    // nome/login fechar (não empilhar dois diálogos).
+    // Abre o guia automaticamente em CADA carregamento/refresh (pedido do Lucca:
+    // "que apareça sempre que dou refresh"). Espera um eventual modal de
+    // nome/login fechar para não empilhar dois diálogos. Fechável — reabre no
+    // próximo refresh.
     this._maybeAutoOpen();
   }
 
   _maybeAutoOpen() {
-    let seen = false;
-    try { seen = localStorage.getItem(SEEN_KEY) === "1"; } catch {}
-    if (seen) return;
     const tryOpen = () => {
+      // Página bloqueada (offline/versão antiga) → não abrir o guia por baixo.
+      const gate = document.getElementById("version-gate");
+      if (gate && getComputedStyle(gate).display !== "none") return;
       const auth = document.querySelector("auth-modal");
       const authOpen = auth && auth.getAttribute("aria-hidden") === "false";
       if (authOpen) { setTimeout(tryOpen, 1000); return; }
       this.open();
-      try { localStorage.setItem(SEEN_KEY, "1"); } catch {}
     };
     setTimeout(tryOpen, 1100);
   }
 
   open()   { this.setAttribute("aria-hidden", "false"); }
-  close()  {
-    this.setAttribute("aria-hidden", "true");
-    try { localStorage.setItem(SEEN_KEY, "1"); } catch {}
-  }
+  close()  { this.setAttribute("aria-hidden", "true"); }
   toggle() { this.getAttribute("aria-hidden") === "true" ? this.open() : this.close(); }
 
   render() {
