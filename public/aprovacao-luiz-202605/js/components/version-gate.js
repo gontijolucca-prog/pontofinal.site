@@ -82,6 +82,16 @@ function hideGate() {
   document.documentElement.style.overflow = '';
 }
 
+// True se o utilizador está a editar um campo de texto AGORA — para não
+// interromper uma escrita em curso com um reload de atualização de versão.
+function userIsEditing() {
+  const a = document.activeElement;
+  if (!a) return false;
+  if (a.tagName === 'TEXTAREA' || a.isContentEditable) return true;
+  if (a.tagName === 'INPUT') return /^(text|email|search|url|tel|number|password|)$/i.test(a.getAttribute('type') || '');
+  return false;
+}
+
 async function check() {
   // 1) Offline declarado pelo browser → bloqueia já.
   if (!navigator.onLine) { showGate('offline'); return; }
@@ -92,6 +102,11 @@ async function check() {
     const server = (await r.text()).trim();
     _failStreak = 0;
     if (server && META_VERSION && server !== META_VERSION) {
+      // NÃO interromper quem está a escrever: se um campo de texto está focado,
+      // adia a atualização para o próximo ciclo. As edições já vão sendo gravadas
+      // no servidor — só evitamos o reload forçado a meio de uma escrita, para
+      // nunca apagar/perder o que o cliente está a alterar nesse momento.
+      if (userIsEditing()) return;
       // AUTO-CURA: 1x por cada versão nova do servidor faz reload nuclear
       // (limpa SW + caches) SOZINHO — o user não precisa de fazer nada.
       // Se mesmo assim continuar dessincronizado, mostra o aviso + botão manual.
