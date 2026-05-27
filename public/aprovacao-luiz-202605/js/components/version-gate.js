@@ -37,8 +37,22 @@ function buildGate() {
   return el;
 }
 
-function hardReload() {
-  // Timestamp único → força fetch fresco do HTML e de todos os subresources.
+async function hardReload() {
+  // "Atualizar agora" NUCLEAR: remove o Service Worker e limpa TODAS as caches
+  // antes de recarregar. Garante escapar de um SW antigo preso — que servia
+  // ficheiros velhos mesmo com Cmd+Shift+R (hard-reload não desfaz o SW).
+  const btn = _gateEl && _gateEl.querySelector('#vg-btn');
+  if (btn) { btn.disabled = true; btn.textContent = 'A atualizar…'; }
+  try {
+    if ('serviceWorker' in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map((r) => r.unregister().catch(() => {})));
+    }
+    if (self.caches) {
+      const keys = await caches.keys();
+      await Promise.all(keys.map((k) => caches.delete(k).catch(() => {})));
+    }
+  } catch {}
   try { sessionStorage.removeItem('pf-bust-v'); } catch {}
   window.location.replace(window.location.pathname + '?_=' + Date.now());
 }
@@ -77,8 +91,20 @@ async function check() {
     if (!r.ok) throw new Error('http ' + r.status);
     const server = (await r.text()).trim();
     _failStreak = 0;
-    if (server && META_VERSION && server !== META_VERSION) showGate('stale', server);
-    else hideGate();
+    if (server && META_VERSION && server !== META_VERSION) {
+      // AUTO-CURA: 1x por cada versão nova do servidor faz reload nuclear
+      // (limpa SW + caches) SOZINHO — o user não precisa de fazer nada.
+      // Se mesmo assim continuar dessincronizado, mostra o aviso + botão manual.
+      const healKey = 'pf-autoheal-' + server;
+      let healed = true;
+      try { healed = sessionStorage.getItem(healKey) === '1'; } catch {}
+      if (!healed) {
+        try { sessionStorage.setItem(healKey, '1'); } catch {}
+        hardReload();
+        return;
+      }
+      showGate('stale', server);
+    } else hideGate();
   } catch {
     // Falha de rede: só bloqueia como offline se o browser confirmar offline,
     // ou após 3 falhas seguidas — evita falso-positivo numa falha pontual.

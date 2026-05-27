@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="app-version" content="20260527-1830" />
+<meta name="app-version" content="20260527-1840" />
 <title>Aprovação · Conteúdo</title>
 
 <script>
@@ -38,8 +38,23 @@
   // Chrome/Safari mobile servirem versão antiga apesar dos headers no-store.
   // Próxima visita após este SW estar activo: nunca mais cache stale.
   if ('serviceWorker' in navigator) {
+    // Quando um Service Worker NOVO assume o controlo (deploy com sw.js
+    // alterado), recarrega sozinho — o utilizador não tem de fazer nada.
+    let _swRefreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (_swRefreshing) return;
+      _swRefreshing = true;
+      window.location.reload();
+    });
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js').catch(() => {});
+      navigator.serviceWorker.register('sw.js').then((reg) => {
+        reg.update();
+        // Procura versão nova do SW periodicamente e ao voltar ao separador.
+        setInterval(() => reg.update().catch(() => {}), 60000);
+        document.addEventListener('visibilitychange', () => {
+          if (!document.hidden) reg.update().catch(() => {});
+        });
+      }).catch(() => {});
     });
   }
 </script>
