@@ -4,11 +4,11 @@
 
 <!-- claude-evolve:managed-start -->
 
-<!-- claude-evolve:rule id=r_mpbf8j0x_pt93 score=7.1 created=2026-05-18 source=observation complexity=simple -->
+<!-- claude-evolve:rule id=r_mpbf8j0x_pt93 score=6.3 created=2026-05-18 source=observation complexity=simple -->
 - After a git push, immediately start a polling loop against the GitHub Actions API using head_sha to confirm the correct commit's CI run reached a conclusive state before closing the task.
 <!-- /claude-evolve:rule -->
 
-<!-- claude-evolve:rule id=r_mpe077jp_8i1x score=6.9 created=2026-05-20 source=observation complexity=simple -->
+<!-- claude-evolve:rule id=r_mpe077jp_8i1x score=7 created=2026-05-20 source=observation complexity=simple -->
 - After any functional change to a web app, bump the version atomically in all three locations: version.txt, js/config.js (APP_VERSION constant), and index.html (<meta name="app-version">). Do all three in one pass; never update only a subset.
 <!-- /claude-evolve:rule -->
 
@@ -24,19 +24,19 @@
 - After producing and queuing content pieces, immediately update THEMES_ROSTER.md with strikethrough + [USADO <format> · <date> · queue] for every consumed theme — never leave the roster in an ambiguous used/unused state.
 <!-- /claude-evolve:rule -->
 
-<!-- claude-evolve:rule id=r_mplcyorg_heh8 score=5.8 created=2026-05-25 source=observation complexity=simple -->
+<!-- claude-evolve:rule id=r_mplcyorg_heh8 score=5.1 created=2026-05-25 source=observation complexity=simple -->
 - When navigating to a Cloudflare dashboard page that may have a cookie/consent dialog, use mcp__claude-in-chrome__find to detect dialog buttons before attempting any interactive actions — this avoids clicking on blocked UI elements.
 <!-- /claude-evolve:rule -->
 
-<!-- claude-evolve:rule id=r_mplcyorz_m74k score=5.9 created=2026-05-25 source=observation complexity=simple -->
+<!-- claude-evolve:rule id=r_mplcyorz_m74k score=5.3 created=2026-05-25 source=observation complexity=simple -->
 - When diagnosing a CI/CD deployment failure, navigate to the actual dashboard (Cloudflare Pages, GitHub Actions) to visually confirm the project exists and the account ID is correct before editing config files — do not assume secrets are correct.
 <!-- /claude-evolve:rule -->
 
-<!-- claude-evolve:rule id=r_mplcyosh_f83h score=5.9 created=2026-05-25 source=observation complexity=simple -->
+<!-- claude-evolve:rule id=r_mplcyosh_f83h score=5.2 created=2026-05-25 source=observation complexity=simple -->
 - When fixing a deployment that fails due to a wrong account ID secret, hardcode the verified account ID directly into the workflow file rather than relying on a secret that may point to the wrong account.
 <!-- /claude-evolve:rule -->
 
-<!-- claude-evolve:rule id=r_mplcyosw_d029 score=5.6 created=2026-05-25 source=anti_pattern complexity=simple -->
+<!-- claude-evolve:rule id=r_mplcyosw_d029 score=5.8 created=2026-05-25 source=anti_pattern complexity=simple -->
 - After navigating to a new page with claude-in-chrome, do not immediately call read_page or find — take a screenshot first to confirm the page loaded and is in the expected state, then decide whether interactive elements or a find query are appropriate.
 <!-- /claude-evolve:rule -->
 

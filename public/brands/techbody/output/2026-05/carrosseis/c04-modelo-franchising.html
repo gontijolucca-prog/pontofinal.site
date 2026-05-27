@@ -152,7 +152,12 @@ h1, h2, h3, p, blockquote, .num {
   text-wrap: pretty;
 }
 </style>
-<style>#slide-5 .slide__body h1{font-size:clamp(28px,4.8vw,52px)!important;max-width:27ch!important;width:27ch!important;line-height:1.1!important;}</style>
+<style>
+/* Slide 5 — o TEXTO manda, não a caixa: nunca quebra sozinho; quebras só nos <br> à mão.
+   white-space:nowrap torna o auto-wrap impossível; anulamos a max-width (a caixa) e o
+   break-word herdado para o termo composto "chave-na-mão" nunca partir ao meio. */
+#slide-5 .slide__body h1{white-space:nowrap!important;overflow-wrap:normal!important;word-break:keep-all!important;max-width:none!important;width:auto!important;font-size:clamp(32px,5vw,54px)!important;line-height:1.14!important;}
+</style>
 </head>
 <body>
 <section class="carousel" aria-label="Carrossel TechBody — modelo_franchising">
@@ -190,7 +195,7 @@ h1, h2, h3, p, blockquote, .num {
 
 <article class="slide slide--type" id="slide-5">
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Franchising&nbsp;chave‑na‑mão:<br>plano de negócio,<br>formação,<br>recrutamento<br>e marketing digital.</h1></div>
+  <div class="slide__body"><h1>Franchising chave‑na‑mão:<br>plano de negócio, formação,<br>recrutamento e marketing digital.</h1></div>
   <div class="slide__bottom"><span>05/06</span><span class="arrow">→</span></div>
 </article>
 
