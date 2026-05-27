@@ -23,7 +23,7 @@
         "role": "development"
       },
       {
-        "text_overlay": "Até 90% das fibras musculares activadas em cada sessão.",
+        "text_overlay": "Até 90% das fibras musculares ativadas em cada sessão.",
         "role": "development"
       },
       {
@@ -131,7 +131,7 @@
         "role": "hook"
       },
       {
-        "text_overlay": "Tudo começa com uma avaliação inicial. Saber de onde parte muda tudo.",
+        "text_overlay": "Tudo começa com uma avaliação inicial. Onde está agora define onde vai.",
         "role": "development"
       },
       {
@@ -139,7 +139,7 @@
         "role": "development"
       },
       {
-        "text_overlay": "Três eixos medidos: composição corporal, força e bem-estar percebido.",
+        "text_overlay": "Três medidas: composição corporal, força e bem-estar.",
         "role": "development"
       },
       {
@@ -185,19 +185,19 @@
     "slides": 6,
     "slides_text": [
       {
-        "text_overlay": "Tem um ginásio? Cabe-lhe aqui uma linha de receita nova.",
+        "text_overlay": "Tem um ginásio? Ganhe uma nova fonte de receita.",
         "role": "hook"
       },
       {
-        "text_overlay": "Um estúdio TechBody opera numa área compacta dentro do seu espaço.",
+        "text_overlay": "Um estúdio cabe numa área pequena do seu espaço.",
         "role": "development"
       },
       {
-        "text_overlay": "Ticket por sessão superior ao convencional. Recorrência regular.",
+        "text_overlay": "Preço por sessão acima do treino convencional.",
         "role": "development"
       },
       {
-        "text_overlay": "Cada cliente regressa duas a três vezes por semana. Recorrência por design.",
+        "text_overlay": "Cada cliente regressa duas a três vezes por semana.",
         "role": "development"
       },
       {
@@ -239,12 +239,12 @@
     "theme": "pos_parto",
     "pilar": "Programas especializados",
     "audience": "b2c",
-    "title": "Pós-parto. Programa para reactivar o corpo.",
+    "title": "Pós-parto. Programa para reativar o corpo.",
     "slides": 1,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Pós-parto. Programa para reactivar o corpo."
+        "text_overlay": "Pós-parto. Programa para reativar o corpo."
       }
     ],
     "html_url": "../brands/techbody/output/2026-05/stories/s01-pos-parto.html",
@@ -349,7 +349,7 @@
       },
       {
         "role": "demo",
-        "text_overlay": "Chega. Conversamos uns minutos. Falamos dos seus objectivos e do que o seu corpo aguenta hoje."
+        "text_overlay": "Chega. Conversamos uns minutos. Falamos dos seus objetivos e do que o seu corpo aguenta hoje."
       },
       {
         "role": "demo",
