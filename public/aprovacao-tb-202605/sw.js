@@ -3,8 +3,8 @@
 // onde Chrome/Safari/Brave servem versão antiga mesmo com Cache-Control:
 // no-store nos headers HTTP (browsers móveis frequentemente ignoram-no).
 //
-// Uma vez registado, este SW intercepta todos os fetches deste scope
-// (/aprovacao-luiz-202605/) e:
+// Uma vez registado, este SW intercepta todos os fetches do seu scope
+// (a pasta deste deploy de aprovação) e:
 //   1. Tenta network first com `cache: 'no-store'`
 //   2. Se network ok → serve directamente + actualiza cache local
 //   3. Se network falha → fallback para cache (offline support)

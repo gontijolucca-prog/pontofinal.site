@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <title>PontoFinal — r07-anatomia-pagina-vende</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&family=Archivo+Black&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --text: #050505;
+      --primary: #FF2A2A;
+      --muted: #6a6a6a;
+      --shadow-sm: 5px 5px 0 0 #050505;
+      --font-display: 'Archivo Black', 'Archivo', Impact, sans-serif;
+      --font-body: 'Archivo', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+      position: relative;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+    .dots-bg {
+      position: absolute;
+      inset: -60px;
+      background-image: radial-gradient(circle, #050505 1.3px, transparent 1.3px);
+      background-size: 32px 32px;
+      opacity: 0.42;
+      pointer-events: none;
+      z-index: 1;
+      animation: dots-drift 18s linear infinite;
+      will-change: background-position;
+    }
+    @keyframes dots-drift {
+      0%   { background-position: 0 0; }
+      100% { background-position: 64px 64px; }
+    }
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 120px 80px 110px;
+      z-index: 2;
+    }
+    .brand-header {
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: 32px;
+      letter-spacing: -0.02em;
+      text-align: center;
+    }
+    .brand-header .dot { color: var(--primary); }
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero {
+      font-family: var(--font-display);
+      font-size: 100px;
+      font-weight: 900;
+      line-height: 0.98;
+      letter-spacing: -0.035em;
+      text-wrap: balance;
+      margin-bottom: 24px;
+      color: var(--text);
+    }
+    .wireframe-container {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-bottom: 50px;
+      max-width: 680px;
+      position: relative;
+    }
+    .wireframe-section {
+      border: 3px solid var(--text);
+      padding: 28px 32px;
+      background: #FFFFFF;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .section-desc {
+      font-family: var(--font-body);
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--muted);
+    }
+    .wireframe-section::after {
+      content: '';
+      position: absolute;
+      right: -18px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-left: 12px solid var(--primary);
+    }
+    .wireframe-section:last-child::after {
+      display: none;
+    }
+    .cta-box {
+      background: var(--primary);
+      color: #FFFFFF;
+      padding: 20px 36px;
+      border: 4px solid var(--text);
+      box-shadow: 10px 10px 0 0 var(--text);
+      font-family: var(--font-display);
+      font-size: 44px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      display: inline-block;
+      text-align: center;
+    }
+    .footer {
+      font-family: var(--font-body);
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-align: center;
+      color: var(--text);
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="dots-bg"></div>
+  <div class="container">
+    <div class="brand-header">Ponto Final<span class="dot">.</span></div>
+    <div class="main">
+      <h1 class="hero">
+        A página que vende tem <span class="red">ordem.</span>
+      </h1>
+
+      <div class="wireframe-container">
+        <div class="wireframe-section">
+          <div class="section-label">Topo</div>
+          <div class="section-title">O que vendes</div>
+          <div class="section-desc">Para quem, e em que muda a vida deles.</div>
+        </div>
+        <div class="wireframe-section">
+          <div class="section-label">Meio</div>
+          <div class="section-title">Provas</div>
+          <div class="section-desc">Quem já comprou, números, casos concretos.</div>
+        </div>
+        <div class="wireframe-section">
+          <div class="section-label">Fundo</div>
+          <div class="section-title">Ação</div>
+          <div class="section-desc">Uma só chamada clara, sem distrair.</div>
+        </div>
+      </div>
+
+      <div class="cta-box">estrutura</div>
+    </div>
+    <div class="footer">pontofinal.site · link na bio</div>
+  </div>
+</body>
+</html>

@@ -100,7 +100,7 @@
 
 /* ───── SECTION HEADERS ───── */
 .section {
-  padding: var(--s-6) var(--s-6);
+  padding: var(--s-6) var(--s-4);
   border-bottom: var(--border-w-bold) solid var(--border);
 }
 .section__heading {
@@ -731,6 +731,7 @@
   position: relative;
   flex: 1 1 auto;
   min-height: 0;
+  overflow: hidden;
   border-bottom: var(--border-w) solid var(--border);
 }
 .viewer-frame-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
@@ -2454,6 +2455,15 @@ filter-bar { display: block; }
   background: var(--bg);
   overflow-y: auto;
 }
+/* reel com vídeo renderizado — centra o 9:16 no zoom */
+.viewer-frame-wrap--video {
+  display: flex; align-items: center; justify-content: center;
+  background: #000 !important; overflow: hidden !important;
+}
+.viewer-frame-wrap--video video {
+  height: 100%; max-height: 100%; max-width: 100%;
+  aspect-ratio: 9 / 16; object-fit: contain; display: block;
+}
 .viewer-reel-script {
   padding: clamp(20px, 2.4vw, 36px) clamp(20px, 2.6vw, 40px);
   max-width: 720px;
@@ -3051,4 +3061,253 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
   .action-toast { animation: none !important; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   VIEWER ZOOM + ASSISTENTE DE APROVAÇÃO (substitui vista detalhada/anotações)
+   ───────────────────────────────────────────────────────────────────────── */
+.viewer-panel__default,
+.viewer-wizard {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  overflow-y: auto;
+  padding: var(--s-4);
+  gap: var(--s-3);
+}
+.viewer-panel__default[hidden],
+.viewer-wizard[hidden] { display: none; }
+
+.viewer-hint {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  line-height: 1.5;
+  color: rgba(5, 5, 5, 0.6);
+  margin: 0;
+}
+.viewer-status-line {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  margin: 0;
+  padding: 4px 8px;
+  border-left: 3px solid var(--border);
+}
+.viewer-status-line[data-status="approved"] { border-color: var(--status-approved); color: #1B5E20; background: #E8F5E9; }
+.viewer-status-line[data-status="rejected"] { border-color: var(--status-rejected); color: #8a1414; background: #FDECEA; }
+
+/* Dois botões grandes Aprovar/Reprovar — empurrados para o fundo do painel. */
+.viewer-actions--zoom {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-2);
+}
+.viewer-actions--zoom .btn {
+  padding: var(--s-3) var(--s-2);
+  font-size: var(--t-sm);
+}
+
+/* ── Assistente ── */
+.wizard { display: flex; flex-direction: column; gap: var(--s-3); min-height: 0; }
+.wizard__top { display: flex; align-items: center; justify-content: space-between; gap: var(--s-2); }
+.wizard__exit {
+  background: none; border: 0; padding: 0; cursor: pointer;
+  font-family: var(--font-mono); font-size: var(--t-xs); color: rgba(5,5,5,0.65);
+}
+.wizard__exit:hover { color: var(--text); text-decoration: underline; }
+.wizard__disp {
+  font-family: var(--font-heavy); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #fff; padding: 3px 9px; border: 2px solid var(--border);
+}
+.wizard__disp--approved { background: var(--status-approved); }
+.wizard__disp--rejected { background: var(--accent); }
+
+.wizard__progress { display: flex; gap: 5px; }
+.wizard__dot { flex: 1 1 auto; height: 5px; background: rgba(5,5,5,0.14); border: 1px solid var(--border); }
+.wizard__dot.is-done   { background: var(--status-approved); }
+.wizard__dot.is-active { background: var(--text); }
+
+.wizard__step-label {
+  font-family: var(--font-heavy); font-size: var(--t-sm); text-transform: uppercase; letter-spacing: 0.04em;
+  display: flex; align-items: baseline; gap: 8px;
+}
+.wizard__step-count { font-family: var(--font-mono); font-size: 11px; color: rgba(5,5,5,0.5); letter-spacing: 0; text-transform: none; }
+.wizard__q { margin: 0; font-size: var(--t-sm); font-weight: 700; }
+
+.wizard__textarea {
+  width: 100%; resize: vertical; min-height: 84px;
+  font-family: var(--font-mono); font-size: 13px; line-height: 1.5;
+  padding: 12px 14px; color: var(--text); background: #F4F4F2;
+  border: var(--border-w) solid var(--border); outline: none;
+}
+.wizard__textarea:focus { box-shadow: var(--shadow); }
+.wizard__hashtags {
+  margin: 0; padding: 8px 12px; background: #F4F4F2; border: 2px dashed rgba(5,5,5,0.3);
+  font-family: var(--font-mono); font-size: 11px; line-height: 1.5; color: rgba(5,5,5,0.7);
+  white-space: pre-wrap; word-break: break-word;
+}
+.wizard__apply-row { display: flex; align-items: center; gap: 10px; }
+.wizard__feedback { font-family: var(--font-mono); font-size: 11px; color: rgba(5,5,5,0.55); }
+.wizard__feedback.is-ok { color: #1B5E20; font-weight: 700; }
+
+.wizard__nav { margin-top: auto; display: grid; grid-template-columns: auto 1fr; gap: var(--s-2); }
+.wizard__nav .btn { padding: var(--s-3) var(--s-2); font-size: var(--t-sm); }
+.btn--solid { background: var(--text); color: var(--bg); }
+.btn--solid:hover { transform: translate(-2px,-2px); box-shadow: var(--shadow); }
+
+/* Reel: linha activa do script destacada durante o assistente. */
+.viewer-reel-script__line.is-active {
+  outline: 3px solid var(--status-approved); outline-offset: 2px;
+  background: rgba(43,176,95,0.08);
+}
+
+@media (max-width: 880px) {
+  .viewer-panel__default, .viewer-wizard { padding: var(--s-3); }
+}
+
+/* ── Onboarding popups (fluxo de confirmação de copies sobre o zoom) ── */
+.onboard {
+  position: absolute; inset: 0; z-index: 30;
+  display: flex; align-items: center; justify-content: center; padding: 22px;
+}
+.onboard__scrim { position: absolute; inset: 0; background: rgba(5,5,5,0.58); backdrop-filter: blur(2px); }
+.onboard__card {
+  position: relative; z-index: 1;
+  width: min(440px, 100%); max-height: calc(100% - 28px); overflow-y: auto;
+  background: var(--bg); border: var(--border-w-bold) solid var(--border); box-shadow: var(--shadow-lg);
+  padding: var(--s-4); display: flex; flex-direction: column; gap: var(--s-3);
+  animation: onboard-in 220ms cubic-bezier(.2,.8,.2,1);
+}
+@keyframes onboard-in { from { opacity: 0; transform: translateY(16px) scale(.97); } to { opacity: 1; transform: none; } }
+.onboard__head { display: flex; align-items: center; gap: var(--s-2); }
+.onboard__kicker { font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: rgba(5,5,5,.55); margin-right: auto; }
+.onboard__close {
+  width: 30px; height: 30px; border: 2px solid var(--border); background: var(--bg);
+  cursor: pointer; font: 900 17px/1 var(--font-heavy); color: var(--text); flex-shrink: 0;
+}
+.onboard__close:hover { background: var(--text); color: var(--bg); }
+.onboard__preview { width: 100%; border: var(--border-w) solid var(--border); background: #000; overflow: hidden; }
+.onboard__preview iframe { width: 100%; height: 100%; border: 0; display: block; pointer-events: none; }
+.onboard__preview--4-5  { aspect-ratio: 4 / 5;  max-height: 280px; }
+.onboard__preview--9-16 { aspect-ratio: 9 / 16; max-height: 300px; width: auto; max-width: 200px; margin: 0 auto; }
+.onboard__reel-tag {
+  font-family: var(--font-mono); font-size: 11px; padding: 7px 11px;
+  border-left: 3px solid var(--status-approved); background: rgba(43,176,95,.08);
+}
+@media (max-width: 880px) {
+  .onboard { align-items: flex-end; padding: 0; }
+  .onboard__card { width: 100%; max-height: 86%; border-width: 3px 0 0 0; }
+  .onboard__preview--4-5 { max-height: 200px; }
+  .onboard__preview--9-16 { max-height: 220px; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   CARTÃO INLINE (grelha): ver + editar + data + decidir, tudo num cartão.
+   Pensado para ser muito fácil de usar (alvos grandes, rótulos claros).
+   ───────────────────────────────────────────────────────────────────────── */
+.card {
+  position: relative;
+  border: var(--border-w-bold) solid var(--border);
+  background: var(--bg);
+  box-shadow: var(--shadow);
+  padding: var(--s-3);
+  display: flex; flex-direction: column; gap: var(--s-3);
+  margin-bottom: var(--s-4);
+}
+.card[data-status="approved"] { border-color: var(--status-approved); }
+.card[data-status="rejected"] { border-color: var(--status-rejected); opacity: .82; }
+.card__head { display: flex; align-items: center; gap: var(--s-2); flex-wrap: wrap; }
+.card__brand { font: 800 15px/1 var(--font-heavy); text-transform: uppercase; letter-spacing: .04em; }
+.card__type { font-family: var(--font-mono); font-size: 12px; color: rgba(5,5,5,.6); }
+.card__zoom {
+  margin-left: auto; border: 2px solid var(--border); background: var(--bg);
+  font-family: var(--font-mono); font-size: 12px; padding: 8px 12px; cursor: pointer;
+}
+.card__zoom:hover { background: var(--text); color: var(--bg); }
+
+.card__thumbs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
+.card-thumb {
+  flex: 0 0 auto; width: 84px; aspect-ratio: 4/5; border: 2px solid var(--border);
+  background: #000; padding: 0; cursor: pointer; position: relative; overflow: hidden;
+}
+.card-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card-thumb.is-sel { outline: 4px solid var(--accent); outline-offset: -2px; }
+.card-thumb__n { position: absolute; left: 0; bottom: 0; background: var(--border); color: #fff; font: 700 10px/1.4 var(--font-mono); padding: 1px 5px; }
+
+.card__slidebar { display: flex; align-items: center; gap: var(--s-2); }
+.card__nav { width: 42px; height: 42px; border: 2px solid var(--border); background: var(--bg); font: 900 20px/1 var(--font-heavy); cursor: pointer; }
+.card__nav:hover { background: var(--text); color: var(--bg); }
+.card__slidecount { font-family: var(--font-mono); font-size: 13px; font-weight: 700; }
+
+.card__field, .card__editor { display: flex; flex-direction: column; gap: 6px; }
+.card__label { font: 800 13px/1.2 var(--font-heavy); text-transform: uppercase; letter-spacing: .03em; display: flex; align-items: baseline; gap: 8px; }
+.card__hint { font: 400 11px var(--font-mono); text-transform: none; letter-spacing: 0; color: rgba(5,5,5,.45); }
+.card__text {
+  width: 100%; resize: vertical; font: 500 15px/1.5 var(--font-mono);
+  padding: 12px 14px; border: var(--border-w) solid var(--border); background: #F4F4F2; color: var(--text);
+}
+.card__text:focus { outline: none; box-shadow: var(--shadow); }
+.card__hashtags { margin: 0; font: 400 11px/1.5 var(--font-mono); color: rgba(5,5,5,.6); white-space: pre-wrap; word-break: break-word; }
+.card__saverow { display: flex; align-items: center; gap: 10px; min-height: 22px; }
+.card__fb { font: 700 12px var(--font-mono); color: #1B5E20; }
+
+.card__when { display: flex; gap: var(--s-3); flex-wrap: wrap; }
+.card__when-item { display: flex; align-items: center; gap: 6px; font: 700 14px var(--font-mono); border: 2px solid var(--border); padding: 8px 12px; }
+.card__when-item input { border: 0; font: 600 15px var(--font-mono); background: transparent; color: var(--text); }
+
+.card__decide { display: flex; align-items: center; gap: var(--s-3); margin-top: var(--s-1); }
+.card__approve { flex: 1 1 auto; font: 900 18px/1 var(--font-heavy); padding: 18px; text-transform: uppercase; letter-spacing: .05em; }
+.card__approve[aria-pressed="true"] { outline: 4px solid var(--status-approved); outline-offset: 3px; }
+.card__reject { background: none; border: 0; color: rgba(5,5,5,.5); font: 600 13px var(--font-mono); text-decoration: underline; cursor: pointer; padding: 10px; flex: 0 0 auto; }
+.card__reject:hover { color: var(--status-rejected); }
+.card__reject[aria-pressed="true"] { color: var(--status-rejected); font-weight: 800; }
+
+/* Selo de estado no cartão não deve bloquear cliques nos controlos. */
+.card > .status-stamp { pointer-events: none; }
+.card__slidebar .card__zoom { margin-left: auto; }
+
+/* Story card: imagem 9:16 ao lado dos campos editáveis. */
+.card__story-row { display: flex; gap: var(--s-3); align-items: flex-start; }
+.card__story-img { flex: 0 0 auto; width: 150px; aspect-ratio: 9/16; border: 2px solid var(--border); background: #000; padding: 0; cursor: pointer; position: relative; overflow: hidden; }
+.card__story-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card__story-zoomhint { position: absolute; left: 0; right: 0; bottom: 0; background: rgba(5,5,5,.7); color: #fff; font: 600 10px/1.6 var(--font-mono); text-align: center; opacity: 0; transition: opacity .15s; }
+.card__story-img:hover .card__story-zoomhint { opacity: 1; }
+.card__story-fields { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: var(--s-3); }
+@media (max-width: 620px) {
+  .card__story-row { flex-direction: column; }
+  .card__story-img { width: 120px; align-self: center; }
+}
+
+/* Stories e reels agora são cartões full-width empilhados (como os carrosséis),
+   não a grelha estreita dos tiles antigos. */
+#postsGallery, #reelsGallery { display: flex; flex-direction: column; gap: 0; }
+#carrosseisList .card, #postsGallery .card, #reelsGallery .card { width: 100%; max-width: none; margin-left: 0; margin-right: 0; }
+
+/* ─── Cartão full-width com preview AO VIVO (duas colunas) ─────────────────── */
+.card__main { display: flex; gap: var(--s-4); align-items: flex-start; }
+.card__left { flex: 0 0 46%; max-width: 540px; display: flex; flex-direction: column; gap: var(--s-2); }
+.card--story .card__left { flex: 0 0 320px; }
+.card__right { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: var(--s-3); }
+
+.card__preview {
+  position: relative; width: 100%;
+  border: var(--border-w-bold) solid var(--border); background: #000;
+  box-shadow: var(--shadow); overflow: hidden;
+}
+.card__preview iframe { width: 100%; height: 100%; border: 0; display: block; }
+.card__preview--45  { aspect-ratio: 4 / 5; }
+.card__preview--916 { aspect-ratio: 9 / 16; }
+.card__preview video { width: 100%; height: 100%; display: block; object-fit: contain; background: #000; }
+.card--reel .card__left { flex: 0 0 340px; max-width: 360px; }
+.card__when-sig {
+  display: block; margin-top: var(--s-1, 6px);
+  font-size: 12px; letter-spacing: 0.02em;
+  color: var(--muted, #8a8a8a); font-style: italic;
+}
+
+@media (max-width: 880px) {
+  .card__main { flex-direction: column; }
+  .card__left { flex: none; width: 100%; max-width: 100%; }
+  .card--story .card__left { flex: none; max-width: 360px; align-self: center; }
 }

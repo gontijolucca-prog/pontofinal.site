@@ -1,23 +1,27 @@
-// <item-viewer> — modal preview with prev/next arrows for carousels, close button
-// outside the image area, side panel with copy + approval actions.
+// <item-viewer> — preview em zoom (HTML ao vivo) com navegação entre slides.
+// Sem vista detalhada nem anotações: apenas Aprovar / Reprovar. Ao carregar
+// num desses botões abre-se um assistente que percorre o copy de cada slide
+// (editável, com "Aplicar" que altera o texto ao vivo no iframe same-origin e
+// guarda o override) e termina no copy da descrição. O PNG final é
+// re-renderizado do lado do produtor a partir dos overrides guardados.
 
 import { approvalStore, init as initApprovalStore } from "../stores/approval-store.js";
+import { fitScaledFrame, dimsFor } from "../lib/fit-frame.js";
+import { APP_VERSION } from "../config.js";
+import { fmtToHtml } from "../lib/rich-text.js";
 
 const BRAND_LABELS = { techbody: "TechBody", techbody_u: "TechBody U", luiz_santana: "Luiz Santana" };
+const ROLE_LABELS = { hook: "Hook", demo: "Desenvolvimento", proof: "Prova", development: "Desenvolvimento", cta: "CTA", outro: "Fecho", intro: "Intro" };
 
 class ItemViewer extends HTMLElement {
   connectedCallback() {
     this.classList.add("viewer-backdrop");
     this._slide = 1;
-    this._notes = null;
-    // Re-renderiza notas e badges quando o cache muda (ex.: realtime do
-    // Supabase entregou uma nova anotação de outro device).
+    this._wizard = null;
+    // Refresca o estado mostrado no painel quando o cache muda (ex.: realtime).
     this._onApprovalChange = () => {
       if (!this._item || this.getAttribute("data-open") !== "true") return;
-      const fresh = approvalStore.listNotes(this._item.id);
-      this._notes = fresh;
-      this._renderNotes();
-      this._updateCaptionBadge();
+      if (!this._wizard) this._refreshStatusLine();
     };
     window.addEventListener("approval:changed", this._onApprovalChange);
     this.addEventListener("click", (e) => { if (e.target === this) this.close(); });
@@ -25,60 +29,22 @@ class ItemViewer extends HTMLElement {
       if (this.getAttribute("data-open") !== "true") return;
       const tag = (e.target?.tagName || "").toLowerCase();
       const typing = tag === "input" || tag === "textarea" || tag === "select" || e.target?.isContentEditable;
-      if (e.key === "Escape") return this.close();
-      if (e.key === "ArrowRight") return this._step(+1);
-      if (e.key === "ArrowLeft")  return this._step(-1);
+      if (e.key === "Escape") { if (this._wizard) return this._exitWizard(); return this.close(); }
       if (typing) return;
+      if (e.key === "ArrowRight") return this._wizard ? this._wizardNext() : this._step(+1);
+      if (e.key === "ArrowLeft")  return this._wizard ? this._wizardBack() : this._step(-1);
+      if (this._wizard) return;
       const key = e.key.toLowerCase();
-      if (key === "a") { e.preventDefault(); this._actAndAdvance("approve"); return; }
-      if (key === "r") { e.preventDefault(); this._actAndAdvance("reject");  return; }
       if (key === "j" || e.key === "ArrowDown") { e.preventDefault(); this._advanceItem(+1); return; }
       if (key === "k" || e.key === "ArrowUp")   { e.preventDefault(); this._advanceItem(-1); return; }
     });
   }
 
-  _actAndAdvance(action) {
-    if (!this._item) return;
-    const note = this.querySelector("textarea[data-note]")?.value || "";
-    const desired = action === "approve" ? "approved" : "rejected";
-    const current = approvalStore.get(this._item.id).status;
-    const finalStatus = current === desired ? "pending" : desired;
-    approvalStore.set(this._item.id, finalStatus, note);
-    this._showActionToast(finalStatus);
-    if (!this._advanceItem(+1)) this.close();
-  }
-
-  // Toast de confirmacao apos aprovar/rejeitar. Fornece feedback visivel
-  // imediato — sem isto, o viewer fecha em silencio e o user fica em duvida
-  // se a accao foi mesmo registada.
-  _showActionToast(status) {
-    try {
-      const cfg = {
-        approved: { icon: "OK", text: "Aprovado", color: "#2BB05F" },
-        rejected: { icon: "X",  text: "Rejeitado", color: "#FF4D2E" },
-        pending:  { icon: "...", text: "Pendente", color: "#888" }
-      };
-      const c = cfg[status] || cfg.pending;
-      const toast = document.createElement("div");
-      toast.className = "action-toast";
-      toast.style.cssText = `position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:${c.color};color:#fff;padding:14px 24px;font:900 14px/1 var(--font-heavy);letter-spacing:0.08em;text-transform:uppercase;border:3px solid #050505;box-shadow:6px 6px 0 0 #050505;z-index:9999;display:flex;align-items:center;gap:10px;animation:pf-toast-in 240ms ease-out;`;
-      toast.innerHTML = `<span style="font-size:18px">${c.icon}</span>${c.text}`;
-      document.body.appendChild(toast);
-      setTimeout(() => {
-        toast.style.transition = "opacity 200ms, transform 200ms";
-        toast.style.opacity = "0";
-        toast.style.transform = "translateX(-50%) translateY(10px)";
-        setTimeout(() => toast.remove(), 220);
-      }, 1400);
-    } catch {}
-  }
-
   _advanceItem(direction) {
     if (!this._item) return false;
     const ev = new CustomEvent("viewer:advance", {
-      bubbles: true,
-      cancelable: true,
-      detail: { currentId: this._item.id, direction, callback: null },
+      bubbles: true, cancelable: true,
+      detail: { currentId: this._item.id, direction, next: null },
     });
     this.dispatchEvent(ev);
     const next = ev.detail.next;
@@ -87,305 +53,150 @@ class ItemViewer extends HTMLElement {
     return true;
   }
 
+  // ─── Abertura / fecho ────────────────────────────────────────────────────
+
   open(item) {
     this._item = item;
     this._slide = 1;
-    this._notes = null;
+    this._wizard = null;
     this.setAttribute("data-open", "true");
     this.setAttribute("aria-hidden", "false");
     document.body.classList.add("viewer-open");
     this.render();
-    this._maybeShowSwipeHint();
-    // Defensivo: força "Texto dos slides" e "Descrição Instagram" fechados.
-    // Anotações fica aberto (tem data-notes-section).
-    this.querySelectorAll("details.viewer-section:not([data-notes-section])").forEach(d => { d.open = false; });
-    this._loadNotes();
-  }
-
-  async _loadNotes() {
-    if (!this._item) return;
-    const itemId = this._item.id;
-    await initApprovalStore();
-    if (!this._item || this._item.id !== itemId) return;
-    this._notes = approvalStore.listNotes(itemId);
-    this._captionNotes = approvalStore.listCaptionNotes(itemId);
-    this._renderNotes();
-    this._renderCaptionNotes();
-    // Re-avalia badge da caption: agora que sabemos das anotações, podemos
-    // detectar se há substitute (resolved && !deleted) e mostrar visualmente
-    // como "✓ Novo copy" em vez de "Rejeitada".
-    this._updateCaptionBadge();
-  }
-
-  // Devolve a anotação que substituiu o copy (resolved && !deleted). Quando
-  // uma caption é rejeitada e o cliente deixa o copy alternativo numa nota,
-  // marcamos essa nota como resolved — ela "vira" a caption e desaparece da
-  // lista normal. Esta é a regra do workflow caption-rejeitada.
-  _getCaptionSubstitute() {
-    const rows = this._captionNotes || [];
-    return rows.find(r => r.resolved && !r.deleted) || null;
-  }
-
-  _renderCaptionNotes() {
-    const wrap = this.querySelector("[data-caption-notes]");
-    if (!wrap) return;
-    const all = this._captionNotes || [];
-    // Esconder anotações resolved não-deleted — elas viraram a caption nova.
-    // Continuamos a mostrar resolved+deleted no <details> colapsado (auditoria).
-    const rows = all.filter(r => !(r.resolved && !r.deleted));
-    const counter = this.querySelector("[data-caption-notes-count]");
-    if (counter) counter.textContent = rows.length > 0 ? `(${rows.length})` : "";
-    if (!rows.length) {
-      wrap.innerHTML = `<p class="viewer-notes__empty">Ainda não há anotações. Escreve uma em baixo e carrega "Guardar anotação".</p>`;
-      return;
-    }
-    wrap.innerHTML = this._buildNoteRowsHtml(rows);
-  }
-
-  // Helper partilhado para renderizar rows de anotações (slides ou caption).
-  _buildNoteRowsHtml(rows) {
-    const fmt = (iso) => {
-      const d = new Date(iso);
-      return d.toLocaleString("pt-PT", { dateStyle: "short", timeStyle: "short" });
-    };
-    return rows.map(r => {
-      const isDeleted = r.deleted;
-      // Auto-resolvido: o texto atual do slide/caption já corresponde ao que
-      // a anotação pediu → o feedback foi aplicado. Combina com o resolved
-      // explícito (workflow caption-rejeitada) para mostrar o selo verde.
-      const autoCorrected = this._isAutoCorrected(r);
-      const showResolved = !!r.resolved || autoCorrected;
-      const hasText = r.note && r.note.trim();
-      let bodyHtml, rightBtn;
-      if (!isDeleted) {
-        bodyHtml = `<p class="viewer-note__text">${this._escapeForHtml(r.note)}</p>`;
-        rightBtn = `<button type="button" class="viewer-note__delete" data-action="delete-note" data-note-key="${this._escapeForHtml(r.key)}" aria-label="Apagar anotação" title="Apagar anotação">✕</button>`;
-      } else if (hasText) {
-        bodyHtml = `<p class="viewer-note__text viewer-note__text--struck">${this._escapeForHtml(r.note)}</p>`;
-        rightBtn = `<button type="button" class="viewer-note__restore" data-action="restore-note" data-note-key="${this._escapeForHtml(r.key)}" aria-label="Restaurar anotação" title="Restaurar anotação">↺</button>`;
-      } else {
-        bodyHtml = `<p class="viewer-note__text viewer-note__text--deleted"><em>[anotação apagada — texto original perdido]</em></p>`;
-        rightBtn = ``;
-      }
-      const deletedTag = isDeleted ? `<span class="viewer-note__deleted-tag">apagada</span>` : "";
-      const resolvedTag = showResolved
-        ? `<span class="viewer-note__resolved-tag" title="${this._escapeForHtml(autoCorrected && !r.resolved ? "O texto atual do post já corresponde a esta anotação — feedback aplicado" : "Esta anotação já foi processada e o feedback aplicado")}">${r.caption ? "✓ correcto" : "✓ corrigido"}</span>`
-        : "";
-      const slideTag = r.slide ? `<span class="viewer-note__slide">Slide ${String(r.slide).padStart(2, "0")}</span>` : "";
-      if (isDeleted) {
-        // Apagada: colapsada por defeito; <details>/<summary> dá UX de drop-down
-        // nativa. Clicar em qualquer ponto da meta abre/fecha. O botão restore
-        // continua acessível dentro do summary (não dispara o toggle quando
-        // o handler chama stopPropagation).
-        return `
-        <details class="viewer-note viewer-note--deleted${showResolved ? ' viewer-note--resolved' : ''}" data-note-key="${this._escapeForHtml(r.key)}">
-          <summary class="viewer-note__meta viewer-note__meta--summary">
-            <span class="viewer-note__caret" aria-hidden="true">▸</span>
-            ${slideTag}
-            ${deletedTag}
-            <span class="viewer-note__time">${fmt(r.changed_at)}</span>
-            ${resolvedTag}
-            ${r.changed_by_email ? `<span class="viewer-note__author">· ${this._escapeForHtml(r.changed_by_email)}</span>` : ""}
-            ${rightBtn}
-          </summary>
-          ${bodyHtml}
-        </details>
-        `;
-      }
-      return `
-      <div class="viewer-note${showResolved ? ' viewer-note--resolved' : ''}" data-note-key="${this._escapeForHtml(r.key)}">
-        <div class="viewer-note__meta">
-          ${slideTag}
-          ${deletedTag}
-          <span class="viewer-note__time">${fmt(r.changed_at)}</span>
-          ${resolvedTag}
-          ${r.changed_by_email ? `<span class="viewer-note__author">· ${this._escapeForHtml(r.changed_by_email)}</span>` : ""}
-          ${rightBtn}
-        </div>
-        ${bodyHtml}
-      </div>
-      `;
-    }).join("");
-  }
-
-  _renderNotes() {
-    const wrap = this.querySelector("[data-notes]");
-    if (!wrap) return;
-    const rows = this._notes || [];
-    const counter = this.querySelector("[data-notes-count]");
-    if (counter) counter.textContent = rows.length > 0 ? `(${rows.length})` : "";
-
-    if (!rows.length) {
-      wrap.innerHTML = `<p class="viewer-notes__empty">Ainda não há anotações. Escreve uma em baixo e carrega "Guardar anotação".</p>`;
-      return;
-    }
-    wrap.innerHTML = this._buildNoteRowsHtml(rows);
-  }
-
-  _escapeForHtml(s) {
-    return String(s).replace(/[&<>"']/g, c =>
-      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
-    );
-  }
-
-  // Normaliza texto para comparar anotação ↔ texto do post: tira nbsp,
-  // uniformiza aspas/travessões, baixa caixa, colapsa espaços e remove
-  // aspas/colchetes que envolvam o texto (cliente às vezes cola "entre aspas").
-  _normTxt(s) {
-    return String(s || "")
-      .normalize("NFC")
-      .replace(/ /g, " ")
-      .replace(/[«»“”„]/g, '"')
-      .replace(/[‘’]/g, "'")
-      .replace(/[–—]/g, "-")
-      .toLowerCase()
-      .replace(/\s+/g, " ")
-      .trim()
-      .replace(/^["'«»\[\]]+|["'«»\[\]]+$/g, "")
-      .trim();
-  }
-
-  // True quando o texto atual do post já corresponde ao que a anotação pediu.
-  // Anotação de slide compara com o slide-alvo; anotação de caption compara
-  // com a descrição; anotação geral compara com qualquer slide ou a caption.
-  _isAutoCorrected(r) {
-    const item = this._item;
-    if (!item || !r || r.deleted) return false;
-    // O cliente costuma prefixar a sugestão ("Copy:", "Mudar para:", …).
-    // Tiramos esse rótulo de instrução antes de comparar com o texto real.
-    const stripped = String(r.note || "").replace(
-      /^\s*(copys?|mudar(?: para)?|alterar(?: para)?|trocar(?: para)?|substituir(?: por)?|sugest[ãa]o)\s*:?\s*/i,
-      ""
-    );
-    const target = this._normTxt(stripped);
-    if (!target) return false;
-    const slides = item.slides_text || [];
-    if (r.caption) {
-      return this._normTxt(item.caption || "") === target;
-    }
-    if (r.slide) {
-      const s = slides[r.slide - 1];
-      const txt = s ? (s.text_overlay || s.text || "") : "";
-      return this._normTxt(txt) === target;
-    }
-    if (slides.some(s => this._normTxt(s.text_overlay || s.text || "") === target)) return true;
-    return this._normTxt(item.caption || "") === target;
+    // Aplica overrides de copy já guardados (de sessões anteriores) por cima
+    // do items.json, para o texto editado aparecer mesmo após reload.
+    this._applyStoredOverrides();
   }
 
   close() {
+    if (this._fitCleanup) { this._fitCleanup(); this._fitCleanup = null; }
     this._item = null;
-    this._notes = null;
+    this._wizard = null;
+    this._onboard = null;
     this.removeAttribute("data-open");
     this.setAttribute("aria-hidden", "true");
     document.body.classList.remove("viewer-open");
     this.innerHTML = "";
   }
 
-  // Mostra hint de swipe uma vez por sessão em mobile — só na primeira
-  // abertura do viewer. Persiste em sessionStorage para não chatear.
-  _maybeShowSwipeHint() {
-    try {
-      if (window.innerWidth > 720) return;
-      if (sessionStorage.getItem("pf-swipe-hint-seen") === "1") return;
-      const hint = document.createElement("div");
-      hint.className = "swipe-hint";
-      hint.innerHTML = `
-        <div class="swipe-hint__row">
-          <span class="swipe-hint__arrow">‹</span>
-          <span>desliza para navegar</span>
-          <span class="swipe-hint__arrow">›</span>
-        </div>`;
-      document.body.appendChild(hint);
-      setTimeout(() => hint.remove(), 2600);
-      sessionStorage.setItem("pf-swipe-hint-seen", "1");
-    } catch {}
+  // ─── Helpers de dados ─────────────────────────────────────────────────────
+
+  get _isCarousel() { return this._item?.format === "carrossel" && (this._item?.slides || 1) > 1; }
+  get _isReel()     { return this._item?.format === "reel"; }
+
+  _slideText(n) {
+    const s = (this._item?.slides_text || [])[n - 1];
+    return s ? (s.text_overlay || s.text || "") : "";
   }
 
-  _step(delta) {
-    if (!this._item) return;
-    const total = this._item.slides || 1;
-    if (total <= 1) return;
-    const next = Math.min(total, Math.max(1, this._slide + delta));
-    if (next === this._slide) return;
-    this._slide = next;
-    this._syncIframeHash();
-    this._updateCounter();
-    // Sincronizar dropdown "Slide" da zona de anotação com o slide actual
-    const sel = this.querySelector("[data-slide-select]");
-    if (sel) sel.value = String(this._slide);
+  _slideCount() {
+    const it = this._item;
+    if (!it) return 0;
+    if (it.slides_text && it.slides_text.length) return it.slides_text.length;
+    return it.slides || 1;
   }
 
-  _syncIframeHash() {
-    const iframe = this.querySelector(".viewer-frame-wrap iframe");
-    if (!iframe || !this._item?.html_url) return;
-    iframe.src = `${this._item.html_url}#slide-${this._slide}`;
-  }
-
-  _updateCaptionBadge() {
-    if (!this._item) return;
-    const captionState = approvalStore.getCaption(this._item.id);
-    const sub = this._getCaptionSubstitute();
-    // Status visual: se a caption foi rejeitada MAS já existe uma anotação
-    // resolved (= copy substituto definitivo), tratamos como "substituída"
-    // — badge verde com checkmark. O status real no Supabase fica rejected,
-    // isto é só apresentação.
-    const visualStatus = sub && captionState.status === "rejected" ? "substituted" : captionState.status;
-    const details = this.querySelector(".viewer-section--caption");
-    if (!details) return;
-    details.setAttribute("data-caption-status", visualStatus);
-    const wrap = details.querySelector(".viewer-caption");
-    if (wrap) wrap.setAttribute("data-caption-status", visualStatus);
-    const badge = details.querySelector(".viewer-caption__badge");
-    if (badge) {
-      badge.className = `viewer-caption__badge viewer-caption__badge--${visualStatus}`;
-      const map = { approved: "Aprovada", rejected: "Rejeitada", pending: "Pendente", substituted: "✓ Novo copy" };
-      badge.textContent = map[visualStatus] || map.pending;
+  // Carrega overrides guardados (Supabase/localStorage) e aplica-os ao item em
+  // memória + ao iframe ao vivo.
+  _applyStoredOverrides() {
+    const it = this._item;
+    if (!it) return;
+    const slideOv = approvalStore.getAllSlideCopyOverrides?.()[it.id] || {};
+    for (const [n, ov] of Object.entries(slideOv)) {
+      const idx = parseInt(n, 10) - 1;
+      if (it.slides_text && it.slides_text[idx]) {
+        const f = it.slides_text[idx].text_overlay != null ? "text_overlay" : "text";
+        it.slides_text[idx][f] = ov.text;
+      }
     }
-    const authorEl = details.querySelector("[data-caption-author]");
-    if (authorEl) {
-      if (sub && captionState.status === "rejected") {
-        const subAuthor = sub.author || sub.changed_by_email || "cliente";
-        authorEl.innerHTML = `Novo copy aprovado — substituído pela anotação de <strong>${this._escapeForHtml(subAuthor)}</strong>`;
-        authorEl.hidden = false;
-      } else if (captionState.status !== "pending" && captionState.author) {
-        const label = captionState.status === "approved" ? "Aprovada" : "Rejeitada";
-        authorEl.innerHTML = `${label} por <strong>${this._escapeForHtml(captionState.author)}</strong>`;
-        authorEl.hidden = false;
-      } else {
-        authorEl.innerHTML = "";
-        authorEl.hidden = true;
+    const capOv = approvalStore.getAllCaptionCopyOverrides?.()[it.id];
+    if (capOv) it.caption = capOv.text;
+    // Reflectir no iframe assim que carregar.
+    if (Object.keys(slideOv).length) {
+      const iframe = this.querySelector(".viewer-frame-wrap iframe");
+      if (iframe) {
+        const reapply = () => { for (const n of Object.keys(slideOv)) this._liveEditSlide(parseInt(n, 10), slideOv[n].text); };
+        iframe.addEventListener("load", reapply, { once: true });
+        // Caso já esteja carregado.
+        try { if (iframe.contentDocument?.readyState === "complete") reapply(); } catch {}
       }
     }
   }
 
+  // ─── Navegação de slides (sem reload do iframe) ───────────────────────────
+
+  _step(delta) {
+    if (!this._isCarousel) return;
+    const total = this._slideCount();
+    const next = Math.min(total, Math.max(1, this._slide + delta));
+    if (next === this._slide) return;
+    this._slide = next;
+    this._gotoSlideInFrame(next);
+    this._updateCounter();
+  }
+
+  _gotoSlideInFrame(n) {
+    const iframe = this.querySelector(".viewer-frame-wrap iframe");
+    if (!iframe) return;
+    try {
+      const doc = iframe.contentDocument;
+      const el = doc && doc.getElementById(`slide-${n}`);
+      if (el) {
+        for (const e of doc.querySelectorAll("*")) e.style.scrollBehavior = "auto";
+        el.scrollIntoView({ behavior: "auto", inline: "start", block: "start" });
+        return;
+      }
+    } catch {}
+    // Fallback: hash (pode fazer scroll suave / reload conforme o browser).
+    if (this._item?.html_url) iframe.src = `${this._item.html_url}#slide-${n}`;
+  }
+
   _updateCounter() {
     const el = this.querySelector(".viewer-counter");
-    if (el && this._item) el.textContent = `${this._slide} / ${this._item.slides}`;
+    if (el) el.textContent = `${this._slide} / ${this._slideCount()}`;
     const prev = this.querySelector(".viewer-nav--prev");
     const next = this.querySelector(".viewer-nav--next");
     if (prev) prev.disabled = this._slide <= 1;
-    if (next) next.disabled = this._slide >= (this._item?.slides || 1);
+    if (next) next.disabled = this._slide >= this._slideCount();
   }
+
+  // Edita ao vivo o h1 de um slide num iframe same-origin. Não persiste.
+  _editFrameH1(iframe, n, text) {
+    if (!iframe) return;
+    try {
+      const doc = iframe.contentDocument;
+      if (!doc) return;
+      let target = doc.querySelector(`#slide-${n} h1, #slide-${n} h2, #slide-${n} blockquote`);
+      if (!target && n === 1) target = doc.querySelector("h1, h2, blockquote");
+      if (target) target.innerHTML = fmtToHtml(text);
+    } catch { /* cross-origin improvável (mesmo domínio) — ignora */ }
+  }
+
+  _scrollFrameToSlide(iframe, n) {
+    try {
+      const doc = iframe.contentDocument;
+      const el = doc && doc.getElementById(`slide-${n}`);
+      if (el) { for (const e of doc.querySelectorAll("*")) e.style.scrollBehavior = "auto"; el.scrollIntoView({ behavior: "auto", inline: "start", block: "start" }); }
+    } catch {}
+  }
+
+  _liveEditSlide(n, text) { this._editFrameH1(this.querySelector(".viewer-frame-wrap iframe"), n, text); }
+
+  // ─── Render principal ─────────────────────────────────────────────────────
 
   render() {
     const it = this._item;
     if (!it) return;
-    const state = approvalStore.get(it.id);
-    const captionState = approvalStore.getCaption(it.id);
-    const isCarousel = it.format === "carrossel" && it.slides > 1;
-    const isReel = it.format === "reel";
-    const captionLabel = { approved: "Aprovada", rejected: "Rejeitada", pending: "Pendente" };
-    const hasCaption = !!(it.caption && it.caption.trim());
+    const isCarousel = this._isCarousel;
+    const isReel = this._isReel;
 
     const navbarHtml = isCarousel ? `
       <div class="viewer-navbar">
         <button class="viewer-nav viewer-nav--prev" data-action="prev" aria-label="Slide anterior">‹</button>
-        <span class="viewer-counter">${this._slide} / ${it.slides}</span>
+        <span class="viewer-counter">${this._slide} / ${this._slideCount()}</span>
         <button class="viewer-nav viewer-nav--next" data-action="next" aria-label="Próximo slide">›</button>
-      </div>
-    ` : "";
+      </div>` : "";
 
-    const ROLE_LABELS = { hook: "Hook", demo: "Desenvolvimento", proof: "Prova", development: "Desenvolvimento", cta: "CTA", outro: "Fecho", intro: "Intro" };
     const reelScriptHtml = isReel ? `
       <div class="viewer-reel-script">
         <div class="viewer-reel-script__head">
@@ -393,308 +204,307 @@ class ItemViewer extends HTMLElement {
           <span class="viewer-reel-script__duration">Reel ${it.slides || 15}s</span>
         </div>
         <ol class="viewer-reel-script__list">
-          ${(it.slides_text || []).map((s, i) => {
-            const role = s.role || "";
-            const roleLabel = ROLE_LABELS[role] || role.toUpperCase();
-            const text = s.text_overlay || s.text || "";
-            return `
-              <li class="viewer-reel-script__line">
-                <div class="viewer-reel-script__line-head">
-                  <span class="viewer-reel-script__line-num">${String(i + 1).padStart(2, "0")}</span>
-                  ${roleLabel ? `<span class="viewer-reel-script__line-role">${this._escapeForHtml(roleLabel)}</span>` : ""}
-                </div>
-                <p class="viewer-reel-script__line-text">${this._escapeForHtml(text)}</p>
-              </li>
-            `;
-          }).join("")}
+          ${(it.slides_text || []).map((s, i) => `
+            <li class="viewer-reel-script__line" data-reel-line="${i + 1}">
+              <div class="viewer-reel-script__line-head">
+                <span class="viewer-reel-script__line-num">${String(i + 1).padStart(2, "0")}</span>
+                ${s.role ? `<span class="viewer-reel-script__line-role">${this._escapeForHtml(ROLE_LABELS[s.role] || s.role)}</span>` : ""}
+              </div>
+              <p class="viewer-reel-script__line-text">${this._escapeForHtml(s.text_overlay || s.text || "")}</p>
+            </li>`).join("")}
         </ol>
-      </div>
-    ` : "";
+      </div>` : "";
 
-    // Dropdown de slide para o textarea principal (só em carrosseis).
-    const slideSelectHtml = isCarousel ? `
-      <label class="viewer-actions__slide-label">
-        <span>Slide:</span>
-        <select data-slide-select aria-label="Slide a que se refere a anotação">
-          <option value="0">— Geral (sem slide) —</option>
-          ${(it.slides_text || []).map((s, i) => {
-            const n = i + 1;
-            const preview = (s.text_overlay || s.text || "").slice(0, 40);
-            return `<option value="${n}" ${n === this._slide ? "selected" : ""}>${String(n).padStart(2, "0")} — ${this._escapeForHtml(preview)}</option>`;
-          }).join("")}
-        </select>
-      </label>
-    ` : "";
+    const isReelVideo = isReel && !!it.video_url;
+    const bust = `?v=${APP_VERSION}`;
+    const frameHtml = isReelVideo
+      ? `<video class="viewer-video" src="${it.video_url}${bust}" controls autoplay loop playsinline></video>`
+      : isReel
+      ? reelScriptHtml
+      : (it.html_url ? `<iframe src="${it.html_url}${bust}${isCarousel ? "#slide-1" : ""}" title="${this._escapeForHtml(it.title || "")}"></iframe>` : "");
 
     this.innerHTML = `
-      <div class="viewer-modal" data-format="${it.format}" role="dialog" aria-modal="true" aria-label="${it.title || it.theme}">
+      <div class="viewer-modal viewer-modal--zoom" data-format="${it.format}" role="dialog" aria-modal="true" aria-label="${this._escapeForHtml(it.title || it.theme || "")}">
         <div class="viewer-frame-col">
-          <div class="viewer-frame-wrap">
-            ${isReel
-              ? reelScriptHtml
-              : (it.html_url ? `<iframe src="${it.html_url}${isCarousel ? "#slide-1" : ""}" title="${it.title}"></iframe>` : ``)}
-          </div>
+          <div class="viewer-frame-wrap${isReelVideo ? " viewer-frame-wrap--video" : ""}">${frameHtml}</div>
           ${navbarHtml}
         </div>
         <aside class="viewer-panel">
-          <div class="viewer-panel__scroll">
+          <div class="viewer-panel__default" data-panel="default">
             <div class="viewer-meta">
               <span class="viewer-brand">${BRAND_LABELS[it.brand] || it.brand}</span>
-              <h3 class="viewer-title">${it.title || it.theme}</h3>
+              <h3 class="viewer-title">${this._escapeForHtml(it.title || it.theme || "")}</h3>
               <div class="viewer-tags">
                 <span class="tag tag--accent">${it.format}</span>
-                ${it.pilar ? `<span class="tag">${it.pilar}</span>` : ""}
-                ${it.audience ? `<span class="tag tag--solid">${it.audience.toUpperCase()}</span>` : ""}
-                <label class="tag tag--date" title="Alterar data de publicação">
-                  <input type="date" data-edit-date value="${it.scheduled_for || ""}" />
-                </label>
-                <label class="tag tag--date" title="Alterar hora de publicação">
-                  <input type="time" data-edit-hour value="${it.hour || ""}" />
-                </label>
+                ${it.pilar ? `<span class="tag">${this._escapeForHtml(it.pilar)}</span>` : ""}
+                ${it.audience ? `<span class="tag tag--solid">${String(it.audience).toUpperCase()}</span>` : ""}
+                <label class="tag tag--date" title="Alterar data de publicação"><input type="date" data-edit-date value="${it.scheduled_for || ""}" /></label>
+                <label class="tag tag--date" title="Alterar hora de publicação"><input type="time" data-edit-hour value="${it.hour || ""}" /></label>
               </div>
-              ${state.status !== "pending" && state.author ? `
-                <p class="viewer-author" title="${this._escapeForHtml(state.author)}">
-                  ${state.status === "approved" ? "Aprovado" : "Rejeitado"} por
-                  <strong>${this._escapeForHtml(state.author)}</strong>
-                </p>
-              ` : ""}
+              <p class="viewer-status-line" data-status-line></p>
             </div>
-            <details class="viewer-section">
-              <summary>Texto dos slides</summary>
-              <div class="viewer-slides">
-                ${(it.slides_text || []).map((s, i) => `
-                  <div class="viewer-slide">
-                    <span class="viewer-slide__num">${String(i + 1).padStart(2, "0")}</span>
-                    <p class="viewer-slide__text">${s.text_overlay || s.text || ""}</p>
-                  </div>
-                `).join("")}
-              </div>
-            </details>
-            ${hasCaption ? `
-            <details class="viewer-section viewer-section--caption" data-caption-status="${captionState.status}">
-              <summary>
-                Sugestão de copy
-                <span class="viewer-caption__badge viewer-caption__badge--${captionState.status}">${captionLabel[captionState.status]}</span>
-              </summary>
-              <div class="viewer-caption" data-caption-status="${captionState.status}">
-                <p class="viewer-caption__author" data-caption-author ${captionState.status === "pending" || !captionState.author ? "hidden" : ""}>${captionState.status !== "pending" && captionState.author ? `${captionState.status === "approved" ? "Aprovada" : "Rejeitada"} por <strong>${this._escapeForHtml(captionState.author)}</strong>` : ""}</p>
-                <pre class="viewer-caption__text">${this._escapeForHtml(it.caption)}</pre>
-                ${it.hashtags ? `<pre class="viewer-caption__hashtags">${this._escapeForHtml(it.hashtags)}</pre>` : ""}
-                <div class="viewer-caption__notes-block">
-                  <div class="viewer-caption__notes-head">
-                    Anotações <span class="viewer-section__counter" data-caption-notes-count></span>
-                  </div>
-                  <div class="viewer-notes viewer-caption__notes" data-caption-notes>
-                    <p class="viewer-notes__empty">A carregar…</p>
-                  </div>
-                </div>
-                <div class="viewer-caption__actions">
-                  <textarea data-caption-note placeholder="Escreve uma anotação sobre a copy"></textarea>
-                  <button class="btn btn--ghost btn--small" data-action="caption-save-note"><span class="btn__icon" aria-hidden="true">✎</span> Guardar anotação</button>
-                  <span class="viewer-caption__feedback" data-caption-feedback aria-live="polite"></span>
-                  <button class="btn btn--reject btn--small" data-action="caption-reject"><span class="btn__icon" aria-hidden="true">✕</span> Rejeitar copy</button>
-                  <button class="btn btn--approve btn--small" data-action="caption-approve"><span class="btn__icon" aria-hidden="true">✓</span> Aprovar copy</button>
-                </div>
-              </div>
-            </details>
-            ` : ""}
-            <details class="viewer-section" data-notes-section open>
-              <summary>
-                Anotações
-                <span class="viewer-section__counter" data-notes-count></span>
-              </summary>
-              <div class="viewer-notes" data-notes>
-                <p class="viewer-notes__empty">A carregar…</p>
-              </div>
-            </details>
-          </div>
-          <div class="viewer-actions">
-            ${slideSelectHtml}
-            <textarea data-note placeholder="Escreve uma anotação"></textarea>
-            <button class="btn btn--ghost" data-action="save-note"><span class="btn__icon" aria-hidden="true">✎</span> Guardar anotação</button>
-            <span class="viewer-actions__feedback" data-feedback aria-live="polite"></span>
-            <button class="btn btn--reject" data-action="reject"><span class="btn__icon" aria-hidden="true">✕</span> Rejeitar</button>
-            <button class="btn btn--approve" data-action="approve"><span class="btn__icon" aria-hidden="true">✓</span> Aprovar</button>
+            <p class="viewer-hint">${isCarousel ? "Desliza entre os slides com ‹ ›. " : ""}Esta é a vista ampliada. O texto, a data e o Aprovar ficam na lista (fecha para voltar).</p>
           </div>
         </aside>
         <button class="viewer-close" data-action="close" aria-label="Fechar">×</button>
-      </div>
-    `;
+      </div>`;
+
+    // Escala o iframe à dimensão exacta de publicação para que o "ver em
+    // grande" seja idêntico ao preview do cartão e à imagem publicada.
+    if (this._fitCleanup) { this._fitCleanup(); this._fitCleanup = null; }
+    if (!isReel && it.html_url) {
+      const wrap = this.querySelector(".viewer-frame-wrap");
+      const [nw, nh] = dimsFor(it.format);
+      if (wrap) this._fitCleanup = fitScaledFrame(wrap, nw, nh);
+    }
 
     this._updateCounter();
+    this._refreshStatusLine();
+    this._bindDefaultHandlers();
+  }
 
-    // Edição da data de publicação. Quando o user escolhe nova data:
-    // 1) Persiste em Supabase via approvalStore.setDate
-    // 2) Muta _item.scheduled_for em memória
-    // 3) Emite item:date-changed para o main.js mutar state.items + render()
-    const dateInput = this.querySelector("input[data-edit-date]");
-    if (dateInput) {
-      dateInput.addEventListener("change", async (e) => {
-        const newDate = e.target.value;
-        if (!newDate || !this._item) return;
-        const oldDate = this._item.scheduled_for;
-        if (newDate === oldDate) return;
-        this._item.scheduled_for = newDate;
-        try {
-          await approvalStore.setDate(this._item.id, newDate);
-        } catch (err) {
-          console.error("[viewer] setDate failed:", err);
-          this._item.scheduled_for = oldDate;
-          e.target.value = oldDate || "";
-          return;
-        }
-        this.dispatchEvent(new CustomEvent("item:date-changed", {
-          bubbles: true,
-          detail: { id: this._item.id, date: newDate, oldDate },
-        }));
-      });
-    }
+  _refreshStatusLine() {
+    const el = this.querySelector("[data-status-line]");
+    if (!el || !this._item) return;
+    const st = approvalStore.get(this._item.id);
+    if (st.status === "pending" || !st.status) { el.textContent = ""; el.hidden = true; return; }
+    el.hidden = false;
+    const label = st.status === "approved" ? "Aprovado" : "Rejeitado";
+    el.innerHTML = `${label}${st.author ? ` por <strong>${this._escapeForHtml(st.author)}</strong>` : ""}`;
+    el.dataset.status = st.status;
+  }
 
-    const hourInput = this.querySelector("input[data-edit-hour]");
-    if (hourInput) {
-      hourInput.addEventListener("change", async (e) => {
-        const newHour = e.target.value;
-        if (!newHour || !this._item) return;
-        const oldHour = this._item.hour;
-        if (newHour === oldHour) return;
-        this._item.hour = newHour;
-        try {
-          await approvalStore.setHour(this._item.id, newHour);
-        } catch (err) {
-          console.error("[viewer] setHour failed:", err);
-          this._item.hour = oldHour;
-          e.target.value = oldHour || "";
-          return;
-        }
-        this.dispatchEvent(new CustomEvent("item:hour-changed", {
-          bubbles: true,
-          detail: { id: this._item.id, hour: newHour, oldHour },
-        }));
-      });
-    }
-
-    // Swipe gestures (mobile) — swipe horizontal no modal navega entre items.
-    // Ignora swipes dentro de áreas de scroll, inputs ou na action bar
-    // (caso contrário o user perde a anotação a meio).
-    const modalEl = this.querySelector(".viewer-modal");
-    let _tsX = 0, _tsY = 0, _tsT = 0, _tsValid = false;
-    modalEl.addEventListener("touchstart", (e) => {
-      _tsValid = false;
-      if (e.touches.length !== 1) return;
-      const t = e.target;
-      if (t.closest("textarea, select, input, button, a, iframe, .viewer-panel__scroll, .viewer-actions, .viewer-caption__actions")) return;
-      _tsX = e.touches[0].clientX;
-      _tsY = e.touches[0].clientY;
-      _tsT = Date.now();
-      _tsValid = true;
-    }, { passive: true });
-    modalEl.addEventListener("touchend", (e) => {
-      if (!_tsValid) return;
-      _tsValid = false;
-      const dx = e.changedTouches[0].clientX - _tsX;
-      const dy = e.changedTouches[0].clientY - _tsY;
-      const dt = Date.now() - _tsT;
-      if (dt > 500) return;
-      if (Math.abs(dy) > Math.abs(dx)) return;
-      if (Math.abs(dx) < 70) return;
-      if (dx < 0) this._advanceItem(+1);
-      else this._advanceItem(-1);
-    }, { passive: true });
-
-    this.querySelector(".viewer-modal").addEventListener("click", async (e) => {
+  _bindDefaultHandlers() {
+    const modal = this.querySelector(".viewer-modal");
+    modal.addEventListener("click", (e) => {
       const btn = e.target.closest("[data-action]");
       if (!btn) return;
-      const action = btn.dataset.action;
-      if (action === "close") return this.close();
-      if (action === "prev")  return this._step(-1);
-      if (action === "next")  return this._step(+1);
-      if (action === "save-note") {
-        const ta = this.querySelector("textarea[data-note]");
-        const note = (ta?.value || "").trim();
-        if (!note) {
-          const fb = this.querySelector("[data-feedback]");
-          if (fb) {
-            fb.textContent = "Escreve algo antes de guardar.";
-            fb.classList.add("is-visible");
-            setTimeout(() => { fb.classList.remove("is-visible"); fb.textContent = ""; }, 1800);
-          }
-          return;
-        }
-        const sel = this.querySelector("[data-slide-select]");
-        const slideN = sel ? parseInt(sel.value, 10) || null : null;
-        await approvalStore.saveNote(this._item.id, note, slideN ? { slideN } : {});
-        if (ta) ta.value = "";
-        const fb = this.querySelector("[data-feedback]");
-        if (fb) {
-          fb.textContent = slideN ? `✓ Anotação guardada (slide ${slideN})` : "✓ Anotação guardada";
-          fb.classList.add("is-visible");
-          setTimeout(() => { fb.classList.remove("is-visible"); fb.textContent = ""; }, 2200);
-        }
-        const notesPanel = this.querySelector('details[data-notes-section]');
-        if (notesPanel && !notesPanel.open) notesPanel.open = true;
-        await this._loadNotes();
-        return;
-      }
-      if (action === "delete-note") {
-        const key = btn.dataset.noteKey;
-        if (!key) return;
-        if (!window.confirm("Apagar esta anotação? O texto fica preservado e podes restaurar mais tarde.")) return;
-        const ok = await approvalStore.deleteNote(key);
-        if (!ok) {
-          window.alert("Não foi possível apagar a anotação. Tenta de novo.");
-          return;
-        }
-        await this._loadNotes();
-        return;
-      }
-      if (action === "restore-note") {
-        // Botão vive dentro do <summary> da nota apagada — impede o toggle
-        // nativo do <details> de disparar (o re-render encarrega-se do estado).
-        e.preventDefault();
-        const key = btn.dataset.noteKey;
-        if (!key) return;
-        const ok = await approvalStore.restoreNote(key);
-        if (!ok) {
-          window.alert("Não foi possível restaurar a anotação (texto original perdido).");
-          return;
-        }
-        await this._loadNotes();
-        return;
-      }
-      if (action === "approve" || action === "reject") {
-        const note = (this.querySelector("textarea[data-note]")?.value || "").trim();
-        const desired = action === "approve" ? "approved" : "rejected";
-        const current = approvalStore.get(this._item.id).status;
-        const finalStatus = current === desired ? "pending" : desired;
-        await approvalStore.set(this._item.id, finalStatus, note);
-        this._showActionToast(finalStatus);
-        this.close();
-      }
-      if (action === "caption-save-note") {
-        const ta = this.querySelector("textarea[data-caption-note]");
-        const text = (ta?.value || "").trim();
-        if (!text) return;
-        await approvalStore.saveNote(this._item.id, text, { caption: true });
-        if (ta) ta.value = "";
-        const fb = this.querySelector("[data-caption-feedback]");
-        if (fb) {
-          fb.textContent = "✓ Guardado";
-          fb.classList.add("is-visible");
-          setTimeout(() => { fb.classList.remove("is-visible"); fb.textContent = ""; }, 1800);
-        }
-        await this._loadNotes();
-        return;
-      }
-      if (action === "caption-approve" || action === "caption-reject") {
-        const desired = action === "caption-approve" ? "approved" : "rejected";
-        const current = approvalStore.getCaption(this._item.id).status;
-        // Aprovação/rejeição da caption — note vazia, a opinião fica nas
-        // anotações dedicadas via saveNote({caption:true}).
-        await approvalStore.setCaption(this._item.id, current === desired ? "pending" : desired, "");
-        this._updateCaptionBadge();
-        await this._loadNotes();
-      }
+      const a = btn.dataset.action;
+      if (a === "close")  return this._wizard ? this._exitWizard() : this.close();
+      if (a === "prev")   return this._step(-1);
+      if (a === "next")   return this._step(+1);
+      if (a === "start-approve") return this._startWizard("approved");
+      if (a === "start-reject")  return this._startWizard("rejected");
     });
+
+    const dateInput = this.querySelector("input[data-edit-date]");
+    if (dateInput) dateInput.addEventListener("change", async (e) => {
+      const v = e.target.value; if (!v || !this._item) return;
+      const old = this._item.scheduled_for; if (v === old) return;
+      this._item.scheduled_for = v;
+      try { await approvalStore.setDate(this._item.id, v); }
+      catch { this._item.scheduled_for = old; e.target.value = old || ""; return; }
+      this.dispatchEvent(new CustomEvent("item:date-changed", { bubbles: true, detail: { id: this._item.id, date: v, oldDate: old } }));
+    });
+
+    const hourInput = this.querySelector("input[data-edit-hour]");
+    if (hourInput) hourInput.addEventListener("change", async (e) => {
+      const v = e.target.value; if (!v || !this._item) return;
+      const old = this._item.hour; if (v === old) return;
+      this._item.hour = v;
+      try { await approvalStore.setHour(this._item.id, v); }
+      catch { this._item.hour = old; e.target.value = old || ""; return; }
+      this.dispatchEvent(new CustomEvent("item:hour-changed", { bubbles: true, detail: { id: this._item.id, hour: v, oldHour: old } }));
+    });
+  }
+
+  // ─── Assistente de confirmação de copies ──────────────────────────────────
+
+  _startWizard(disposition) {
+    const it = this._item;
+    if (!it) return;
+    const steps = [];
+    const n = this._slideCount();
+    const hasSlides = (it.slides_text && it.slides_text.length) || it.format === "carrossel" || it.format === "story";
+    if (hasSlides) {
+      for (let i = 1; i <= Math.max(1, n); i++) {
+        steps.push({ type: "slide", n: i, label: it.format === "story" ? "Texto da imagem" : `Slide ${String(i).padStart(2, "0")}` });
+      }
+    }
+    if (it.caption && it.caption.trim()) steps.push({ type: "caption", label: "Descrição (Instagram)" });
+    if (!steps.length) steps.push({ type: "caption", label: "Descrição (Instagram)" });
+    this._wizard = { disposition, steps, idx: 0 };
+    const modal = this.querySelector(".viewer-modal");
+    const ob = document.createElement("div");
+    ob.className = "onboard";
+    ob.innerHTML = `<div class="onboard__scrim"></div><div class="onboard__card" role="dialog" aria-modal="true"></div>`;
+    modal.appendChild(ob);
+    this._onboard = ob;
+    ob.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-action]");
+      if (!btn) return;
+      const a = btn.dataset.action;
+      if (a === "wz-exit")   return this._exitWizard();
+      if (a === "wz-back")   return this._wizardBack();
+      if (a === "wz-next")   return this._wizardNext();
+      if (a === "wz-apply")  return this._wizardApply();
+      if (a === "wz-finish") return this._wizardFinish();
+    });
+    this._renderWizardStep();
+  }
+
+  _exitWizard() {
+    this._wizard = null;
+    if (this._onboard) { this._onboard.remove(); this._onboard = null; }
+    this._refreshStatusLine();
+  }
+
+  _renderWizardStep() {
+    const w = this._wizard;
+    const card = this._onboard && this._onboard.querySelector(".onboard__card");
+    if (!card || !w) return;
+    const it = this._item;
+    const step = w.steps[w.idx];
+    const isLast = w.idx === w.steps.length - 1;
+    const dispLabel = w.disposition === "approved" ? "Aprovar" : "Reprovar";
+
+    // Mantém a vista de zoom (atrás) sincronizada com o passo.
+    if (step.type === "slide") {
+      this._slide = step.n;
+      if (this._isCarousel) { this._gotoSlideInFrame(step.n); this._updateCounter(); }
+      this._highlightReelLine(step.n);
+    }
+
+    const value = step.type === "caption" ? (it.caption || "") : this._slideText(step.n);
+    const hashtags = step.type === "caption" && it.hashtags ? it.hashtags : "";
+
+    // Pré-visualização ao vivo do post dentro do próprio popup.
+    let previewHtml = "";
+    if (step.type === "slide" && it.html_url && !this._isReel) {
+      const ratio = it.format === "story" ? "9-16" : "4-5";
+      const src = `${it.html_url}?v=${APP_VERSION}${this._isCarousel ? `#slide-${step.n}` : ""}`;
+      previewHtml = `<div class="onboard__preview onboard__preview--${ratio}"><iframe data-ob-frame src="${src}" title="pré-visualização" scrolling="no"></iframe></div>`;
+    } else if (this._isReel && step.type === "slide") {
+      const role = (it.slides_text || [])[step.n - 1]?.role;
+      previewHtml = `<div class="onboard__reel-tag">Linha ${String(step.n).padStart(2, "0")}${role ? " · " + this._escapeForHtml(ROLE_LABELS[role] || role) : ""}</div>`;
+    }
+
+    card.innerHTML = `
+      <div class="onboard__head">
+        <span class="onboard__kicker">Confirmar conteúdo</span>
+        <span class="wizard__disp wizard__disp--${w.disposition}">${dispLabel}</span>
+        <button class="onboard__close" data-action="wz-exit" aria-label="Cancelar">×</button>
+      </div>
+      <div class="wizard__progress" aria-hidden="true">
+        ${w.steps.map((s, i) => `<span class="wizard__dot${i === w.idx ? " is-active" : ""}${i < w.idx ? " is-done" : ""}"></span>`).join("")}
+      </div>
+      <div class="wizard__step-label">${this._escapeForHtml(step.label)} <span class="wizard__step-count">${w.idx + 1} / ${w.steps.length}</span></div>
+      ${previewHtml}
+      <p class="wizard__q">${step.type === "caption" ? "Concordas com o copy da descrição?" : "Concordas com o texto deste post?"}</p>
+      <textarea class="wizard__textarea" data-wz-text rows="${step.type === "caption" ? 8 : 3}">${this._escapeForHtml(value)}</textarea>
+      ${hashtags ? `<pre class="wizard__hashtags">${this._escapeForHtml(hashtags)}</pre>` : ""}
+      <div class="wizard__apply-row">
+        <button class="btn btn--ghost btn--small" data-action="wz-apply" disabled><span class="btn__icon" aria-hidden="true">✎</span> Aplicar alteração</button>
+        <span class="wizard__feedback" data-wz-feedback aria-live="polite"></span>
+      </div>
+      <div class="wizard__nav">
+        <button class="btn btn--ghost" data-action="wz-back" ${w.idx === 0 ? "disabled" : ""}>‹ Anterior</button>
+        ${isLast
+          ? `<button class="btn btn--${w.disposition === "approved" ? "approve" : "reject"}" data-action="wz-finish">Concluir — ${dispLabel} ✓</button>`
+          : `<button class="btn btn--solid" data-action="wz-next">Confirmar ›</button>`}
+      </div>`;
+
+    // Pré-visualização: navega para o slide e aplica o texto actual (override).
+    const obFrame = card.querySelector("[data-ob-frame]");
+    if (obFrame && step.type === "slide") {
+      obFrame.addEventListener("load", () => { this._scrollFrameToSlide(obFrame, step.n); this._editFrameH1(obFrame, step.n, value); }, { once: true });
+    }
+
+    const ta = card.querySelector("[data-wz-text]");
+    const applyBtn = card.querySelector('[data-action="wz-apply"]');
+    const original = value;
+    ta.addEventListener("input", () => { applyBtn.disabled = ta.value.trim() === original.trim(); });
+    setTimeout(() => ta.focus(), 40);
+  }
+
+  _highlightReelLine(n) {
+    if (!this._isReel) return;
+    this.querySelectorAll(".viewer-reel-script__line").forEach(li => {
+      li.classList.toggle("is-active", String(li.dataset.reelLine) === String(n));
+    });
+    const active = this.querySelector(`.viewer-reel-script__line[data-reel-line="${n}"]`);
+    if (active) active.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  async _wizardApply() {
+    const w = this._wizard; if (!w) return;
+    const card = this._onboard.querySelector(".onboard__card");
+    const ta = card.querySelector("[data-wz-text]");
+    const step = w.steps[w.idx];
+    const text = (ta.value || "").trim();
+    const fb = card.querySelector("[data-wz-feedback]");
+    try {
+      if (step.type === "caption") {
+        await approvalStore.setCaptionCopy(this._item.id, text);
+        this._item.caption = text;
+      } else {
+        await approvalStore.setSlideCopy(this._item.id, step.n, text);
+        const idx = step.n - 1;
+        if (this._item.slides_text && this._item.slides_text[idx]) {
+          const f = this._item.slides_text[idx].text_overlay != null ? "text_overlay" : "text";
+          this._item.slides_text[idx][f] = text;
+        }
+        this._liveEditSlide(step.n, text);                                  // zoom grande (atrás)
+        this._editFrameH1(card.querySelector("[data-ob-frame]"), step.n, text); // preview no popup
+        this._updateReelLineText(step.n, text);
+      }
+      if (fb) { fb.textContent = "✓ Aplicado"; fb.classList.add("is-ok"); }
+      card.querySelector('[data-action="wz-apply"]').disabled = true;
+    } catch (err) {
+      console.error("[wizard] apply failed:", err);
+      if (fb) { fb.textContent = "Falhou — tenta de novo"; fb.classList.remove("is-ok"); }
+    }
+  }
+
+  _updateReelLineText(n, text) {
+    const p = this.querySelector(`.viewer-reel-script__line[data-reel-line="${n}"] .viewer-reel-script__line-text`);
+    if (p) p.textContent = text;
+  }
+
+  _wizardBack() {
+    const w = this._wizard; if (!w || w.idx === 0) return;
+    w.idx--;
+    this._renderWizardStep();
+  }
+
+  _wizardNext() {
+    const w = this._wizard; if (!w) return;
+    if (w.idx < w.steps.length - 1) { w.idx++; this._renderWizardStep(); }
+  }
+
+  async _wizardFinish() {
+    const w = this._wizard; if (!w) return;
+    const it = this._item;
+    await approvalStore.set(it.id, w.disposition);
+    // Marca também a descrição com a mesma disposição (foi confirmada no fluxo).
+    if (it.caption && it.caption.trim()) {
+      try { await approvalStore.setCaption(it.id, w.disposition); } catch {}
+    }
+    this._showActionToast(w.disposition);
+    this._wizard = null;
+    if (this._onboard) { this._onboard.remove(); this._onboard = null; }
+    if (!this._advanceItem(+1)) this.close();
+  }
+
+  _showActionToast(status) {
+    try {
+      const cfg = {
+        approved: { icon: "✓", text: "Aprovado", color: "#2BB05F" },
+        rejected: { icon: "✕", text: "Rejeitado", color: "#FF4D2E" },
+      };
+      const c = cfg[status]; if (!c) return;
+      const toast = document.createElement("div");
+      toast.className = "action-toast";
+      toast.style.cssText = `position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:${c.color};color:#fff;padding:14px 24px;font:900 14px/1 var(--font-heavy,'Arial Black',sans-serif);letter-spacing:0.08em;text-transform:uppercase;border:3px solid #050505;box-shadow:6px 6px 0 0 #050505;z-index:9999;display:flex;align-items:center;gap:10px;`;
+      toast.innerHTML = `<span style="font-size:18px">${c.icon}</span>${c.text}`;
+      document.body.appendChild(toast);
+      setTimeout(() => { toast.style.transition = "opacity 200ms,transform 200ms"; toast.style.opacity = "0"; toast.style.transform = "translateX(-50%) translateY(10px)"; setTimeout(() => toast.remove(), 220); }, 1400);
+    } catch {}
+  }
+
+  _escapeForHtml(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, c =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
 }
 

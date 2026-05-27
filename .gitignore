@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# stray claude-evolve artifact (não deve ir para o deploy)
+public/.claude/

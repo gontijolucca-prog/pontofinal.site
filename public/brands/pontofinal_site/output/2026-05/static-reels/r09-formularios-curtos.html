@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <title>PontoFinal — r09-formularios-curtos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&family=Archivo+Black&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --text: #050505;
+      --primary: #FF2A2A;
+      --muted: #6a6a6a;
+      --shadow-sm: 5px 5px 0 0 #050505;
+      --font-display: 'Archivo Black', 'Archivo', Impact, sans-serif;
+      --font-body: 'Archivo', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+      position: relative;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+    .dots-bg {
+      position: absolute;
+      inset: -60px;
+      background-image: radial-gradient(circle, #050505 1.3px, transparent 1.3px);
+      background-size: 32px 32px;
+      opacity: 0.42;
+      pointer-events: none;
+      z-index: 1;
+      animation: dots-drift 18s linear infinite;
+      will-change: background-position;
+    }
+    @keyframes dots-drift {
+      0%   { background-position: 0 0; }
+      100% { background-position: 64px 64px; }
+    }
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 120px 120px 110px;
+      z-index: 2;
+    }
+    .brand-header {
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: 32px;
+      letter-spacing: -0.02em;
+      text-align: center;
+    }
+    .brand-header .dot { color: var(--primary); }
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero {
+      font-family: var(--font-display);
+      font-size: 140px;
+      font-weight: 900;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      text-align: center;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .hero-sub {
+      font-family: var(--font-body);
+      font-size: 24px;
+      font-weight: 600;
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 48px;
+    }
+    .forms-comparison {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+    .form-column {
+      flex: 1;
+      min-width: 240px;
+      max-width: 320px;
+    }
+    .form-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .form-column.bad .form-label {
+      color: var(--muted);
+    }
+    .form-column.good .form-label {
+      color: var(--primary);
+    }
+    .form-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .field {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 500;
+      padding: 8px 12px;
+      line-height: 1.4;
+      color: var(--text);
+    }
+    .form-column.bad .field {
+      color: var(--muted);
+      text-decoration: line-through;
+      text-decoration-color: var(--muted);
+    }
+    .form-column.good .field {
+      border-bottom: 2px solid var(--primary);
+      color: var(--text);
+    }
+    .cta-box {
+      background: var(--primary);
+      color: #FFFFFF;
+      padding: 20px 40px;
+      border: 4px solid var(--text);
+      box-shadow: 10px 10px 0 0 var(--text);
+      font-family: var(--font-display);
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      display: inline-block;
+      text-align: center;
+    }
+    .footer {
+      font-family: var(--font-body);
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-align: center;
+      color: var(--text);
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="dots-bg"></div>
+  <div class="container">
+    <div class="brand-header">Ponto Final<span class="dot">.</span></div>
+    <div class="main">
+      <h1 class="hero">10%</h1>
+      <p class="hero-sub">perdidos por cada campo extra</p>
+
+      <div class="forms-comparison">
+        <div class="form-column bad">
+          <div class="form-label">12 campos</div>
+          <div class="form-fields">
+            <div class="field">Nome completo</div>
+            <div class="field">Email</div>
+            <div class="field">Telefone</div>
+            <div class="field">NIF</div>
+            <div class="field">Morada</div>
+            <div class="field">Cidade</div>
+            <div class="field">Código postal</div>
+            <div class="field">Empresa</div>
+            <div class="field">Setor</div>
+            <div class="field">Orçamento</div>
+            <div class="field">Website</div>
+            <div class="field">Observações</div>
+          </div>
+        </div>
+        <div class="form-column good">
+          <div class="form-label">3 campos</div>
+          <div class="form-fields">
+            <div class="field">Nome</div>
+            <div class="field">Email</div>
+            <div class="field">Mensagem</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-box">simplifica</div>
+    </div>
+    <div class="footer">pontofinal.site · link na bio</div>
+  </div>
+</body>
+</html>

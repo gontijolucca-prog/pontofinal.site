@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <title>PontoFinal — r08-mostrar-precos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&family=Archivo+Black&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --text: #050505;
+      --primary: #FF2A2A;
+      --muted: #6a6a6a;
+      --shadow-sm: 5px 5px 0 0 #050505;
+      --font-display: 'Archivo Black', 'Archivo', Impact, sans-serif;
+      --font-body: 'Archivo', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+      position: relative;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+    .dots-bg {
+      position: absolute;
+      inset: -60px;
+      background-image: radial-gradient(circle, #050505 1.3px, transparent 1.3px);
+      background-size: 32px 32px;
+      opacity: 0.42;
+      pointer-events: none;
+      z-index: 1;
+      animation: dots-drift 18s linear infinite;
+      will-change: background-position;
+    }
+    @keyframes dots-drift {
+      0%   { background-position: 0 0; }
+      100% { background-position: 64px 64px; }
+    }
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 120px 100px 110px;
+      z-index: 2;
+    }
+    .brand-header {
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: 32px;
+      letter-spacing: -0.02em;
+      text-align: center;
+    }
+    .brand-header .dot { color: var(--primary); }
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero {
+      font-family: var(--font-display);
+      font-size: 110px;
+      font-weight: 900;
+      line-height: 0.96;
+      letter-spacing: -0.035em;
+      text-wrap: balance;
+      max-width: 820px;
+      margin-bottom: 50px;
+      color: var(--text);
+      text-align: center;
+    }
+    .hero .red { color: var(--primary); }
+    .price-tags {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+    .price-tag {
+      background: #FFFFFF;
+      border: 4px solid var(--text);
+      padding: 36px 28px 32px;
+      position: relative;
+      width: 280px;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .price-tag::before {
+      content: '';
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 28px;
+      height: 28px;
+      background: var(--bg);
+      border: 4px solid var(--text);
+      border-radius: 50%;
+    }
+    .price-tag.bad {
+      transform: rotate(-2deg);
+      opacity: 0.7;
+    }
+    .price-tag.good {
+      background: #FFE2E2;
+      transform: rotate(2deg);
+      border: 4px solid var(--primary);
+      box-shadow: 12px 12px 0 0 var(--text);
+    }
+    .tag-label {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .price-tag.good .tag-label {
+      color: var(--primary);
+    }
+    .tag-price {
+      font-family: var(--font-display);
+      font-size: 64px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .price-tag.bad .tag-price {
+      color: var(--muted);
+      font-size: 56px;
+      opacity: 0.6;
+    }
+    .price-tag.good .tag-price {
+      color: var(--primary);
+    }
+    .tag-desc {
+      font-family: var(--font-body);
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--text);
+      max-width: 240px;
+    }
+    .price-tag.bad .tag-desc {
+      color: var(--muted);
+    }
+    .cta-box {
+      background: var(--primary);
+      color: #FFFFFF;
+      padding: 20px 40px;
+      border: 4px solid var(--text);
+      box-shadow: 10px 10px 0 0 var(--text);
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      display: inline-block;
+      text-align: center;
+    }
+    .footer {
+      font-family: var(--font-body);
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-align: center;
+      color: var(--text);
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="dots-bg"></div>
+  <div class="container">
+    <div class="brand-header">Ponto Final<span class="dot">.</span></div>
+    <div class="main">
+      <h1 class="hero">
+        O preço escondido <span class="red">afasta</span> clientes.
+      </h1>
+
+      <div class="price-tags">
+        <div class="price-tag bad">
+          <div class="tag-label">Sem preço</div>
+          <div class="tag-price">€ ???</div>
+          <div class="tag-desc">Peça orçamento.</div>
+        </div>
+        <div class="price-tag good">
+          <div class="tag-label">Faixa clara</div>
+          <div class="tag-price">desde 1.200€</div>
+          <div class="tag-desc">Atrai quem tem orçamento.</div>
+        </div>
+      </div>
+
+      <div class="cta-box">mostra o preço</div>
+    </div>
+    <div class="footer">pontofinal.site · link na bio</div>
+  </div>
+</body>
+</html>

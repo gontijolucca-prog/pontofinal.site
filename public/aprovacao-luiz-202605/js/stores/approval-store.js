@@ -1,17 +1,19 @@
-// approval-store.js — store de aprovações + anotações com backend Supabase.
+// approval-store.js — store de aprovações + overrides de texto, backend Supabase.
 //
 // Esquema de chaves na tabela `approvals` (PK = namespace + item_id):
-//   • `${itemId}`                                — aprovação do item (status + nota primária)
-//   • `${itemId}:caption`                        — aprovação da descrição IG
-//   • `${itemId}#note_${nonce}`                  — anotação geral do item
-//   • `${itemId}#slide${N}#note_${nonce}`        — anotação ligada ao slide N
+//   • `${itemId}`                  — aprovação do item (status + nota primária)
+//   • `${itemId}:caption`          — aprovação da descrição IG
+//   • `${itemId}:date` / `:hour`   — reagendamento manual
+//   • `${itemId}#slide${N}:copy`   — texto editado de um slide
+//   • `${itemId}:caption:copy`     — texto editado da descrição IG
+// (Keys `#note_` legadas, do antigo sistema de anotações já removido, podem
+//  existir no DB — são ignoradas na contagem via isBaseItemKey.)
 //
 // API:
 //   get(id) / set(id, status, note)
 //   getCaption(id) / setCaption(id, status, note)
-//   saveNote(itemId, note, opts={slideN}) → cria nova anotação
-//   listNotes(itemId) → lista de anotações deste item (ordenada cronologicamente)
-//   deleteNote(key)   → soft-delete (UPDATE note="") — RLS não permite DELETE
+//   setDate/getDate / setHour/getHour
+//   setSlideCopy/getSlideCopy / setCaptionCopy/getCaptionCopy
 //   counts() / captionCounts() / all() / export() / import() / reset()
 //
 // Evento global emitido sempre que o cache muda: 'approval:changed'.
@@ -20,6 +22,9 @@ import { supabase, AUTH_ENABLED, USE_SUPABASE, initSupabase } from "../lib/supab
 import { NAMESPACE, SUPABASE_URL, SUPABASE_ANON_KEY, APP_VERSION } from "../config.js";
 
 let cache = {};
+// Assinatura do último cache notificado — usada para só emitir 'approval:changed'
+// quando o conteúdo mudou de facto (o polling corre em ciclo).
+let _lastSnapshotSig = null;
 
 function emit() {
   window.dispatchEvent(new CustomEvent("approval:changed", { detail: cache }));
@@ -29,81 +34,23 @@ function defaultState() {
   return { status: "pending", note: "", updatedAt: null };
 }
 
+// NOTE_RE mantém-se só para classificação: rows `#note_` legadas (do antigo
+// sistema de anotações, já removido) não podem ser contadas como items base.
 const NOTE_RE = /#note_/;
-const SLIDE_RE = /#slide(\d+)/;
 const CAPTION_SUFFIX = ":caption";
 const DATE_SUFFIX = ":date";
 const HOUR_SUFFIX = ":hour";
+const COPY_SUFFIX = ":copy";
 
 function isAnnotationKey(key) { return NOTE_RE.test(key); }
 function isCaptionKey(key)    { return key.endsWith(CAPTION_SUFFIX); }
 function isDateKey(key)       { return key.endsWith(DATE_SUFFIX); }
 function isHourKey(key)       { return key.endsWith(HOUR_SUFFIX); }
-function isBaseItemKey(key)   { return !isAnnotationKey(key) && !isCaptionKey(key) && !isDateKey(key) && !isHourKey(key); }
-
-function parseAnnotationKey(key) {
-  const m = key.match(/^(.+?)(?:#slide(\d+))?#note_(.+)$/);
-  if (!m) return null;
-  return { itemId: m[1], slide: m[2] ? parseInt(m[2], 10) : null, nonce: m[3] };
-}
-
-function makeNonce() {
-  const t = Date.now().toString(36);
-  const r = Math.random().toString(36).slice(2, 8);
-  return `${t}_${r}`;
-}
-
-function buildAnnotationKey(itemId, slideN, nonce, opts) {
-  const captionPart = opts && opts.caption ? CAPTION_SUFFIX : "";
-  const slidePart = slideN ? `#slide${slideN}` : "";
-  return `${itemId}${captionPart}${slidePart}#note_${nonce}`;
-}
-
-// Detecta se a key é uma nota da caption. Padrão:
-//   ${itemId}:caption#note_${nonce}
-function isCaptionNoteKey(key) {
-  return /:caption#note_/.test(key);
-}
-
-// Implementação partilhada entre listNotes (slides) e listCaptionNotes.
-function _listNotesInternal(itemId, scope) {
-  const prefix = `${itemId}`; // bate slides (itemId#) e captions (itemId:caption#)
-  const out = [];
-  for (const key in cache) {
-    if (!key.startsWith(prefix)) continue;
-    if (!isAnnotationKey(key)) continue;
-    const isCap = isCaptionNoteKey(key);
-    if (scope === "slide" && isCap) continue;
-    if (scope === "caption" && !isCap) continue;
-    // Garantir que pertence mesmo a este itemId (não a outro com prefixo
-    // partilhado tipo "foo" vs "foo-extra").
-    const captionStart = prefix + CAPTION_SUFFIX + "#note_";
-    const slideStart = prefix + "#";
-    if (!key.startsWith(captionStart) && !key.startsWith(slideStart)) continue;
-    const entry = cache[key];
-    const note = entry.note || "";
-    const hasText = !!note.trim();
-    const explicitDeleted = !!entry.deleted;
-    const explicitResolved = !!entry.resolved;
-    if (!hasText && !explicitDeleted) continue;
-    const parsed = parseAnnotationKey(key);
-    out.push({
-      key,
-      id: key,
-      slide: parsed?.slide || null,
-      caption: isCap,
-      note,
-      deleted: explicitDeleted,
-      resolved: explicitResolved,
-      author: entry.author || null,
-      status: entry.status,
-      changed_at: entry.updatedAt,
-      changed_by_email: entry.author || null,
-    });
-  }
-  out.sort((a, b) => (b.changed_at || "").localeCompare(a.changed_at || ""));
-  return out;
-}
+// Overrides de copy editado no fluxo de aprovação:
+//   • `${itemId}#slide${N}:copy` — texto novo de um slide
+//   • `${itemId}:caption:copy`   — texto novo da descrição IG
+function isCopyKey(key)       { return key.endsWith(COPY_SUFFIX); }
+function isBaseItemKey(key)   { return !isAnnotationKey(key) && !isCaptionKey(key) && !isDateKey(key) && !isHourKey(key) && !isCopyKey(key); }
 
 // ─── Autor (assinatura) ──────────────────────────────────────────────────
 // Cada utilizador identifica-se com um nome na primeira ação. O nome fica
@@ -173,35 +120,30 @@ function openAuthorModal() {
   });
 }
 
-// Encoding do campo `note` para incluir autor + flag de apagada
-// (sem coluna nova no DB). Formato JSON:
-//   {"a": "Nome", "t": "texto"}              — anotação activa
-//   {"a": "Quem-apagou", "t": "texto", "d": true} — apagada mas com texto preservado
-//   ""                                        — apagada legacy (texto perdido)
-// Reads aceitam plain strings (legacy) também.
-function encodeNote(text, author, opts) {
+// Encoding do campo `note` para incluir o autor (sem coluna nova no DB).
+// Formato JSON: {"a": "Nome", "t": "texto"}. Reads aceitam plain strings
+// (legacy) e ignoram flags antigos (d/r) do extinto sistema de anotações.
+function encodeNote(text, author) {
   const obj = {};
   if (author) obj.a = author;
   if (text) obj.t = text;
-  if (opts && opts.deleted) obj.d = true;
-  if (opts && opts.resolved) obj.r = true;
-  if (!obj.a && !obj.t && !obj.d && !obj.r) return "";
+  if (!obj.a && !obj.t) return "";
   return JSON.stringify(obj);
 }
 function decodeNote(raw) {
-  if (!raw) return { author: null, text: "", deleted: false, resolved: false };
-  if (typeof raw !== "string") return { author: null, text: String(raw), deleted: false, resolved: false };
+  if (!raw) return { author: null, text: "" };
+  if (typeof raw !== "string") return { author: null, text: String(raw) };
   const s = raw.trim();
   if (s.startsWith("{") && s.endsWith("}")) {
     try {
       const obj = JSON.parse(s);
       if (obj && typeof obj === "object") {
-        return { author: obj.a || null, text: obj.t || "", deleted: !!obj.d, resolved: !!obj.r };
+        return { author: obj.a || null, text: obj.t || "" };
       }
     } catch {}
   }
   // Legacy plain string — sem autor.
-  return { author: null, text: raw, deleted: false, resolved: false };
+  return { author: null, text: raw };
 }
 
 // ─── Fallback localStorage ───────────────────────────────────────────────
@@ -227,7 +169,7 @@ function lsSnapshot() {
 // ─── Supabase load + realtime ─────────────────────────────────────────────
 
 // Espelha o cache em localStorage. Funciona como write-through:
-// cada set() / saveNote() chama isto além do upsert ao Supabase.
+// cada set() / setCaption() / setSlideCopy() etc. chama isto além do upsert.
 // No load, lsRead() é usado como ground truth para entradas mais
 // recentes que o server (ex.: Safari ETP atrasou o write).
 function lsMergeWrite(id, entry) {
@@ -255,8 +197,6 @@ function applyQueueToCache() {
       status: row.status,
       note: decoded.text,
       author: decoded.author,
-      deleted: decoded.deleted,
-      resolved: decoded.resolved,
       updatedAt: row.updated_at,
     };
   }
@@ -272,8 +212,6 @@ function mergeServerSnapshot(rows) {
       status: row.status,
       note: decoded.text,
       author: decoded.author,
-      deleted: decoded.deleted,
-      resolved: decoded.resolved,
       updatedAt: row.updated_at,
     };
   }
@@ -290,8 +228,14 @@ function mergeServerSnapshot(rows) {
   }
   cache = next;
   applyQueueToCache();
-  lsSnapshot();
-  emit();
+  // Só persiste + notifica a UI se o cache mudou. Sem isto, o polling
+  // disparava emit() a cada ciclo e todos os tiles re-corriam o handler à toa.
+  const sig = JSON.stringify(cache);
+  if (sig !== _lastSnapshotSig) {
+    _lastSnapshotSig = sig;
+    lsSnapshot();
+    emit();
+  }
 }
 
 // Endpoints possíveis para a tabela approvals. O proxy same-origin é
@@ -418,16 +362,19 @@ async function checkAppVersion() {
   } catch { /* sem rede — irrelevante para a verificação */ }
 }
 
-// Polling: pull do server a cada 7s para garantir convergência em browsers
-// onde realtime WebSocket está bloqueado. Visualmente é o que faz "ao vivo"
-// para o utilizador — convergência típica ~7s entre devices.
+// Polling: pull do server a cada 12s para garantir convergência em browsers
+// onde o realtime WebSocket está bloqueado. Quando o WebSocket funciona, é ele
+// que dá o "ao vivo" instantâneo; o polling é só rede de segurança. Não puxa a
+// cada poucos segundos para poupar dados/bateria — só re-renderiza se algo mudou
+// (ver mergeServerSnapshot). Convergência típica ≤12s entre devices sem WebSocket.
+const POLL_INTERVAL_MS = 12000;
 let _pollTimer = null;
 function startServerPolling() {
   if (_pollTimer) return;
   _pollTimer = setInterval(() => {
     if (typeof document !== "undefined" && document.hidden) return; // poupar quando hidden
     loadFromSupabaseFetch();
-  }, 5000);
+  }, POLL_INTERVAL_MS);
   // Verificação de versão a cada 30s — menos frequente que sync de dados.
   checkAppVersion();
   setInterval(() => { if (!document.hidden) checkAppVersion(); }, 30000);
@@ -521,8 +468,6 @@ function subscribeRealtime() {
           status: row.status,
           note: decoded.text,
           author: decoded.author,
-          deleted: decoded.deleted,
-          resolved: decoded.resolved,
           updatedAt: row.updated_at,
         };
         cache[row.item_id] = entry;
@@ -577,8 +522,8 @@ export function init() {
     // Caminho FIABLE: REST directo, sem dependência do CDN do SDK.
     // Carrega sempre por aqui — funciona em Safari/Brave/Chrome igualmente.
     await loadFromSupabaseFetch();
-    // Inicia polling de 7s para sync ao vivo entre browsers e devices,
-    // independente de WebSockets (Safari ETP/extensões podem bloquear).
+    // Inicia polling (12s) para sync entre browsers e devices, independente de
+    // WebSockets (Safari ETP/extensões podem bloquear).
     startServerPolling();
     // Em paralelo, tenta upgrade para SDK + realtime WebSocket (mais
     // rápido que polling quando funciona). Se o CDN estiver bloqueado,
@@ -639,6 +584,21 @@ function qRemove(item_id, updated_at) {
 
 let _lastSyncError = null;
 
+// Toast não-bloqueante (substitui alert() — não tranca o ecrã do cliente).
+function showStoreToast(msg, isError = true) {
+  if (typeof document === "undefined") return;
+  const t = document.createElement("div");
+  t.style.cssText = `position:fixed;bottom:64px;left:50%;transform:translateX(-50%);max-width:min(90vw,420px);background:${isError ? "#FF2A2A" : "#2BB05F"};color:#fff;padding:13px 20px;font:700 12.5px/1.4 'JetBrains Mono',ui-monospace,monospace;border:3px solid #050505;box-shadow:5px 5px 0 0 #050505;z-index:10001;text-align:center;`;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => {
+    t.style.transition = "opacity .25s,transform .25s";
+    t.style.opacity = "0";
+    t.style.transform = "translateX(-50%) translateY(8px)";
+    setTimeout(() => t.remove(), 260);
+  }, 3200);
+}
+
 function updatePendingIndicator(count) {
   if (typeof window === "undefined") return;
   let el = document.getElementById("sync-indicator");
@@ -662,7 +622,7 @@ function updatePendingIndicator(count) {
       } else {
         updatePendingIndicator(remaining);
         if (_lastSyncError) {
-          alert(`Não foi possível sincronizar ${remaining}. Erro: ${_lastSyncError}`);
+          showStoreToast(`Não foi possível sincronizar ${remaining}. ${_lastSyncError}`);
         }
       }
     });
@@ -778,95 +738,6 @@ export const approvalStore = {
     }
   },
 
-  // Cria uma nova anotação. Cada chamada com texto cria uma nova entrada
-  // (nonce único). Opções:
-  //   opts.slideN — anotação ligada a um slide específico (slides)
-  //   opts.caption — anotação da descrição IG (key fica ${id}:caption#note_)
-  async saveNote(itemId, note, opts = {}) {
-    const trimmed = (note || "").trim();
-    if (!trimmed) return null;
-    const author = await ensureAuthor();
-    const slideN = opts.slideN || null;
-    const nonce = makeNonce();
-    const key = buildAnnotationKey(itemId, slideN, nonce, { caption: opts.caption });
-    const updatedAt = new Date().toISOString();
-    const entry = { status: "pending", note: trimmed, author, updatedAt };
-    cache[key] = entry;
-    lsSnapshot();
-    emit();
-    if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
-      await upsertRow(key, "pending", encodeNote(trimmed, author), updatedAt);
-    }
-    return { key, slide: slideN, note: trimmed, author, changed_at: updatedAt };
-  },
-
-  // Lista de anotações deste item (incluindo anotações ligadas a slides).
-  // Ordem cronológica: mais recente primeiro.
-  // Devolve as anotações dos slides deste item. Caption notes (key contém
-  // :caption#note_) são excluídas — para essas usar listCaptionNotes.
-  // Filtra legacy zeroed (note="" sem flag d=true) por segurança visual.
-  listNotes(itemId) {
-    return _listNotesInternal(itemId, "slide");
-  },
-
-  // Devolve apenas as anotações da caption deste item.
-  listCaptionNotes(itemId) {
-    return _listNotesInternal(itemId, "caption");
-  },
-
-  // Soft-delete COM preservação de texto. RLS não permite DELETE como anon,
-  // pelo que actualizamos a row com flag {d: true} no JSON encoded. O texto
-  // original fica preservado para o user poder auditar/recuperar mais tarde.
-  // (Substitui o comportamento antigo que zerava o texto.)
-  async deleteNote(key) {
-    if (!key || !isAnnotationKey(key)) return false;
-    const author = await ensureAuthor();
-    const updatedAt = new Date().toISOString();
-    // Preserva o texto original — se existir.
-    const existingText = (cache[key]?.note || "").trim();
-    const entry = { status: "pending", note: existingText, author, deleted: true, updatedAt };
-    cache[key] = entry;
-    lsSnapshot();
-    emit();
-    if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
-      const r = await upsertRow(
-        key,
-        "pending",
-        encodeNote(existingText, author, { deleted: true }),
-        updatedAt
-      );
-      return !!r;
-    }
-    return true;
-  },
-
-  // Reactivar uma anotação previamente apagada — remove a flag d e mantém
-  // o texto. Útil quando o user apagou por engano.
-  async restoreNote(key) {
-    if (!key || !isAnnotationKey(key)) return false;
-    const author = await ensureAuthor();
-    const updatedAt = new Date().toISOString();
-    const existingText = (cache[key]?.note || "").trim();
-    if (!existingText) return false; // sem texto preservado, não há nada a restaurar
-    const entry = { status: "pending", note: existingText, author, deleted: false, updatedAt };
-    cache[key] = entry;
-    lsSnapshot();
-    emit();
-    if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
-      const r = await upsertRow(
-        key,
-        "pending",
-        encodeNote(existingText, author, { deleted: false }),
-        updatedAt
-      );
-      return !!r;
-    }
-    return true;
-  },
-
-  // Alias para retrocompatibilidade.
-  async history(itemId) { return this.listNotes(itemId); },
-
   all() {
     return { ...cache };
   },
@@ -968,6 +839,86 @@ export const approvalStore = {
       if (!cache[k] || !cache[k].note) continue;
       const itemId = k.slice(0, -HOUR_SUFFIX.length);
       out[itemId] = { hour: cache[k].note, author: cache[k].author || null };
+    }
+    return out;
+  },
+
+  // Assinatura da última alteração de data/hora (autor + quando), para mostrar
+  // quem reagendou. Devolve o mais recente entre data e hora.
+  getWhenMeta(itemId) {
+    const d = cache[`${itemId}${DATE_SUFFIX}`];
+    const h = cache[`${itemId}${HOUR_SUFFIX}`];
+    const cands = [];
+    if (d && d.note) cands.push({ author: d.author || null, updatedAt: d.updatedAt || null });
+    if (h && h.note) cands.push({ author: h.author || null, updatedAt: h.updatedAt || null });
+    if (!cands.length) return null;
+    cands.sort((a, b) => String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));
+    return cands[0];
+  },
+
+  // ─── Copy editado no fluxo de aprovação ────────────────────────────────
+  // O cliente edita o texto de um slide ou da descrição e carrega "Aplicar".
+  // Guardamos o texto novo como override (key :copy). A imagem real (PNG) é
+  // re-renderizada do lado do produtor a partir destes overrides.
+
+  async setSlideCopy(itemId, slideN, text) {
+    const author = await ensureAuthor();
+    const key = `${itemId}#slide${slideN}${COPY_SUFFIX}`;
+    const updatedAt = new Date().toISOString();
+    const value = (text || "").trim();
+    const entry = { status: "pending", note: value, author, updatedAt };
+    cache[key] = entry;
+    lsSnapshot();
+    emit();
+    if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
+      await upsertRow(key, "pending", encodeNote(value, author), updatedAt);
+    }
+  },
+
+  getSlideCopy(itemId, slideN) {
+    const key = `${itemId}#slide${slideN}${COPY_SUFFIX}`;
+    if (!cache[key] || !cache[key].note) return null;
+    return { text: cache[key].note, author: cache[key].author || null, updatedAt: cache[key].updatedAt || null };
+  },
+
+  async setCaptionCopy(itemId, text) {
+    const author = await ensureAuthor();
+    const key = `${itemId}${CAPTION_SUFFIX}${COPY_SUFFIX}`;
+    const updatedAt = new Date().toISOString();
+    const value = (text || "").trim();
+    const entry = { status: "pending", note: value, author, updatedAt };
+    cache[key] = entry;
+    lsSnapshot();
+    emit();
+    if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
+      await upsertRow(key, "pending", encodeNote(value, author), updatedAt);
+    }
+  },
+
+  getCaptionCopy(itemId) {
+    const key = `${itemId}${CAPTION_SUFFIX}${COPY_SUFFIX}`;
+    if (!cache[key] || !cache[key].note) return null;
+    return { text: cache[key].note, author: cache[key].author || null, updatedAt: cache[key].updatedAt || null };
+  },
+
+  // Mapas { itemId → ... } de todos os overrides — usados no load para aplicar
+  // o texto editado por cima do items.json/caption original.
+  getAllSlideCopyOverrides() {
+    const out = {};
+    for (const k in cache) {
+      const m = k.match(/^(.+?)#slide(\d+):copy$/);
+      if (!m || !cache[k] || !cache[k].note) continue;
+      (out[m[1]] ||= {})[parseInt(m[2], 10)] = { text: cache[k].note, author: cache[k].author || null };
+    }
+    return out;
+  },
+
+  getAllCaptionCopyOverrides() {
+    const out = {};
+    for (const k in cache) {
+      const m = k.match(/^(.+?):caption:copy$/);
+      if (!m || !cache[k] || !cache[k].note) continue;
+      out[m[1]] = { text: cache[k].note, author: cache[k].author || null };
     }
     return out;
   },

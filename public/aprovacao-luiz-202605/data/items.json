@@ -24,7 +24,7 @@
       },
       {
         "role": "development",
-        "text_overlay": "A electroestimulação de corpo inteiro chega a profundidade que o treino convencional dificilmente alcança."
+        "text_overlay": "A eletroestimulação de corpo inteiro chega a profundidade que o treino convencional dificilmente alcança."
       },
       {
         "role": "development",
@@ -65,7 +65,7 @@
     "theme": "metodo_ciencia",
     "pilar": "Método e ciência aplicada",
     "audience": "b2c",
-    "title": "Electroestimulação — o que a evidência mostra.",
+    "title": "Eletroestimulação — o que a evidência mostra.",
     "slides": 6,
     "slides_text": [
       {
@@ -74,7 +74,7 @@
       },
       {
         "role": "development",
-        "text_overlay": "Electroestimulação de corpo inteiro pode chegar até 90% das fibras musculares. Profundas incluídas."
+        "text_overlay": "Eletroestimulação de corpo inteiro pode chegar até 90% das fibras musculares. Profundas incluídas."
       },
       {
         "role": "development",
@@ -186,11 +186,11 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Electroestimulação não é só treino. É linha de negócio."
+        "text_overlay": "Eletroestimulação não é só treino. É linha de negócio."
       },
       {
         "role": "development",
-        "text_overlay": "Para ginásios, clínicas e espaços de saúde, o treino com electroestimulação requer poucos recursos — espaço e materiais."
+        "text_overlay": "Para ginásios, clínicas e espaços de saúde, o treino com eletroestimulação requer poucos recursos — espaço e materiais."
       },
       {
         "role": "development",
@@ -206,7 +206,7 @@
       },
       {
         "role": "cta",
-        "text_overlay": "Agenda uma reunião de avaliação. Sabe o que o teu negócio pode ganhar com a electroestimulação (link na bio franchising)."
+        "text_overlay": "Agenda uma reunião de avaliação. Sabe o que o teu negócio pode ganhar com a eletroestimulação (link na bio franchising)."
       }
     ],
     "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c04-b2b-ferramenta.html",
