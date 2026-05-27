@@ -62,6 +62,14 @@ class CarrosselRow extends HTMLElement {
     const s = (this._item.slides_text || [])[n - 1];
     return s ? (s.text_overlay || s.text || "") : "";
   }
+  // Valor do texto secundário: override guardado, senão o texto vivo do
+  // elemento .slide__hook (o items.json não guarda este texto — vive no HTML).
+  _hookValue(n) {
+    const ov = approvalStore.getSlideHookCopy?.(this._item.id, n);
+    if (ov && ov.text) return ov.text;
+    const el = this._hookEl(n);
+    return el ? htmlToFmt(el) : "";
+  }
   _captionValue() {
     const ov = approvalStore.getCaptionCopy?.(this._item.id);
     if (ov && ov.text) return ov.text;
@@ -99,6 +107,14 @@ class CarrosselRow extends HTMLElement {
   }
   // Aplica texto editável ao título do slide preservando formatação (<br>, <em>).
   _editFrameH1(n, text) { const t = this._headingEl(n); if (t) t.innerHTML = fmtToHtml(text); }
+  // Texto SECUNDÁRIO do slide (.slide__hook) — a linha pequena por baixo do
+  // título. Só existe em alguns slides (ex.: slide 1 do Luiz). null se não há.
+  _hookEl(n) {
+    const f = this._previewFrame(); if (!f) return null;
+    try { const doc = f.contentDocument; return doc ? doc.querySelector(`#slide-${n} .slide__hook`) : null; }
+    catch { return null; }
+  }
+  _editFrameHook(n, text) { const t = this._hookEl(n); if (t) t.innerHTML = fmtToHtml(text); }
   _scrollFrameTo(n) {
     const f = this._previewFrame(); if (!f) return;
     try {
@@ -116,6 +132,16 @@ class CarrosselRow extends HTMLElement {
     const ta = this.querySelector("[data-slide]");
     if (ov && ov.text) { this._editFrameH1(n, ov.text); if (ta) ta.value = ov.text; }
     else { const el = this._headingEl(n); if (el && ta) ta.value = htmlToFmt(el); }
+    // Texto secundário (.slide__hook): o iframe pode só agora ter carregado, por
+    // isso o campo pode ainda não existir — re-render do editor se a presença mudou.
+    const hookEl = this._hookEl(n);
+    if (!!hookEl !== !!this.querySelector("[data-slide-hook]")) this._renderSlideEditor();
+    if (hookEl) {
+      const hov = approvalStore.getSlideHookCopy?.(this._item.id, n);
+      const th = this.querySelector("[data-slide-hook]");
+      if (hov && hov.text) { this._editFrameHook(n, hov.text); if (th) th.value = hov.text; }
+      else if (th) { th.value = htmlToFmt(hookEl); }
+    }
   }
 
   render() {
@@ -189,16 +215,28 @@ class CarrosselRow extends HTMLElement {
     const host = this.querySelector("[data-slide-editor]");
     if (!host) return;
     const n = this._sel + 1;
+    const hasHook = !!this._hookEl(n);
+    const mainLabel = hasHook ? `Texto principal do slide ${String(n).padStart(2, "0")}` : `Texto do slide ${String(n).padStart(2, "0")}`;
+    const mainHint = hasHook ? "o texto grande" : "escreve — muda já na imagem";
     host.innerHTML = `
-      <label class="card__label">Texto do slide ${String(n).padStart(2, "0")} <span class="card__hint">escreve — muda já na imagem</span></label>
+      <label class="card__label">${mainLabel} <span class="card__hint">${mainHint}</span></label>
       <textarea class="card__text" data-slide rows="4">${esc(this._slideValue(n))}</textarea>
-      <span class="card__fb" data-fb-slide></span>`;
+      <span class="card__fb" data-fb-slide></span>` +
+      (hasHook ? `
+      <label class="card__label">Texto secundário <span class="card__hint">a linha mais pequena, por baixo</span></label>
+      <textarea class="card__text" data-slide-hook rows="3">${esc(this._hookValue(n))}</textarea>
+      <span class="card__fb" data-fb-hook></span>` : ``);
     const sc = this.querySelector("[data-slidecount]"); if (sc) sc.textContent = `Slide ${n} / ${this._slideCount()}`;
     this.querySelectorAll(".card-thumb").forEach((b, i) => b.classList.toggle("is-sel", i === this._sel));
     const ta = host.querySelector("[data-slide]");
     ta.addEventListener("input", () => {
       this._editFrameH1(n, ta.value);                       // live: muda a imagem letra a letra
       this._autosave("slide", () => this._saveSlide(n, ta.value));
+    });
+    const th = host.querySelector("[data-slide-hook]");
+    if (th) th.addEventListener("input", () => {
+      this._editFrameHook(n, th.value);                     // live: muda o texto pequeno
+      this._autosave("hook", () => this._saveSlideHook(n, th.value));
     });
   }
 
@@ -220,6 +258,12 @@ class CarrosselRow extends HTMLElement {
     const idx = n - 1; const s = (this._item.slides_text || [])[idx];
     if (s) { const f = s.text_overlay != null ? "text_overlay" : "text"; s[f] = text.trim(); }
     this._flash("[data-fb-slide]", "✓ guardado");
+  }
+  async _saveSlideHook(n, text) {
+    // O texto secundário não tem campo no items.json (vive no HTML) — guarda-se
+    // só como override no store; o produtor aplica-o ao HTML no re-render.
+    await approvalStore.setSlideHookCopy(this._item.id, n, text.trim());
+    this._flash("[data-fb-hook]", "✓ guardado");
   }
   async _saveCaption(text) {
     await approvalStore.setCaptionCopy(this._item.id, text.trim());

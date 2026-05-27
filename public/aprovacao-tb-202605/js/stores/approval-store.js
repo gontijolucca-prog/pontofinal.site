@@ -881,6 +881,29 @@ export const approvalStore = {
     return { text: cache[key].note, author: cache[key].author || null, updatedAt: cache[key].updatedAt || null };
   },
 
+  // Texto SECUNDÁRIO de um slide (.slide__hook). Alguns slides têm 2 textos —
+  // p.ex. o slide 1 do Luiz: o título grande + a linha pequena por baixo. Este
+  // override tem key própria (`:hook:copy`) para não colidir com o título.
+  async setSlideHookCopy(itemId, slideN, text) {
+    const author = await ensureAuthor();
+    const key = `${itemId}#slide${slideN}:hook${COPY_SUFFIX}`;
+    const updatedAt = new Date().toISOString();
+    const value = (text || "").trim();
+    const entry = { status: "pending", note: value, author, updatedAt };
+    cache[key] = entry;
+    lsSnapshot();
+    emit();
+    if ((USE_SUPABASE || AUTH_ENABLED) && supabase) {
+      await upsertRow(key, "pending", encodeNote(value, author), updatedAt);
+    }
+  },
+
+  getSlideHookCopy(itemId, slideN) {
+    const key = `${itemId}#slide${slideN}:hook${COPY_SUFFIX}`;
+    if (!cache[key] || !cache[key].note) return null;
+    return { text: cache[key].note, author: cache[key].author || null, updatedAt: cache[key].updatedAt || null };
+  },
+
   async setCaptionCopy(itemId, text) {
     const author = await ensureAuthor();
     const key = `${itemId}${CAPTION_SUFFIX}${COPY_SUFFIX}`;
@@ -907,6 +930,16 @@ export const approvalStore = {
     const out = {};
     for (const k in cache) {
       const m = k.match(/^(.+?)#slide(\d+):copy$/);
+      if (!m || !cache[k] || !cache[k].note) continue;
+      (out[m[1]] ||= {})[parseInt(m[2], 10)] = { text: cache[k].note, author: cache[k].author || null };
+    }
+    return out;
+  },
+
+  getAllSlideHookCopyOverrides() {
+    const out = {};
+    for (const k in cache) {
+      const m = k.match(/^(.+?)#slide(\d+):hook:copy$/);
       if (!m || !cache[k] || !cache[k].note) continue;
       (out[m[1]] ||= {})[parseInt(m[2], 10)] = { text: cache[k].note, author: cache[k].author || null };
     }
