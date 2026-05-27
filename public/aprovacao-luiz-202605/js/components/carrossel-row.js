@@ -142,7 +142,7 @@ class CarrosselRow extends HTMLElement {
         <div class="card__main">
           <div class="card__left">
             <div class="card__preview card__preview--45">
-              <iframe loading="lazy" src="${it.html_url}#slide-1" title="pré-visualização ao vivo" scrolling="no"></iframe>
+              <iframe loading="lazy" src="${it.html_url}?v=${APP_VERSION}#slide-1" title="pré-visualização ao vivo" scrolling="no"></iframe>
             </div>
             <div class="card__slidebar">
               <button class="card__nav" data-prev aria-label="Slide anterior">‹</button>

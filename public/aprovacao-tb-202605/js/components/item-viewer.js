@@ -148,7 +148,7 @@ class ItemViewer extends HTMLElement {
       }
     } catch {}
     // Fallback: hash (pode fazer scroll suave / reload conforme o browser).
-    if (this._item?.html_url) iframe.src = `${this._item.html_url}#slide-${n}`;
+    if (this._item?.html_url) iframe.src = `${this._item.html_url}?v=${APP_VERSION}#slide-${n}`;
   }
 
   _updateCounter() {
