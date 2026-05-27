@@ -2058,6 +2058,8 @@ details.viewer-note--deleted > .viewer-note__text--deleted {
   display: flex;
   flex-direction: column;
   gap: var(--s-4);
+  max-height: calc(100dvh - var(--s-6) * 2);
+  overflow-y: auto;
   animation: helpSlide var(--d-slow) var(--ease);
 }
 @keyframes helpSlide {
