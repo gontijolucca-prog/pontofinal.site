@@ -1,6 +1,7 @@
 // main.js — load items, render calendar + carrossel list + stories + reels galleries.
 
-import { loadItems } from "./data-loader.js";
+import { loadItems, startContentPolling, currentContentSig } from "./data-loader.js";
+import { userIsEditing } from "./utils/user-editing.js";
 import { approvalStore, init as initApprovalStore } from "./stores/approval-store.js";
 import { supabase, AUTH_ENABLED, USE_SUPABASE, initSupabase } from "./lib/supabase-client.js";
 import { monthShortLabel } from "./components/month-switcher.js";
@@ -590,6 +591,54 @@ async function init() {
       els.calendar()?.render?.();
     }
   });
+
+  // Auto-refresh silencioso quando items.json / captions.json mudam no servidor
+  // (sem bump de APP_VERSION). O polling vive em data-loader.js e dispara este
+  // CustomEvent. Substituímos os items afectados em state.items e re-renderizamos.
+  // Skip se o user está a editar texto — adiamos para o próximo ciclo (não
+  // queremos perder/interromper escrita em curso).
+  let _pendingContentRefresh = null;
+  function applyContentRefresh(detail) {
+    if (!detail || !Array.isArray(detail.items)) return;
+    const incomingById = new Map(detail.items.map((it) => [it.id, it]));
+    // Preservar overrides locais que main.js aplicou (datas/horas reagendadas
+    // via item-viewer) — não queremos perdê-los só porque o server reabriu o
+    // mesmo ficheiro. As overrides voltam a ser aplicadas no fim.
+    const next = state.items.map((old) => {
+      const incoming = incomingById.get(old.id);
+      return incoming ? incoming : old;
+    });
+    // Items novos que não existiam em state.items
+    for (const it of detail.items) {
+      if (!state.items.some((s) => s.id === it.id)) next.push(it);
+    }
+    state.items = next;
+    applyDateOverrides();
+    applyHourOverrides();
+    render();
+  }
+  window.addEventListener("content:changed", (e) => {
+    const detail = e.detail || {};
+    if (userIsEditing()) {
+      // Guarda o último update; aplica quando o user largar o foco.
+      _pendingContentRefresh = detail;
+      return;
+    }
+    applyContentRefresh(detail);
+  });
+  document.addEventListener("focusout", () => {
+    // Esperar um tick para o focusin do próximo elemento entrar — se o user
+    // saltou para outro campo não devemos puxar o tapete a meio.
+    setTimeout(() => {
+      if (!_pendingContentRefresh) return;
+      if (userIsEditing()) return;
+      const d = _pendingContentRefresh;
+      _pendingContentRefresh = null;
+      applyContentRefresh(d);
+    }, 60);
+  });
+  // Arrancar o polling depois de termos um snapshot inicial.
+  startContentPolling();
 
   // Reagendamento manual via item-viewer: muta state.items e re-renderiza
   // tudo (galerias incluídas) para que o chip do calendário e a label da

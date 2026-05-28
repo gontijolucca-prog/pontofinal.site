@@ -5,6 +5,7 @@
 
 import { approvalStore } from "../stores/approval-store.js";
 import { APP_VERSION } from "../config.js";
+import { currentContentSig } from "../data-loader.js";
 import { fitScaledFrame, dimsFor } from "../lib/fit-frame.js";
 import { fmtToHtml, htmlToFmt } from "../lib/rich-text.js";
 
@@ -151,8 +152,8 @@ class CarrosselRow extends HTMLElement {
     const shotBase = (it.html_url || "").replace(/\.html$/, "");
     const thumbs = Array.from({ length: total }).map((_, i) => {
       const n = String(i + 1).padStart(2, "0");
-      const png = `${shotBase}_shots/slide_${n}.png?v=${APP_VERSION}`;
-      const jpg = `${shotBase}_shots/slide_${n}.jpg?v=${APP_VERSION}`;
+      const png = `${shotBase}_shots/slide_${n}.png?v=${APP_VERSION}&c=${currentContentSig()}`;
+      const jpg = `${shotBase}_shots/slide_${n}.jpg?v=${APP_VERSION}&c=${currentContentSig()}`;
       return `<button class="card-thumb${i === this._sel ? " is-sel" : ""}" data-thumb="${i}" aria-label="Slide ${i + 1}">
         <img loading="lazy" decoding="async" src="${png}" alt="Slide ${i + 1}" onerror="this.onerror=null;this.src='${jpg}'" /><span class="card-thumb__n">${i + 1}</span>
       </button>`;
@@ -168,7 +169,7 @@ class CarrosselRow extends HTMLElement {
         <div class="card__main">
           <div class="card__left">
             <div class="card__preview card__preview--45">
-              <iframe loading="lazy" src="${it.html_url}?v=${APP_VERSION}#slide-1" title="pré-visualização ao vivo" scrolling="no"></iframe>
+              <iframe loading="lazy" src="${it.html_url}?v=${APP_VERSION}&c=${currentContentSig()}#slide-1" title="pré-visualização ao vivo" scrolling="no"></iframe>
             </div>
             <div class="card__slidebar">
               <button class="card__nav" data-prev aria-label="Slide anterior">‹</button>

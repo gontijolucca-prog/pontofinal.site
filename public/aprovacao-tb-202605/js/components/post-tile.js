@@ -5,6 +5,7 @@
 import { approvalStore } from "../stores/approval-store.js";
 import { fitScaledFrame, dimsFor } from "../lib/fit-frame.js";
 import { APP_VERSION } from "../config.js";
+import { currentContentSig } from "../data-loader.js";
 import { fmtToHtml, htmlToFmt } from "../lib/rich-text.js";
 
 const BRAND_LABELS = { techbody: "TechBody", techbody_u: "TechBody U", luiz_santana: "Luiz Santana" };
@@ -99,7 +100,7 @@ class PostTile extends HTMLElement {
         <div class="card__main">
           <div class="card__left">
             <div class="card__preview card__preview--916">
-              <iframe loading="lazy" src="${it.html_url}?v=${APP_VERSION}" title="pré-visualização ao vivo" scrolling="no"></iframe>
+              <iframe loading="lazy" src="${it.html_url}?v=${APP_VERSION}&c=${currentContentSig()}" title="pré-visualização ao vivo" scrolling="no"></iframe>
             </div>
             <div class="card__slidebar"><button class="card__zoom" data-zoom title="Ver em grande">🔍 Ver em grande</button></div>
           </div>

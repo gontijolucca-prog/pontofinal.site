@@ -6,6 +6,8 @@
 // Auto-contido (não depende de config.js) — funciona em qualquer deploy que
 // tenha version.txt + <meta name="app-version">.
 
+import { userIsEditing } from '../utils/user-editing.js';
+
 const META_VERSION = (document.querySelector('meta[name="app-version"]')
   ?.getAttribute('content') || '').trim();
 
@@ -82,15 +84,7 @@ function hideGate() {
   document.documentElement.style.overflow = '';
 }
 
-// True se o utilizador está a editar um campo de texto AGORA — para não
-// interromper uma escrita em curso com um reload de atualização de versão.
-function userIsEditing() {
-  const a = document.activeElement;
-  if (!a) return false;
-  if (a.tagName === 'TEXTAREA' || a.isContentEditable) return true;
-  if (a.tagName === 'INPUT') return /^(text|email|search|url|tel|number|password|)$/i.test(a.getAttribute('type') || '');
-  return false;
-}
+// userIsEditing() (utils/user-editing.js) — para não interromper escrita em curso.
 
 async function check() {
   // 1) Offline declarado pelo browser → bloqueia já.

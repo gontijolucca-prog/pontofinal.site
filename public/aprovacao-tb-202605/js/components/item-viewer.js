@@ -8,6 +8,8 @@
 import { approvalStore, init as initApprovalStore } from "../stores/approval-store.js";
 import { fitScaledFrame, dimsFor } from "../lib/fit-frame.js";
 import { APP_VERSION } from "../config.js";
+import { currentContentSig } from "../data-loader.js";
+import { userIsEditing } from "../utils/user-editing.js";
 import { fmtToHtml } from "../lib/rich-text.js";
 
 const BRAND_LABELS = { techbody: "TechBody", techbody_u: "TechBody U", luiz_santana: "Luiz Santana" };
@@ -24,6 +26,36 @@ class ItemViewer extends HTMLElement {
       if (!this._wizard) this._refreshStatusLine();
     };
     window.addEventListener("approval:changed", this._onApprovalChange);
+
+    // Auto-refresh quando o conteúdo do servidor muda enquanto o viewer está
+    // aberto. Substitui o item em memória pela versão fresca e recarrega o
+    // iframe com novo cache-bust. Adia se o user está a editar texto (não
+    // mexe enquanto há um campo focado).
+    this._onContentChanged = (ev) => {
+      if (this.getAttribute("data-open") !== "true" || !this._item) return;
+      const d = ev.detail || {};
+      if (!Array.isArray(d.changedIds) || !d.changedIds.includes(this._item.id)) return;
+      if (userIsEditing()) { this._pendingContentRefresh = d; return; }
+      const fresh = (d.items || []).find(it => it.id === this._item.id);
+      if (!fresh) return;
+      this._item = fresh;
+      const iframe = this.querySelector(".viewer-frame-wrap iframe");
+      if (iframe && fresh.html_url) {
+        const hash = this._isCarousel ? `#slide-${this._slide || 1}` : "";
+        iframe.src = `${fresh.html_url}?v=${APP_VERSION}&c=${d.contentSig}${hash}`;
+      }
+      this._applyStoredOverrides && this._applyStoredOverrides();
+    };
+    window.addEventListener("content:changed", this._onContentChanged);
+    // Tentar aplicar o último update adiado quando o user sai do foco.
+    this._onFocusOut = () => {
+      setTimeout(() => {
+        if (!this._pendingContentRefresh || userIsEditing()) return;
+        const d = this._pendingContentRefresh; this._pendingContentRefresh = null;
+        this._onContentChanged({ detail: d });
+      }, 60);
+    };
+    document.addEventListener("focusout", this._onFocusOut);
     this.addEventListener("click", (e) => { if (e.target === this) this.close(); });
     document.addEventListener("keydown", (e) => {
       if (this.getAttribute("data-open") !== "true") return;
@@ -148,7 +180,7 @@ class ItemViewer extends HTMLElement {
       }
     } catch {}
     // Fallback: hash (pode fazer scroll suave / reload conforme o browser).
-    if (this._item?.html_url) iframe.src = `${this._item.html_url}?v=${APP_VERSION}#slide-${n}`;
+    if (this._item?.html_url) iframe.src = `${this._item.html_url}?v=${APP_VERSION}&c=${currentContentSig()}#slide-${n}`;
   }
 
   _updateCounter() {
@@ -216,7 +248,7 @@ class ItemViewer extends HTMLElement {
       </div>` : "";
 
     const isReelVideo = isReel && !!it.video_url;
-    const bust = `?v=${APP_VERSION}`;
+    const bust = `?v=${APP_VERSION}&c=${currentContentSig()}`;
     const frameHtml = isReelVideo
       ? `<video class="viewer-video" src="${it.video_url}${bust}" controls autoplay loop playsinline></video>`
       : isReel
@@ -372,7 +404,7 @@ class ItemViewer extends HTMLElement {
     let previewHtml = "";
     if (step.type === "slide" && it.html_url && !this._isReel) {
       const ratio = it.format === "story" ? "9-16" : "4-5";
-      const src = `${it.html_url}?v=${APP_VERSION}${this._isCarousel ? `#slide-${step.n}` : ""}`;
+      const src = `${it.html_url}?v=${APP_VERSION}&c=${currentContentSig()}${this._isCarousel ? `#slide-${step.n}` : ""}`;
       previewHtml = `<div class="onboard__preview onboard__preview--${ratio}"><iframe data-ob-frame src="${src}" title="pré-visualização" scrolling="no"></iframe></div>`;
     } else if (this._isReel && step.type === "slide") {
       const role = (it.slides_text || [])[step.n - 1]?.role;

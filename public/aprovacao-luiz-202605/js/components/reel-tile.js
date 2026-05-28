@@ -4,6 +4,7 @@
 
 import { approvalStore } from "../stores/approval-store.js";
 import { APP_VERSION } from "../config.js";
+import { currentContentSig } from "../data-loader.js";
 
 const BRAND_LABELS = { techbody: "TechBody", techbody_u: "TechBody U", luiz_santana: "Luiz Santana" };
 const ROLE_LABELS = { hook: "Hook", demo: "Desenvolvimento", proof: "Prova", development: "Desenvolvimento", cta: "CTA", outro: "Fecho", intro: "Intro" };
@@ -115,7 +116,7 @@ class ReelTile extends HTMLElement {
   _renderVideo() {
     const it = this._item;
     const hasCaption = !!(it.caption && it.caption.trim());
-    const bust = `?v=${APP_VERSION}`;
+    const bust = `?v=${APP_VERSION}&c=${currentContentSig()}`;
     const poster = it.video_url.replace(/\.mp4$/, ".jpg") + bust;
     this.innerHTML = `
       <article class="card card--reel" data-item-id="${it.id}">
