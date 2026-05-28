@@ -459,22 +459,22 @@
     "brand": "techbody",
     "month": "2026-05",
     "format": "story",
-    "theme": "atencao_individual",
-    "pilar": "Experiência no estúdio",
+    "theme": "resultados_visiveis",
+    "pilar": "Resultados",
     "audience": "b2c",
-    "title": "No máximo duas pessoas por sessão. Atenção quase individual.",
+    "title": "5 ou 6 sessões. A diferença vê-se.",
     "slides": 1,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "No máximo duas pessoas por sessão. Atenção quase individual."
+        "text_overlay": "5 ou 6 sessões. A diferença vê-se."
       }
     ],
-    "html_url": "../brands/techbody/output/2026-05/stories/s05-atencao-individual.html",
+    "html_url": "../brands/techbody/output/2026-05/stories/s05-resultados-visiveis.html",
     "photos_used": [],
     "photo_positions": [],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-28T01:00:00",
+    "generated_at": "2026-05-28T01:30:00",
     "scheduled_for": "2026-05-30",
     "hour": "17h"
   },

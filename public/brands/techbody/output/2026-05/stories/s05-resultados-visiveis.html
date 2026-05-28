@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>TechBody · atencao_individual · story</title>
+<title>TechBody · resultados_visiveis · story</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@200;400;800;900&family=Fraunces:ital,wght@0,200;0,400;0,800;1,200;1,400;1,800&family=Manrope:wght@200;400;500;700&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
 <style>
 :root {
@@ -38,23 +38,6 @@ html, body { height: 100%; background: #0a0a0c; color: var(--text); font-family:
     radial-gradient(circle at 12% 18%, rgba(255,255,255,0.05), transparent 38%),
     radial-gradient(circle at 88% 92%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 42%);
   pointer-events: none;
-}
-
-.bg-photo {
-  position: absolute; inset: 0;
-  background-size: cover; background-position: center;
-  z-index: 0;
-}
-.bg-photo::after {
-  content: ""; position: absolute; inset: 0;
-  background:
-    linear-gradient(180deg,
-      color-mix(in srgb, var(--bg) 16%, transparent) 0%,
-      color-mix(in srgb, var(--bg) 38%, transparent) 24%,
-      color-mix(in srgb, var(--bg) 72%, transparent) 46%,
-      color-mix(in srgb, var(--bg) 72%, transparent) 56%,
-      color-mix(in srgb, var(--bg) 38%, transparent) 78%,
-      color-mix(in srgb, var(--bg) 14%, transparent) 100%);
 }
 
 .story-single__top,
@@ -96,6 +79,7 @@ html, body { height: 100%; background: #0a0a0c; color: var(--text); font-family:
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
+.story-single--type h1 em { color: var(--accent); font-style: normal; font-weight: 900; }
 
 .story-single__bottom {
   display: flex; justify-content: space-between; align-items: end;
@@ -107,12 +91,12 @@ html, body { height: 100%; background: #0a0a0c; color: var(--text); font-family:
 </style>
 </head>
 <body>
-<section class="story-single story-single--type" aria-label="Story TechBody — atencao_individual">
+<section class="story-single story-single--type" aria-label="Story TechBody — resultados_visiveis">
 
   <div class="story-single__top">
     <span class="brand">TechBody</span>
   </div>
-  <div class="story-single__body"><h1>No máximo duas pessoas por sessão. Atenção quase individual.</h1></div>
+  <div class="story-single__body"><h1><em>5 ou 6 sessões.</em> A diferença vê-se.</h1></div>
   <div class="story-single__bottom"></div>
 </section>
 </body>

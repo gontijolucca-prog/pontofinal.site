@@ -4,11 +4,11 @@
 
 <!-- claude-evolve:managed-start -->
 
-<!-- claude-evolve:rule id=r_mpbf8j0x_pt93 score=5.6 created=2026-05-18 source=observation complexity=simple -->
+<!-- claude-evolve:rule id=r_mpbf8j0x_pt93 score=5.7 created=2026-05-18 source=observation complexity=simple -->
 - After a git push, immediately start a polling loop against the GitHub Actions API using head_sha to confirm the correct commit's CI run reached a conclusive state before closing the task.
 <!-- /claude-evolve:rule -->
 
-<!-- claude-evolve:rule id=r_mpe077jp_8i1x score=6.2 created=2026-05-20 source=observation complexity=simple -->
+<!-- claude-evolve:rule id=r_mpe077jp_8i1x score=6.1 created=2026-05-20 source=observation complexity=simple -->
 - After any functional change to a web app, bump the version atomically in all three locations: version.txt, js/config.js (APP_VERSION constant), and index.html (<meta name="app-version">). Do all three in one pass; never update only a subset.
 <!-- /claude-evolve:rule -->
 
@@ -20,7 +20,7 @@
 - When monitoring a long-running VPS process, use a blocking `until ! pgrep -f <process>` loop via SSH rather than polling manually — avoids repeated tail calls and frees the session for parallel work.
 <!-- /claude-evolve:rule -->
 
-<!-- claude-evolve:rule id=r_mped0z0h_2dqp score=5.4 created=2026-05-20 source=observation complexity=simple -->
+<!-- claude-evolve:rule id=r_mped0z0h_2dqp score=5.3 created=2026-05-20 source=observation complexity=simple -->
 - After producing and queuing content pieces, immediately update THEMES_ROSTER.md with strikethrough + [USADO <format> · <date> · queue] for every consumed theme — never leave the roster in an ambiguous used/unused state.
 <!-- /claude-evolve:rule -->
 
