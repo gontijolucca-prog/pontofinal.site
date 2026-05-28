@@ -11,7 +11,7 @@
     "slides": 6,
     "slides_text": [
       {
-        "text_overlay": "Vinte e cinco minutos. Treino completo.",
+        "text_overlay": "Vinte e cinco minutos. *Treino completo.*",
         "role": "hook"
       },
       {
@@ -181,11 +181,11 @@
     "theme": "modelo_franchising",
     "pilar": "Modelo de negócio e franchising",
     "audience": "b2b",
-    "title": "Tem um ginásio? Ganhe uma nova fonte de receita.",
+    "title": "Tem um ginásio? Cabe-lhe aqui uma nova linha de receita.",
     "slides": 6,
     "slides_text": [
       {
-        "text_overlay": "Tem um ginásio? Ganhe uma nova fonte de receita.",
+        "text_overlay": "Tem um ginásio? Cabe-lhe aqui uma *Nova linha de receita.*",
         "role": "hook"
       },
       {
@@ -490,7 +490,7 @@
     "slides": 6,
     "slides_text": [
       {
-        "text_overlay": "Tecnologia de estúdio. Em casa.",
+        "text_overlay": "Tecnologia de estúdio. *Em casa.*",
         "role": "hook"
       },
       {
@@ -814,7 +814,7 @@
       },
       {
         "role": "demo",
-        "text_overlay": "Três anos de garantia no equipamento. Se algo falhar, é problema nosso. Não teu."
+        "text_overlay": "Garantia de 2 anos no equipamento. Se algo falhar, é problema nosso. Não é seu."
       },
       {
         "role": "proof",
@@ -874,7 +874,7 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "O treino continua mesmo depois de tirar o fato."
+        "text_overlay": "*O treino* continua mesmo depois de tirares o fato."
       }
     ],
     "html_url": "../brands/techbody_u/output/2026-05/stories/s02-efeito-metabolico.html",
