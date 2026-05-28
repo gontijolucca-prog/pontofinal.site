@@ -459,22 +459,22 @@
     "brand": "techbody",
     "month": "2026-05",
     "format": "story",
-    "theme": "complemento_desportivo",
-    "pilar": "Aplicações",
+    "theme": "atencao_individual",
+    "pilar": "Experiência no estúdio",
     "audience": "b2c",
-    "title": "Tem o seu desporto principal. Eletroestimulação trabalha o resto.",
+    "title": "No máximo duas pessoas por sessão. Atenção quase individual.",
     "slides": 1,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Tem o seu desporto principal. Eletroestimulação trabalha o resto."
+        "text_overlay": "No máximo duas pessoas por sessão. Atenção quase individual."
       }
     ],
-    "html_url": "../brands/techbody/output/2026-05/stories/s05-complemento-desportivo.html",
+    "html_url": "../brands/techbody/output/2026-05/stories/s05-atencao-individual.html",
     "photos_used": [],
     "photo_positions": [],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-28T00:35:00",
+    "generated_at": "2026-05-28T01:00:00",
     "scheduled_for": "2026-05-30",
     "hour": "17h"
   },
