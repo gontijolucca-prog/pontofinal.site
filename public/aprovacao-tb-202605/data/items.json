@@ -232,106 +232,6 @@
     "hour": "09h"
   },
   {
-    "id": "techbody-2026-05-s01",
-    "brand": "techbody",
-    "month": "2026-05",
-    "format": "story",
-    "theme": "pos_parto",
-    "pilar": "Programas especializados",
-    "audience": "b2c",
-    "title": "Pós-parto. Programa para reativar o corpo.",
-    "slides": 1,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Pós-parto. Programa para reativar o corpo."
-      }
-    ],
-    "html_url": "../brands/techbody/output/2026-05/stories/s01-pos-parto.html",
-    "photos_used": [
-      "magnific_e6-postreino-imagem-edito_2964580806.jpg"
-    ],
-    "photo_positions": [
-      1
-    ],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-08",
-    "hour": "17h"
-  },
-  {
-    "id": "techbody-2026-05-s02",
-    "brand": "techbody",
-    "month": "2026-05",
-    "format": "story",
-    "theme": "reabilitacao_dor",
-    "pilar": "Saúde e reabilitação",
-    "audience": "b2c",
-    "title": "Dor lombar? Eletroestimulação é também reabilitação.",
-    "slides": 1,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Dor lombar? Eletroestimulação é também reabilitação."
-      }
-    ],
-    "html_url": "../brands/techbody/output/2026-05/stories/s02-reabilitacao-dor.html",
-    "photos_used": [],
-    "photo_positions": [],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-15",
-    "hour": "17h"
-  },
-  {
-    "id": "techbody-2026-05-s03",
-    "brand": "techbody",
-    "month": "2026-05",
-    "format": "story",
-    "theme": "estudios_pt",
-    "pilar": "Rede TechBody",
-    "audience": "b2c",
-    "title": "Oito estúdios. De Lisboa a Anadia.",
-    "slides": 1,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Oito estúdios em Portugal. De Lisboa a Anadia."
-      }
-    ],
-    "html_url": "../brands/techbody/output/2026-05/stories/s03-estudios-pt.html",
-    "photos_used": [],
-    "photo_positions": [],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-22",
-    "hour": "17h"
-  },
-  {
-    "id": "techbody-2026-05-s04",
-    "brand": "techbody",
-    "month": "2026-05",
-    "format": "story",
-    "theme": "confianca_treinador",
-    "pilar": "Experiência no estúdio",
-    "audience": "b2c",
-    "title": "Não tens de pensar. O treinador pensa por ti.",
-    "slides": 1,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Não tens de pensar. O treinador pensa por ti."
-      }
-    ],
-    "html_url": "../brands/techbody/output/2026-05/stories/s04-confianca-treinador.html",
-    "photos_used": [],
-    "photo_positions": [],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-29",
-    "hour": "17h"
-  },
-  {
     "id": "techbody-2026-05-r02",
     "brand": "techbody",
     "month": "2026-05",
@@ -453,6 +353,130 @@
     "scheduled_for": "2026-05-27",
     "hour": "18h",
     "video_url": "../brands/techbody/output/2026-05/reels/r04-abrir-estudio.mp4"
+  },
+  {
+    "id": "techbody-2026-05-s01",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "pos_parto",
+    "pilar": "Programas especializados",
+    "audience": "b2c",
+    "title": "Pós-parto. Programa para reativar o corpo.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Pós-parto. Programa para reativar o corpo."
+      }
+    ],
+    "html_url": "../brands/techbody/output/2026-05/stories/s01-pos-parto.html",
+    "photos_used": [
+      "magnific_e6-postreino-imagem-edito_2964580806.jpg"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:54:32",
+    "scheduled_for": "2026-05-08",
+    "hour": "17h"
+  },
+  {
+    "id": "techbody-2026-05-s02",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "reabilitacao_dor",
+    "pilar": "Saúde e reabilitação",
+    "audience": "b2c",
+    "title": "Dor lombar? Eletroestimulação é também reabilitação.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Dor lombar? Eletroestimulação é também reabilitação."
+      }
+    ],
+    "html_url": "../brands/techbody/output/2026-05/stories/s02-reabilitacao-dor.html",
+    "photos_used": [],
+    "photo_positions": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:54:32",
+    "scheduled_for": "2026-05-15",
+    "hour": "17h"
+  },
+  {
+    "id": "techbody-2026-05-s03",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "estudios_pt",
+    "pilar": "Rede TechBody",
+    "audience": "b2c",
+    "title": "Oito estúdios. De Lisboa a Anadia.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Oito estúdios em Portugal. De Lisboa a Anadia."
+      }
+    ],
+    "html_url": "../brands/techbody/output/2026-05/stories/s03-estudios-pt.html",
+    "photos_used": [],
+    "photo_positions": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:54:32",
+    "scheduled_for": "2026-05-22",
+    "hour": "17h"
+  },
+  {
+    "id": "techbody-2026-05-s04",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "confianca_treinador",
+    "pilar": "Experiência no estúdio",
+    "audience": "b2c",
+    "title": "Não tens de pensar. O treinador pensa por ti.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Não tens de pensar. O treinador pensa por ti."
+      }
+    ],
+    "html_url": "../brands/techbody/output/2026-05/stories/s04-confianca-treinador.html",
+    "photos_used": [],
+    "photo_positions": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:54:32",
+    "scheduled_for": "2026-05-29",
+    "hour": "17h"
+  },
+  {
+    "id": "techbody-2026-05-s05",
+    "brand": "techbody",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "complemento_desportivo",
+    "pilar": "Aplicações",
+    "audience": "b2c",
+    "title": "Tem o seu desporto principal. Eletroestimulação trabalha o resto.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Tem o seu desporto principal. Eletroestimulação trabalha o resto."
+      }
+    ],
+    "html_url": "../brands/techbody/output/2026-05/stories/s05-complemento-desportivo.html",
+    "photos_used": [],
+    "photo_positions": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-28T00:35:00",
+    "scheduled_for": "2026-05-30",
+    "hour": "17h"
   },
   {
     "id": "techbody_u-2026-05-c01",
@@ -687,118 +711,6 @@
     "hour": "09h"
   },
   {
-    "id": "techbody_u-2026-05-s01",
-    "brand": "techbody_u",
-    "month": "2026-05",
-    "format": "story",
-    "theme": "portabilidade",
-    "pilar": "Liberdade de uso",
-    "audience": "b2c",
-    "title": "Onde quer treinar hoje?",
-    "slides": 1,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Onde quer treinar hoje? O fato vai consigo."
-      }
-    ],
-    "html_url": "../brands/techbody_u/output/2026-05/stories/s01-portabilidade.html",
-    "photos_used": [
-      "magnific_e6-postreino-pessoa-em-re_2964211563.jpg"
-    ],
-    "photo_positions": [
-      1
-    ],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-08",
-    "hour": "17h"
-  },
-  {
-    "id": "techbody_u-2026-05-s02",
-    "brand": "techbody_u",
-    "month": "2026-05",
-    "format": "story",
-    "theme": "efeito_metabolico",
-    "pilar": "Ciência do estímulo",
-    "audience": "b2c",
-    "title": "O treino continua quando o tira.",
-    "slides": 1,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "O treino continua mesmo depois de tirar o fato."
-      }
-    ],
-    "html_url": "../brands/techbody_u/output/2026-05/stories/s02-efeito-metabolico.html",
-    "photos_used": [
-      "magnific_c5-noite-de-ativacao-trei_2964210896.jpg"
-    ],
-    "photo_positions": [
-      1
-    ],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-15",
-    "hour": "17h"
-  },
-  {
-    "id": "techbody_u-2026-05-s03",
-    "brand": "techbody_u",
-    "month": "2026-05",
-    "format": "story",
-    "theme": "sem_friction",
-    "pilar": "Rotina sem atrito",
-    "audience": "b2c",
-    "title": "Sem trânsito. Sem fila. Sem marcação.",
-    "slides": 1,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Sem trânsito. Sem fila. Sem marcação."
-      }
-    ],
-    "html_url": "../brands/techbody_u/output/2026-05/stories/s03-sem-friction.html",
-    "photos_used": [
-      "magnific_c2-foco-e-forca-uma-pesso_2964228044.jpg"
-    ],
-    "photo_positions": [
-      1
-    ],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-22",
-    "hour": "17h"
-  },
-  {
-    "id": "techbody_u-2026-05-s04",
-    "brand": "techbody_u",
-    "month": "2026-05",
-    "format": "story",
-    "theme": "sessao_25min",
-    "pilar": "Eficiência do método",
-    "audience": "b2c",
-    "title": "Vinte e cinco minutos. Em casa.",
-    "slides": 1,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Vinte e cinco minutos. Sessão completa. Em casa."
-      }
-    ],
-    "html_url": "../brands/techbody_u/output/2026-05/stories/s04-sessao-25min.html",
-    "photos_used": [
-      "magnific_b7.-home-studio-corner-ed_2964142762.jpg"
-    ],
-    "photo_positions": [
-      1
-    ],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-29",
-    "hour": "17h"
-  },
-  {
     "id": "techbody_u-2026-05-r01",
     "brand": "techbody_u",
     "month": "2026-05",
@@ -920,5 +832,117 @@
     "scheduled_for": "2026-05-27",
     "hour": "18h",
     "video_url": "../brands/techbody_u/output/2026-05/reels/r04-suporte-garantia.mp4"
+  },
+  {
+    "id": "techbody_u-2026-05-s01",
+    "brand": "techbody_u",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "portabilidade",
+    "pilar": "Liberdade de uso",
+    "audience": "b2c",
+    "title": "Onde quer treinar hoje?",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Onde quer treinar hoje? O fato vai consigo."
+      }
+    ],
+    "html_url": "../brands/techbody_u/output/2026-05/stories/s01-portabilidade.html",
+    "photos_used": [
+      "magnific_e6-postreino-pessoa-em-re_2964211563.jpg"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:54:32",
+    "scheduled_for": "2026-05-08",
+    "hour": "17h"
+  },
+  {
+    "id": "techbody_u-2026-05-s02",
+    "brand": "techbody_u",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "efeito_metabolico",
+    "pilar": "Ciência do estímulo",
+    "audience": "b2c",
+    "title": "O treino continua quando o tira.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "O treino continua mesmo depois de tirar o fato."
+      }
+    ],
+    "html_url": "../brands/techbody_u/output/2026-05/stories/s02-efeito-metabolico.html",
+    "photos_used": [
+      "magnific_c5-noite-de-ativacao-trei_2964210896.jpg"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:54:32",
+    "scheduled_for": "2026-05-15",
+    "hour": "17h"
+  },
+  {
+    "id": "techbody_u-2026-05-s03",
+    "brand": "techbody_u",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "sem_friction",
+    "pilar": "Rotina sem atrito",
+    "audience": "b2c",
+    "title": "Sem trânsito. Sem fila. Sem marcação.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Sem trânsito. Sem fila. Sem marcação."
+      }
+    ],
+    "html_url": "../brands/techbody_u/output/2026-05/stories/s03-sem-friction.html",
+    "photos_used": [
+      "magnific_c2-foco-e-forca-uma-pesso_2964228044.jpg"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:54:32",
+    "scheduled_for": "2026-05-22",
+    "hour": "17h"
+  },
+  {
+    "id": "techbody_u-2026-05-s04",
+    "brand": "techbody_u",
+    "month": "2026-05",
+    "format": "story",
+    "theme": "sessao_25min",
+    "pilar": "Eficiência do método",
+    "audience": "b2c",
+    "title": "Vinte e cinco minutos. Em casa.",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Vinte e cinco minutos. Sessão completa. Em casa."
+      }
+    ],
+    "html_url": "../brands/techbody_u/output/2026-05/stories/s04-sessao-25min.html",
+    "photos_used": [
+      "magnific_b7.-home-studio-corner-ed_2964142762.jpg"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:54:32",
+    "scheduled_for": "2026-05-29",
+    "hour": "17h"
   }
 ]
