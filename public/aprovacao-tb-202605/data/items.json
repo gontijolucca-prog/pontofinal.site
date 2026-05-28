@@ -801,24 +801,24 @@
     "theme": "suporte_garantia",
     "pilar": "Suporte e garantia",
     "audience": "b2c",
-    "title": "Não compra sozinho. Vem com suporte.",
+    "title": "Não fica sozinho. Vem com acompanhamento.",
     "slides": 24,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Compra o TechBody U? Não vem sozinho."
+        "text_overlay": "Quem compra o TechBody U não fica sozinho."
       },
       {
         "role": "demo",
-        "text_overlay": "Tem onboarding em videochamada com um treinador certificado. Ele explica tudo: fato, controlador, aplicação."
+        "text_overlay": "Tens vídeos de acompanhamento com a equipa. Explicam o fato, o controlador, a aplicação."
       },
       {
         "role": "demo",
-        "text_overlay": "Garantia do fabricante no equipamento. Se algo falhar, é problema nosso. Não seu."
+        "text_overlay": "Três anos de garantia no equipamento. Se algo falhar, é problema nosso. Não teu."
       },
       {
         "role": "proof",
-        "text_overlay": "Dúvida durante uma sessão? Manda mensagem. A equipa responde — não fica sem saber."
+        "text_overlay": "Dúvida durante uma sessão? Mandas mensagem. A equipa responde."
       },
       {
         "role": "cta",
