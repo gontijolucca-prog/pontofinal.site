@@ -9,7 +9,10 @@ interface Submission {
   date: string;
   plano_interesse: string;
   nome_empresa: string;
-  telefone: string;
+  contacto_metodo?: string;
+  contacto_valor?: string;
+  descricao?: string;
+  telefone?: string; // legado: submissões antigas
 }
 
 const dropdownGroups = [
@@ -208,7 +211,8 @@ export default function Admin() {
                 <tr style={{ borderBottom: '4px solid #050505' }}>
                   <th style={{ padding: '1rem', fontWeight: 900 }}>Data</th>
                   <th style={{ padding: '1rem', fontWeight: 900 }}>Nome / Empresa</th>
-                  <th style={{ padding: '1rem', fontWeight: 900 }}>Telefone</th>
+                  <th style={{ padding: '1rem', fontWeight: 900 }}>Contacto</th>
+                  <th style={{ padding: '1rem', fontWeight: 900 }}>Projeto</th>
                   <th style={{ padding: '1rem', fontWeight: 900 }}>Plano</th>
                   <th style={{ padding: '1rem', fontWeight: 900 }}>Ações</th>
                 </tr>
@@ -218,7 +222,15 @@ export default function Admin() {
                   <tr key={sub.id} style={{ borderBottom: '2px solid #050505' }}>
                     <td style={{ padding: '1rem' }}>{new Date(sub.date).toLocaleString('pt-PT')}</td>
                     <td style={{ padding: '1rem', fontWeight: 'bold' }}>{sub.nome_empresa}</td>
-                    <td style={{ padding: '1rem' }}>{sub.telefone}</td>
+                    <td style={{ padding: '1rem' }}>
+                      {sub.contacto_valor || sub.telefone || '—'}
+                      {sub.contacto_metodo && (
+                        <span style={{ display: 'block', fontSize: '0.75rem', opacity: 0.6, textTransform: 'uppercase' }}>
+                          {sub.contacto_metodo}
+                        </span>
+                      )}
+                    </td>
+                    <td style={{ padding: '1rem', maxWidth: '260px', fontSize: '0.9rem' }}>{sub.descricao || '—'}</td>
                     <td style={{ padding: '1rem' }}>
                       <span style={{ 
                         background: '#FF2A2A', 

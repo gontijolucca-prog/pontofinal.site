@@ -433,10 +433,14 @@ export default function Home() {
                               const data = Object.fromEntries(formData.entries());
                               
                               try {
-                                  await addDoc(collection(db, 'submissions'), {
-                                      ...data,
-                                      date: new Date().toISOString()
-                                  });
+                                  const payload = { ...data, date: new Date().toISOString() };
+                                  await addDoc(collection(db, 'submissions'), payload);
+                                  // Notificação por email (best-effort): não bloqueia nem falha o formulário.
+                                  fetch('/api/notify', {
+                                      method: 'POST',
+                                      headers: { 'Content-Type': 'application/json' },
+                                      body: JSON.stringify(payload)
+                                  }).catch(() => {});
                                   setFormStatus({ type: 'success', message: 'Sucesso' });
                               } catch (err) {
                                   console.error(err);
