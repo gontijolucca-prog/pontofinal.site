@@ -59,7 +59,7 @@ export async function onRequestPost(context) {
         <tr><td style="padding:8px 0;font-weight:bold">Interesse</td><td style="padding:8px 0">${esc(plano)}</td></tr>
         <tr><td style="padding:8px 0;font-weight:bold;vertical-align:top">Projeto</td><td style="padding:8px 0">${esc(descricao)}</td></tr>
       </table>
-      <p style="margin-top:20px"><a href="https://pontofinal.site/admin" style="background:#FF2A2A;color:#fff;padding:10px 18px;text-decoration:none;font-weight:bold">Ver no back office</a></p>
+      <p style="margin-top:20px"><a href="https://pontofinal.site/#/admin" style="background:#FF2A2A;color:#fff;padding:10px 18px;text-decoration:none;font-weight:bold">Ver no back office</a></p>
     </div>`;
 
   const text =
@@ -68,7 +68,7 @@ export async function onRequestPost(context) {
     `Contacto (${metodo}): ${contacto}\n` +
     `Interesse: ${plano}\n` +
     `Projeto: ${descricao}\n\n` +
-    `Back office: https://pontofinal.site/admin`;
+    `Back office: https://pontofinal.site/#/admin`;
 
   const replyTo = metodo === "email" && contacto.includes("@") ? contacto : undefined;
 
