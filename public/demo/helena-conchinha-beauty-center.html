@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helena Conchinha · Cabeleireiro & Estética · Lisboa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+/* =====================================
+   RESET & BASE
+   ===================================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:#1a1a1a;background:#fff;overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+
+/* =====================================
+   TYPOGRAPHY
+   ===================================== */
+h1,h2,h3,h4,h5,h6{font-family:'Syne',sans-serif;font-weight:700;line-height:1.15}
+.section-label{font-family:'Inter',sans-serif;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.15em;color:#2d4a3e;margin-bottom:0.75rem}
+.section-title{font-size:clamp(2rem,5vw,3.25rem);margin-bottom:1rem;color:#1a1a1a}
+.section-sub{font-size:1rem;color:#555;max-width:560px;line-height:1.7}
+
+/* =====================================
+   CONTAINER
+   ===================================== */
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 1.5rem}
+
+/* =====================================
+   DEMO BADGE
+   ===================================== */
+.demo-badge{position:fixed;top:0;left:0;z-index:10001;background:#2d4a3e;color:#fff;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:0.35rem 1.2rem;border-bottom-right-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.12)}
+
+/* =====================================
+   PRELOADER
+   ===================================== */
+.preloader{position:fixed;top:0;left:0;width:100%;height:100%;z-index:99999;background:#fff;display:flex;align-items:center;justify-content:center;transition:opacity 0.6s ease,visibility 0.6s ease}
+.preloader.hidden{opacity:0;visibility:hidden}
+.spinner{width:40px;height:40px;border:3px solid #e0e0e0;border-top-color:#2d4a3e;border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* =====================================
+   NAV
+   ===================================== */
+nav{position:fixed;top:0;left:0;width:100%;z-index:10000;background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.05);transition:transform 0.3s ease}
+nav .container{display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:700;color:#1a1a1a}
+.nav-logo span{color:#2d4a3e}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-links a{font-size:0.85rem;font-weight:500;color:#444;transition:color 0.2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:#2d4a3e;transition:width 0.3s}
+.nav-links a:hover{color:#2d4a3e}
+.nav-links a:hover::after{width:100%}
+.nav-cta{background:#2d4a3e;color:#fff!important;padding:0.55rem 1.4rem;border-radius:50px;font-weight:600;font-size:0.8rem;transition:all 0.3s}
+.nav-cta::after{display:none!important}
+.nav-cta:hover{background:#1a332b!important;transform:translateY(-1px)}
+.mobile-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.mobile-toggle span{width:24px;height:2px;background:#1a1a1a;border-radius:2px;transition:all 0.3s}
+@media(max-width:768px){
+  .nav-links{display:none;position:fixed;top:64px;left:0;width:100%;background:#fff;flex-direction:column;padding:1.5rem;gap:1.2rem;border-bottom:1px solid #eee;box-shadow:0 8px 24px rgba(0,0,0,0.06)}
+  .nav-links.open{display:flex}
+  .mobile-toggle{display:flex}
+}
+
+/* =====================================
+   HERO
+   ===================================== */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding-top:64px}
+.hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(26,26,26,0.75) 0%,rgba(26,26,26,0.45) 50%,rgba(26,26,26,0.7) 100%)}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:780px;padding:0 1.5rem}
+.hero-tagline{font-size:0.85rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:1.2rem}
+.hero-title{font-size:clamp(2.8rem,8vw,5.5rem);font-weight:800;color:#fff;margin-bottom:1.2rem;letter-spacing:-0.02em;line-height:1.05}
+.hero-desc{font-size:1.1rem;color:rgba(255,255,255,0.75);max-width:480px;margin:0 auto 2.2rem;line-height:1.7}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:#2d4a3e;color:#fff;padding:0.9rem 2.2rem;border-radius:50px;font-weight:600;font-size:0.9rem;border:none;cursor:pointer;transition:all 0.3s;display:inline-flex;align-items:center;gap:0.5rem}
+.btn-primary:hover{background:#1a332b;transform:translateY(-2px);box-shadow:0 8px 24px rgba(45,74,62,0.3)}
+.btn-secondary{background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);color:#fff;padding:0.9rem 2.2rem;border-radius:50px;font-weight:600;font-size:0.9rem;border:1px solid rgba(255,255,255,0.2);cursor:pointer;transition:all 0.3s}
+.btn-secondary:hover{background:rgba(255,255,255,0.2);transform:translateY(-2px)}
+.hero-metrics{display:flex;gap:2.5rem;justify-content:center;margin-top:2.5rem;flex-wrap:wrap}
+.hero-metric{text-align:center}
+.hero-metric-num{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:700;color:#fff;line-height:1}
+.hero-metric-label{font-size:0.75rem;color:rgba(255,255,255,0.6);margin-top:0.3rem;letter-spacing:0.05em}
+.scroll-indicator{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.5);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase}
+.scroll-dot{width:2px;height:28px;background:rgba(255,255,255,0.3);border-radius:2px;position:relative;overflow:hidden}
+.scroll-dot::after{content:'';position:absolute;top:-4px;left:0;width:100%;height:40%;background:#2d4a3e;border-radius:2px;animation:scrollDot 1.8s ease-in-out infinite}
+@keyframes scrollDot{0%{top:-40%}50%{top:60%}100%{top:100%}}
+
+/* =====================================
+   ABOUT
+   ===================================== */
+.about{padding:7rem 0}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-image-wrap{position:relative;border-radius:16px;overflow:hidden}
+.about-image-wrap img{width:100%;height:500px;object-fit:cover;border-radius:16px}
+.about-stat-badge{position:absolute;bottom:1.5rem;left:1.5rem;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-radius:12px;padding:1.2rem 1.8rem;box-shadow:0 8px 32px rgba(0,0,0,0.1)}
+.about-stat-badge .num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:700;color:#2d4a3e;line-height:1}
+.about-stat-badge .label{font-size:0.8rem;color:#666;margin-top:0.2rem}
+.about-text p{font-size:0.95rem;color:#555;line-height:1.8;margin-bottom:1.2rem}
+.about-text p:last-child{margin-bottom:0}
+.about-features{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
+.about-feat{display:flex;align-items:center;gap:0.7rem;font-size:0.85rem;font-weight:500;color:#333}
+.about-feat svg{width:18px;height:18px;flex-shrink:0;color:#2d4a3e}
+@media(max-width:768px){
+  .about-grid{grid-template-columns:1fr;gap:2.5rem}
+  .about-image-wrap img{height:340px}
+}
+
+/* =====================================
+   STATS BAR
+   ===================================== */
+.stats{background:#2d4a3e;padding:3.5rem 0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;text-align:center}
+.stat-item .num{font-family:'Syne',sans-serif;font-size:2.4rem;font-weight:700;color:#fff;line-height:1}
+.stat-item .label{font-size:0.8rem;color:rgba(255,255,255,0.7);margin-top:0.4rem;letter-spacing:0.05em}
+@media(max-width:640px){.stats-grid{grid-template-columns:repeat(2,1fr);gap:2rem}}
+
+/* =====================================
+   SERVICES
+   ===================================== */
+.services{padding:7rem 0;background:#f8f9f8}
+.services-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:3rem}
+.service-card{background:#fff;border-radius:14px;padding:1.8rem;cursor:pointer;transition:all 0.35s ease;position:relative;overflow:hidden;border:1px solid rgba(0,0,0,0.04)}
+.service-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:0;background:#2d4a3e;transition:height 0.4s ease}
+.service-card:hover::before{height:100%}
+.service-card:hover{box-shadow:0 12px 40px rgba(0,0,0,0.06);transform:translateY(-3px)}
+.service-card h3{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:600;margin-bottom:0.4rem;color:#1a1a1a}
+.service-card p{font-size:0.85rem;color:#777;line-height:1.6;margin-bottom:1rem}
+.service-price{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:#2d4a3e}
+@media(max-width:768px){.services-grid{grid-template-columns:1fr}}
+
+/* =====================================
+   BOOKING
+   ===================================== */
+.booking{padding:7rem 0}
+.booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.booking-image-wrap{position:relative;border-radius:16px;overflow:hidden;height:600px}
+.booking-image-wrap img{width:100%;height:100%;object-fit:cover;border-radius:16px}
+.booking-overlay-text{position:absolute;bottom:2rem;left:2rem;background:rgba(255,255,255,0.93);backdrop-filter:blur(12px);border-radius:12px;padding:1.5rem 2rem;box-shadow:0 8px 32px rgba(0,0,0,0.08)}
+.booking-overlay-text .big{font-family:'Syne',sans-serif;font-size:2.6rem;font-weight:700;color:#2d4a3e;line-height:1}
+.booking-overlay-text .sm{font-size:0.85rem;color:#555;margin-top:0.2rem}
+.booking-form-wrap{max-width:480px}
+.booking-form-wrap h3{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:700;margin-bottom:0.5rem}
+.booking-form-wrap .sub{font-size:0.9rem;color:#666;margin-bottom:2rem}
+.form-group{margin-bottom:1.2rem}
+.form-group label{display:block;font-size:0.8rem;font-weight:600;color:#444;margin-bottom:0.4rem}
+.form-group select,.form-group input,.form-group textarea{width:100%;padding:0.85rem 1rem;border:1.5px solid #e0e0e0;border-radius:10px;font-family:'Inter',sans-serif;font-size:0.9rem;background:#fafafa;transition:all 0.2s;outline:none;color:#1a1a1a}
+.form-group select:focus,.form-group input:focus,.form-group textarea:focus{border-color:#2d4a3e;background:#fff;box-shadow:0 0 0 3px rgba(45,74,62,0.08)}
+.form-group textarea{resize:vertical;min-height:80px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.btn-submit{width:100%;background:#2d4a3e;color:#fff;padding:0.95rem;border:none;border-radius:50px;font-weight:600;font-size:0.9rem;cursor:pointer;transition:all 0.3s}
+.btn-submit:hover{background:#1a332b;transform:translateY(-2px);box-shadow:0 8px 24px rgba(45,74,62,0.25)}
+@media(max-width:768px){
+  .booking-grid{grid-template-columns:1fr;gap:2.5rem}
+  .booking-image-wrap{height:380px;order:-1}
+}
+
+/* =====================================
+   TEAM
+   ===================================== */
+.team{padding:7rem 0;background:#f8f9f8}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+.team-card{background:#fff;border-radius:14px;overflow:hidden;transition:all 0.4s ease;border:1px solid rgba(0,0,0,0.04)}
+.team-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,0.08)}
+.team-img-wrap{overflow:hidden;height:320px}
+.team-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease}
+.team-card:hover .team-img-wrap img{transform:scale(1.08)}
+.team-info{padding:1.2rem 1.5rem 1.5rem}
+.team-info h4{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:600;color:#1a1a1a}
+.team-info .role{font-size:0.8rem;color:#2d4a3e;font-weight:500;margin-top:0.2rem}
+.team-info .bio{font-size:0.8rem;color:#777;margin-top:0.5rem;line-height:1.5}
+@media(max-width:768px){.team-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.team-grid{grid-template-columns:1fr}}
+
+/* =====================================
+   GALLERY
+   ===================================== */
+.gallery{padding:7rem 0}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3rem}
+.gallery-item{overflow:hidden;border-radius:12px;position:relative;cursor:pointer}
+.gallery-item::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(45,74,62,0);transition:background 0.4s;pointer-events:none}
+.gallery-item:hover::after{background:rgba(45,74,62,0.08)}
+.gallery-item img{width:100%;height:300px;object-fit:cover;transition:transform 0.6s ease}
+.gallery-item:hover img{transform:scale(1.08)}
+.gallery-item.tall img{height:420px}
+.gallery-item.wide{grid-column:span 2}
+@media(max-width:768px){
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  .gallery-item.wide{grid-column:span 2}
+  .gallery-item img{height:240px}
+  .gallery-item.tall img{height:320px}
+}
+@media(max-width:480px){.gallery-grid{grid-template-columns:1fr}}
+
+/* =====================================
+   REVIEWS
+   ===================================== */
+.reviews{padding:7rem 0;background:#f8f9f8}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.review-card{background:#fff;border-radius:14px;padding:2rem;transition:all 0.35s ease;border:1px solid rgba(0,0,0,0.04)}
+.review-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.06)}
+.review-stars{display:flex;gap:3px;margin-bottom:0.8rem;color:#2d4a3e}
+.review-card p{font-size:0.9rem;color:#555;line-height:1.7;font-style:italic}
+.review-author{font-weight:600;font-size:0.85rem;color:#1a1a1a;margin-top:1rem}
+.review-source{font-size:0.75rem;color:#999}
+@media(max-width:768px){.reviews-grid{grid-template-columns:1fr;gap:1rem}}
+
+/* =====================================
+   FAQ
+   ===================================== */
+.faq{padding:7rem 0}
+.faq-list{max-width:720px;margin:3rem auto 0}
+.faq-item{border-bottom:1px solid #e8e8e8}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 0;cursor:pointer;font-weight:500;font-size:1rem;color:#1a1a1a;transition:color 0.2s;background:none;border:none;width:100%;text-align:left;font-family:'Inter',sans-serif}
+.faq-q:hover{color:#2d4a3e}
+.faq-icon{width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.3s;color:#2d4a3e}
+.faq-icon svg{width:16px;height:16px;transition:transform 0.3s}
+.faq-item.active .faq-icon svg{transform:rotate(45deg)}
+.faq-a{padding:0 0 1.2rem;display:none;font-size:0.9rem;color:#666;line-height:1.7}
+.faq-item.active .faq-a{display:block}
+.faq-item.active .faq-q{color:#2d4a3e}
+
+/* =====================================
+   CONTACTS
+   ===================================== */
+.contacts{padding:7rem 0;background:#f8f9f8}
+.contacts-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contacts-info h3{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:700;margin-bottom:1.5rem}
+.contact-line{display:flex;gap:1rem;margin-bottom:1.2rem;font-size:0.9rem;color:#555}
+.contact-line svg{width:20px;height:20px;flex-shrink:0;color:#2d4a3e;margin-top:2px}
+.contact-line strong{color:#1a1a1a;display:block;font-size:0.8rem;font-weight:600;margin-bottom:0.15rem}
+.schedule-box{background:#fff;border-radius:12px;padding:1.5rem;margin-top:1.5rem;border:1px solid rgba(0,0,0,0.04)}
+.schedule-box h4{font-family:'Syne',sans-serif;font-size:1rem;font-weight:600;margin-bottom:0.8rem}
+.schedule-row{display:flex;justify-content:space-between;font-size:0.85rem;padding:0.35rem 0;color:#555}
+.schedule-row .day{font-weight:500;color:#1a1a1a}
+.schedule-row .closed{color:#e74c3c}
+#map{width:100%;height:400px;border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.06);z-index:1}
+@media(max-width:768px){.contacts-grid{grid-template-columns:1fr;gap:2rem}}
+
+/* =====================================
+   FOOTER
+   ===================================== */
+footer{background:#1a1a1a;color:rgba(255,255,255,0.7);padding:4rem 0 2rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem}
+footer h4{font-family:'Syne',sans-serif;font-size:1rem;font-weight:600;color:#fff;margin-bottom:1rem}
+footer p{font-size:0.85rem;line-height:1.7}
+footer a{font-size:0.85rem;color:rgba(255,255,255,0.6);transition:color 0.2s;display:block;margin-bottom:0.5rem}
+footer a:hover{color:#fff}
+.footer-brand{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:0.5rem}
+.footer-brand span{color:#2d4a3e}
+.footer-credit{border-top:1px solid rgba(255,255,255,0.08);margin-top:3rem;padding-top:1.5rem;text-align:center;font-size:0.8rem;color:rgba(255,255,255,0.4)}
+.footer-credit a{display:inline;color:rgba(255,255,255,0.6)}
+.footer-credit a:hover{color:#fff}
+@media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr;gap:2rem}}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+
+/* =====================================
+   WHATSAPP FLOATING
+   ===================================== */
+.whatsapp-float{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;background:#25D366;color:#fff;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.35);transition:all 0.3s;cursor:pointer}
+.whatsapp-float:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(37,211,102,0.4)}
+.whatsapp-float svg{width:26px;height:26px;fill:#fff}
+
+/* =====================================
+   SCROLL REVEAL
+   ===================================== */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:0.1s}
+.reveal-delay-2{transition-delay:0.2s}
+.reveal-delay-3{transition-delay:0.3s}
+.reveal-delay-4{transition-delay:0.4s}
+.reveal-delay-5{transition-delay:0.5s}
+
+/* =====================================
+   CURSOR GLOW
+   ===================================== */
+.cursor-glow{position:fixed;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(45,74,62,0.06) 0%,transparent 70%);pointer-events:none;transform:translate(-50%,-50%);z-index:0;transition:opacity 0.3s}
+@media(max-width:768px){.cursor-glow{display:none}}
+
+/* =====================================
+   RESPONSIVE UTILITIES
+   ===================================== */
+@media(max-width:768px){
+  .section-title{font-size:1.8rem}
+  .booking-overlay-text .big{font-size:2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- DEMO BADGE -->
+<div class="demo-badge">Demo · PontoFinal.site</div>
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader"><div class="spinner"></div></div>
+
+<!-- CURSOR GLOW -->
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="container">
+    <a href="#" class="nav-logo">Helena <span>Conchinha</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#sobre">Sobre</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#marcacoes">Marcações</a>
+      <a href="#equipa">Equipa</a>
+      <a href="#contactos">Contactos</a>
+      <a href="#marcacoes" class="nav-cta">Marcar</a>
+    </div>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=1920&q=80" alt="Salão de beleza interior" class="hero-bg" loading="eager">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-tagline">Cabeleireiro &amp; Estética · Lisboa</p>
+    <h1 class="hero-title">Beleza com<br>hora marcada</h1>
+    <p class="hero-desc">No Helena Conchinha - Beauty Center, cada visita é pensada ao detalhe. Da coloração ao bem-estar, entregamos resultados que falam por si.</p>
+    <div class="hero-btns">
+      <a href="#marcacoes" class="btn-primary">Marcar visita</a>
+      <a href="#servicos" class="btn-secondary">Ver serviços</a>
+    </div>
+    <div class="hero-metrics">
+      <div class="hero-metric">
+        <div class="hero-metric-num">14+</div>
+        <div class="hero-metric-label">Anos de experiência</div>
+      </div>
+      <div class="hero-metric">
+        <div class="hero-metric-num">4.9★</div>
+        <div class="hero-metric-label">Classificação</div>
+      </div>
+      <div class="hero-metric">
+        <div class="hero-metric-num">6</div>
+        <div class="hero-metric-label">Profissionais</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Deslize</span>
+    <div class="scroll-dot"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="sobre">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-wrap reveal">
+        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=80" alt="Interior do salão" loading="lazy">
+        <div class="about-stat-badge">
+          <div class="num">12K+</div>
+          <div class="label">Clientes satisfeitos</div>
+        </div>
+      </div>
+      <div class="about-text">
+        <p class="section-label reveal">Sobre nós</p>
+        <h2 class="section-title reveal">O teu momento de beleza</h2>
+        <p class="reveal reveal-delay-1">No coração de Lisboa, o Helena Conchinha - Beauty Center nasceu da paixão pela arte capilar e pelo bem-estar. Desde 2010 que transformamos cada visita numa experiência única, combinando técnicas modernas com um atendimento acolhedor.</p>
+        <p class="reveal reveal-delay-2">Acreditamos que a beleza começa com a confiança. Por isso, cada serviço é personalizado — da coloração à terapia capilar, tudo pensado para realçar o melhor de ti.</p>
+        <div class="about-features reveal reveal-delay-3">
+          <div class="about-feat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Produtos premium
+          </div>
+          <div class="about-feat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            Ambiente acolhedor
+          </div>
+          <div class="about-feat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Segurança garantida
+          </div>
+          <div class="about-feat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            +14 anos de legado
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal"><div class="num">14+</div><div class="label">Anos de experiência</div></div>
+      <div class="stat-item reveal reveal-delay-1"><div class="num">4.9★</div><div class="label">Classificação média</div></div>
+      <div class="stat-item reveal reveal-delay-2"><div class="num">12K+</div><div class="label">Clientes satisfeitos</div></div>
+      <div class="stat-item reveal reveal-delay-3"><div class="num">6</div><div class="label">Profissionais dedicados</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="servicos">
+  <div class="container">
+    <p class="section-label reveal">Serviços</p>
+    <h2 class="section-title reveal">O que oferecemos</h2>
+    <p class="section-sub reveal">Do clássico ao contemporâneo, cada serviço é pensado para realçar a tua beleza natural com produtos de excelência.</p>
+    <div class="services-grid" id="servicesGrid">
+      <div class="service-card reveal"><h3>Corte de Cabelo</h3><p>Corte personalizado para homem e mulher, com consulta de estilo incluída.</p><div class="service-price">Desde 35€</div></div>
+      <div class="service-card reveal reveal-delay-1"><h3>Coloração</h3><p>Coloração, mechas, balayage e ombré com produtos profissionais L'Oréal.</p><div class="service-price">Desde 55€</div></div>
+      <div class="service-card reveal reveal-delay-2"><h3>Tratamento Capilar</h3><p>Hidratação, reconstrução e terapia de queratina para cabelos saudáveis.</p><div class="service-price">Desde 40€</div></div>
+      <div class="service-card reveal reveal-delay-1"><h3>Penteados & Eventos</h3><p>Penteados para casamentos, baptizados e festas. Inclui prova gratuita.</p><div class="service-price">Desde 65€</div></div>
+      <div class="service-card reveal reveal-delay-2"><h3>Estética Facial</h3><p>Limpeza de pele, hidratação profunda e massagem facial relaxante.</p><div class="service-price">Desde 45€</div></div>
+      <div class="service-card reveal reveal-delay-3"><h3>Manicure & Pedicure</h3><p>Unhas de gel, verniz tradicional e cuidados intensivos para as mãos e pés.</p><div class="service-price">Desde 30€</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="marcacoes">
+  <div class="container">
+    <div class="booking-grid">
+      <div class="booking-image-wrap reveal">
+        <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=1000&q=80" alt="Tratamento capilar" loading="lazy">
+        <div class="booking-overlay-text">
+          <div class="big">3 passos</div>
+          <div class="sm">Escolhe · Agenda · Relaxa</div>
+        </div>
+      </div>
+      <div class="booking-form-wrap">
+        <p class="section-label reveal">Marcações</p>
+        <h3 class="reveal">Agenda o teu momento</h3>
+        <p class="sub reveal">Preenche os dados e nós confirmamos a marcação num instante.</p>
+        <form id="bookingForm" onsubmit="return false;">
+          <div class="form-group reveal">
+            <label for="bName">Nome completo</label>
+            <input type="text" id="bName" required placeholder="O teu nome">
+          </div>
+          <div class="form-group reveal reveal-delay-1">
+            <label for="bService">Serviço desejado</label>
+            <select id="bService" required></select>
+          </div>
+          <div class="form-row">
+            <div class="form-group reveal reveal-delay-2">
+              <label for="bDate">Data</label>
+              <input type="date" id="bDate" required>
+            </div>
+            <div class="form-group reveal reveal-delay-2">
+              <label for="bTime">Hora</label>
+              <input type="time" id="bTime" required>
+            </div>
+          </div>
+          <div class="form-group reveal reveal-delay-3">
+            <label for="bPhone">Telemóvel</label>
+            <input type="tel" id="bPhone" required placeholder="+351 9..">
+          </div>
+          <div class="form-group reveal reveal-delay-3">
+            <label for="bNotes">Notas (opcional)</label>
+            <textarea id="bNotes" placeholder="Algo que devamos saber?"></textarea>
+          </div>
+          <button type="button" class="btn-submit reveal reveal-delay-4" onclick="up()">Marcar agora</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team" id="equipa">
+  <div class="container">
+    <p class="section-label reveal">Equipa</p>
+    <h2 class="section-title reveal">Quem cuida de ti</h2>
+    <p class="section-sub reveal">Profissionais apaixonados pelo que fazem, prontos para te receber com um sorriso.</p>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-img-wrap"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80" alt="Sofia Martins" loading="lazy"></div>
+        <div class="team-info"><h4>Sofia Martins</h4><div class="role">Head Stylist</div><div class="bio">+12 anos de experiência em coloração e cortes de autor.</div></div>
+      </div>
+      <div class="team-card reveal reveal-delay-1">
+        <div class="team-img-wrap"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&q=80" alt="Rita Cardoso" loading="lazy"></div>
+        <div class="team-info"><h4>Rita Cardoso</h4><div class="role">Especialista em Mechas</div><div class="bio">Balayage e colorações naturais são a sua especialidade.</div></div>
+      </div>
+      <div class="team-card reveal reveal-delay-2">
+        <div class="team-img-wrap"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80" alt="Inês Almeida" loading="lazy"></div>
+        <div class="team-info"><h4>Inês Almeida</h4><div class="role">Esteticista</div><div class="bio">Terapias faciais e corporais com resultados visíveis.</div></div>
+      </div>
+      <div class="team-card reveal reveal-delay-3">
+        <div class="team-img-wrap"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80" alt="Mara Lopes" loading="lazy"></div>
+        <div class="team-info"><h4>Mara Lopes</h4><div class="role">Manicure & Nail Art</div><div class="bio">Unhas impecáveis e nail art personalizada para cada cliente.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="galeria">
+  <div class="container">
+    <p class="section-label reveal">Galeria</p>
+    <h2 class="section-title reveal">O nosso portfolio</h2>
+    <p class="section-sub reveal">Resultados reais, clientes reais. Cada foto conta uma história de transformação.</p>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=800&q=80" alt="Coloração e styling" loading="lazy"></div>
+      <div class="gallery-item tall reveal reveal-delay-1"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&q=80" alt="Tratamento capilar" loading="lazy"></div>
+      <div class="gallery-item reveal reveal-delay-2"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80" alt="Stilista a trabalhar" loading="lazy"></div>
+      <div class="gallery-item tall reveal reveal-delay-3"><img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&q=80" alt="Corte e styling" loading="lazy"></div>
+      <div class="gallery-item reveal reveal-delay-1"><img src="https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=800&q=80" alt="Tesouras de cabeleireiro" loading="lazy"></div>
+      <div class="gallery-item reveal reveal-delay-3"><img src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?w=800&q=80" alt="Produtos capilares" loading="lazy"></div>
+      <div class="gallery-item tall reveal reveal-delay-2"><img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=800&q=80" alt="Beleza e estilo" loading="lazy"></div>
+      <div class="gallery-item reveal reveal-delay-4"><img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=800&q=80" alt="Cabelo tratado e saudável" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="avaliacoes">
+  <div class="container">
+    <p class="section-label reveal">Avaliações</p>
+    <h2 class="section-title reveal">O que dizem de nós</h2>
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p>"Sai sempre do Helena Conchinha - Beauty Center a sentir-me uma nova pessoa. A Sofia é uma artista com as tesouras!"</p>
+        <div class="review-author">Ana C.</div>
+        <div class="review-source">Google Reviews</div>
+      </div>
+      <div class="review-card reveal reveal-delay-1">
+        <div class="review-stars">★★★★★</div>
+        <p>"O melhor balayage que já fiz em Lisboa. Ambiente acolhedor, profissionais simpáticas e preço justo."</p>
+        <div class="review-author">Mariana S.</div>
+        <div class="review-source">Google Reviews</div>
+      </div>
+      <div class="review-card reveal reveal-delay-2">
+        <div class="review-stars">★★★★★</div>
+        <p>"Fiz a limpeza de pele com a Inês e fiquei impressionada. A diferença é mesmo visível. Super recomendo!"</p>
+        <div class="review-author">Joana R.</div>
+        <div class="review-source">Google Reviews</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <p class="section-label reveal">FAQ</p>
+    <h2 class="section-title reveal">Perguntas frequentes</h2>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">Quanto tempo dura uma coloração?<span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-a">Depende do tipo de coloração e dos cuidados em casa. Em média, uma coloração profissional dura entre 4 a 6 semanas. Recomendamos produtos de manutenção específicos para prolongar a cor.</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-1">
+        <button class="faq-q" onclick="toggleFaq(this)">Preciso de marcar ou aceitam walk-in?<span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-a">Funcionamos preferencialmente com marcação para garantir que cada cliente tem o tempo e a atenção que merece. Mas se tiveres disponibilidade, liga e vê se temos algum horário vago.</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-2">
+        <button class="faq-q" onclick="toggleFaq(this)">Quanto tempo demora um corte + coloração?<span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-a">Um serviço completo de corte e coloração demora entre 1h30 a 2h30, dependendo da complexidade do trabalho e do comprimento do cabelo.</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-3">
+        <button class="faq-q" onclick="toggleFaq(this)">Têm estacionamento?<span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-a">Sim, temos parque de estacionamento gratuito para clientes. Também estamos a 5 minutos a pé da estação de metro Saldanha.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTS -->
+<section class="contacts" id="contactos">
+  <div class="container">
+    <div class="contacts-grid">
+      <div class="contacts-info">
+        <p class="section-label reveal">Contactos</p>
+        <h3 class="reveal">Estamos aqui para ti</h3>
+        <div class="contact-line reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div><strong>Morada</strong>Rua José Ladislau de Sousa 206 · Montijo</div>
+        </div>
+        <div class="contact-line reveal reveal-delay-1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <div><strong>Telemóvel</strong>+351216096097</div>
+        </div>
+        <div class="contact-line reveal reveal-delay-2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 4 12 10 20 4"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+          <div><strong>Email</strong>helena.conchinha@gmail.com</div>
+        </div>
+        <div class="contact-line reveal reveal-delay-3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div><strong>Horário</strong>Seg–Sex: 09h–19h · Sáb: 09h–17h</div>
+        </div>
+        <div class="schedule-box reveal reveal-delay-4">
+          <h4>Horário detalhado</h4>
+          <div class="schedule-row"><span class="day">Segunda–Sexta</span><span>09:00 – 19:00</span></div>
+          <div class="schedule-row"><span class="day">Sábado</span><span>09:00 – 17:00</span></div>
+          <div class="schedule-row"><span class="day">Domingo</span><span class="closed">Encerrado</span></div>
+        </div>
+      </div>
+      <div>
+        <div id="map" class="reveal"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Helena <span>Conchinha</span></div>
+        <p>Onde a beleza encontra o bem-estar. Desde 2010 a transformar olhares no coração de Lisboa.</p>
+      </div>
+      <div>
+        <h4>Navegação</h4>
+        <a href="#sobre">Sobre</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#marcacoes">Marcações</a>
+        <a href="#equipa">Equipa</a>
+        <a href="#contactos">Contactos</a>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <a href="tel:+351216096097">+351216096097</a>
+        <a href="mailto:helena.conchinha@gmail.com">helena.conchinha@gmail.com</a>
+        <a href="#">Rua José Ladislau de Sousa 206, Montijo</a>
+      </div>
+    </div>
+    <div class="footer-credit">© 2026 Helena Conchinha - Beauty Center · Site por <a href="https://pontofinal.site" target="_blank">PontoFinal.site</a></div>
+  </div>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/351216096097" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12.032 21.965a9.924 9.924 0 0 1-4.94-1.371l-4.646 1.37 1.396-4.504a9.936 9.936 0 0 1-1.548-5.405c0-5.523 4.504-10.028 10.027-10.028 5.523 0 10.028 4.505 10.028 10.028 0 5.522-4.505 10.027-10.028 10.027l.011-.005v.016zm.016-18.538c-4.694 0-8.514 3.82-8.514 8.514 0 1.87.606 3.586 1.634 4.979l-1.07 3.445 3.539-1.044a8.52 8.52 0 0 0 4.412 1.28c4.694 0 8.514-3.82 8.514-8.514 0-4.694-3.82-8.514-8.515-8.514zm0 0"/><path d="M16.543 13.74c-.267-.135-1.585-.78-1.83-.87-.246-.09-.424-.135-.602.135-.178.27-.69.87-.845 1.048-.156.178-.312.2-.58.065-.267-.135-1.129-.415-2.146-1.323-.793-.708-1.33-1.583-1.486-1.851-.156-.268-.017-.413.117-.547.12-.12.267-.312.4-.468.134-.156.178-.267.268-.446.089-.178.045-.334-.022-.468-.067-.134-.602-1.448-.825-1.983-.217-.52-.438-.433-.602-.44-.155-.007-.334-.009-.513-.009-.179 0-.467.067-.712.334-.245.268-.934.912-.934 2.224 0 1.312.956 2.58 1.089 2.758.133.178 1.87 2.86 4.538 4.012.634.274 1.13.437 1.515.559.636.201 1.214.173 1.672.105.51-.076 1.585-.647 1.808-1.272.223-.625.223-1.161.156-1.273-.067-.112-.245-.178-.512-.313z"/></svg>
+</a>
+
+<!-- SCRIPTS -->
+<script>
+/* =====================================
+   BOOKING FORM JS (preserved from original)
+   ===================================== */
+const services=["Corte de Cabelo","Coloração","Tratamento Capilar","Penteados & Eventos","Estética Facial","Manicure & Pedicure"];
+function ch(service){let s=document.getElementById("bService");s.innerHTML='';services.forEach((sv,i)=>{let o=document.createElement("option");o.value=sv;o.text=sv;if(sv===service)o.selected=true;s.appendChild(o)});}
+function up(){let n=document.getElementById("bName").value.trim();let s=document.getElementById("bService").value;let d=document.getElementById("bDate").value;let t=document.getElementById("bTime").value;let p=document.getElementById("bPhone").value.trim();if(n&&s&&d&&t&&p){alert("✅ Marcação enviada! Entraremos em contacto em breve para confirmar.");document.getElementById("bookingForm").reset();}else{alert("⚠️ Preenche todos os campos obrigatórios.");}}
+(function(){let s=document.getElementById("bService");services.forEach((sv,i)=>{let o=document.createElement("option");o.value=sv;o.text=sv;s.appendChild(o)});})();
+
+/* =====================================
+   FAQ ACCORDION
+   ===================================== */
+function toggleFaq(el){let parent=el.parentElement;parent.classList.toggle("active");}
+
+/* =====================================
+   MOBILE TOGGLE
+   ===================================== */
+document.getElementById("mobileToggle").addEventListener("click",function(){document.getElementById("navLinks").classList.toggle("open");});
+
+/* =====================================
+   SMOOTH SCROLL NAV CLOSE
+   ===================================== */
+document.querySelectorAll('.nav-links a').forEach(a=>{a.addEventListener('click',function(){document.getElementById('navLinks').classList.remove('open');});});
+
+/* =====================================
+   PRELOADER
+   ===================================== */
+window.addEventListener('load',function(){setTimeout(function(){document.getElementById('preloader').classList.add('hidden');},400);});
+
+/* =====================================
+   SCROLL REVEAL (Intersection Observer)
+   ===================================== */
+const revealObserver=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');revealObserver.unobserve(entry.target);}});},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+/* =====================================
+   CURSOR GLOW
+   ===================================== */
+(function(){const glow=document.getElementById('cursorGlow');if(!glow)return;document.addEventListener('mousemove',function(e){glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px';});})();
+
+/* =====================================
+   LEAFLET MAP
+   ===================================== */
+(function(){const script=document.createElement('script');script.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';script.onload=function(){const map=L.map('map').setView([38.7055915,-8.9781141],15);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',maxZoom:19}).addTo(map);L.marker([38.7055915,-8.9781141]).addTo(map).bindPopup('<b>Helena Conchinha</b><br>Rua José Ladislau de Sousa 206<br>Montijo').openPopup();};document.head.appendChild(script);})();
+
+/* =====================================
+   NAV HIDE ON SCROLL DOWN
+   ===================================== */
+let lastScroll=0;
+window.addEventListener('scroll',function(){const nav=document.getElementById('nav');const current=window.pageYOffset;if(current>80){nav.style.transform=current>lastScroll?'translateY(-100%)':'translateY(0)';}else{nav.style.transform='translateY(0)';}lastScroll=current;});
+</script>
+</body>
+</html>
