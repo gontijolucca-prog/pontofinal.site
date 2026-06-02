@@ -1,607 +1,763 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-PT">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Comunhas Studio · Cabeleireiro &amp; Estética · Loures</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://images.unsplash.com">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-/* =====================================
-   RESET & BASE
-   ===================================== */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:16px}
-body{font-family:'Manrope',-apple-system,BlinkMacSystemFont,sans-serif;color:#1a1a1a;background:#fff;overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
-img{max-width:100%;height:auto;display:block}
-a{text-decoration:none;color:inherit}
-ul{list-style:none}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunhas Studio · Loures</title>
+    <meta name="description" content="Cortes, coloração, penteados e cuidados de estética. Marque a sua consulta.">
+    <meta name="theme-color" content="#FFFFFF">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@200;400;800&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #FFFFFF;
+            --text-primary: #0A0A0A;
+            --accent: #E63027;
+            --border-light: #E8E8E8;
+            --bg-subtle: #F7F7F7;
+            --transition-duration: 0.4s;
+            --transition-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
 
-/* =====================================
-   TYPOGRAPHY
-   ===================================== */
-h1,h2,h3,h4,h5,h6{font-family:'Syne',sans-serif;font-weight:700;line-height:1.15}
-.section-label{font-family:'Manrope',sans-serif;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.15em;color:#2d4a3e;margin-bottom:0.75rem}
-.section-title{font-size:clamp(2rem,5vw,3.25rem);margin-bottom:1rem;color:#1a1a1a}
-.section-sub{font-size:1rem;color:#555;max-width:560px;line-height:1.7}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* =====================================
-   CONTAINER
-   ===================================== */
-.container{width:100%;max-width:1200px;margin:0 auto;padding:0 1.5rem}
+        html {
+            scroll-behavior: smooth;
+        }
 
-/* =====================================
-   DEMO BADGE
-   ===================================== */
-.demo-badge{position:fixed;top:0;left:0;z-index:10001;background:#2d4a3e;color:#fff;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:0.35rem 1.2rem;border-bottom-right-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.12)}
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-/* =====================================
-   PRELOADER
-   ===================================== */
-.preloader{position:fixed;top:0;left:0;width:100%;height:100%;z-index:99999;background:#fff;display:flex;align-items:center;justify-content:center;transition:opacity 0.6s ease,visibility 0.6s ease}
-.preloader.hidden{opacity:0;visibility:hidden}
-.spinner{width:40px;height:40px;border:3px solid #e0e0e0;border-top-color:#2d4a3e;border-radius:50%;animation:spin 0.8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 800;
+            text-wrap: balance;
+            line-height: 1.2;
+        }
 
-/* =====================================
-   NAV
-   ===================================== */
-nav{position:fixed;top:0;left:0;width:100%;z-index:10000;background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.05);transition:transform 0.3s ease}
-nav .container{display:flex;align-items:center;justify-content:space-between;height:64px}
-.nav-logo{font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:700;color:#1a1a1a}
-.nav-logo span{color:#2d4a3e}
-.nav-links{display:flex;align-items:center;gap:2rem}
-.nav-links a{font-size:0.85rem;font-weight:500;color:#444;transition:color 0.2s;position:relative}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:#2d4a3e;transition:width 0.3s}
-.nav-links a:hover{color:#2d4a3e}
-.nav-links a:hover::after{width:100%}
-.nav-cta{background:#2d4a3e;color:#fff!important;padding:0.55rem 1.4rem;border-radius:50px;font-weight:600;font-size:0.8rem;transition:all 0.3s}
-.nav-cta::after{display:none!important}
-.nav-cta:hover{background:#1a332b!important;transform:translateY(-1px)}
-.mobile-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-.mobile-toggle span{width:24px;height:2px;background:#1a1a1a;border-radius:2px;transition:all 0.3s}
-@media(max-width:768px){
-  .nav-links{display:none;position:fixed;top:64px;left:0;width:100%;background:#fff;flex-direction:column;padding:1.5rem;gap:1.2rem;border-bottom:1px solid #eee;box-shadow:0 8px 24px rgba(0,0,0,0.06)}
-  .nav-links.open{display:flex}
-  .mobile-toggle{display:flex}
-}
+        p {
+            text-wrap: pretty;
+        }
 
-/* =====================================
-   HERO
-   ===================================== */
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding-top:64px}
-.hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
-.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(26,26,26,0.75) 0%,rgba(26,26,26,0.45) 50%,rgba(26,26,26,0.7) 100%)}
-.hero-content{position:relative;z-index:2;text-align:center;max-width:780px;padding:0 1.5rem}
-.hero-tagline{font-size:0.85rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:1.2rem}
-.hero-title{font-size:clamp(2.8rem,8vw,5.5rem);font-weight:800;color:#fff;margin-bottom:1.2rem;letter-spacing:-0.02em;line-height:1.05}
-.hero-desc{font-size:1.1rem;color:rgba(255,255,255,0.75);max-width:480px;margin:0 auto 2.2rem;line-height:1.7}
-.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-.btn-primary{background:#2d4a3e;color:#fff;padding:0.9rem 2.2rem;border-radius:50px;font-weight:600;font-size:0.9rem;border:none;cursor:pointer;transition:all 0.3s;display:inline-flex;align-items:center;gap:0.5rem}
-.btn-primary:hover{background:#1a332b;transform:translateY(-2px);box-shadow:0 8px 24px rgba(45,74,62,0.3)}
-.btn-secondary{background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);color:#fff;padding:0.9rem 2.2rem;border-radius:50px;font-weight:600;font-size:0.9rem;border:1px solid rgba(255,255,255,0.2);cursor:pointer;transition:all 0.3s}
-.btn-secondary:hover{background:rgba(255,255,255,0.2);transform:translateY(-2px)}
-.hero-metrics{display:flex;gap:2.5rem;justify-content:center;margin-top:2.5rem;flex-wrap:wrap}
-.hero-metric{text-align:center}
-.hero-metric-num{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:700;color:#fff;line-height:1}
-.hero-metric-label{font-size:0.75rem;color:rgba(255,255,255,0.6);margin-top:0.3rem;letter-spacing:0.05em}
-.scroll-indicator{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.5);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase}
-.scroll-dot{width:2px;height:28px;background:rgba(255,255,255,0.3);border-radius:2px;position:relative;overflow:hidden}
-.scroll-dot::after{content:'';position:absolute;top:-4px;left:0;width:100%;height:40%;background:#2d4a3e;border-radius:2px;animation:scrollDot 1.8s ease-in-out infinite}
-@keyframes scrollDot{0%{top:-40%}50%{top:60%}100%{top:100%}}
+        /* ─────────────────────────────────────────────────────── */
+        /* Badge Demo */
+        /* ─────────────────────────────────────────────────────── */
+        .demo-badge {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--accent);
+            color: var(--bg-primary);
+            padding: 8px 14px;
+            border-radius: 4px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            z-index: 1000;
+            letter-spacing: 0.5px;
+        }
 
-/* =====================================
-   ABOUT
-   ===================================== */
-.about{padding:7rem 0}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
-.about-image-wrap{position:relative;border-radius:16px;overflow:hidden}
-.about-image-wrap img{width:100%;height:500px;object-fit:cover;border-radius:16px}
-.about-stat-badge{position:absolute;bottom:1.5rem;left:1.5rem;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-radius:12px;padding:1.2rem 1.8rem;box-shadow:0 8px 32px rgba(0,0,0,0.1)}
-.about-stat-badge .num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:700;color:#2d4a3e;line-height:1}
-.about-stat-badge .label{font-size:0.8rem;color:#666;margin-top:0.2rem}
-.about-text p{font-size:0.95rem;color:#555;line-height:1.8;margin-bottom:1.2rem}
-.about-text p:last-child{margin-bottom:0}
-.about-features{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
-.about-feat{display:flex;align-items:center;gap:0.7rem;font-size:0.85rem;font-weight:500;color:#333}
-.about-feat svg{width:18px;height:18px;flex-shrink:0;color:#2d4a3e}
-@media(max-width:768px){
-  .about-grid{grid-template-columns:1fr;gap:2.5rem}
-  .about-image-wrap img{height:340px}
-}
+        /* ─────────────────────────────────────────────────────── */
+        /* Header & Nav */
+        /* ─────────────────────────────────────────────────────── */
+        header {
+            background-color: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            padding: 24px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-/* =====================================
-   STATS BAR
-   ===================================== */
-.stats{background:#2d4a3e;padding:3.5rem 0}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;text-align:center}
-.stat-item .num{font-family:'Syne',sans-serif;font-size:2.4rem;font-weight:700;color:#fff;line-height:1}
-.stat-item .label{font-size:0.8rem;color:rgba(255,255,255,0.7);margin-top:0.4rem;letter-spacing:0.05em}
-@media(max-width:640px){.stats-grid{grid-template-columns:repeat(2,1fr);gap:2rem}}
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-/* =====================================
-   SERVICES
-   ===================================== */
-.services{padding:7rem 0;background:#f8f9f8}
-.services-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:3rem}
-.service-card{background:#fff;border-radius:14px;padding:1.8rem;cursor:pointer;transition:all 0.35s ease;position:relative;overflow:hidden;border:1px solid rgba(0,0,0,0.04)}
-.service-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:0;background:#2d4a3e;transition:height 0.4s ease}
-.service-card:hover::before{height:100%}
-.service-card:hover{box-shadow:0 12px 40px rgba(0,0,0,0.06);transform:translateY(-3px)}
-.service-card h3{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:600;margin-bottom:0.4rem;color:#1a1a1a}
-.service-card p{font-size:0.85rem;color:#777;line-height:1.6;margin-bottom:1rem}
-.service-price{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:#2d4a3e}
-@media(max-width:768px){.services-grid{grid-template-columns:1fr}}
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            animation: fadeUp 0.8s var(--transition-easing) 0.1s backwards;
+        }
 
-/* =====================================
-   BOOKING
-   ===================================== */
-.booking{padding:7rem 0}
-.booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-.booking-image-wrap{position:relative;border-radius:16px;overflow:hidden;height:600px}
-.booking-image-wrap img{width:100%;height:100%;object-fit:cover;border-radius:16px}
-.booking-overlay-text{position:absolute;bottom:2rem;left:2rem;background:rgba(255,255,255,0.93);backdrop-filter:blur(12px);border-radius:12px;padding:1.5rem 2rem;box-shadow:0 8px 32px rgba(0,0,0,0.08)}
-.booking-overlay-text .big{font-family:'Syne',sans-serif;font-size:2.6rem;font-weight:700;color:#2d4a3e;line-height:1}
-.booking-overlay-text .sm{font-size:0.85rem;color:#555;margin-top:0.2rem}
-.booking-form-wrap{max-width:480px}
-.booking-form-wrap h3{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:700;margin-bottom:0.5rem}
-.booking-form-wrap .sub{font-size:0.9rem;color:#666;margin-bottom:2rem}
-.form-group{margin-bottom:1.2rem}
-.form-group label{display:block;font-size:0.8rem;font-weight:600;color:#444;margin-bottom:0.4rem}
-.form-group select,.form-group input,.form-group textarea{width:100%;padding:0.85rem 1rem;border:1.5px solid #e0e0e0;border-radius:10px;font-family:'Manrope',sans-serif;font-size:0.9rem;background:#fafafa;transition:all 0.2s;outline:none;color:#1a1a1a}
-.form-group select:focus,.form-group input:focus,.form-group textarea:focus{border-color:#2d4a3e;background:#fff;box-shadow:0 0 0 3px rgba(45,74,62,0.08)}
-.form-group textarea{resize:vertical;min-height:80px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.btn-submit{width:100%;background:#2d4a3e;color:#fff;padding:0.95rem;border:none;border-radius:50px;font-weight:600;font-size:0.9rem;cursor:pointer;transition:all 0.3s}
-.btn-submit:hover{background:#1a332b;transform:translateY(-2px);box-shadow:0 8px 24px rgba(45,74,62,0.25)}
-@media(max-width:768px){
-  .booking-grid{grid-template-columns:1fr;gap:2.5rem}
-  .booking-image-wrap{height:380px;order:-1}
-}
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
 
-/* =====================================
-   TEAM
-   ===================================== */
-.team{padding:7rem 0;background:#f8f9f8}
-.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
-.team-card{background:#fff;border-radius:14px;overflow:hidden;transition:all 0.4s ease;border:1px solid rgba(0,0,0,0.04)}
-.team-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,0.08)}
-.team-img-wrap{overflow:hidden;height:320px}
-.team-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease}
-.team-card:hover .team-img-wrap img{transform:scale(1.08)}
-.team-info{padding:1.2rem 1.5rem 1.5rem}
-.team-info h4{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:600;color:#1a1a1a}
-.team-info .role{font-size:0.8rem;color:#2d4a3e;font-weight:500;margin-top:0.2rem}
-.team-info .bio{font-size:0.8rem;color:#777;margin-top:0.5rem;line-height:1.5}
-@media(max-width:768px){.team-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.team-grid{grid-template-columns:1fr}}
+        nav a {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-family: 'IBM Plex Mono', monospace;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: color var(--transition-duration) var(--transition-easing);
+            animation: fadeUp 0.8s var(--transition-easing) 0.15s backwards;
+        }
 
-/* =====================================
-   GALLERY
-   ===================================== */
-.gallery{padding:7rem 0}
-.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3rem}
-.gallery-item{overflow:hidden;border-radius:12px;position:relative;cursor:pointer}
-.gallery-item::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(45,74,62,0);transition:background 0.4s;pointer-events:none}
-.gallery-item:hover::after{background:rgba(45,74,62,0.08)}
-.gallery-item img{width:100%;height:300px;object-fit:cover;transition:transform 0.6s ease}
-.gallery-item:hover img{transform:scale(1.08)}
-.gallery-item.tall img{height:420px}
-.gallery-item.wide{grid-column:span 2}
-@media(max-width:768px){
-  .gallery-grid{grid-template-columns:repeat(2,1fr)}
-  .gallery-item.wide{grid-column:span 2}
-  .gallery-item img{height:240px}
-  .gallery-item.tall img{height:320px}
-}
-@media(max-width:480px){.gallery-grid{grid-template-columns:1fr}}
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--accent);
+            transition: width var(--transition-duration) var(--transition-easing);
+        }
 
-/* =====================================
-   REVIEWS
-   ===================================== */
-.reviews{padding:7rem 0;background:#f8f9f8}
-.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
-.review-card{background:#fff;border-radius:14px;padding:2rem;transition:all 0.35s ease;border:1px solid rgba(0,0,0,0.04)}
-.review-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.06)}
-.review-stars{display:flex;gap:3px;margin-bottom:0.8rem;color:#2d4a3e}
-.review-card p{font-size:0.9rem;color:#555;line-height:1.7;font-style:italic}
-.review-author{font-weight:600;font-size:0.85rem;color:#1a1a1a;margin-top:1rem}
-.review-source{font-size:0.75rem;color:#999}
-@media(max-width:768px){.reviews-grid{grid-template-columns:1fr;gap:1rem}}
+        nav a:hover::after {
+            width: 100%;
+        }
 
-/* =====================================
-   FAQ
-   ===================================== */
-.faq{padding:7rem 0}
-.faq-list{max-width:720px;margin:3rem auto 0}
-.faq-item{border-bottom:1px solid #e8e8e8}
-.faq-q{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 0;cursor:pointer;font-weight:500;font-size:1rem;color:#1a1a1a;transition:color 0.2s;background:none;border:none;width:100%;text-align:left;font-family:'Manrope',sans-serif}
-.faq-q:hover{color:#2d4a3e}
-.faq-icon{width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.3s;color:#2d4a3e}
-.faq-icon svg{width:16px;height:16px;transition:transform 0.3s}
-.faq-item.active .faq-icon svg{transform:rotate(45deg)}
-.faq-a{padding:0 0 1.2rem;display:none;font-size:0.9rem;color:#666;line-height:1.7}
-.faq-item.active .faq-a{display:block}
-.faq-item.active .faq-q{color:#2d4a3e}
+        .cta-primary {
+            background-color: var(--accent);
+            color: var(--bg-primary);
+            padding: 12px 28px;
+            border-radius: 4px;
+            font-weight: 800;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            transition: background-color var(--transition-duration) var(--transition-easing);
+            animation: fadeUp 0.8s var(--transition-easing) 0.2s backwards;
+        }
 
-/* =====================================
-   CONTACTS
-   ===================================== */
-.contacts{padding:7rem 0;background:#f8f9f8}
-.contacts-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
-.contacts-info h3{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:700;margin-bottom:1.5rem}
-.contact-line{display:flex;gap:1rem;margin-bottom:1.2rem;font-size:0.9rem;color:#555}
-.contact-line svg{width:20px;height:20px;flex-shrink:0;color:#2d4a3e;margin-top:2px}
-.contact-line strong{color:#1a1a1a;display:block;font-size:0.8rem;font-weight:600;margin-bottom:0.15rem}
-.schedule-box{background:#fff;border-radius:12px;padding:1.5rem;margin-top:1.5rem;border:1px solid rgba(0,0,0,0.04)}
-.schedule-box h4{font-family:'Syne',sans-serif;font-size:1rem;font-weight:600;margin-bottom:0.8rem}
-.schedule-row{display:flex;justify-content:space-between;font-size:0.85rem;padding:0.35rem 0;color:#555}
-.schedule-row .day{font-weight:500;color:#1a1a1a}
-.schedule-row .closed{color:#e74c3c}
-#map{width:100%;height:400px;border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.06);z-index:1}
-@media(max-width:768px){.contacts-grid{grid-template-columns:1fr;gap:2rem}}
+        .cta-primary:hover {
+            background-color: #D12015;
+        }
 
-/* =====================================
-   FOOTER
-   ===================================== */
-footer{background:#1a1a1a;color:rgba(255,255,255,0.7);padding:4rem 0 2rem}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem}
-footer h4{font-family:'Syne',sans-serif;font-size:1rem;font-weight:600;color:#fff;margin-bottom:1rem}
-footer p{font-size:0.85rem;line-height:1.7}
-footer a{font-size:0.85rem;color:rgba(255,255,255,0.6);transition:color 0.2s;display:block;margin-bottom:0.5rem}
-footer a:hover{color:#fff}
-.footer-brand{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:0.5rem}
-.footer-brand span{color:#2d4a3e}
-.footer-credit{border-top:1px solid rgba(255,255,255,0.08);margin-top:3rem;padding-top:1.5rem;text-align:center;font-size:0.8rem;color:rgba(255,255,255,0.4)}
-.footer-credit a{display:inline;color:rgba(255,255,255,0.6)}
-.footer-credit a:hover{color:#fff}
-@media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr;gap:2rem}}
-@media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+        /* ─────────────────────────────────────────────────────── */
+        /* Hero Section */
+        /* ─────────────────────────────────────────────────────── */
+        .hero {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-subtle) 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 120px 40px;
+            display: flex;
+            align-items: center;
+            min-height: 70vh;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-/* =====================================
-   WHATSAPP FLOATING
-   ===================================== */
-.whatsapp-float{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;background:#25D366;color:#fff;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.35);transition:all 0.3s;cursor:pointer}
-.whatsapp-float:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(37,211,102,0.4)}
-.whatsapp-float svg{width:26px;height:26px;fill:#fff}
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(230, 48, 39, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
 
-/* =====================================
-   SCROLL REVEAL
-   ===================================== */
-.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.7s ease,transform 0.7s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
-.reveal-delay-1{transition-delay:0.1s}
-.reveal-delay-2{transition-delay:0.2s}
-.reveal-delay-3{transition-delay:0.3s}
-.reveal-delay-4{transition-delay:0.4s}
-.reveal-delay-5{transition-delay:0.5s}
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, -30px); }
+        }
 
-/* =====================================
-   CURSOR GLOW
-   ===================================== */
-.cursor-glow{position:fixed;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(45,74,62,0.06) 0%,transparent 70%);pointer-events:none;transform:translate(-50%,-50%);z-index:0;transition:opacity 0.3s}
-@media(max-width:768px){.cursor-glow{display:none}}
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            max-width: 600px;
+        }
 
-/* =====================================
-   RESPONSIVE UTILITIES
-   ===================================== */
-@media(max-width:768px){
-  .section-title{font-size:1.8rem}
-  .booking-overlay-text .big{font-size:2rem}
-}
-</style>
+        .hero-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+            animation: fadeUp 0.8s var(--transition-easing) 0.2s backwards;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 24px;
+            animation: fadeUp 0.8s var(--transition-easing) 0.3s backwards;
+        }
+
+        .hero .tagline {
+            font-size: 20px;
+            font-weight: 200;
+            line-height: 1.5;
+            color: rgba(10, 10, 10, 0.7);
+            margin-bottom: 12px;
+            animation: fadeUp 0.8s var(--transition-easing) 0.35s backwards;
+        }
+
+        .hero .subline {
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(10, 10, 10, 0.6);
+            margin-bottom: 40px;
+            font-family: 'IBM Plex Mono', monospace;
+            letter-spacing: 0.5px;
+            animation: fadeUp 0.8s var(--transition-easing) 0.4s backwards;
+        }
+
+        .hero-cta {
+            animation: fadeUp 0.8s var(--transition-easing) 0.45s backwards;
+        }
+
+        /* ─────────────────────────────────────────────────────── */
+        /* Sections */
+        /* ─────────────────────────────────────────────────────── */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 40px;
+        }
+
+        .section-number {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: rgba(10, 10, 10, 0.4);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 48px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        /* ─────────────────────────────────────────────────────── */
+        /* Sobre */
+        /* ─────────────────────────────────────────────────────── */
+        #sobre {
+            background-color: var(--bg-primary);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .about-text p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 24px;
+            color: rgba(10, 10, 10, 0.85);
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--bg-subtle) 0%, var(--border-light) 100%);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ─────────────────────────────────────────────────────── */
+        /* Serviços */
+        /* ─────────────────────────────────────────────────────── */
+        #servicos {
+            background-color: var(--bg-subtle);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .service-card {
+            background: var(--bg-primary);
+            padding: 40px;
+            border-radius: 4px;
+            border: 1px solid var(--border-light);
+            transition: all var(--transition-duration) var(--transition-easing);
+        }
+
+        .service-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 8px 24px rgba(230, 48, 39, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .service-card h3 {
+            font-size: 20px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .service-card p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: rgba(10, 10, 10, 0.75);
+        }
+
+        /* ─────────────────────────────────────────────────────── */
+        /* Como Marcar */
+        /* ─────────────────────────────────────────────────────── */
+        #como-marcar {
+            background-color: var(--bg-primary);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .step {
+            text-align: left;
+        }
+
+        .step-number {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .step h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            font-size: 15px;
+            color: rgba(10, 10, 10, 0.75);
+            line-height: 1.7;
+        }
+
+        /* ─────────────────────────────────────────────────────── */
+        /* Horário */
+        /* ─────────────────────────────────────────────────────── */
+        #horario {
+            background-color: var(--bg-subtle);
+        }
+
+        .schedule-box {
+            background: var(--bg-primary);
+            padding: 60px;
+            border-radius: 4px;
+            border: 1px solid var(--border-light);
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .schedule-box p {
+            font-size: 24px;
+            font-weight: 200;
+            color: rgba(10, 10, 10, 0.85);
+        }
+
+        /* ─────────────────────────────────────────────────────── */
+        /* Contactos */
+        /* ─────────────────────────────────────────────────────── */
+        #contactos {
+            background-color: var(--bg-primary);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .contact-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: rgba(10, 10, 10, 0.5);
+            text-transform: uppercase;
+        }
+
+        .contact-value {
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--text-primary);
+        }
+
+        .contact-value a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color var(--transition-duration) var(--transition-easing);
+        }
+
+        .contact-value a:hover {
+            color: #D12015;
+            text-decoration: underline;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 360px;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ─────────────────────────────────────────────────────── */
+        /* Footer */
+        /* ─────────────────────────────────────────────────────── */
+        footer {
+            background-color: var(--bg-subtle);
+            border-top: 1px solid var(--border-light);
+            padding: 40px;
+            text-align: center;
+            color: rgba(10, 10, 10, 0.6);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        /* ─────────────────────────────────────────────────────── */
+        /* Botão Flutuante de Contacto */
+        /* ─────────────────────────────────────────────────────── */
+        .floating-contact {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 56px;
+            height: 56px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            text-decoration: none;
+            transition: all var(--transition-duration) var(--transition-easing);
+            box-shadow: 0 4px 12px rgba(230, 48, 39, 0.2);
+        }
+
+        .floating-contact:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 24px rgba(230, 48, 39, 0.3);
+        }
+
+        .floating-contact svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--bg-primary);
+        }
+
+        /* ─────────────────────────────────────────────────────── */
+        /* Animações */
+        /* ─────────────────────────────────────────────────────── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ─────────────────────────────────────────────────────── */
+        /* Responsivo */
+        /* ─────────────────────────────────────────────────────── */
+        @media (max-width: 768px) {
+            .header-inner {
+                padding: 0 20px;
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 16px;
+                width: 100%;
+                text-align: center;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .hero {
+                padding: 60px 20px;
+                min-height: auto;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero .tagline {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 32px;
+                margin-bottom: 32px;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .services-grid,
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .demo-badge {
+                top: 10px;
+                right: 10px;
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+
+            .floating-contact {
+                bottom: 20px;
+                right: 20px;
+                width: 48px;
+                height: 48px;
+            }
+
+            .floating-contact svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Badge Demo -->
+    <div class="demo-badge">Demo · PontoFinal.site</div>
 
-<!-- DEMO BADGE -->
-<div class="demo-badge">Demo · PontoFinal.site</div>
-
-<!-- PRELOADER -->
-<div class="preloader" id="preloader"><div class="spinner"></div></div>
-
-<!-- CURSOR GLOW -->
-<div class="cursor-glow" id="cursorGlow"></div>
-
-<!-- NAV -->
-<nav id="nav">
-  <div class="container">
-    <a href="#" class="nav-logo">Comunhas <span>Studio</span></a>
-    <div class="nav-links" id="navLinks">
-      <a href="#sobre">Sobre</a>
-      <a href="#servicos">Serviços</a>
-      <a href="#marcacoes">Marcações</a>
-      <a href="#contactos">Contactos</a>
-      <a href="#marcacoes" class="nav-cta">Marcar</a>
-    </div>
-    <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="hero">
-  <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=1600&q=55" alt="Salão de beleza interior" class="hero-bg" loading="eager" fetchpriority="high">
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <p class="hero-tagline">Cabeleireiro &amp; Estética · Loures</p>
-    <h1 class="hero-title">O teu visual<br>com hora marcada</h1>
-    <p class="hero-desc">Cada visita é pensada ao detalhe. Marca online e chega à tua hora, sem esperas.</p>
-    <div class="hero-btns">
-      <a href="#marcacoes" class="btn-primary">Marcar visita</a>
-      <a href="#servicos" class="btn-secondary">Ver serviços</a>
-    </div>
-  </div>
-  <div class="scroll-indicator">
-    <span>Deslize</span>
-    <div class="scroll-dot"></div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section class="about" id="sobre">
-  <div class="container">
-    <div class="about-grid">
-      <div class="about-image-wrap reveal">
-        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=60" alt="Interior do salão" loading="lazy">
-      </div>
-      <div class="about-text">
-        <p class="section-label reveal">Sobre nós</p>
-        <h2 class="section-title reveal">O teu momento de beleza</h2>
-        <p class="reveal reveal-delay-1">Nascemos da paixão pela arte capilar e pelo bem-estar. Cada visita é uma experiência única, com técnica e um atendimento acolhedor.</p>
-        <p class="reveal reveal-delay-2">Acreditamos que a confiança começa num bom espelho. Por isso, cada serviço é pensado para realçar o melhor de ti.</p>
-        <div class="about-features reveal reveal-delay-3">
-          <div class="about-feat">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            Produtos premium
-          </div>
-          <div class="about-feat">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-            Ambiente acolhedor
-          </div>
-          <div class="about-feat">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            Segurança garantida
-          </div>
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <div class="logo">Comunhas Studio</div>
+            <nav>
+                <a href="#sobre">Sobre</a>
+                <a href="#servicos">Serviços</a>
+                <a href="#como-marcar">Como Marcar</a>
+                <a href="#contactos">Contactos</a>
+                <a href="tel:+351219747600" class="cta-primary">Marcar</a>
+            </nav>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </header>
 
-
-<!-- SERVICES -->
-<section class="services" id="servicos">
-  <div class="container">
-    <p class="section-label reveal">Serviços</p>
-    <h2 class="section-title reveal">O que oferecemos</h2>
-    <p class="section-sub reveal">Do clássico ao contemporâneo, cada serviço é pensado para realçar a tua beleza natural com produtos de excelência.</p>
-    <div class="services-grid" id="servicesGrid">
-      <div class="service-card reveal"><h3>Corte de Cabelo</h3><p>Corte personalizado para homem e mulher, com consulta de estilo.</p></div>
-      <div class="service-card reveal reveal-delay-1"><h3>Coloração</h3><p>Coloração, mechas, balayage e ombré com produtos profissionais.</p></div>
-      <div class="service-card reveal reveal-delay-2"><h3>Tratamento Capilar</h3><p>Hidratação, reconstrução e queratina para cabelos saudáveis.</p></div>
-      <div class="service-card reveal reveal-delay-1"><h3>Penteados &amp; Eventos</h3><p>Penteados para casamentos, batizados e festas.</p></div>
-      <div class="service-card reveal reveal-delay-2"><h3>Brushing &amp; Styling</h3><p>Acabamento e modelação para o dia a dia ou ocasiões.</p></div>
-      <div class="service-card reveal reveal-delay-3"><h3>Cuidados de Estética</h3><p>Serviços de estética para cuidar de ti dos pés à cabeça.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- BOOKING -->
-<section class="booking" id="marcacoes">
-  <div class="container">
-    <div class="booking-grid">
-      <div class="booking-image-wrap reveal">
-        <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=1000&q=60" alt="Tratamento capilar" loading="lazy">
-        <div class="booking-overlay-text">
-          <div class="big">3 passos</div>
-          <div class="sm">Escolhe · Agenda · Relaxa</div>
-        </div>
-      </div>
-      <div class="booking-form-wrap">
-        <p class="section-label reveal">Marcações</p>
-        <h3 class="reveal">Agenda o teu momento</h3>
-        <p class="sub reveal">Preenche os dados e nós confirmamos a marcação num instante.</p>
-        <form id="bookingForm" onsubmit="return false;">
-          <div class="form-group reveal">
-            <label for="bName">Nome completo</label>
-            <input type="text" id="bName" required placeholder="O teu nome">
-          </div>
-          <div class="form-group reveal reveal-delay-1">
-            <label for="bService">Serviço desejado</label>
-            <select id="bService" required></select>
-          </div>
-          <div class="form-row">
-            <div class="form-group reveal reveal-delay-2">
-              <label for="bDate">Data</label>
-              <input type="date" id="bDate" required>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-label">Bem-vindo</div>
+            <h1>Comunhas Studio</h1>
+            <p class="tagline">Cortes, coloração e cuidados para ti.</p>
+            <p class="subline">Marque a sua consulta sem compromisso</p>
+            <div class="hero-cta">
+                <a href="tel:+351219747600" class="cta-primary">Marcar Agora</a>
             </div>
-            <div class="form-group reveal reveal-delay-2">
-              <label for="bTime">Hora</label>
-              <input type="time" id="bTime" required>
+        </div>
+    </section>
+
+    <!-- Sobre -->
+    <section id="sobre">
+        <div class="section-number">/ 01</div>
+        <h2 class="section-title">Sobre</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>Somos um estúdio de cabelo e estética dedicado a realçar a beleza natural de cada cliente. O nosso trabalho começa com uma escuta atenta das tuas necessidades e termina com um resultado que te faz sentir confiante e cuidado.</p>
+                <p>Cada consulta é uma oportunidade para criar uma experiência personalizada, seja para uma mudança radical, um retoque ou simplesmente para sentir-te bem contigo mesma.</p>
             </div>
-          </div>
-          <div class="form-group reveal reveal-delay-3">
-            <label for="bPhone">Telemóvel</label>
-            <input type="tel" id="bPhone" required placeholder="+351 9..">
-          </div>
-          <div class="form-group reveal reveal-delay-3">
-            <label for="bNotes">Notas (opcional)</label>
-            <textarea id="bNotes" placeholder="Algo que devamos saber?"></textarea>
-          </div>
-          <button type="button" class="btn-submit reveal reveal-delay-4" onclick="up()">Marcar agora</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- GALLERY -->
-<section class="gallery" id="galeria">
-  <div class="container">
-    <p class="section-label reveal">Inspiração</p>
-    <h2 class="section-title reveal">Ambiente &amp; estilo</h2>
-    <p class="section-sub reveal">Imagens de referência do estilo e do ambiente — o teu espaço, a tua identidade.</p>
-    <div class="gallery-grid">
-      <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=800&q=60" alt="Coloração e styling" loading="lazy"></div>
-      <div class="gallery-item tall reveal reveal-delay-1"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&q=60" alt="Tratamento capilar" loading="lazy"></div>
-      <div class="gallery-item reveal reveal-delay-2"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=60" alt="Stilista a trabalhar" loading="lazy"></div>
-      <div class="gallery-item tall reveal reveal-delay-3"><img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&q=60" alt="Corte e styling" loading="lazy"></div>
-      <div class="gallery-item reveal reveal-delay-1"><img src="https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=800&q=60" alt="Tesouras de cabeleireiro" loading="lazy"></div>
-      <div class="gallery-item reveal reveal-delay-3"><img src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?w=800&q=60" alt="Produtos capilares" loading="lazy"></div>
-      <div class="gallery-item tall reveal reveal-delay-2"><img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=800&q=60" alt="Beleza e estilo" loading="lazy"></div>
-      <div class="gallery-item reveal reveal-delay-4"><img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=800&q=60" alt="Cabelo tratado e saudável" loading="lazy"></div>
-    </div>
-  </div>
-</section>
-
-
-<!-- FAQ -->
-<section class="faq" id="faq">
-  <div class="container">
-    <p class="section-label reveal">FAQ</p>
-    <h2 class="section-title reveal">Perguntas frequentes</h2>
-    <div class="faq-list">
-      <div class="faq-item reveal">
-        <button class="faq-q" onclick="toggleFaq(this)">Quanto tempo dura uma coloração?<span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
-        <div class="faq-a">Funcionamos com marcação para garantir o teu tempo. Se tiveres disponibilidade, liga e vê se há horário.</div>
-      </div>
-      <div class="faq-item reveal reveal-delay-1">
-        <button class="faq-q" onclick="toggleFaq(this)">Quanto tempo dura uma coloração?<span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
-        <div class="faq-a">Em média 4 a 6 semanas, conforme o tipo e os cuidados em casa.</div>
-      </div>
-      <div class="faq-item reveal reveal-delay-2">
-        <button class="faq-q" onclick="toggleFaq(this)">Quanto tempo demora um corte + coloração?<span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
-        <div class="faq-a">Entre 1h30 e 2h30, conforme o comprimento e o trabalho.</div>
-      </div>
-      <div class="faq-item reveal reveal-delay-3">
-        <button class="faq-q" onclick="toggleFaq(this)">Como chego aí?<span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
-        <div class="faq-a">Estamos em Loures. Vê o mapa aqui em baixo para a melhor rota.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACTS -->
-<section class="contacts" id="contactos">
-  <div class="container">
-    <div class="contacts-grid">
-      <div class="contacts-info">
-        <p class="section-label reveal">Contactos</p>
-        <h3 class="reveal">Estamos aqui para ti</h3>
-        <div class="contact-line reveal">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <div><strong>Morada</strong>Loures</div>
+            <div class="about-image">
+                <img src="img/cabeleireiro/cabelo-1.jpg" alt="Corte de cabelo em Comunhas Studio">
+            </div>
         </div>
-        <div class="contact-line reveal reveal-delay-1">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          <div><strong>Telemóvel</strong>+351219747600</div>
+    </section>
+
+    <!-- Serviços -->
+    <section id="servicos">
+        <div class="section-number">/ 02</div>
+        <h2 class="section-title">Serviços</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Corte de Cabelo</h3>
+                <p>Corte personalizado para homem e mulher, adaptado ao teu rosto e estilo de vida. Combinamos técnica e criatividade para um resultado que realça a tua personalidade.</p>
+            </div>
+            <div class="service-card">
+                <h3>Coloração</h3>
+                <p>Coloração, mechas, balayage e ombré com produtos profissionais de qualidade. Realçamos a cor natural ou criamos o tom que sempre desejaste.</p>
+            </div>
+            <div class="service-card">
+                <h3>Tratamento Capilar</h3>
+                <p>Hidratação profunda, reconstrução e queratina para cabelos saudáveis e brilhantes. Cuidamos do bem-estar do teu cabelo de dentro para fora.</p>
+            </div>
+            <div class="service-card">
+                <h3>Penteados &amp; Eventos</h3>
+                <p>Penteados elegantes para casamentos, batizados e festas. Criamos looks que te fazem sentir especial e confiante no teu grande dia.</p>
+            </div>
+            <div class="service-card">
+                <h3>Brushing &amp; Styling</h3>
+                <p>Acabamento impecável e modelação para o dia a dia ou ocasiões especiais. Deixa o teu cabelo com volume, brilho e movimento natural.</p>
+            </div>
+            <div class="service-card">
+                <h3>Cuidados de Estética</h3>
+                <p>Serviços de estética para cuidar de ti dos pés à cabeça. Complementamos os nossos serviços de cabelo com cuidados que realçam a tua beleza integral.</p>
+            </div>
         </div>
-        <div class="contact-line reveal reveal-delay-2">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 4 12 10 20 4"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
-          <div><strong>Email</strong>comunhasstudio@gmail.com</div>
+    </section>
+
+    <!-- Como Marcar -->
+    <section id="como-marcar">
+        <div class="section-number">/ 03</div>
+        <h2 class="section-title">Como Marcar</h2>
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-number">01</div>
+                <h3>Contacta-nos</h3>
+                <p>Telefona ou envia mensagem para combinar o melhor dia e hora para ti. A nossa equipa responde com rapidez.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">02</div>
+                <h3>Agenda a Consulta</h3>
+                <p>Confirmamos a tua marcação para a data e serviço que escolheste. Sem compromissos adicionais, apenas flexibilidade.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">03</div>
+                <h3>Desfruta da Experiência</h3>
+                <p>Chega com tempo, relaxa e deixa-nos cuidar de ti. Sais com o cabelo e estética que mereces.</p>
+            </div>
         </div>
-        <div class="contact-line reveal reveal-delay-3">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <div><strong>Horário</strong>Sob marcação</div>
+    </section>
+
+    <!-- Horário -->
+    <section id="horario">
+        <div class="section-number">/ 04</div>
+        <h2 class="section-title">Horário</h2>
+        <div class="schedule-box">
+            <p>Sob marcação</p>
         </div>
-        <div class="schedule-box reveal reveal-delay-4">
-          <h4>Marcações</h4>
-          <div class="schedule-row"><span class="day">Marcação</span><span>Liga ou marca online — confirmamos a tua hora.</span></div>
+    </section>
+
+    <!-- Contactos -->
+    <section id="contactos">
+        <div class="section-number">/ 05</div>
+        <h2 class="section-title">Contactos</h2>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-label">Telefone</div>
+                    <div class="contact-value"><a href="tel:+351219747600">+351 219 747 600</a></div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Email</div>
+                    <div class="contact-value"><a href="mailto:comunhasstudio@gmail.com">comunhasstudio@gmail.com</a></div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Morada</div>
+                    <div class="contact-value">Loures</div>
+                </div>
+            </div>
+            <div class="map-container">
+                <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-9.13925%2C38.85378%2C-9.12725%2C38.86178&layer=mapnik&marker=38.8577776%2C-9.133251" loading="lazy" title="Mapa — Comunhas Studio"></iframe>
+            </div>
         </div>
-      </div>
-      <div>
-        <div id="map" class="reveal"></div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand">Comunhas <span>Studio</span></div>
-        <p>Onde a beleza encontra o bem-estar — com marcação simples, sempre que precisares.</p>
-      </div>
-      <div>
-        <h4>Navegação</h4>
-        <a href="#sobre">Sobre</a>
-        <a href="#servicos">Serviços</a>
-        <a href="#marcacoes">Marcações</a>
-        <a href="#contactos">Contactos</a>
-      </div>
-      <div>
-        <h4>Contacto</h4>
-        <a href="tel:+351219747600">+351219747600</a>
-        <a href="mailto:comunhasstudio@gmail.com">comunhasstudio@gmail.com</a>
-        <a href="#">Loures, Loures</a>
-      </div>
-    </div>
-    <div class="footer-credit">© 2026 Comunhas Studio · Site por <a href="https://pontofinal.site" target="_blank">PontoFinal.site</a></div>
-  </div>
-</footer>
+    <!-- Footer -->
+    <footer>
+        © 2026 Comunhas Studio · Demo por PontoFinal.site
+    </footer>
 
-<!-- WHATSAPP -->
-<a href="https://wa.me/351219747600" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
-  <svg viewBox="0 0 24 24"><path d="M12.032 21.965a9.924 9.924 0 0 1-4.94-1.371l-4.646 1.37 1.396-4.504a9.936 9.936 0 0 1-1.548-5.405c0-5.523 4.504-10.028 10.027-10.028 5.523 0 10.028 4.505 10.028 10.028 0 5.522-4.505 10.027-10.028 10.027l.011-.005v.016zm.016-18.538c-4.694 0-8.514 3.82-8.514 8.514 0 1.87.606 3.586 1.634 4.979l-1.07 3.445 3.539-1.044a8.52 8.52 0 0 0 4.412 1.28c4.694 0 8.514-3.82 8.514-8.514 0-4.694-3.82-8.514-8.515-8.514zm0 0"/><path d="M16.543 13.74c-.267-.135-1.585-.78-1.83-.87-.246-.09-.424-.135-.602.135-.178.27-.69.87-.845 1.048-.156.178-.312.2-.58.065-.267-.135-1.129-.415-2.146-1.323-.793-.708-1.33-1.583-1.486-1.851-.156-.268-.017-.413.117-.547.12-.12.267-.312.4-.468.134-.156.178-.267.268-.446.089-.178.045-.334-.022-.468-.067-.134-.602-1.448-.825-1.983-.217-.52-.438-.433-.602-.44-.155-.007-.334-.009-.513-.009-.179 0-.467.067-.712.334-.245.268-.934.912-.934 2.224 0 1.312.956 2.58 1.089 2.758.133.178 1.87 2.86 4.538 4.012.634.274 1.13.437 1.515.559.636.201 1.214.173 1.672.105.51-.076 1.585-.647 1.808-1.272.223-.625.223-1.161.156-1.273-.067-.112-.245-.178-.512-.313z"/></svg>
-</a>
+    <!-- Botão Flutuante de Contacto -->
+    <a href="tel:+351219747600" class="floating-contact" title="Ligar para Comunhas Studio">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.92 7.02C17.45 6.18 16.84 5.46 16.07 4.9C14.54 3.71 12.6 3 10.5 3C5.8 3 2 6.8 2 11.5s3.8 8.5 8.5 8.5c2.1 0 4.04-.71 5.57-1.9.77-.56 1.38-1.28 1.85-2.12.24-.39.39-.83.39-1.3 0-.77-.31-1.46-.8-1.97l-3.52-3.54C12.6 10.2 12 10 11.4 10c-1.6 0-2.9 1.3-2.9 2.9 0 .6.2 1.2.6 1.6l4.6-4.6c.4.4 1 .6 1.6.6 1.6 0 2.9-1.3 2.9-2.9 0-.6-.2-1.2-.6-1.6z"/>
+        </svg>
+    </a>
 
-<!-- SCRIPTS -->
-<script>
-/* =====================================
-   BOOKING FORM JS (preserved from original)
-   ===================================== */
-const services=["Corte de Cabelo","Coloração","Tratamento Capilar","Penteados & Eventos","Estética Facial","Manicure & Pedicure"];
-function ch(service){let s=document.getElementById("bService");s.innerHTML='';services.forEach((sv,i)=>{let o=document.createElement("option");o.value=sv;o.text=sv;if(sv===service)o.selected=true;s.appendChild(o)});}
-function up(){let n=document.getElementById("bName").value.trim();let s=document.getElementById("bService").value;let d=document.getElementById("bDate").value;let t=document.getElementById("bTime").value;let p=document.getElementById("bPhone").value.trim();if(n&&s&&d&&t&&p){alert("✅ Marcação enviada! Entraremos em contacto em breve para confirmar.");document.getElementById("bookingForm").reset();}else{alert("⚠️ Preenche todos os campos obrigatórios.");}}
-(function(){let s=document.getElementById("bService");services.forEach((sv,i)=>{let o=document.createElement("option");o.value=sv;o.text=sv;s.appendChild(o)});})();
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Revelação orquestrada já acontece via animation-delay no CSS
+        });
 
-/* =====================================
-   FAQ ACCORDION
-   ===================================== */
-function toggleFaq(el){let parent=el.parentElement;parent.classList.toggle("active");}
-
-/* =====================================
-   MOBILE TOGGLE
-   ===================================== */
-document.getElementById("mobileToggle").addEventListener("click",function(){document.getElementById("navLinks").classList.toggle("open");});
-
-/* =====================================
-   SMOOTH SCROLL NAV CLOSE
-   ===================================== */
-document.querySelectorAll('.nav-links a').forEach(a=>{a.addEventListener('click',function(){document.getElementById('navLinks').classList.remove('open');});});
-
-/* =====================================
-   PRELOADER
-   ===================================== */
-(function(){function hideP(){var p=document.getElementById('preloader');if(p)p.classList.add('hidden');}if(document.readyState!=='loading'){hideP();}else{document.addEventListener('DOMContentLoaded',hideP);}setTimeout(hideP,1200);})();
-
-/* =====================================
-   SCROLL REVEAL (Intersection Observer)
-   ===================================== */
-const revealObserver=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');revealObserver.unobserve(entry.target);}});},{threshold:0.12});
-document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
-
-/* =====================================
-   CURSOR GLOW
-   ===================================== */
-(function(){const glow=document.getElementById('cursorGlow');if(!glow)return;document.addEventListener('mousemove',function(e){glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px';});})();
-
-/* =====================================
-   LEAFLET MAP
-   ===================================== */
-(function(){var mapEl=document.getElementById('map');if(!mapEl)return;var done=false;function loadMap(){if(done)return;done=true;var css=document.createElement('link');css.rel='stylesheet';css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';document.head.appendChild(css);var script=document.createElement('script');script.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';script.onload=function(){const map=L.map('map').setView([38.8577776,-9.133251],15);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',maxZoom:19}).addTo(map);L.marker([38.8577776,-9.133251]).addTo(map).bindPopup('<b>Comunhas Studio</b><br>Loures<br>Loures').openPopup();};document.head.appendChild(script);}var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){loadMap();io.disconnect();}});},{rootMargin:'300px'});io.observe(mapEl);})();
-
-/* =====================================
-   NAV HIDE ON SCROLL DOWN
-   ===================================== */
-let lastScroll=0;
-window.addEventListener('scroll',function(){const nav=document.getElementById('nav');const current=window.pageYOffset;if(current>80){nav.style.transform=current>lastScroll?'translateY(-100%)':'translateY(0)';}else{nav.style.transform='translateY(0)';}lastScroll=current;});
-</script>
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
