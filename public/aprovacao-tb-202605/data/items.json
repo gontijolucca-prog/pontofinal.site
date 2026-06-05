@@ -193,28 +193,28 @@
   "theme": "primeira_vez_ems",
   "pilar": "Onboarding do cliente",
   "audience": "b2c",
-  "title": "Nunca fez eletroestimulação? Vamos contar-lhe.",
-  "slides": 24,
+  "title": "25 minutos por sessão. É assim que se treina.",
+  "slides": 25,
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "Nunca fez eletroestimulação? Vamos contar-lhe como é a primeira vez."
-   },
-   {
-    "role": "demo",
-    "text_overlay": "Chega. Conversamos uns minutos. Falamos dos seus objetivos e do que o seu corpo aguenta hoje."
-   },
-   {
-    "role": "demo",
-    "text_overlay": "Veste o TecSuit. Não precisa de se equipar como num ginásio. Em três minutos estamos prontos."
+    "text_overlay": "25 minutos por sessão — é assim que se treina na TechBody."
    },
    {
     "role": "proof",
-    "text_overlay": "Começamos com intensidade baixa. Sob o seu controlo. Só subimos se se sentir confortável. Vinte e cinco minutos depois, está feito."
+    "text_overlay": "Veste o TecSuit e a eletroestimulação ativa até 90% dos músculos ao mesmo tempo."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "Sempre acompanhado por um personal trainer."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Para perder peso, ganhar tónus, aliviar dores ou recuperar do pós-parto."
    },
    {
     "role": "cta",
-    "text_overlay": "Marque a primeira sessão. Sem compromisso. Link na bio."
+    "text_overlay": "Marque a sua sessão experimental — link na bio."
    }
   ],
   "html_url": "../brands/techbody/output/2026-05/reels/r02-primeira-vez-ems.html",
