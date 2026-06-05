@@ -8,24 +8,24 @@
   "theme": "tempo_eficiencia",
   "pilar": "Tempo e eficiência",
   "audience": "b2c",
-  "title": "25 minutos. Menos do que a espera na fila do café.",
-  "slides": 20,
+  "title": "Sem tempo para treinar? 25 minutos chegam.",
+  "slides": 23,
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "25 minutos."
+    "text_overlay": "Sem tempo para treinar?"
    },
    {
     "role": "demo",
-    "text_overlay": "Menos do que a espera na fila do café."
-   },
-   {
-    "role": "demo",
-    "text_overlay": "Menos do que um episódio da sua série."
+    "text_overlay": "Entre o trabalho, a casa e o trânsito, o dia desaparece."
    },
    {
     "role": "proof",
-    "text_overlay": "Sessão completa de eletroestimulação. Treino sério, corpo inteiro."
+    "text_overlay": "25 min por sessão — corpo inteiro, com eletroestimulação."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Chega, treina, e segue com o seu dia."
    },
    {
     "role": "cta",
