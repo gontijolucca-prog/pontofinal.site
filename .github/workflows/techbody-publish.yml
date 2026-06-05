@@ -63,11 +63,8 @@ jobs:
           TITLE="Gerar conteúdo do mês seguinte"
           EXISTING=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$TITLE in:title" --json number --jq length)
           if [ "$EXISTING" = "0" ]; then
-            gh issue create --repo "$GITHUB_REPOSITORY" \
-              --title "$TITLE" \
-              --body "Deteção automática: $SUMMARY
-
-Correr a geração via content-machine (copy-first, leis de marca TB/TBU/Luiz, standard r03) e carregar os novos items na página de aprovação."
+            BODY=$(printf 'Deteção automática: %s\n\nCorrer a geração via content-machine (copy-first, leis de marca TB/TBU/Luiz, standard r03) e carregar os novos items na página de aprovação.' "$SUMMARY")
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body "$BODY"
           else
             echo "Issue já aberta — não duplico."
           fi
