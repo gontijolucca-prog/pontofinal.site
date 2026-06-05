@@ -45,3 +45,29 @@ jobs:
           IG_USER_ID_LUIZ_SANTANA: ${{ secrets.IG_USER_ID_LUIZ_SANTANA }}
           DRY_RUN: ${{ github.event.inputs.dry_run || '0' }}
         run: python3 -u scripts/techbody_publisher.py
+
+      - name: Verificar meses 100% aprovados
+        id: gen
+        if: steps.gate.outputs.run == '1'
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: python3 -u scripts/check_month_complete.py
+
+      - name: Abrir issue a pedir geração do mês seguinte
+        if: steps.gen.outputs.gen_needed == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SUMMARY: ${{ steps.gen.outputs.gen_summary }}
+        run: |
+          TITLE="Gerar conteúdo do mês seguinte"
+          EXISTING=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$TITLE in:title" --json number --jq length)
+          if [ "$EXISTING" = "0" ]; then
+            gh issue create --repo "$GITHUB_REPOSITORY" \
+              --title "$TITLE" \
+              --body "Deteção automática: $SUMMARY
+
+Correr a geração via content-machine (copy-first, leis de marca TB/TBU/Luiz, standard r03) e carregar os novos items na página de aprovação."
+          else
+            echo "Issue já aberta — não duplico."
+          fi
