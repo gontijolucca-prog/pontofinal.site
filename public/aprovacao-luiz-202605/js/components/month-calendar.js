@@ -128,6 +128,7 @@ class MonthCalendar extends HTMLElement {
       return `
         <span class="cal-chip cal-chip--${status}" data-format="${it.format}" data-brand="${it.brand}" data-status="${status}" data-item-id="${it.id}" title="${it.title || it.theme}">
           <span class="cal-chip__brand">${BRAND_SHORT[it.brand] || it.brand}</span>
+          <span class="cal-chip__ref">${(it.id || "").split("-").pop()}</span>
           <span class="cal-chip__fmt">${FMT_LABEL[it.format] || it.format}</span>
           <span class="cal-chip__hour">${it.hour || ""}</span>
           ${glyph ? `<span class="cal-chip__status" aria-label="${status}">${glyph}</span>` : ""}
@@ -159,6 +160,7 @@ class MonthCalendar extends HTMLElement {
       const glyph = STATUS_GLYPH[status] || "";
       return `
         <li class="agenda-item agenda-item--${status}" data-item-id="${it.id}" data-format="${it.format}" data-brand="${it.brand}" data-status="${status}">
+          <span class="cal-chip__ref">${(it.id || "").split("-").pop()}</span>
           <span class="agenda-item__hour">${it.hour || ""}</span>
           <span class="agenda-item__brand">${BRAND_SHORT[it.brand] || it.brand}</span>
           <span class="agenda-item__fmt">${FMT_LABEL[it.format] || it.format}</span>

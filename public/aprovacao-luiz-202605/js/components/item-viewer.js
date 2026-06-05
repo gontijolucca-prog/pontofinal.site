@@ -264,7 +264,7 @@ class ItemViewer extends HTMLElement {
         <aside class="viewer-panel">
           <div class="viewer-panel__default" data-panel="default">
             <div class="viewer-meta">
-              <span class="viewer-brand">${BRAND_LABELS[it.brand] || it.brand}</span>
+              <span class="viewer-brand">${BRAND_LABELS[it.brand] || it.brand}</span><span class="card__ref">${(it.id || "").split("-").pop()}</span>
               <h3 class="viewer-title">${this._escapeForHtml(it.title || it.theme || "")}</h3>
               <div class="viewer-tags">
                 <span class="tag tag--accent">${it.format}</span>

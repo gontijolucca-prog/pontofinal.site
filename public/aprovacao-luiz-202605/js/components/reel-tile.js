@@ -7,6 +7,8 @@ import { APP_VERSION } from "../config.js";
 import { currentContentSig } from "../data-loader.js";
 
 const BRAND_LABELS = { techbody: "TechBody", techbody_u: "TechBody U", luiz_santana: "Luiz Santana" };
+const REF_CODE = id => (id || "").split("-").pop();
+
 const ROLE_LABELS = { hook: "Hook", demo: "Desenvolvimento", proof: "Prova", development: "Desenvolvimento", cta: "CTA", outro: "Fecho", intro: "Intro" };
 
 function esc(s) {
@@ -82,7 +84,7 @@ class ReelTile extends HTMLElement {
     this.innerHTML = `
       <article class="card card--reel" data-item-id="${it.id}">
         <header class="card__head">
-          <span class="card__brand">${BRAND_LABELS[it.brand] || it.brand}</span>
+          <span class="card__brand">${BRAND_LABELS[it.brand] || it.brand}</span><span class="card__ref" title="Referência — usa este código para pedir alterações">${REF_CODE(it.id)}</span>
           <span class="card__type">Reel ${it.slides || 15}s · script</span>
         </header>
         <div class="card__slidebar">
@@ -121,7 +123,7 @@ class ReelTile extends HTMLElement {
     this.innerHTML = `
       <article class="card card--reel" data-item-id="${it.id}">
         <header class="card__head">
-          <span class="card__brand">${BRAND_LABELS[it.brand] || it.brand}</span>
+          <span class="card__brand">${BRAND_LABELS[it.brand] || it.brand}</span><span class="card__ref" title="Referência — usa este código para pedir alterações">${REF_CODE(it.id)}</span>
           <span class="card__type">Reel ${it.slides || 15}s · vídeo</span>
         </header>
         <div class="card__main">

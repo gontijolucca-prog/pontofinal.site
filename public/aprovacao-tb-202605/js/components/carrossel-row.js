@@ -10,6 +10,8 @@ import { fitScaledFrame, dimsFor } from "../lib/fit-frame.js";
 import { fmtToHtml, htmlToFmt } from "../lib/rich-text.js";
 
 const BRAND_LABELS = { techbody: "TechBody", techbody_u: "TechBody U", luiz_santana: "Luiz Santana" };
+const REF_CODE = id => (id || "").split("-").pop();
+
 
 function esc(s) {
   return String(s == null ? "" : s).replace(/[&<>"']/g, c =>
@@ -162,7 +164,7 @@ class CarrosselRow extends HTMLElement {
     this.innerHTML = `
       <article class="card card--carousel" data-item-id="${it.id}">
         <header class="card__head">
-          <span class="card__brand">${BRAND_LABELS[it.brand] || it.brand}</span>
+          <span class="card__brand">${BRAND_LABELS[it.brand] || it.brand}</span><span class="card__ref" title="Referência — usa este código para pedir alterações">${REF_CODE(it.id)}</span>
           <span class="card__type">Carrossel · ${total} slides</span>
           ${it.audience ? `<span class="tag tag--solid">${String(it.audience).toUpperCase()}</span>` : ""}
         </header>

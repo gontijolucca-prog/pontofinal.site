@@ -1,0 +1,47 @@
+name: TechBody IG Publisher
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"   # a cada 30 min — o script só publica o que está due
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry-run (1 = só mostra plano)"
+        default: "1"
+
+concurrency:
+  group: techbody-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verificar secrets
+        id: gate
+        env:
+          TB: ${{ secrets.IG_TOKEN_TECHBODY }}
+          TBU: ${{ secrets.IG_TOKEN_TECHBODY_U }}
+        run: |
+          if [ -z "$TB" ] && [ -z "$TBU" ]; then
+            echo "Sem tokens configurados — salto." && echo "run=0" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=1" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publicar conteúdo aprovado due
+        if: steps.gate.outputs.run == '1'
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          IG_TOKEN_TECHBODY: ${{ secrets.IG_TOKEN_TECHBODY }}
+          IG_USER_ID_TECHBODY: ${{ secrets.IG_USER_ID_TECHBODY }}
+          IG_TOKEN_TECHBODY_U: ${{ secrets.IG_TOKEN_TECHBODY_U }}
+          IG_USER_ID_TECHBODY_U: ${{ secrets.IG_USER_ID_TECHBODY_U }}
+          IG_TOKEN_LUIZ_SANTANA: ${{ secrets.IG_TOKEN_LUIZ_SANTANA }}
+          IG_USER_ID_LUIZ_SANTANA: ${{ secrets.IG_USER_ID_LUIZ_SANTANA }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || '0' }}
+        run: python3 -u scripts/techbody_publisher.py

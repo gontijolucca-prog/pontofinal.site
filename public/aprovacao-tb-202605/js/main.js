@@ -324,7 +324,15 @@ function bindOpen() {
   });
   document.addEventListener("calendar:item-click", e => {
     const it = findItem(e.detail.id);
-    if (it) els.viewer().open(it);
+    if (!it) return;
+    const card = document.querySelector(`article.card[data-item-id="${CSS.escape(e.detail.id)}"]`);
+    if (card) {
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
+      card.classList.add("is-located");
+      setTimeout(() => card.classList.remove("is-located"), 2600);
+    } else {
+      els.viewer().open(it); // card fora do filtro/mês visível
+    }
   });
   // Keyboard advance dentro do viewer (A/R/J/K).
   document.addEventListener("viewer:advance", e => {

@@ -2,7 +2,7 @@
   {
     "id": "luiz_santana-2026-05-c01",
     "brand": "luiz_santana",
-    "month": "2026-05",
+    "month": "2026-06",
     "format": "carrossel",
     "theme": "barreiras",
     "pilar": "Barreiras ao exercício",
@@ -54,13 +54,13 @@
     ],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-07",
+    "scheduled_for": "2026-06-07",
     "hour": "09h"
   },
   {
     "id": "luiz_santana-2026-05-c02",
     "brand": "luiz_santana",
-    "month": "2026-05",
+    "month": "2026-06",
     "format": "carrossel",
     "theme": "metodo_ciencia",
     "pilar": "Método e ciência aplicada",
@@ -112,13 +112,13 @@
     ],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-11",
+    "scheduled_for": "2026-06-11",
     "hour": "09h"
   },
   {
     "id": "luiz_santana-2026-05-c03",
     "brand": "luiz_santana",
-    "month": "2026-05",
+    "month": "2026-06",
     "format": "carrossel",
     "theme": "origem_percurso",
     "pilar": "Origem e percurso",
@@ -170,13 +170,13 @@
     ],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-21",
+    "scheduled_for": "2026-06-21",
     "hour": "09h"
   },
   {
     "id": "luiz_santana-2026-05-c04",
     "brand": "luiz_santana",
-    "month": "2026-05",
+    "month": "2026-06",
     "format": "carrossel",
     "theme": "b2b_ferramenta",
     "pilar": "B2B — ferramenta para profissionais",
@@ -226,13 +226,13 @@
     ],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-25",
+    "scheduled_for": "2026-06-25",
     "hour": "09h"
   },
   {
     "id": "luiz_santana-2026-05-s01",
     "brand": "luiz_santana",
-    "month": "2026-05",
+    "month": "2026-06",
     "format": "story",
     "theme": "consistencia",
     "pilar": "Filosofia do método",
@@ -250,13 +250,13 @@
     "photo_positions": [],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-08",
+    "scheduled_for": "2026-06-08",
     "hour": "17h"
   },
   {
     "id": "luiz_santana-2026-05-s02",
     "brand": "luiz_santana",
-    "month": "2026-05",
+    "month": "2026-06",
     "format": "story",
     "theme": "dose_certa",
     "pilar": "Prática supervisionada",
@@ -278,13 +278,13 @@
     ],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-15",
+    "scheduled_for": "2026-06-15",
     "hour": "17h"
   },
   {
     "id": "luiz_santana-2026-05-s03",
     "brand": "luiz_santana",
-    "month": "2026-05",
+    "month": "2026-06",
     "format": "story",
     "theme": "reabilitacao",
     "pilar": "Saúde e reabilitação",
@@ -302,13 +302,13 @@
     "photo_positions": [],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-22",
+    "scheduled_for": "2026-06-22",
     "hour": "17h"
   },
   {
     "id": "luiz_santana-2026-05-s04",
     "brand": "luiz_santana",
-    "month": "2026-05",
+    "month": "2026-06",
     "format": "story",
     "theme": "rede_estudios",
     "pilar": "Rede TechBody",
@@ -330,13 +330,13 @@
     ],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-29",
+    "scheduled_for": "2026-06-29",
     "hour": "17h"
   },
   {
     "id": "luiz_santana-2026-05-r01",
     "brand": "luiz_santana",
-    "month": "2026-05",
+    "month": "2026-06",
     "format": "reel",
     "kind": "shoot_guide",
     "theme": "quem_treina_ems",
@@ -370,13 +370,13 @@
     "photos_used": [],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-05",
+    "scheduled_for": "2026-06-05",
     "hour": "18h"
   },
   {
     "id": "luiz_santana-2026-05-r02",
     "brand": "luiz_santana",
-    "month": "2026-05",
+    "month": "2026-06",
     "format": "reel",
     "kind": "shoot_guide",
     "theme": "primeiro_dia",
@@ -410,13 +410,13 @@
     "photos_used": [],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-13",
+    "scheduled_for": "2026-06-13",
     "hour": "18h"
   },
   {
     "id": "luiz_santana-2026-05-r03",
     "brand": "luiz_santana",
-    "month": "2026-05",
+    "month": "2026-06",
     "format": "reel",
     "kind": "shoot_guide",
     "theme": "recovery_reabilitacao",
@@ -450,13 +450,13 @@
     "photos_used": [],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-19",
+    "scheduled_for": "2026-06-19",
     "hour": "18h"
   },
   {
     "id": "luiz_santana-2026-05-r04",
     "brand": "luiz_santana",
-    "month": "2026-05",
+    "month": "2026-06",
     "format": "reel",
     "kind": "shoot_guide",
     "theme": "suporte_franchise",
@@ -490,7 +490,7 @@
     "photos_used": [],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-05-27",
+    "scheduled_for": "2026-06-27",
     "hour": "18h"
   }
 ]
