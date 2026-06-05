@@ -3339,3 +3339,6 @@ body {
   100% { box-shadow: 0 0 0 0 rgba(6, 119, 255, 0); }
 }
 article.card.is-located { animation: card-locate-flash 2.6s ease-out; }
+
+/* aprovadas por marca no filtro */
+.filter-bar__chip-ok { color: #1d9e4b; font-weight: 800; margin: 0 1px; }

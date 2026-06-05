@@ -47,8 +47,11 @@ class FilterBar extends HTMLElement {
     }
 
     const brandChips = [
-      { value: "all", label: "Todas", count: this._brands.reduce((s, b) => s + (b.count || 0), 0) },
-      ...this._brands.map(b => ({ value: b.value, label: BRAND_LABEL[b.value] || b.value, count: b.count })),
+      { value: "all", label: "Todas",
+        count: this._brands.reduce((s, b) => s + (b.count || 0), 0),
+        approved: this._brands.some(b => b.approved !== undefined)
+          ? this._brands.reduce((s, b) => s + (b.approved || 0), 0) : undefined },
+      ...this._brands.map(b => ({ value: b.value, label: BRAND_LABEL[b.value] || b.value, count: b.count, approved: b.approved })),
     ];
     const formatChips = [
       { value: "all", label: "Todos", count: this._formats.reduce((s, f) => s + (f.count || 0), 0) },
@@ -68,7 +71,7 @@ class FilterBar extends HTMLElement {
               data-value="${c.value}"
               data-axis="${axis}">
               <span class="filter-bar__chip-label">${c.label}</span>
-              <span class="filter-bar__chip-count">${c.count}</span>
+              <span class="filter-bar__chip-count">${c.approved !== undefined ? `${c.approved}<span class="filter-bar__chip-ok">✓</span>/` : ""}${c.count}</span>
             </button>
           `).join("")}
         </div>

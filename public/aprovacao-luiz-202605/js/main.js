@@ -168,9 +168,12 @@ function brandCounts() {
   for (const it of state.items) {
     if (inferMonth(it) !== state.currentMonth) continue;
     if (state.currentFormat !== "all" && it.format !== state.currentFormat) continue;
-    map.set(it.brand, (map.get(it.brand) || 0) + 1);
+    const cur = map.get(it.brand) || { count: 0, approved: 0 };
+    cur.count += 1;
+    if (approvalStore.get(it.id)?.status === "approved") cur.approved += 1;
+    map.set(it.brand, cur);
   }
-  return Array.from(map.entries()).sort().map(([value, count]) => ({ value, count }));
+  return Array.from(map.entries()).sort().map(([value, v]) => ({ value, count: v.count, approved: v.approved }));
 }
 
 function formatCounts() {
