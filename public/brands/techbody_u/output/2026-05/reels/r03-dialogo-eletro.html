@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8" />
+<title>TechBody U · Perguntas</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,800;1,9..144,800&family=Manrope:wght@300;500;700;900&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:1920px;overflow:hidden;background:#F2EDE4;font-family:'Manrope',system-ui,sans-serif;color:#14160F;-webkit-font-smoothing:antialiased}
+  :root{
+    --cream:#F2EDE4; --cream-2:#E8DECF;
+    --ink:#14160F; --ink-dim:rgba(20,22,15,0.60); --ink-faint:rgba(20,22,15,0.30);
+    --terra:#C36F49; --terra-2:#A8553A; --terra-light:#E1A180;
+    --serif:'Fraunces',Georgia,serif;
+  }
+  #root{width:100%;height:100%;position:relative;overflow:hidden;background:var(--cream)}
+  .paper{position:absolute;inset:-60px;background:radial-gradient(ellipse at 30% 20%,rgba(195,111,73,0.10) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(195,111,73,0.07) 0%,transparent 55%);pointer-events:none}
+  .particles{position:absolute;inset:0;z-index:2;pointer-events:none}
+  .pt{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--terra);opacity:0.35}
+  .grain{position:absolute;inset:0;opacity:0.08;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");z-index:91;pointer-events:none}
+  .vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 40%,rgba(168,85,58,0.10) 100%);pointer-events:none;z-index:90}
+
+  .scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:200px 80px;opacity:0;z-index:5}
+  .scene>div{text-align:center;width:100%}
+
+  .wm{font-family:var(--serif);font-weight:300;font-size:88px;line-height:0.85;letter-spacing:-0.04em;text-align:center;color:var(--ink);margin-bottom:56px}
+  .wm-u{font-weight:800;color:var(--terra);font-style:italic}
+
+  .q-label{font-size:21px;letter-spacing:0.4em;text-transform:uppercase;color:var(--ink-dim);font-weight:700;margin-bottom:42px}
+  .q-label b{color:var(--terra-2)}
+  .question{font-family:var(--serif);font-weight:300;font-size:104px;line-height:0.98;letter-spacing:-0.04em;text-align:center;color:var(--ink)}
+  .question em{font-style:italic;font-weight:800;color:var(--terra)}
+  .q-rule{display:block;width:140px;height:3px;background:var(--terra);margin:40px auto 0}
+
+  .answer{margin-top:64px}
+  .a-big{font-family:var(--serif);font-style:italic;font-weight:800;font-size:76px;line-height:1.02;letter-spacing:-0.03em;color:var(--terra);text-align:center}
+  .a-sub{margin-top:30px;font-size:36px;line-height:1.25;color:var(--ink-dim);text-align:center;font-weight:500}
+
+  /* S2 — stat 25 */
+  .a-stat{font-family:var(--serif);font-weight:800;font-size:260px;line-height:0.82;letter-spacing:-0.05em;color:var(--terra);text-align:center}
+  .a-stat-unit{font-size:24px;letter-spacing:0.38em;text-transform:uppercase;color:var(--ink-dim);font-weight:700;margin-top:14px}
+
+  /* S3 — phone app guia */
+  .phone{width:380px;height:730px;border-radius:48px;background:linear-gradient(170deg,#fff 0%,#F3EADF 100%);border:6px solid rgba(20,22,15,0.10);box-shadow:0 40px 100px rgba(168,85,58,0.18);position:relative;overflow:hidden;margin:50px auto 0}
+  .phone::before{content:'';position:absolute;top:18px;left:50%;transform:translateX(-50%);width:92px;height:24px;background:rgba(20,22,15,0.12);border-radius:14px;z-index:3}
+  .app{position:absolute;inset:16px;border-radius:36px;background:linear-gradient(180deg,#FBF6EE 0%,#EFE4D4 100%);padding:64px 32px 44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px}
+  .app-h{font-size:17px;letter-spacing:0.32em;text-transform:uppercase;color:var(--ink-dim);font-weight:700}
+  .app-line{font-family:var(--serif);font-style:italic;font-weight:800;font-size:38px;color:var(--terra-2);text-align:center;line-height:1.1}
+  .app-play{width:104px;height:104px;border-radius:50%;background:linear-gradient(135deg,var(--terra),var(--terra-2));display:flex;align-items:center;justify-content:center;box-shadow:0 20px 50px rgba(168,85,58,0.3)}
+  .app-play::after{content:'';width:0;height:0;border-left:32px solid #fff;border-top:20px solid transparent;border-bottom:20px solid transparent;margin-left:8px}
+  .app-prog{width:78%;height:8px;border-radius:4px;background:rgba(20,22,15,0.10);overflow:hidden}
+  .app-fill{width:100%;height:100%;border-radius:4px;background:linear-gradient(90deg,var(--terra),var(--terra-light));transform-origin:left;transform:scaleX(0)}
+
+  /* S4 close dentro da cena */
+  .close-cta{margin-top:56px;display:table;margin-left:auto;margin-right:auto;padding:26px 54px;border:2px solid var(--terra);border-radius:16px;font-size:24px;letter-spacing:0.16em;text-transform:uppercase;color:var(--terra-2);font-weight:700}
+  .close-handle{margin-top:38px;text-align:center;font-size:22px;letter-spacing:0.5em;color:var(--ink-faint);text-transform:uppercase;font-weight:700}
+
+  .ink-wipe{position:absolute;inset:0;background:var(--terra);z-index:80;transform:translateX(-100%)}
+  .ink-wipe-2{background:var(--ink)}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-width="1080" data-height="1920">
+  <div class="paper" id="paper"></div>
+  <div class="particles" id="particles"></div>
+
+  <!-- S1: o que é a eletroestimulação? -->
+  <div id="s1" class="scene">
+    <div>
+      <div class="wm">tech<span class="wm-u">body U</span></div>
+      <div class="q-label">perguntas <b>&amp;</b> respostas · 01</div>
+      <div class="question">o que é a<br><em>eletroestimulação</em>?</div>
+      <span class="q-rule"></span>
+      <div class="answer" id="a1">
+        <div class="a-big">impulsos suaves que<br>ativam os músculos</div>
+        <div class="a-sub">enquanto treina — o fato faz o trabalho consigo</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S2: substitui o ginásio? -->
+  <div id="s2" class="scene">
+    <div>
+      <div class="q-label">perguntas <b>&amp;</b> respostas · 02</div>
+      <div class="question">substitui o <em>ginásio</em>?</div>
+      <span class="q-rule"></span>
+      <div class="answer" id="a2">
+        <div class="a-stat" id="s2-num">25</div>
+        <div class="a-stat-unit">minutos</div>
+        <div class="a-sub">chegam para uma sessão completa —<br>complemente ou substitua</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S3: dá para treinar em casa? -->
+  <div id="s3" class="scene">
+    <div>
+      <div class="q-label">perguntas <b>&amp;</b> respostas · 03</div>
+      <div class="question">dá para treinar<br>em <em>casa</em>?</div>
+      <div class="answer" id="a3">
+        <div class="phone">
+          <div class="app">
+            <div class="app-h">na aplicação</div>
+            <div class="app-line">vista o fato,<br>abra a aplicação</div>
+            <div class="app-play" id="s3-play"></div>
+            <div class="app-prog"><div class="app-fill" id="s3-fill"></div></div>
+          </div>
+        </div>
+        <div class="a-sub" style="margin-top:42px">ela guia a sessão do início ao fim</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S4: quanto custa? + close -->
+  <div id="s4" class="scene">
+    <div>
+      <div class="q-label">perguntas <b>&amp;</b> respostas · 04</div>
+      <div class="question">quanto <em>custa</em>?</div>
+      <span class="q-rule"></span>
+      <div class="answer" id="a4">
+        <div class="a-big">compra única,<br>sem mensalidades</div>
+        <div class="a-sub">os detalhes estão no site</div>
+        <div class="close-cta">link na bio</div>
+        <div class="close-handle">@techbody_u</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ink-wipe" id="w1"></div><div class="ink-wipe ink-wipe-2" id="w2"></div><div class="ink-wipe" id="w3"></div>
+
+  <div class="vignette"></div>
+  <div class="grain"></div>
+
+  <audio id="narr" src="audio/narration.mp3" data-start="0" data-duration="29.41" data-track-index="9" data-volume="1"></audio>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({paused:true});
+    // Cada cena = pergunta no ecrã; a voz responde 1.3s depois (timings.json).
+    const S = [0.3, 6.99, 13.37, 21.26];
+    const VOICE = 1.3; // atraso entre pergunta e início da resposta falada
+    const TOTAL = 29.41;
+    function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+    const rand = rng(57);
+    function wipeIn(el,fromX,toX,t,prev,next){tl.fromTo(el,{x:fromX},{x:'0%',duration:0.4,ease:'expo.in'},t-0.4);tl.set(prev,{opacity:0},t-0.05);tl.set(next,{opacity:1},t-0.05);tl.to(el,{x:toX,duration:0.4,ease:'expo.out',overwrite:'auto'},t);}
+    function askThenAnswer(sc,t){
+      tl.from(sc+' .q-label',{y:16,opacity:0,duration:0.5},t+0.05);
+      tl.from(sc+' .question',{y:44,opacity:0,duration:0.8,ease:'expo.out'},t+0.15);
+      tl.from(sc+' .question em',{scale:1.14,duration:0.8,ease:'power3.out'},t+0.45);
+      tl.from(sc+' .q-rule',{scaleX:0,duration:0.6,ease:'expo.out'},t+0.7);
+      tl.from(sc+' .answer',{y:40,opacity:0,duration:0.8,ease:'expo.out'},t+VOICE);
+    }
+
+    // ===== AMBIENTE =====
+    const reps=(start,cyc)=>Math.max(0,Math.floor((TOTAL-start)/cyc)-1);
+    tl.to('#paper',{xPercent:3,yPercent:-2,duration:6,ease:'sine.inOut',yoyo:true,repeat:reps(0,6),overwrite:'auto'},0);
+    const pf=document.getElementById('particles');
+    for(let i=0;i<14;i++){const d=document.createElement('div');d.className='pt';const x=Math.round(rand()*1080),sz=5+Math.round(rand()*6),cyc=6+rand()*4,start=+(rand()*3).toFixed(2);d.style.left=x+'px';d.style.width=sz+'px';d.style.height=sz+'px';pf.appendChild(d);tl.fromTo(d,{y:1980,opacity:0},{y:-60,opacity:0.4,duration:cyc,ease:'none',repeat:reps(start,cyc)},start);}
+    tl.set('#paper',{opacity:1},TOTAL);
+
+    // ===== S1 =====
+    tl.to('#s1',{opacity:1,duration:0.01},S[0]);
+    tl.from('#s1 .wm',{y:54,opacity:0,duration:0.8,ease:'expo.out'},S[0]+0.05);
+    tl.from('#s1 .wm-u',{x:40,opacity:0,duration:0.6,ease:'back.out(1.5)'},S[0]+0.35);
+    askThenAnswer('#s1',S[0]+0.2);
+    tl.from('#a1 .a-big',{scale:1.06,duration:0.7,ease:'power3.out'},S[0]+0.2+VOICE+0.25);
+    tl.from('#a1 .a-sub',{y:18,opacity:0,duration:0.6},S[0]+0.2+VOICE+0.5);
+
+    // ===== S2 =====
+    wipeIn('#w1','-100%','100%',S[1],'#s1','#s2');
+    askThenAnswer('#s2',S[1]);
+    tl.from('#a2 .a-stat',{scale:0.5,opacity:0,duration:0.8,ease:'expo.out'},S[1]+VOICE+0.1);
+    tl.fromTo({n:0},{n:0},{n:25,duration:0.9,ease:'power2.out',onUpdate:function(){document.getElementById('s2-num').textContent=Math.round(this.targets()[0].n)}},S[1]+VOICE+0.15);
+    tl.from('#a2 .a-stat-unit',{y:14,opacity:0,duration:0.5},S[1]+VOICE+0.7);
+    tl.from('#a2 .a-sub',{y:18,opacity:0,duration:0.6},S[1]+VOICE+1.1);
+
+    // ===== S3 =====
+    wipeIn('#w2','100%','-100%',S[2],'#s2','#s3');
+    askThenAnswer('#s3',S[2]);
+    tl.from('#s3 .phone',{y:60,opacity:0,scale:0.93,duration:0.9,ease:'expo.out'},S[2]+VOICE+0.1);
+    tl.from('#s3 .app-h',{y:12,opacity:0,duration:0.5},S[2]+VOICE+0.55);
+    tl.from('#s3 .app-line',{y:16,opacity:0,duration:0.6,ease:'expo.out'},S[2]+VOICE+0.75);
+    tl.from('#s3-play',{scale:0,opacity:0,duration:0.5,ease:'back.out(2.2)'},S[2]+VOICE+1.1);
+    tl.to('#s3-play',{scale:1.08,duration:0.8,ease:'sine.inOut',yoyo:true,repeat:3,overwrite:'auto'},S[2]+VOICE+1.7);
+    tl.to('#s3-fill',{scaleX:1,duration:3.2,ease:'power1.inOut'},S[2]+VOICE+1.3);
+    tl.from('#s3 .a-sub',{y:18,opacity:0,duration:0.6},S[2]+VOICE+1.5);
+
+    // ===== S4 + close =====
+    wipeIn('#w3','-100%','100%',S[3],'#s3','#s4');
+    askThenAnswer('#s4',S[3]);
+    tl.from('#a4 .a-big',{scale:1.06,duration:0.7,ease:'power3.out'},S[3]+VOICE+0.3);
+    tl.from('#a4 .a-sub',{y:18,opacity:0,duration:0.6},S[3]+VOICE+0.7);
+    tl.from('#s4 .close-cta',{scale:0.8,opacity:0,duration:0.6,ease:'back.out(2)'},S[3]+VOICE+1.4);
+    tl.to('#s4 .close-cta',{scale:1.06,duration:0.7,ease:'sine.inOut',yoyo:true,repeat:3,overwrite:'auto'},S[3]+VOICE+2.2);
+    tl.from('#s4 .close-handle',{y:14,opacity:0,duration:0.6},S[3]+VOICE+1.8);
+    tl.to('#s4',{opacity:0,duration:0.5,ease:'power2.in'},TOTAL-0.5);
+
+    window.__timelines["root"] = tl;
+  </script>
+</div>
+</body>
+</html>

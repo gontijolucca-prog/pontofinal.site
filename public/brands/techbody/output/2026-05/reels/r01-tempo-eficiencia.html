@@ -1,176 +1,238 @@
 <!doctype html>
-<html lang="pt-PT"><head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>25 minutos é menos do que está à espera.</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,400;0,800;1,200;1,400;1,800&family=Manrope:wght@200;400;500;700;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
+<html lang="pt">
+<head>
+<meta charset="UTF-8" />
+<title>TechBody · O seu tempo</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;600;800;900&family=JetBrains+Mono:wght@300;500;700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:1920px;overflow:hidden;background:#0a0a0c;font-family:'Manrope',system-ui,sans-serif;color:#fff;-webkit-font-smoothing:antialiased}
+  :root{
+    --bg:#0a0a0c; --accent:#d4773b; --accent-2:#ff9447;
+    --tech:#5fb3ff; --tech-dim:rgba(95,179,255,0.18);
+    --text:#fff; --text-dim:rgba(255,255,255,0.55); --text-faint:rgba(255,255,255,0.30);
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  #root{width:100%;height:100%;position:relative;overflow:hidden;background:#0a0a0c}
+  .grid-bg{position:absolute;inset:-80px;background-image:linear-gradient(rgba(95,179,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(95,179,255,0.05) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse at 50% 50%,black 30%,transparent 80%)}
+  .depth{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 35%,rgba(212,119,59,0.12) 0%,transparent 55%),radial-gradient(ellipse at 50% 85%,rgba(95,179,255,0.07) 0%,transparent 50%);pointer-events:none}
+  .particles{position:absolute;inset:0;z-index:2;pointer-events:none}
+  .pt{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent-2);opacity:0.5}
+  .vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 30%,rgba(0,0,0,0.75) 100%);pointer-events:none;z-index:90}
+  .grain{position:absolute;inset:0;opacity:0.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");z-index:91;pointer-events:none}
 
-:root {
-  --bg: #1a1a1a;
-  --accent: #d4773b;
-  --text: #ffffff;
-  --mute: color-mix(in srgb, var(--text) 55%, transparent);
-  --line: color-mix(in srgb, var(--text) 12%, transparent);
-  --font-display: 'Manrope', sans-serif;
-  --font-body: 'Manrope', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body {
-  height: 100%;
-  background: #050507;
-  color: var(--text);
-  font-family: var(--font-body);
-  -webkit-font-smoothing: antialiased;
-}
-.reel {
-  position: relative;
-  /* Fill parent (iframe já enforça 9:16; em browser direto ocupa a janela). */
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  overflow: hidden;
-}
-.reel__brand {
-  position: absolute; top: clamp(20px, 3.4vw, 38px);
-  left: clamp(20px, 3.4vw, 38px);
-  z-index: 10;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-style: normal;
-  font-size: clamp(18px, 2.2vw, 26px);
-  letter-spacing: -0.015em;
-  color: var(--accent);
-}
-.reel__progress {
-  position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: rgba(255,255,255,0.06);
-  z-index: 11;
-}
-.reel__progress::before {
-  content: ""; position: absolute; inset: 0;
-  background: var(--accent);
-  transform-origin: left center;
-  animation: reel-progress 15s linear infinite;
-}
-@keyframes reel-progress {
-  0% { transform: scaleX(0); }
-  100% { transform: scaleX(1); }
-}
+  .scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:200px 80px;opacity:0;z-index:5}
+  .scene>div{text-align:center}
 
+  /* S1 hook — 25 min */
+  .wordmark{font-weight:200;font-size:88px;letter-spacing:-0.04em;line-height:0.9;text-align:center;margin-bottom:30px}
+  .wordmark b{font-weight:900;background:linear-gradient(135deg,#ffa867 0%,#d4773b 60%,#a85220 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .wordmark .dot{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--accent);box-shadow:0 0 30px var(--accent);vertical-align:middle;margin-left:6px;transform:translateY(-22px)}
+  .big-stat{font-weight:900;font-size:420px;line-height:0.8;letter-spacing:-0.06em;background:linear-gradient(180deg,#ffd6b3 0%,#d4773b 55%,#a85220 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center}
+  .stat-unit{font-family:var(--mono);font-size:40px;letter-spacing:0.4em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-top:-10px}
+  .scan-line{position:absolute;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--tech),transparent);box-shadow:0 0 24px var(--tech-dim);z-index:6}
 
-.stage {
-  position: absolute; inset: 0;
-  display: grid; place-items: center; gap: 28px;
-  padding: 110px 48px 70px;
-  grid-template-rows: auto auto 1fr auto;
-}
-.label {
-  font-family: var(--font-mono); font-size: 12px;
-  letter-spacing: 0.32em; text-transform: uppercase;
-  color: var(--mute);
-}
-.ring {
-  position: relative;
-  width: min(78%, 360px); aspect-ratio: 1/1;
-  border-radius: 50%;
-  background: conic-gradient(var(--accent) calc(var(--p, 1) * 360deg), rgba(255,255,255,0.06) 0);
-  --p: 1;
-  animation: drain 15s linear infinite;
-}
-@keyframes drain {
-  0% { --p: 1; }
-  92% { --p: 0; }
-  100% { --p: 0; }
-}
-@property --p { syntax: "<number>"; inherits: false; initial-value: 1; }
-.ring__fill { position: absolute; inset: 9px; background: var(--bg); border-radius: 50%; }
-.ring__inner {
-  position: absolute; inset: 0;
-  display: grid; place-items: center;
-}
-.ring__time {
-  position: absolute;
-  font-family: var(--font-display); font-weight: 200;
-  font-size: clamp(48px, 9vw, 88px);
-  letter-spacing: -0.04em; line-height: 1;
-  color: var(--text); opacity: 0;
-  animation-duration: 15s; animation-iteration-count: infinite;
-}
-.t1 { animation-name: rt1; }
-.t2 { animation-name: rt2; }
-.t3 { animation-name: rt3; }
-.t4 { animation-name: rt4; }
-.t5 { animation-name: rt5; color: var(--accent); }
-@keyframes rt1 { 0% { opacity: 1; } 18% { opacity: 1; } 20% { opacity: 0; } 100% { opacity: 0; } }
-@keyframes rt2 { 0%, 20% { opacity: 0; } 22% { opacity: 1; } 38% { opacity: 1; } 40% { opacity: 0; } 100% { opacity: 0; } }
-@keyframes rt3 { 0%, 40% { opacity: 0; } 42% { opacity: 1; } 58% { opacity: 1; } 60% { opacity: 0; } 100% { opacity: 0; } }
-@keyframes rt4 { 0%, 60% { opacity: 0; } 62% { opacity: 1; } 78% { opacity: 1; } 80% { opacity: 0; } 100% { opacity: 0; } }
-@keyframes rt5 { 0%, 80% { opacity: 0; } 84% { opacity: 1; } 100% { opacity: 1; } }
-.overlays {
-  position: relative;
-  display: grid; place-items: center;
-  height: 100%;
-}
-.ov {
-  position: absolute;
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(24px, 3.8vw, 38px);
-  letter-spacing: -0.02em;
-  line-height: 1.08;
-  opacity: 0;
-  text-align: center;
-  max-width: 18ch;
-  animation-duration: 15s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease;
-}
-.ov1 { animation-name: ov1; }
-.ov2 { animation-name: ov2; }
-.ov3 { animation-name: ov3; color: var(--accent); font-weight: 700; }
-.ov4 { animation-name: ov4; }
-@keyframes ov1 { 0% { opacity: 0; transform: translateY(8px); } 5% { opacity: 1; transform: translateY(0); } 18% { opacity: 1; } 22% { opacity: 0; } 100% { opacity: 0; } }
-@keyframes ov2 { 0%, 22% { opacity: 0; } 26% { opacity: 1; } 42% { opacity: 1; } 46% { opacity: 0; } 100% { opacity: 0; } }
-@keyframes ov3 { 0%, 50% { opacity: 0; } 56% { opacity: 1; transform: scale(1); } 72% { opacity: 1; transform: scale(1.04); } 76% { opacity: 0; } 100% { opacity: 0; } }
-@keyframes ov4 { 0%, 80% { opacity: 0; } 86% { opacity: 1; transform: translateY(0); } 98% { opacity: 1; } 100% { opacity: 0; } }
-.cta {
-  font-family: var(--font-mono); font-size: 12px;
-  letter-spacing: 0.24em; text-transform: uppercase;
-  color: var(--mute); padding-top: 16px;
-  border-top: 1px solid var(--line);
-  width: 100%; text-align: center;
-}
+  /* S2 café / S3 episódio — comparações rápidas */
+  .cmp-h{font-family:var(--mono);font-size:24px;letter-spacing:0.4em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-bottom:54px}
+  .cmp-cap{font-weight:200;font-size:96px;line-height:0.98;letter-spacing:-0.04em;text-align:center;margin-top:60px}
+  .cmp-cap b{font-weight:900;color:var(--accent)}
 
-</style></head>
+  .cup{position:relative;width:260px;height:230px;margin:0 auto}
+  .cup-body{position:absolute;bottom:0;left:20px;width:190px;height:170px;border-radius:14px 14px 60px 60px;background:linear-gradient(180deg,#33333f 0%,#1d1d24 100%);box-shadow:inset 0 0 0 3px rgba(212,119,59,0.65),0 18px 50px rgba(212,119,59,0.12)}
+  .cup-handle{position:absolute;bottom:48px;right:6px;width:76px;height:90px;border:14px solid rgba(212,119,59,0.75);border-left:none;border-radius:0 48px 48px 0}
+  .cup-steam{position:absolute;top:-58px;width:8px;height:54px;border-radius:4px;background:linear-gradient(180deg,var(--accent-2),transparent);opacity:0}
+  .st1{left:64px}.st2{left:112px}.st3{left:160px}
+
+  .tv{position:relative;width:560px;height:340px;margin:0 auto;border-radius:24px;background:linear-gradient(170deg,#1c1c24 0%,#101014 100%);box-shadow:inset 0 0 0 3px rgba(95,179,255,0.25),0 30px 80px rgba(0,0,0,0.5);overflow:hidden}
+  .tv-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--accent-2),var(--accent));display:flex;align-items:center;justify-content:center;box-shadow:0 0 50px rgba(212,119,59,0.45)}
+  .tv-play::after{content:'';width:0;height:0;border-left:34px solid #fff;border-top:22px solid transparent;border-bottom:22px solid transparent;margin-left:8px}
+  .tv-bar{position:absolute;bottom:26px;left:36px;right:36px;height:8px;border-radius:4px;background:rgba(255,255,255,0.12);overflow:hidden}
+  .tv-fill{width:100%;height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transform-origin:left;transform:scaleX(0)}
+
+  /* S4 TecSuit corpo inteiro */
+  .figure{position:relative;width:300px;height:640px;margin:0 auto}
+  .head{position:absolute;top:0;left:50%;transform:translateX(-50%);width:100px;height:100px;border-radius:50%;background:#1c1c22;box-shadow:0 0 0 6px rgba(212,119,59,0.10)}
+  .torso{position:absolute;top:112px;left:50%;transform:translateX(-50%);width:210px;height:280px;border-radius:90px 90px 46px 46px;background:linear-gradient(180deg,#23232c 0%,#15151a 100%);box-shadow:inset 0 0 0 2px rgba(212,119,59,0.25)}
+  .legs{position:absolute;top:372px;left:50%;transform:translateX(-50%);width:240px;height:250px;background:linear-gradient(180deg,#1b1b20 0%,#101014 100%);border-radius:34px 34px 22px 22px}
+  .suit-dot{position:absolute;width:18px;height:18px;border-radius:50%;background:var(--accent);box-shadow:0 0 20px var(--accent-2)}
+  .pulse-ring{position:absolute;top:150px;left:50%;width:420px;height:420px;border-radius:50%;border:2px solid var(--accent);transform:translateX(-50%);opacity:0}
+  .s4-cap{position:absolute;bottom:150px;left:80px;right:80px;text-align:center;font-weight:200;font-size:88px;line-height:0.95;letter-spacing:-0.04em}
+  .s4-cap b{font-weight:900;color:var(--accent)}
+  .s4-sub{position:absolute;bottom:96px;left:80px;right:80px;text-align:center;font-family:var(--mono);font-size:22px;color:var(--text-dim);letter-spacing:0.22em;text-transform:uppercase}
+
+  /* S5 close */
+  .close-quote{font-weight:200;font-size:104px;line-height:0.98;letter-spacing:-0.04em;text-align:center}
+  .close-quote b{font-weight:900;background:linear-gradient(135deg,#ffa867,#d4773b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .close-sub{margin-top:36px;font-weight:300;font-size:40px;color:var(--text-dim);text-align:center}
+  .close-cta{margin-top:60px;display:inline-block;padding:28px 56px;border:2px solid var(--accent);border-radius:18px;font-family:var(--mono);font-size:26px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent)}
+  .close-mark{margin-top:42px;font-family:var(--mono);font-size:20px;color:var(--text-faint);letter-spacing:0.5em;text-transform:uppercase;text-align:center}
+
+  .wipe{position:absolute;inset:0;background:var(--accent);z-index:80;transform:translateY(100%)}
+  .wipe-2{background:#0a0a0c;z-index:81}
+</style>
+</head>
 <body>
-<section class="reel" aria-label="Reel TechBody — 25 minutos é menos do que está à espera.">
-  <div class="reel__progress"></div>
-  <span class="reel__brand">TechBody</span>
+<div id="root" data-composition-id="root" data-start="0" data-width="1080" data-height="1920">
+  <div class="grid-bg" id="grid"></div>
+  <div class="depth" id="depth"></div>
+  <div class="particles" id="particles"></div>
 
-<div class="stage">
-  <span class="label">SESSÃO</span>
-  <div class="ring">
-    <div class="ring__fill"></div>
-    <div class="ring__inner">
-      <span class="ring__time t1">25:00</span>
-      <span class="ring__time t2">18:42</span>
-      <span class="ring__time t3">10:08</span>
-      <span class="ring__time t4">03:21</span>
-      <span class="ring__time t5">00:00</span>
+  <!-- S1 hook: 25 minutos -->
+  <div id="s1" class="scene">
+    <div>
+      <div class="wordmark"><span>tech</span><b>body</b><span class="dot"></span></div>
+      <div class="big-stat" id="s1-num">25</div>
+      <div class="stat-unit">minutos</div>
+    </div>
+    <div class="scan-line" id="s1-scan" style="top:50%"></div>
+  </div>
+
+  <!-- S2 fila do café -->
+  <div id="s2" class="scene">
+    <div>
+      <div class="cmp-h">menos do que</div>
+      <div class="cup">
+        <div class="cup-steam st1"></div>
+        <div class="cup-steam st2"></div>
+        <div class="cup-steam st3"></div>
+        <div class="cup-body"></div>
+        <div class="cup-handle"></div>
+      </div>
+      <div class="cmp-cap">a espera na<br><b>fila do café</b></div>
     </div>
   </div>
-  <div class="overlays">
-    <span class="ov ov1">Vinte e cinco minutos é tudo o que precisa.</span>
-    <span class="ov ov2">Veste o fato — a sessão começa em dois minutos.</span>
-    <span class="ov ov3">Eletroestimulação activa até 90% das fibras musculares.</span>
-    <span class="ov ov4">Sai com o treino feito. Volta ao seu dia.</span>
-  </div>
-  <span class="cta">Marque a sua sessão experimental →</span>
-</div>
 
-</section>
-</body></html>
+  <!-- S3 episódio da série -->
+  <div id="s3" class="scene">
+    <div>
+      <div class="cmp-h">menos do que</div>
+      <div class="tv">
+        <div class="tv-play" id="tv-play"></div>
+        <div class="tv-bar"><div class="tv-fill" id="tv-fill"></div></div>
+      </div>
+      <div class="cmp-cap">um <b>episódio</b><br>da sua série</div>
+    </div>
+  </div>
+
+  <!-- S4 sessão completa de eletroestimulação -->
+  <div id="s4" class="scene">
+    <div class="pulse-ring" id="ring-1"></div>
+    <div class="pulse-ring" id="ring-2"></div>
+    <div class="figure" id="s4-fig">
+      <div class="head"></div>
+      <div class="torso">
+        <div class="suit-dot" style="top:46px;left:36px"></div>
+        <div class="suit-dot" style="top:46px;right:36px"></div>
+        <div class="suit-dot" style="top:120px;left:50%;transform:translateX(-50%)"></div>
+        <div class="suit-dot" style="top:196px;left:36px"></div>
+        <div class="suit-dot" style="top:196px;right:36px"></div>
+      </div>
+      <div class="legs"></div>
+    </div>
+    <div class="s4-cap">sessão completa de<br><b>eletroestimulação</b></div>
+    <div class="s4-sub">treino sério · corpo inteiro</div>
+  </div>
+
+  <!-- S5 close -->
+  <div id="s5" class="scene">
+    <div>
+      <div class="close-quote">marque a sua<br><b>sessão experimental</b></div>
+      <div class="close-sub">nos estúdios TechBody</div>
+      <div class="close-cta">link na bio</div>
+      <div class="close-mark">@techbody_pt</div>
+    </div>
+  </div>
+
+  <div class="wipe" id="w1"></div>
+  <div class="wipe wipe-2" id="w2"></div>
+  <div class="wipe" id="w3"></div>
+  <div class="wipe wipe-2" id="w4"></div>
+
+  <div class="vignette"></div>
+  <div class="grain"></div>
+
+  <audio id="narr" src="audio/narration.mp3" data-start="0" data-duration="19.7" data-track-index="9" data-volume="1"></audio>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({paused:true});
+    // Início de cada cena (sincronizado com a narração) + total — gerados em timings.json.
+    const S = [0.3, 2.21, 4.77, 7.25, 12.39];
+    const TOTAL = 19.7;
+    function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+    const rand = rng(41);
+    function wipeIn(el, fromY, toY, t, prev, next){
+      tl.fromTo(el,{y:fromY},{y:'0%',duration:0.4,ease:'expo.in'},t-0.4);
+      tl.set(prev,{opacity:0},t-0.05); tl.set(next,{opacity:1},t-0.05);
+      tl.to(el,{y:toY,duration:0.4,ease:'expo.out',overwrite:'auto'},t);
+    }
+
+    // ===== AMBIENTE =====
+    const reps=(start,cyc)=>Math.max(0,Math.floor((TOTAL-start)/cyc)-1);
+    tl.to('#grid',{backgroundPositionX:'72px',backgroundPositionY:'72px',duration:8,ease:'none',repeat:reps(0,8)},0);
+    tl.to('#depth',{opacity:0.6,duration:3.5,ease:'sine.inOut',yoyo:true,repeat:reps(0,3.5),overwrite:'auto'},0);
+    const pf = document.getElementById('particles');
+    for(let i=0;i<16;i++){
+      const d=document.createElement('div');d.className='pt';
+      const x=Math.round(rand()*1080), sz=4+Math.round(rand()*6), cyc=5+rand()*4, start=+(rand()*3).toFixed(2);
+      d.style.left=x+'px';d.style.width=sz+'px';d.style.height=sz+'px';
+      pf.appendChild(d);
+      tl.fromTo(d,{y:1980,opacity:0},{y:-60,opacity:0.5,duration:cyc,ease:'none',repeat:reps(start,cyc)},start);
+    }
+    tl.set('#grid',{opacity:1},TOTAL); // âncora
+
+    // ===== S1 (curta: 1.9s) =====
+    tl.to('#s1',{opacity:1,duration:0.01},S[0]);
+    tl.from('#s1 .wordmark',{y:36,opacity:0,duration:0.5,ease:'expo.out'},S[0]+0.05);
+    tl.from('#s1 .big-stat',{scale:0.5,opacity:0,duration:0.7,ease:'expo.out'},S[0]+0.2);
+    tl.fromTo({n:0},{n:0},{n:25,duration:0.8,ease:'power2.out',onUpdate:function(){document.getElementById('s1-num').textContent=Math.round(this.targets()[0].n)}},S[0]+0.25);
+    tl.from('#s1 .stat-unit',{y:14,opacity:0,duration:0.5},S[0]+0.7);
+    tl.fromTo('#s1-scan',{top:'16%',opacity:0},{top:'84%',opacity:1,duration:1.3,ease:'sine.inOut'},S[0]+0.4);
+
+    // ===== S2 café (2.6s) =====
+    wipeIn('#w1','100%','-100%',S[1],'#s1','#s2');
+    tl.from('#s2 .cmp-h',{y:16,opacity:0,duration:0.4},S[1]+0.05);
+    tl.from('#s2 .cup',{y:44,opacity:0,duration:0.6,ease:'expo.out'},S[1]+0.15);
+    tl.fromTo('.st1',{opacity:0,y:16},{opacity:0.8,y:-8,duration:0.9,ease:'sine.out',repeat:1},S[1]+0.6);
+    tl.fromTo('.st2',{opacity:0,y:16},{opacity:0.8,y:-8,duration:0.9,ease:'sine.out',repeat:1},S[1]+0.8);
+    tl.fromTo('.st3',{opacity:0,y:16},{opacity:0.8,y:-8,duration:0.9,ease:'sine.out',repeat:1},S[1]+1.0);
+    tl.from('#s2 .cmp-cap',{y:26,opacity:0,duration:0.6,ease:'expo.out'},S[1]+0.5);
+    tl.from('#s2 .cmp-cap b',{scale:1.12,duration:0.6,ease:'power3.out'},S[1]+0.8);
+
+    // ===== S3 episódio (2.5s) =====
+    wipeIn('#w2','-100%','100%',S[2],'#s2','#s3');
+    tl.from('#s3 .cmp-h',{y:16,opacity:0,duration:0.4},S[2]+0.05);
+    tl.from('#s3 .tv',{y:44,opacity:0,scale:0.94,duration:0.6,ease:'expo.out'},S[2]+0.15);
+    tl.from('#tv-play',{scale:0,opacity:0,duration:0.45,ease:'back.out(2.2)'},S[2]+0.5);
+    tl.to('#tv-fill',{scaleX:1,duration:1.6,ease:'power1.inOut'},S[2]+0.6);
+    tl.from('#s3 .cmp-cap',{y:26,opacity:0,duration:0.6,ease:'expo.out'},S[2]+0.55);
+    tl.from('#s3 .cmp-cap b',{scale:1.12,duration:0.6,ease:'power3.out'},S[2]+0.85);
+
+    // ===== S4 eletroestimulação (5.1s) =====
+    wipeIn('#w3','100%','-100%',S[3],'#s3','#s4');
+    tl.from('#s4 .figure',{y:60,opacity:0,duration:0.9,ease:'expo.out'},S[3]+0.1);
+    tl.from('#s4 .suit-dot',{scale:0,opacity:0,duration:0.4,stagger:0.1,ease:'back.out(2.4)'},S[3]+0.7);
+    tl.to('#s4 .suit-dot',{scale:1.3,duration:0.5,ease:'sine.inOut',yoyo:true,repeat:7,stagger:0.06,overwrite:'auto'},S[3]+1.5);
+    tl.fromTo('#ring-1',{scale:0.4,opacity:0.7},{scale:1.4,opacity:0,duration:1.8,ease:'sine.out',repeat:1},S[3]+1.2);
+    tl.fromTo('#ring-2',{scale:0.4,opacity:0.5},{scale:1.6,opacity:0,duration:2.0,ease:'sine.out',repeat:1},S[3]+1.7);
+    tl.to('#s4-fig',{y:-14,duration:1.8,ease:'sine.inOut',yoyo:true,repeat:1,overwrite:'auto'},S[3]+0.7);
+    tl.from('#s4 .s4-cap',{y:28,opacity:0,duration:0.8,ease:'expo.out'},S[3]+1.6);
+    tl.from('#s4 .s4-cap b',{scale:1.1,duration:0.8,ease:'power3.out'},S[3]+2.0);
+    tl.from('#s4 .s4-sub',{y:14,opacity:0,duration:0.6},S[3]+2.5);
+
+    // ===== S5 close (7.3s) =====
+    wipeIn('#w4','-100%','100%',S[4],'#s4','#s5');
+    tl.from('#s5 .close-quote',{y:50,opacity:0,duration:0.9,ease:'expo.out'},S[4]+0.1);
+    tl.from('#s5 .close-quote b',{scale:1.1,duration:0.9,ease:'power3.out'},S[4]+0.55);
+    tl.from('#s5 .close-sub',{y:16,opacity:0,duration:0.6},S[4]+1.05);
+    tl.from('#s5 .close-cta',{scale:0.8,opacity:0,duration:0.5,ease:'back.out(2)'},S[4]+1.3);
+    tl.to('#s5 .close-cta',{scale:1.06,duration:0.5,ease:'sine.inOut',yoyo:true,repeat:3,overwrite:'auto'},S[4]+2.0);
+    tl.from('#s5 .close-mark',{y:14,opacity:0,duration:0.6},S[4]+1.7);
+    tl.to('#s5',{opacity:0,duration:0.5,ease:'power2.in'},TOTAL-0.5);
+
+    window.__timelines["root"] = tl;
+  </script>
+</div>
+</body>
+</html>
