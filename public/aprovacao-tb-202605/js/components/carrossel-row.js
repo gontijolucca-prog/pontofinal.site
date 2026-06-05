@@ -122,7 +122,10 @@ class CarrosselRow extends HTMLElement {
     const f = this._previewFrame(); if (!f) return;
     try {
       const doc = f.contentDocument; const el = doc && doc.getElementById(`slide-${n}`);
-      if (el) { for (const e of doc.querySelectorAll("*")) e.style.scrollBehavior = "auto"; el.scrollIntoView({ behavior: "auto", inline: "start", block: "start" }); }
+      // NÃO usar scrollIntoView aqui: propaga aos ancestors same-origin e
+      // scrollava a página principal até ao tile em cada load de iframe
+      // (página "fugia" do calendário no refresh). scrollBy interno não propaga.
+      if (el) { const r = el.getBoundingClientRect(); f.contentWindow.scrollBy(r.left, r.top); }
     } catch {}
   }
   // Após load/navegação: se há edit guardado, reflecte-o no preview; senão NÃO
@@ -171,7 +174,7 @@ class CarrosselRow extends HTMLElement {
         <div class="card__main">
           <div class="card__left">
             <div class="card__preview card__preview--45">
-              <iframe loading="lazy" src="${it.html_url}?v=${APP_VERSION}&c=${currentContentSig()}#slide-1" title="pré-visualização ao vivo" scrolling="no"></iframe>
+              <iframe loading="lazy" src="${it.html_url}?v=${APP_VERSION}&c=${currentContentSig()}" title="pré-visualização ao vivo" scrolling="no"></iframe>
             </div>
             <div class="card__slidebar">
               <button class="card__nav" data-prev aria-label="Slide anterior">‹</button>

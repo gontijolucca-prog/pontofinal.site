@@ -174,8 +174,10 @@ class ItemViewer extends HTMLElement {
       const doc = iframe.contentDocument;
       const el = doc && doc.getElementById(`slide-${n}`);
       if (el) {
-        for (const e of doc.querySelectorAll("*")) e.style.scrollBehavior = "auto";
-        el.scrollIntoView({ behavior: "auto", inline: "start", block: "start" });
+        // scrollBy interno em vez de scrollIntoView: este propaga aos ancestors
+        // same-origin e scrollava o body por trás do overlay (perdia a posição).
+        const r = el.getBoundingClientRect();
+        iframe.contentWindow.scrollBy(r.left, r.top);
         return;
       }
     } catch {}
@@ -208,7 +210,8 @@ class ItemViewer extends HTMLElement {
     try {
       const doc = iframe.contentDocument;
       const el = doc && doc.getElementById(`slide-${n}`);
-      if (el) { for (const e of doc.querySelectorAll("*")) e.style.scrollBehavior = "auto"; el.scrollIntoView({ behavior: "auto", inline: "start", block: "start" }); }
+      // scrollBy interno — ver nota em _gotoSlideInFrame (scrollIntoView propaga).
+      if (el) { const r = el.getBoundingClientRect(); iframe.contentWindow.scrollBy(r.left, r.top); }
     } catch {}
   }
 
@@ -253,7 +256,7 @@ class ItemViewer extends HTMLElement {
       ? `<video class="viewer-video" src="${it.video_url}${bust}" controls autoplay loop playsinline></video>`
       : isReel
       ? reelScriptHtml
-      : (it.html_url ? `<iframe src="${it.html_url}${bust}${isCarousel ? "#slide-1" : ""}" title="${this._escapeForHtml(it.title || "")}"></iframe>` : "");
+      : (it.html_url ? `<iframe src="${it.html_url}${bust}" title="${this._escapeForHtml(it.title || "")}"></iframe>` : "");
 
     this.innerHTML = `
       <div class="viewer-modal viewer-modal--zoom" data-format="${it.format}" role="dialog" aria-modal="true" aria-label="${this._escapeForHtml(it.title || it.theme || "")}">

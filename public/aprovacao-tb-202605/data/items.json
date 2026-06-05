@@ -37,7 +37,8 @@
   "prompt_version": "hand-v1",
   "generated_at": "2026-05-18T10:54:32",
   "scheduled_for": "2026-06-09",
-  "hour": "18h"
+  "hour": "18h",
+  "video_url": "../brands/techbody/output/2026-05/reels/r01-tempo-eficiencia.mp4"
  },
  {
   "id": "techbody-2026-05-c01",
@@ -806,7 +807,8 @@
   "prompt_version": "hand-v1",
   "generated_at": "2026-05-18T10:54:32",
   "scheduled_for": "2026-06-23",
-  "hour": "18h"
+  "hour": "18h",
+  "video_url": "../brands/techbody_u/output/2026-05/reels/r03-dialogo-eletro.mp4"
  },
  {
   "id": "techbody_u-2026-05-c03",

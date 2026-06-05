@@ -717,6 +717,13 @@ async function init() {
   render();
   // Wait one frame for the components to mount their iframes, then watch them.
   requestAnimationFrame(() => requestAnimationFrame(manageLoader));
+
+  // Refresh/abertura começa sempre no calendário: desligamos o restauro de
+  // scroll do browser e ancoramos na secção do calendário após o 1º render.
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    document.getElementById("calendarSection")?.scrollIntoView({ block: "start" });
+  }));
 }
 
 // Safety global: se init() pendurar ou throw (ex.: Supabase bloqueado por
