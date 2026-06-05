@@ -54,7 +54,7 @@
     ],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-07",
+    "scheduled_for": "2026-06-11",
     "hour": "09h"
   },
   {
@@ -112,7 +112,7 @@
     ],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-11",
+    "scheduled_for": "2026-06-15",
     "hour": "09h"
   },
   {
@@ -170,7 +170,7 @@
     ],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-21",
+    "scheduled_for": "2026-06-25",
     "hour": "09h"
   },
   {
@@ -226,7 +226,7 @@
     ],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-25",
+    "scheduled_for": "2026-06-29",
     "hour": "09h"
   },
   {
@@ -250,7 +250,7 @@
     "photo_positions": [],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-08",
+    "scheduled_for": "2026-06-12",
     "hour": "17h"
   },
   {
@@ -278,7 +278,7 @@
     ],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-15",
+    "scheduled_for": "2026-06-19",
     "hour": "17h"
   },
   {
@@ -302,7 +302,7 @@
     "photo_positions": [],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-22",
+    "scheduled_for": "2026-06-26",
     "hour": "17h"
   },
   {
@@ -330,7 +330,7 @@
     ],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-29",
+    "scheduled_for": "2026-07-03",
     "hour": "17h"
   },
   {
@@ -370,7 +370,7 @@
     "photos_used": [],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-05",
+    "scheduled_for": "2026-06-09",
     "hour": "18h"
   },
   {
@@ -410,7 +410,7 @@
     "photos_used": [],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-13",
+    "scheduled_for": "2026-06-17",
     "hour": "18h"
   },
   {
@@ -450,7 +450,7 @@
     "photos_used": [],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-19",
+    "scheduled_for": "2026-06-23",
     "hour": "18h"
   },
   {
@@ -490,7 +490,7 @@
     "photos_used": [],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-27",
+    "scheduled_for": "2026-06-30",
     "hour": "18h"
   }
 ]
