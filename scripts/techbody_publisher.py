@@ -88,10 +88,18 @@ def sb(method, path, body=None, prefer=None):
 
 
 def head_ok(url):
-    req = urllib.request.Request(url, method="HEAD")
+    # HEAD primeiro; Cloudflare devolve 403 a HEAD nalguns paths → fallback GET range 0-0.
     try:
+        req = urllib.request.Request(url, method="HEAD")
         with urllib.request.urlopen(req, timeout=60) as r:
-            return r.status == 200
+            if r.status == 200:
+                return True
+    except Exception:
+        pass
+    try:
+        req = urllib.request.Request(url, headers={"Range": "bytes=0-0"})
+        with urllib.request.urlopen(req, timeout=60) as r:
+            return r.status in (200, 206)
     except Exception:
         return False
 
@@ -204,7 +212,11 @@ def publish_item(item, caption, ig_user, token):
         url = assets["video"]
         if not head_ok(url):
             raise RuntimeError(f"asset em falta (mp4 por renderizar?): {url}")
-        c = ig_create(ig_user, token, {"media_type": "REELS", "video_url": url, "caption": caption})
+        payload = {"media_type": "REELS", "video_url": url, "caption": caption}
+        cover = url[:-4] + ".jpg"  # cover com texto-hook, se existir
+        if head_ok(cover):
+            payload["cover_url"] = cover
+        c = ig_create(ig_user, token, payload)
         ig_wait(c, token)
         return ig_publish(ig_user, token, c)
 
@@ -259,9 +271,10 @@ def main():
                 continue
 
             cap_copy = note_text(state.get(f"{iid}:caption:copy", {}).get("note"))
-            cap = cap_copy or captions.get(iid, {}).get("caption") or item.get("title", "")
-            hashtags = captions.get(iid, {}).get("hashtags", "")
-            caption = cap.strip() + ("\n" + hashtags.strip() if hashtags.strip() else "")
+            cap = (cap_copy or captions.get(iid, {}).get("caption") or item.get("title", "")).strip()
+            hashtags = captions.get(iid, {}).get("hashtags", "").strip()
+            # caption editada/original pode já trazer bloco de hashtags — não duplicar
+            caption = cap if ("#" in cap or not hashtags) else cap + "\n" + hashtags
 
             print(f"DUE {iid} [{brand}/{item['format']}] agendado {when:%Y-%m-%d %H:%M}")
             if DRY:
