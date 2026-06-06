@@ -13,6 +13,10 @@ concurrency:
   group: techbody-publish
   cancel-in-progress: false
 
+permissions:
+  contents: read
+  issues: write   # passo "Abrir issue" usa o github.token para criar a issue de geração
+
 jobs:
   publish:
     runs-on: ubuntu-latest
