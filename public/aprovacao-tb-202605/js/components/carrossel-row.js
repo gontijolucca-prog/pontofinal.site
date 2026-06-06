@@ -124,8 +124,14 @@ class CarrosselRow extends HTMLElement {
       const doc = f.contentDocument; const el = doc && doc.getElementById(`slide-${n}`);
       // NÃO usar scrollIntoView aqui: propaga aos ancestors same-origin e
       // scrollava a página principal até ao tile em cada load de iframe
-      // (página "fugia" do calendário no refresh). scrollBy interno não propaga.
-      if (el) { const r = el.getBoundingClientRect(); f.contentWindow.scrollBy(r.left, r.top); }
+      // (página "fugia" do calendário no refresh). O scroller real é a div
+      // .carousel (overflow-x) — scrollTo nela não propaga ao parent. A janela
+      // do iframe não scrolla (scrollBy nela era no-op: setas "mortas").
+      if (el) {
+        const sc = doc.querySelector(".carousel");
+        if (sc) sc.scrollTo({ left: el.offsetLeft, top: 0 });
+        else f.contentWindow.scrollTo(el.offsetLeft, el.offsetTop);
+      }
     } catch {}
   }
   // Após load/navegação: se há edit guardado, reflecte-o no preview; senão NÃO
@@ -175,6 +181,7 @@ class CarrosselRow extends HTMLElement {
           <div class="card__left">
             <div class="card__preview card__preview--45">
               <iframe loading="lazy" src="${it.html_url}?v=${APP_VERSION}&c=${currentContentSig()}" title="pré-visualização ao vivo" scrolling="no"></iframe>
+              <button class="card__preview-open" data-zoom aria-label="Ver em grande" title="Ver em grande"></button>
             </div>
             <div class="card__slidebar">
               <button class="card__nav" data-prev aria-label="Slide anterior">‹</button>

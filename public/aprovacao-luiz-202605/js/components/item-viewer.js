@@ -174,10 +174,13 @@ class ItemViewer extends HTMLElement {
       const doc = iframe.contentDocument;
       const el = doc && doc.getElementById(`slide-${n}`);
       if (el) {
-        // scrollBy interno em vez de scrollIntoView: este propaga aos ancestors
-        // same-origin e scrollava o body por trás do overlay (perdia a posição).
-        const r = el.getBoundingClientRect();
-        iframe.contentWindow.scrollBy(r.left, r.top);
+        // scrollTo no scroller real (.carousel, overflow-x) em vez de
+        // scrollIntoView: este propaga aos ancestors same-origin e scrollava o
+        // body por trás do overlay. A janela do iframe não scrolla (scrollBy
+        // nela era no-op: setas "mortas").
+        const sc = doc.querySelector(".carousel");
+        if (sc) sc.scrollTo({ left: el.offsetLeft, top: 0 });
+        else iframe.contentWindow.scrollTo(el.offsetLeft, el.offsetTop);
         return;
       }
     } catch {}
@@ -210,8 +213,12 @@ class ItemViewer extends HTMLElement {
     try {
       const doc = iframe.contentDocument;
       const el = doc && doc.getElementById(`slide-${n}`);
-      // scrollBy interno — ver nota em _gotoSlideInFrame (scrollIntoView propaga).
-      if (el) { const r = el.getBoundingClientRect(); iframe.contentWindow.scrollBy(r.left, r.top); }
+      // scrollTo no scroller real — ver nota em _gotoSlideInFrame.
+      if (el) {
+        const sc = doc.querySelector(".carousel");
+        if (sc) sc.scrollTo({ left: el.offsetLeft, top: 0 });
+        else iframe.contentWindow.scrollTo(el.offsetLeft, el.offsetTop);
+      }
     } catch {}
   }
 
