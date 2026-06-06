@@ -87,19 +87,25 @@ def sb(method, path, body=None, prefer=None):
     return resp
 
 
+# Cloudflare bloqueia o UA "Python-urllib" (403) — usar UA de browser.
+UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+
+
 def head_ok(url):
-    # HEAD primeiro; Cloudflare devolve 403 a HEAD nalguns paths → fallback GET range 0-0.
+    """GET range 0-0 com UA de browser + validação de content-type.
+
+    Dois modos de falha silenciosa sem isto:
+      - Cloudflare devolve 403 a HEAD e ao UA urllib → falhava TUDO;
+      - Cloudflare Pages serve o fallback SPA (200 text/html) para paths
+        inexistentes → paths errados passavam o check e rebentavam na Meta.
+    """
     try:
-        req = urllib.request.Request(url, method="HEAD")
+        req = urllib.request.Request(url, headers={"Range": "bytes=0-0", "User-Agent": UA})
         with urllib.request.urlopen(req, timeout=60) as r:
-            if r.status == 200:
-                return True
-    except Exception:
-        pass
-    try:
-        req = urllib.request.Request(url, headers={"Range": "bytes=0-0"})
-        with urllib.request.urlopen(req, timeout=60) as r:
-            return r.status in (200, 206)
+            if r.status not in (200, 206):
+                return False
+            ctype = (r.headers.get("Content-Type") or "").lower()
+            return not ctype.startswith("text/html")
     except Exception:
         return False
 
