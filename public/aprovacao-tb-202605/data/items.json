@@ -1022,5 +1022,853 @@
   "generated_at": "2026-05-18T10:54:32",
   "scheduled_for": "2026-07-03",
   "hour": "17h"
+ },
+ {
+  "id": "techbody-2026-07-c01",
+  "brand": "techbody",
+  "month": "2026-07",
+  "format": "carrossel",
+  "kind": "estatico",
+  "theme": "ferias_progresso",
+  "pilar": "Tempo e eficiência",
+  "audience": "b2c",
+  "title": "As férias não param o progresso.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "As férias não param o progresso."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "25 minutos por sessão, três vezes por semana — cabe em qualquer agenda de verão."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "De manhã cedo ou à hora de almoço — a sessão adapta-se ao seu dia."
+   },
+   {
+    "role": "quote",
+    "text_overlay": "O corpo que trabalha em julho é o que descansa melhor em agosto."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "Sempre com um personal trainer ao seu lado."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Marque a sua sessão experimental."
+   }
+  ],
+  "html_url": "../brands/techbody/output/2026-07/carrosseis/c01-ferias-progresso.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-09",
+  "hour": "09h"
+ },
+ {
+  "id": "techbody-2026-07-c02",
+  "brand": "techbody",
+  "month": "2026-07",
+  "format": "carrossel",
+  "kind": "estatico",
+  "theme": "uma_sessao_por_dentro",
+  "pilar": "Método",
+  "audience": "b2c",
+  "title": "O que acontece ao corpo numa sessão?",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "O que acontece ao corpo numa sessão?"
+   },
+   {
+    "role": "demo",
+    "text_overlay": "3 minutos para vestir o TecSuit e calibrar a intensidade consigo."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "O aquecimento acorda os principais grupos musculares."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "90% dos músculos podem ser ativados ao mesmo tempo."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "Milhares de contrações numa só sessão."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Sinta-o no corpo, não no papel — marque a sua sessão experimental."
+   }
+  ],
+  "html_url": "../brands/techbody/output/2026-07/carrosseis/c02-uma-sessao-por-dentro.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-13",
+  "hour": "09h"
+ },
+ {
+  "id": "techbody-2026-07-c03",
+  "brand": "techbody",
+  "month": "2026-07",
+  "format": "carrossel",
+  "kind": "estatico",
+  "theme": "para_quem_e",
+  "pilar": "Públicos",
+  "audience": "b2c",
+  "title": "A eletroestimulação é para si?",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "A eletroestimulação é para si?"
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Para quem quer recomeçar a treinar — sem voltar à estaca zero."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Para quem quer perder peso com sessões curtas e acompanhadas."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Para quem precisa de tratar dores e recuperar movimento."
+   },
+   {
+    "role": "quote",
+    "text_overlay": "Composição corporal, força e bem-estar. Corpo e mente revigorados."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Comece pela sessão experimental."
+   }
+  ],
+  "html_url": "../brands/techbody/output/2026-07/carrosseis/c03-para-quem-e.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-23",
+  "hour": "09h"
+ },
+ {
+  "id": "techbody-2026-07-c04",
+  "brand": "techbody",
+  "month": "2026-07",
+  "format": "carrossel",
+  "kind": "estatico",
+  "theme": "espaco_estudio",
+  "pilar": "Franchising",
+  "audience": "b2b",
+  "title": "Quanto espaço precisa um estúdio TechBody?",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Quanto espaço precisa um estúdio TechBody?"
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Menos do que imagina — a baixa exigência de espaço faz parte do modelo."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Menos equipamentos. Sessões curtas. Mais rotação de clientes."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "Serviço premium, com valor percebido à altura."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "Modelo chave-na-mão: método, formação e tecnologia incluídos."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Agende uma reunião de avaliação."
+   }
+  ],
+  "html_url": "../brands/techbody/output/2026-07/carrosseis/c04-espaco-estudio.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-27",
+  "hour": "09h"
+ },
+ {
+  "id": "techbody-2026-07-s01",
+  "brand": "techbody",
+  "month": "2026-07",
+  "format": "story",
+  "kind": "estatico",
+  "theme": "semana_completa",
+  "pilar": "Tempo e eficiência",
+  "audience": "b2c",
+  "title": "3×25 minutos. É a sua semana de treino completa.",
+  "slides": 1,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "3×25 minutos. É a sua semana de treino completa. Marque a sessão experimental."
+   }
+  ],
+  "html_url": "../brands/techbody/output/2026-07/stories/s01-semana-completa.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-17",
+  "hour": "17h"
+ },
+ {
+  "id": "techbody-2026-07-s02",
+  "brand": "techbody",
+  "month": "2026-07",
+  "format": "story",
+  "kind": "estatico",
+  "theme": "regresso_ferias",
+  "pilar": "Recomeço",
+  "audience": "b2c",
+  "title": "Voltou de férias? Recomece com acompanhamento.",
+  "slides": 1,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Voltou de férias? Recomece com acompanhamento."
+   }
+  ],
+  "html_url": "../brands/techbody/output/2026-07/stories/s02-regresso-ferias.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-24",
+  "hour": "17h"
+ },
+ {
+  "id": "techbody-2026-07-s03",
+  "brand": "techbody",
+  "month": "2026-07",
+  "format": "story",
+  "kind": "estatico",
+  "theme": "agosto_sessao",
+  "pilar": "CTA",
+  "audience": "b2c",
+  "title": "Agosto está aí. A sua sessão experimental também.",
+  "slides": 1,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Agosto está aí. A sua sessão experimental também."
+   }
+  ],
+  "html_url": "../brands/techbody/output/2026-07/stories/s03-agosto-sessao.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-31",
+  "hour": "17h"
+ },
+ {
+  "id": "techbody-2026-07-r01",
+  "brand": "techbody",
+  "month": "2026-07",
+  "format": "reel",
+  "kind": "motion",
+  "theme": "contracoes",
+  "pilar": "Método",
+  "audience": "b2c",
+  "title": "Uma sessão. Milhares de contrações.",
+  "slides": 26,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Milhares de contrações — uma sessão."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "Grupos musculares ativados ao mesmo tempo, com eletroestimulação."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Mais trabalho, em menos tempo — 25 minutos chegam."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "Sempre com personal trainer."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Marque a sua sessão experimental — link na bio."
+   }
+  ],
+  "html_url": "../brands/techbody/output/2026-07/reels/r01-contracoes-jul.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-08",
+  "hour": "18h",
+  "video_url": "../brands/techbody/output/2026-07/reels/r01-contracoes-jul.mp4"
+ },
+ {
+  "id": "techbody-2026-07-r02",
+  "brand": "techbody",
+  "month": "2026-07",
+  "format": "reel",
+  "kind": "motion",
+  "theme": "costas",
+  "pilar": "Reabilitação",
+  "audience": "b2c",
+  "title": "Horas sentado? As costas pagam a fatura.",
+  "slides": 26,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Horas sentado — as costas pagam a fatura."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "Reabilitação: músculos profundos da coluna."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Intensidade controlada, com personal trainer."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Aliviar dores, recuperar movimento."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Marque a sua sessão experimental — link na bio."
+   }
+  ],
+  "html_url": "../brands/techbody/output/2026-07/reels/r02-costas-jul.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-14",
+  "hour": "18h",
+  "video_url": "../brands/techbody/output/2026-07/reels/r02-costas-jul.mp4"
+ },
+ {
+  "id": "techbody-2026-07-r03",
+  "brand": "techbody",
+  "month": "2026-07",
+  "format": "reel",
+  "kind": "motion",
+  "theme": "primeira_sessao",
+  "pilar": "Experiência",
+  "audience": "b2c",
+  "title": "Primeira sessão: eis o que vai sentir.",
+  "slides": 25,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Primeira sessão? Eis o que vai sentir."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Um formigueiro suave — músculos a acordar."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "A intensidade só sobe se estiver confortável."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "Um treino completo, em 25 minutos."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Marque a primeira sessão, sem compromisso — link na bio."
+   }
+  ],
+  "html_url": "../brands/techbody/output/2026-07/reels/r03-primeira-sessao-jul.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-22",
+  "hour": "18h",
+  "video_url": "../brands/techbody/output/2026-07/reels/r03-primeira-sessao-jul.mp4"
+ },
+ {
+  "id": "techbody-2026-07-r04",
+  "brand": "techbody",
+  "month": "2026-07",
+  "format": "reel",
+  "kind": "motion",
+  "theme": "negocio",
+  "pilar": "Franchising",
+  "audience": "b2b",
+  "title": "Tem um ginásio? Linha de receita nova.",
+  "slides": 26,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Tem um ginásio, clínica ou estúdio?"
+   },
+   {
+    "role": "proof",
+    "text_overlay": "Uma linha de receita nova, no espaço que já tem."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Sessões curtas · alto valor · clientes que voltam."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "Modelo chave-na-mão: método, formação e tecnologia."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Agende uma reunião de avaliação — link na bio."
+   }
+  ],
+  "html_url": "../brands/techbody/output/2026-07/reels/r04-negocio-jul.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-28",
+  "hour": "18h",
+  "video_url": "../brands/techbody/output/2026-07/reels/r04-negocio-jul.mp4"
+ },
+ {
+  "id": "techbody_u-2026-07-c01",
+  "brand": "techbody_u",
+  "month": "2026-07",
+  "format": "carrossel",
+  "kind": "estatico",
+  "theme": "treino_de_ferias",
+  "pilar": "Portabilidade",
+  "audience": "b2c",
+  "title": "O treino vai de férias consigo.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "O treino vai de férias consigo."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "O TecSuit e a aplicação cabem em qualquer mala."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "25 minutos no terraço, na sala — onde estiver."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "A aplicação guia a sessão, em casa ou fora dela."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "Volte de férias melhor do que partiu."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Conheça a TechBody U."
+   }
+  ],
+  "html_url": "../brands/techbody_u/output/2026-07/carrosseis/c01-treino-de-ferias.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-09",
+  "hour": "09h"
+ },
+ {
+  "id": "techbody_u-2026-07-c02",
+  "brand": "techbody_u",
+  "month": "2026-07",
+  "format": "carrossel",
+  "kind": "estatico",
+  "theme": "treinar_vira_jogo",
+  "pilar": "App",
+  "audience": "b2c",
+  "title": "E se treinar fosse um jogo?",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "E se treinar fosse um jogo?"
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Cada sessão soma pontos TechBody na aplicação."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Histórico completo do seu progresso, sempre à mão."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Treinos novos todas as semanas para manter o desafio."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "25 minutos por sessão. O jogo joga-se três vezes por semana."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Descubra o sistema de pontos."
+   }
+  ],
+  "html_url": "../brands/techbody_u/output/2026-07/carrosseis/c02-treinar-vira-jogo.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-13",
+  "hour": "09h"
+ },
+ {
+  "id": "techbody_u-2026-07-c03",
+  "brand": "techbody_u",
+  "month": "2026-07",
+  "format": "carrossel",
+  "kind": "estatico",
+  "theme": "da_caixa_ao_treino",
+  "pilar": "Arranque",
+  "audience": "b2c",
+  "title": "Da caixa ao primeiro treino.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Da caixa ao primeiro treino."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Dentro: o TecSuit, a sua segunda pele de eletroestimulação."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Uma sessão personalizada por videochamada para começar bem."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "90 dias de aplicação Premium incluídos."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "No primeiro treino, a aplicação guia cada passo."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Saiba tudo no link da bio."
+   }
+  ],
+  "html_url": "../brands/techbody_u/output/2026-07/carrosseis/c03-da-caixa-ao-treino.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-23",
+  "hour": "09h"
+ },
+ {
+  "id": "techbody_u-2026-07-c04",
+  "brand": "techbody_u",
+  "month": "2026-07",
+  "format": "carrossel",
+  "kind": "estatico",
+  "theme": "comprar_com_confianca",
+  "pilar": "Confiança",
+  "audience": "b2c",
+  "title": "Tecnologia para casa, sem receios.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Tecnologia para casa, sem receios."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "Garantia de dois anos incluída."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "Pagamento único ou em mensalidades — como preferir."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Acompanhamento desde o primeiro dia."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Dezenas de programas na aplicação, para todos os objetivos."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Adira com confiança."
+   }
+  ],
+  "html_url": "../brands/techbody_u/output/2026-07/carrosseis/c04-comprar-com-confianca.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-27",
+  "hour": "09h"
+ },
+ {
+  "id": "techbody_u-2026-07-s01",
+  "brand": "techbody_u",
+  "month": "2026-07",
+  "format": "story",
+  "kind": "estatico",
+  "theme": "pontos_da_semana",
+  "pilar": "App",
+  "audience": "b2c",
+  "title": "Quantos pontos vai somar esta semana?",
+  "slides": 1,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Quantos pontos vai somar esta semana?"
+   }
+  ],
+  "html_url": "../brands/techbody_u/output/2026-07/stories/s01-pontos-da-semana.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-10",
+  "hour": "17h"
+ },
+ {
+  "id": "techbody_u-2026-07-s02",
+  "brand": "techbody_u",
+  "month": "2026-07",
+  "format": "story",
+  "kind": "estatico",
+  "theme": "tecsuit_na_mala",
+  "pilar": "Portabilidade",
+  "audience": "b2c",
+  "title": "A mala está feita? O TecSuit também vai.",
+  "slides": 1,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "A mala está feita? O TecSuit também vai."
+   }
+  ],
+  "html_url": "../brands/techbody_u/output/2026-07/stories/s02-tecsuit-na-mala.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-17",
+  "hour": "17h"
+ },
+ {
+  "id": "techbody_u-2026-07-s03",
+  "brand": "techbody_u",
+  "month": "2026-07",
+  "format": "story",
+  "kind": "estatico",
+  "theme": "antes_da_praia",
+  "pilar": "Verão",
+  "audience": "b2c",
+  "title": "25 minutos antes da praia. Feito.",
+  "slides": 1,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "25 minutos antes da praia. Feito."
+   }
+  ],
+  "html_url": "../brands/techbody_u/output/2026-07/stories/s03-antes-da-praia.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-24",
+  "hour": "17h"
+ },
+ {
+  "id": "techbody_u-2026-07-s04",
+  "brand": "techbody_u",
+  "month": "2026-07",
+  "format": "story",
+  "kind": "estatico",
+  "theme": "videochamada",
+  "pilar": "Suporte",
+  "audience": "b2c",
+  "title": "Dúvidas no arranque? Há uma videochamada para si.",
+  "slides": 1,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Dúvidas no arranque? Há uma videochamada para si."
+   }
+  ],
+  "html_url": "../brands/techbody_u/output/2026-07/stories/s04-videochamada.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-31",
+  "hour": "17h"
+ },
+ {
+  "id": "techbody_u-2026-07-r01",
+  "brand": "techbody_u",
+  "month": "2026-07",
+  "format": "reel",
+  "kind": "motion",
+  "theme": "treinador_verao",
+  "pilar": "App",
+  "audience": "b2c",
+  "title": "Este verão, o seu treinador vai consigo.",
+  "slides": 23,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Este verão, o seu treinador vai consigo."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Planos personalizados e aulas que guiam cada treino."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "25 minutos, 3x por semana — onde estiver."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "O progresso fica registado."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Conheça a TechBody U — link na bio."
+   }
+  ],
+  "html_url": "../brands/techbody_u/output/2026-07/reels/r01-treinador-verao-jul.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-08",
+  "hour": "18h",
+  "video_url": "../brands/techbody_u/output/2026-07/reels/r01-treinador-verao-jul.mp4"
+ },
+ {
+  "id": "techbody_u-2026-07-r02",
+  "brand": "techbody_u",
+  "month": "2026-07",
+  "format": "reel",
+  "kind": "motion",
+  "theme": "sempre_aberto",
+  "pilar": "Conveniência",
+  "audience": "b2c",
+  "title": "5h da manhã ou 23h? Sempre aberto.",
+  "slides": 24,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "5h da manhã ou 23h?"
+   },
+   {
+    "role": "demo",
+    "text_overlay": "O seu estúdio está sempre aberto — é a sua sala."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Vista o TecSuit, escolha o treino, a aplicação trata do resto."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "O treino encaixa no seu dia — não o contrário."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Conheça a TechBody U — link na bio."
+   }
+  ],
+  "html_url": "../brands/techbody_u/output/2026-07/reels/r02-sempre-aberto-jul.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-14",
+  "hour": "18h",
+  "video_url": "../brands/techbody_u/output/2026-07/reels/r02-sempre-aberto-jul.mp4"
+ },
+ {
+  "id": "techbody_u-2026-07-r03",
+  "brand": "techbody_u",
+  "month": "2026-07",
+  "format": "reel",
+  "kind": "motion",
+  "theme": "tecsuit_mala",
+  "pilar": "Portabilidade",
+  "audience": "b2c",
+  "title": "Férias marcadas? O TecSuit também vai.",
+  "slides": 23,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Férias marcadas? O TecSuit também vai."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Cabe na mala, e treina consigo em qualquer lugar."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Planos e histórico, para onde for."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "Em agosto, ninguém nota a pausa."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Conheça a TechBody U — link na bio."
+   }
+  ],
+  "html_url": "../brands/techbody_u/output/2026-07/reels/r03-tecsuit-mala-jul.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-22",
+  "hour": "18h",
+  "video_url": "../brands/techbody_u/output/2026-07/reels/r03-tecsuit-mala-jul.mp4"
+ },
+ {
+  "id": "techbody_u-2026-07-r04",
+  "brand": "techbody_u",
+  "month": "2026-07",
+  "format": "reel",
+  "kind": "motion",
+  "theme": "premium_90_dias",
+  "pilar": "Arranque",
+  "audience": "b2c",
+  "title": "90 dias de Premium, incluídos.",
+  "slides": 22,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "90 dias de Premium, incluídos."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Planos personalizados, dezenas de programas, treinos novos todas as semanas."
+   },
+   {
+    "role": "demo",
+    "text_overlay": "Sessão de boas-vindas por videochamada."
+   },
+   {
+    "role": "proof",
+    "text_overlay": "É assim que se começa no TechBody U."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Saiba tudo no site — link na bio."
+   }
+  ],
+  "html_url": "../brands/techbody_u/output/2026-07/reels/r04-premium-jul.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-06T16:30:00",
+  "scheduled_for": "2026-07-28",
+  "hour": "18h",
+  "video_url": "../brands/techbody_u/output/2026-07/reels/r04-premium-jul.mp4"
  }
 ]

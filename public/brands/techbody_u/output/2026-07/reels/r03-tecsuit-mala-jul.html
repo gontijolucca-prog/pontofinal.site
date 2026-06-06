@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8" />
+<title>TechBody U · TecSuit Mala</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,800&family=Manrope:wght@300;500;700;900&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:1920px;overflow:hidden;background:#F2EDE4;font-family:'Manrope',system-ui,sans-serif;color:#14160F;-webkit-font-smoothing:antialiased}
+  :root{
+    --cream:#F2EDE4; --cream-2:#E8DECF;
+    --ink:#14160F; --ink-dim:rgba(20,22,15,0.60); --ink-faint:rgba(20,22,15,0.30);
+    --terra:#C36F49; --terra-2:#A8553A; --terra-light:#E1A180;
+    --serif:'Fraunces',Georgia,serif;
+  }
+  #root{width:100%;height:100%;position:relative;overflow:hidden;background:var(--cream)}
+  .paper{position:absolute;inset:-60px;background:radial-gradient(ellipse at 30% 20%,rgba(195,111,73,0.10) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(195,111,73,0.07) 0%,transparent 55%);pointer-events:none}
+  .particles{position:absolute;inset:0;z-index:2;pointer-events:none}
+  .pt{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--terra);opacity:0.35}
+  .grain{position:absolute;inset:0;opacity:0.08;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");z-index:91;pointer-events:none}
+  .vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 40%,rgba(168,85,58,0.10) 100%);pointer-events:none;z-index:90}
+
+  .mark-top{position:absolute;top:54px;left:54px;right:54px;display:flex;justify-content:space-between;align-items:center;z-index:10;font-size:18px;letter-spacing:0.32em;text-transform:uppercase;color:var(--ink-dim);font-weight:500}
+  .mark-bot{position:absolute;bottom:54px;left:54px;right:54px;display:flex;justify-content:space-between;align-items:center;z-index:10;font-size:16px;letter-spacing:0.36em;text-transform:uppercase;color:var(--ink-faint);font-weight:500}
+  .mark-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--terra);margin-right:10px;vertical-align:middle}
+  .mark-rule{height:1px;flex:1;margin:0 22px;background:var(--ink-faint)}
+
+  .scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:200px 80px;opacity:0;z-index:5}
+  .scene>div{text-align:center}
+
+  /* S1 hook */
+  .hook{font-family:var(--serif);font-weight:300;font-size:108px;line-height:0.98;letter-spacing:-0.04em;text-align:center;color:var(--ink)}
+  .hook em{font-style:italic;font-weight:800;color:var(--terra)}
+  .hook-sub{margin-top:36px;font-size:24px;letter-spacing:0.32em;color:var(--ink-dim);text-transform:uppercase;font-weight:600;text-align:center}
+  .underline{display:block;width:140px;height:3px;background:var(--terra);margin:34px auto 0}
+
+  /* S1 suitcase */
+  .suitcase-wrap{position:relative;width:600px;height:460px;margin:0 auto 60px}
+  .suitcase{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:500px;height:380px;background:var(--terra);border-radius:32px;box-shadow:0 40px 100px rgba(168,85,58,0.25);border:6px solid var(--terra-2)}
+  .suitcase::before{content:'';position:absolute;top:-20px;left:50%;transform:translateX(-50%);width:280px;height:36px;background:linear-gradient(180deg,var(--terra-light) 0%,var(--terra) 100%);border-radius:24px 24px 0 0;box-shadow:inset 0 2px 8px rgba(0,0,0,0.1)}
+  .suitcase-clasp1{position:absolute;top:150px;left:80px;width:18px;height:24px;background:linear-gradient(90deg,#8B6F47 0%,#A8894F 100%);border-radius:6px;box-shadow:0 4px 8px rgba(0,0,0,0.15)}
+  .suitcase-clasp2{position:absolute;top:150px;right:80px;width:18px;height:24px;background:linear-gradient(90deg,#8B6F47 0%,#A8894F 100%);border-radius:6px;box-shadow:0 4px 8px rgba(0,0,0,0.15)}
+
+  /* S2 suitcase open */
+  .suitcase-open{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:520px;height:360px}
+  .suitcase-open-bg{width:100%;height:100%;background:linear-gradient(180deg,#E8D5BB 0%,#D9C4A0 100%);border-radius:20px;box-shadow:inset 0 8px 24px rgba(0,0,0,0.08);border:4px solid var(--terra-2)}
+  .tecsuitfato{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:220px;height:280px}
+  .tecsuitfato-torso{position:absolute;left:50%;top:20%;transform:translateX(-50%);width:140px;height:160px;background:linear-gradient(180deg,#2a2a2a 0%,#1a1a1a 100%);border-radius:60px 60px 20px 20px;box-shadow:0 8px 16px rgba(0,0,0,0.2)}
+  .tecsuitfato-sleeve-left{position:absolute;left:0;top:60px;width:70px;height:100px;background:var(--terra);border-radius:50% 20% 20% 50%;transform:rotate(-28deg);box-shadow:0 4px 12px rgba(168,85,58,0.2)}
+  .tecsuitfato-sleeve-right{position:absolute;right:0;top:60px;width:70px;height:100px;background:var(--terra);border-radius:20% 50% 50% 20%;transform:rotate(28deg);box-shadow:0 4px 12px rgba(168,85,58,0.2)}
+  .tecsuitfato-legs{position:absolute;left:50%;top:65%;transform:translateX(-50%);width:100px;height:120px;background:linear-gradient(180deg,#1a1a1a 0%,#0a0a0a 100%);border-radius:20px;box-shadow:0 6px 12px rgba(0,0,0,0.15)}
+
+  .suitcase-cap{position:absolute;bottom:100px;left:40px;right:40px;text-align:center;font-family:var(--serif);font-weight:300;font-size:84px;line-height:0.95;letter-spacing:-0.04em;color:var(--ink)}
+  .suitcase-cap em{font-style:italic;font-weight:800;color:var(--terra)}
+
+  /* S3 phone mockup */
+  .phone{width:420px;height:820px;border-radius:48px;background:linear-gradient(170deg,#fff 0%,#F3EADF 100%);border:5px solid rgba(20,22,15,0.10);box-shadow:0 40px 100px rgba(168,85,58,0.18);position:relative;overflow:hidden}
+  .phone::before{content:'';position:absolute;top:18px;left:50%;transform:translateX(-50%);width:90px;height:24px;background:rgba(20,22,15,0.12);border-radius:16px;z-index:3}
+  .app-screen{position:absolute;inset:16px;border-radius:36px;background:linear-gradient(180deg,#FBF6EE 0%,#EFE4D4 100%);padding:60px 32px 44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;overflow:hidden}
+  .app-label{font-size:16px;letter-spacing:0.28em;text-transform:uppercase;color:var(--ink-dim);font-weight:700}
+  .app-plans{font-family:var(--serif);font-weight:300;font-size:72px;line-height:0.9;color:var(--ink);text-align:center}
+  .progress-bar-wrap{width:100%;height:12px;background:rgba(20,22,15,0.08);border-radius:6px;margin:20px 0;overflow:hidden;position:relative}
+  .progress-bar-fill{position:absolute;left:0;top:0;height:100%;background:linear-gradient(90deg,var(--terra),var(--terra-light));width:45%;border-radius:6px}
+  .phone-cap{position:absolute;bottom:120px;left:60px;right:60px;text-align:center;font-family:var(--serif);font-weight:300;font-size:84px;line-height:0.95;letter-spacing:-0.04em;color:var(--ink)}
+  .phone-cap em{font-style:italic;font-weight:800;color:var(--terra)}
+
+  /* S4 statement */
+  .stmt{font-family:var(--serif);font-weight:300;font-size:120px;line-height:0.95;letter-spacing:-0.04em;text-align:center;color:var(--ink)}
+  .stmt em{font-style:italic;font-weight:800;color:var(--terra)}
+  .stmt-rule{width:160px;height:3px;background:var(--terra);margin:38px auto 0}
+  .stmt-sub{margin-top:32px;font-family:var(--serif);font-weight:300;font-size:48px;line-height:1.2;text-align:center;color:var(--ink-dim);font-style:italic}
+  .stmt-sub em{font-style:italic;font-weight:800;color:var(--terra);font-family:var(--serif)}
+
+  /* S5 close */
+  .close{font-family:var(--serif);font-weight:300;font-size:110px;line-height:0.98;letter-spacing:-0.04em;text-align:center;color:var(--ink)}
+  .close em{font-style:italic;font-weight:800;color:var(--terra)}
+  .close-cta{margin-top:54px;display:inline-block;padding:24px 54px;border:2px solid var(--terra);border-radius:14px;font-size:22px;letter-spacing:0.16em;text-transform:uppercase;color:var(--terra-2);font-weight:700}
+  .close-handle{margin-top:38px;text-align:center;font-size:20px;letter-spacing:0.5em;color:var(--ink-faint);text-transform:uppercase;font-weight:700}
+
+  .ink-wipe{position:absolute;inset:0;background:var(--terra);z-index:80;transform:translateX(-100%)}
+  .ink-wipe-2{background:var(--ink)}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-width="1080" data-height="1920">
+  <div class="paper" id="paper"></div>
+  <div class="particles" id="particles"></div>
+
+  <!-- S1: Hook with suitcase -->
+  <div id="s1" class="scene">
+    <div>
+      <div class="suitcase-wrap">
+        <div class="suitcase" id="s1-suitcase">
+          <div class="suitcase-clasp1"></div>
+          <div class="suitcase-clasp2"></div>
+        </div>
+      </div>
+      <div class="hook">férias marcadas?<br>o <em>TecSuit</em> também vai</div>
+      <span class="underline"></span>
+    </div>
+  </div>
+
+  <!-- S2: Suitcase open with TecSuit inside -->
+  <div id="s2" class="scene">
+    <div>
+      <div class="suitcase-wrap">
+        <div class="suitcase-open" id="s2-suitcase-open">
+          <div class="suitcase-open-bg">
+            <div class="tecsuitfato" id="s2-suit">
+              <div class="tecsuitfato-sleeve-left"></div>
+              <div class="tecsuitfato-torso"></div>
+              <div class="tecsuitfato-sleeve-right"></div>
+              <div class="tecsuitfato-legs"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="suitcase-cap">cabe na <em>mala</em></div>
+    </div>
+  </div>
+
+  <!-- S3: Phone mockup with plans -->
+  <div id="s3" class="scene">
+    <div>
+      <div class="phone" id="s3-phone">
+        <div class="app-screen">
+          <div class="app-label">os seus planos</div>
+          <div class="app-plans">4</div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill"></div>
+          </div>
+          <div class="app-label" style="margin-top:28px">na app</div>
+        </div>
+      </div>
+      <div class="phone-cap">planos e histórico<br>para <em>onde for</em></div>
+    </div>
+  </div>
+
+  <!-- S4: Statement -->
+  <div id="s4" class="scene">
+    <div>
+      <div class="stmt">em agosto,<br>ninguém nota a <em>pausa</em></div>
+      <div class="stmt-rule"></div>
+      <div class="stmt-sub">porque não houve <em>pausa</em></div>
+    </div>
+  </div>
+
+  <!-- S5: CTA -->
+  <div id="s5" class="scene">
+    <div>
+      <div class="close">conheça a<br><em>TechBody U</em></div>
+      <div class="close-cta" id="s5-cta">link na bio</div>
+      <div class="close-handle">@techbody_u</div>
+    </div>
+  </div>
+
+  <div class="ink-wipe" id="w1"></div><div class="ink-wipe ink-wipe-2" id="w2"></div><div class="ink-wipe" id="w3"></div><div class="ink-wipe ink-wipe-2" id="w4"></div>
+
+  <div class="vignette"></div>
+  <div class="grain"></div>
+
+  <audio id="narr" src="audio/narration.mp3" data-start="0" data-duration="22.75" data-track-index="9" data-volume="1"></audio>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({paused:true});
+    const S = [0.3, 3.91, 7.74, 12.59, 16.93];
+    const TOTAL = 22.75;
+    function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+    const rand = rng(207);
+    function wipeIn(el,fromX,toX,t,prev,next){tl.fromTo(el,{x:fromX},{x:'0%',duration:0.4,ease:'expo.in'},t-0.4);tl.set(prev,{opacity:0},t-0.05);tl.set(next,{opacity:1},t-0.05);tl.to(el,{x:toX,duration:0.4,ease:'expo.out',overwrite:'auto'},t);}
+
+    // ===== AMBIENTE =====
+    const reps=(start,cyc)=>Math.max(0,Math.floor((TOTAL-start)/cyc)-1);
+    tl.to('#paper',{xPercent:3,yPercent:-2,duration:6,ease:'sine.inOut',yoyo:true,repeat:reps(0,6),overwrite:'auto'},0);
+    const pf=document.getElementById('particles');
+    for(let i=0;i<14;i++){const d=document.createElement('div');d.className='pt';const x=Math.round(rand()*1080),sz=5+Math.round(rand()*6),cyc=6+rand()*4,start=+(rand()*3).toFixed(2);d.style.left=x+'px';d.style.width=sz+'px';d.style.height=sz+'px';pf.appendChild(d);tl.fromTo(d,{y:1980,opacity:0},{y:-60,opacity:0.4,duration:cyc,ease:'none',repeat:reps(start,cyc)},start);}
+    tl.set('#paper',{opacity:1},TOTAL);
+
+    // ===== S1: Hook =====
+    tl.to('#s1',{opacity:1,duration:0.01},S[0]);
+    tl.from('#s1-suitcase',{y:60,opacity:0,duration:0.8,ease:'expo.out'},S[0]+0.05);
+    tl.to('#s1-suitcase',{y:12,duration:0.8,ease:'sine.inOut',yoyo:true,repeat:1,overwrite:'auto'},S[0]+0.85);
+    tl.from('#s1 .hook',{y:50,opacity:0,duration:0.8,ease:'expo.out'},S[0]+0.6);
+    tl.from('#s1 .hook em',{scale:1.12,duration:0.7,ease:'power3.out'},S[0]+1.1);
+    tl.from('#s1 .underline',{scaleX:0,duration:0.6,ease:'expo.out'},S[0]+1.5);
+
+    // ===== Wipe S1->S2 =====
+    wipeIn('#w1','-100%','100%',S[1],'#s1','#s2');
+
+    // ===== S2: Suitcase open =====
+    tl.from('#s2-suitcase-open',{y:50,opacity:0,scale:0.95,duration:0.8,ease:'expo.out'},S[1]+0.1);
+    tl.from('#s2-suit',{scale:0.3,opacity:0,duration:0.7,ease:'back.out(2)'},S[1]+0.5);
+    tl.to('#s2-suit',{scale:1.05,duration:0.6,ease:'sine.inOut',yoyo:true,repeat:1,overwrite:'auto'},S[1]+1.3);
+    tl.from('#s2 .suitcase-cap',{y:24,opacity:0,duration:0.7,ease:'expo.out'},S[1]+1.8);
+    tl.from('#s2 .suitcase-cap em',{scale:1.12,duration:0.7,ease:'power3.out'},S[1]+2.2);
+
+    // ===== Wipe S2->S3 =====
+    wipeIn('#w2','100%','-100%',S[2],'#s2','#s3');
+
+    // ===== S3: Phone mockup =====
+    tl.from('#s3-phone',{y:60,opacity:0,scale:0.92,duration:0.9,ease:'expo.out'},S[2]+0.1);
+    tl.from('#s3 .app-label',{y:14,opacity:0,duration:0.5},S[2]+0.55);
+    tl.from('#s3 .app-plans',{scale:0.4,opacity:0,duration:0.8,ease:'expo.out'},S[2]+0.75);
+    tl.from('#s3 .progress-bar-wrap',{scaleX:0,opacity:0,duration:0.6,ease:'expo.out',transformOrigin:'left'},S[2]+1.2);
+    tl.to('#s3 .progress-bar-fill',{width:'65%',duration:1.4,ease:'power2.out'},S[2]+0.95);
+    tl.from('#s3 .phone-cap',{y:28,opacity:0,duration:0.7,ease:'expo.out'},S[2]+2.0);
+    tl.from('#s3 .phone-cap em',{scale:1.12,duration:0.7,ease:'power3.out'},S[2]+2.4);
+
+    // ===== Wipe S3->S4 =====
+    wipeIn('#w3','-100%','100%',S[3],'#s3','#s4');
+
+    // ===== S4: Statement =====
+    tl.from('#s4 .stmt',{scale:0.6,opacity:0,duration:0.9,ease:'expo.out'},S[3]+0.1);
+    tl.to('#s4 .stmt',{scale:1.02,duration:1.2,ease:'sine.inOut',yoyo:true,repeat:1,overwrite:'auto'},S[3]+1.1);
+    tl.from('#s4 .stmt-rule',{scaleX:0,duration:0.6,ease:'power2.out'},S[3]+1.0);
+    tl.from('#s4 .stmt-sub',{y:20,opacity:0,duration:0.7,ease:'expo.out'},S[3]+1.4);
+
+    // ===== Wipe S4->S5 =====
+    wipeIn('#w4','100%','-100%',S[4],'#s4','#s5');
+
+    // ===== S5: CTA =====
+    tl.from('#s5 .close',{y:50,opacity:0,duration:0.8,ease:'expo.out'},S[4]+0.1);
+    tl.from('#s5 .close em',{scale:1.12,duration:0.8,ease:'power3.out'},S[4]+0.5);
+    tl.from('#s5-cta',{scale:0.8,opacity:0,duration:0.6,ease:'back.out(2)'},S[4]+1.3);
+    tl.to('#s5-cta',{scale:1.06,duration:0.7,ease:'sine.inOut',yoyo:true,repeat:2,overwrite:'auto'},S[4]+2.1);
+    tl.from('#s5 .close-handle',{y:14,opacity:0,duration:0.6},S[4]+1.8);
+    tl.to('#s5',{opacity:0,duration:0.5,ease:'power2.in'},TOTAL-0.5);
+
+    window.__timelines["root"] = tl;
+  </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TechBody · uma_sessao_por_dentro</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;700;800&family=JetBrains+Mono:wght@300;400;600&family=Fraunces:ital,wght@0,200;0,400;0,800;1,200;1,400;1,800&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #1a1a1a;
+  --primary: #1a1a1a;
+  --accent: #d4773b;
+  --text: #ffffff;
+  --w-thin: 200;
+  --w-mid: 500;
+  --w-strong: 700;
+  --w-black: 800;
+  --font-display: 'Manrope', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-serif: 'Fraunces', serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-display); -webkit-font-smoothing: antialiased; }
+/* Carousel slides at Instagram portrait 4:5 (1080×1350). O contentor iframe
+   é 4:5 — cada slide ocupa 100% da largura para snap perfeito. */
+.carousel {
+  display: flex;
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  height: 100vh;
+  width: 100vw;
+}
+.carousel::-webkit-scrollbar { display: none; }
+.slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: clamp(28px, 4vw, 56px);
+}
+/* slide background image (if any) */
+.slide__photo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+.slide__photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.78) 100%);
+}
+/* slide layouts */
+.slide__top, .slide__body, .slide__bottom { position: relative; z-index: 1; }
+.slide__top { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+.slide__bottom { display: flex; justify-content: space-between; align-items: end; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
+.slide__bottom .arrow { font-size: 22px; }
+.slide__body { display: grid; align-content: center; gap: 18px; }
+
+/* style: photo-bg */
+.slide--photo .slide__body h1 {
+  font-family: var(--font-display);
+  font-weight: var(--w-strong);
+  font-size: clamp(15px, 6vw, 72px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  max-width: 16ch;
+
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: manual;}
+.slide--photo .slide__body p { font-family: var(--font-mono); font-size: clamp(13px, 1.4vw, 16px); max-width: 38ch; color: rgba(255,255,255,0.78); }
+
+/* style: typographic */
+.slide--type { background: var(--bg); }
+.slide--type .slide__body h1 {
+  font-family: var(--font-display);
+  font-weight: var(--w-strong);
+  font-size: clamp(18px, 7vw, 104px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  max-width: 14ch;
+  color: var(--text);
+
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: manual;}
+.slide--type .slide__body h1 em { color: var(--accent); font-style: normal; font-weight: var(--w-black); }
+.slide--type .slide__body p { font-family: var(--font-mono); font-size: clamp(13px, 1.3vw, 15px); max-width: 42ch; color: rgba(255,255,255,0.55); }
+
+/* style: numeric — slim serif italic instead of a giant black block */
+.slide--num { background: var(--bg); }
+.slide--num .slide__body { align-content: center; justify-items: start; gap: 18px; }
+.slide--num .slide__body .num {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: var(--w-black);
+  font-size: clamp(55px, 19vw, 240px);
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  color: var(--accent);
+}
+.slide--num .slide__body h1 {
+  font-family: var(--font-display);
+  font-weight: var(--w-mid);
+  font-size: clamp(14px, 3vw, 38px);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  max-width: 22ch;
+
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: manual;}
+.slide--num .slide__body p { font-family: var(--font-mono); font-size: clamp(12px, 1.3vw, 15px); max-width: 44ch; color: rgba(255,255,255,0.55); }
+
+/* style: quote — italic serif, restrained */
+.slide--quote { background: var(--bg); }
+.slide--quote .slide__body {
+  align-content: center;
+  border-left: 2px solid var(--accent);
+  padding-left: clamp(18px, 2.6vw, 32px);
+}
+.slide--quote .slide__body .mark { display: none; }
+.slide--quote .slide__body blockquote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 200;
+  font-size: clamp(14px, 4vw, 50px);
+  line-height: 1.22;
+  letter-spacing: -0.018em;
+  max-width: 22ch;
+  color: var(--text);
+}
+.slide--quote .slide__body cite { font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.5); font-style: normal; letter-spacing: 0.18em; text-transform: uppercase; }
+
+/* brand mark — refined, not maximal */
+.brand-glyph { font-family: var(--font-display); font-weight: var(--w-strong); letter-spacing: -0.02em; color: var(--accent); font-size: clamp(16px, 1.8vw, 20px); }
+
+/* Tipografia: evitar orphans (palavra curta sozinha na linha).
+   text-wrap: pretty -> Chrome 117+/Safari 17.5+. Fallback graceful em browsers antigos. */
+h1, h2, h3, p, blockquote, .num {
+  text-wrap: balance;
+  text-wrap: pretty;
+}
+</style>
+</head>
+<body>
+<section class="carousel" aria-label="Carrossel TechBody — uma_sessao_por_dentro">
+
+<article class="slide slide--type" id="slide-1">
+  <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
+  <div class="slide__body"><h1>O que acontece ao corpo numa <em>sessão</em>?</h1></div>
+  <div class="slide__bottom"><span>01/06</span><span class="arrow">→</span></div>
+</article>
+<article class="slide slide--num" id="slide-2">
+  <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
+  <div class="slide__body"><div class="num">3</div><h1>minutos para vestir o TecSuit e calibrar a intensidade consigo.</h1></div>
+  <div class="slide__bottom"><span>02/06</span><span class="arrow">→</span></div>
+</article>
+<article class="slide slide--type" id="slide-3">
+  <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
+  <div class="slide__body"><h1>O aquecimento acorda os principais <em>grupos musculares</em>.</h1></div>
+  <div class="slide__bottom"><span>03/06</span><span class="arrow">→</span></div>
+</article>
+<article class="slide slide--num" id="slide-4">
+  <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
+  <div class="slide__body"><div class="num">90%</div><h1>dos músculos podem ser ativados ao mesmo tempo — até a respiração sente.</h1></div>
+  <div class="slide__bottom"><span>04/06</span><span class="arrow">→</span></div>
+</article>
+<article class="slide slide--type" id="slide-5">
+  <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
+  <div class="slide__body"><h1>Milhares de <em>contrações</em> numa só sessão.</h1></div>
+  <div class="slide__bottom"><span>05/06</span><span class="arrow">→</span></div>
+</article>
+<article class="slide slide--type" id="slide-6">
+  <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
+  <div class="slide__body"><h1>Sinta-o no corpo, não no papel — marque a sua <em>sessão experimental</em>.</h1></div>
+  <div class="slide__bottom"><span>06/06</span><span class="slide__cta" style="background:var(--accent);color:#0a0a0c;padding:10px 22px;font:700 13px/1 var(--font-display);letter-spacing:0.06em;text-transform:uppercase;">Sessão experimental →</span></div>
+</article>
+</section>
+<script>
+  (function () {
+    var carousel = document.querySelector('.carousel');
+    function go() {
+      var m = (location.hash || '').match(/^#slide-(\d+)$/);
+      if (!m || !carousel) return;
+      var el = document.getElementById('slide-' + m[1]);
+      if (!el) return;
+      var prev = carousel.style.scrollSnapType;
+      carousel.style.scrollSnapType = 'none';
+      carousel.scrollLeft = el.offsetLeft;
+      requestAnimationFrame(function () {
+        carousel.style.scrollSnapType = prev || '';
+      });
+    }
+    window.addEventListener('hashchange', go);
+    if (document.readyState === 'complete') go();
+    else window.addEventListener('load', go);
+  })();
+</script>
+</body>
+</html>

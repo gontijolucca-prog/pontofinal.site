@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8" />
+<title>TechBody · Contrações</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;600;800;900&family=JetBrains+Mono:wght@300;500;700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:1920px;overflow:hidden;background:#0a0a0c;font-family:'Manrope',system-ui,sans-serif;color:#fff;-webkit-font-smoothing:antialiased}
+  :root{
+    --bg:#0a0a0c; --accent:#d4773b; --accent-2:#ff9447;
+    --tech:#5fb3ff; --tech-dim:rgba(95,179,255,0.18);
+    --text:#fff; --text-dim:rgba(255,255,255,0.55); --text-faint:rgba(255,255,255,0.30);
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  #root{width:100%;height:100%;position:relative;overflow:hidden;background:#0a0a0c}
+  .grid-bg{position:absolute;inset:-80px;background-image:linear-gradient(rgba(95,179,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(95,179,255,0.05) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse at 50% 50%,black 30%,transparent 80%)}
+  .depth{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 35%,rgba(212,119,59,0.12) 0%,transparent 55%),radial-gradient(ellipse at 50% 85%,rgba(95,179,255,0.07) 0%,transparent 50%);pointer-events:none}
+  .particles{position:absolute;inset:0;z-index:2;pointer-events:none}
+  .pt{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent-2);opacity:0.5}
+  .vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 30%,rgba(0,0,0,0.75) 100%);pointer-events:none;z-index:90}
+  .grain{position:absolute;inset:0;opacity:0.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");z-index:91;pointer-events:none}
+
+  .hud-top{position:absolute;top:48px;left:48px;right:48px;display:flex;justify-content:space-between;align-items:center;z-index:10;font-family:var(--mono);font-size:18px;color:var(--text-faint);letter-spacing:0.18em;text-transform:uppercase}
+  .hud-bot{position:absolute;bottom:48px;left:48px;right:48px;display:flex;justify-content:space-between;z-index:10;font-family:var(--mono);font-size:16px;color:var(--text-faint);letter-spacing:0.20em;text-transform:uppercase}
+  .hud-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);display:inline-block;margin-right:10px;vertical-align:middle}
+
+  .scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:200px 80px;opacity:0;z-index:5}
+  .scene>div{text-align:center}
+
+  /* S1 hook — contrações stat */
+  .wordmark{font-weight:200;font-size:88px;letter-spacing:-0.04em;line-height:0.9;text-align:center;margin-bottom:30px}
+  .wordmark b{font-weight:900;background:linear-gradient(135deg,#ffa867 0%,#d4773b 60%,#a85220 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .wordmark .dot{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--accent);box-shadow:0 0 30px var(--accent);vertical-align:middle;margin-left:6px;transform:translateY(-22px)}
+  .big-stat{font-weight:900;font-size:420px;line-height:0.8;letter-spacing:-0.06em;background:linear-gradient(180deg,#ffd6b3 0%,#d4773b 55%,#a85220 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center}
+  .stat-unit{font-family:var(--mono);font-size:40px;letter-spacing:0.4em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-top:-10px}
+  .hook-sub{margin-top:48px;font-weight:300;font-size:50px;line-height:1.1;letter-spacing:-0.01em;text-align:center;color:var(--text)}
+  .hook-sub b{font-weight:900;color:var(--accent)}
+  .scan-line{position:absolute;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--tech),transparent);box-shadow:0 0 24px var(--tech-dim);z-index:6}
+
+  /* S2 TecSuit */
+  .figure{position:relative;width:300px;height:640px;margin:0 auto}
+  .head{position:absolute;top:0;left:50%;transform:translateX(-50%);width:100px;height:100px;border-radius:50%;background:#1c1c22;box-shadow:0 0 0 6px rgba(212,119,59,0.10)}
+  .torso{position:absolute;top:112px;left:50%;transform:translateX(-50%);width:210px;height:280px;border-radius:90px 90px 46px 46px;background:linear-gradient(180deg,#23232c 0%,#15151a 100%);box-shadow:inset 0 0 0 2px rgba(212,119,59,0.25)}
+  .legs{position:absolute;top:372px;left:50%;transform:translateX(-50%);width:240px;height:250px;background:linear-gradient(180deg,#1b1b20 0%,#101014 100%);border-radius:34px 34px 22px 22px}
+  .suit-dot{position:absolute;width:18px;height:18px;border-radius:50%;background:var(--accent);box-shadow:0 0 20px var(--accent-2)}
+  .pulse-ring{position:absolute;top:150px;left:50%;width:420px;height:420px;border-radius:50%;border:2px solid var(--accent);transform:translateX(-50%);opacity:0}
+  .s2-cap{position:absolute;bottom:150px;left:80px;right:80px;text-align:center;font-weight:200;font-size:96px;line-height:0.95;letter-spacing:-0.04em}
+  .s2-cap b{font-weight:900;color:var(--accent)}
+  .s2-sub{position:absolute;bottom:96px;left:80px;right:80px;text-align:center;font-family:var(--mono);font-size:22px;color:var(--text-dim);letter-spacing:0.22em;text-transform:uppercase}
+
+  /* S3 stat "25" */
+  .stat-medium{font-weight:900;font-size:280px;line-height:1;letter-spacing:-0.06em;background:linear-gradient(180deg,#ffd6b3 0%,#d4773b 55%,#a85220 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center}
+  .s3-cap{text-align:center;font-weight:200;font-size:96px;line-height:0.95;letter-spacing:-0.04em;margin-top:36px}
+  .s3-cap b{font-weight:900;color:var(--accent)}
+
+  /* S4 badge + caption */
+  .pt-badge{display:inline-flex;align-items:center;gap:12px;padding:16px 28px;border:2px solid rgba(212,119,59,0.6);border-radius:40px;font-family:var(--mono);font-size:22px;letter-spacing:0.16em;text-transform:uppercase;color:#fff;background:rgba(10,10,12,0.92);white-space:nowrap;margin-bottom:60px}
+  .s4-cap{text-align:center;font-weight:200;font-size:96px;line-height:0.95;letter-spacing:-0.04em}
+  .s4-cap b{font-weight:900;color:var(--accent)}
+
+  /* S5 close */
+  .close-quote{font-weight:200;font-size:104px;line-height:0.98;letter-spacing:-0.04em;text-align:center}
+  .close-quote b{font-weight:900;background:linear-gradient(135deg,#ffa867,#d4773b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .close-sub{margin-top:36px;font-weight:300;font-size:40px;color:var(--text-dim);text-align:center}
+  .close-cta{margin-top:60px;display:inline-block;padding:28px 56px;border:2px solid var(--accent);border-radius:18px;font-family:var(--mono);font-size:26px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent)}
+  .close-mark{margin-top:42px;font-family:var(--mono);font-size:20px;color:var(--text-faint);letter-spacing:0.5em;text-transform:uppercase;text-align:center}
+
+  .wipe{position:absolute;inset:0;background:var(--accent);z-index:80;transform:translateY(100%)}
+  .wipe-2{background:#0a0a0c;z-index:81}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-width="1080" data-height="1920">
+  <div class="grid-bg" id="grid"></div>
+  <div class="depth" id="depth"></div>
+  <div class="particles" id="particles"></div>
+
+  <!-- S1 hook — contrações -->
+  <div id="s1" class="scene">
+    <div>
+      <div class="wordmark"><span>tech</span><b>body</b><span class="dot"></span></div>
+      <div class="big-stat" id="s1-num">0</div>
+      <div class="stat-unit">contrações por sessão</div>
+      <div class="hook-sub">milhares de <b>contrações</b></div>
+    </div>
+    <div class="scan-line" id="s1-scan" style="top:50%"></div>
+  </div>
+
+  <!-- S2 TecSuit -->
+  <div id="s2" class="scene">
+    <div class="pulse-ring" id="ring-1"></div>
+    <div class="pulse-ring" id="ring-2"></div>
+    <div class="figure" id="s2-fig">
+      <div class="head"></div>
+      <div class="torso">
+        <div class="suit-dot" style="top:46px;left:36px"></div>
+        <div class="suit-dot" style="top:46px;right:36px"></div>
+        <div class="suit-dot" style="top:120px;left:50%;transform:translateX(-50%)"></div>
+        <div class="suit-dot" style="top:196px;left:36px"></div>
+        <div class="suit-dot" style="top:196px;right:36px"></div>
+      </div>
+      <div class="legs"></div>
+    </div>
+    <div class="s2-cap">grupos musculares ativados<br><b>ao mesmo tempo</b></div>
+    <div class="s2-sub">eletroestimulação · corpo inteiro</div>
+  </div>
+
+  <!-- S3 stat "25" -->
+  <div id="s3" class="scene">
+    <div>
+      <div class="stat-medium">25</div>
+      <div class="s3-cap">mais trabalho,<br>em <b>menos tempo</b></div>
+    </div>
+  </div>
+
+  <!-- S4 badge + caption -->
+  <div id="s4" class="scene">
+    <div>
+      <div class="pt-badge">◍ acompanhamento real</div>
+      <div class="s4-cap">sempre com<br><b>personal trainer</b></div>
+    </div>
+  </div>
+
+  <!-- S5 close -->
+  <div id="s5" class="scene">
+    <div>
+      <div class="close-quote">marque a sua<br><b>sessão experimental</b></div>
+      <div class="close-sub">nos estúdios TechBody</div>
+      <div class="close-cta">link na bio</div>
+      <div class="close-mark">@techbody_pt</div>
+    </div>
+  </div>
+
+  <div class="wipe" id="w1"></div>
+  <div class="wipe wipe-2" id="w2"></div>
+  <div class="wipe" id="w3"></div>
+  <div class="wipe wipe-2" id="w4"></div>
+
+  <div class="vignette"></div>
+  <div class="grain"></div>
+
+  <audio id="narr" src="audio/narration.mp3" data-start="0" data-duration="25.97" data-track-index="9" data-volume="1"></audio>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({paused:true});
+    const S = [0.3, 4.13, 10.14, 15.81, 18.99];
+    const TOTAL = 25.97;
+    function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+    const rand = rng(101);
+    function wipeIn(el, fromY, toY, t, prev, next){
+      tl.fromTo(el,{y:fromY},{y:'0%',duration:0.4,ease:'expo.in'},t-0.4);
+      tl.set(prev,{opacity:0},t-0.05); tl.set(next,{opacity:1},t-0.05);
+      tl.to(el,{y:toY,duration:0.4,ease:'expo.out',overwrite:'auto'},t);
+    }
+
+    // ===== AMBIENTE =====
+    const reps=(start,cyc)=>Math.max(0,Math.floor((TOTAL-start)/cyc)-1);
+    tl.to('#grid',{backgroundPositionX:'72px',backgroundPositionY:'72px',duration:8,ease:'none',repeat:reps(0,8)},0);
+    tl.to('#depth',{opacity:0.6,duration:3.5,ease:'sine.inOut',yoyo:true,repeat:reps(0,3.5),overwrite:'auto'},0);
+    const pf = document.getElementById('particles');
+    for(let i=0;i<16;i++){
+      const d=document.createElement('div');d.className='pt';
+      const x=Math.round(rand()*1080), sz=4+Math.round(rand()*6), cyc=5+rand()*4, start=+(rand()*3).toFixed(2);
+      d.style.left=x+'px';d.style.width=sz+'px';d.style.height=sz+'px';
+      pf.appendChild(d);
+      tl.fromTo(d,{y:1980,opacity:0},{y:-60,opacity:0.5,duration:cyc,ease:'none',repeat:reps(start,cyc)},start);
+    }
+    tl.set('#grid',{opacity:1},TOTAL);
+
+    // ===== S1 =====
+    tl.to('#s1',{opacity:1,duration:0.01},S[0]);
+    tl.from('#s1 .wordmark',{y:40,opacity:0,duration:0.7,ease:'expo.out'},S[0]+0.1);
+    tl.from('#s1 .big-stat',{scale:0.5,opacity:0,duration:1.0,ease:'expo.out'},S[0]+0.4);
+    tl.fromTo({n:0},{n:0},{n:1000,duration:1.5,ease:'power2.out',onUpdate:function(){const n=Math.round(this.targets()[0].n);document.getElementById('s1-num').textContent=n>=1000?'1000+':n}},S[0]+0.5);
+    tl.to('#s1 .big-stat',{scale:1.025,duration:1.6,ease:'sine.inOut',yoyo:true,repeat:3,overwrite:'auto'},S[0]+1.7);
+    tl.from('#s1 .stat-unit',{y:14,opacity:0,duration:0.6},S[0]+1.4);
+    tl.from('#s1 .hook-sub',{y:26,opacity:0,duration:0.8,ease:'expo.out'},S[0]+1.9);
+    tl.fromTo('#s1-scan',{top:'14%',opacity:0},{top:'86%',opacity:1,duration:2.4,ease:'sine.inOut'},S[0]+1.9);
+
+    // ===== S2 =====
+    wipeIn('#w1','100%','-100%',S[1],'#s1','#s2');
+    tl.from('#s2 .figure',{y:60,opacity:0,duration:0.9,ease:'expo.out'},S[1]+0.1);
+    tl.from('#s2 .suit-dot',{scale:0,opacity:0,duration:0.4,stagger:0.1,ease:'back.out(2.4)'},S[1]+0.7);
+    tl.to('#s2 .suit-dot',{scale:1.3,duration:0.5,ease:'sine.inOut',yoyo:true,repeat:9,stagger:0.06,overwrite:'auto'},S[1]+1.6);
+    tl.fromTo('#ring-1',{scale:0.4,opacity:0.7},{scale:1.4,opacity:0,duration:1.8,ease:'sine.out',repeat:3},S[1]+1.3);
+    tl.fromTo('#ring-2',{scale:0.4,opacity:0.5},{scale:1.6,opacity:0,duration:2.0,ease:'sine.out',repeat:3},S[1]+1.8);
+    tl.to('#s2-fig',{y:-14,duration:1.8,ease:'sine.inOut',yoyo:true,repeat:3,overwrite:'auto'},S[1]+0.7);
+    tl.from('#s2 .s2-cap',{y:28,opacity:0,duration:0.8,ease:'expo.out'},S[1]+2.4);
+    tl.from('#s2 .s2-cap b',{scale:1.12,duration:0.8,ease:'power3.out'},S[1]+2.8);
+    tl.from('#s2 .s2-sub',{y:14,opacity:0,duration:0.6},S[1]+3.2);
+
+    // ===== S3 =====
+    wipeIn('#w2','-100%','100%',S[2],'#s2','#s3');
+    tl.to('#s3',{opacity:1,duration:0.01},S[2]);
+    tl.from('#s3 .stat-medium',{scale:0.6,opacity:0,duration:0.9,ease:'expo.out'},S[2]+0.1);
+    tl.to('#s3 .stat-medium',{scale:1.02,duration:1.4,ease:'sine.inOut',yoyo:true,repeat:2,overwrite:'auto'},S[2]+1.2);
+    tl.from('#s3 .s3-cap',{y:28,opacity:0,duration:0.8,ease:'expo.out'},S[2]+2.0);
+    tl.from('#s3 .s3-cap b',{scale:1.1,duration:0.8,ease:'power3.out'},S[2]+2.4);
+
+    // ===== S4 =====
+    wipeIn('#w3','100%','-100%',S[3],'#s3','#s4');
+    tl.from('#s4 .pt-badge',{y:-20,opacity:0,duration:0.6,ease:'back.out(1.8)'},S[3]+0.1);
+    tl.from('#s4 .s4-cap',{y:28,opacity:0,duration:0.8,ease:'expo.out'},S[3]+1.0);
+    tl.from('#s4 .s4-cap b',{scale:1.1,duration:0.8,ease:'power3.out'},S[3]+1.4);
+
+    // ===== S5 close =====
+    wipeIn('#w4','-100%','100%',S[4],'#s4','#s5');
+    tl.from('#s5 .close-quote',{y:50,opacity:0,duration:0.9,ease:'expo.out'},S[4]+0.1);
+    tl.from('#s5 .close-quote b',{scale:1.1,duration:0.9,ease:'power3.out'},S[4]+0.55);
+    tl.from('#s5 .close-sub',{y:16,opacity:0,duration:0.6},S[4]+1.05);
+    tl.from('#s5 .close-cta',{scale:0.8,opacity:0,duration:0.5,ease:'back.out(2)'},S[4]+1.2);
+    tl.to('#s5 .close-cta',{scale:1.06,duration:0.5,ease:'sine.inOut',yoyo:true,repeat:1,overwrite:'auto'},S[4]+1.8);
+    tl.from('#s5 .close-mark',{y:14,opacity:0,duration:0.6},S[4]+1.6);
+    tl.to('#s5',{opacity:0,duration:0.5,ease:'power2.in'},TOTAL-0.5);
+
+    window.__timelines["root"] = tl;
+  </script>
+</div>
+</body>
+</html>

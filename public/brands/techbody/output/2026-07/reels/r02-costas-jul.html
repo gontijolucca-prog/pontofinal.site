@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8" />
+<title>TechBody · Costas</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;600;800;900&family=JetBrains+Mono:wght@300;500;700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:1920px;overflow:hidden;background:#0a0a0c;font-family:'Manrope',system-ui,sans-serif;color:#fff;-webkit-font-smoothing:antialiased}
+  :root{
+    --bg:#0a0a0c; --accent:#d4773b; --accent-2:#ff9447;
+    --tech:#5fb3ff; --tech-dim:rgba(95,179,255,0.18);
+    --text:#fff; --text-dim:rgba(255,255,255,0.55); --text-faint:rgba(255,255,255,0.30);
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  #root{width:100%;height:100%;position:relative;overflow:hidden;background:#0a0a0c}
+  .grid-bg{position:absolute;inset:-80px;background-image:linear-gradient(rgba(95,179,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(95,179,255,0.05) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse at 50% 50%,black 30%,transparent 80%)}
+  .depth{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 35%,rgba(212,119,59,0.12) 0%,transparent 55%),radial-gradient(ellipse at 50% 85%,rgba(95,179,255,0.07) 0%,transparent 50%);pointer-events:none}
+  .particles{position:absolute;inset:0;z-index:2;pointer-events:none}
+  .pt{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent-2);opacity:0.5}
+  .vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 30%,rgba(0,0,0,0.75) 100%);pointer-events:none;z-index:90}
+  .grain{position:absolute;inset:0;opacity:0.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");z-index:91;pointer-events:none}
+
+  .hud-top{position:absolute;top:48px;left:48px;right:48px;display:flex;justify-content:space-between;align-items:center;z-index:10;font-family:var(--mono);font-size:18px;color:var(--text-faint);letter-spacing:0.18em;text-transform:uppercase}
+  .hud-bot{position:absolute;bottom:48px;left:48px;right:48px;display:flex;justify-content:space-between;z-index:10;font-family:var(--mono);font-size:16px;color:var(--text-faint);letter-spacing:0.20em;text-transform:uppercase}
+  .hud-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);display:inline-block;margin-right:10px;vertical-align:middle}
+
+  .scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:200px 80px;opacity:0;z-index:5}
+  .scene>div{text-align:center}
+
+  /* S1 hook — sitting posture */
+  .desk-setup{position:relative;width:360px;height:480px;margin:0 auto}
+  .desk-chair{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:140px;height:160px;border-radius:8px 8px 0 0;background:linear-gradient(180deg,#2a2a32 0%,#1c1c22 100%);box-shadow:inset 0 0 0 2px rgba(212,119,59,0.15)}
+  .desk-chair::after{content:'';position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);width:160px;height:16px;border-radius:50%;background:rgba(0,0,0,0.4)}
+  .desk-table{position:absolute;bottom:140px;left:50%;transform:translateX(-50%);width:280px;height:140px;border-radius:8px;background:linear-gradient(180deg,#252530 0%,#1a1a1f 100%);box-shadow:inset 0 0 0 2px rgba(212,119,59,0.12)}
+  .monitor{position:absolute;bottom:160px;left:50%;transform:translateX(-50%);width:180px;height:120px;border-radius:8px;background:linear-gradient(135deg,#1a1a20 0%,#0f0f14 100%);box-shadow:0 0 24px rgba(95,179,255,0.10)}
+  .person{position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:260px}
+  .person-head{position:absolute;top:0;left:50%;transform:translateX(-50%);width:60px;height:60px;border-radius:50%;background:#1c1c22}
+  .person-torso{position:absolute;top:72px;left:50%;transform:translateX(-50%);width:100px;height:140px;border-radius:40px;background:linear-gradient(180deg,#23232c 0%,#1b1b22 100%)}
+  .person-legs{position:absolute;top:200px;left:50%;transform:translateX(-50%);width:120px;height:90px;background:linear-gradient(180deg,#1a1a20 0%,#0f0f14 100%)}
+  .spine-dot{position:absolute;left:50%;transform:translateX(-50%);width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 16px var(--accent-2)}
+  .s1-cap{position:absolute;bottom:140px;left:80px;right:80px;text-align:center;font-weight:200;font-size:96px;line-height:0.95;letter-spacing:-0.04em}
+  .s1-cap b{font-weight:900;color:var(--accent)}
+
+  /* S2 TecSuit — lombar focus */
+  .figure{position:relative;width:300px;height:640px;margin:0 auto}
+  .head{position:absolute;top:0;left:50%;transform:translateX(-50%);width:100px;height:100px;border-radius:50%;background:#1c1c22;box-shadow:0 0 0 6px rgba(212,119,59,0.10)}
+  .torso{position:absolute;top:112px;left:50%;transform:translateX(-50%);width:210px;height:280px;border-radius:90px 90px 46px 46px;background:linear-gradient(180deg,#23232c 0%,#15151a 100%);box-shadow:inset 0 0 0 2px rgba(212,119,59,0.25)}
+  .legs{position:absolute;top:372px;left:50%;transform:translateX(-50%);width:240px;height:250px;background:linear-gradient(180deg,#1b1b20 0%,#101014 100%);border-radius:34px 34px 22px 22px}
+  .suit-dot{position:absolute;width:18px;height:18px;border-radius:50%;background:var(--accent);box-shadow:0 0 20px var(--accent-2)}
+  .pulse-ring{position:absolute;top:150px;left:50%;width:420px;height:420px;border-radius:50%;border:2px solid var(--accent);transform:translateX(-50%);opacity:0}
+  .s2-cap{position:absolute;bottom:150px;left:80px;right:80px;text-align:center;font-weight:200;font-size:96px;line-height:0.95;letter-spacing:-0.04em}
+  .s2-cap b{font-weight:900;color:var(--accent)}
+  .s2-sub{position:absolute;bottom:96px;left:80px;right:80px;text-align:center;font-family:var(--mono);font-size:22px;color:var(--text-dim);letter-spacing:0.22em;text-transform:uppercase}
+
+  /* S3 gauge intensity */
+  .gauge-wrap{position:relative;width:420px;height:420px;margin:0 auto}
+  .gauge{width:420px;height:420px;border-radius:50%;margin:0 auto;position:relative;background:conic-gradient(var(--accent) 0turn,var(--accent) var(--g,0.3turn),rgba(255,255,255,0.06) var(--g,0.3turn));mask:radial-gradient(circle,transparent 58%,#000 60%);-webkit-mask:radial-gradient(circle,transparent 58%,#000 60%)}
+  .gauge-core{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .gauge-val{font-weight:900;font-size:230px;line-height:1;color:#fff}
+  .gauge-lbl{font-family:var(--mono);font-size:20px;letter-spacing:0.28em;color:var(--accent);text-transform:uppercase;margin-top:6px;text-align:center}
+  .pt-badge{position:absolute;top:-26px;left:50%;transform:translateX(-50%);z-index:6;display:inline-flex;align-items:center;gap:12px;padding:16px 28px;border:2px solid rgba(212,119,59,0.6);border-radius:40px;font-family:var(--mono);font-size:22px;letter-spacing:0.16em;text-transform:uppercase;color:#fff;background:rgba(10,10,12,0.92);white-space:nowrap}
+  .s3-cap{position:absolute;bottom:150px;left:80px;right:80px;text-align:center;font-weight:200;font-size:96px;line-height:0.95;letter-spacing:-0.04em}
+  .s3-cap b{font-weight:900;color:var(--accent)}
+
+  /* S4 objectivos */
+  .goals-h{text-align:center;font-family:var(--mono);font-size:24px;letter-spacing:0.4em;color:var(--text-dim);text-transform:uppercase;margin-bottom:50px}
+  .goals{display:flex;flex-direction:column;gap:34px;width:100%;max-width:840px}
+  .goal{font-weight:200;font-size:88px;line-height:1;letter-spacing:-0.03em;text-align:center}
+  .goal b{font-weight:900;color:var(--accent)}
+
+  /* S5 close */
+  .close-quote{font-weight:200;font-size:104px;line-height:0.98;letter-spacing:-0.04em;text-align:center}
+  .close-quote b{font-weight:900;background:linear-gradient(135deg,#ffa867,#d4773b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .close-sub{margin-top:36px;font-weight:300;font-size:40px;color:var(--text-dim);text-align:center}
+  .close-cta{margin-top:60px;display:inline-block;padding:28px 56px;border:2px solid var(--accent);border-radius:18px;font-family:var(--mono);font-size:26px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent)}
+  .close-mark{margin-top:42px;font-family:var(--mono);font-size:20px;color:var(--text-faint);letter-spacing:0.5em;text-transform:uppercase;text-align:center}
+
+  .wipe{position:absolute;inset:0;background:var(--accent);z-index:80;transform:translateY(100%)}
+  .wipe-2{background:#0a0a0c;z-index:81}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-width="1080" data-height="1920">
+  <div class="grid-bg" id="grid"></div>
+  <div class="depth" id="depth"></div>
+  <div class="particles" id="particles"></div>
+
+  <!-- S1 hook — sitting posture -->
+  <div id="s1" class="scene">
+    <div>
+      <div class="desk-setup">
+        <div class="monitor"></div>
+        <div class="desk-table"></div>
+        <div class="desk-chair"></div>
+        <div class="person">
+          <div class="person-head"></div>
+          <div class="person-torso">
+            <div class="spine-dot" style="top:32px"></div>
+            <div class="spine-dot" style="top:62px"></div>
+            <div class="spine-dot" style="top:92px"></div>
+            <div class="spine-dot" style="top:122px"></div>
+            <div class="spine-dot" style="top:138px"></div>
+          </div>
+          <div class="person-legs"></div>
+        </div>
+      </div>
+      <div class="s1-cap">horas sentado —<br>as costas <b>pagam a fatura</b></div>
+    </div>
+  </div>
+
+  <!-- S2 TecSuit + reabilitação -->
+  <div id="s2" class="scene">
+    <div class="pulse-ring" id="ring-1"></div>
+    <div class="pulse-ring" id="ring-2"></div>
+    <div class="figure" id="s2-fig">
+      <div class="head"></div>
+      <div class="torso">
+        <div class="suit-dot" style="top:200px;left:36px"></div>
+        <div class="suit-dot" style="top:200px;right:36px"></div>
+        <div class="suit-dot" style="top:240px;left:50%;transform:translateX(-50%)"></div>
+      </div>
+      <div class="legs"></div>
+    </div>
+    <div class="s2-cap">reabilitação: músculos<br><b>profundos</b> da coluna</div>
+    <div class="s2-sub">zona lombar · eletroestimulação</div>
+  </div>
+
+  <!-- S3 gauge intensity -->
+  <div id="s3" class="scene">
+    <div class="gauge-wrap">
+      <div class="pt-badge" id="s3-badge">◍ intensidade controlada</div>
+      <div class="gauge" id="s3-gauge" style="--g:0turn"></div>
+      <div class="gauge-core"><div class="gauge-val" id="s3-val">40</div><div class="gauge-lbl">%</div></div>
+    </div>
+    <div class="s3-cap">com <b>personal trainer</b></div>
+  </div>
+
+  <!-- S4 objectivos -->
+  <div id="s4" class="scene">
+    <div>
+      <div class="goals-h">objectivos</div>
+      <div class="goals">
+        <div class="goal" id="g1">aliviar <b>dores</b></div>
+        <div class="goal" id="g2">recuperar <b>movimento</b></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S5 close -->
+  <div id="s5" class="scene">
+    <div>
+      <div class="close-quote">marque a sua<br><b>sessão experimental</b></div>
+      <div class="close-sub">link na bio</div>
+      <div class="close-cta">link na bio</div>
+      <div class="close-mark">@techbody_pt</div>
+    </div>
+  </div>
+
+  <div class="wipe" id="w1"></div>
+  <div class="wipe wipe-2" id="w2"></div>
+  <div class="wipe" id="w3"></div>
+  <div class="wipe wipe-2" id="w4"></div>
+
+  <div class="vignette"></div>
+  <div class="grain"></div>
+
+  <audio id="narr" src="audio/narration.mp3" data-start="0" data-duration="25.73" data-track-index="9" data-volume="1"></audio>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({paused:true});
+    const S = [0.3, 4.8, 11.81, 16.15, 19.59];
+    const TOTAL = 25.73;
+    function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+    const rand = rng(103);
+    function wipeIn(el, fromY, toY, t, prev, next){
+      tl.fromTo(el,{y:fromY},{y:'0%',duration:0.4,ease:'expo.in'},t-0.4);
+      tl.set(prev,{opacity:0},t-0.05); tl.set(next,{opacity:1},t-0.05);
+      tl.to(el,{y:toY,duration:0.4,ease:'expo.out',overwrite:'auto'},t);
+    }
+
+    // ===== AMBIENTE =====
+    const reps=(start,cyc)=>Math.max(0,Math.floor((TOTAL-start)/cyc)-1);
+    tl.to('#grid',{backgroundPositionX:'72px',backgroundPositionY:'72px',duration:8,ease:'none',repeat:reps(0,8)},0);
+    tl.to('#depth',{opacity:0.6,duration:3.5,ease:'sine.inOut',yoyo:true,repeat:reps(0,3.5),overwrite:'auto'},0);
+    const pf = document.getElementById('particles');
+    for(let i=0;i<16;i++){
+      const d=document.createElement('div');d.className='pt';
+      const x=Math.round(rand()*1080), sz=4+Math.round(rand()*6), cyc=5+rand()*4, start=+(rand()*3).toFixed(2);
+      d.style.left=x+'px';d.style.width=sz+'px';d.style.height=sz+'px';
+      pf.appendChild(d);
+      tl.fromTo(d,{y:1980,opacity:0},{y:-60,opacity:0.5,duration:cyc,ease:'none',repeat:reps(start,cyc)},start);
+    }
+    tl.set('#grid',{opacity:1},TOTAL);
+
+    // ===== S1 =====
+    tl.to('#s1',{opacity:1,duration:0.01},S[0]);
+    tl.from('#s1 .desk-setup',{y:60,opacity:0,duration:0.9,ease:'expo.out'},S[0]+0.1);
+    tl.from('#s1 .monitor',{scale:0.8,opacity:0,duration:0.6,ease:'back.out(1.8)'},S[0]+0.5);
+    tl.from('#s1 .desk-table',{scale:0.9,opacity:0,duration:0.6},S[0]+0.8);
+    tl.from('#s1 .desk-chair',{scale:0.85,opacity:0,duration:0.6},S[0]+1.1);
+    tl.from('#s1 .person',{y:30,opacity:0,duration:0.7},S[0]+1.3);
+    tl.from('#s1 .spine-dot',{scale:0,opacity:0,duration:0.4,stagger:0.12,ease:'back.out(2)'},S[0]+1.7);
+    tl.to('#s1 .spine-dot',{scale:1.4,duration:0.6,ease:'sine.inOut',yoyo:true,repeat:4,stagger:0.1,overwrite:'auto'},S[0]+2.8);
+    tl.from('#s1 .s1-cap',{y:28,opacity:0,duration:0.8,ease:'expo.out'},S[0]+2.8);
+    tl.from('#s1 .s1-cap b',{scale:1.12,duration:0.8,ease:'power3.out'},S[0]+3.2);
+
+    // ===== S2 =====
+    wipeIn('#w1','100%','-100%',S[1],'#s1','#s2');
+    tl.from('#s2 .figure',{y:60,opacity:0,duration:0.9,ease:'expo.out'},S[1]+0.1);
+    tl.from('#s2 .suit-dot',{scale:0,opacity:0,duration:0.4,stagger:0.15,ease:'back.out(2.4)'},S[1]+0.7);
+    tl.to('#s2 .suit-dot',{scale:1.3,duration:0.5,ease:'sine.inOut',yoyo:true,repeat:8,stagger:0.08,overwrite:'auto'},S[1]+1.6);
+    tl.fromTo('#ring-1',{scale:0.4,opacity:0.7},{scale:1.4,opacity:0,duration:1.8,ease:'sine.out',repeat:3},S[1]+1.3);
+    tl.fromTo('#ring-2',{scale:0.4,opacity:0.5},{scale:1.6,opacity:0,duration:2.0,ease:'sine.out',repeat:3},S[1]+1.8);
+    tl.to('#s2-fig',{y:-14,duration:1.8,ease:'sine.inOut',yoyo:true,repeat:3,overwrite:'auto'},S[1]+0.7);
+    tl.from('#s2 .s2-cap',{y:28,opacity:0,duration:0.8,ease:'expo.out'},S[1]+2.4);
+    tl.from('#s2 .s2-cap b',{scale:1.12,duration:0.8,ease:'power3.out'},S[1]+2.8);
+    tl.from('#s2 .s2-sub',{y:14,opacity:0,duration:0.6},S[1]+3.2);
+
+    // ===== S3 =====
+    wipeIn('#w2','-100%','100%',S[2],'#s2','#s3');
+    tl.from('#s3 .gauge',{scale:0.6,opacity:0,duration:0.9,ease:'expo.out'},S[2]+0.1);
+    const gp={v:0}, gEl=document.getElementById('s3-gauge');
+    tl.to(gp,{v:40,duration:1.4,ease:'power2.inOut',onUpdate:()=>gEl.style.setProperty('--g',(gp.v/100)+'turn')},S[2]+0.4);
+    tl.to('#s3-val',{textContent:40,duration:1.4,ease:'power2.inOut',snap:{textContent:1},onUpdate:function(){document.getElementById('s3-val').textContent=Math.round(gp.v)}},S[2]+0.4);
+    tl.from('#s3-badge',{y:-20,opacity:0,duration:0.6,ease:'back.out(1.8)'},S[2]+1.0);
+    tl.from('#s3 .gauge-core',{scale:0.7,opacity:0,duration:0.7,ease:'back.out(1.8)'},S[2]+0.7);
+    tl.from('#s3 .s3-cap',{y:28,opacity:0,duration:0.8,ease:'expo.out'},S[2]+2.4);
+    tl.from('#s3 .s3-cap b',{scale:1.1,duration:0.8,ease:'power3.out'},S[2]+2.8);
+
+    // ===== S4 objectivos =====
+    wipeIn('#w3','100%','-100%',S[3],'#s3','#s4');
+    tl.from('#s4 .goals-h',{y:18,opacity:0,duration:0.5},S[3]+0.1);
+    tl.from('#g1',{x:-50,opacity:0,duration:0.55,ease:'expo.out'},S[3]+0.5);
+    tl.from('#g2',{x:-50,opacity:0,duration:0.55,ease:'expo.out'},S[3]+1.1);
+
+    // ===== S5 close =====
+    wipeIn('#w4','-100%','100%',S[4],'#s4','#s5');
+    tl.from('#s5 .close-quote',{y:50,opacity:0,duration:0.9,ease:'expo.out'},S[4]+0.1);
+    tl.from('#s5 .close-quote b',{scale:1.1,duration:0.9,ease:'power3.out'},S[4]+0.55);
+    tl.from('#s5 .close-sub',{y:16,opacity:0,duration:0.6},S[4]+1.05);
+    tl.from('#s5 .close-cta',{scale:0.8,opacity:0,duration:0.5,ease:'back.out(2)'},S[4]+1.2);
+    tl.to('#s5 .close-cta',{scale:1.06,duration:0.5,ease:'sine.inOut',yoyo:true,repeat:1,overwrite:'auto'},S[4]+1.8);
+    tl.from('#s5 .close-mark',{y:14,opacity:0,duration:0.6},S[4]+1.6);
+    tl.to('#s5',{opacity:0,duration:0.5,ease:'power2.in'},TOTAL-0.5);
+
+    window.__timelines["root"] = tl;
+  </script>
+</div>
+</body>
+</html>

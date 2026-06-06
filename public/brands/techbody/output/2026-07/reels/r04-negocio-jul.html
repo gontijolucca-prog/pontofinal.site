@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8" />
+<title>TechBody · Franchising</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;600;800;900&family=JetBrains+Mono:wght@300;500;700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:1920px;overflow:hidden;background:#0a0a0c;font-family:'Manrope',system-ui,sans-serif;color:#fff;-webkit-font-smoothing:antialiased}
+  :root{
+    --bg:#0a0a0c; --accent:#d4773b; --accent-2:#ff9447;
+    --tech:#5fb3ff; --tech-dim:rgba(95,179,255,0.18);
+    --text:#fff; --text-dim:rgba(255,255,255,0.55); --text-faint:rgba(255,255,255,0.30);
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  #root{width:100%;height:100%;position:relative;overflow:hidden;background:#0a0a0c}
+  .grid-bg{position:absolute;inset:-80px;background-image:linear-gradient(rgba(95,179,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(95,179,255,0.05) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse at 50% 50%,black 30%,transparent 80%)}
+  .depth{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 35%,rgba(212,119,59,0.12) 0%,transparent 55%),radial-gradient(ellipse at 50% 85%,rgba(95,179,255,0.07) 0%,transparent 50%);pointer-events:none}
+  .particles{position:absolute;inset:0;z-index:2;pointer-events:none}
+  .pt{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent-2);opacity:0.5}
+  .vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 30%,rgba(0,0,0,0.75) 100%);pointer-events:none;z-index:90}
+  .grain{position:absolute;inset:0;opacity:0.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");z-index:91;pointer-events:none}
+
+  .hud-top{position:absolute;top:48px;left:48px;right:48px;display:flex;justify-content:space-between;align-items:center;z-index:10;font-family:var(--mono);font-size:18px;color:var(--text-faint);letter-spacing:0.18em;text-transform:uppercase}
+  .hud-bot{position:absolute;bottom:48px;left:48px;right:48px;display:flex;justify-content:space-between;z-index:10;font-family:var(--mono);font-size:16px;color:var(--text-faint);letter-spacing:0.20em;text-transform:uppercase}
+  .hud-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);display:inline-block;margin-right:10px;vertical-align:middle}
+
+  .scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:200px 80px;opacity:0;z-index:5}
+  .scene>div{text-align:center}
+
+  /* S1 hook — franchising */
+  .eyebrow-mono{font-family:var(--mono);font-size:24px;letter-spacing:0.4em;color:var(--text-dim);text-transform:uppercase;margin-bottom:60px}
+  .hook-question{font-weight:200;font-size:104px;line-height:0.95;letter-spacing:-0.03em}
+  .hook-question b{font-weight:900;color:var(--accent)}
+
+  /* S2 receita */
+  .revenue-bars{display:flex;gap:32px;align-items:flex-end;justify-content:center;height:420px;width:100%;max-width:600px}
+  .bar{border-radius:20px 20px 0 0}
+  .bar-hoje{width:140px;background:rgba(255,255,255,0.15);height:40%;display:flex;align-items:flex-end;justify-content:center}
+  .bar-tech{width:140px;background:linear-gradient(180deg,#ffa867 0%,#d4773b 60%,#a85220 100%);height:60%;display:flex;align-items:flex-end;justify-content:center;transform-origin:bottom}
+  .bar-label{font-family:var(--mono);font-size:18px;color:var(--text-dim);margin-top:20px;text-transform:uppercase;letter-spacing:0.16em}
+  .s2-cap{margin-top:60px;font-weight:200;font-size:96px;line-height:0.95;letter-spacing:-0.04em}
+  .s2-cap b{font-weight:900;color:var(--accent)}
+
+  /* S3 goals */
+  .goals-h{text-align:center;font-family:var(--mono);font-size:24px;letter-spacing:0.4em;color:var(--text-dim);text-transform:uppercase;margin-bottom:50px}
+  .goals{display:flex;flex-direction:column;gap:34px;width:100%;max-width:840px}
+  .goal{font-weight:200;font-size:88px;line-height:1;letter-spacing:-0.03em;text-align:center}
+  .goal b{font-weight:900;color:var(--accent)}
+
+  /* S4 modelo */
+  .model-title{font-weight:200;font-size:120px;line-height:0.95;letter-spacing:-0.03em}
+  .model-title b{font-weight:900;color:var(--accent)}
+  .model-sub{margin-top:48px;font-family:var(--mono);font-size:24px;letter-spacing:0.28em;color:var(--text-dim);text-transform:uppercase}
+
+  /* S5 close */
+  .close-quote{font-weight:200;font-size:96px;line-height:0.95;letter-spacing:-0.03em;text-align:center}
+  .close-quote b{font-weight:900;color:var(--accent)}
+  .close-cta{margin-top:60px;display:inline-block;padding:28px 56px;border:2px solid var(--accent);border-radius:18px;font-family:var(--mono);font-size:26px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent)}
+  .close-mark{margin-top:42px;font-family:var(--mono);font-size:20px;color:var(--text-faint);letter-spacing:0.5em;text-transform:uppercase;text-align:center}
+
+  .wipe{position:absolute;inset:0;background:var(--accent);z-index:80;transform:translateY(100%)}
+  .wipe-2{background:#0a0a0c;z-index:81}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-width="1080" data-height="1920">
+  <div class="grid-bg" id="grid"></div>
+  <div class="depth" id="depth"></div>
+  <div class="particles" id="particles"></div>
+
+  <!-- S1 hook — franchising -->
+  <div id="s1" class="scene">
+    <div>
+      <div class="eyebrow-mono">franchising</div>
+      <div class="hook-question">tem um ginásio,<br>clínica ou <b>estúdio</b>?</div>
+    </div>
+  </div>
+
+  <!-- S2 receita -->
+  <div id="s2" class="scene">
+    <div>
+      <div class="revenue-bars">
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div class="bar bar-hoje"></div>
+          <div class="bar-label">hoje</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div class="bar bar-tech" id="s2-bar-tech"></div>
+          <div class="bar-label">com<br>techbody</div>
+        </div>
+      </div>
+      <div class="s2-cap">uma linha de <b>receita nova</b><br>no espaço que já tem</div>
+    </div>
+  </div>
+
+  <!-- S3 goals -->
+  <div id="s3" class="scene">
+    <div>
+      <div class="goals-h">modelo</div>
+      <div class="goals">
+        <div class="goal" id="g1">sessões <b>curtas</b></div>
+        <div class="goal" id="g2">alto <b>valor</b> por sessão</div>
+        <div class="goal" id="g3">clientes que <b>voltam</b></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S4 modelo chave-na-mao -->
+  <div id="s4" class="scene">
+    <div>
+      <div class="model-title">modelo <b>chave-na-mão</b></div>
+      <div class="model-sub">método · formação · tecnologia</div>
+    </div>
+  </div>
+
+  <!-- S5 close -->
+  <div id="s5" class="scene">
+    <div>
+      <div class="close-quote">agende uma reunião<br>de <b>avaliação</b></div>
+      <div class="close-cta">franchising · link na bio</div>
+      <div class="close-mark">@techbody_pt</div>
+    </div>
+  </div>
+
+  <div class="wipe" id="w1"></div>
+  <div class="wipe wipe-2" id="w2"></div>
+  <div class="wipe" id="w3"></div>
+  <div class="wipe wipe-2" id="w4"></div>
+
+  <div class="vignette"></div>
+  <div class="grain"></div>
+
+  <audio id="narr" src="audio/narration.mp3" data-start="0" data-duration="26.36" data-track-index="9" data-volume="1"></audio>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({paused:true});
+    const S = [0.3, 3.81, 9.15, 14.3, 20.72];
+    const TOTAL = 26.36;
+    function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+    const rand = rng(109);
+    function wipeIn(el, fromY, toY, t, prev, next){
+      tl.fromTo(el,{y:fromY},{y:'0%',duration:0.4,ease:'expo.in'},t-0.4);
+      tl.set(prev,{opacity:0},t-0.05); tl.set(next,{opacity:1},t-0.05);
+      tl.to(el,{y:toY,duration:0.4,ease:'expo.out',overwrite:'auto'},t);
+    }
+
+    // ===== AMBIENTE =====
+    const reps=(start,cyc)=>Math.max(0,Math.floor((TOTAL-start)/cyc)-1);
+    tl.to('#grid',{backgroundPositionX:'72px',backgroundPositionY:'72px',duration:8,ease:'none',repeat:reps(0,8)},0);
+    tl.to('#depth',{opacity:0.6,duration:3.5,ease:'sine.inOut',yoyo:true,repeat:reps(0,3.5),overwrite:'auto'},0);
+    const pf = document.getElementById('particles');
+    for(let i=0;i<16;i++){
+      const d=document.createElement('div');d.className='pt';
+      const x=Math.round(rand()*1080), sz=4+Math.round(rand()*6), cyc=5+rand()*4, start=+(rand()*3).toFixed(2);
+      d.style.left=x+'px';d.style.width=sz+'px';d.style.height=sz+'px';
+      pf.appendChild(d);
+      tl.fromTo(d,{y:1980,opacity:0},{y:-60,opacity:0.5,duration:cyc,ease:'none',repeat:reps(start,cyc)},start);
+    }
+    tl.set('#grid',{opacity:1},TOTAL);
+
+    // ===== S1 =====
+    tl.to('#s1',{opacity:1,duration:0.01},S[0]);
+    tl.from('#s1 .eyebrow-mono',{y:16,opacity:0,duration:0.5},S[0]+0.1);
+    tl.from('#s1 .hook-question',{y:40,opacity:0,duration:0.8,ease:'expo.out'},S[0]+0.4);
+    tl.from('#s1 .hook-question b',{scale:1.08,duration:0.8,ease:'power3.out'},S[0]+0.9);
+
+    // ===== S2 =====
+    wipeIn('#w1','100%','-100%',S[1],'#s1','#s2');
+    tl.from('#s2 .bar-hoje',{scaleY:0,opacity:0,duration:0.7,ease:'back.out(1.8)'},S[1]+0.15);
+    tl.to('#s2-bar-tech',{scaleY:1,opacity:1,duration:1.2,ease:'power2.out'},S[1]+0.5);
+    tl.from('#s2 .bar-label',{y:12,opacity:0,duration:0.5,stagger:0.15},S[1]+1.3);
+    tl.from('#s2 .s2-cap',{y:28,opacity:0,duration:0.8,ease:'expo.out'},S[1]+2.2);
+    tl.from('#s2 .s2-cap b',{scale:1.12,duration:0.8,ease:'power3.out'},S[1]+2.6);
+
+    // ===== S3 =====
+    wipeIn('#w2','-100%','100%',S[2],'#s2','#s3');
+    tl.from('#s3 .goals-h',{y:18,opacity:0,duration:0.5},S[2]+0.1);
+    tl.from('#g1',{x:-50,opacity:0,duration:0.55,ease:'expo.out'},S[2]+0.5);
+    tl.from('#g2',{x:-50,opacity:0,duration:0.55,ease:'expo.out'},S[2]+0.95);
+    tl.from('#g3',{x:-50,opacity:0,duration:0.55,ease:'expo.out'},S[2]+1.4);
+
+    // ===== S4 =====
+    wipeIn('#w3','100%','-100%',S[3],'#s3','#s4');
+    tl.from('#s4 .model-title',{y:50,opacity:0,duration:0.9,ease:'expo.out'},S[3]+0.1);
+    tl.from('#s4 .model-title b',{scale:1.1,duration:0.9,ease:'power3.out'},S[3]+0.55);
+    tl.from('#s4 .model-sub',{y:16,opacity:0,duration:0.6},S[3]+1.0);
+
+    // ===== S5 =====
+    wipeIn('#w4','-100%','100%',S[4],'#s4','#s5');
+    tl.from('#s5 .close-quote',{y:50,opacity:0,duration:0.9,ease:'expo.out'},S[4]+0.1);
+    tl.from('#s5 .close-quote b',{scale:1.1,duration:0.9,ease:'power3.out'},S[4]+0.55);
+    tl.from('#s5 .close-cta',{scale:0.8,opacity:0,duration:0.5,ease:'back.out(2)'},S[4]+1.2);
+    tl.to('#s5 .close-cta',{scale:1.06,duration:0.5,ease:'sine.inOut',yoyo:true,repeat:1,overwrite:'auto'},S[4]+1.8);
+    tl.from('#s5 .close-mark',{y:14,opacity:0,duration:0.6},S[4]+1.6);
+    tl.to('#s5',{opacity:0,duration:0.5,ease:'power2.in'},TOTAL-0.5);
+
+    window.__timelines["root"] = tl;
+  </script>
+</div>
+</body>
+</html>
