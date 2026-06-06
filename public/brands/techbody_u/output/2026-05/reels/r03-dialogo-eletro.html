@@ -83,12 +83,12 @@
   <div id="s2" class="scene">
     <div>
       <div class="q-label">perguntas <b>&amp;</b> respostas · 02</div>
-      <div class="question">substitui o <em>ginásio</em>?</div>
+      <div class="question">quanto tempo<br>por <em>sessão</em>?</div>
       <span class="q-rule"></span>
       <div class="answer" id="a2">
         <div class="a-stat" id="s2-num">25</div>
         <div class="a-stat-unit">minutos</div>
-        <div class="a-sub">chegam para uma sessão completa —<br>complemente ou substitua</div>
+        <div class="a-sub">três vezes por semana —<br>sem sair de casa</div>
       </div>
     </div>
   </div>
@@ -102,12 +102,12 @@
         <div class="phone">
           <div class="app">
             <div class="app-h">na aplicação</div>
-            <div class="app-line">vista o fato,<br>abra a aplicação</div>
+            <div class="app-line">vista o fato,<br>siga o plano</div>
             <div class="app-play" id="s3-play"></div>
             <div class="app-prog"><div class="app-fill" id="s3-fill"></div></div>
           </div>
         </div>
-        <div class="a-sub" style="margin-top:42px">ela guia a sessão do início ao fim</div>
+        <div class="a-sub" style="margin-top:42px">treinos novos todas as semanas</div>
       </div>
     </div>
   </div>
@@ -119,8 +119,8 @@
       <div class="question">quanto <em>custa</em>?</div>
       <span class="q-rule"></span>
       <div class="answer" id="a4">
-        <div class="a-big">compra única,<br>sem mensalidades</div>
-        <div class="a-sub">os detalhes estão no site</div>
+        <div class="a-big">pagamento único<br>ou em mensalidades</div>
+        <div class="a-sub">como preferir — os valores estão no site</div>
         <div class="close-cta">link na bio</div>
         <div class="close-handle">@techbody_u</div>
       </div>
@@ -132,15 +132,15 @@
   <div class="vignette"></div>
   <div class="grain"></div>
 
-  <audio id="narr" src="audio/narration.mp3" data-start="0" data-duration="29.41" data-track-index="9" data-volume="1"></audio>
+  <audio id="narr" src="audio/narration.mp3" data-start="0" data-duration="33.59" data-track-index="9" data-volume="1"></audio>
 
   <script>
     window.__timelines = window.__timelines || {};
     const tl = gsap.timeline({paused:true});
     // Cada cena = pergunta no ecrã; a voz responde 1.3s depois (timings.json).
-    const S = [0.3, 6.99, 13.37, 21.26];
+    const S = [0.3, 7.65, 14.25, 23.03];
     const VOICE = 1.3; // atraso entre pergunta e início da resposta falada
-    const TOTAL = 29.41;
+    const TOTAL = 33.59;
     function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
     const rand = rng(57);
     function wipeIn(el,fromX,toX,t,prev,next){tl.fromTo(el,{x:fromX},{x:'0%',duration:0.4,ease:'expo.in'},t-0.4);tl.set(prev,{opacity:0},t-0.05);tl.set(next,{opacity:1},t-0.05);tl.to(el,{x:toX,duration:0.4,ease:'expo.out',overwrite:'auto'},t);}

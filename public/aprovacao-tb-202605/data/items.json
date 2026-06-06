@@ -783,7 +783,7 @@
   "pilar": "Voz da marca",
   "audience": "b2c",
   "title": "Eletroestimulação, em conversa.",
-  "slides": 29,
+  "slides": 34,
   "slides_text": [
    {
     "role": "hook",
@@ -791,15 +791,15 @@
    },
    {
     "role": "demo",
-    "text_overlay": "Substitui o ginásio? — 25 minutos chegam para uma sessão completa."
+    "text_overlay": "Quanto tempo por sessão? — 25 minutos, três vezes por semana. Sem sair de casa."
    },
    {
     "role": "demo",
-    "text_overlay": "Dá para treinar em casa? — Vista o fato, abra a aplicação. Ela guia a sessão."
+    "text_overlay": "Dá para treinar em casa? — Vista o fato, abra a aplicação, siga o plano. Treinos novos todas as semanas."
    },
    {
     "role": "cta",
-    "text_overlay": "Quanto custa? — Compra única, sem mensalidades. Link na bio."
+    "text_overlay": "Quanto custa? — Pagamento único ou em mensalidades, como preferir. Valores no site, link na bio."
    }
   ],
   "html_url": "../brands/techbody_u/output/2026-05/reels/r03-dialogo-eletro.html",
