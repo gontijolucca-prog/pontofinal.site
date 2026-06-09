@@ -182,9 +182,67 @@ html, body { height: 100%; background: #0a0a0c; color: var(--text); font-family:
   line-height: 1;
 }
 </style>
+<!-- fx-loops -->
+<style id="fx-loops">
+/* ═══ FX loops — decorativos animados, texto estático (legível sempre) ═══ */
+:root { --fxc: infinite; } /* render substitui por contagem finita */
+
+.fx-orb {
+  position: absolute; width: 62%; aspect-ratio: 1; border-radius: 50%;
+  top: -12%; right: -14%; z-index: 0; pointer-events: none;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 24%, transparent), transparent 66%);
+  filter: blur(36px);
+  animation: fx-drift 12s ease-in-out var(--fxc);
+}
+@keyframes fx-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: .75; }
+  50%      { transform: translate(-9%, 10%) scale(1.18); opacity: 1; }
+}
+
+.slide__photo, .bg-photo, .slide--photo .photo {
+  animation: fx-kenburns 12s ease-in-out var(--fxc);
+  will-change: transform;
+}
+@keyframes fx-kenburns { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+
+.num { animation: fx-float 6s ease-in-out var(--fxc); }
+@keyframes fx-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+h1 em, blockquote em { animation: fx-em 4s ease-in-out var(--fxc); }
+@keyframes fx-em { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.25); } }
+
+.arrow, .slide__cta, .story-single__cta { animation: fx-nudge 2s ease-in-out var(--fxc); display: inline-block; }
+@keyframes fx-nudge { 0%, 100% { transform: translateX(0); } 60% { transform: translateX(7px); } }
+
+/* ─ slide 1: assinatura ─ */
+.carousel .slide:first-child .slide__body::after {
+  content: ""; display: block; height: 5px; width: 36%;
+  margin-top: clamp(14px, 2vw, 26px);
+  background: var(--accent); transform-origin: center;
+  animation: fx-sweep 6s cubic-bezier(.65, 0, .25, 1) var(--fxc);
+}
+@keyframes fx-sweep { 0%, 100% { transform: scaleX(.14); opacity: .6; } 50% { transform: scaleX(1); opacity: 1; } }
+.carousel .slide:first-child .fx-orb { width: 80%; top: -18%; right: -20%; }
+
+/* ─ stories: texto centrado ─ */
+.story-single__body {
+  justify-items: center !important; align-content: center !important;
+  text-align: center !important; justify-self: stretch !important;
+}
+.story-single__body h1, .story-single__body .num, .story-single__body p { margin-inline: auto; }
+.story-single--quote .story-single__body { border-left: none !important; padding-left: 0 !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-orb, .slide__photo, .bg-photo, .slide--photo .photo, .num,
+  h1 em, blockquote em, .arrow, .slide__cta, .story-single__cta { animation: none !important; }
+  .carousel .slide:first-child .slide__body::after { animation: none !important; }
+}
+</style>
+
 </head>
 <body>
 <section class="story-single story-single--type-soft" aria-label="Story TechBody U — tecsuit_na_mala">
+  <div class="fx-orb"></div>
   <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e2-aquecimento-controlado_2964211229.png')"></div>
   <div class="story-single__top">
     <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span>

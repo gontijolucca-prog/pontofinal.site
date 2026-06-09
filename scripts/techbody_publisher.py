@@ -172,11 +172,15 @@ def build_assets(item):
     if fmt == "carrossel":
         n = int(item.get("slides") or 6)
         # base .../carrosseis/c01-slug → shots em c01-slug_shots/slide_NN.png
+        # slides animados (loops julho+) vivem ao lado: slide_NN.mp4
         folder = base.rsplit("/", 1)
         shots = f"{folder[0]}/{folder[1]}_shots"
-        return {"photos": [f"{shots}/slide_{i:02d}.png" for i in range(1, n + 1)]}
+        return {
+            "photos": [f"{shots}/slide_{i:02d}.png" for i in range(1, n + 1)],
+            "videos": [f"{shots}/slide_{i:02d}.mp4" for i in range(1, n + 1)],
+        }
     if fmt == "story":
-        return {"photos": [base + ".png"]}
+        return {"photos": [base + ".png"], "video": base + ".mp4"}
     if fmt == "reel":
         return {"video": base + ".mp4"}
     raise ValueError(f"formato desconhecido: {fmt}")
@@ -232,13 +236,27 @@ def publish_item(item, caption, ig_user, token):
     fmt = item["format"]
 
     if fmt == "carrossel":
-        for url in assets["photos"]:
-            if not head_ok(url):
-                raise RuntimeError(f"asset em falta: {url}")
+        # slide animado (mp4 live) tem prioridade sobre o PNG estático
+        slides = []
+        for i, photo in enumerate(assets["photos"]):
+            video = (assets.get("videos") or [None] * len(assets["photos"]))[i]
+            if video and head_ok(video):
+                slides.append(("video", video))
+            elif head_ok(photo):
+                slides.append(("image", photo))
+            else:
+                raise RuntimeError(f"asset em falta: {photo}")
         children = []
         try:
-            for url in assets["photos"]:
-                children.append(ig_create(ig_user, token, {"image_url": url, "is_carousel_item": "true"}))
+            for kind, url in slides:
+                if kind == "video":
+                    cid = ig_create(ig_user, token, {
+                        "media_type": "VIDEO", "video_url": url, "is_carousel_item": "true",
+                    })
+                    ig_wait(cid, token)  # children de vídeo têm de chegar a FINISHED
+                else:
+                    cid = ig_create(ig_user, token, {"image_url": url, "is_carousel_item": "true"})
+                children.append(cid)
                 time.sleep(2)
             parent = ig_create(ig_user, token, {
                 "media_type": "CAROUSEL", "children": ",".join(children), "caption": caption,
@@ -252,10 +270,14 @@ def publish_item(item, caption, ig_user, token):
             raise RuntimeError(f"{e} [children criados: {','.join(children) or 'nenhum'}]") from e
 
     if fmt == "story":
-        url = assets["photos"][0]
-        if not head_ok(url):
-            raise RuntimeError(f"asset em falta: {url}")
-        c = ig_create(ig_user, token, {"media_type": "STORIES", "image_url": url})
+        video = assets.get("video")
+        if video and head_ok(video):
+            c = ig_create(ig_user, token, {"media_type": "STORIES", "video_url": video})
+        else:
+            url = assets["photos"][0]
+            if not head_ok(url):
+                raise RuntimeError(f"asset em falta: {url}")
+            c = ig_create(ig_user, token, {"media_type": "STORIES", "image_url": url})
         ig_wait(c, token)
         return ig_publish(ig_user, token, c)
 
