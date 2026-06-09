@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="app-version" content="20260607-0030" />
+<meta name="app-version" content="20260609-2203" />
 <title>Aprovação · Conteúdo</title>
 
 <script>
@@ -91,7 +91,11 @@
 <a class="skip-link" href="#main">Saltar para conteúdo</a>
 
 <header class="app-header">
-  <div class="logo">TechBody_</div>
+  <div class="logo" id="brandLogo"></div>
+  <script type="module">
+    import { CLIENT_NAME } from "./js/config.js";
+    document.getElementById("brandLogo").textContent = CLIENT_NAME;
+  </script>
   <div class="header-meta">
     <span id="headerLabel">Aprovação</span>
   </div>

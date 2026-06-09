@@ -10,6 +10,8 @@
 export const SUPABASE_URL      = "https://ojbigtskkhmnerrppdjq.supabase.co";
 export const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9qYmlndHNra2htbmVycnBwZGpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwMjk1MDksImV4cCI6MjA5NDYwNTUwOX0.gFcdOh19siLqTzTsmoYDs2ZjA4l3uykRs01sRebkdZQ";
 
+// Nome mostrado no header — única coisa visual que difere entre gémeas
+export const CLIENT_NAME = "Luiz Santana_";
 export const NAMESPACE = "cm-approval-luiz-v1";
 
 // URL da página de Dashboard correspondente. Vazio = sem link no header.
@@ -33,4 +35,4 @@ export const AUTH_ENABLED = false;
 // Versão do app. Comparada periodicamente contra /version.txt no servidor.
 // Se divergir, o badge muda para "🔄 Nova versão" e o user sabe que está
 // numa sessão desactualizada. Bump em cada deploy importante.
-export const APP_VERSION = "20260607-0030";
+export const APP_VERSION = "20260609-2203";
