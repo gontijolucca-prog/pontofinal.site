@@ -50,6 +50,13 @@ jobs:
           DRY_RUN: ${{ github.event.inputs.dry_run || '0' }}
         run: python3 -u scripts/techbody_publisher.py
 
+      - name: Alertar falhas (issue deduped + email)
+        if: always() && steps.gate.outputs.run == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: python3 -u scripts/publish_alerts.py
+
       - name: Verificar meses 100% aprovados
         id: gen
         if: steps.gate.outputs.run == '1'

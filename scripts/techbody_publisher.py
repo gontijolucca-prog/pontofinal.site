@@ -178,11 +178,23 @@ def ig_wait(container, token, tries=40, delay=15):
     raise RuntimeError(f"container {container} não ficou pronto a tempo")
 
 
+class UncertainPublish(RuntimeError):
+    """Falha no media_publish final — o post PODE ter saído do lado da Meta.
+
+    Nunca converter em 'error' retryável: re-tentar às cegas foi a causa dos
+    5 reels duplicados de maio. O claim fica em 'publishing' até verificação
+    manual no Instagram.
+    """
+
+
 def ig_publish(ig_user, token, container):
-    code, resp = http(
-        "POST", f"{GRAPH}/{ig_user}/media_publish",
-        {"creation_id": container, "access_token": token}, as_json=False,
-    )
+    try:
+        code, resp = http(
+            "POST", f"{GRAPH}/{ig_user}/media_publish",
+            {"creation_id": container, "access_token": token}, as_json=False,
+        )
+    except Exception as e:
+        raise UncertainPublish(f"media_publish sem resposta ({e}) — post pode ter saído") from e
     if code != 200 or "id" not in resp:
         raise RuntimeError(f"publish falhou: {code} {resp}")
     return resp["id"]
@@ -197,14 +209,20 @@ def publish_item(item, caption, ig_user, token):
             if not head_ok(url):
                 raise RuntimeError(f"asset em falta: {url}")
         children = []
-        for url in assets["photos"]:
-            children.append(ig_create(ig_user, token, {"image_url": url, "is_carousel_item": "true"}))
-            time.sleep(2)
-        parent = ig_create(ig_user, token, {
-            "media_type": "CAROUSEL", "children": ",".join(children), "caption": caption,
-        })
-        ig_wait(parent, token)
-        return ig_publish(ig_user, token, parent)
+        try:
+            for url in assets["photos"]:
+                children.append(ig_create(ig_user, token, {"image_url": url, "is_carousel_item": "true"}))
+                time.sleep(2)
+            parent = ig_create(ig_user, token, {
+                "media_type": "CAROUSEL", "children": ",".join(children), "caption": caption,
+            })
+            ig_wait(parent, token)
+            return ig_publish(ig_user, token, parent)
+        except UncertainPublish:
+            raise
+        except Exception as e:
+            # containers órfãos expiram sozinhos na Meta; IDs ficam no erro p/ diagnóstico
+            raise RuntimeError(f"{e} [children criados: {','.join(children) or 'nenhum'}]") from e
 
     if fmt == "story":
         url = assets["photos"][0]
@@ -235,8 +253,27 @@ def main():
     now = datetime.now(TZ)
     print(f"== techbody_publisher {now.isoformat()} (cap={PUBLISH_CAP}, dry={DRY})")
 
-    # ledger: items já publicados ou em erro permanente
-    ledger = {r["item_id"]: r for r in sb("GET", "/publish_queue?select=item_id,status")}
+    # ledger: items já publicados, em erro permanente ou com claim pendente
+    try:
+        ledger = {r["item_id"]: r for r in sb("GET", "/publish_queue?select=item_id,status,created_at")}
+    except RuntimeError:
+        ledger = {r["item_id"]: r for r in sb("GET", "/publish_queue?select=item_id,status")}
+
+    # claims 'publishing' antigos = run anterior morreu a meio; nunca republicar
+    # às cegas — alertar para verificação manual no Instagram
+    alerts = []
+    for lid, row in ledger.items():
+        if row.get("status") != "publishing":
+            continue
+        try:
+            created = datetime.fromisoformat((row.get("created_at") or "").replace("Z", "+00:00"))
+            age_h = (now - created.astimezone(TZ)).total_seconds() / 3600
+        except ValueError:
+            age_h = 999.0
+        if age_h > 1:
+            print(f"STUCK {lid}: claim 'publishing' há {age_h:.1f}h — verificar no Instagram e marcar published/error no Supabase")
+            alerts.append({"type": "stuck_publishing", "item_id": lid,
+                           "detail": f"claim 'publishing' há {age_h:.1f}h; confirmar no Instagram se o post saiu e corrigir o publish_queue"})
 
     published = 0
     for ns, deploy in DEPLOYS.items():
@@ -256,14 +293,11 @@ def main():
             base = state.get(iid, {})
             if base.get("status") != "approved":
                 continue
-            if iid in ledger and ledger[iid].get("status") in ("published", "error_permanent"):
+            lstatus = ledger.get(iid, {}).get("status")
+            if lstatus in ("published", "error_permanent"):
                 continue
-
-            brand = item["brand"]
-            env_tok, env_uid = BRAND_ENV[brand]
-            token, ig_user = os.environ.get(env_tok, ""), os.environ.get(env_uid, "")
-            if not token or not ig_user:
-                print(f"SKIP {iid}: sem token/user para {brand}")
+            if lstatus == "publishing":
+                print(f"SKIP {iid}: claim 'publishing' pendente — não republico sem verificação manual")
                 continue
 
             date = note_text(state.get(f"{iid}:date", {}).get("note")) or item.get("scheduled_for")
@@ -274,6 +308,27 @@ def main():
                 print(f"SKIP {iid}: data inválida {date!r}")
                 continue
             if when > now:
+                continue
+
+            brand = item["brand"]
+            env_tok, env_uid = BRAND_ENV[brand]
+            token, ig_user = os.environ.get(env_tok, ""), os.environ.get(env_uid, "")
+            if not token or not ig_user:
+                print(f"SKIP {iid}: sem token/user para {brand}")
+                # item DUE sem token não pode falhar em silêncio: fica no ledger
+                # (1.ª vez) e gera alerta; quando o token chegar, volta a ser elegível
+                if lstatus != "skipped_no_token" and not DRY:
+                    alerts.append({"type": "skipped_no_token", "item_id": iid,
+                                   "detail": f"item due ({when:%Y-%m-%d %H:%M}) sem token/user para {brand}"})
+                    try:
+                        sb("POST", "/publish_queue", {
+                            "item_id": iid, "namespace": ns, "brand": brand,
+                            "kind": item["format"], "status": "skipped_no_token",
+                            "caption": f"sem token/user para {brand}",
+                            "scheduled_for": when.isoformat(),
+                        }, prefer="resolution=merge-duplicates")
+                    except Exception as e:
+                        print(f"  (ledger do skip falhou: {e})")
                 continue
 
             cap_copy = note_text(state.get(f"{iid}:caption:copy", {}).get("note"))
@@ -287,19 +342,30 @@ def main():
                 published += 1
                 continue
 
+            # claim ANTES de publicar: crash entre o Instagram e o ledger nunca
+            # pode resultar em post duplicado no cron seguinte
             try:
-                media_id = publish_item(item, caption, ig_user, token)
                 sb("POST", "/publish_queue", {
                     "item_id": iid, "namespace": ns, "brand": brand,
-                    "kind": item["format"], "status": "published",
-                    "caption": caption[:500],
-                    "assets": build_assets(item),
+                    "kind": item["format"], "status": "publishing",
                     "scheduled_for": when.isoformat(),
                 }, prefer="resolution=merge-duplicates")
-                print(f"OK {iid} → media {media_id}")
-                published += 1
+            except Exception as e:
+                print(f"SKIP {iid}: claim falhou ({e}) — sem claim não publico")
+                continue
+
+            try:
+                media_id = publish_item(item, caption, ig_user, token)
+            except UncertainPublish as e:
+                # post PODE ter saído — claim fica em 'publishing' (bloqueia retry)
+                print(f"INCERTO {iid}: {e}")
+                alerts.append({"type": "uncertain_publish", "item_id": iid, "brand": brand,
+                               "detail": f"{str(e)[:300]} — verificar no Instagram; marcar published/error no Supabase"})
+                continue
             except Exception as e:
                 print(f"ERRO {iid}: {e}")
+                alerts.append({"type": "publish_error", "item_id": iid, "brand": brand,
+                               "detail": str(e)[:300]})
                 try:
                     sb("POST", "/publish_queue", {
                         "item_id": iid, "namespace": ns, "brand": brand,
@@ -308,7 +374,31 @@ def main():
                         "scheduled_for": when.isoformat(),
                     }, prefer="resolution=merge-duplicates")
                 except Exception as e2:
-                    print(f"  (ledger também falhou: {e2})")
+                    print(f"  (ledger também falhou: {e2} — fica 'publishing'; alerta de stuck no próximo run)")
+                continue
+
+            # publicado com sucesso — se o update do ledger falhar, NUNCA marcar
+            # 'error' (tornaria o item retryável = duplicado garantido)
+            try:
+                sb("POST", "/publish_queue", {
+                    "item_id": iid, "namespace": ns, "brand": brand,
+                    "kind": item["format"], "status": "published",
+                    "caption": caption[:500],
+                    "assets": dict(build_assets(item), media_id=media_id),
+                    "scheduled_for": when.isoformat(),
+                }, prefer="resolution=merge-duplicates")
+                print(f"OK {iid} → media {media_id}")
+            except Exception as e:
+                print(f"AVISO {iid}: PUBLICADO (media {media_id}) mas ledger não atualizou: {e}")
+                alerts.append({"type": "ledger_update_failed", "item_id": iid, "brand": brand,
+                               "detail": f"post SAIU (media_id={media_id}) mas ficou 'publishing' no ledger — marcar 'published' no Supabase"})
+            published += 1
+
+    if alerts and not DRY:
+        alerts_path = os.path.join(ROOT, "publish_alerts.json")
+        with open(alerts_path, "w", encoding="utf-8") as f:
+            json.dump(alerts, f, ensure_ascii=False, indent=1)
+        print(f"== {len(alerts)} alerta(s) → {alerts_path}")
 
     print(f"== fim: {published} publicados/planeados")
 
