@@ -1,0 +1,32 @@
+name: Approval Pages Check
+
+# Guard-rails das páginas de aprovação:
+#   1. triple de versão consistente (index.html meta == config.js == version.txt)
+#   2. gémeas TB/Luiz em sincronia (exceto config/data/version)
+# Falha o PR/push antes de o drift chegar aos clientes.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "public/aprovacao-*/**"
+      - "scripts/bump_version.py"
+      - "scripts/twin_sync_check.py"
+  pull_request:
+    paths:
+      - "public/aprovacao-*/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Triple de versão consistente
+        run: python3 scripts/bump_version.py --check public/aprovacao-tb-202605 public/aprovacao-luiz-202605
+      - name: Gémeas em sincronia
+        run: python3 scripts/twin_sync_check.py
