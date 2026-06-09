@@ -1,0 +1,109 @@
+name: Refresh IG Tokens
+
+# Renova semanalmente os tokens IGAA (60 dias) guardados no Supabase
+# `ig_tokens`. O publisher lê de lá — renovação 100% autónoma, sem mexer
+# em GH secrets. Regras Meta: token só renova com >24h de idade; cada
+# refresh devolve um token novo com mais 60 dias.
+
+on:
+  schedule:
+    - cron: "0 2 * * 1"   # segundas 02:00 UTC, antes do primeiro slot do dia
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: token-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Renovar tokens no Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          python3 - <<'EOF'
+          import json, os, sys, urllib.parse, urllib.request
+          from datetime import datetime, timedelta, timezone
+
+          SB = os.environ["SUPABASE_URL"].rstrip("/")
+          KEY = os.environ["SUPABASE_SERVICE_ROLE_KEY"]
+
+          def sb(method, path, body=None):
+              req = urllib.request.Request(
+                  f"{SB}/rest/v1{path}",
+                  data=json.dumps(body).encode() if body else None,
+                  method=method,
+                  headers={"apikey": KEY, "Authorization": f"Bearer {KEY}",
+                           "Content-Type": "application/json"},
+              )
+              with urllib.request.urlopen(req, timeout=60) as r:
+                  raw = r.read().decode()
+                  return json.loads(raw) if raw else {}
+
+          now = datetime.now(timezone.utc)
+          rows = sb("GET", "/ig_tokens?select=brand,token,refreshed_at,status")
+          failed = []
+          for row in rows:
+              brand, token = row["brand"], row["token"]
+              if row.get("status") != "active":
+                  print(f"{brand}: status={row.get('status')} — salto")
+                  continue
+              age_h = (now - datetime.fromisoformat(row["refreshed_at"].replace("Z", "+00:00"))).total_seconds() / 3600
+              if age_h < 24:
+                  print(f"{brand}: token com {age_h:.0f}h (<24h) — Meta não renova ainda, salto")
+                  continue
+              url = ("https://graph.instagram.com/refresh_access_token"
+                     f"?grant_type=ig_refresh_token&access_token={urllib.parse.quote(token)}")
+              try:
+                  resp = json.load(urllib.request.urlopen(url, timeout=30))
+                  new_token, expires_in = resp["access_token"], int(resp.get("expires_in", 5184000))
+                  # confirmar identidade antes de gravar — nunca cruzar contas
+                  me = json.load(urllib.request.urlopen(
+                      f"https://graph.instagram.com/v23.0/me?fields=username&access_token={urllib.parse.quote(new_token)}",
+                      timeout=30))
+                  sb("PATCH", f"/ig_tokens?brand=eq.{brand}", {
+                      "token": new_token,
+                      "refreshed_at": now.isoformat(),
+                      "expires_at": (now + timedelta(seconds=expires_in)).isoformat(),
+                      "status": "active", "last_error": None,
+                  })
+                  print(f"{brand}: renovado ✓ (@{me.get('username')}, +{expires_in // 86400}d)")
+              except Exception as e:
+                  print(f"{brand}: refresh FALHOU: {e}")
+                  failed.append(brand)
+                  try:
+                      sb("PATCH", f"/ig_tokens?brand=eq.{brand}",
+                         {"status": "failed", "last_error": str(e)[:300]})
+                  except Exception as e2:
+                      print(f"  (patch falhou: {e2})")
+
+          # watchdog: token ativo demasiado velho = renovação a falhar em silêncio
+          for row in sb("GET", "/ig_tokens?select=brand,refreshed_at,status"):
+              age_d = (now - datetime.fromisoformat(row["refreshed_at"].replace("Z", "+00:00"))).days
+              if age_d > 50:
+                  print(f"WATCHDOG: {row['brand']} sem renovação há {age_d}d (expira aos 60d)")
+                  failed.append(row["brand"])
+
+          if failed:
+              print(f"FALHAS: {sorted(set(failed))}")
+              sys.exit(1)
+          EOF
+
+      - name: Abrir issue em falha
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="⚠️ Renovação de tokens IG falhou"
+          EXISTING=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$TITLE in:title" --json number --jq length)
+          if [ "$EXISTING" = "0" ]; then
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" \
+              --body "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} — ver logs; tokens expiram 60 dias após o último refresh bem-sucedido."
+          fi

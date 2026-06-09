@@ -54,6 +54,33 @@ BRAND_ENV = {
 SB_URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 SB_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
 
+_TOKENS_CACHE = None
+
+
+def brand_tokens():
+    """Tokens por marca: Supabase `ig_tokens` (renovados pelo token-refresh.yml)
+    com fallback para env vars durante a transição. Cache por execução."""
+    global _TOKENS_CACHE
+    if _TOKENS_CACHE is None:
+        _TOKENS_CACHE = {}
+        try:
+            for r in sb("GET", "/ig_tokens?select=brand,token,ig_user_id,status"):
+                if r.get("status") == "active" and r.get("token") and r.get("ig_user_id"):
+                    _TOKENS_CACHE[r["brand"]] = (r["token"], r["ig_user_id"])
+            if _TOKENS_CACHE:
+                print(f"tokens via Supabase: {', '.join(sorted(_TOKENS_CACHE))}")
+        except Exception as e:
+            print(f"AVISO: ig_tokens ilegível ({e}) — fallback para env vars")
+    return _TOKENS_CACHE
+
+
+def get_token(brand):
+    tok = brand_tokens().get(brand)
+    if tok:
+        return tok
+    env_tok, env_uid = BRAND_ENV[brand]
+    return os.environ.get(env_tok, ""), os.environ.get(env_uid, "")
+
 
 def http(method, url, data=None, headers=None, as_json=True, ok_codes=(200, 201)):
     body = None
@@ -311,8 +338,7 @@ def main():
                 continue
 
             brand = item["brand"]
-            env_tok, env_uid = BRAND_ENV[brand]
-            token, ig_user = os.environ.get(env_tok, ""), os.environ.get(env_uid, "")
+            token, ig_user = get_token(brand)
             if not token or not ig_user:
                 print(f"SKIP {iid}: sem token/user para {brand}")
                 # item DUE sem token não pode falhar em silêncio: fica no ledger
