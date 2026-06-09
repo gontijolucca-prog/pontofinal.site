@@ -11,14 +11,37 @@ Para cada deploy de aprovação (TB+TBU, Luiz):
 Env: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 """
 
+import glob
 import json
 import os
+import re
 import urllib.request
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TZ = ZoneInfo("Europe/Lisbon")
+PHOTO_REF = re.compile(r"assets/photos/([^\"' )]+)")
+PHOTO_EXTS = (".png", ".jpg", ".jpeg", ".webp")
+
+
+def free_photos(brand):
+    """Fotos do banco ainda nunca usadas (items.json photos_used + HTML deployado)."""
+    bank_dir = os.path.join(ROOT, "public", "brands", brand, "assets", "photos")
+    if not os.path.isdir(bank_dir):
+        return None
+    pool = {f for f in os.listdir(bank_dir) if f.lower().endswith(PHOTO_EXTS)}
+    used = set()
+    for items_path in glob.glob(os.path.join(ROOT, "public", "aprovacao-*", "data", "items.json")):
+        for item in json.load(open(items_path)):
+            if item.get("brand") == brand:
+                used.update(item.get("photos_used") or [])
+    for html in glob.glob(os.path.join(ROOT, "public", "brands", brand, "output", "*", "*", "*.html")):
+        try:
+            used.update(PHOTO_REF.findall(open(html, encoding="utf-8", errors="ignore").read()))
+        except OSError:
+            pass
+    return len(pool - used)
 
 DEPLOYS = {
     "cm-approval-tb-v1": ("public/aprovacao-tb-202605", "TechBody + TechBody U"),
@@ -69,7 +92,14 @@ def main():
         print(f"{ns}: {len(approved)}/{len(cur_items)} aprovados em {cur}")
         if len(approved) == len(cur_items):
             brands = sorted({i["brand"] for i in cur_items})
-            needs.append(f"{label} ({', '.join(brands)}): {cur} 100% aprovado → gerar {nxt}")
+            msg = f"{label} ({', '.join(brands)}): {cur} 100% aprovado → gerar {nxt}"
+            # banco de fotos esgotado tem de aparecer no issue — é o momento
+            # certo para pedir fotos novas ao cliente, antes de gerar
+            for b in brands:
+                free = free_photos(b)
+                if free is not None and free < 4:
+                    msg += f" ⚠️ banco de fotos {b}: {free} livres — pedir fotos novas ao cliente"
+            needs.append(msg)
 
     out = os.environ.get("GITHUB_OUTPUT")
     if out:
