@@ -230,267 +230,59 @@
     "hour": "09h"
   },
   {
-    "id": "luiz_santana-2026-05-s01",
+    "id": "luiz_santana-2026-05-c05",
     "brand": "luiz_santana",
     "month": "2026-06",
-    "format": "story",
-    "theme": "consistencia",
-    "pilar": "Filosofia do método",
+    "format": "carrossel",
+    "theme": "emagrecimento-glp1",
+    "pilar": "Emagrecimento e massa muscular",
     "audience": "b2c",
-    "title": "Consistência — quantas vezes por semana?",
-    "slides": 1,
+    "title": "Estás a emagrecer com Ozempic ou Mounjaro?",
+    "slides": 6,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Consistência… E tu, quantas vezes por semana treinas?"
-      }
-    ],
-    "html_url": "../brands/luiz_santana/output/2026-05/stories/s01-consistencia.html",
-    "photos_used": [],
-    "photo_positions": [],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-12",
-    "hour": "17h"
-  },
-  {
-    "id": "luiz_santana-2026-05-s02",
-    "brand": "luiz_santana",
-    "month": "2026-06",
-    "format": "story",
-    "theme": "dose_certa",
-    "pilar": "Prática supervisionada",
-    "audience": "b2c",
-    "title": "Treinas acompanhado ou sozinho?",
-    "slides": 1,
-    "slides_text": [
+        "text_overlay": "Estás a emagrecer com Ozempic ou Mounjaro? O peso desce. O músculo pode ir atrás."
+      },
       {
-        "role": "hook",
-        "text_overlay": "Treinas acompanhado ou sozinho?"
+        "role": "development",
+        "text_overlay": "Estes medicamentos cortam o apetite. Comes menos — e a balança desce."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Mas 25 a 30% desse peso pode ser músculo. Não gordura."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Menos músculo é metabolismo mais lento, mais cansaço — e peso que volta."
+      },
+      {
+        "role": "development",
+        "text_overlay": "A eletroestimulação de corpo inteiro ativa o músculo em profundidade. Vinte e cinco minutos — mesmo quando a energia para treinar está em baixo."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Estás a emagrecer com GLP-1? A TechBody ajuda-te a proteger o músculo. Comenta — eu digo-te por onde começar."
       }
     ],
-    "html_url": "../brands/luiz_santana/output/2026-05/stories/s02-dose-certa.html",
+    "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c05-emagrecimento-glp1.html",
     "photos_used": [
-      "magnific_c1.-silhouette-softly-blu_2964372464.jpg"
+      "magnific_a2.-firm-authority-direct_2964371283.jpg"
     ],
     "photo_positions": [
-      1
+      5
+    ],
+    "styles": [
+      "type",
+      "type",
+      "type",
+      "type",
+      "photo",
+      "type"
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-19",
-    "hour": "17h"
-  },
-  {
-    "id": "luiz_santana-2026-05-s03",
-    "brand": "luiz_santana",
-    "month": "2026-06",
-    "format": "story",
-    "theme": "reabilitacao",
-    "pilar": "Saúde e reabilitação",
-    "audience": "b2c",
-    "title": "Qual é o teu objetivo de treino?",
-    "slides": 1,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Qual é o teu objetivo de treino atual? Responde a este story."
-      }
-    ],
-    "html_url": "../brands/luiz_santana/output/2026-05/stories/s03-reabilitacao.html",
-    "photos_used": [],
-    "photo_positions": [],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-26",
-    "hour": "17h"
-  },
-  {
-    "id": "luiz_santana-2026-05-s04",
-    "brand": "luiz_santana",
-    "month": "2026-06",
-    "format": "story",
-    "theme": "rede_estudios",
-    "pilar": "Rede TechBody",
-    "audience": "b2c",
-    "title": "Estúdio ou casa?",
-    "slides": 1,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Preferes treinar em estúdio ou em casa?"
-      }
-    ],
-    "html_url": "../brands/luiz_santana/output/2026-05/stories/s04-rede-estudios.html",
-    "photos_used": [
-      "magnific_a7.-seated-confidence-edi_2964371960.jpg"
-    ],
-    "photo_positions": [
-      1
-    ],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-07-03",
-    "hour": "17h"
-  },
-  {
-    "id": "luiz_santana-2026-05-r01",
-    "brand": "luiz_santana",
-    "month": "2026-06",
-    "format": "reel",
-    "kind": "shoot_guide",
-    "theme": "quem_treina_ems",
-    "pilar": "A quem se destina",
-    "audience": "b2c",
-    "title": "Quem treina eletroestimulação? Toda a gente.",
-    "slides": 24,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Quem treina eletroestimulação? Toda a gente."
-      },
-      {
-        "role": "demo",
-        "text_overlay": "Profissionais com pouco tempo. Mães em programa pós-parto. Quem procura reabilitação."
-      },
-      {
-        "role": "demo",
-        "text_overlay": "Atletas a complementar treino. Adultos mais velhos a manter força e mobilidade."
-      },
-      {
-        "role": "proof",
-        "text_overlay": "O método ajusta-se. A intensidade é sempre controlada pelo treinador, em tempo real."
-      },
-      {
-        "role": "cta",
-        "text_overlay": "Marca a primeira sessão no estúdio TechBody."
-      }
-    ],
-    "html_url": "../brands/luiz_santana/output/2026-05/reels/r01-quem-treina-ems.playback.html",
-    "photos_used": [],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-09",
-    "hour": "18h"
-  },
-  {
-    "id": "luiz_santana-2026-05-r02",
-    "brand": "luiz_santana",
-    "month": "2026-06",
-    "format": "reel",
-    "kind": "shoot_guide",
-    "theme": "primeiro_dia",
-    "pilar": "Onboarding do cliente",
-    "audience": "b2c",
-    "title": "Como é o teu primeiro dia no estúdio.",
-    "slides": 25,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Nunca fizeste eletroestimulação? Vou-te contar como é o primeiro dia no estúdio."
-      },
-      {
-        "role": "demo",
-        "text_overlay": "Conversa curta sobre os teus objectivos e o teu historial. O treinador percebe de onde partes."
-      },
-      {
-        "role": "demo",
-        "text_overlay": "Avaliação inicial. Vestes o fato de eletroestimulação. O treinador acompanha cada movimento."
-      },
-      {
-        "role": "proof",
-        "text_overlay": "Vinte e cinco minutos depois, sais com a sessão feita. Sem cargas pesadas. Sem desculpas."
-      },
-      {
-        "role": "cta",
-        "text_overlay": "Marca a primeira sessão. Sem compromisso."
-      }
-    ],
-    "html_url": "../brands/luiz_santana/output/2026-05/reels/r02-primeiro-dia.html",
-    "photos_used": [],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-17",
-    "hour": "18h"
-  },
-  {
-    "id": "luiz_santana-2026-05-r03",
-    "brand": "luiz_santana",
-    "month": "2026-06",
-    "format": "reel",
-    "kind": "shoot_guide",
-    "theme": "recovery_reabilitacao",
-    "pilar": "Saúde e reabilitação",
-    "audience": "b2c",
-    "title": "Eletroestimulação para reabilitação. Não só treino.",
-    "slides": 26,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "A eletroestimulação é também reabilitação. Não só treino."
-      },
-      {
-        "role": "demo",
-        "text_overlay": "Dor lombar. Pós-lesão. Pós-cirurgia. Quando o impacto convencional pesa demais."
-      },
-      {
-        "role": "demo",
-        "text_overlay": "A eletroestimulação activa fibras profundas sem cargas pesadas. Impacto articular mínimo."
-      },
-      {
-        "role": "proof",
-        "text_overlay": "Cada sessão é supervisionada por treinador certificado. A intensidade é ajustada ao teu corpo, em tempo real."
-      },
-      {
-        "role": "cta",
-        "text_overlay": "Marca uma avaliação. Vamos ver se é para ti."
-      }
-    ],
-    "html_url": "../brands/luiz_santana/output/2026-05/reels/r03-recovery-reabilitacao.html",
-    "photos_used": [],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-23",
-    "hour": "18h"
-  },
-  {
-    "id": "luiz_santana-2026-05-r04",
-    "brand": "luiz_santana",
-    "month": "2026-06",
-    "format": "reel",
-    "kind": "shoot_guide",
-    "theme": "suporte_franchise",
-    "pilar": "Parceria e suporte",
-    "audience": "b2b",
-    "title": "Não vais sozinho. O método tem suporte.",
-    "slides": 26,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Vais abrir um estúdio TechBody? Não vais sozinho."
-      },
-      {
-        "role": "demo",
-        "text_overlay": "Plano de negócio adaptado ao teu mercado. Formação de treinadores em eletroestimulação."
-      },
-      {
-        "role": "demo",
-        "text_overlay": "Recrutamento da equipa. Marketing digital de lançamento. Tudo coordenado pela rede."
-      },
-      {
-        "role": "proof",
-        "text_overlay": "Depois do arranque continuamos contigo. Revisão mensal de objectivos. Suporte comercial. Não estás sozinho na operação."
-      },
-      {
-        "role": "cta",
-        "text_overlay": "Marca uma reunião. Vamos desenhar o teu estúdio."
-      }
-    ],
-    "html_url": "../brands/luiz_santana/output/2026-05/reels/r04-suporte-franchise.html",
-    "photos_used": [],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-30",
-    "hour": "18h"
+    "generated_at": "2026-06-10T20:25:00",
+    "scheduled_for": "2026-06-18",
+    "hour": "09h"
   }
 ]

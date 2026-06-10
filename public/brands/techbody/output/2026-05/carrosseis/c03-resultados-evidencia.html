@@ -152,25 +152,106 @@ h1, h2, h3, p, blockquote, .num {
   text-wrap: pretty;
 }
 </style>
+<!-- fx-v2 -->
+<style id="fx-v2">
+/* ═══ FX v2 — atmosfera de fundo · texto 100% estático · loops seamless ═══ */
+:root {
+  --fxc: infinite;                                  /* render → contagem finita */
+  --ease-atmos: cubic-bezier(0.37, 0, 0.63, 1);     /* sine-in-out, orgânico */
+}
+.slide, .story-single { isolation: isolate; }
+
+/* camadas de fundo partilham reset */
+.fx-atmos, .fx-orb, .fx-grain { position: absolute; z-index: 0; pointer-events: none; }
+
+/* 1 ─ mesh de luz oklch (profundidade 1) — deriva + respira lento */
+.fx-atmos {
+  inset: -22%;
+  background:
+    radial-gradient(42% 38% at 26% 22%, color-mix(in oklch, var(--accent) 30%, transparent), transparent 70%),
+    radial-gradient(46% 42% at 80% 84%, color-mix(in oklch, var(--accent) 15%, transparent), transparent 72%);
+  filter: blur(10px);
+  animation: fx-atmos 12s var(--ease-atmos) var(--fxc);
+  will-change: transform;
+}
+@keyframes fx-atmos {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.03); }
+  50%      { transform: translate3d(2.4%, -2%, 0) scale(1.13); }
+}
+
+/* 2 ─ orbe atmosférico (profundidade 2) — parallax OPOSTO ao mesh */
+.fx-orb {
+  width: 64%; aspect-ratio: 1; border-radius: 50%; top: -14%; right: -16%;
+  background: radial-gradient(circle, color-mix(in oklch, var(--accent) 22%, transparent), transparent 66%);
+  filter: blur(42px);
+  animation: fx-orb 12s var(--ease-atmos) var(--fxc);
+  animation-delay: -6s;                              /* mid-flight (Jhey) */
+  will-change: transform, opacity;
+}
+@keyframes fx-orb {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1);    opacity: .72; }
+  50%      { transform: translate3d(-7%, 9%, 0) scale(1.16); opacity: 1; }
+}
+
+/* 3 ─ grão de filme — textura premium, cintilação mínima (seamless) */
+.fx-grain {
+  inset: -30%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: .06; mix-blend-mode: overlay;
+  animation: fx-grain 6s var(--ease-atmos) var(--fxc);
+  will-change: transform, opacity;
+}
+@keyframes fx-grain {
+  0%, 100% { transform: translate3d(0, 0, 0);        opacity: .05; }
+  50%      { transform: translate3d(1.5%, -1.2%, 0); opacity: .08; }
+}
+
+/* 4 ─ Ken Burns nas fotos — suave, base ampliada esconde bordas */
+.slide__photo, .bg-photo, .slide--photo .photo {
+  animation: fx-kenburns 12s var(--ease-atmos) var(--fxc);
+  will-change: transform;
+}
+@keyframes fx-kenburns { 0%, 100% { transform: scale(1.05); } 50% { transform: scale(1.12); } }
+
+/* slide 1: atmosfera mais ampla (sem breathing-line do v1) */
+.carousel .slide:first-child .fx-orb { width: 82%; top: -18%; right: -20%; }
+.carousel .slide:first-child .fx-atmos { inset: -28%; }
+
+/* stories: texto centrado (mantido do v1) */
+.story-single__body {
+  justify-items: center !important; align-content: center !important;
+  text-align: center !important; justify-self: stretch !important;
+}
+.story-single__body h1, .story-single__body .num, .story-single__body p { margin-inline: auto; }
+.story-single--quote .story-single__body { border-left: none !important; padding-left: 0 !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-atmos, .fx-orb, .fx-grain, .slide__photo, .bg-photo, .slide--photo .photo {
+    animation: none !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <section class="carousel" aria-label="Carrossel TechBody — resultados_evidencia">
 
-<article class="slide slide--type" id="slide-1">
+<article class="slide slide--type" id="slide-1"><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div>
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
   <div class="slide__body"><h1>Resultado é o que<br>se mede.<br>Não o que se imagina.</h1></div>
   <div class="slide__bottom"><span>01/06</span><span class="arrow">→</span></div>
 </article>
 
 
-<article class="slide slide--type" id="slide-2">
+<article class="slide slide--type" id="slide-2"><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div>
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
   <div class="slide__body"><h1>Tudo começa com<br>uma avaliação inicial.<br>Onde está agora<br>define onde vai.</h1></div>
   <div class="slide__bottom"><span>02/06</span><span class="arrow">→</span></div>
 </article>
 
 
-<article class="slide slide--photo" id="slide-3">
+<article class="slide slide--photo" id="slide-3"><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div>
   <div class="slide__photo" style="background-image:url('../../../assets/photos/magnific_estudio-aquecimento-contr_2968055318.jpg')"></div>
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
   <div class="slide__body">
@@ -180,21 +261,21 @@ h1, h2, h3, p, blockquote, .num {
 </article>
 
 
-<article class="slide slide--type" id="slide-4">
+<article class="slide slide--type" id="slide-4"><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div>
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
   <div class="slide__body"><h1>Três medidas:<br>composição corporal,<br>força e bem‑estar.</h1></div>
   <div class="slide__bottom"><span>04/06</span><span class="arrow">→</span></div>
 </article>
 
 
-<article class="slide slide--type" id="slide-5">
+<article class="slide slide--type" id="slide-5"><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div>
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
   <div class="slide__body"><h1>Reavaliação<br>às seis semanas.<br>Saiba onde está.<br>Saiba para onde vai.</h1></div>
   <div class="slide__bottom"><span>05/06</span><span class="arrow">→</span></div>
 </article>
 
 
-<article class="slide slide--photo" id="slide-6">
+<article class="slide slide--photo" id="slide-6"><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div>
   <div class="slide__photo" style="background-image:url('../../../assets/photos/magnific_e2.-aquecimento-controlad_2964620617.jpg')"></div>
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
   <div class="slide__body">
