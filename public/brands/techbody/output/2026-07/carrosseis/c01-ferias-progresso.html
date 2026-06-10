@@ -216,6 +216,10 @@ h1, h2, h3, p, blockquote, .num {
 .carousel .slide:first-child .fx-orb { width: 82%; top: -18%; right: -20%; }
 .carousel .slide:first-child .fx-atmos { inset: -28%; }
 
+/* fotos: atmosfera presente mas contida — não lavar a imagem */
+.slide--photo .fx-atmos, .slide--photo .fx-orb { filter: opacity(.5); }
+.slide--photo .fx-grain { opacity: .04; }
+
 /* stories: texto centrado (mantido do v1) */
 .story-single__body {
   justify-items: center !important; align-content: center !important;
@@ -235,37 +239,37 @@ h1, h2, h3, p, blockquote, .num {
 <body>
 <section class="carousel" aria-label="Carrossel TechBody — ferias_progresso">
 
-<article class="slide slide--type" id="slide-1"><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div>
+<article class="slide slide--type" id="slide-1">
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
   <div class="slide__body"><h1>As férias não param o&nbsp;<em>progresso</em>.</h1></div>
   <div class="slide__bottom"><span>01/06</span><span class="arrow">→</span></div>
-</article>
-<article class="slide slide--num" id="slide-2"><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+<article class="slide slide--num" id="slide-2">
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
   <div class="slide__body"><div class="num">25</div><h1>minutos por sessão, três vezes por semana — cabe em qualquer agenda de verão.</h1></div>
   <div class="slide__bottom"><span>02/06</span><span class="arrow">→</span></div>
-</article>
-<article class="slide slide--photo" id="slide-3"><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+<article class="slide slide--photo" id="slide-3">
   <div class="slide__photo" style="background-image:url('../../../assets/photos/magnific_e6-postreino-imagem-edito_2964580806.jpg'); background-position: center 30%"></div>
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
   <div class="slide__body"><h1>De manhã cedo ou à hora de almoço — a sessão adapta-se ao <em>seu dia</em>.</h1></div>
   <div class="slide__bottom"><span>03/06</span><span class="arrow">→</span></div>
-</article>
-<article class="slide slide--quote" id="slide-4"><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+<article class="slide slide--quote" id="slide-4">
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
   <div class="slide__body"><blockquote>O corpo que trabalha em julho é o que descansa melhor em agosto.</blockquote><cite>TechBody</cite></div>
   <div class="slide__bottom"><span>04/06</span><span class="arrow">→</span></div>
-</article>
-<article class="slide slide--type" id="slide-5"><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+<article class="slide slide--type" id="slide-5">
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
   <div class="slide__body"><h1>Sempre com um <em>personal trainer</em> ao seu lado.</h1></div>
   <div class="slide__bottom"><span>05/06</span><span class="arrow">→</span></div>
-</article>
-<article class="slide slide--type" id="slide-6"><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+<article class="slide slide--type" id="slide-6">
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
   <div class="slide__body"><h1>Marque a sua <em>sessão experimental</em>.</h1></div>
   <div class="slide__bottom"><span>06/06</span><span class="slide__cta" style="background:var(--accent);color:#0a0a0c;padding:10px 22px;font:700 13px/1 var(--font-display);letter-spacing:0.06em;text-transform:uppercase;">Sessão experimental →</span></div>
-</article>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 </section>
 <script>
   (function () {

@@ -163,6 +163,10 @@ h1, h2, h3, p, blockquote, .num {
 .carousel .slide:first-child .fx-orb { width: 82%; top: -18%; right: -20%; }
 .carousel .slide:first-child .fx-atmos { inset: -28%; }
 
+/* fotos: atmosfera presente mas contida — não lavar a imagem */
+.slide--photo .fx-atmos, .slide--photo .fx-orb { filter: opacity(.5); }
+.slide--photo .fx-grain { opacity: .04; }
+
 /* stories: texto centrado (mantido do v1) */
 .story-single__body {
   justify-items: center !important; align-content: center !important;
@@ -182,7 +186,7 @@ h1, h2, h3, p, blockquote, .num {
 <body>
 <section class="carousel" aria-label="Carrossel Luiz Santana — emagrecimento GLP-1">
 
-<article class="slide slide--type" id="slide-1"><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div>
+<article class="slide slide--type" id="slide-1">
   <div class="bg-word" aria-hidden="true">músculo</div>
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span><span class="cap-index">Emagrecimento</span></div>
   <div class="slide__body">
@@ -191,31 +195,31 @@ h1, h2, h3, p, blockquote, .num {
     <p class="slide__hook">O&nbsp;peso&nbsp;desce.<br>O&nbsp;músculo&nbsp;pode&nbsp;ir&nbsp;atrás.</p>
   </div>
   <div class="slide__bottom"><span>01/06</span><span class="arrow">→</span></div>
-</article>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 
 
-<article class="slide slide--type" id="slide-2"><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div>
+<article class="slide slide--type" id="slide-2">
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span></div>
   <div class="slide__body"><h1>Estes&nbsp;medicamentos<br>cortam&nbsp;o&nbsp;apetite.<br>Comes&nbsp;menos&nbsp;—&nbsp;e&nbsp;a<br>balança&nbsp;desce.</h1></div>
   <div class="slide__bottom"><span>02/06</span><span class="arrow">→</span></div>
-</article>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 
 
-<article class="slide slide--type" id="slide-3"><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div>
+<article class="slide slide--type" id="slide-3">
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span></div>
   <div class="slide__body"><h1>Mas&nbsp;<em>25&nbsp;a&nbsp;30%</em><br>desse&nbsp;peso&nbsp;pode&nbsp;ser<br>músculo.&nbsp;Não&nbsp;gordura.</h1></div>
   <div class="slide__bottom"><span>03/06</span><span class="arrow">→</span></div>
-</article>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 
 
-<article class="slide slide--type" id="slide-4"><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div>
+<article class="slide slide--type" id="slide-4">
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span></div>
   <div class="slide__body"><h1>Menos&nbsp;músculo&nbsp;é<br>metabolismo&nbsp;mais&nbsp;lento,<br>mais&nbsp;cansaço&nbsp;—&nbsp;e<br>peso&nbsp;que&nbsp;volta.</h1></div>
   <div class="slide__bottom"><span>04/06</span><span class="arrow">→</span></div>
-</article>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 
 
-<article class="slide slide--photo" id="slide-5"><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div>
+<article class="slide slide--photo" id="slide-5">
   <div class="slide__photo" style="background-image:url('../../../assets/photos/magnific_a2.-firm-authority-direct_2964371283.jpg')"></div>
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span></div>
   <div class="slide__body">
@@ -223,14 +227,14 @@ h1, h2, h3, p, blockquote, .num {
     <p>Vinte&nbsp;e&nbsp;cinco&nbsp;minutos&nbsp;—&nbsp;mesmo&nbsp;quando&nbsp;a&nbsp;energia&nbsp;para&nbsp;treinar&nbsp;está&nbsp;em&nbsp;baixo.</p>
   </div>
   <div class="slide__bottom"><span>05/06</span><span class="arrow">→</span></div>
-</article>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 
 
-<article class="slide slide--type" id="slide-6"><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div>
+<article class="slide slide--type" id="slide-6">
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span></div>
   <div class="slide__body"><h1>Estás&nbsp;a&nbsp;emagrecer&nbsp;com&nbsp;GLP‑1?<br>A&nbsp;TechBody&nbsp;ajuda‑te&nbsp;a<br>proteger&nbsp;o&nbsp;músculo.<br>Comenta&nbsp;—&nbsp;eu&nbsp;digo‑te<br>por&nbsp;onde&nbsp;começar.</h1></div>
   <div class="slide__bottom"><span>06/06</span></div>
-</article>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 
 </section>
 <script>
