@@ -339,6 +339,10 @@ def main():
         for iid, item in sorted(items.items(), key=lambda kv: (kv[1].get("scheduled_for") or "", kv[0])):
             if published >= PUBLISH_CAP:
                 break
+            # peças só-preview vivem na página de aprovação mas NUNCA publicam,
+            # mesmo aprovadas (ex.: stories do Luiz, decisão 2026-06-10)
+            if item.get("preview_only"):
+                continue
             base = state.get(iid, {})
             if base.get("status") != "approved":
                 continue

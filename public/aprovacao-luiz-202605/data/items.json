@@ -58,6 +58,31 @@
     "hour": "09h"
   },
   {
+    "id": "luiz_santana-2026-05-s01",
+    "brand": "luiz_santana",
+    "month": "2026-06",
+    "format": "story",
+    "theme": "consistencia",
+    "pilar": "Filosofia do método",
+    "audience": "b2c",
+    "title": "Consistência — quantas vezes por semana?",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Consistência… E tu, quantas vezes por semana treinas?"
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/stories/s01-consistencia.html",
+    "photos_used": [],
+    "photo_positions": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:54:32",
+    "scheduled_for": "2026-06-12",
+    "hour": "17h",
+    "preview_only": true
+  },
+  {
     "id": "luiz_santana-2026-05-c02",
     "brand": "luiz_santana",
     "month": "2026-06",
@@ -114,6 +139,91 @@
     "generated_at": "2026-05-18T10:54:32",
     "scheduled_for": "2026-06-15",
     "hour": "09h"
+  },
+  {
+    "id": "luiz_santana-2026-05-c05",
+    "brand": "luiz_santana",
+    "month": "2026-06",
+    "format": "carrossel",
+    "theme": "emagrecimento-glp1",
+    "pilar": "Emagrecimento e massa muscular",
+    "audience": "b2c",
+    "title": "Estás a emagrecer com Ozempic ou Mounjaro?",
+    "slides": 6,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Estás a emagrecer com Ozempic ou Mounjaro? O peso desce. O músculo pode ir atrás."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Estes medicamentos cortam o apetite. Comes menos — e a balança desce."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Mas 25 a 30% desse peso pode ser músculo. Não gordura."
+      },
+      {
+        "role": "development",
+        "text_overlay": "Menos músculo é metabolismo mais lento, mais cansaço — e peso que volta."
+      },
+      {
+        "role": "development",
+        "text_overlay": "A eletroestimulação de corpo inteiro ativa o músculo em profundidade. Vinte e cinco minutos — mesmo quando a energia para treinar está em baixo."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Estás a emagrecer com GLP-1? A TechBody ajuda-te a proteger o músculo. Comenta — eu digo-te por onde começar."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c05-emagrecimento-glp1.html",
+    "photos_used": [
+      "magnific_a2.-firm-authority-direct_2964371283.jpg"
+    ],
+    "photo_positions": [
+      5
+    ],
+    "styles": [
+      "type",
+      "type",
+      "type",
+      "type",
+      "photo",
+      "type"
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-06-10T20:25:00",
+    "scheduled_for": "2026-06-18",
+    "hour": "09h"
+  },
+  {
+    "id": "luiz_santana-2026-05-s02",
+    "brand": "luiz_santana",
+    "month": "2026-06",
+    "format": "story",
+    "theme": "dose_certa",
+    "pilar": "Prática supervisionada",
+    "audience": "b2c",
+    "title": "Treinas acompanhado ou sozinho?",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Treinas acompanhado ou sozinho?"
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/stories/s02-dose-certa.html",
+    "photos_used": [
+      "magnific_c1.-silhouette-softly-blu_2964372464.jpg"
+    ],
+    "photo_positions": [
+      1
+    ],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:54:32",
+    "scheduled_for": "2026-06-19",
+    "hour": "17h",
+    "preview_only": true
   },
   {
     "id": "luiz_santana-2026-05-c03",
@@ -174,6 +284,31 @@
     "hour": "09h"
   },
   {
+    "id": "luiz_santana-2026-05-s03",
+    "brand": "luiz_santana",
+    "month": "2026-06",
+    "format": "story",
+    "theme": "reabilitacao",
+    "pilar": "Saúde e reabilitação",
+    "audience": "b2c",
+    "title": "Qual é o teu objetivo de treino?",
+    "slides": 1,
+    "slides_text": [
+      {
+        "role": "hook",
+        "text_overlay": "Qual é o teu objetivo de treino atual? Responde a este story."
+      }
+    ],
+    "html_url": "../brands/luiz_santana/output/2026-05/stories/s03-reabilitacao.html",
+    "photos_used": [],
+    "photo_positions": [],
+    "prompt_version": "hand-v1",
+    "generated_at": "2026-05-18T10:54:32",
+    "scheduled_for": "2026-06-26",
+    "hour": "17h",
+    "preview_only": true
+  },
+  {
     "id": "luiz_santana-2026-05-c04",
     "brand": "luiz_santana",
     "month": "2026-06",
@@ -230,59 +365,32 @@
     "hour": "09h"
   },
   {
-    "id": "luiz_santana-2026-05-c05",
+    "id": "luiz_santana-2026-05-s04",
     "brand": "luiz_santana",
     "month": "2026-06",
-    "format": "carrossel",
-    "theme": "emagrecimento-glp1",
-    "pilar": "Emagrecimento e massa muscular",
+    "format": "story",
+    "theme": "rede_estudios",
+    "pilar": "Rede TechBody",
     "audience": "b2c",
-    "title": "Estás a emagrecer com Ozempic ou Mounjaro?",
-    "slides": 6,
+    "title": "Estúdio ou casa?",
+    "slides": 1,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Estás a emagrecer com Ozempic ou Mounjaro? O peso desce. O músculo pode ir atrás."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Estes medicamentos cortam o apetite. Comes menos — e a balança desce."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Mas 25 a 30% desse peso pode ser músculo. Não gordura."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Menos músculo é metabolismo mais lento, mais cansaço — e peso que volta."
-      },
-      {
-        "role": "development",
-        "text_overlay": "A eletroestimulação de corpo inteiro ativa o músculo em profundidade. Vinte e cinco minutos — mesmo quando a energia para treinar está em baixo."
-      },
-      {
-        "role": "cta",
-        "text_overlay": "Estás a emagrecer com GLP-1? A TechBody ajuda-te a proteger o músculo. Comenta — eu digo-te por onde começar."
+        "text_overlay": "Preferes treinar em estúdio ou em casa?"
       }
     ],
-    "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c05-emagrecimento-glp1.html",
+    "html_url": "../brands/luiz_santana/output/2026-05/stories/s04-rede-estudios.html",
     "photos_used": [
-      "magnific_a2.-firm-authority-direct_2964371283.jpg"
+      "magnific_a7.-seated-confidence-edi_2964371960.jpg"
     ],
     "photo_positions": [
-      5
-    ],
-    "styles": [
-      "type",
-      "type",
-      "type",
-      "type",
-      "photo",
-      "type"
+      1
     ],
     "prompt_version": "hand-v1",
-    "generated_at": "2026-06-10T20:25:00",
-    "scheduled_for": "2026-06-18",
-    "hour": "09h"
+    "generated_at": "2026-05-18T10:54:32",
+    "scheduled_for": "2026-07-03",
+    "hour": "17h",
+    "preview_only": true
   }
 ]
