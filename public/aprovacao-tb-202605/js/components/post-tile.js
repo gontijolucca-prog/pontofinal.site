@@ -131,8 +131,8 @@ class PostTile extends HTMLElement {
           <div class="card__left">
             <div class="card__preview card__preview--916">
               <img data-facade class="card__facade" loading="lazy" decoding="async" alt="Pré-visualização"
-                src="${(it.html_url || "").replace(/\.html$/, ".png")}?v=${APP_VERSION}&c=${currentContentSig()}"
-                onerror="this.onerror=null;this.src=this.src.replace('.png?','.jpg?')" />
+                src="${(it.html_url || "").replace(/\.html$/, ".jpg")}?v=${APP_VERSION}&c=${currentContentSig()}"
+                onerror="this.onerror=null;this.src=this.src.replace('.jpg?','.png?')" />
               <button class="card__preview-open" data-zoom aria-label="Ver em grande" title="Ver em grande"></button>
             </div>
             <div class="card__slidebar"><button class="card__zoom" data-zoom title="Ver em grande">🔍 Ver em grande</button></div>

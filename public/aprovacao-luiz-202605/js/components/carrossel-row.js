@@ -130,8 +130,8 @@ class CarrosselRow extends HTMLElement {
     const fac = this._facade(); if (!fac) return;
     const base = (this._item.html_url || "").replace(/\.html$/, "");
     const nn = String(n).padStart(2, "0");
-    fac.onerror = () => { fac.onerror = null; fac.src = fac.src.replace(".png?", ".jpg?"); };
-    fac.src = `${base}_shots/slide_${nn}.png?v=${APP_VERSION}&c=${currentContentSig()}`;
+    fac.onerror = () => { fac.onerror = null; fac.src = fac.src.replace(".jpg?", ".png?"); };
+    fac.src = `${base}_shots/slide_${nn}.jpg?v=${APP_VERSION}&c=${currentContentSig()}`;
   }
   _headingEl(n) {
     const f = this._previewFrame(); if (!f) return null;
@@ -213,7 +213,7 @@ class CarrosselRow extends HTMLElement {
       const png = `${shotBase}_shots/slide_${n}.png?v=${APP_VERSION}&c=${currentContentSig()}`;
       const jpg = `${shotBase}_shots/slide_${n}.jpg?v=${APP_VERSION}&c=${currentContentSig()}`;
       return `<button class="card-thumb${i === this._sel ? " is-sel" : ""}" data-thumb="${i}" aria-label="Slide ${i + 1}">
-        <img loading="lazy" decoding="async" src="${png}" alt="Slide ${i + 1}" onerror="this.onerror=null;this.src='${jpg}'" /><span class="card-thumb__n">${i + 1}</span>
+        <img loading="lazy" decoding="async" src="${jpg}" alt="Slide ${i + 1}" onerror="this.onerror=null;this.src='${png}'" /><span class="card-thumb__n">${i + 1}</span>
       </button>`;
     }).join("");
 
@@ -228,8 +228,8 @@ class CarrosselRow extends HTMLElement {
           <div class="card__left">
             <div class="card__preview card__preview--45">
               <img data-facade class="card__facade" loading="lazy" decoding="async" alt="Pré-visualização"
-                src="${shotBase}_shots/slide_01.png?v=${APP_VERSION}&c=${currentContentSig()}"
-                onerror="this.onerror=null;this.src=this.src.replace('.png?','.jpg?')" />
+                src="${shotBase}_shots/slide_01.jpg?v=${APP_VERSION}&c=${currentContentSig()}"
+                onerror="this.onerror=null;this.src=this.src.replace('.jpg?','.png?')" />
               <button class="card__preview-open" data-zoom aria-label="Ver em grande" title="Ver em grande"></button>
             </div>
             <div class="card__slidebar">
