@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="app-version" content="20260611-1607" />
+<meta name="app-version" content="20260611-1616" />
 <title>Aprovação · Conteúdo</title>
 
 <script>
@@ -46,16 +46,17 @@
       _swRefreshing = true;
       window.location.reload();
     });
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js').then((reg) => {
-        reg.update();
-        // Procura versão nova do SW periodicamente e ao voltar ao separador.
-        setInterval(() => reg.update().catch(() => {}), 60000);
-        document.addEventListener('visibilitychange', () => {
-          if (!document.hidden) reg.update().catch(() => {});
-        });
-      }).catch(() => {});
-    });
+    // Registar JÁ, sem esperar pelo evento load: um SW antigo encravado pode
+    // pendurar subresources e o load nunca dispara — esperar por ele criava
+    // um deadlock em que o SW novo (com o fix) nunca chegava a instalar.
+    navigator.serviceWorker.register('sw.js').then((reg) => {
+      reg.update();
+      // Procura versão nova do SW periodicamente e ao voltar ao separador.
+      setInterval(() => reg.update().catch(() => {}), 60000);
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) reg.update().catch(() => {});
+      });
+    }).catch(() => {});
   }
 </script>
 
