@@ -97,8 +97,42 @@ class CarrosselRow extends HTMLElement {
     if (rj) rj.setAttribute("aria-pressed", state.status === "rejected" ? "true" : "false");
   }
 
-  // Iframe de preview ao vivo do slide seleccionado.
+  // Iframe de preview ao vivo do slide seleccionado (só existe depois de o
+  // utilizador começar a editar texto — ver _ensureFrame).
   _previewFrame() { return this.querySelector(".card__preview iframe"); }
+  _facade() { return this.querySelector(".card__preview [data-facade]"); }
+
+  // FACADE → IFRAME: a página carrega com uma imagem leve (o PNG publicado);
+  // 20+ iframes eager (HTML+fontes+fotos cada) matavam o load. O iframe ao
+  // vivo nasce só quando é preciso (edição letra-a-letra) e substitui a imagem.
+  _ensureFrame() {
+    let f = this._previewFrame();
+    if (f) return f;
+    const wrap = this.querySelector(".card__preview");
+    if (!wrap || !this._item.html_url) return null;
+    f = document.createElement("iframe");
+    f.title = "pré-visualização ao vivo";
+    f.setAttribute("scrolling", "no");
+    f.src = `${this._item.html_url}?v=${APP_VERSION}&c=${currentContentSig()}`;
+    wrap.prepend(f);
+    if (this._fitCleanup) this._fitCleanup();
+    const [nw, nh] = dimsFor("carousel");
+    this._fitCleanup = fitScaledFrame(wrap, nw, nh);
+    f.addEventListener("load", () => {
+      this._applyCurrentToFrame();
+      const fac = this._facade(); if (fac) fac.remove();
+    });
+    return f;
+  }
+
+  // Sem iframe, navegar slides = trocar o src da imagem (slide_NN.png).
+  _swapFacade(n) {
+    const fac = this._facade(); if (!fac) return;
+    const base = (this._item.html_url || "").replace(/\.html$/, "");
+    const nn = String(n).padStart(2, "0");
+    fac.onerror = () => { fac.onerror = null; fac.src = fac.src.replace(".png?", ".jpg?"); };
+    fac.src = `${base}_shots/slide_${nn}.png?v=${APP_VERSION}&c=${currentContentSig()}`;
+  }
   _headingEl(n) {
     const f = this._previewFrame(); if (!f) return null;
     try {
@@ -140,14 +174,27 @@ class CarrosselRow extends HTMLElement {
   _applyCurrentToFrame() {
     const n = this._sel + 1;
     this._scrollFrameTo(n);
+    // Se o utilizador está a escrever (o iframe nasce a meio da edição, com o
+    // autosave de 600ms ainda por disparar), o valor vivo do editor ganha a
+    // tudo — senão perdia-se o que acabou de ser escrito.
+    let ta = this.querySelector("[data-slide]");
+    const typing = !!(ta && document.activeElement === ta);
+    const liveVal = typing ? ta.value : null;
     const ov = approvalStore.getSlideCopy?.(this._item.id, n);
-    const ta = this.querySelector("[data-slide]");
-    if (ov && ov.text) { this._editFrameH1(n, ov.text); if (ta) ta.value = ov.text; }
+    if (liveVal != null) this._editFrameH1(n, liveVal);
+    else if (ov && ov.text) { this._editFrameH1(n, ov.text); if (ta) ta.value = ov.text; }
     else { const el = this._headingEl(n); if (el && ta) ta.value = htmlToFmt(el); }
     // Texto secundário (.slide__hook): o iframe pode só agora ter carregado, por
     // isso o campo pode ainda não existir — re-render do editor se a presença mudou.
     const hookEl = this._hookEl(n);
-    if (!!hookEl !== !!this.querySelector("[data-slide-hook]")) this._renderSlideEditor();
+    if (!!hookEl !== !!this.querySelector("[data-slide-hook]")) {
+      this._renderSlideEditor();
+      ta = this.querySelector("[data-slide]");
+      if (ta && liveVal != null) {
+        ta.value = liveVal;
+        if (typing) { ta.focus(); ta.setSelectionRange(liveVal.length, liveVal.length); }
+      }
+    }
     if (hookEl) {
       const hov = approvalStore.getSlideHookCopy?.(this._item.id, n);
       const th = this.querySelector("[data-slide-hook]");
@@ -180,7 +227,9 @@ class CarrosselRow extends HTMLElement {
         <div class="card__main">
           <div class="card__left">
             <div class="card__preview card__preview--45">
-              <iframe loading="lazy" src="${it.html_url}?v=${APP_VERSION}&c=${currentContentSig()}" title="pré-visualização ao vivo" scrolling="no"></iframe>
+              <img data-facade class="card__facade" loading="lazy" decoding="async" alt="Pré-visualização"
+                src="${shotBase}_shots/slide_01.png?v=${APP_VERSION}&c=${currentContentSig()}"
+                onerror="this.onerror=null;this.src=this.src.replace('.png?','.jpg?')" />
               <button class="card__preview-open" data-zoom aria-label="Ver em grande" title="Ver em grande"></button>
             </div>
             <div class="card__slidebar">
@@ -211,14 +260,9 @@ class CarrosselRow extends HTMLElement {
         </div>
       </article>`;
 
-    // Preview ao vivo: escala o iframe à dimensão exacta de publicação
-    // (1080×1350) para que vw/vh batam certo com a imagem final.
-    if (this._fitCleanup) this._fitCleanup();
-    const wrap = this.querySelector(".card__preview");
-    const [nw, nh] = dimsFor("carousel");
-    if (wrap) this._fitCleanup = fitScaledFrame(wrap, nw, nh);
-    const f = this._previewFrame();
-    if (f) f.addEventListener("load", () => this._applyCurrentToFrame(), { once: false });
+    // Sem iframe no arranque: o preview é o PNG publicado (facade). O iframe
+    // ao vivo (escalado a 1080×1350) nasce em _ensureFrame na 1.ª edição.
+    if (this._fitCleanup) { this._fitCleanup(); this._fitCleanup = null; }
 
     this._renderSlideEditor();
     this._bind();
@@ -242,12 +286,15 @@ class CarrosselRow extends HTMLElement {
     const sc = this.querySelector("[data-slidecount]"); if (sc) sc.textContent = `Slide ${n} / ${this._slideCount()}`;
     this.querySelectorAll(".card-thumb").forEach((b, i) => b.classList.toggle("is-sel", i === this._sel));
     const ta = host.querySelector("[data-slide]");
+    ta.addEventListener("focus", () => this._ensureFrame(), { once: true }); // aquece o iframe
     ta.addEventListener("input", () => {
+      this._ensureFrame();
       this._editFrameH1(n, ta.value);                       // live: muda a imagem letra a letra
       this._autosave("slide", () => this._saveSlide(n, ta.value));
     });
     const th = host.querySelector("[data-slide-hook]");
     if (th) th.addEventListener("input", () => {
+      this._ensureFrame();
       this._editFrameHook(n, th.value);                     // live: muda o texto pequeno
       this._autosave("hook", () => this._saveSlideHook(n, th.value));
     });
@@ -259,7 +306,8 @@ class CarrosselRow extends HTMLElement {
     if (next === this._sel) return;
     this._sel = next;
     this._renderSlideEditor();
-    this._applyCurrentToFrame();
+    if (this._previewFrame()) this._applyCurrentToFrame();
+    else this._swapFacade(next + 1);
   }
 
   _autosave(kind, fn) {

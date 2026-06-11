@@ -74,6 +74,31 @@ class PostTile extends HTMLElement {
   }
 
   _previewFrame() { return this.querySelector(".card__preview iframe"); }
+  _facade() { return this.querySelector(".card__preview [data-facade]"); }
+
+  // FACADE → IFRAME: a página carrega com o PNG publicado (leve); o iframe ao
+  // vivo nasce só na 1.ª edição de texto e substitui a imagem. Iframes eager
+  // em todos os cartões matavam o load da página.
+  _ensureFrame() {
+    let f = this._previewFrame();
+    if (f) return f;
+    const wrap = this.querySelector(".card__preview");
+    if (!wrap || !this._item.html_url) return null;
+    f = document.createElement("iframe");
+    f.title = "pré-visualização ao vivo";
+    f.setAttribute("scrolling", "no");
+    f.src = `${this._item.html_url}?v=${APP_VERSION}&c=${currentContentSig()}`;
+    wrap.prepend(f);
+    if (this._fitCleanup) this._fitCleanup();
+    const [nw, nh] = dimsFor("story");
+    this._fitCleanup = fitScaledFrame(wrap, nw, nh);
+    f.addEventListener("load", () => {
+      this._syncFrame();
+      const fac = this._facade(); if (fac) fac.remove();
+    });
+    return f;
+  }
+
   _headingEl() {
     const f = this._previewFrame(); if (!f) return null;
     try { const doc = f.contentDocument; if (!doc) return null; return doc.querySelector("#slide-1 h1, #slide-1 h2, #slide-1 blockquote, h1, h2, blockquote"); } catch { return null; }
@@ -83,8 +108,11 @@ class PostTile extends HTMLElement {
   // Após o iframe carregar: se há edit guardado, reflecte-o já no preview (o que
   // se vê = o que vai publicado); senão, semeia o editor com a formatação original.
   _syncFrame() {
-    const ov = approvalStore.getSlideCopy?.(this._item.id, 1);
     const ta = this.querySelector("[data-slide]");
+    // Se o utilizador está a escrever (o iframe nasce a meio da edição), o
+    // valor vivo do editor ganha — senão perdia-se o que acabou de escrever.
+    if (ta && document.activeElement === ta) { this._editFrameH1(ta.value); return; }
+    const ov = approvalStore.getSlideCopy?.(this._item.id, 1);
     if (ov && ov.text) { this._editFrameH1(ov.text); if (ta) ta.value = ov.text; }
     else { const el = this._headingEl(); if (el && ta) ta.value = htmlToFmt(el); }
   }
@@ -102,7 +130,9 @@ class PostTile extends HTMLElement {
         <div class="card__main">
           <div class="card__left">
             <div class="card__preview card__preview--916">
-              <iframe loading="lazy" src="${it.html_url}?v=${APP_VERSION}&c=${currentContentSig()}" title="pré-visualização ao vivo" scrolling="no"></iframe>
+              <img data-facade class="card__facade" loading="lazy" decoding="async" alt="Pré-visualização"
+                src="${(it.html_url || "").replace(/\.html$/, ".png")}?v=${APP_VERSION}&c=${currentContentSig()}"
+                onerror="this.onerror=null;this.src=this.src.replace('.png?','.jpg?')" />
               <button class="card__preview-open" data-zoom aria-label="Ver em grande" title="Ver em grande"></button>
             </div>
             <div class="card__slidebar"><button class="card__zoom" data-zoom title="Ver em grande">🔍 Ver em grande</button></div>
@@ -130,14 +160,9 @@ class PostTile extends HTMLElement {
           </div>
         </div>
       </article>`;
-    // Escala o iframe à dimensão exacta de publicação (1080×1920) para que
-    // preview, "ver em grande" e imagem publicada fiquem pixel-idênticos.
-    if (this._fitCleanup) this._fitCleanup();
-    const wrap = this.querySelector(".card__preview");
-    const [nw, nh] = dimsFor("story");
-    if (wrap) this._fitCleanup = fitScaledFrame(wrap, nw, nh);
-    const f = this._previewFrame();
-    if (f) f.addEventListener("load", () => this._syncFrame());
+    // Sem iframe no arranque: o preview é o PNG publicado (facade). O iframe
+    // ao vivo (escalado a 1080×1920) nasce em _ensureFrame na 1.ª edição.
+    if (this._fitCleanup) { this._fitCleanup(); this._fitCleanup = null; }
     this._bind();
   }
 
@@ -153,7 +178,9 @@ class PostTile extends HTMLElement {
       if (t.closest("[data-reject]")) return this._decide("rejected");
     });
     const sl = this.querySelector("[data-slide]");
+    if (sl) sl.addEventListener("focus", () => this._ensureFrame(), { once: true }); // aquece o iframe
     if (sl) sl.addEventListener("input", () => {
+      this._ensureFrame();
       this._editFrameH1(sl.value);
       this._autosave("slide", async () => {
         await approvalStore.setSlideCopy(it.id, 1, sl.value.trim());

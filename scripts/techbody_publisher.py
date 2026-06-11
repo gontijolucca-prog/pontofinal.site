@@ -268,14 +268,15 @@ def publish_item(item, caption, ig_user, token):
             raise RuntimeError(f"{e} [children criados: {','.join(children) or 'nenhum'}]") from e
 
     if fmt == "story":
-        video = assets.get("video")
-        if video and head_ok(video):
-            c = ig_create(ig_user, token, {"media_type": "STORIES", "video_url": video})
-        else:
-            url = assets["photos"][0]
-            if not head_ok(url):
-                raise RuntimeError(f"asset em falta: {url}")
+        # decisão Lucca 2026-06-11: só REELS são vídeo — stories saem estáticas
+        url = assets["photos"][0]
+        if head_ok(url):
             c = ig_create(ig_user, token, {"media_type": "STORIES", "image_url": url})
+        else:
+            video = assets.get("video")
+            if not (video and head_ok(video)):
+                raise RuntimeError(f"asset em falta: {url}")
+            c = ig_create(ig_user, token, {"media_type": "STORIES", "video_url": video})
         ig_wait(c, token)
         return ig_publish(ig_user, token, c)
 
