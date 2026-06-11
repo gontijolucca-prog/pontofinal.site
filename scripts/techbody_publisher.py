@@ -373,7 +373,7 @@ def main():
                     alerts.append({"type": "skipped_no_token", "item_id": iid,
                                    "detail": f"item due ({when:%Y-%m-%d %H:%M}) sem token/user para {brand}"})
                     try:
-                        sb("POST", "/publish_queue", {
+                        sb("POST", "/publish_queue?on_conflict=item_id", {
                             "item_id": iid, "namespace": ns, "brand": brand,
                             "kind": item["format"], "status": "skipped_no_token",
                             "caption": f"sem token/user para {brand}",
@@ -397,7 +397,7 @@ def main():
             # claim ANTES de publicar: crash entre o Instagram e o ledger nunca
             # pode resultar em post duplicado no cron seguinte
             try:
-                sb("POST", "/publish_queue", {
+                sb("POST", "/publish_queue?on_conflict=item_id", {
                     "item_id": iid, "namespace": ns, "brand": brand,
                     "kind": item["format"], "status": "publishing",
                     "scheduled_for": when.isoformat(),
@@ -419,7 +419,7 @@ def main():
                 alerts.append({"type": "publish_error", "item_id": iid, "brand": brand,
                                "detail": str(e)[:300]})
                 try:
-                    sb("POST", "/publish_queue", {
+                    sb("POST", "/publish_queue?on_conflict=item_id", {
                         "item_id": iid, "namespace": ns, "brand": brand,
                         "kind": item["format"], "status": "error",
                         "caption": str(e)[:500],
@@ -432,7 +432,7 @@ def main():
             # publicado com sucesso — se o update do ledger falhar, NUNCA marcar
             # 'error' (tornaria o item retryável = duplicado garantido)
             try:
-                sb("POST", "/publish_queue", {
+                sb("POST", "/publish_queue?on_conflict=item_id", {
                     "item_id": iid, "namespace": ns, "brand": brand,
                     "kind": item["format"], "status": "published",
                     "caption": caption[:500],
