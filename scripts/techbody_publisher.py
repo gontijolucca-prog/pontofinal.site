@@ -236,13 +236,11 @@ def publish_item(item, caption, ig_user, token):
     fmt = item["format"]
 
     if fmt == "carrossel":
-        # slide animado (mp4 live) tem prioridade sobre o PNG estático
+        # decisão Lucca 2026-06-11: carrosséis SEMPRE imagens estáticas
+        # (os slide_NN.mp4 existem mas são ignorados aqui)
         slides = []
-        for i, photo in enumerate(assets["photos"]):
-            video = (assets.get("videos") or [None] * len(assets["photos"]))[i]
-            if video and head_ok(video):
-                slides.append(("video", video))
-            elif head_ok(photo):
+        for photo in assets["photos"]:
+            if head_ok(photo):
                 slides.append(("image", photo))
             else:
                 raise RuntimeError(f"asset em falta: {photo}")
