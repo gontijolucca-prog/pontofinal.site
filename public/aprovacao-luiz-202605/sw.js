@@ -12,7 +12,7 @@
 // Resultado: a partir da segunda visita o user nunca mais vê versão
 // antiga, mesmo sem clear cache manual.
 
-const CACHE_NAME = 'pf-aprovacao-fallback-v2';
+const CACHE_NAME = 'pf-aprovacao-fallback-v3';
 
 // Activa imediatamente sem esperar que tabs abertas fechem.
 self.addEventListener('install', (event) => {
@@ -35,6 +35,9 @@ self.addEventListener('fetch', (event) => {
   // Só interceptamos requests para o mesmo origin. /api/* e externos (CDN
   // de fontes, supabase directo) ficam fora do controlo do SW.
   if (url.origin !== self.location.origin) return;
+  // O proxy Supabase (/api/*) NUNCA passa pelo SW — interceptado, o request
+  // ficava pendurado para sempre em alguns tabs (página presa no loader).
+  if (url.pathname.startsWith('/api/')) return;
   // Só GET requests — POSTs (writes) vão sempre directos para network.
   if (req.method !== 'GET') return;
 

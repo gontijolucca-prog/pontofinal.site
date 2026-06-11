@@ -266,6 +266,9 @@ async function fetchApprovals(query) {
         mode: "cors",
         credentials: "omit",
         cache: "no-store",
+        // Endpoint pendurado (ex.: SW antigo a engolir /api) não pode prender
+        // a página — aborta e cai para o endpoint seguinte.
+        signal: AbortSignal.timeout(8000),
       });
       if (!res.ok) {
         _lastFetchError = `HTTP ${res.status} via ${base}`;
@@ -308,6 +311,7 @@ async function upsertApprovals(row) {
         mode: "cors",
         credentials: "omit",
         keepalive: true,
+        signal: AbortSignal.timeout(8000),
       });
       if (res.ok) return true;
       _lastSyncError = `HTTP ${res.status} via ${base}`;
