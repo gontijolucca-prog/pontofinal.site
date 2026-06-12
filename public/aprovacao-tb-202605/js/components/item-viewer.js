@@ -179,8 +179,8 @@ class ItemViewer extends HTMLElement {
         // body por trás do overlay. A janela do iframe não scrolla (scrollBy
         // nela era no-op: setas "mortas").
         const sc = doc.querySelector(".carousel");
-        if (sc) sc.scrollTo({ left: el.offsetLeft, top: 0 });
-        else iframe.contentWindow.scrollTo(el.offsetLeft, el.offsetTop);
+        if (sc) sc.scrollTo({ left: el.offsetLeft, top: 0, behavior: "instant" });
+        else iframe.contentWindow.scrollTo({ left: el.offsetLeft, top: el.offsetTop, behavior: "instant" });
         return;
       }
     } catch {}
@@ -216,8 +216,8 @@ class ItemViewer extends HTMLElement {
       // scrollTo no scroller real — ver nota em _gotoSlideInFrame.
       if (el) {
         const sc = doc.querySelector(".carousel");
-        if (sc) sc.scrollTo({ left: el.offsetLeft, top: 0 });
-        else iframe.contentWindow.scrollTo(el.offsetLeft, el.offsetTop);
+        if (sc) sc.scrollTo({ left: el.offsetLeft, top: 0, behavior: "instant" });
+        else iframe.contentWindow.scrollTo({ left: el.offsetLeft, top: el.offsetTop, behavior: "instant" });
       }
     } catch {}
   }

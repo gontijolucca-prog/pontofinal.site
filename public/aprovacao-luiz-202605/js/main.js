@@ -582,7 +582,15 @@ async function init() {
   );
 
   state.items = await itemsP;
-  await supabaseP;
+  // Primeiro paint só com items.json — esperar também pela cadeia Supabase
+  // (sessão + aprovações, 1.5–6s) segurava o loader. Os stamps hidratam
+  // quando o Supabase chegar: re-aplicar overrides e re-renderizar por cima.
+  supabaseP.then(() => {
+    applyDateOverrides();
+    applyHourOverrides();
+    render();
+    updateCounts();
+  });
   applyDateOverrides();
   applyHourOverrides();
   bindOpen();

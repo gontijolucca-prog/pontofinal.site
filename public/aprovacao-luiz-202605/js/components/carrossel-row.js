@@ -163,8 +163,8 @@ class CarrosselRow extends HTMLElement {
       // do iframe não scrolla (scrollBy nela era no-op: setas "mortas").
       if (el) {
         const sc = doc.querySelector(".carousel");
-        if (sc) sc.scrollTo({ left: el.offsetLeft, top: 0 });
-        else f.contentWindow.scrollTo(el.offsetLeft, el.offsetTop);
+        if (sc) sc.scrollTo({ left: el.offsetLeft, top: 0, behavior: "instant" });
+        else f.contentWindow.scrollTo({ left: el.offsetLeft, top: el.offsetTop, behavior: "instant" });
       }
     } catch {}
   }

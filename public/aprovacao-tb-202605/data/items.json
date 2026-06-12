@@ -1272,6 +1272,30 @@
   "hour": "17h"
  },
  {
+  "id": "techbody-2026-07-s04",
+  "brand": "techbody",
+  "month": "2026-07",
+  "format": "story",
+  "kind": "estatico",
+  "theme": "ritmo_verao",
+  "pilar": "Resultados",
+  "audience": "b2c",
+  "title": "Os resultados não tiram férias. 25 minutos mantêm o ritmo.",
+  "slides": 1,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Os resultados não tiram férias. 25 minutos mantêm o ritmo. Marque a sua sessão experimental."
+   }
+  ],
+  "html_url": "../brands/techbody/output/2026-07/stories/s04-ritmo-verao.html",
+  "photos_used": [],
+  "prompt_version": "hand-v2",
+  "generated_at": "2026-06-12T11:30:00",
+  "scheduled_for": "2026-07-10",
+  "hour": "17h"
+ },
+ {
   "id": "techbody-2026-07-r01",
   "brand": "techbody",
   "month": "2026-07",
