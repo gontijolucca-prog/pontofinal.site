@@ -1,396 +1,1516 @@
 [
-  {
-    "id": "luiz_santana-2026-05-c01",
-    "brand": "luiz_santana",
-    "month": "2026-06",
-    "format": "carrossel",
-    "theme": "barreiras",
-    "pilar": "Barreiras ao exercício",
-    "audience": "b2c",
-    "title": "Não treinar não é fraqueza. É problema de método.",
-    "slides": 6,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Não treinar não é fraqueza. É problema de método."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Para a maioria, a barreira é o tempo. Não a vontade."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Vinte e cinco minutos cabem em qualquer agenda."
-      },
-      {
-        "role": "development",
-        "text_overlay": "A eletroestimulação de corpo inteiro chega a profundidade que o treino convencional dificilmente alcança."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Consistência semanal pesa mais do que duração diária."
-      },
-      {
-        "role": "cta",
-        "text_overlay": "Se ainda não encontraste o treino certo para ti, a TechBody pode ser a solução. Comenta — eu digo-te como podes experimentar."
-      }
-    ],
-    "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c01-barreiras.html",
-    "photos_used": [
-      "magnific_a2.-firm-authority-direct_2964371283.jpg",
-      "magnific_a1-contrarian-firme-e-des_2964293568.jpg"
-    ],
-    "photo_positions": [
-      2,
-      5
-    ],
-    "styles": [
-      "type",
-      "photo",
-      "type",
-      "type",
-      "photo",
-      "type"
-    ],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-11",
-    "hour": "09h"
-  },
-  {
-    "id": "luiz_santana-2026-05-s01",
-    "brand": "luiz_santana",
-    "month": "2026-06",
-    "format": "story",
-    "theme": "consistencia",
-    "pilar": "Filosofia do método",
-    "audience": "b2c",
-    "title": "Consistência — quantas vezes por semana?",
-    "slides": 1,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Consistência… E tu, quantas vezes por semana treinas?"
-      }
-    ],
-    "html_url": "../brands/luiz_santana/output/2026-05/stories/s01-consistencia.html",
-    "photos_used": [],
-    "photo_positions": [],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-12",
-    "hour": "17h",
-    "preview_only": true
-  },
-  {
-    "id": "luiz_santana-2026-05-c02",
-    "brand": "luiz_santana",
-    "month": "2026-06",
-    "format": "carrossel",
-    "theme": "metodo_ciencia",
-    "pilar": "Método e ciência aplicada",
-    "audience": "b2c",
-    "title": "Eletroestimulação — o que a evidência mostra.",
-    "slides": 6,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Eletroestimulação — o que a evidência mostra."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Eletroestimulação de corpo inteiro pode chegar até 90% das fibras musculares. Profundas incluídas."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Sessões curtas, acompanhamento técnico, estímulo profundo. É essa a vantagem."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Dose certa: duas a três sessões por semana, com acompanhamento."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Janela onde a evolução fica visível: seis a doze semanas."
-      },
-      {
-        "role": "cta",
-        "text_overlay": "Na TechBody, podes treinar nos estúdios, em casa ou em ambos. Sabe como na legenda."
-      }
-    ],
-    "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c02-metodo-ciencia.html",
-    "photos_used": [
-      "magnific__photo-a-35yearold-mixedrace-man-with-short-black-h__28183.jpg",
-      "magnific_a4-origem-narrativa-e-rel_2964293900.jpg"
-    ],
-    "photo_positions": [
-      1,
-      6
-    ],
-    "styles": [
-      "photo",
-      "type",
-      "num",
-      "type",
-      "type",
-      "photo"
-    ],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-15",
-    "hour": "09h"
-  },
-  {
-    "id": "luiz_santana-2026-05-c05",
-    "brand": "luiz_santana",
-    "month": "2026-06",
-    "format": "carrossel",
-    "theme": "emagrecimento-glp1",
-    "pilar": "Emagrecimento e massa muscular",
-    "audience": "b2c",
-    "title": "Estás a emagrecer com Ozempic ou Mounjaro?",
-    "slides": 6,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Estás a emagrecer com Ozempic ou Mounjaro? O peso desce. O músculo pode ir atrás."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Estes medicamentos cortam o apetite. Comes menos — e a balança desce."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Mas 25 a 30% desse peso pode ser músculo. Não gordura."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Menos músculo é metabolismo mais lento, mais cansaço — e peso que volta."
-      },
-      {
-        "role": "development",
-        "text_overlay": "A eletroestimulação de corpo inteiro ativa o músculo em profundidade."
-      },
-      {
-        "role": "cta",
-        "text_overlay": "Estás a emagrecer com GLP-1? A TechBody ajuda-te a proteger o músculo. Comenta — eu digo-te por onde começar."
-      }
-    ],
-    "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c05-emagrecimento-glp1.html",
-    "photos_used": [
-      "magnific_a2.-firm-authority-direct_2964371283.jpg"
-    ],
-    "photo_positions": [
-      5
-    ],
-    "styles": [
-      "type",
-      "type",
-      "type",
-      "type",
-      "photo",
-      "type"
-    ],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-06-10T20:25:00",
-    "scheduled_for": "2026-06-18",
-    "hour": "09h"
-  },
-  {
-    "id": "luiz_santana-2026-05-s02",
-    "brand": "luiz_santana",
-    "month": "2026-06",
-    "format": "story",
-    "theme": "dose_certa",
-    "pilar": "Prática supervisionada",
-    "audience": "b2c",
-    "title": "Treinas acompanhado ou sozinho?",
-    "slides": 1,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Treinas acompanhado ou sozinho?"
-      }
-    ],
-    "html_url": "../brands/luiz_santana/output/2026-05/stories/s02-dose-certa.html",
-    "photos_used": [
-      "magnific_c1.-silhouette-softly-blu_2964372464.jpg"
-    ],
-    "photo_positions": [
-      1
-    ],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-19",
-    "hour": "17h",
-    "preview_only": true
-  },
-  {
-    "id": "luiz_santana-2026-05-c03",
-    "brand": "luiz_santana",
-    "month": "2026-06",
-    "format": "carrossel",
-    "theme": "origem_percurso",
-    "pilar": "Origem e percurso",
-    "audience": "b2c",
-    "title": "Mais de uma década a construir o treino inteligente em Portugal.",
-    "slides": 6,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "A construir o treino mais inteligente e tecnológico em Portugal."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Hoje é a maior rede de estúdios do país. E a primeira marca com produto digital, pronto para usar em casa."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Aposta clara desde o início. Equipamento certificado e treinador profissional."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Mais estúdios. Mesmo método. E agora também em casa, no teu ritmo."
-      },
-      {
-        "role": "development",
-        "text_overlay": "O método é o mesmo. O lugar onde acontece é que mudou."
-      },
-      {
-        "role": "cta",
-        "text_overlay": "Quer conhecer por dentro? Comenta e eu mostro-te o método."
-      }
-    ],
-    "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c03-origem-percurso.html",
-    "photos_used": [
-      "magnific__photo-a-30yearold-man-with-brown-skin-and-short-bl__28181.png",
-      "magnific_a5.-pure-profile-editoria_2964371684.jpg"
-    ],
-    "photo_positions": [
-      3,
-      5
-    ],
-    "styles": [
-      "type",
-      "type",
-      "photo",
-      "type",
-      "photo",
-      "type"
-    ],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-25",
-    "hour": "09h"
-  },
-  {
-    "id": "luiz_santana-2026-05-s03",
-    "brand": "luiz_santana",
-    "month": "2026-06",
-    "format": "story",
-    "theme": "reabilitacao",
-    "pilar": "Saúde e reabilitação",
-    "audience": "b2c",
-    "title": "Qual é o teu objetivo de treino?",
-    "slides": 1,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Qual é o teu objetivo de treino atual? Responde a este story."
-      }
-    ],
-    "html_url": "../brands/luiz_santana/output/2026-05/stories/s03-reabilitacao.html",
-    "photos_used": [],
-    "photo_positions": [],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-26",
-    "hour": "17h",
-    "preview_only": true
-  },
-  {
-    "id": "luiz_santana-2026-05-c04",
-    "brand": "luiz_santana",
-    "month": "2026-06",
-    "format": "carrossel",
-    "theme": "b2b_ferramenta",
-    "pilar": "B2B — ferramenta para profissionais",
-    "audience": "b2b",
-    "title": "A eletroestimulação não é só treino. É linha de negócio.",
-    "slides": 6,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Eletroestimulação não é só treino. É linha de negócio."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Para ginásios, clínicas e espaços de saúde, o treino com eletroestimulação requer poucos recursos — espaço e materiais."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Mensalidade por sessão superior ao convencional. Maior adesão e frequência dos clientes."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Menos tempo de treino para ter resultados. Duas a três vezes por semana, 25 minutos."
-      },
-      {
-        "role": "development",
-        "text_overlay": "Franchising chave-na-mão. Plano financeiro, formação, recrutamento e marketing."
-      },
-      {
-        "role": "cta",
-        "text_overlay": "Agenda uma reunião de avaliação. Sabe o que o teu negócio pode ganhar com a eletroestimulação (link na bio franchising)."
-      }
-    ],
-    "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c04-b2b-ferramenta.html",
-    "photos_used": [
-      "magnific_a2-convidativa-acolhedora_2964293661.jpg"
-    ],
-    "photo_positions": [
-      5
-    ],
-    "styles": [
-      "type",
-      "type",
-      "type",
-      "type",
-      "photo",
-      "type"
-    ],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-06-29",
-    "hour": "09h"
-  },
-  {
-    "id": "luiz_santana-2026-05-s04",
-    "brand": "luiz_santana",
-    "month": "2026-06",
-    "format": "story",
-    "theme": "rede_estudios",
-    "pilar": "Rede TechBody",
-    "audience": "b2c",
-    "title": "Estúdio ou casa?",
-    "slides": 1,
-    "slides_text": [
-      {
-        "role": "hook",
-        "text_overlay": "Preferes treinar em estúdio ou em casa?"
-      }
-    ],
-    "html_url": "../brands/luiz_santana/output/2026-05/stories/s04-rede-estudios.html",
-    "photos_used": [
-      "magnific_a7.-seated-confidence-edi_2964371960.jpg"
-    ],
-    "photo_positions": [
-      1
-    ],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "2026-07-03",
-    "hour": "17h",
-    "preview_only": true
-  }
+ {
+  "id": "luiz_santana-2026-05-c01",
+  "brand": "luiz_santana",
+  "month": "2026-06",
+  "format": "carrossel",
+  "theme": "barreiras",
+  "pilar": "Barreiras ao exercício",
+  "audience": "b2c",
+  "title": "Não treinar não é fraqueza. É problema de método.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Não treinar não é fraqueza. É problema de método."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Para a maioria, a barreira é o tempo. Não a vontade."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Vinte e cinco minutos cabem em qualquer agenda."
+   },
+   {
+    "role": "development",
+    "text_overlay": "A eletroestimulação de corpo inteiro chega a profundidade que o treino convencional dificilmente alcança."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Consistência semanal pesa mais do que duração diária."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Se ainda não encontraste o treino certo para ti, a TechBody pode ser a solução. Comenta — eu digo-te como podes experimentar."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c01-barreiras.html",
+  "photos_used": [
+   "magnific_a2.-firm-authority-direct_2964371283.jpg",
+   "magnific_a1-contrarian-firme-e-des_2964293568.jpg"
+  ],
+  "photo_positions": [
+   2,
+   5
+  ],
+  "styles": [
+   "type",
+   "photo",
+   "type",
+   "type",
+   "photo",
+   "type"
+  ],
+  "prompt_version": "hand-v1",
+  "generated_at": "2026-05-18T10:54:32",
+  "scheduled_for": "2026-06-11",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-05-s01",
+  "brand": "luiz_santana",
+  "month": "2026-06",
+  "format": "story",
+  "theme": "consistencia",
+  "pilar": "Filosofia do método",
+  "audience": "b2c",
+  "title": "Consistência — quantas vezes por semana?",
+  "slides": 1,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Consistência… E tu, quantas vezes por semana treinas?"
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-05/stories/s01-consistencia.html",
+  "photos_used": [],
+  "photo_positions": [],
+  "prompt_version": "hand-v1",
+  "generated_at": "2026-05-18T10:54:32",
+  "scheduled_for": "2026-06-12",
+  "hour": "17h",
+  "preview_only": true
+ },
+ {
+  "id": "luiz_santana-2026-05-c02",
+  "brand": "luiz_santana",
+  "month": "2026-06",
+  "format": "carrossel",
+  "theme": "metodo_ciencia",
+  "pilar": "Método e ciência aplicada",
+  "audience": "b2c",
+  "title": "Eletroestimulação — o que a evidência mostra.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Eletroestimulação — o que a evidência mostra."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Eletroestimulação de corpo inteiro pode chegar até 90% das fibras musculares. Profundas incluídas."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Sessões curtas, acompanhamento técnico, estímulo profundo. É essa a vantagem."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Dose certa: duas a três sessões por semana, com acompanhamento."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Janela onde a evolução fica visível: seis a doze semanas."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Na TechBody, podes treinar nos estúdios, em casa ou em ambos. Sabe como na legenda."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c02-metodo-ciencia.html",
+  "photos_used": [
+   "magnific__photo-a-35yearold-mixedrace-man-with-short-black-h__28183.jpg",
+   "magnific_a4-origem-narrativa-e-rel_2964293900.jpg"
+  ],
+  "photo_positions": [
+   1,
+   6
+  ],
+  "styles": [
+   "photo",
+   "type",
+   "num",
+   "type",
+   "type",
+   "photo"
+  ],
+  "prompt_version": "hand-v1",
+  "generated_at": "2026-05-18T10:54:32",
+  "scheduled_for": "2026-06-15",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-05-c05",
+  "brand": "luiz_santana",
+  "month": "2026-06",
+  "format": "carrossel",
+  "theme": "emagrecimento-glp1",
+  "pilar": "Emagrecimento e massa muscular",
+  "audience": "b2c",
+  "title": "Estás a emagrecer com Ozempic ou Mounjaro?",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Estás a emagrecer com Ozempic ou Mounjaro? O peso desce. O músculo pode ir atrás."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Estes medicamentos cortam o apetite. Comes menos — e a balança desce."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Mas 25 a 30% desse peso pode ser músculo. Não gordura."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Menos músculo é metabolismo mais lento, mais cansaço — e peso que volta."
+   },
+   {
+    "role": "development",
+    "text_overlay": "A eletroestimulação de corpo inteiro ativa o músculo em profundidade."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Estás a emagrecer com GLP-1? A TechBody ajuda-te a proteger o músculo. Comenta — eu digo-te por onde começar."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c05-emagrecimento-glp1.html",
+  "photos_used": [
+   "magnific_a2.-firm-authority-direct_2964371283.jpg"
+  ],
+  "photo_positions": [
+   5
+  ],
+  "styles": [
+   "type",
+   "type",
+   "type",
+   "type",
+   "photo",
+   "type"
+  ],
+  "prompt_version": "hand-v1",
+  "generated_at": "2026-06-10T20:25:00",
+  "scheduled_for": "2026-06-18",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-05-s02",
+  "brand": "luiz_santana",
+  "month": "2026-06",
+  "format": "story",
+  "theme": "dose_certa",
+  "pilar": "Prática supervisionada",
+  "audience": "b2c",
+  "title": "Treinas acompanhado ou sozinho?",
+  "slides": 1,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Treinas acompanhado ou sozinho?"
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-05/stories/s02-dose-certa.html",
+  "photos_used": [
+   "magnific_c1.-silhouette-softly-blu_2964372464.jpg"
+  ],
+  "photo_positions": [
+   1
+  ],
+  "prompt_version": "hand-v1",
+  "generated_at": "2026-05-18T10:54:32",
+  "scheduled_for": "2026-06-19",
+  "hour": "17h",
+  "preview_only": true
+ },
+ {
+  "id": "luiz_santana-2026-05-c03",
+  "brand": "luiz_santana",
+  "month": "2026-06",
+  "format": "carrossel",
+  "theme": "origem_percurso",
+  "pilar": "Origem e percurso",
+  "audience": "b2c",
+  "title": "Mais de uma década a construir o treino inteligente em Portugal.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "A construir o treino mais inteligente e tecnológico em Portugal."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Hoje é a maior rede de estúdios do país. E a primeira marca com produto digital, pronto para usar em casa."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Aposta clara desde o início. Equipamento certificado e treinador profissional."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Mais estúdios. Mesmo método. E agora também em casa, no teu ritmo."
+   },
+   {
+    "role": "development",
+    "text_overlay": "O método é o mesmo. O lugar onde acontece é que mudou."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Quer conhecer por dentro? Comenta e eu mostro-te o método."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c03-origem-percurso.html",
+  "photos_used": [
+   "magnific__photo-a-30yearold-man-with-brown-skin-and-short-bl__28181.png",
+   "magnific_a5.-pure-profile-editoria_2964371684.jpg"
+  ],
+  "photo_positions": [
+   3,
+   5
+  ],
+  "styles": [
+   "type",
+   "type",
+   "photo",
+   "type",
+   "photo",
+   "type"
+  ],
+  "prompt_version": "hand-v1",
+  "generated_at": "2026-05-18T10:54:32",
+  "scheduled_for": "2026-06-25",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-05-s03",
+  "brand": "luiz_santana",
+  "month": "2026-06",
+  "format": "story",
+  "theme": "reabilitacao",
+  "pilar": "Saúde e reabilitação",
+  "audience": "b2c",
+  "title": "Qual é o teu objetivo de treino?",
+  "slides": 1,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Qual é o teu objetivo de treino atual? Responde a este story."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-05/stories/s03-reabilitacao.html",
+  "photos_used": [],
+  "photo_positions": [],
+  "prompt_version": "hand-v1",
+  "generated_at": "2026-05-18T10:54:32",
+  "scheduled_for": "2026-06-26",
+  "hour": "17h",
+  "preview_only": true
+ },
+ {
+  "id": "luiz_santana-2026-05-c04",
+  "brand": "luiz_santana",
+  "month": "2026-06",
+  "format": "carrossel",
+  "theme": "b2b_ferramenta",
+  "pilar": "B2B — ferramenta para profissionais",
+  "audience": "b2b",
+  "title": "A eletroestimulação não é só treino. É linha de negócio.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Eletroestimulação não é só treino. É linha de negócio."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Para ginásios, clínicas e espaços de saúde, o treino com eletroestimulação requer poucos recursos — espaço e materiais."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Mensalidade por sessão superior ao convencional. Maior adesão e frequência dos clientes."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Menos tempo de treino para ter resultados. Duas a três vezes por semana, 25 minutos."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Franchising chave-na-mão. Plano financeiro, formação, recrutamento e marketing."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Agenda uma reunião de avaliação. Sabe o que o teu negócio pode ganhar com a eletroestimulação (link na bio franchising)."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c04-b2b-ferramenta.html",
+  "photos_used": [
+   "magnific_a2-convidativa-acolhedora_2964293661.jpg"
+  ],
+  "photo_positions": [
+   5
+  ],
+  "styles": [
+   "type",
+   "type",
+   "type",
+   "type",
+   "photo",
+   "type"
+  ],
+  "prompt_version": "hand-v1",
+  "generated_at": "2026-05-18T10:54:32",
+  "scheduled_for": "2026-06-29",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-05-s04",
+  "brand": "luiz_santana",
+  "month": "2026-06",
+  "format": "story",
+  "theme": "rede_estudios",
+  "pilar": "Rede TechBody",
+  "audience": "b2c",
+  "title": "Estúdio ou casa?",
+  "slides": 1,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Preferes treinar em estúdio ou em casa?"
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-05/stories/s04-rede-estudios.html",
+  "photos_used": [
+   "magnific_a7.-seated-confidence-edi_2964371960.jpg"
+  ],
+  "photo_positions": [
+   1
+  ],
+  "prompt_version": "hand-v1",
+  "generated_at": "2026-05-18T10:54:32",
+  "scheduled_for": "2026-07-03",
+  "hour": "17h",
+  "preview_only": true
+ },
+ {
+  "id": "luiz_santana-2026-06-c06",
+  "brand": "luiz_santana",
+  "month": "2026-06",
+  "format": "carrossel",
+  "theme": "mitos_eletro",
+  "pilar": "Método",
+  "audience": "b2c",
+  "title": "Três mitos afastam pessoas da eletroestimulação. Nenhum sobrevive a uma sessão.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Três mitos afastam pessoas da eletroestimulação. Nenhum sobrevive a uma sessão."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Mito um: dói. A intensidade é controlada ao segundo — e és tu quem manda nela."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Sem truques. Método, ciência e vinte e cinco minutos."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Mito dois: é só para atletas. A eletroestimulação adapta-se ao teu nível — do primeiro treino ao mais avançado."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Mito três: não substitui o ginásio. Nos estúdios TechBody, é o treino principal. Profundidade que o convencional dificilmente alcança."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Qual destes mitos te travou até hoje? Comenta — eu digo-te o que é verdade e o que é ruído."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-06/carrosseis/c06-mitos-eletro.html",
+  "photos_used": [
+   "magnific_a1-contrarian-firme-e-des_2964293568.jpg"
+  ],
+  "photo_positions": [
+   3
+  ],
+  "styles": [
+   "type",
+   "type",
+   "photo",
+   "type",
+   "type",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-06-14",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-06-c07",
+  "brand": "luiz_santana",
+  "month": "2026-06",
+  "format": "carrossel",
+  "theme": "treino_em_casa",
+  "pilar": "TechBody U",
+  "audience": "b2c",
+  "title": "O estúdio pode ser a tua sala.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "O estúdio pode ser a tua sala. Sem espelhos, sem espera, sem deslocações."
+   },
+   {
+    "role": "development",
+    "text_overlay": "TechBody U é o método dos estúdios levado a casa: aplicação que te guia e TecSuit que veste como uma segunda pele."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Vinte e cinco minutos por sessão. O resto do dia continua teu."
+   },
+   {
+    "role": "development",
+    "text_overlay": "A aplicação marca o ritmo, ajusta o plano e regista cada treino. Tu só tens de aparecer — na tua própria casa."
+   },
+   {
+    "role": "development",
+    "text_overlay": "A tua casa já é um estúdio. Só falta começar."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Envia mensagem com a palavra CASA e eu explico-te como funciona o TechBody U."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-06/carrosseis/c07-treino-em-casa.html",
+  "photos_used": [
+   "10_tbu_sala_clara.jpg"
+  ],
+  "photo_positions": [
+   5
+  ],
+  "styles": [
+   "type",
+   "type",
+   "type",
+   "type",
+   "photo",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-06-16",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-06-c08",
+  "brand": "luiz_santana",
+  "month": "2026-06",
+  "format": "carrossel",
+  "theme": "verao_sem_pausa",
+  "pilar": "Consistência",
+  "audience": "b2c",
+  "title": "O verão não tem de ser uma pausa.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "O verão não tem de ser uma pausa. Tem de ser a prova de que o método cabe na vida."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Vinte e cinco minutos. Até em agosto."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Praia, viagens, jantares longos — a agenda muda, mas o corpo continua a precisar de estímulo."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Uma sessão de eletroestimulação são vinte e cinco minutos. Cabe entre a manhã na praia e o resto do dia."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Não é sobre treinar mais. É sobre não parar de todo — a consistência vale mais do que a perfeição."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Guarda este carrossel para o dia em que a preguiça de verão atacar. E comenta se já sentiste a diferença de não parar."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-06/carrosseis/c08-verao-sem-pausa.html",
+  "photos_used": [
+   "01_casual_tshirt_preta.jpg"
+  ],
+  "photo_positions": [
+   2
+  ],
+  "styles": [
+   "type",
+   "photo",
+   "type",
+   "type",
+   "type",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-06-17",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-06-c09",
+  "brand": "luiz_santana",
+  "month": "2026-06",
+  "format": "carrossel",
+  "theme": "recomeco_apos_pausa",
+  "pilar": "Barreiras",
+  "audience": "b2c",
+  "title": "Paraste há meses. A parte difícil não é o corpo.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Paraste há meses. A parte mais difícil não é o corpo — é a vergonha de voltar."
+   },
+   {
+    "role": "development",
+    "text_overlay": "O corpo tem memória: quem já treinou recupera força mais depressa do que quem nunca começou."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Na TechBody, a intensidade ajusta-se a quem és hoje — não a quem eras quando paraste."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Voltar é mais fácil do que pensas."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Vinte e cinco minutos por sessão tiram o peso da decisão. Recomeçar deixa de ser um projeto — passa a ser uma terça-feira."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Se estás há meses a adiar o regresso, comenta VOLTAR — eu digo-te como é a primeira sessão."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-06/carrosseis/c09-recomeco-apos-pausa.html",
+  "photos_used": [
+   "magnific_a3.-relaxed-proximity-hal_2964371464.jpg"
+  ],
+  "photo_positions": [
+   4
+  ],
+  "styles": [
+   "type",
+   "type",
+   "type",
+   "photo",
+   "type",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-06-20",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-06-c10",
+  "brand": "luiz_santana",
+  "month": "2026-06",
+  "format": "carrossel",
+  "theme": "musculo_longevidade",
+  "pilar": "Saúde",
+  "audience": "b2c",
+  "title": "Músculo não é estética. É o teu seguro de saúde.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Músculo não é estética. É o teu seguro de saúde."
+   },
+   {
+    "role": "development",
+    "text_overlay": "A partir dos trinta, quem não treina perde músculo ano após ano. Em silêncio."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Menos músculo significa metabolismo mais lento, menos energia e mais fragilidade — hoje não, mas daqui a vinte anos sim."
+   },
+   {
+    "role": "development",
+    "text_overlay": "A eletroestimulação de corpo inteiro ativa o músculo em profundidade, sem sobrecarregar as articulações."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Não treinas só para o espelho. Treinas para subir escadas aos oitenta sem pensar nisso."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Partilha este carrossel com alguém que adia o treino «para quando houver tempo». O músculo não espera."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-06/carrosseis/c10-musculo-longevidade.html",
+  "photos_used": [
+   "magnific_a5.-pure-profile-editoria_2964371684.jpg"
+  ],
+  "photo_positions": [
+   1
+  ],
+  "styles": [
+   "photo",
+   "type",
+   "type",
+   "type",
+   "type",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-06-22",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-06-c11",
+  "brand": "luiz_santana",
+  "month": "2026-06",
+  "format": "carrossel",
+  "theme": "paper_pubmed",
+  "pilar": "Ciência",
+  "audience": "b2c",
+  "title": "A eletroestimulação tem estudos a sério. Este é um deles.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "A eletroestimulação tem estudos a sério. Este é um deles."
+   },
+   {
+    "role": "development",
+    "text_overlay": "TEST-III, Universidade de Erlangen: mulheres com mais de setenta anos, sedentárias, treinaram com eletroestimulação de corpo inteiro."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Protocolo curto: três sessões em cada duas semanas. Resultado: ganhos mensuráveis de força e massa muscular."
+   },
+   {
+    "role": "development",
+    "text_overlay": "A conclusão dos investigadores: a eletroestimulação é uma opção eficaz para quem não pode — ou não quer — treino convencional."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Não é moda. É investigação publicada."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Queres saber o que isto significa para o teu caso? Comenta CIÊNCIA — eu explico-te sem jargão."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-06/carrosseis/c11-paper-pubmed.html",
+  "photos_used": [
+   "magnific_b1.-office-minimalist-sea_2964372206.jpg"
+  ],
+  "photo_positions": [
+   5
+  ],
+  "styles": [
+   "type",
+   "type",
+   "type",
+   "type",
+   "photo",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-06-24",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-06-c12",
+  "brand": "luiz_santana",
+  "month": "2026-06",
+  "format": "carrossel",
+  "theme": "bastidores_formacao",
+  "pilar": "Bastidores",
+  "audience": "b2b",
+  "title": "O que separa um bom estúdio de um medíocre? Quase nunca é a máquina.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "O que separa um bom estúdio de eletroestimulação de um medíocre? Quase nunca é a máquina."
+   },
+   {
+    "role": "development",
+    "text_overlay": "A tecnologia não substitui critério humano."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Um bom treinador lê o corpo antes de subir a intensidade. A regulação certa, para a pessoa certa, no dia certo."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Liderar uma rede de estúdios é garantir que esse critério não se perde quando a marca cresce."
+   },
+   {
+    "role": "development",
+    "text_overlay": "É por isso que a TechBody trata a formação das equipas como trata o treino: com método."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Trabalhas em fitness e queres perceber o modelo TechBody? Comenta EQUIPA — eu explico-te como funciona."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-06/carrosseis/c12-bastidores-formacao.html",
+  "photos_used": [
+   "07_social_fato_escuro.jpg"
+  ],
+  "photo_positions": [
+   2
+  ],
+  "styles": [
+   "type",
+   "photo",
+   "type",
+   "type",
+   "type",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-06-28",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-06-c13",
+  "brand": "luiz_santana",
+  "month": "2026-06",
+  "format": "carrossel",
+  "theme": "tonificar_vs_crescer",
+  "pilar": "Método",
+  "audience": "b2c",
+  "title": "«Quero tonificar, não quero ficar grande.»",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "«Quero tonificar, não quero ficar grande.» Vamos esclarecer isto de uma vez."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Tonificar é ter músculo presente e gordura sob controlo. Não existe transformação acidental em culturista."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Ganhar volume exige anos de treino específico, alimentação dedicada e genética a ajudar. Não acontece por engano."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Tónus é músculo acordado. Nada mais."
+   },
+   {
+    "role": "development",
+    "text_overlay": "A eletroestimulação ativa o músculo em profundidade — firmeza e postura, ao teu ritmo, sem te empurrar para onde não queres ir."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Ainda tens medo de «ficar grande»? Comenta — eu digo-te o que acontece realmente quando começas."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-06/carrosseis/c13-tonificar-vs-crescer.html",
+  "photos_used": [
+   "09_tbu_acto_treino.jpg"
+  ],
+  "photo_positions": [
+   4
+  ],
+  "styles": [
+   "type",
+   "type",
+   "type",
+   "photo",
+   "type",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-06-30",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-07-c01",
+  "brand": "luiz_santana",
+  "month": "2026-07",
+  "format": "carrossel",
+  "theme": "agenda_de_ferias",
+  "pilar": "Barreiras",
+  "audience": "b2c",
+  "title": "Julho chega e a agenda explode.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Julho chega e a agenda explode. O treino é sempre a primeira vítima."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Não precisas de mais força de vontade. Precisas de um treino que ocupe menos espaço na vida."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Vinte e cinco minutos por sessão. Menos tempo do que escolher onde jantar."
+   },
+   {
+    "role": "development",
+    "text_overlay": "A agenda está cheia. O método adapta-se."
+   },
+   {
+    "role": "development",
+    "text_overlay": "A eletroestimulação de corpo inteiro condensa o trabalho de uma sessão longa num bloco curto e intenso."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Comenta AGENDA — eu digo-te como encaixar o treino num mês impossível."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c01-agenda-de-ferias.html",
+  "photos_used": [
+   "05_casual_camisola.jpg"
+  ],
+  "photo_positions": [
+   4
+  ],
+  "styles": [
+   "type",
+   "type",
+   "type",
+   "photo",
+   "type",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-07-02",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-07-c02",
+  "brand": "luiz_santana",
+  "month": "2026-07",
+  "format": "carrossel",
+  "theme": "tecsuit_segunda_pele",
+  "pilar": "TechBody U",
+  "audience": "b2c",
+  "title": "O TecSuit veste-se como uma segunda pele.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "O TecSuit não se veste por cima da roupa. Veste-se como uma segunda pele."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Tecnologia que veste. Treino que fica."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Cada elétrodo assenta no sítio certo do corpo — o estímulo chega onde tem de chegar, sessão após sessão."
+   },
+   {
+    "role": "development",
+    "text_overlay": "É teu: compra-se uma vez, não se aluga. Sem mensalidades escondidas."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Com a aplicação TechBody U, o fato e o plano trabalham juntos — em casa, ao teu ritmo."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Curioso sobre como funciona na prática? Envia mensagem com a palavra TECSUIT e eu mostro-te."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c02-tecsuit-segunda-pele.html",
+  "photos_used": [
+   "08_tbu_perfil_lateral.jpg"
+  ],
+  "photo_positions": [
+   2
+  ],
+  "styles": [
+   "type",
+   "photo",
+   "type",
+   "type",
+   "type",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-07-04",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-07-c03",
+  "brand": "luiz_santana",
+  "month": "2026-07",
+  "format": "carrossel",
+  "theme": "intensidade_vs_duracao",
+  "pilar": "Método",
+  "audience": "b2c",
+  "title": "Uma hora morna ou vinte e cinco minutos a sério?",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Uma hora de treino morno ou vinte e cinco minutos a sério? O corpo sabe a resposta."
+   },
+   {
+    "role": "development",
+    "text_overlay": "O músculo não conta minutos. Responde a estímulo — e estímulo é qualidade, não duração."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Sessões longas convidam ao piloto automático. Sessões curtas obrigam a estar presente."
+   },
+   {
+    "role": "development",
+    "text_overlay": "A eletroestimulação de corpo inteiro leva a intensidade a todo o lado ao mesmo tempo — sem tempos mortos."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Intensidade certa vale mais do que hora extra."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Comenta — eu digo-te porque é que menos tempo pode significar mais resultado."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c03-intensidade-vs-duracao.html",
+  "photos_used": [
+   "magnific_a1.-contrarian-firme-e-de_2964305227.jpg"
+  ],
+  "photo_positions": [
+   5
+  ],
+  "styles": [
+   "type",
+   "type",
+   "type",
+   "type",
+   "photo",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-07-07",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-07-c04",
+  "brand": "luiz_santana",
+  "month": "2026-07",
+  "format": "carrossel",
+  "theme": "metabolismo_depois_dos_30",
+  "pilar": "Ciência",
+  "audience": "b2c",
+  "title": "Aos trinta e tal, o corpo respondeu de outra forma. Não é azar.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Aos vinte comias tudo. Aos trinta e tal, o corpo começou a responder de outra forma. Não é azar."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Com menos massa muscular, o corpo gasta menos energia em repouso. O metabolismo segue o músculo."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Mais músculo, metabolismo mais vivo. Simples."
+   },
+   {
+    "role": "development",
+    "text_overlay": "A eletroestimulação ativa o músculo em profundidade — e músculo ativo é um motor que gasta mais, mesmo parado."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Não é sobre dietas cada vez mais pequenas. É sobre um corpo que trabalha por ti."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Comenta METABOLISMO e eu explico-te o que muda no corpo a partir dos trinta."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c04-metabolismo-depois-dos-30.html",
+  "photos_used": [
+   "magnific__photo-a-35yearold-mixedrace-man-with-short-black-h__28183.jpg"
+  ],
+  "photo_positions": [
+   3
+  ],
+  "styles": [
+   "type",
+   "type",
+   "photo",
+   "type",
+   "type",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-07-09",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-07-c05",
+  "brand": "luiz_santana",
+  "month": "2026-07",
+  "format": "carrossel",
+  "theme": "postura_trabalho_sentado",
+  "pilar": "Barreiras",
+  "audience": "b2c",
+  "title": "Oito horas sentado. O teu corpo está a adaptar-se — mal.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Oito horas sentado. O teu corpo está a adaptar-se — mal."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Ombros para a frente, lombar a queixar-se, zona central adormecida. O escritório molda o corpo todos os dias."
+   },
+   {
+    "role": "development",
+    "text_overlay": "A solução não é só alongar. É acordar o músculo que sustenta a postura — o que está por baixo."
+   },
+   {
+    "role": "development",
+    "text_overlay": "A eletroestimulação chega aos músculos profundos da zona central, aqueles que o dia de secretária desliga."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Vinte e cinco minutos contra quarenta horas de cadeira. É uma luta justa — se o estímulo for profundo."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Trabalhas sentado e sentes o corpo a cobrar? Comenta POSTURA — eu digo-te por onde começar."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c05-postura-trabalho-sentado.html",
+  "photos_used": [
+   "02_social_camisa_blazer.jpg"
+  ],
+  "photo_positions": [
+   1
+  ],
+  "styles": [
+   "photo",
+   "type",
+   "type",
+   "type",
+   "type",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-07-11",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-07-c06",
+  "brand": "luiz_santana",
+  "month": "2026-07",
+  "format": "carrossel",
+  "theme": "expectativas_honestas",
+  "pilar": "Método",
+  "audience": "b2c",
+  "title": "Quando é que vês resultados? Resposta honesta: depende.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Quando é que vês resultados? Resposta honesta: depende. E quem te prometer uma data está a vender."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Depende do ponto de partida, da regularidade, do sono, da alimentação. O corpo não assina prazos."
+   },
+   {
+    "role": "development",
+    "text_overlay": "O que o método garante é o estímulo certo em cada sessão. A consistência faz o resto."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Por isso o caminho começa por conhecer o teu ponto de partida — não por prometer chegadas."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Sem promessas vazias. Com método e tempo."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Preferes a verdade a uma data bonita? Comenta — eu digo-te o que podes esperar de forma realista."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c06-expectativas-honestas.html",
+  "photos_used": [
+   "magnific_a2.-firm-authority-direct_2964371283.jpg"
+  ],
+  "photo_positions": [
+   5
+  ],
+  "styles": [
+   "type",
+   "type",
+   "type",
+   "type",
+   "photo",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-07-14",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-07-c07",
+  "brand": "luiz_santana",
+  "month": "2026-07",
+  "format": "carrossel",
+  "theme": "forca_no_feminino",
+  "pilar": "Ciência",
+  "audience": "b2c",
+  "title": "Força não tem género. Mas o medo de treinar força ainda tem.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Força não tem género. Mas o medo de treinar força ainda tem."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Treinar força é cuidar do futuro."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Para as mulheres, manter músculo é proteção: ossos mais fortes, metabolismo ativo, autonomia a longo prazo."
+   },
+   {
+    "role": "development",
+    "text_overlay": "E não, treinar força não te faz «ficar grande» — volume exige anos de trabalho específico, não acontece por acaso."
+   },
+   {
+    "role": "development",
+    "text_overlay": "A eletroestimulação trabalha a força em profundidade, com intensidade controlada ao detalhe e sem impacto nas articulações."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Partilha com uma mulher que ainda acha que treino de força não é para ela."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c07-forca-no-feminino.html",
+  "photos_used": [
+   "magnific_c1-fundo-escuro-com-silhu_2964294577.jpg"
+  ],
+  "photo_positions": [
+   2
+  ],
+  "styles": [
+   "type",
+   "photo",
+   "type",
+   "type",
+   "type",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-07-16",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-07-c08",
+  "brand": "luiz_santana",
+  "month": "2026-07",
+  "format": "carrossel",
+  "theme": "envelhecimento_ativo",
+  "pilar": "Saúde",
+  "audience": "b2c",
+  "title": "Envelhecer é inevitável. Enfraquecer, não.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Envelhecer é inevitável. Enfraquecer, não."
+   },
+   {
+    "role": "development",
+    "text_overlay": "A força que perdes entre os cinquenta e os setenta decide como vives dos setenta em diante."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Estudos com eletroestimulação em populações mais velhas mostram ganhos de força e massa muscular — mesmo a começar tarde."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Nunca é tarde para recuperar força."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Sessões curtas, intensidade ajustada, sem sobrecarga articular. O método respeita o corpo que chega."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Tens pais ou avós que «já não têm idade para isto»? Partilha — a ciência diz o contrário."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c08-envelhecimento-ativo.html",
+  "photos_used": [
+   "magnific_a7.-seated-confidence-edi_2964371960.jpg"
+  ],
+  "photo_positions": [
+   4
+  ],
+  "styles": [
+   "type",
+   "type",
+   "type",
+   "photo",
+   "type",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-07-18",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-07-c09",
+  "brand": "luiz_santana",
+  "month": "2026-07",
+  "format": "carrossel",
+  "theme": "estimulo_recruta_musculo",
+  "pilar": "Ciência",
+  "audience": "b2c",
+  "title": "Porque é que vinte e cinco minutos chegam?",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Porque é que vinte e cinco minutos chegam? A resposta está na forma como o músculo é recrutado."
+   },
+   {
+    "role": "development",
+    "text_overlay": "No treino convencional, o cérebro decide que fibras ativa — e guarda sempre reserva."
+   },
+   {
+    "role": "development",
+    "text_overlay": "O estímulo elétrico fala diretamente com o músculo."
+   },
+   {
+    "role": "development",
+    "text_overlay": "A eletroestimulação contrai o músculo por impulso direto, em profundidade, no corpo inteiro ao mesmo tempo."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Mais fibras a trabalhar em simultâneo, menos tempo necessário. Não é um atalho — é fisiologia."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Comenta CIÊNCIA se queres que eu explique isto com mais detalhe — sem jargão, prometo."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c09-estimulo-recruta-musculo.html",
+  "photos_used": [
+   "09_tbu_acto_treino.jpg"
+  ],
+  "photo_positions": [
+   3
+  ],
+  "styles": [
+   "type",
+   "type",
+   "photo",
+   "type",
+   "type",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-07-21",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-07-c10",
+  "brand": "luiz_santana",
+  "month": "2026-07",
+  "format": "carrossel",
+  "theme": "rotina_minima_viavel",
+  "pilar": "Consistência",
+  "audience": "b2c",
+  "title": "Esquece a rotina perfeita.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Esquece a rotina perfeita. Constrói a rotina mínima que consegues cumprir sempre."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Planos ambiciosos morrem na segunda semana. Planos realistas sobrevivem ao ano inteiro."
+   },
+   {
+    "role": "development",
+    "text_overlay": "O mínimo viável não é preguiça — é estratégia. É o que se mantém quando a vida aperta."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Sessões de vinte e cinco minutos foram feitas para isso: demasiado curtas para falhar, intensas o suficiente para contar."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Pouco, bem feito, sempre. É isso."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Guarda este carrossel para a próxima vez que quiseres recomeçar com um plano gigante."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c10-rotina-minima-viavel.html",
+  "photos_used": [
+   "04_casual_polo_cinza.jpg"
+  ],
+  "photo_positions": [
+   5
+  ],
+  "styles": [
+   "type",
+   "type",
+   "type",
+   "type",
+   "photo",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-07-23",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-07-c11",
+  "brand": "luiz_santana",
+  "month": "2026-07",
+  "format": "carrossel",
+  "theme": "como_escolher_estudio",
+  "pilar": "Método",
+  "audience": "b2c",
+  "title": "Nem todos os estúdios de eletroestimulação são iguais.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "Nem todos os estúdios de eletroestimulação são iguais. Eis o que deves perguntar antes de escolher."
+   },
+   {
+    "role": "development",
+    "text_overlay": "O critério importa mais do que a máquina."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Pergunta um: quem regula a intensidade — e que preparação tem? O equipamento é metade da história."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Pergunta dois: a sessão é adaptada a ti ou é igual para toda a gente? O teu corpo não é genérico."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Pergunta três: explicam-te o método antes de te venderem um pacote? Transparência no início diz tudo sobre o resto."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Queres ver como respondemos a estas três na TechBody? Comenta ESTÚDIO — eu mostro-te."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c11-como-escolher-estudio.html",
+  "photos_used": [
+   "03_fato_techbody_estudio.jpg"
+  ],
+  "photo_positions": [
+   2
+  ],
+  "styles": [
+   "type",
+   "photo",
+   "type",
+   "type",
+   "type",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-07-25",
+  "hour": "09h"
+ },
+ {
+  "id": "luiz_santana-2026-07-c12",
+  "brand": "luiz_santana",
+  "month": "2026-07",
+  "format": "carrossel",
+  "theme": "cinco_perguntas_frequentes",
+  "pilar": "Perguntas",
+  "audience": "b2c",
+  "title": "As cinco perguntas que toda a gente faz sobre eletroestimulação.",
+  "slides": 6,
+  "slides_text": [
+   {
+    "role": "hook",
+    "text_overlay": "As cinco perguntas que toda a gente faz sobre eletroestimulação — respondidas sem rodeios."
+   },
+   {
+    "role": "development",
+    "text_overlay": "«Dói?» Não. Sentes uma contração intensa, regulada ao segundo. Desconforto inicial é normal; dor não faz parte."
+   },
+   {
+    "role": "development",
+    "text_overlay": "Perguntar é o primeiro treino. Aqui vão respostas."
+   },
+   {
+    "role": "development",
+    "text_overlay": "«Substitui o ginásio?» Nos estúdios TechBody é o treino principal. «É seguro?» Com acompanhamento profissional, sim."
+   },
+   {
+    "role": "development",
+    "text_overlay": "«Quanto dura?» Vinte e cinco minutos. «Para quem é?» Para quase toda a gente — a intensidade adapta-se ao nível de cada um."
+   },
+   {
+    "role": "cta",
+    "text_overlay": "Ficou alguma pergunta de fora? Comenta — eu respondo a todas, uma a uma."
+   }
+  ],
+  "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c12-cinco-perguntas.html",
+  "photos_used": [
+   "06_social_camisa_aberta.jpg"
+  ],
+  "photo_positions": [
+   3
+  ],
+  "styles": [
+   "type",
+   "type",
+   "photo",
+   "type",
+   "type",
+   "type"
+  ],
+  "prompt_version": "claude-swarm-20260612",
+  "generated_at": "2026-06-12T12:00:00",
+  "scheduled_for": "2026-07-28",
+  "hour": "09h"
+ }
 ]
