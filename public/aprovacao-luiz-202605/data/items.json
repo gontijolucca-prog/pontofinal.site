@@ -401,16 +401,16 @@
   "theme": "mitos_eletro",
   "pilar": "Método",
   "audience": "b2c",
-  "title": "Três mitos afastam pessoas da eletroestimulação. Nenhum sobrevive a uma sessão.",
+  "title": "Três mitos afastam pessoas da eletroestimulação.",
   "slides": 6,
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "Três mitos afastam pessoas da eletroestimulação. Nenhum sobrevive a uma sessão."
+    "text_overlay": "Três mitos afastam pessoas da eletroestimulação."
    },
    {
     "role": "development",
-    "text_overlay": "Mito um: dói. A intensidade é controlada ao segundo — e és tu quem manda nela."
+    "text_overlay": "Mito um: dói. A intensidade é controlada ao segundo — mandas tu."
    },
    {
     "role": "development",
@@ -418,15 +418,15 @@
    },
    {
     "role": "development",
-    "text_overlay": "Mito dois: é só para atletas. A eletroestimulação adapta-se ao teu nível — do primeiro treino ao mais avançado."
+    "text_overlay": "Mito dois: é só para atletas. Adapta-se ao teu nível."
    },
    {
     "role": "development",
-    "text_overlay": "Mito três: não substitui o ginásio. Nos estúdios TechBody, é o treino principal. Profundidade que o convencional dificilmente alcança."
+    "text_overlay": "Mito três: não substitui o ginásio. Na TechBody é o treino principal."
    },
    {
     "role": "cta",
-    "text_overlay": "Qual destes mitos te travou até hoje? Comenta — eu digo-te o que é verdade e o que é ruído."
+    "text_overlay": "Qual destes mitos te travou? Comenta — eu digo-te o que é verdade."
    }
   ],
   "html_url": "../brands/luiz_santana/output/2026-06/carrosseis/c06-mitos-eletro.html",
@@ -462,19 +462,19 @@
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "O estúdio pode ser a tua sala. Sem espelhos, sem espera, sem deslocações."
+    "text_overlay": "O estúdio pode ser a tua sala."
    },
    {
     "role": "development",
-    "text_overlay": "TechBody U é o método dos estúdios levado a casa: aplicação que te guia e TecSuit que veste como uma segunda pele."
+    "text_overlay": "TechBody U: o método dos estúdios em casa, com aplicação e TecSuit."
    },
    {
     "role": "development",
-    "text_overlay": "Vinte e cinco minutos por sessão. O resto do dia continua teu."
+    "text_overlay": "Vinte e cinco minutos por sessão. O resto do dia é teu."
    },
    {
     "role": "development",
-    "text_overlay": "A aplicação marca o ritmo, ajusta o plano e regista cada treino. Tu só tens de aparecer — na tua própria casa."
+    "text_overlay": "A aplicação guia o ritmo e regista cada treino. Tu só apareces."
    },
    {
     "role": "development",
@@ -482,7 +482,7 @@
    },
    {
     "role": "cta",
-    "text_overlay": "Envia mensagem com a palavra CASA e eu explico-te como funciona o TechBody U."
+    "text_overlay": "Envia a palavra CASA em mensagem e eu explico-te tudo."
    }
   ],
   "html_url": "../brands/luiz_santana/output/2026-06/carrosseis/c07-treino-em-casa.html",
@@ -518,7 +518,7 @@
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "O verão não tem de ser uma pausa. Tem de ser a prova de que o método cabe na vida."
+    "text_overlay": "O verão não tem de ser uma pausa."
    },
    {
     "role": "development",
@@ -526,19 +526,19 @@
    },
    {
     "role": "development",
-    "text_overlay": "Praia, viagens, jantares longos — a agenda muda, mas o corpo continua a precisar de estímulo."
+    "text_overlay": "A agenda de verão muda. O corpo continua a pedir estímulo."
    },
    {
     "role": "development",
-    "text_overlay": "Uma sessão de eletroestimulação são vinte e cinco minutos. Cabe entre a manhã na praia e o resto do dia."
+    "text_overlay": "Uma sessão cabe entre a praia e o resto do dia."
    },
    {
     "role": "development",
-    "text_overlay": "Não é sobre treinar mais. É sobre não parar de todo — a consistência vale mais do que a perfeição."
+    "text_overlay": "Não é treinar mais. É não parar de todo."
    },
    {
     "role": "cta",
-    "text_overlay": "Guarda este carrossel para o dia em que a preguiça de verão atacar. E comenta se já sentiste a diferença de não parar."
+    "text_overlay": "Guarda este carrossel para quando a preguiça de verão atacar."
    }
   ],
   "html_url": "../brands/luiz_santana/output/2026-06/carrosseis/c08-verao-sem-pausa.html",
@@ -574,27 +574,27 @@
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "Paraste há meses. A parte mais difícil não é o corpo — é a vergonha de voltar."
+    "text_overlay": "Paraste há meses. A parte difícil não é o corpo."
    },
    {
     "role": "development",
-    "text_overlay": "O corpo tem memória: quem já treinou recupera força mais depressa do que quem nunca começou."
+    "text_overlay": "O corpo tem memória: a força volta mais depressa do que pensas."
    },
    {
     "role": "development",
-    "text_overlay": "Na TechBody, a intensidade ajusta-se a quem és hoje — não a quem eras quando paraste."
+    "text_overlay": "A intensidade ajusta-se a quem és hoje — não a quem eras."
    },
    {
     "role": "development",
-    "text_overlay": "Voltar é mais fácil do que pensas."
+    "text_overlay": "Voltar é mais simples do que parece."
    },
    {
     "role": "development",
-    "text_overlay": "Vinte e cinco minutos por sessão tiram o peso da decisão. Recomeçar deixa de ser um projeto — passa a ser uma terça-feira."
+    "text_overlay": "Vinte e cinco minutos tiram o peso da decisão."
    },
    {
     "role": "cta",
-    "text_overlay": "Se estás há meses a adiar o regresso, comenta VOLTAR — eu digo-te como é a primeira sessão."
+    "text_overlay": "Há meses a adiar? Comenta VOLTAR — eu digo-te como é a primeira sessão."
    }
   ],
   "html_url": "../brands/luiz_santana/output/2026-06/carrosseis/c09-recomeco-apos-pausa.html",
@@ -634,23 +634,23 @@
    },
    {
     "role": "development",
-    "text_overlay": "A partir dos trinta, quem não treina perde músculo ano após ano. Em silêncio."
+    "text_overlay": "A partir dos trinta, sem treino, o músculo vai-se. Em silêncio."
    },
    {
     "role": "development",
-    "text_overlay": "Menos músculo significa metabolismo mais lento, menos energia e mais fragilidade — hoje não, mas daqui a vinte anos sim."
+    "text_overlay": "Menos músculo: metabolismo lento, menos energia, mais fragilidade."
    },
    {
     "role": "development",
-    "text_overlay": "A eletroestimulação de corpo inteiro ativa o músculo em profundidade, sem sobrecarregar as articulações."
+    "text_overlay": "A eletroestimulação ativa o músculo fundo, sem castigar articulações."
    },
    {
     "role": "development",
-    "text_overlay": "Não treinas só para o espelho. Treinas para subir escadas aos oitenta sem pensar nisso."
+    "text_overlay": "Treinas para subir escadas aos oitenta sem pensar nisso."
    },
    {
     "role": "cta",
-    "text_overlay": "Partilha este carrossel com alguém que adia o treino «para quando houver tempo». O músculo não espera."
+    "text_overlay": "Partilha com alguém que adia o treino «para quando houver tempo»."
    }
   ],
   "html_url": "../brands/luiz_santana/output/2026-06/carrosseis/c10-musculo-longevidade.html",
@@ -681,24 +681,24 @@
   "theme": "paper_pubmed",
   "pilar": "Ciência",
   "audience": "b2c",
-  "title": "A eletroestimulação tem estudos a sério. Este é um deles.",
+  "title": "A eletroestimulação tem estudos a sério.",
   "slides": 6,
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "A eletroestimulação tem estudos a sério. Este é um deles."
+    "text_overlay": "A eletroestimulação tem estudos a sério."
    },
    {
     "role": "development",
-    "text_overlay": "TEST-III, Universidade de Erlangen: mulheres com mais de setenta anos, sedentárias, treinaram com eletroestimulação de corpo inteiro."
+    "text_overlay": "TEST-III, Erlangen: mulheres com mais de setenta anos, sedentárias."
    },
    {
     "role": "development",
-    "text_overlay": "Protocolo curto: três sessões em cada duas semanas. Resultado: ganhos mensuráveis de força e massa muscular."
+    "text_overlay": "Três sessões em duas semanas. Ganhos reais de força e massa muscular."
    },
    {
     "role": "development",
-    "text_overlay": "A conclusão dos investigadores: a eletroestimulação é uma opção eficaz para quem não pode — ou não quer — treino convencional."
+    "text_overlay": "Conclusão: eficaz para quem não pode — ou não quer — treino convencional."
    },
    {
     "role": "development",
@@ -706,7 +706,7 @@
    },
    {
     "role": "cta",
-    "text_overlay": "Queres saber o que isto significa para o teu caso? Comenta CIÊNCIA — eu explico-te sem jargão."
+    "text_overlay": "Comenta CIÊNCIA — eu explico-te o estudo sem jargão."
    }
   ],
   "html_url": "../brands/luiz_santana/output/2026-06/carrosseis/c11-paper-pubmed.html",
@@ -737,12 +737,12 @@
   "theme": "bastidores_formacao",
   "pilar": "Bastidores",
   "audience": "b2b",
-  "title": "O que separa um bom estúdio de um medíocre? Quase nunca é a máquina.",
+  "title": "O que separa um bom estúdio de um medíocre?",
   "slides": 6,
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "O que separa um bom estúdio de eletroestimulação de um medíocre? Quase nunca é a máquina."
+    "text_overlay": "O que separa um bom estúdio de um medíocre?"
    },
    {
     "role": "development",
@@ -750,19 +750,19 @@
    },
    {
     "role": "development",
-    "text_overlay": "Um bom treinador lê o corpo antes de subir a intensidade. A regulação certa, para a pessoa certa, no dia certo."
+    "text_overlay": "Um bom treinador lê o corpo antes de subir a intensidade."
    },
    {
     "role": "development",
-    "text_overlay": "Liderar uma rede de estúdios é garantir que esse critério não se perde quando a marca cresce."
+    "text_overlay": "Liderar uma rede é não deixar o critério diluir-se com o crescimento."
    },
    {
     "role": "development",
-    "text_overlay": "É por isso que a TechBody trata a formação das equipas como trata o treino: com método."
+    "text_overlay": "Na TechBody, a formação das equipas leva o mesmo método que o treino."
    },
    {
     "role": "cta",
-    "text_overlay": "Trabalhas em fitness e queres perceber o modelo TechBody? Comenta EQUIPA — eu explico-te como funciona."
+    "text_overlay": "Trabalhas em fitness? Comenta EQUIPA — eu explico-te o modelo."
    }
   ],
   "html_url": "../brands/luiz_santana/output/2026-06/carrosseis/c12-bastidores-formacao.html",
@@ -798,15 +798,15 @@
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "«Quero tonificar, não quero ficar grande.» Vamos esclarecer isto de uma vez."
+    "text_overlay": "«Quero tonificar, não quero ficar grande.»"
    },
    {
     "role": "development",
-    "text_overlay": "Tonificar é ter músculo presente e gordura sob controlo. Não existe transformação acidental em culturista."
+    "text_overlay": "Tonificar é músculo presente e gordura sob controlo."
    },
    {
     "role": "development",
-    "text_overlay": "Ganhar volume exige anos de treino específico, alimentação dedicada e genética a ajudar. Não acontece por engano."
+    "text_overlay": "Volume exige anos de treino específico. Não acontece por engano."
    },
    {
     "role": "development",
@@ -814,11 +814,11 @@
    },
    {
     "role": "development",
-    "text_overlay": "A eletroestimulação ativa o músculo em profundidade — firmeza e postura, ao teu ritmo, sem te empurrar para onde não queres ir."
+    "text_overlay": "A eletroestimulação dá firmeza e postura — ao teu ritmo."
    },
    {
     "role": "cta",
-    "text_overlay": "Ainda tens medo de «ficar grande»? Comenta — eu digo-te o que acontece realmente quando começas."
+    "text_overlay": "Ainda tens esse medo? Comenta — eu digo-te o que acontece de verdade."
    }
   ],
   "html_url": "../brands/luiz_santana/output/2026-06/carrosseis/c13-tonificar-vs-crescer.html",
@@ -854,15 +854,15 @@
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "Julho chega e a agenda explode. O treino é sempre a primeira vítima."
+    "text_overlay": "Julho chega e a agenda explode."
    },
    {
     "role": "development",
-    "text_overlay": "Não precisas de mais força de vontade. Precisas de um treino que ocupe menos espaço na vida."
+    "text_overlay": "Não precisas de mais força de vontade. Precisas de um treino mais curto."
    },
    {
     "role": "development",
-    "text_overlay": "Vinte e cinco minutos por sessão. Menos tempo do que escolher onde jantar."
+    "text_overlay": "Vinte e cinco minutos. Menos do que escolher onde jantar."
    },
    {
     "role": "development",
@@ -870,7 +870,7 @@
    },
    {
     "role": "development",
-    "text_overlay": "A eletroestimulação de corpo inteiro condensa o trabalho de uma sessão longa num bloco curto e intenso."
+    "text_overlay": "Uma sessão curta e intensa condensa o trabalho de uma longa."
    },
    {
     "role": "cta",
@@ -905,12 +905,12 @@
   "theme": "tecsuit_segunda_pele",
   "pilar": "TechBody U",
   "audience": "b2c",
-  "title": "O TecSuit veste-se como uma segunda pele.",
+  "title": "O TecSuit não se veste por cima da roupa.",
   "slides": 6,
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "O TecSuit não se veste por cima da roupa. Veste-se como uma segunda pele."
+    "text_overlay": "O TecSuit não se veste por cima da roupa."
    },
    {
     "role": "development",
@@ -918,19 +918,19 @@
    },
    {
     "role": "development",
-    "text_overlay": "Cada elétrodo assenta no sítio certo do corpo — o estímulo chega onde tem de chegar, sessão após sessão."
+    "text_overlay": "Cada elétrodo assenta no sítio certo. O estímulo chega onde deve."
    },
    {
     "role": "development",
-    "text_overlay": "É teu: compra-se uma vez, não se aluga. Sem mensalidades escondidas."
+    "text_overlay": "É teu: compra-se uma vez. Sem mensalidades escondidas."
    },
    {
     "role": "development",
-    "text_overlay": "Com a aplicação TechBody U, o fato e o plano trabalham juntos — em casa, ao teu ritmo."
+    "text_overlay": "Com a aplicação TechBody U, fato e plano trabalham juntos."
    },
    {
     "role": "cta",
-    "text_overlay": "Curioso sobre como funciona na prática? Envia mensagem com a palavra TECSUIT e eu mostro-te."
+    "text_overlay": "Envia TECSUIT em mensagem e eu mostro-te como funciona."
    }
   ],
   "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c02-tecsuit-segunda-pele.html",
@@ -966,19 +966,19 @@
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "Uma hora de treino morno ou vinte e cinco minutos a sério? O corpo sabe a resposta."
+    "text_overlay": "Uma hora morna ou vinte e cinco minutos a sério?"
    },
    {
     "role": "development",
-    "text_overlay": "O músculo não conta minutos. Responde a estímulo — e estímulo é qualidade, não duração."
+    "text_overlay": "O músculo não conta minutos. Responde a estímulo."
    },
    {
     "role": "development",
-    "text_overlay": "Sessões longas convidam ao piloto automático. Sessões curtas obrigam a estar presente."
+    "text_overlay": "Sessões longas convidam ao piloto automático. As curtas exigem presença."
    },
    {
     "role": "development",
-    "text_overlay": "A eletroestimulação de corpo inteiro leva a intensidade a todo o lado ao mesmo tempo — sem tempos mortos."
+    "text_overlay": "Corpo inteiro ao mesmo tempo, sem tempos mortos."
    },
    {
     "role": "development",
@@ -986,7 +986,7 @@
    },
    {
     "role": "cta",
-    "text_overlay": "Comenta — eu digo-te porque é que menos tempo pode significar mais resultado."
+    "text_overlay": "Comenta — eu digo-te porque é que menos tempo pode render mais."
    }
   ],
   "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c03-intensidade-vs-duracao.html",
@@ -1017,16 +1017,16 @@
   "theme": "metabolismo_depois_dos_30",
   "pilar": "Ciência",
   "audience": "b2c",
-  "title": "Aos trinta e tal, o corpo respondeu de outra forma. Não é azar.",
+  "title": "Aos trinta e tal, o corpo mudou as regras.",
   "slides": 6,
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "Aos vinte comias tudo. Aos trinta e tal, o corpo começou a responder de outra forma. Não é azar."
+    "text_overlay": "Aos trinta e tal, o corpo mudou as regras."
    },
    {
     "role": "development",
-    "text_overlay": "Com menos massa muscular, o corpo gasta menos energia em repouso. O metabolismo segue o músculo."
+    "text_overlay": "Menos massa muscular, menos energia gasta em repouso."
    },
    {
     "role": "development",
@@ -1034,15 +1034,15 @@
    },
    {
     "role": "development",
-    "text_overlay": "A eletroestimulação ativa o músculo em profundidade — e músculo ativo é um motor que gasta mais, mesmo parado."
+    "text_overlay": "Músculo ativo é um motor que gasta mais — mesmo parado."
    },
    {
     "role": "development",
-    "text_overlay": "Não é sobre dietas cada vez mais pequenas. É sobre um corpo que trabalha por ti."
+    "text_overlay": "Não é comer cada vez menos. É ter um corpo que trabalha por ti."
    },
    {
     "role": "cta",
-    "text_overlay": "Comenta METABOLISMO e eu explico-te o que muda no corpo a partir dos trinta."
+    "text_overlay": "Comenta METABOLISMO e eu explico-te o que muda depois dos trinta."
    }
   ],
   "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c04-metabolismo-depois-dos-30.html",
@@ -1073,32 +1073,32 @@
   "theme": "postura_trabalho_sentado",
   "pilar": "Barreiras",
   "audience": "b2c",
-  "title": "Oito horas sentado. O teu corpo está a adaptar-se — mal.",
+  "title": "Oito horas sentado. O corpo adapta-se — mal.",
   "slides": 6,
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "Oito horas sentado. O teu corpo está a adaptar-se — mal."
+    "text_overlay": "Oito horas sentado. O corpo adapta-se — mal."
    },
    {
     "role": "development",
-    "text_overlay": "Ombros para a frente, lombar a queixar-se, zona central adormecida. O escritório molda o corpo todos os dias."
+    "text_overlay": "Ombros fechados, lombar tensa, zona central a dormir."
    },
    {
     "role": "development",
-    "text_overlay": "A solução não é só alongar. É acordar o músculo que sustenta a postura — o que está por baixo."
+    "text_overlay": "Alongar não chega. É preciso acordar o músculo que sustenta."
    },
    {
     "role": "development",
-    "text_overlay": "A eletroestimulação chega aos músculos profundos da zona central, aqueles que o dia de secretária desliga."
+    "text_overlay": "A eletroestimulação chega aos músculos profundos que a cadeira desliga."
    },
    {
     "role": "development",
-    "text_overlay": "Vinte e cinco minutos contra quarenta horas de cadeira. É uma luta justa — se o estímulo for profundo."
+    "text_overlay": "Vinte e cinco minutos contra quarenta horas sentado. Luta justa."
    },
    {
     "role": "cta",
-    "text_overlay": "Trabalhas sentado e sentes o corpo a cobrar? Comenta POSTURA — eu digo-te por onde começar."
+    "text_overlay": "Sentes o corpo a cobrar? Comenta POSTURA — eu digo-te por onde começar."
    }
   ],
   "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c05-postura-trabalho-sentado.html",
@@ -1129,24 +1129,24 @@
   "theme": "expectativas_honestas",
   "pilar": "Método",
   "audience": "b2c",
-  "title": "Quando é que vês resultados? Resposta honesta: depende.",
+  "title": "Quando é que vês resultados?",
   "slides": 6,
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "Quando é que vês resultados? Resposta honesta: depende. E quem te prometer uma data está a vender."
+    "text_overlay": "Quando é que vês resultados?"
    },
    {
     "role": "development",
-    "text_overlay": "Depende do ponto de partida, da regularidade, do sono, da alimentação. O corpo não assina prazos."
+    "text_overlay": "Depende do ponto de partida, do sono, da regularidade."
    },
    {
     "role": "development",
-    "text_overlay": "O que o método garante é o estímulo certo em cada sessão. A consistência faz o resto."
+    "text_overlay": "O método garante o estímulo certo. A consistência faz o resto."
    },
    {
     "role": "development",
-    "text_overlay": "Por isso o caminho começa por conhecer o teu ponto de partida — não por prometer chegadas."
+    "text_overlay": "Primeiro conhecer o teu ponto de partida. Promessas, não."
    },
    {
     "role": "development",
@@ -1154,7 +1154,7 @@
    },
    {
     "role": "cta",
-    "text_overlay": "Preferes a verdade a uma data bonita? Comenta — eu digo-te o que podes esperar de forma realista."
+    "text_overlay": "Preferes verdade a datas bonitas? Comenta — eu respondo."
    }
   ],
   "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c06-expectativas-honestas.html",
@@ -1185,12 +1185,12 @@
   "theme": "forca_no_feminino",
   "pilar": "Ciência",
   "audience": "b2c",
-  "title": "Força não tem género. Mas o medo de treinar força ainda tem.",
+  "title": "Força não tem género.",
   "slides": 6,
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "Força não tem género. Mas o medo de treinar força ainda tem."
+    "text_overlay": "Força não tem género."
    },
    {
     "role": "development",
@@ -1198,19 +1198,19 @@
    },
    {
     "role": "development",
-    "text_overlay": "Para as mulheres, manter músculo é proteção: ossos mais fortes, metabolismo ativo, autonomia a longo prazo."
+    "text_overlay": "Músculo é proteção: ossos fortes, metabolismo ativo, autonomia."
    },
    {
     "role": "development",
-    "text_overlay": "E não, treinar força não te faz «ficar grande» — volume exige anos de trabalho específico, não acontece por acaso."
+    "text_overlay": "«Ficar grande» exige anos de trabalho específico. Não acontece por acaso."
    },
    {
     "role": "development",
-    "text_overlay": "A eletroestimulação trabalha a força em profundidade, com intensidade controlada ao detalhe e sem impacto nas articulações."
+    "text_overlay": "Força em profundidade, intensidade controlada, sem impacto."
    },
    {
     "role": "cta",
-    "text_overlay": "Partilha com uma mulher que ainda acha que treino de força não é para ela."
+    "text_overlay": "Partilha com uma mulher que acha que isto não é para ela."
    }
   ],
   "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c07-forca-no-feminino.html",
@@ -1250,11 +1250,11 @@
    },
    {
     "role": "development",
-    "text_overlay": "A força que perdes entre os cinquenta e os setenta decide como vives dos setenta em diante."
+    "text_overlay": "A força que perdes dos cinquenta aos setenta decide o resto."
    },
    {
     "role": "development",
-    "text_overlay": "Estudos com eletroestimulação em populações mais velhas mostram ganhos de força e massa muscular — mesmo a começar tarde."
+    "text_overlay": "Os estudos mostram ganhos de força em qualquer idade."
    },
    {
     "role": "development",
@@ -1262,11 +1262,11 @@
    },
    {
     "role": "development",
-    "text_overlay": "Sessões curtas, intensidade ajustada, sem sobrecarga articular. O método respeita o corpo que chega."
+    "text_overlay": "Intensidade ajustada, sem sobrecarga. O método respeita o corpo."
    },
    {
     "role": "cta",
-    "text_overlay": "Tens pais ou avós que «já não têm idade para isto»? Partilha — a ciência diz o contrário."
+    "text_overlay": "Partilha com quem diz «já não tenho idade para isto»."
    }
   ],
   "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c08-envelhecimento-ativo.html",
@@ -1302,11 +1302,11 @@
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "Porque é que vinte e cinco minutos chegam? A resposta está na forma como o músculo é recrutado."
+    "text_overlay": "Porque é que vinte e cinco minutos chegam?"
    },
    {
     "role": "development",
-    "text_overlay": "No treino convencional, o cérebro decide que fibras ativa — e guarda sempre reserva."
+    "text_overlay": "No treino convencional, o cérebro guarda sempre fibras em reserva."
    },
    {
     "role": "development",
@@ -1314,15 +1314,15 @@
    },
    {
     "role": "development",
-    "text_overlay": "A eletroestimulação contrai o músculo por impulso direto, em profundidade, no corpo inteiro ao mesmo tempo."
+    "text_overlay": "Contração direta, profunda, no corpo inteiro ao mesmo tempo."
    },
    {
     "role": "development",
-    "text_overlay": "Mais fibras a trabalhar em simultâneo, menos tempo necessário. Não é um atalho — é fisiologia."
+    "text_overlay": "Mais fibras a trabalhar, menos tempo preciso. É fisiologia."
    },
    {
     "role": "cta",
-    "text_overlay": "Comenta CIÊNCIA se queres que eu explique isto com mais detalhe — sem jargão, prometo."
+    "text_overlay": "Comenta CIÊNCIA e eu explico-te ao detalhe — sem jargão."
    }
   ],
   "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c09-estimulo-recruta-musculo.html",
@@ -1358,19 +1358,19 @@
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "Esquece a rotina perfeita. Constrói a rotina mínima que consegues cumprir sempre."
+    "text_overlay": "Esquece a rotina perfeita."
    },
    {
     "role": "development",
-    "text_overlay": "Planos ambiciosos morrem na segunda semana. Planos realistas sobrevivem ao ano inteiro."
+    "text_overlay": "Planos ambiciosos morrem na segunda semana. Os realistas ficam."
    },
    {
     "role": "development",
-    "text_overlay": "O mínimo viável não é preguiça — é estratégia. É o que se mantém quando a vida aperta."
+    "text_overlay": "O mínimo viável é estratégia: sobrevive quando a vida aperta."
    },
    {
     "role": "development",
-    "text_overlay": "Sessões de vinte e cinco minutos foram feitas para isso: demasiado curtas para falhar, intensas o suficiente para contar."
+    "text_overlay": "Vinte e cinco minutos: curto de mais para falhar, forte para contar."
    },
    {
     "role": "development",
@@ -1378,7 +1378,7 @@
    },
    {
     "role": "cta",
-    "text_overlay": "Guarda este carrossel para a próxima vez que quiseres recomeçar com um plano gigante."
+    "text_overlay": "Guarda este carrossel para o próximo «recomeço»."
    }
   ],
   "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c10-rotina-minima-viavel.html",
@@ -1409,12 +1409,12 @@
   "theme": "como_escolher_estudio",
   "pilar": "Método",
   "audience": "b2c",
-  "title": "Nem todos os estúdios de eletroestimulação são iguais.",
+  "title": "Nem todos os estúdios são iguais.",
   "slides": 6,
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "Nem todos os estúdios de eletroestimulação são iguais. Eis o que deves perguntar antes de escolher."
+    "text_overlay": "Nem todos os estúdios são iguais."
    },
    {
     "role": "development",
@@ -1422,19 +1422,19 @@
    },
    {
     "role": "development",
-    "text_overlay": "Pergunta um: quem regula a intensidade — e que preparação tem? O equipamento é metade da história."
+    "text_overlay": "Um: quem regula a intensidade — e que preparação tem?"
    },
    {
     "role": "development",
-    "text_overlay": "Pergunta dois: a sessão é adaptada a ti ou é igual para toda a gente? O teu corpo não é genérico."
+    "text_overlay": "Dois: a sessão é adaptada a ti ou igual para todos?"
    },
    {
     "role": "development",
-    "text_overlay": "Pergunta três: explicam-te o método antes de te venderem um pacote? Transparência no início diz tudo sobre o resto."
+    "text_overlay": "Três: explicam-te o método antes de falar de preço?"
    },
    {
     "role": "cta",
-    "text_overlay": "Queres ver como respondemos a estas três na TechBody? Comenta ESTÚDIO — eu mostro-te."
+    "text_overlay": "Comenta ESTÚDIO — eu mostro-te como a TechBody responde às três."
    }
   ],
   "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c11-como-escolher-estudio.html",
@@ -1465,16 +1465,16 @@
   "theme": "cinco_perguntas_frequentes",
   "pilar": "Perguntas",
   "audience": "b2c",
-  "title": "As cinco perguntas que toda a gente faz sobre eletroestimulação.",
+  "title": "As cinco perguntas que toda a gente faz.",
   "slides": 6,
   "slides_text": [
    {
     "role": "hook",
-    "text_overlay": "As cinco perguntas que toda a gente faz sobre eletroestimulação — respondidas sem rodeios."
+    "text_overlay": "As cinco perguntas que toda a gente faz."
    },
    {
     "role": "development",
-    "text_overlay": "«Dói?» Não. Sentes uma contração intensa, regulada ao segundo. Desconforto inicial é normal; dor não faz parte."
+    "text_overlay": "«Dói?» Não. Contração intensa, regulada ao segundo."
    },
    {
     "role": "development",
@@ -1482,15 +1482,15 @@
    },
    {
     "role": "development",
-    "text_overlay": "«Substitui o ginásio?» Nos estúdios TechBody é o treino principal. «É seguro?» Com acompanhamento profissional, sim."
+    "text_overlay": "«Substitui o ginásio?» Na TechBody é o treino principal."
    },
    {
     "role": "development",
-    "text_overlay": "«Quanto dura?» Vinte e cinco minutos. «Para quem é?» Para quase toda a gente — a intensidade adapta-se ao nível de cada um."
+    "text_overlay": "«Quanto dura?» Vinte e cinco minutos. «Para quem?» Quase toda a gente."
    },
    {
     "role": "cta",
-    "text_overlay": "Ficou alguma pergunta de fora? Comenta — eu respondo a todas, uma a uma."
+    "text_overlay": "Ficou alguma de fora? Comenta — eu respondo a todas, uma a uma."
    }
   ],
   "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c12-cinco-perguntas.html",
