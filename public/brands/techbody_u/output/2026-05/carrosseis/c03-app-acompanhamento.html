@@ -84,7 +84,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   align-items: center;
 }
 .slide--photo h1 {
-  font: 200 clamp(40px, 6vw, 92px)/1.08 var(--font-display);
+  font: 200 clamp(40px, 6vw, 92px)/0.94 var(--font-display);
   font-style: italic;
   letter-spacing: -0.025em;
   color: var(--text);
@@ -109,7 +109,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   text-align: center;
 }
 .slide--type h1 {
-  font: 200 clamp(40px, 7vw, 108px)/1.08 var(--font-display);
+  font: 200 clamp(40px, 7vw, 108px)/0.96 var(--font-display);
   font-style: italic;
   letter-spacing: -0.025em;
   max-width: 14ch;
@@ -157,13 +157,6 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   color: var(--text-mute);
   font-style: normal;
 }
-
-/* Tipografia: evitar orphans (palavra curta sozinha na linha).
-   text-wrap: pretty -> Chrome 117+/Safari 17.5+. Fallback graceful em browsers antigos. */
-h1, h2, h3, p, blockquote, .num {
-  text-wrap: balance;
-  text-wrap: pretty;
-}
 </style>
 <!-- fx-v2 -->
 <style id="fx-v2">
@@ -205,12 +198,12 @@ h1, h2, h3, p, blockquote, .num {
 </head>
 <body>
 <section class="carousel" aria-label="Carrossel TechBody U — app_acompanhamento">
-<article class="slide slide--photo" id="slide-1"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body">  <h1><em>A</em>&nbsp;nossa&nbsp;app&nbsp;é<br>o&nbsp;seu&nbsp;treinador&nbsp;digital.</h1>  <div class="photo" style="background-image:url('../../../assets/photos/magnific_c2-foco-e-forca-uma-pesso_2964210537.jpg')"></div></div><div class="slide__bottom">  <span>01/06</span></div><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
-<article class="slide slide--type" id="slide-2"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Sessões&nbsp;guiadas<br>e&nbsp;sincronizadas,<br>do&nbsp;aquecimento<br>aos&nbsp;alongamentos.<br>Os&nbsp;nossos&nbsp;PTs<br>marcam&nbsp;o&nbsp;ritmo.</h1></div><div class="slide__bottom">  <span>02/06</span></div><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
-<article class="slide slide--type" id="slide-3"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Cada&nbsp;zona&nbsp;muscular<br>tem&nbsp;o&nbsp;seu&nbsp;nível.<br>Ajuste&nbsp;com&nbsp;o&nbsp;toque,<br>em&nbsp;tempo&nbsp;real.</h1></div><div class="slide__bottom">  <span>03/06</span></div><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
-<article class="slide slide--type" id="slide-4"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Histórico&nbsp;das&nbsp;sessões<br>sempre&nbsp;visível.<br>Acompanhe&nbsp;a&nbsp;evolução<br>desde&nbsp;o&nbsp;primeiro&nbsp;dia<br>até&nbsp;chegar&nbsp;ao<br>seu&nbsp;objetivo.</h1></div><div class="slide__bottom">  <span>04/06</span></div><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
-<article class="slide slide--photo" id="slide-5"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body">  <h1><em>Biblioteca</em>&nbsp;de&nbsp;programas&nbsp;—<br>para&nbsp;recomeçar&nbsp;a&nbsp;treinar,<br>perder&nbsp;peso<br>ou&nbsp;tratar&nbsp;dores.</h1>  <div class="photo" style="background-image:url('../../../assets/photos/magnific_c6-pausa-ativa-pessoa-sen_2964228483.jpg')"></div></div><div class="slide__bottom">  <span>05/06</span></div><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
-<article class="slide slide--type" id="slide-6"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Pronto&nbsp;para&nbsp;o&nbsp;seu<br>treinador&nbsp;digital?<br>Adira&nbsp;e&nbsp;comece&nbsp;já.</h1></div><div class="slide__bottom">  <span class="slide__cta">Adira e comece →</span></div><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+<article class="slide slide--photo" id="slide-1"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body">  <h1><em>A</em> aplicação é o teu treinador digital.</h1>  <div class="photo" style="background-image:url('../../../assets/photos/magnific_c2-foco-e-forca-uma-pesso_2964210537.png')"></div></div><div class="slide__bottom">  <span>01/06</span></div><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+<article class="slide slide--type" id="slide-2"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Sessões guiadas, do aquecimento ao fecho. A aplicação marca o ritmo.</h1></div><div class="slide__bottom">  <span>02/06</span></div><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+<article class="slide slide--type" id="slide-3"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Cada zona muscular tem o seu nível. Ajustas com toque, no momento.</h1></div><div class="slide__bottom">  <span>03/06</span></div><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+<article class="slide slide--type" id="slide-4"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Histórico das sessões sempre visível. Vês de onde vens e para onde vais.</h1></div><div class="slide__bottom">  <span>04/06</span></div><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+<article class="slide slide--photo" id="slide-5"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body">  <h1><em>Biblioteca</em> de programas — para começar, para definir, para áreas específicas.</h1>  <div class="photo" style="background-image:url('../../../assets/photos/magnific_c6-pausa-ativa-pessoa-sen_2964228483.png')"></div></div><div class="slide__bottom">  <span>05/06</span></div><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+<article class="slide slide--type" id="slide-6"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>O treino vai contigo.</h1></div><div class="slide__bottom">  <span class="slide__cta">Conhece o método →</span></div><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 </section>
 <script>
   (function () {
