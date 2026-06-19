@@ -217,12 +217,14 @@ class CarrosselRow extends HTMLElement {
       </button>`;
     }).join("");
 
+    const titleText = esc(it.title || it.theme || "");
     this.innerHTML = `
       <article class="card card--carousel" data-item-id="${it.id}">
         <header class="card__head">
           <span class="card__brand">${BRAND_LABELS[it.brand] || it.brand}</span><span class="card__ref" title="Referência — usa este código para pedir alterações">${REF_CODE(it.id)}</span>
           <span class="card__type">Carrossel · ${total} slides</span>
           ${it.audience ? `<span class="tag tag--solid">${String(it.audience).toUpperCase()}</span>` : ""}
+          ${titleText ? `<span class="card__title-inline" title="${titleText}">${titleText}</span>` : ""}
         </header>
         <div class="card__main">
           <div class="card__left">

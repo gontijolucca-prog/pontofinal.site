@@ -81,11 +81,13 @@ class ReelTile extends HTMLElement {
     if (it.video_url) return this._renderVideo();
     const total = this._lineCount();
     const hasCaption = !!(it.caption && it.caption.trim());
+    const titleText = esc(it.title || it.theme || "");
     this.innerHTML = `
       <article class="card card--reel" data-item-id="${it.id}">
         <header class="card__head">
           <span class="card__brand">${BRAND_LABELS[it.brand] || it.brand}</span><span class="card__ref" title="Referência — usa este código para pedir alterações">${REF_CODE(it.id)}</span>
           <span class="card__type">Reel ${it.slides || 15}s · script</span>
+          ${titleText ? `<span class="card__title-inline" title="${titleText}">${titleText}</span>` : ""}
         </header>
         <div class="card__slidebar">
           <button class="card__nav" data-prev aria-label="Linha anterior">‹</button>
@@ -120,11 +122,13 @@ class ReelTile extends HTMLElement {
     const hasCaption = !!(it.caption && it.caption.trim());
     const bust = `?v=${APP_VERSION}&c=${currentContentSig()}`;
     const poster = it.video_url.replace(/\.mp4$/, ".jpg") + bust;
+    const titleText = esc(it.title || it.theme || "");
     this.innerHTML = `
       <article class="card card--reel" data-item-id="${it.id}">
         <header class="card__head">
           <span class="card__brand">${BRAND_LABELS[it.brand] || it.brand}</span><span class="card__ref" title="Referência — usa este código para pedir alterações">${REF_CODE(it.id)}</span>
           <span class="card__type">Reel ${it.slides || 15}s · vídeo</span>
+          ${titleText ? `<span class="card__title-inline" title="${titleText}">${titleText}</span>` : ""}
         </header>
         <div class="card__main">
           <div class="card__left">

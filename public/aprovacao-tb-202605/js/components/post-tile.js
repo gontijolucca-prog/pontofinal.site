@@ -121,11 +121,13 @@ class PostTile extends HTMLElement {
     const it = this._item;
     if (!it) return;
     const hasCaption = !!(it.caption && it.caption.trim());
+    const titleText = esc(it.title || it.theme || "");
     this.innerHTML = `
       <article class="card card--story" data-item-id="${it.id}">
         <header class="card__head">
           <span class="card__brand">${BRAND_LABELS[it.brand] || it.brand}</span><span class="card__ref" title="Referência — usa este código para pedir alterações">${REF_CODE(it.id)}</span>
           <span class="card__type">Story</span>
+          ${titleText ? `<span class="card__title-inline" title="${titleText}">${titleText}</span>` : ""}
         </header>
         <div class="card__main">
           <div class="card__left">
