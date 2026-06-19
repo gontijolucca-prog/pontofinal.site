@@ -1,0 +1,32 @@
+<!doctype html><html lang="pt"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>FRASE 03 — re-audição</title>
+<style>
+:root{--bg:#0e0f12;--ink:#f4f1ea;--mut:#8b8f98;--acc:#ff5d2e;--card:#16181d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,serif;padding:32px 18px 120px}
+h1{font-family:ui-monospace,monospace;font-weight:800;font-size:26px;margin:0 0 4px}
+.sub{font-family:ui-monospace,monospace;color:var(--mut);font-size:13px;margin:0 0 22px}
+.txt{font-size:19px;max-width:680px;margin:0 0 18px} b{color:var(--acc)}
+.take{display:flex;align-items:center;gap:12px;padding:9px 6px;border-radius:9px;max-width:680px}
+.take:hover{background:#1d2026} .take input{accent-color:var(--acc);width:18px;height:18px}
+.tk{font-family:ui-monospace,monospace;font-size:12px;color:var(--mut);width:56px} audio{height:34px;flex:1}
+.bar{position:fixed;left:0;right:0;bottom:0;background:#0a0b0e;border-top:1px solid #23262d;padding:14px;display:flex;gap:12px;justify-content:center;align-items:center}
+.bar code{font-family:ui-monospace,monospace;color:var(--acc);font-size:15px}
+button{font-family:ui-monospace,monospace;font-weight:700;background:var(--acc);color:#0a0b0e;border:0;border-radius:8px;padding:11px 18px;cursor:pointer}
+</style></head><body>
+<h1>FRASE 03 — re-audição</h1><p class="sub">Escolhe o take onde <b>"lesão"</b> sai bem (não "lizão").</p>
+<p class="txt">É uma das formas mais seguras de voltar ao movimento — depois de uma lesão, de uma cirurgia, ou de anos a conviver com dor nas costas.</p><label class="take"><input type="radio" name="s" value="1" checked>
+        <span class="tk">Take 1</span><audio controls preload="none" src="seg02_take1.mp3"></audio></label><label class="take"><input type="radio" name="s" value="2" >
+        <span class="tk">Take 2</span><audio controls preload="none" src="seg02_take2.mp3"></audio></label><label class="take"><input type="radio" name="s" value="3" >
+        <span class="tk">Take 3</span><audio controls preload="none" src="seg02_take3.mp3"></audio></label><label class="take"><input type="radio" name="s" value="4" >
+        <span class="tk">Take 4</span><audio controls preload="none" src="seg02_take4.mp3"></audio></label><label class="take"><input type="radio" name="s" value="5" >
+        <span class="tk">Take 5</span><audio controls preload="none" src="seg02_take5.mp3"></audio></label><label class="take"><input type="radio" name="s" value="6" >
+        <span class="tk">Take 6</span><audio controls preload="none" src="seg02_take6.mp3"></audio></label><label class="take"><input type="radio" name="s" value="7" >
+        <span class="tk">Take 7</span><audio controls preload="none" src="seg02_take7.mp3"></audio></label><label class="take"><input type="radio" name="s" value="8" >
+        <span class="tk">Take 8</span><audio controls preload="none" src="seg02_take8.mp3"></audio></label>
+<div class="bar"><span>frase 03 =</span><code id="out">2:1</code><button onclick="copy()">copiar</button></div>
+<script>
+function val(){let r=document.querySelector('input[name=s]:checked');return '2:'+(r?r.value:'1');}
+function upd(){document.getElementById('out').textContent=val();}
+document.addEventListener('change',upd);upd();
+function copy(){navigator.clipboard.writeText(val());}
+</script></body></html>
