@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>PontoFinal.site · ferramentas-escolhemos</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #FFFFFF;
+  --text: #050505;
+  --primary: #FF2A2A;
+  --border-w: 6px;
+  --shadow: 14px 14px 0 0 #050505;
+  --shadow-sm: 8px 8px 0 0 #050505;
+  --font-display: 'Archivo Black', 'Arial Black', Impact, sans-serif;
+  --font-body: 'Archivo', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--text); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+.carousel { display: flex; flex-direction: column; width: 1080px; }
+.slide {
+  width: 1080px; min-width: 1080px; max-width: 1080px;
+  height: 1350px; position: relative; overflow: hidden;
+  display: grid; grid-template-rows: auto 1fr auto; grid-template-columns: minmax(0, 1fr);
+  padding: 64px 72px; background: var(--bg);
+  border-bottom: 2px solid #888;
+}
+.slide > * { min-width: 0; }
+.bar {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--font-mono); font-size: 18px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text);
+}
+.bar .logo-tag {
+  background: var(--text); color: var(--bg);
+  padding: 6px 14px; border: 4px solid var(--text);
+  font-family: var(--font-display); letter-spacing: -0.02em; font-size: 22px;
+}
+.slide--dark .bar, .slide--red .bar { color: var(--bg); }
+.slide--dark .bar .logo-tag { background: var(--bg); color: var(--text); border-color: var(--bg); }
+.slide--red .bar .logo-tag { background: var(--bg); color: var(--primary); border-color: var(--bg); }
+.body { display: grid; align-content: center; gap: 32px; min-width: 0; grid-template-columns: minmax(0, 1fr); }
+.body > * { min-width: 0; }
+.h-mega { font-family: var(--font-display); font-size: 156px; line-height: 0.92; letter-spacing: -0.04em; text-transform: uppercase; }
+.h-big { font-family: var(--font-display); font-size: 108px; line-height: 0.95; letter-spacing: -0.03em; text-transform: uppercase; }
+.h-mid { font-family: var(--font-display); font-size: 86px; line-height: 1.0; letter-spacing: -0.03em; text-transform: uppercase; }
+.sub { font-family: var(--font-body); font-weight: 500; font-size: 30px; line-height: 1.35; max-width: 28ch; }
+.hl {
+  background: var(--primary); color: var(--bg);
+  padding: 2px 18px 8px; display: inline-block;
+  border: var(--border-w) solid var(--text); box-shadow: var(--shadow-sm);
+  transform: rotate(-1.5deg); margin: 6px 4px;
+}
+.tool-card {
+  display: grid; grid-template-columns: 1fr; gap: 18px;
+  padding: 28px 32px;
+  border: 6px solid var(--text); background: var(--bg);
+  box-shadow: 10px 10px 0 0 #050505;
+}
+.tool-card .tool-label {
+  font-family: var(--font-mono); font-size: 18px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--primary);
+}
+.tool-card .tool-name {
+  font-family: var(--font-display); font-size: 56px; line-height: 1.0;
+  letter-spacing: -0.03em; text-transform: uppercase;
+}
+.tool-card .tool-why {
+  font-family: var(--font-body); font-size: 24px; line-height: 1.35; font-weight: 500;
+}
+.cta-box {
+  border: var(--border-w) solid var(--text); box-shadow: var(--shadow);
+  background: var(--bg); color: var(--text);
+  padding: 44px 48px; display: grid; gap: 18px;
+}
+.cta-box * { color: var(--text); }
+.cta-box .label { color: var(--primary);
+  font-family: var(--font-mono); font-size: 18px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+}
+.cta-box h2 {
+  font-family: var(--font-display); font-size: 64px; line-height: 0.95;
+  letter-spacing: -0.03em; text-transform: uppercase;
+}
+.cta-box p { font-size: 24px; line-height: 1.4; color: var(--text); font-weight: 500; }
+.btn {
+  display: inline-block; padding: 22px 38px; font-weight: 900;
+  font-family: var(--font-display); font-size: 26px;
+  letter-spacing: 0.02em; text-transform: uppercase;
+  border: var(--border-w) solid var(--text); box-shadow: var(--shadow-sm);
+  background: var(--primary); color: var(--bg); width: max-content;
+}
+.slide--dark { background: var(--text); color: var(--bg); }
+.slide--dark .h-mega, .slide--dark .h-big, .slide--dark .h-mid, .slide--dark .sub { color: var(--bg); }
+.slide--dark .cta-box { background: var(--bg); color: var(--text); }
+.slide--dark .tool-card { background: var(--bg); }
+.slide--red { background: var(--primary); color: var(--bg); }
+.slide--red .h-mega, .slide--red .h-big, .slide--red .h-mid, .slide--red .sub { color: var(--bg); }
+.slide--red .hl { background: var(--bg); color: var(--primary); border-color: var(--bg); box-shadow: 8px 8px 0 0 var(--text); }
+.slide--red .btn { background: var(--text); color: var(--bg); border-color: var(--text); box-shadow: 8px 8px 0 0 var(--bg); }
+.hook-stack { display: grid; gap: 18px; }
+.tag-line { font-family: var(--font-mono); font-size: 20px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--primary); }
+.swatch-row { display: flex; gap: 12px; margin-top: 24px; }
+.swatch { width: 60px; height: 60px; border: 4px solid var(--text); }
+.swatch--red { background: var(--primary); }
+.swatch--black { background: var(--text); }
+.swatch--white { background: var(--bg); }
+.counter {
+  font-family: var(--font-mono); font-size: 16px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 6px 12px; border: 4px solid var(--text); display: inline-block;
+}
+.slide--dark .counter, .slide--red .counter { border-color: var(--bg); color: var(--bg); }
+</style>
+<!-- fx-v2 -->
+<style id="fx-v2">
+/* ═══ FX v2.3 ESTÁTICO — atmosfera de fundo congelada (decisão Lucca 11-jun:
+   carrosséis publicam como imagem; preview tem de mostrar o mesmo) ═══ */
+.slide, .story-single { isolation: isolate; }
+.fx-atmos, .fx-orb, .fx-grain { position: absolute; z-index: 0; pointer-events: none; }
+.fx-atmos {
+  inset: -22%;
+  background:
+    radial-gradient(48% 44% at 26% 22%, color-mix(in oklch, var(--accent) 26%, transparent), transparent 78%),
+    radial-gradient(52% 48% at 80% 84%, color-mix(in oklch, var(--accent) 13%, transparent), transparent 80%);
+  transform: scale(1.03);
+}
+.fx-orb {
+  width: 72%; aspect-ratio: 1; border-radius: 50%; top: -16%; right: -18%;
+  background: radial-gradient(circle, color-mix(in oklch, var(--accent) 19%, transparent), transparent 74%);
+  opacity: .72;
+}
+.fx-grain {
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: .055; mix-blend-mode: overlay;
+}
+.slide__photo, .bg-photo, .slide--photo .photo { transform: scale(1.05); }
+.carousel .slide:first-child .fx-orb { width: 82%; top: -18%; right: -20%; }
+.carousel .slide:first-child .fx-atmos { inset: -28%; }
+.slide--photo .fx-atmos, .slide--photo .fx-orb { filter: opacity(.5); }
+.slide--photo .fx-grain { opacity: .04; }
+.story-single__body {
+  justify-items: center !important; align-content: center !important;
+  text-align: center !important; justify-self: stretch !important;
+}
+.story-single__body h1, .story-single__body .num, .story-single__body p { margin-inline: auto; }
+.story-single--quote .story-single__body { border-left: none !important; padding-left: 0 !important; }
+</style>
+
+</head>
+<body>
+<section class="carousel">
+
+<article class="slide" id="slide-1">
+  <div class="bar"><span class="logo-tag">pontofinal.site</span><span>01 / 08 →</span></div>
+  <div class="body">
+    <div class="tag-line">por trás do nosso trabalho</div>
+    <div class="hook-stack">
+      <h1 class="h-big">Como</h1>
+      <h1 class="h-mega"><span class="hl">fazemos</span></h1>
+      <h1 class="h-mid">os sites.</h1>
+    </div>
+    <div class="swatch-row"><span class="swatch swatch--red"></span><span class="swatch swatch--black"></span><span class="swatch swatch--white"></span></div>
+  </div>
+  <div class="bar"><span>simples &middot; rápido &middot; teu</span><span>arrasta →</span></div>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+
+<article class="slide" id="slide-2">
+  <div class="bar"><span class="logo-tag">pontofinal.site</span><span>02 / 08 →</span></div>
+  <div class="body">
+    <span class="counter">princípio · 01</span>
+    <h2 class="h-big">Rápido<br/>primeiro.</h2>
+    <p class="sub">O site tem de abrir no telemóvel mais lento que o teu cliente possa ter. Sem isto, todo o resto se perde — porque ele nunca chega a ver.</p>
+  </div>
+  <div class="bar"><span>rapidez &middot; telemóvel &middot; sempre</span><span>→</span></div>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+
+<article class="slide slide--dark" id="slide-3">
+  <div class="bar"><span class="logo-tag">pontofinal.site</span><span>03 / 08 →</span></div>
+  <div class="body">
+    <span class="counter">a base</span>
+    <div class="tool-card">
+      <span class="tool-label">o que está por baixo</span>
+      <span class="tool-name">Carrega só<br/>o que é<br/>preciso.</span>
+      <p class="tool-why">Sem dezenas de extras a competir por espaço. Páginas que aparecem quase no instante em que o visitante toca.</p>
+    </div>
+  </div>
+  <div class="bar"><span>leve &middot; limpo &middot; rápido</span><span>→</span></div>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+
+<article class="slide" id="slide-4">
+  <div class="bar"><span class="logo-tag">pontofinal.site</span><span>04 / 08 →</span></div>
+  <div class="body">
+    <span class="counter">os textos</span>
+    <div class="tool-card">
+      <span class="tool-label">quando quiseres mudar</span>
+      <span class="tool-name">Mudas tu,<br/>sem precisar<br/>de ninguém.</span>
+      <p class="tool-why">Um sítio simples, com botão para guardar. Sem nos chamares por cada palavra. E sem pagares mais por isso.</p>
+    </div>
+  </div>
+  <div class="bar"><span>controlo &middot; simples &middot; sem custos</span><span>→</span></div>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+
+<article class="slide" id="slide-5">
+  <div class="bar"><span class="logo-tag">pontofinal.site</span><span>05 / 08 →</span></div>
+  <div class="body">
+    <span class="counter">o alojamento</span>
+    <div class="tool-card">
+      <span class="tool-label">onde o site vive</span>
+      <span class="tool-name">Servidores<br/>perto do<br/>visitante.</span>
+      <p class="tool-why">Quem vier do Porto, recebe do Porto. Quem vier de Lisboa, recebe de Lisboa. Sem espera. E sem factura mensal.</p>
+    </div>
+  </div>
+  <div class="bar"><span>perto &middot; rápido &middot; grátis</span><span>→</span></div>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+
+<article class="slide slide--dark" id="slide-6">
+  <div class="bar"><span class="logo-tag">pontofinal.site</span><span>06 / 08 →</span></div>
+  <div class="body">
+    <span class="counter">princípio · 02</span>
+    <h2 class="h-big">Sem<br/><span class="hl">mensalidades</span><br/>obrigatórias.</h2>
+    <p class="sub">Pagas o site uma vez. O alojamento básico é grátis. Os textos mudas tu. Só voltas a pagar se quiseres mudanças grandes.</p>
+  </div>
+  <div class="bar"><span>preço &middot; clareza &middot; sem surpresas</span><span>→</span></div>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+
+<article class="slide" id="slide-7">
+  <div class="bar"><span class="logo-tag">pontofinal.site</span><span>07 / 08 →</span></div>
+  <div class="body">
+    <span class="counter">a diferença</span>
+    <h2 class="h-big">Outros<br/>prendem-te</h2>
+    <h2 class="h-mid">na plataforma<br/>deles.</h2>
+    <p class="sub">O teu site é teu. Levas o trabalho contigo, mudas de alojamento quando quiseres, ninguém te pode cortar o acesso por um problema com a factura deles.</p>
+  </div>
+  <div class="bar"><span>liberdade &middot; teu &middot; sempre</span><span>→</span></div>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+
+<article class="slide slide--red" id="slide-8">
+  <div class="bar"><span class="logo-tag">pontofinal.site</span><span>08 / 08 ✕</span></div>
+  <div class="body">
+    <span class="counter">a tua vez</span>
+    <h2 class="h-big">Site rápido.</h2>
+    <h2 class="h-mid"><span class="hl">100% teu</span>.</h2>
+    <div class="cta-box">
+      <span class="label">próximo passo</span>
+      <h2>Conversa<br/>de 30 min.</h2>
+      <p>Vemos o que tens hoje, o que falta, e o que faz sentido fazer contigo. Sem compromisso. Em palavras simples.</p>
+      <span class="btn">→ pontofinal.site</span>
+    </div>
+  </div>
+  <div class="bar"><span>websites &middot; redes &middot; portugal</span><span>fim</span></div>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+
+</section>
+</body>
+</html>

@@ -157,53 +157,18 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   color: var(--text-mute);
   font-style: normal;
 }
-</style>
-<!-- fx-v2 -->
-<style id="fx-v2">
-/* ═══ FX v2.3 ESTÁTICO — atmosfera de fundo congelada (decisão Lucca 11-jun:
-   carrosséis publicam como imagem; preview tem de mostrar o mesmo) ═══ */
-.slide, .story-single { isolation: isolate; }
-.fx-atmos, .fx-orb, .fx-grain { position: absolute; z-index: 0; pointer-events: none; }
-.fx-atmos {
-  inset: -22%;
-  background:
-    radial-gradient(48% 44% at 26% 22%, color-mix(in oklch, var(--accent) 26%, transparent), transparent 78%),
-    radial-gradient(52% 48% at 80% 84%, color-mix(in oklch, var(--accent) 13%, transparent), transparent 80%);
-  transform: scale(1.03);
-}
-.fx-orb {
-  width: 72%; aspect-ratio: 1; border-radius: 50%; top: -16%; right: -18%;
-  background: radial-gradient(circle, color-mix(in oklch, var(--accent) 19%, transparent), transparent 74%);
-  opacity: .72;
-}
-.fx-grain {
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
-  opacity: .055; mix-blend-mode: overlay;
-}
-.slide__photo, .bg-photo, .slide--photo .photo { transform: scale(1.05); }
-.carousel .slide:first-child .fx-orb { width: 82%; top: -18%; right: -20%; }
-.carousel .slide:first-child .fx-atmos { inset: -28%; }
-.slide--photo .fx-atmos, .slide--photo .fx-orb { filter: opacity(.5); }
-.slide--photo .fx-grain { opacity: .04; }
-.story-single__body {
-  justify-items: center !important; align-content: center !important;
-  text-align: center !important; justify-self: stretch !important;
-}
-.story-single__body h1, .story-single__body .num, .story-single__body p { margin-inline: auto; }
-.story-single--quote .story-single__body { border-left: none !important; padding-left: 0 !important; }
-</style>
 
+.slide__body h1 { text-wrap: wrap !important; }
+</style>
 </head>
 <body>
 <section class="carousel" aria-label="Carrossel TechBody U — introducao_produto">
-<article class="slide slide--type" id="slide-1"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Tecnologia de estúdio. <em>Em casa.</em></h1></div><div class="slide__bottom">  <span>01/06</span></div><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
-<article class="slide slide--photo" id="slide-2"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body">  <h1>O sistema chega com o fato de eletroestimulação e a aplicação guia a sessão.</h1>  <div class="photo" style="background-image:url('../../../assets/photos/magnific_e4-pico-de-intensidade-um_2964228815.png')"></div></div><div class="slide__bottom">  <span>02/06</span></div><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
-<article class="slide slide--type" id="slide-3"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Sessões de vinte e cinco minutos no horário que lhe dá jeito.</h1></div><div class="slide__bottom">  <span>03/06</span></div><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
-<article class="slide slide--type" id="slide-4"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Vista o seu TecSuit seco como se fosse uma segunda pele. A aplicação acompanha-lhe.</h1></div><div class="slide__bottom">  <span>04/06</span></div><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
-<article class="slide slide--type" id="slide-5"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>A eletroestimulação ativa o seu corpo inteiro, nos principais grupos musculares. Milhares de contrações numa só sessão.</h1></div><div class="slide__bottom">  <span>05/06</span></div><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
-<article class="slide slide--photo" id="slide-6"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body">  <h1>Conheça a TechBody U. Adira em pagamento único ou em 12 prestações.</h1>  <div class="photo" style="background-image:url('../../../assets/photos/magnific_a5.-suggestion-of-motion-_2964142095.png')"></div></div><div class="slide__bottom">  <span class="slide__cta">Conhece o método →</span></div><div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+<article class="slide slide--type" id="slide-1"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Tecnologia de estúdio. Em casa.</h1></div><div class="slide__bottom">  <span>01/06</span></div></article>
+<article class="slide slide--photo" id="slide-2"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body">  <h1><em>O</em> sistema chega com o fato EMS e&nbsp;a aplicação que guia a sessão.</h1>  <div class="photo" style="background-image:url('../../../assets/photos/magnific_e4-pico-de-intensidade-um_2964228815.png')"></div></div><div class="slide__bottom">  <span>02/06</span></div></article>
+<article class="slide slide--type" id="slide-3"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Sessões de vinte e&nbsp;cinco minutos no horário que te dá jeito.</h1></div><div class="slide__bottom">  <span>03/06</span></div></article>
+<article class="slide slide--type" id="slide-4"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Vestes o fato por cima da roupa. A aplicação acompanha.</h1></div><div class="slide__bottom">  <span>04/06</span></div></article>
+<article class="slide slide--type" id="slide-5"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>EMS de corpo inteiro chega aos grandes grupos musculares numa só sessão.</h1></div><div class="slide__bottom">  <span>05/06</span></div></article>
+<article class="slide slide--photo" id="slide-6"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body">  <h1><em>Conhece</em> o TechBody U. Compra ou&nbsp;subscrição mensal.</h1>  <div class="photo" style="background-image:url('../../../assets/photos/magnific_a5.-suggestion-of-motion-_2964142095.png')"></div></div><div class="slide__bottom">  <span class="slide__cta">Conhece o método →</span></div></article>
 </section>
 <script>
   (function () {

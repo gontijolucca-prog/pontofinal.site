@@ -4,20 +4,20 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>TechBody · uma_sessao_por_dentro</title>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;700;800&family=JetBrains+Mono:wght@300;400;600&family=Fraunces:ital,wght@0,200;0,400;0,800;1,200;1,400;1,800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Titillium+Web:wght@200;400;600;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
 <style>
 :root {
-  --bg: #1a1a1a;
-  --primary: #1a1a1a;
-  --accent: #d4773b;
+  --bg: #333333;
+  --primary: #333333;
+  --accent: #F49919;
   --text: #ffffff;
   --w-thin: 200;
   --w-mid: 500;
   --w-strong: 700;
   --w-black: 800;
-  --font-display: 'Manrope', sans-serif;
+  --font-display: 'Poppins', 'Titillium Web', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --font-serif: 'Fraunces', serif;
+  --font-serif: 'Titillium Web', serif;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-display); -webkit-font-smoothing: antialiased; }
@@ -73,7 +73,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   font-size: clamp(15px, 6vw, 72px);
   line-height: 1.1;
   letter-spacing: -0.025em;
-  max-width: 16ch;
+  max-width: 28ch;
 
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -88,7 +88,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   font-size: clamp(18px, 7vw, 104px);
   line-height: 1.1;
   letter-spacing: -0.025em;
-  max-width: 14ch;
+  max-width: 26ch;
   color: var(--text);
 
   word-wrap: break-word;
@@ -156,6 +156,8 @@ h1, h2, h3, p, blockquote, .num {
    blend no background (não filter no elemento: filter dessaturaria o ::after). */
 .slide__photo { background-color: #b4622f; background-blend-mode: luminosity; }
 .slide__photo::after { background: linear-gradient(180deg, rgba(10,10,12,0.38) 0%, rgba(10,10,12,0.88) 100%); }
+
+.slide__body h1 { text-wrap: wrap !important; }
 </style>
 <!-- fx-v2 -->
 <style id="fx-v2">
@@ -205,7 +207,7 @@ h1, h2, h3, p, blockquote, .num {
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 <article class="slide slide--num" id="slide-2">
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><div class="num">3</div><h1>minutos para vestir o TecSuit e calibrar a intensidade consigo.</h1></div>
+  <div class="slide__body"><div class="num">3</div><h1>minutos para vestir o TecSuit e&nbsp;calibrar a intensidade consigo.</h1></div>
   <div class="slide__bottom"><span>02/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 <article class="slide slide--type" id="slide-3">

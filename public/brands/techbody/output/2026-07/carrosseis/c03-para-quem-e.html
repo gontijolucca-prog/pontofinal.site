@@ -4,20 +4,20 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>TechBody · para_quem_e</title>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;700;800&family=JetBrains+Mono:wght@300;400;600&family=Fraunces:ital,wght@0,200;0,400;0,800;1,200;1,400;1,800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Titillium+Web:wght@200;400;600;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
 <style>
 :root {
-  --bg: #1a1a1a;
-  --primary: #1a1a1a;
-  --accent: #d4773b;
+  --bg: #333333;
+  --primary: #333333;
+  --accent: #F49919;
   --text: #ffffff;
   --w-thin: 200;
   --w-mid: 500;
   --w-strong: 700;
   --w-black: 800;
-  --font-display: 'Manrope', sans-serif;
+  --font-display: 'Manrope', 'Titillium Web', sans-serif, 'Titillium Web', sans-serif, 'Titillium Web', sans-serif, 'Titillium Web', sans-serif, 'Titillium Web', sans-serif, 'Titillium Web', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --font-serif: 'Fraunces', serif;
+  --font-serif: 'Titillium Web', serif;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-display); -webkit-font-smoothing: antialiased; }
@@ -73,11 +73,11 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   font-size: clamp(15px, 6vw, 72px);
   line-height: 1.1;
   letter-spacing: -0.025em;
-  max-width: 16ch;
+  max-width: 22ch;
 
   word-wrap: break-word;
   overflow-wrap: break-word;
-  hyphens: manual;}
+  hyphens: none;}
 .slide--photo .slide__body p { font-family: var(--font-mono); font-size: clamp(13px, 1.4vw, 16px); max-width: 38ch; color: rgba(255,255,255,0.78); }
 
 /* style: typographic */
@@ -85,15 +85,15 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .slide--type .slide__body h1 {
   font-family: var(--font-display);
   font-weight: var(--w-strong);
-  font-size: clamp(18px, 7vw, 104px);
+  font-size: clamp(15px, 4.4vw, 58px);
   line-height: 1.1;
   letter-spacing: -0.025em;
-  max-width: 14ch;
+  max-width: 30ch;
   color: var(--text);
 
   word-wrap: break-word;
   overflow-wrap: break-word;
-  hyphens: manual;}
+  hyphens: none;}
 .slide--type .slide__body h1 em { color: var(--accent); font-style: normal; font-weight: var(--w-black); }
 .slide--type .slide__body p { font-family: var(--font-mono); font-size: clamp(13px, 1.3vw, 15px); max-width: 42ch; color: rgba(255,255,255,0.55); }
 
@@ -115,11 +115,11 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   font-size: clamp(14px, 3vw, 38px);
   line-height: 1.18;
   letter-spacing: -0.01em;
-  max-width: 22ch;
+  max-width: 28ch;
 
   word-wrap: break-word;
   overflow-wrap: break-word;
-  hyphens: manual;}
+  hyphens: none;}
 .slide--num .slide__body p { font-family: var(--font-mono); font-size: clamp(12px, 1.3vw, 15px); max-width: 44ch; color: rgba(255,255,255,0.55); }
 
 /* style: quote — italic serif, restrained */
@@ -137,7 +137,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   font-size: clamp(14px, 4vw, 50px);
   line-height: 1.22;
   letter-spacing: -0.018em;
-  max-width: 22ch;
+  max-width: 32ch;
   color: var(--text);
 }
 .slide--quote .slide__body cite { font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.5); font-style: normal; letter-spacing: 0.18em; text-transform: uppercase; }
@@ -156,6 +156,8 @@ h1, h2, h3, p, blockquote, .num {
    blend no background (não filter no elemento: filter dessaturaria o ::after). */
 .slide__photo { background-color: #b4622f; background-blend-mode: luminosity; }
 .slide__photo::after { background: linear-gradient(180deg, rgba(10,10,12,0.38) 0%, rgba(10,10,12,0.88) 100%); }
+
+.slide__body h1 { text-wrap: wrap !important; }
 </style>
 <!-- fx-v2 -->
 <style id="fx-v2">
@@ -200,22 +202,22 @@ h1, h2, h3, p, blockquote, .num {
 
 <article class="slide slide--type" id="slide-1">
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>A eletroestimulação é&nbsp;para <em>si</em>?</h1></div>
+  <div class="slide__body"><h1>A&nbsp;eletroestimulação&nbsp;é&nbsp;para<em>si</em>?</h1></div>
   <div class="slide__bottom"><span>01/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 <article class="slide slide--type" id="slide-2">
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Para quem quer <em>recomeçar</em> a treinar — sem voltar à estaca zero.</h1></div>
+  <div class="slide__body"><h1>Para&nbsp;quem&nbsp;quer<em>recomeçar</em>a&nbsp;treinar&nbsp;—&nbsp;sem&nbsp;voltar&nbsp;à&nbsp;estaca<br>zero.</h1></div>
   <div class="slide__bottom"><span>02/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 <article class="slide slide--type" id="slide-3">
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Para quem quer <em>perder peso</em> com sessões curtas e acompanhadas.</h1></div>
+  <div class="slide__body"><h1>Para&nbsp;quem&nbsp;quer<em>perder&nbsp;peso</em>com&nbsp;sessões&nbsp;curtas&nbsp;e<br>acompanhadas.</h1></div>
   <div class="slide__bottom"><span>03/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 <article class="slide slide--type" id="slide-4">
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Para quem precisa de <em>tratar dores</em> e recuperar movimento.</h1></div>
+  <div class="slide__body"><h1>Para&nbsp;quem&nbsp;precisa&nbsp;de<em>tratar&nbsp;dores</em>e&nbsp;recuperar&nbsp;movimento.</h1></div>
   <div class="slide__bottom"><span>04/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 <article class="slide slide--quote" id="slide-5">
@@ -226,7 +228,7 @@ h1, h2, h3, p, blockquote, .num {
 <article class="slide slide--photo" id="slide-6">
   <div class="slide__photo" style="background-image:url('../../../assets/photos/magnific_e2.-aquecimento-controlad_2964620617.jpg'); background-position: 30% center"></div>
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Comece pela <em>sessão experimental</em>.</h1></div>
+  <div class="slide__body"><h1>Comece&nbsp;pela<em>sessão&nbsp;experimental</em>.</h1></div>
   <div class="slide__bottom"><span>06/06</span><span class="slide__cta" style="background:var(--accent);color:#0a0a0c;padding:10px 22px;font:700 13px/1 var(--font-display);letter-spacing:0.06em;text-transform:uppercase;">Marcar agora →</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 </section>

@@ -4,20 +4,20 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>TechBody · experiencia_sessao</title>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;700;800&family=JetBrains+Mono:wght@300;400;600&family=Fraunces:ital,wght@0,200;0,400;0,800;1,200;1,400;1,800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Titillium+Web:wght@200;400;600;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
 <style>
 :root {
-  --bg: #1a1a1a;
-  --primary: #1a1a1a;
-  --accent: #d4773b;
+  --bg: #333333;
+  --primary: #333333;
+  --accent: #F49919;
   --text: #ffffff;
   --w-thin: 200;
   --w-mid: 500;
   --w-strong: 700;
   --w-black: 800;
-  --font-display: 'Manrope', sans-serif;
+  --font-display: 'Manrope', 'Titillium Web', sans-serif, 'Titillium Web', sans-serif, 'Titillium Web', sans-serif, 'Titillium Web', sans-serif, 'Titillium Web', sans-serif, 'Titillium Web', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --font-serif: 'Fraunces', serif;
+  --font-serif: 'Titillium Web', serif;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-display); -webkit-font-smoothing: antialiased; }
@@ -73,11 +73,11 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   font-size: clamp(15px, 6vw, 72px);
   line-height: 1.1;
   letter-spacing: -0.025em;
-  max-width: 16ch;
+  max-width: 22ch;
 
   word-wrap: break-word;
   overflow-wrap: break-word;
-  hyphens: manual;}
+  hyphens: none;}
 .slide--photo .slide__body p { font-family: var(--font-mono); font-size: clamp(13px, 1.4vw, 16px); max-width: 38ch; color: rgba(255,255,255,0.78); }
 
 /* style: typographic */
@@ -85,15 +85,15 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .slide--type .slide__body h1 {
   font-family: var(--font-display);
   font-weight: var(--w-strong);
-  font-size: clamp(18px, 7vw, 104px);
+  font-size: clamp(15px, 4.4vw, 58px);
   line-height: 1.1;
   letter-spacing: -0.025em;
-  max-width: 14ch;
+  max-width: 30ch;
   color: var(--text);
 
   word-wrap: break-word;
   overflow-wrap: break-word;
-  hyphens: manual;}
+  hyphens: none;}
 .slide--type .slide__body h1 em { color: var(--accent); font-style: normal; font-weight: var(--w-black); }
 .slide--type .slide__body p { font-family: var(--font-mono); font-size: clamp(13px, 1.3vw, 15px); max-width: 42ch; color: rgba(255,255,255,0.55); }
 
@@ -115,11 +115,11 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   font-size: clamp(14px, 3vw, 38px);
   line-height: 1.18;
   letter-spacing: -0.01em;
-  max-width: 22ch;
+  max-width: 28ch;
 
   word-wrap: break-word;
   overflow-wrap: break-word;
-  hyphens: manual;}
+  hyphens: none;}
 .slide--num .slide__body p { font-family: var(--font-mono); font-size: clamp(12px, 1.3vw, 15px); max-width: 44ch; color: rgba(255,255,255,0.55); }
 
 /* style: quote — italic serif, restrained */
@@ -137,7 +137,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   font-size: clamp(14px, 4vw, 50px);
   line-height: 1.22;
   letter-spacing: -0.018em;
-  max-width: 22ch;
+  max-width: 32ch;
   color: var(--text);
 }
 .slide--quote .slide__body cite { font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.5); font-style: normal; letter-spacing: 0.18em; text-transform: uppercase; }
@@ -151,6 +151,8 @@ h1, h2, h3, p, blockquote, .num {
   text-wrap: balance;
   text-wrap: pretty;
 }
+
+.slide__body h1 { text-wrap: wrap !important; }
 </style>
 <!-- fx-v2 -->
 <style id="fx-v2">
@@ -194,10 +196,10 @@ h1, h2, h3, p, blockquote, .num {
 <section class="carousel" aria-label="Carrossel TechBody — experiencia_sessao">
 
 <article class="slide slide--photo" id="slide-1">
-  <div class="slide__photo" style="background-image:url('../../../assets/photos/magnific_e4-pico-de-intensidade-im_2964580645.jpg')"></div>
+  <div class="slide__photo" style="background-image:url('../../../assets/photos/magnific_e4-pico-de-intensidade-im_2964580645.png')"></div>
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
   <div class="slide__body">
-        <h1>Vinte e cinco<br>minutos.<br><em>Treino completo.</em></h1>
+        <h1>Vinte&nbsp;e&nbsp;cinco&nbsp;minutos.<br>Treino&nbsp;completo.</h1>
         </div>
   <div class="slide__bottom"><span>01/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
@@ -205,14 +207,14 @@ h1, h2, h3, p, blockquote, .num {
 
 <article class="slide slide--type" id="slide-2">
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Sem horas<br>no ginásio.<br>Sem cargas pesadas.<br>Sem desculpas.</h1></div>
+  <div class="slide__body"><h1>Sem&nbsp;horas&nbsp;no&nbsp;ginásio.<br>Sem&nbsp;cargas&nbsp;pesadas.<br>Sem&nbsp;desculpas.</h1></div>
   <div class="slide__bottom"><span>02/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 
 
 <article class="slide slide--type" id="slide-3">
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Vista o fato.<br>O treinador<br>acompanha<br>cada movimento.</h1></div>
+  <div class="slide__body"><h1>Vista&nbsp;o&nbsp;fato.<br>O&nbsp;treinador&nbsp;acompanha&nbsp;cada<br>movimento.</h1></div>
   <div class="slide__bottom"><span>03/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 
@@ -221,7 +223,7 @@ h1, h2, h3, p, blockquote, .num {
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
   <div class="slide__body">
         <div class="num">90%</div>
-        <h1>Até 90% das fibras<br>musculares ativadas<br>em cada sessão.</h1>
+        <h1>Até&nbsp;90%&nbsp;das&nbsp;fibras&nbsp;musculares<br>activadas&nbsp;em&nbsp;cada&nbsp;sessão.</h1>
         </div>
   <div class="slide__bottom"><span>04/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
@@ -229,16 +231,16 @@ h1, h2, h3, p, blockquote, .num {
 
 <article class="slide slide--type" id="slide-5">
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Saia do estúdio<br>em menos de<br>meia hora.<br>A rotina não para.</h1></div>
+  <div class="slide__body"><h1>Saia&nbsp;do&nbsp;estúdio&nbsp;em&nbsp;menos&nbsp;de&nbsp;meia<br>hora.<br>A&nbsp;rotina&nbsp;não&nbsp;para.</h1></div>
   <div class="slide__bottom"><span>05/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 
 
 <article class="slide slide--photo" id="slide-6">
-  <div class="slide__photo" style="background-image:url('../../../assets/photos/magnific_estudio-postreino-pessoa-_2968056754.jpg')"></div>
+  <div class="slide__photo" style="background-image:url('../../../assets/photos/magnific_estudio-postreino-pessoa-_2968056754.png')"></div>
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
   <div class="slide__body">
-        <h1>Marque o seu treino<br>experimental no<br>estúdio TechBody.</h1>
+        <h1>Marque&nbsp;o&nbsp;seu&nbsp;treino&nbsp;experimental<br>no&nbsp;estúdio&nbsp;TechBody.</h1>
         </div>
   <div class="slide__bottom"><span>06/06</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
