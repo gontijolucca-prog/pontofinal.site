@@ -159,6 +159,18 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 }
 
 .slide__body h1 { text-wrap: wrap !important; }
+
+/* === v2.1: texto mais largo, sem órfãos (Lucca feedback 19-jun) === */
+.slide__body h1 { 
+  text-wrap: wrap !important; 
+  text-align: left !important; 
+  max-width: min(880px, 92%) !important; 
+  margin: 0 !important;
+}
+.slide--photo .slide__body h1 { font-size: clamp(26px, 3.8vw, 48px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
+.slide--type .slide__body h1 { font-size: clamp(28px, 4.2vw, 52px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
+.slide--num .slide__body h1 { font-size: clamp(24px, 3.6vw, 44px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
+
 </style>
 <!-- fx-v2 -->
 <style id="fx-v2">
