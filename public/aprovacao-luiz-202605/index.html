@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="app-version" content="20260615-1515" />
+<meta name="app-version" content="20260619-2300" />
 <title>Aprovação · Conteúdo</title>
 
 <script>
@@ -52,10 +52,41 @@
     navigator.serviceWorker.register('sw.js').then((reg) => {
       reg.update();
       // Procura versão nova do SW periodicamente e ao voltar ao separador.
-      setInterval(() => reg.update().catch(() => {}), 60000);
+      setInterval(() => reg.update().catch(() => {}), 15000);
       document.addEventListener('visibilitychange', () => {
         if (!document.hidden) reg.update().catch(() => {});
       });
+
+      // Auto-refresh check a cada 10s (tab visível + user idle): lê version.txt
+      // e auto-cura nuclear se o servidor publicou versão nova. Complementa
+      // o version-gate.js (que faz polling idêntico mas só dispara UI).
+      setInterval(() => {
+        if (document.hidden) return;
+        var ed = document.activeElement;
+        if (ed && (ed.tagName === 'TEXTAREA' ||
+            (ed.tagName === 'INPUT' && /^(text|search|email|url|tel)$/i.test(ed.type)) ||
+            ed.isContentEditable)) return;
+        fetch('version.txt?_=' + Date.now(), { cache: 'no-store' })
+          .then(function(r){ return r.ok ? r.text() : ''; })
+          .then(function(serverV){
+            if (!serverV) return;
+            serverV = serverV.trim();
+            if (!serverV || serverV === current) return;
+            try {
+              var key = 'pf-autoheal-' + serverV;
+              if (sessionStorage.getItem(key) === '1') return; // já tentámos
+              sessionStorage.setItem(key, '1');
+              navigator.serviceWorker.getRegistrations().then(function(regs){
+                return Promise.all(regs.map(function(r){ return r.unregister().catch(function(){}); }));
+              });
+              if (self.caches) caches.keys().then(function(keys){
+                return Promise.all(keys.map(function(k){ return caches.delete(k).catch(function(){}); }));
+              });
+              sessionStorage.removeItem('pf-bust-v');
+              window.location.replace(window.location.pathname + '?_=' + Date.now());
+            } catch (e) {}
+          }).catch(function(){});
+      }, 10000);
     }).catch(() => {});
   }
 </script>
@@ -76,6 +107,7 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;900&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles/reset.css" />
 <link rel="stylesheet" href="styles/tokens.css" />
+<link rel="stylesheet" href="styles/version-badge.css" />
 <link rel="stylesheet" href="styles/components.css" />
 </head>
 <body>
@@ -115,6 +147,13 @@
       <strong id="headerPendingCount">0</strong>
     </span>
   </div>
+  
+  <button type="button" id="versionBadge" class="version-badge" hidden
+    aria-label="Atualizar para versão ao vivo"
+    title="Há uma versão nova disponível. Clica para atualizar.">
+    <span class="version-badge__icon" aria-hidden="true">↑</span>
+    <span class="version-badge__text">Atualizar</span>
+  </button>
   <a id="dashboardLink" class="nav-link" hidden>Estatísticas →</a>
   <button type="button" id="helpButton" class="help-trigger" aria-label="Como usar esta página" title="Como usar esta página">?</button>
   <user-menu id="userMenu" aria-hidden="true"></user-menu>
@@ -236,5 +275,40 @@
 <script type="module" src="js/components/auth-modal.js"></script>
 <script type="module" src="js/components/user-menu.js"></script>
 <script type="module" src="js/main.js"></script>
+<script>
+  // Badge "Atualizar" — aparece no header quando versão detectada != carregada.
+  // Não interrompe; o user clica quando quiser. Auto-cura nuclear continua a
+  // correr em background a cada 10s (definido em script inline acima).
+  (function(){
+    var badge = document.getElementById('versionBadge');
+    if (!badge) return;
+    var META = (document.querySelector('meta[name="app-version"]') || {}).content || '';
+    badge.addEventListener('click', function(){
+      badge.disabled = true;
+      badge.textContent = 'A atualizar…';
+      // nuclear reload
+      if (navigator.serviceWorker) {
+        navigator.serviceWorker.getRegistrations().then(function(regs){
+          return Promise.all(regs.map(function(r){ return r.unregister().catch(function(){}); }));
+        });
+      }
+      if (self.caches) {
+        caches.keys().then(function(keys){
+          return Promise.all(keys.map(function(k){ return caches.delete(k).catch(function(){}); }));
+        });
+      }
+      try { sessionStorage.removeItem('pf-bust-v'); } catch(e){}
+      window.location.replace(window.location.pathname + '?_=' + Date.now());
+    });
+    // Listener: o version-gate.js dispara CustomEvent quando detecta stale
+    window.addEventListener('pf:stale-version', function(e){
+      badge.hidden = false;
+    });
+    window.addEventListener('pf:live-version', function(e){
+      badge.hidden = true;
+    });
+  })();
+
+</script>
 </body>
 </html>

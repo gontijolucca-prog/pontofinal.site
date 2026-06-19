@@ -96,6 +96,8 @@ async function check() {
     const server = (await r.text()).trim();
     _failStreak = 0;
     if (server && META_VERSION && server !== META_VERSION) {
+      // Dispara evento para o badge "Atualizar" aparecer (não-intrusivo)
+      try { window.dispatchEvent(new CustomEvent('pf:stale-version', { detail: { server, current: META_VERSION } })); } catch {}
       // NÃO interromper quem está a escrever: se um campo de texto está focado,
       // adia a atualização para o próximo ciclo. As edições já vão sendo gravadas
       // no servidor — só evitamos o reload forçado a meio de uma escrita, para
@@ -113,7 +115,10 @@ async function check() {
         return;
       }
       showGate('stale', server);
-    } else hideGate();
+    } else {
+      hideGate();
+      try { window.dispatchEvent(new CustomEvent('pf:live-version', { detail: { current: META_VERSION } })); } catch {}
+    }
   } catch {
     // Falha de rede: só bloqueia como offline se o browser confirmar offline,
     // ou após 3 falhas seguidas — evita falso-positivo numa falha pontual.
