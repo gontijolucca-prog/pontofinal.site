@@ -63,7 +63,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .slide--photo .slide__body h1 {
   font-family: var(--font-display);
   font-weight: var(--w-strong);
-  font-size: clamp(30px, 6vw, 72px);
+  font-size: clamp(30px, 5vw, 58px);
   line-height: 1.02;
   letter-spacing: -0.025em;
   max-width: 28ch;
@@ -74,7 +74,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .slide--type .slide__body h1 {
   font-family: var(--font-display);
   font-weight: var(--w-strong);
-  font-size: clamp(36px, 7vw, 104px);
+  font-size: clamp(30px, 5vw, 58px);
   line-height: 1.02;
   letter-spacing: -0.025em;
   max-width: 26ch;
@@ -86,7 +86,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .brand-glyph { font-family: var(--font-display); font-weight: var(--w-strong); letter-spacing: -0.02em; color: var(--accent); font-size: clamp(16px, 1.8vw, 20px); }
 
 h1, h2, h3, p, blockquote, .num {
-  text-wrap: balance;
+  text-wrap: pretty;
   text-wrap: pretty;
 }
 #slide-4 h1, #slide-4 p, #slide-4 .num { text-wrap: wrap !important; }
@@ -100,13 +100,13 @@ h1, h2, h3, p, blockquote, .num {
 #slide-1.slide--photo .bg-word { -webkit-text-stroke: 1.4px rgba(255,255,255,0.18); }
 #slide-1 .slide__body { display: grid !important; grid-template-rows: auto auto auto !important; align-content: center !important; justify-items: center !important; gap: clamp(18px, 2.8vh, 30px) !important; position: relative; z-index: 1; padding-top: 0 !important; padding-bottom: 0 !important; }
 #slide-6 .slide__body { display: grid !important; align-content: center !important; justify-items: center !important; gap: 18px !important; }
-#slide-1 .slide__body h1 { font-family: var(--font-display) !important; font-weight: 600 !important; font-size: clamp(32px, 5vw, 58px) !important; line-height: 1.08 !important; letter-spacing: -0.02em !important; max-width: 22ch !important; justify-self: center !important; text-align: center; text-wrap: balance; color: rgba(255,255,255,0.96); }
+#slide-1 .slide__body h1 { font-family: var(--font-display) !important; font-weight: 600 !important; font-size: clamp(32px, 5vw, 58px) !important; line-height: 1.08 !important; letter-spacing: -0.02em !important; max-width: 22ch !important; justify-self: center !important; text-align: center; text-wrap: pretty; color: rgba(255,255,255,0.96); }
 #slide-1 .accent-rule { width: clamp(40px, 6.5vw, 80px); height: 2px; background: var(--accent); justify-self: center !important; opacity: 0.85; }
 #slide-1 .slide__hook { font-family: var(--font-serif) !important; font-style: italic; font-weight: 300; font-size: clamp(24px, 3.4vw, 38px) !important; line-height: 1.28; color: rgba(255,255,255,0.86) !important; max-width: 24ch !important; justify-self: center !important; text-align: center; text-wrap: pretty; }
 #slide-1.slide--photo .slide__hook { color: rgba(255,255,255,0.96) !important; text-shadow: 0 2px 18px rgba(0,0,0,0.45); }
 #slide-1.slide--photo .slide__body h1 { text-shadow: 0 2px 22px rgba(0,0,0,0.55); }
-.slide.slide--type .slide__body h1 { font-size: clamp(34px, 5.5vw, 64px) !important; line-height: 1.06 !important; }
-.slide.slide--photo .slide__body h1 { font-size: clamp(30px, 5vw, 56px) !important; line-height: 1.06 !important; }
+
+
 
 /* === v2.1: texto mais largo, sem órfãos (Lucca feedback 19-jun) === */
 .slide__body h1 { 
@@ -119,11 +119,11 @@ h1, h2, h3, p, blockquote, .num {
 #slide-1 .slide__body h1, #slide-2 .slide__body h1, #slide-6 .slide__body h1 { 
   text-align: center !important; 
   max-width: 32ch !important; 
-  text-wrap: balance !important;
+  text-wrap: pretty !important;
 }
-.slide--photo .slide__body h1 { font-size: clamp(26px, 3.8vw, 48px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
-.slide--type .slide__body h1 { font-size: clamp(28px, 4.2vw, 52px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
-.slide--num .slide__body h1 { font-size: clamp(24px, 3.6vw, 44px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
+.slide--photo .slide__body h1 { font-size: clamp(30px, 5vw, 58px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
+.slide--type .slide__body h1 { font-size: clamp(30px, 5vw, 58px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
+.slide--num .slide__body h1 { font-size: clamp(30px, 5vw, 58px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
 
 </style>
 <!-- fx-v2 -->
@@ -171,7 +171,7 @@ h1, h2, h3, p, blockquote, .num {
   <div class="bg-word" aria-hidden="true">músculo</div>
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span><span class="cap-index">Emagrecimento</span></div>
   <div class="slide__body">
-    <h1>Estás a emagrecer com Ozempic ou&nbsp;Mounjaro?</h1>
+    <h1>Estás a&nbsp;emagrecer com&nbsp;Ozempic ou&nbsp;Mounjaro?</h1>
     <div class="accent-rule"></div>
     <p class="slide__hook">O&nbsp;peso&nbsp;desce.<br>O&nbsp;músculo pode ir&nbsp;atrás.</p>
   </div>
@@ -181,21 +181,21 @@ h1, h2, h3, p, blockquote, .num {
 
 <article class="slide slide--type" id="slide-2">
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span></div>
-  <div class="slide__body"><h1>Estes medicamentos cortam o&nbsp;apetite.<br>Comes menos — e&nbsp;a balança&nbsp;desce.</h1></div>
+  <div class="slide__body"><h1>Estes medicamentos cortam o&nbsp;apetite.<br>Comes menos — e&nbsp;a&nbsp;balança&nbsp;desce.</h1></div>
   <div class="slide__bottom"><span>02/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 
 
 <article class="slide slide--type" id="slide-3">
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span></div>
-  <div class="slide__body"><h1>Mas 25 a 30% desse peso pode ser&nbsp;músculo.<br>Não&nbsp;gordura.</h1></div>
+  <div class="slide__body"><h1>Mas&nbsp;25 a&nbsp;30% desse peso pode ser&nbsp;músculo.<br>Não&nbsp;gordura.</h1></div>
   <div class="slide__bottom"><span>03/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 
 
 <article class="slide slide--type" id="slide-4">
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span></div>
-  <div class="slide__body"><h1>Menos músculo é metabolismo mais&nbsp;lento.<br>Mais cansaço&nbsp;—&nbsp;e&nbsp;peso que&nbsp;volta.</h1></div>
+  <div class="slide__body"><h1>Menos músculo é&nbsp;metabolismo mais&nbsp;lento.<br>Mais cansaço&nbsp;—&nbsp;e&nbsp;peso que&nbsp;volta.</h1></div>
   <div class="slide__bottom"><span>04/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 
@@ -204,7 +204,7 @@ h1, h2, h3, p, blockquote, .num {
   <div class="slide__photo" style="background-image:url('../../../assets/photos/magnific_a2.-firm-authority-direct_2964371283.jpg')"></div>
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span></div>
   <div class="slide__body">
-    <h1>A&nbsp;eletroestimulação de corpo inteiro ativa o músculo em&nbsp;profundidade.</h1>
+    <h1>A&nbsp;eletroestimulação de&nbsp;corpo inteiro ativa o&nbsp;músculo em&nbsp;profundidade.</h1>
   </div>
   <div class="slide__bottom"><span>05/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
@@ -212,7 +212,7 @@ h1, h2, h3, p, blockquote, .num {
 
 <article class="slide slide--type" id="slide-6">
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span></div>
-  <div class="slide__body"><h1>Estás a emagrecer com&nbsp;GLP‑1?<br>A&nbsp;TechBody ajuda‑te a proteger o&nbsp;músculo.<br>Envia-me mensagem — digo‑te por onde&nbsp;começar.</h1></div>
+  <div class="slide__body"><h1>Estás a&nbsp;emagrecer com&nbsp;GLP‑1?<br>A&nbsp;TechBody ajuda‑te&nbsp;a&nbsp;proteger o&nbsp;músculo.<br>Envia-me&nbsp;mensagem — digo‑te&nbsp;por&nbsp;onde&nbsp;começar.</h1></div>
   <div class="slide__bottom"><span>06/06</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 

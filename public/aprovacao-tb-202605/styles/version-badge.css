@@ -1,0 +1,28 @@
+/* Badge "Atualizar" — visível só quando há versão nova no servidor.
+   Mostra-se subtilmente no header; clicar faz reload nuclear.
+   Auto-update é responsabilidade do version-gate.js + script inline em index.html.
+*/
+.version-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: rgba(255, 200, 0, 0.12);
+  color: #ffb800;
+  font: 700 11px/1 'JetBrains Mono', ui-monospace, monospace;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+  animation: versionBadgePulse 2s ease-in-out infinite;
+}
+.version-badge:hover { background: rgba(255, 200, 0, 0.22); transform: translateY(-1px); }
+.version-badge:focus-visible { outline: 2px solid #ffb800; outline-offset: 2px; }
+.version-badge__icon { font-size: 13px; line-height: 1; }
+.version-badge__text { white-space: nowrap; }
+@keyframes versionBadgePulse {
+  0%, 100% { opacity: 0.85; }
+  50%      { opacity: 1; }
+}
