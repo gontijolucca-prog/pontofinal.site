@@ -47,24 +47,9 @@ class HelpOverlay extends HTMLElement {
       }
     });
 
-    // Abre o guia automaticamente em CADA carregamento/refresh (pedido do Lucca:
-    // "que apareça sempre que dou refresh"). Espera um eventual modal de
-    // nome/login fechar para não empilhar dois diálogos. Fechável — reabre no
-    // próximo refresh.
-    this._maybeAutoOpen();
-  }
-
-  _maybeAutoOpen() {
-    const tryOpen = () => {
-      // Página bloqueada (offline/versão antiga) → não abrir o guia por baixo.
-      const gate = document.getElementById("version-gate");
-      if (gate && getComputedStyle(gate).display !== "none") return;
-      const auth = document.querySelector("auth-modal");
-      const authOpen = auth && auth.getAttribute("aria-hidden") === "false";
-      if (authOpen) { setTimeout(tryOpen, 1000); return; }
-      this.open();
-    };
-    setTimeout(tryOpen, 1100);
+    // Sem auto-open. Guia só abre via botão ? no header ou tecla ? (Shift+/).
+    // Pedido do Lucca 2026-06-20: remover o popup que aparecia em cada refresh —
+    // atrapalhava a revisão dos conteúdos.
   }
 
   open()   { this.setAttribute("aria-hidden", "false"); }
