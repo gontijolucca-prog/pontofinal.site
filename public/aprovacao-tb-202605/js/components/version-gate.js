@@ -56,6 +56,8 @@ async function hardReload() {
     }
   } catch {}
   try { sessionStorage.removeItem('pf-bust-v'); } catch {}
+  // ponytail: clear auto-heal lock too — otherwise this reload just hits showGate('stale') again
+  try { for (let i = sessionStorage.length - 1; i >= 0; i--) { const k = sessionStorage.key(i); if (k && k.startsWith('pf-autoheal-')) sessionStorage.removeItem(k); } } catch {}
   window.location.replace(window.location.pathname + '?_=' + Date.now());
 }
 
