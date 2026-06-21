@@ -471,7 +471,8 @@
     "generated_at": "2026-05-18T10:54:32",
     "scheduled_for": "2026-06-23",
     "hour": "18h",
-    "status": "pending"
+    "status": "pending",
+    "video_url": "../brands/techbody/output/2026-05/reels/r03-mito-atletas.mp4"
   },
   {
     "id": "techbody-2026-05-r04",
@@ -512,7 +513,8 @@
     "generated_at": "2026-05-18T10:54:32",
     "scheduled_for": "2026-06-30",
     "hour": "18h",
-    "status": "pending"
+    "status": "pending",
+    "video_url": "../brands/techbody/output/2026-05/reels/r04-abrir-estudio.mp4"
   },
   {
     "id": "techbody_u-2026-05-c01",
@@ -916,7 +918,8 @@
     "status": "published",
     "instagram_post_id": "17929793892314211",
     "instagram_permalink": "https://www.instagram.com/reel/DZYGT1PE2Ni/",
-    "published_at": "2026-06-09T19:16:55+0000"
+    "published_at": "2026-06-09T19:16:55+0000",
+    "video_url": "../brands/techbody_u/output/2026-05/reels/r01-modo-silencio.mp4"
   },
   {
     "id": "techbody_u-2026-05-r02",
@@ -960,7 +963,8 @@
     "status": "published",
     "instagram_post_id": "17869746711549000",
     "instagram_permalink": "https://www.instagram.com/reel/DZspQowj1s-/",
-    "published_at": "2026-06-17T18:47:08+0000"
+    "published_at": "2026-06-17T18:47:08+0000",
+    "video_url": "../brands/techbody_u/output/2026-05/reels/r02-colecoes-app.mp4"
   },
   {
     "id": "techbody_u-2026-05-r03",
@@ -1039,7 +1043,8 @@
     "generated_at": "2026-05-18T10:54:32",
     "scheduled_for": "2026-06-30",
     "hour": "18h",
-    "status": "pending"
+    "status": "pending",
+    "video_url": "../brands/techbody_u/output/2026-05/reels/r04-suporte-garantia.mp4"
   },
   {
     "id": "luiz_santana-2026-05-c01",
@@ -2183,7 +2188,8 @@
     "generated_at": "2026-05-21",
     "scheduled_for": "2026-06-09",
     "hour": "18h",
-    "status": "pending"
+    "status": "pending",
+    "video_url": "../brands/luiz_santana/output/2026-05/reels/luiz_r01_twin-fullscene_AvatarIV_v2.mp4"
   },
   {
     "id": "luiz_santana-2026-05-r02",
@@ -2203,7 +2209,8 @@
     "generated_at": "2026-05-21",
     "scheduled_for": "2026-06-17",
     "hour": "18h",
-    "status": "pending"
+    "status": "pending",
+    "video_url": "../brands/luiz_santana/output/2026-05/reels/r02-final-seedance.mp4"
   },
   {
     "id": "luiz_santana-2026-05-r03",
@@ -2223,7 +2230,8 @@
     "generated_at": "2026-05-21",
     "scheduled_for": "2026-06-23",
     "hour": "18h",
-    "status": "pending"
+    "status": "pending",
+    "video_url": "../brands/luiz_santana/output/2026-05/reels/luiz_r03_reabilitacao_twin_AvatarV_v2.mp4"
   },
   {
     "id": "luiz_santana-2026-05-r04",
