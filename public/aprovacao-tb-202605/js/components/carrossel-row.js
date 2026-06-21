@@ -208,7 +208,17 @@ class CarrosselRow extends HTMLElement {
     if (!it) return;
     const total = this._slideCount();
     const shotBase = (it.html_url || "").replace(/\.html$/, "");
-    const thumbs = Array.from({ length: total }).map((_, i) => {
+    // Reels TB/TBU publicam o cover como `${name}.jpg` ao lado do `.html`
+    // (não em `${name}_shots/slide_01.jpg` como carrosseis). Fallback chain:
+    // 1) `<base>.jpg`  (reels — cover 1080x1920)
+    // 2) `<base>_shots/slide_NN.jpg`  (carrosseis/stories — slides individuais)
+    // 3) `<base>.png` / `<base>_shots/slide_NN.png` (fallback png)
+    const isReel = it.format === "reel";
+    const facadeSrc = isReel
+      ? `${shotBase}.jpg?v=${APP_VERSION}&c=${currentContentSig()}`
+      : `${shotBase}_shots/slide_01.jpg?v=${APP_VERSION}&c=${currentContentSig()}`;
+    const facadeOnerror = "this.onerror=null;this.src=this.src.replace('.jpg?','.png?')";
+    const thumbs = isReel ? "" : Array.from({ length: total }).map((_, i) => {
       const n = String(i + 1).padStart(2, "0");
       const png = `${shotBase}_shots/slide_${n}.png?v=${APP_VERSION}&c=${currentContentSig()}`;
       const jpg = `${shotBase}_shots/slide_${n}.jpg?v=${APP_VERSION}&c=${currentContentSig()}`;
@@ -230,8 +240,8 @@ class CarrosselRow extends HTMLElement {
           <div class="card__left">
             <div class="card__preview card__preview--45">
               <img data-facade class="card__facade" loading="lazy" decoding="async" alt="Pré-visualização"
-                src="${shotBase}_shots/slide_01.jpg?v=${APP_VERSION}&c=${currentContentSig()}"
-                onerror="this.onerror=null;this.src=this.src.replace('.jpg?','.png?')" />
+                src="${facadeSrc}"
+                onerror="${facadeOnerror}" />
               <button class="card__preview-open" data-zoom aria-label="Ver em grande" title="Ver em grande"></button>
             </div>
             <div class="card__slidebar">
