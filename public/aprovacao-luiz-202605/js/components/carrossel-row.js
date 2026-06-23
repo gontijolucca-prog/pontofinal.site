@@ -212,8 +212,11 @@ class CarrosselRow extends HTMLElement {
       const n = String(i + 1).padStart(2, "0");
       const png = `${shotBase}_shots/slide_${n}.png?v=${APP_VERSION}&c=${currentContentSig()}`;
       const jpg = `${shotBase}_shots/slide_${n}.jpg?v=${APP_VERSION}&c=${currentContentSig()}`;
+      // ponytail: eager em vez de lazy — preview lives em viewport; lazy = tiles
+      // cinzentos sem imagem enquanto browser não decide fetch. Lista pequena,
+      // peso ~30KB cada, total ~1MB por página. Aceitável, UX ganha.
       return `<button class="card-thumb${i === this._sel ? " is-sel" : ""}" data-thumb="${i}" aria-label="Slide ${i + 1}">
-        <img loading="lazy" decoding="async" src="${jpg}" alt="Slide ${i + 1}" onerror="this.onerror=null;this.src='${png}'" /><span class="card-thumb__n">${i + 1}</span>
+        <img loading="eager" decoding="async" src="${jpg}" alt="Slide ${i + 1}" onerror="this.onerror=null;this.src='${png}'" /><span class="card-thumb__n">${i + 1}</span>
       </button>`;
     }).join("");
 
@@ -229,7 +232,7 @@ class CarrosselRow extends HTMLElement {
         <div class="card__main">
           <div class="card__left">
             <div class="card__preview card__preview--45">
-              <img data-facade class="card__facade" loading="lazy" decoding="async" alt="Pré-visualização"
+              <img data-facade class="card__facade" loading="eager" decoding="async" alt="Pré-visualização"
                 src="${shotBase}_shots/slide_01.jpg?v=${APP_VERSION}&c=${currentContentSig()}"
                 onerror="this.onerror=null;this.src=this.src.replace('.jpg?','.png?')" />
               <button class="card__preview-open" data-zoom aria-label="Ver em grande" title="Ver em grande"></button>
