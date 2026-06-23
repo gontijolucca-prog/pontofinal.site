@@ -47,24 +47,13 @@ class HelpOverlay extends HTMLElement {
       }
     });
 
-    // Abre o guia automaticamente em CADA carregamento/refresh (pedido do Lucca:
-    // "que apareça sempre que dou refresh"). Espera um eventual modal de
-    // nome/login fechar para não empilhar dois diálogos. Fechável — reabre no
-    // próximo refresh.
-    this._maybeAutoOpen();
+    // Auto-open removido a pedido do Lucca (2026-06-23) — pop-up inicial "Como
+    // usar esta página" deixou de aparecer em cada refresh. Continua disponível
+    // via tecla "?" e botão "?" no header.
   }
 
   _maybeAutoOpen() {
-    const tryOpen = () => {
-      // Página bloqueada (offline/versão antiga) → não abrir o guia por baixo.
-      const gate = document.getElementById("version-gate");
-      if (gate && getComputedStyle(gate).display !== "none") return;
-      const auth = document.querySelector("auth-modal");
-      const authOpen = auth && auth.getAttribute("aria-hidden") === "false";
-      if (authOpen) { setTimeout(tryOpen, 1000); return; }
-      this.open();
-    };
-    setTimeout(tryOpen, 1100);
+    // No-op: auto-open desativado. Override para não fazer nada.
   }
 
   open()   { this.setAttribute("aria-hidden", "false"); }
