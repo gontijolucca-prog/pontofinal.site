@@ -108,22 +108,38 @@ h1, h2, h3, p, blockquote, .num {
 
 
 
-/* === v2.1: texto mais largo, sem órfãos (Lucca feedback 19-jun) === */
-.slide__body h1 { 
-  text-wrap: wrap !important; 
-  text-align: left !important; 
-  max-width: min(880px, 92%) !important; 
+/* === v2.2: slides 2-N-1 alinhados à esquerda como slide 4 (Lucca feedback 23-jun) === */
+.slide__body h1 {
+  text-wrap: wrap !important;
+  text-align: left !important;
+  max-width: min(880px, 92%) !important;
   margin: 0 !important;
 }
-/* Capa + CTA: centrado (Lucca feedback 19-jun) */
-#slide-1 .slide__body h1, #slide-2 .slide__body h1, #slide-6 .slide__body h1 { 
-  text-align: center !important; 
-  max-width: 32ch !important; 
+/* Capa + CTA: centrado (Lucca feedback 19-jun) — apenas slide 1 e 6 */
+#slide-1 .slide__body h1, #slide-6 .slide__body h1 {
+  text-align: center !important;
+  max-width: 32ch !important;
   text-wrap: pretty !important;
 }
-.slide--photo .slide__body h1 { font-size: clamp(30px, 5vw, 58px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
-.slide--type .slide__body h1 { font-size: clamp(30px, 5vw, 58px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
-.slide--num .slide__body h1 { font-size: clamp(30px, 5vw, 58px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
+/* Slides 2,3,4,5: alinhados à esquerda (mesmo padrão do slide 4) */
+#slide-2 .slide__body,
+#slide-3 .slide__body,
+#slide-4 .slide__body,
+#slide-5 .slide__body {
+  justify-items: start !important;
+}
+#slide-2 .slide__body h1,
+#slide-3 .slide__body h1,
+#slide-4 .slide__body h1,
+#slide-5 .slide__body h1 {
+  max-width: 56ch !important;
+  font-size: clamp(28px, 4.5vw, 56px) !important;
+  line-height: 1.15 !important;
+  text-wrap: wrap !important;
+}
+.slide--photo .slide__body h1 { font-size: clamp(28px, 4.5vw, 56px) !important; line-height: 1.15 !important; } #slide-1 .slide__body h1, #slide-6 .slide__body h1 { max-width: 22ch !important; }
+.slide--type .slide__body h1 { font-size: clamp(28px, 4.5vw, 56px) !important; line-height: 1.15 !important; } #slide-1 .slide__body h1, #slide-6 .slide__body h1 { max-width: 22ch !important; }
+.slide--num .slide__body h1 { font-size: clamp(28px, 4.5vw, 56px) !important; line-height: 1.15 !important; } #slide-1 .slide__body h1, #slide-6 .slide__body h1 { max-width: 22ch !important; }
 
 </style>
 <!-- fx-v2 -->
