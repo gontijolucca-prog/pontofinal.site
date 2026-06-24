@@ -47,13 +47,9 @@ class HelpOverlay extends HTMLElement {
       }
     });
 
-    // Auto-open removido a pedido do Lucca (2026-06-23) — pop-up inicial "Como
-    // usar esta página" deixou de aparecer em cada refresh. Continua disponível
-    // via tecla "?" e botão "?" no header.
-  }
-
-  _maybeAutoOpen() {
-    // No-op: auto-open desativado. Override para não fazer nada.
+    // Sem auto-open. Guia só abre via botão ? no header ou tecla ? (Shift+/).
+    // Pedido do Lucca 2026-06-20: remover o popup que aparecia em cada refresh —
+    // atrapalhava a revisão dos conteúdos.
   }
 
   open()   { this.setAttribute("aria-hidden", "false"); }

@@ -39,20 +39,6 @@ function buildGate() {
   return el;
 }
 
-// FIX 2026-06-24: pedir ao SW novo em waiting para se activar.
-// Sem isto, o SW novo ficava preso em waiting, e a aba aberta herdava o SW
-// velho mesmo após unregister + caches.delete + location.replace — o user
-// via "versão antiga" persistente até fechar o browser inteiro.
-async function pingSwToSkipWaiting() {
-  if (!('serviceWorker' in navigator)) return;
-  try {
-    const reg = await navigator.serviceWorker.getRegistration();
-    if (reg && reg.waiting) {
-      reg.waiting.postMessage('SKIP_WAITING');
-    }
-  } catch {}
-}
-
 async function hardReload() {
   // "Atualizar agora" NUCLEAR: remove o Service Worker e limpa TODAS as caches
   // antes de recarregar. Garante escapar de um SW antigo preso — que servia
@@ -60,7 +46,6 @@ async function hardReload() {
   const btn = _gateEl && _gateEl.querySelector('#vg-btn');
   if (btn) { btn.disabled = true; btn.textContent = 'A atualizar…'; }
   try {
-    await pingSwToSkipWaiting();
     if ('serviceWorker' in navigator) {
       const regs = await navigator.serviceWorker.getRegistrations();
       await Promise.all(regs.map((r) => r.unregister().catch(() => {})));
