@@ -35,4 +35,4 @@ export const AUTH_ENABLED = false;
 // Versão do app. Comparada periodicamente contra /version.txt no servidor.
 // Se divergir, o badge muda para "🔄 Nova versão" e o user sabe que está
 // numa sessão desactualizada. Bump em cada deploy importante.
-export const APP_VERSION = "20260624-1012";
+export const APP_VERSION = "20260624-1139";
