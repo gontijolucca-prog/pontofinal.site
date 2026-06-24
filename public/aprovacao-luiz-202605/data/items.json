@@ -2106,37 +2106,6 @@
     "status": "pending"
   },
   {
-    "id": "luiz_santana-2026-05-c05",
-    "brand": "luiz_santana",
-    "month": "2026-06",
-    "format": "carrossel",
-    "theme": "emagrecimento_glp1",
-    "pilar": "",
-    "audience": "b2c",
-    "title": "Estás a emagrecer com Ozempic ou Mounjaro?",
-    "slides": 6,
-    "html_url": "../brands/luiz_santana/output/2026-05/carrosseis/c05-emagrecimento-glp1.html",
-    "photos_used": [
-      "magnific_a2.-firm-authority-direct_2964371283.png"
-    ],
-    "photo_positions": [
-      5
-    ],
-    "styles": [
-      "type",
-      "type",
-      "type",
-      "type",
-      "photo",
-      "type"
-    ],
-    "prompt_version": "hand-v1",
-    "generated_at": "2026-05-21",
-    "scheduled_for": "2026-06-24",
-    "hour": "18h",
-    "status": "pending"
-  },
-  {
     "id": "luiz_santana-2026-05-s01",
     "brand": "luiz_santana",
     "month": "2026-06",
