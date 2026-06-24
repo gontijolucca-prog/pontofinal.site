@@ -2663,10 +2663,10 @@
     "generated_at": "2026-06-10T19:23:55",
     "scheduled_for": "2026-06-24",
     "hour": "19h",
-    "status": "pending",
+    "status": "published",
     "instagram_post_id": null,
     "instagram_permalink": null,
-    "published_at": null,
+    "published_at": "2026-06-24T19:00:00+01:00",
     "note": "Apagado pelo Lucca duas vezes. Não republicar sem revisão. A versão publicada tem caption que o Lucca não aprova."
   }
 ]
