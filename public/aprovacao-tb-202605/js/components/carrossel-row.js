@@ -92,9 +92,26 @@ class CarrosselRow extends HTMLElement {
       stamp.textContent = label; stamp.className = `status-stamp status-stamp--${state.status}`;
       if (state.author) { stamp.setAttribute("data-author", `${label} por ${state.author}`); stamp.setAttribute("tabindex", "0"); }
     }
-    const ap = article.querySelector('[data-approve]'); const rj = article.querySelector('[data-reject]');
-    if (ap) ap.setAttribute("aria-pressed", state.status === "approved" ? "true" : "false");
-    if (rj) rj.setAttribute("aria-pressed", state.status === "rejected" ? "true" : "false");
+    this._mountPublished();
+  }
+  _mountPublished() {
+    const article = this.querySelector(".card"); if (!article) return;
+    const isPublished = this._item && this._item.status === "published";
+    article.toggleAttribute("data-published", isPublished);
+    let overlay = article.querySelector(":scope > .published-overlay");
+    if (isPublished) {
+      if (!overlay) {
+        overlay = document.createElement("div");
+        overlay.className = "published-overlay";
+        const stamp = document.createElement("span");
+        stamp.className = "published-overlay__stamp";
+        stamp.textContent = "PUBLICADO";
+        overlay.appendChild(stamp);
+        article.appendChild(overlay);
+      }
+    } else {
+      if (overlay) overlay.remove();
+    }
   }
 
   // Iframe de preview ao vivo do slide seleccionado (só existe depois de o

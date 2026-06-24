@@ -599,6 +599,39 @@
 .status-stamp--approved { background: var(--status-approved); color: var(--bg); }
 .status-stamp--rejected { background: var(--accent); color: var(--bg); }
 
+/* ───── PUBLISHED OVERLAY — item já publicado no Instagram ───── */
+.card[data-published="true"] {
+  opacity: 0.55;
+  filter: saturate(0.7);
+  transition: opacity 200ms ease, filter 200ms ease;
+}
+.card[data-published="true"]:hover {
+  opacity: 0.75;
+  filter: saturate(0.85);
+}
+.published-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+.published-overlay__stamp {
+  font: 900 clamp(28px, 5vw, 52px)/0.9 'Arial Black', 'Impact', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: #2a8c3a;
+  border: 4px solid #2a8c3a;
+  padding: 12px 28px;
+  transform: rotate(-12deg);
+  background: rgba(255,255,255,0.88);
+  box-shadow: 8px 8px 0 0 rgba(42,140,58,0.25);
+  text-shadow: 2px 2px 0 rgba(255,255,255,0.6);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
 /* ───── GALLERY (Posts + Reels) ───── */
 .gallery {
   display: grid;
