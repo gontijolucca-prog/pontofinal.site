@@ -166,9 +166,15 @@ h1, h2, h3, p, blockquote, .num {
   max-width: min(880px, 92%) !important; 
   margin: 0 !important;
 }
-.slide--photo .slide__body h1 { font-size: clamp(26px, 3.8vw, 48px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
-.slide--type .slide__body h1 { font-size: clamp(28px, 4.2vw, 52px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
-.slide--num .slide__body h1 { font-size: clamp(24px, 3.6vw, 44px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
+/* Capa + CTA: centrado (Lucca feedback 19-jun) */
+#slide-1 .slide__body h1, #slide-2 .slide__body h1, #slide-6 .slide__body h1 { 
+  text-align: center !important; 
+  max-width: 32ch !important; 
+  text-wrap: balance !important;
+}
+.slide--photo .slide__body h1 { font-size: clamp(26px, 3.8vw, 48px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
+.slide--type .slide__body h1 { font-size: clamp(28px, 4.2vw, 52px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
+.slide--num .slide__body h1 { font-size: clamp(24px, 3.6vw, 44px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
 
 </style>
 <!-- fx-v2 -->
@@ -212,57 +218,9 @@ h1, h2, h3, p, blockquote, .num {
 <body>
 <section class="carousel" aria-label="Carrossel TechBody — para_quem_e">
 
-<article class="slide slide--type" id="slide-1">
-  <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
+<article class="slide slide--photo" id="slide-1">
+  <div class="slide__top">
+  <div class="slide__photo" style="background-image:url('../../../assets/photos/magnific_e6-postreino-imagem-edito_2964580806.png'); background-position: center 30%"></div>
+<span class="brand-glyph">TechBody</span></div>
   <div class="slide__body"><h1>A&nbsp;eletroestimulação&nbsp;é&nbsp;para<em>si</em>?</h1></div>
-  <div class="slide__bottom"><span>01/06</span><span class="arrow">→</span></div>
-<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
-<article class="slide slide--type" id="slide-2">
-  <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Para&nbsp;quem&nbsp;quer<em>recomeçar</em>a&nbsp;treinar&nbsp;—&nbsp;sem&nbsp;voltar&nbsp;à&nbsp;estaca<br>zero.</h1></div>
-  <div class="slide__bottom"><span>02/06</span><span class="arrow">→</span></div>
-<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
-<article class="slide slide--type" id="slide-3">
-  <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Para&nbsp;quem&nbsp;quer<em>perder&nbsp;peso</em>com&nbsp;sessões&nbsp;curtas&nbsp;e<br>acompanhadas.</h1></div>
-  <div class="slide__bottom"><span>03/06</span><span class="arrow">→</span></div>
-<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
-<article class="slide slide--type" id="slide-4">
-  <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Para&nbsp;quem&nbsp;precisa&nbsp;de<em>tratar&nbsp;dores</em>e&nbsp;recuperar&nbsp;movimento.</h1></div>
-  <div class="slide__bottom"><span>04/06</span><span class="arrow">→</span></div>
-<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
-<article class="slide slide--quote" id="slide-5">
-  <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><blockquote>Composição corporal, força e bem-estar. Corpo e mente revigorados.</blockquote><cite>O método TechBody</cite></div>
-  <div class="slide__bottom"><span>05/06</span><span class="arrow">→</span></div>
-<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
-<article class="slide slide--photo" id="slide-6">
-  <div class="slide__photo" style="background-image:url('../../../assets/photos/magnific_e2.-aquecimento-controlad_2964620617.jpg'); background-position: 30% center"></div>
-  <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Comece&nbsp;pela<em>sessão&nbsp;experimental</em>.</h1></div>
-  <div class="slide__bottom"><span>06/06</span><span class="slide__cta" style="background:var(--accent);color:#0a0a0c;padding:10px 22px;font:700 13px/1 var(--font-display);letter-spacing:0.06em;text-transform:uppercase;">Marcar agora →</span></div>
-<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
-</section>
-<script>
-  (function () {
-    var carousel = document.querySelector('.carousel');
-    function go() {
-      var m = (location.hash || '').match(/^#slide-(\d+)$/);
-      if (!m || !carousel) return;
-      var el = document.getElementById('slide-' + m[1]);
-      if (!el) return;
-      var prev = carousel.style.scrollSnapType;
-      carousel.style.scrollSnapType = 'none';
-      carousel.scrollLeft = el.offsetLeft;
-      requestAnimationFrame(function () {
-        carousel.style.scrollSnapType = prev || '';
-      });
-    }
-    window.addEventListener('hashchange', go);
-    if (document.readyState === 'complete') go();
-    else window.addEventListener('load', go);
-  })();
-</script>
-</body>
-</html>
+  <div class="slide__bottom"><span>01/06</span><span class="arrow">→</span></di
