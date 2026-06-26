@@ -263,9 +263,11 @@ function render() {
           const st = approvalStore.get(it.id)?.status || "pending";
           card.setAttribute("data-status", st);
           const shotBase = (it.html_url || "").replace(/\.html$/, "");
-          const thumbSrc = it.format === "reel"
-            ? `${shotBase}.jpg?v=${APP_VERSION}&c=${currentContentSig()}`
-            : `${shotBase}_shots/slide_01.jpg?v=${APP_VERSION}&c=${currentContentSig()}`;
+          // Carrossel: ${base}_shots/slide_01.jpg
+          // Story/Reel: ${base}.jpg
+          const thumbSrc = it.format === "carrossel"
+            ? `${shotBase}_shots/slide_01.jpg?v=${APP_VERSION}&c=${currentContentSig()}`
+            : `${shotBase}.jpg?v=${APP_VERSION}&c=${currentContentSig()}`;
           const title = it.title || it.theme || "";
           card.innerHTML = `
             <div class="gallery-card__thumb">
