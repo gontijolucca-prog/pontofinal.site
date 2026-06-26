@@ -101,7 +101,7 @@ h1, h2, h3, p, blockquote, .num {
 #slide-1.slide--photo .bg-word { -webkit-text-stroke: 1.4px rgba(255,255,255,0.18); }
 #slide-1 .slide__body { display: grid !important; grid-template-rows: auto auto auto !important; align-content: center !important; justify-items: center !important; gap: clamp(18px, 2.8vh, 30px) !important; position: relative; z-index: 1; padding-top: 0 !important; padding-bottom: 0 !important; }
 #slide-6 .slide__body { display: grid !important; align-content: center !important; justify-items: center !important; gap: 18px !important; }
-#slide-1 .slide__body h1 { font-family: var(--font-display) !important; font-weight: 600 !important; font-size: clamp(30.4px, 4.75vw, 55.1px) !important; line-height: 1.08 !important; letter-spacing: -0.02em !important; max-width: 22ch !important; justify-self: center !important; text-align: center; text-wrap: pretty; color: rgba(255,255,255,0.96); }
+#slide-1 .slide__body h1 { font-family: var(--font-display) !important; font-weight: 600 !important; font-size: clamp(30.4px, 4.75vw, 55.1px) !important; line-height: 1.08 !important; letter-spacing: -0.02em !important; max-width: 22ch !important; justify-self: center !important; text-align: left; text-wrap: pretty; color: rgba(255,255,255,0.96); }
 #slide-1 .accent-rule { width: clamp(40px, 6.5vw, 80px); height: 2px; background: var(--accent); justify-self: center !important; opacity: 0.85; }
 #slide-1 .slide__hook { font-family: var(--font-serif) !important; font-style: italic; font-weight: 300; font-size: clamp(22.8px, 3.23vw, 36.1px) !important; line-height: 1.28; color: rgba(255,255,255,0.86) !important; max-width: 24ch !important; justify-self: center !important; text-align: center; text-wrap: pretty; }
 #slide-1.slide--photo .slide__hook { color: rgba(255,255,255,0.96) !important; text-shadow: 0 2px 18px rgba(0,0,0,0.45); }
@@ -116,9 +116,8 @@ h1, h2, h3, p, blockquote, .num {
   max-width: min(880px, 92%) !important;
   margin: 0 !important;
 }
-/* Capa + CTA: centrado (Lucca feedback 19-jun) — apenas slide 1 e 6 */
 #slide-1 .slide__body h1, #slide-6 .slide__body h1 {
-  text-align: center !important;
+  text-align: left!important;
   max-width: 32ch !important;
   text-wrap: pretty !important;
 }
