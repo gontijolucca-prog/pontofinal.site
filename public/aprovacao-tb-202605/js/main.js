@@ -265,9 +265,8 @@ function render() {
       const title = it.title || it.theme || "";
       const shotBase = (it.html_url || "").replace(/\.html$/, "");
       const isReel = it.format === "reel";
-      // Reels: capa estática (JPG) — o HTML de reel é motion graphics 1080×1920
-      // que não fica bem缩cado para um card de 4:5.
-      // Carrossel/Story: iframe com o HTML para preview idêntico ao viewer.
+      // Reels: capa estática (JPG) + vídeo só on hover (sem preload).
+      // Carrossel/Story: iframe com o HTML (loading="lazy" para não bloquear).
       const iframeSrc = !isReel && it.html_url
         ? `${it.html_url}?v=${APP_VERSION}&c=${currentContentSig()}${it.format === "carrossel" ? "#slide-1" : ""}`
         : "";
@@ -277,15 +276,17 @@ function render() {
       const reelPoster = isReel && it.video_url
         ? it.video_url.replace(/\.mp4$/, ".jpg")
         : "";
-      const videoSrc = isReel && it.video_url
+      // Vídeo: data-src em vez de src, só carrega on hover (IntersectionObserver
+      // + mouseenter). preload="none" impede auto-load de metadata.
+      const videoDataSrc = isReel && it.video_url
         ? `${it.video_url}?v=${APP_VERSION}&c=${currentContentSig()}`
         : "";
       card.innerHTML = `
         <div class="gallery-card__thumb" data-fmt="${it.format}">
-          ${videoSrc
-            ? `<video class="gallery-card__video" src="${videoSrc}" poster="${reelPoster}" muted loop playsinline preload="metadata" onmouseenter="this.play()" onmouseleave="this.pause()"></video>`
+          ${videoDataSrc
+            ? `<video class="gallery-card__video" data-src="${videoDataSrc}" poster="${reelPoster}" muted loop playsinline preload="none"></video>`
             : iframeSrc
-            ? `<iframe src="${iframeSrc}" title="${_escapeForHtml(title)}" scrolling="no" loading="lazy" tabindex="-1"></iframe>`
+            ? `<iframe data-src="${iframeSrc}" title="${_escapeForHtml(title)}" scrolling="no" loading="lazy" tabindex="-1"></iframe>`
             : reelCover
             ? `<img class="gallery-card__cover" src="${reelCover}" alt="${_escapeForHtml(title)}" loading="lazy" onerror="this.onerror=null;this.closest('.gallery-card__thumb').classList.add('is-broken')" />`
             : `<div class="gallery-card__no-preview">Sem preview</div>`}
@@ -294,10 +295,57 @@ function render() {
         <div class="gallery-card__info">
           <span class="gallery-card__title">${title}</span>
         </div>`;
-      const iframe = card.querySelector("iframe");
-      if (iframe) {
-        const [nw, nh] = dimsFor(it.format);
-        fitScaledFrame(card.querySelector(".gallery-card__thumb"), nw, nh);
+
+      // Carrossel/Story: usar poster estático como capa, iframe só on hover.
+      // O iframe pesa ~50-200KB cada + fontes + scripts. Carregar 14 de uma
+      // vez bloqueia o LCP. Solução: capa JPG por defeito, iframe on hover.
+      if (iframeSrc) {
+        // Substituir o iframe por poster estático até hover
+        const iframe = card.querySelector("iframe");
+        const poster = shotBase ? `${shotBase}_shots/slide_01.jpg?v=${APP_VERSION}&c=${currentContentSig()}` : "";
+        if (iframe && poster) {
+          iframe.removeAttribute("data-src");
+          iframe.removeAttribute("src");
+          // Guardar o src real para carregar on hover
+          iframe.dataset.hoverSrc = iframeSrc;
+          iframe.style.display = "none";
+          // Adicionar img de capa
+          const img = document.createElement("img");
+          img.className = "gallery-card__cover";
+          img.src = poster;
+          img.alt = _escapeForHtml(title);
+          img.loading = "lazy";
+          img.onerror = () => { img.onerror = null; iframe.parentElement.classList.add("is-broken"); };
+          iframe.parentElement.insertBefore(img, iframe);
+          // Hover: trocar img por iframe
+          const thumb = card.querySelector(".gallery-card__thumb");
+          const onEnter = () => {
+            if (iframe.dataset.hoverSrc && !iframe.src) {
+              iframe.src = iframe.dataset.hoverSrc;
+              iframe.style.display = "";
+              img.style.display = "none";
+              const [nw, nh] = dimsFor(it.format);
+              fitScaledFrame(thumb, nw, nh);
+            }
+          };
+          thumb.addEventListener("mouseenter", onEnter);
+        }
+      }
+      // Vídeo de reel: carregar e dar play só on hover
+      const video = card.querySelector("video");
+      if (video) {
+        const thumb = card.querySelector(".gallery-card__thumb");
+        thumb.addEventListener("mouseenter", () => {
+          if (video.dataset.src && !video.src) {
+            video.src = video.dataset.src;
+            delete video.dataset.src;
+          }
+          video.play().catch(() => {});
+        });
+        thumb.addEventListener("mouseleave", () => {
+          video.pause();
+          video.currentTime = 0;
+        });
       }
       card.addEventListener("click", () => {
         const found = findItem(card.dataset.itemId);
