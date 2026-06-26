@@ -285,12 +285,13 @@ class ItemViewer extends HTMLElement {
               </div>
               <p class="viewer-status-line" data-status-line></p>
             </div>
-            <div class="viewer-actions" style="display:flex;gap:0;margin-top:8px">
-              <button class="btn btn--approve" data-action="approve-direct" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 monospace;text-transform:uppercase">✓ Aprovar</button>
-              <button class="btn btn--reject" data-action="reject-direct" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 monospace;text-transform:uppercase">✗ Reprovar</button>
-              <button class="btn btn--publish" data-action="publish" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 monospace;text-transform:uppercase">📌 Publicado</button>
+            <div class="viewer-actions" style="display:flex;gap:0;margin-top:8px;flex-wrap:wrap">
+              <button class="btn" data-action="start-edit" style="flex:1 0 100%;padding:10px;border:2px solid var(--border);background:var(--text);color:var(--bg);cursor:pointer;font:700 12px/1 'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:4px">✎ Editar textos dos slides</button>
+              <button class="btn" data-action="approve-direct" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 'JetBrains Mono',monospace;text-transform:uppercase">✓ Aprovar</button>
+              <button class="btn" data-action="reject-direct" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 'JetBrains Mono',monospace;text-transform:uppercase">✗ Reprovar</button>
+              <button class="btn" data-action="publish" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 'JetBrains Mono',monospace;text-transform:uppercase">📌 Publicado</button>
             </div>
-            <p class="viewer-hint">${isCarousel ? "Desliza entre os slides com ‹ ›. " : ""}Zoom ao vivo. Edita o texto no assistente de aprovação.</p>
+            <p class="viewer-hint">${isCarousel ? "Desliza entre os slides com ‹ ›. " : ""}Clica em "Editar textos" para revisar e corrigir o copy de cada slide.</p>
           </div>
         </aside>
         <button class="viewer-close" data-action="close" aria-label="Fechar">×</button>
@@ -332,6 +333,7 @@ class ItemViewer extends HTMLElement {
       if (a === "next")   return this._step(+1);
       if (a === "start-approve") return this._startWizard("approved");
       if (a === "start-reject")  return this._startWizard("rejected");
+      if (a === "start-edit")    return this._startWizard("edit");
       if (a === "approve-direct") {
         if (confirm("Aprovar este item?")) {
           import("../stores/approval-store.js").then(m => m.approvalStore.set(this._item.id, "approved"));
@@ -392,6 +394,7 @@ class ItemViewer extends HTMLElement {
     if (it.caption && it.caption.trim()) steps.push({ type: "caption", label: "Descrição (Instagram)" });
     if (!steps.length) steps.push({ type: "caption", label: "Descrição (Instagram)" });
     this._wizard = { disposition, steps, idx: 0 };
+    const isEditMode = disposition === "edit";
     const modal = this.querySelector(".viewer-modal");
     const ob = document.createElement("div");
     ob.className = "onboard";
@@ -424,7 +427,7 @@ class ItemViewer extends HTMLElement {
     const it = this._item;
     const step = w.steps[w.idx];
     const isLast = w.idx === w.steps.length - 1;
-    const dispLabel = w.disposition === "approved" ? "Aprovar" : "Reprovar";
+    const dispLabel = w.disposition === "approved" ? "Aprovar" : w.disposition === "rejected" ? "Reprovar" : "Editar";
 
     // Mantém a vista de zoom (atrás) sincronizada com o passo.
     if (step.type === "slide") {
@@ -468,7 +471,9 @@ class ItemViewer extends HTMLElement {
       <div class="wizard__nav">
         <button class="btn btn--ghost" data-action="wz-back" ${w.idx === 0 ? "disabled" : ""}>‹ Anterior</button>
         ${isLast
-          ? `<button class="btn btn--${w.disposition === "approved" ? "approve" : "reject"}" data-action="wz-finish">Concluir — ${dispLabel} ✓</button>`
+          ? (isEditMode
+            ? `<button class="btn btn--solid" data-action="wz-finish">Concluir edição ✓</button>`
+            : `<button class="btn btn--${w.disposition === "approved" ? "approve" : "reject"}" data-action="wz-finish">Concluir — ${dispLabel} ✓</button>`)
           : `<button class="btn btn--solid" data-action="wz-next">Confirmar ›</button>`}
       </div>`;
 
@@ -543,6 +548,14 @@ class ItemViewer extends HTMLElement {
   async _wizardFinish() {
     const w = this._wizard; if (!w) return;
     const it = this._item;
+    // In edit mode, just close — no approval change
+    if (w.disposition === "edit") {
+      this._showActionToast("edit");
+      this._wizard = null;
+      if (this._onboard) { this._onboard.remove(); this._onboard = null; }
+      this._refreshStatusLine();
+      return;
+    }
     await approvalStore.set(it.id, w.disposition);
     // Marca também a descrição com a mesma disposição (foi confirmada no fluxo).
     if (it.caption && it.caption.trim()) {
@@ -559,6 +572,7 @@ class ItemViewer extends HTMLElement {
       const cfg = {
         approved: { icon: "✓", text: "Aprovado", color: "#2BB05F" },
         rejected: { icon: "✕", text: "Rejeitado", color: "#FF4D2E" },
+        edit: { icon: "✎", text: "Textos guardados", color: "#333" },
       };
       const c = cfg[status]; if (!c) return;
       const toast = document.createElement("div");

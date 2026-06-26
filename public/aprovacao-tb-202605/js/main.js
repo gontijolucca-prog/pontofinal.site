@@ -421,12 +421,23 @@ function renderPublishedSection() {
   
   grid.innerHTML = publishedItems.map(it => {
     const code = (it.id || "").split("-").pop();
-    return `<div class="published-item" onclick="document.querySelector('item-viewer')?.open(${JSON.stringify(it).replace(/"/g, "'")})">
-      <span class="tag tag--accent">${it.format || "?"}</span>
-      <span>${(it.title || it.theme || code || "").replace(/</g, "&lt;")}</span>
+    const title = (it.title || it.theme || code || "").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    const fmt = it.format || "?";
+    return `<div class="published-item" data-pub-id="${it.id}" style="cursor:pointer">
+      <span class="tag tag--accent">${fmt}</span>
+      <span>${title}</span>
       <span style="margin-left:auto;font-size:11px;opacity:0.5">${code}</span>
     </div>`;
   }).join("");
+  
+  // Wire click handlers
+  grid.querySelectorAll(".published-item").forEach(el => {
+    el.addEventListener("click", () => {
+      const id = el.getAttribute("data-pub-id");
+      const item = state.items.find(it => it.id === id);
+      if (item) els.viewer().open(item);
+    });
+  });
   
   // Update calendar items
   document.querySelectorAll("month-calendar .cal-item").forEach(el => {
