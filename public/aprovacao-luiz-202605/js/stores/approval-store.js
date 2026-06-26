@@ -31,7 +31,7 @@ function emit() {
 }
 
 function defaultState() {
-  return { status: "pending", note: "", updatedAt: null };
+  return { status: null, note: "", updatedAt: null };
 }
 
 // NOTE_RE mantém-se só para classificação: rows `#note_` legadas (do antigo
