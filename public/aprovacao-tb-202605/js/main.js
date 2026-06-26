@@ -269,7 +269,10 @@ function render() {
           card.setAttribute("data-item-id", it.id);
           card.setAttribute("data-format", it.format);
           card.setAttribute("data-brand", it.brand);
-          const st = approvalStore.get(it.id)?.status || "pending";
+          // items.json status tem prioridade para "published" (auto-publisher marca lá)
+          const st = it.status === "published"
+            ? "published"
+            : (approvalStore.get(it.id)?.status || "pending");
           card.setAttribute("data-status", st);
           const shotBase = (it.html_url || "").replace(/\.html$/, "");
           // Carrossel: ${base}_shots/slide_01.jpg
@@ -400,7 +403,10 @@ function updateCounts() {
   // mostrar approved/rejected/pending para os items presentes no scope actual.
   let approved = 0, rejected = 0, published = 0;
   for (const it of items) {
-    const s = approvalStore.get(it.id)?.status;
+    // items.json status tem prioridade para "published"
+    const s = it.status === "published"
+      ? "published"
+      : approvalStore.get(it.id)?.status;
     if (s === "published") published++;
     else if (s === "approved") approved++;
     else if (s === "rejected") rejected++;
@@ -462,7 +468,7 @@ function updateHeroAction(approved, rejected, pending) {
 function openNextPending() {
   const items = visibleItems();
   const next = items.find(it => {
-    const s = approvalStore.get(it.id)?.status;
+    const s = it.status === "published" ? "published" : approvalStore.get(it.id)?.status;
     return s !== "approved" && s !== "rejected" && s !== "published";
   });
   if (!next) return;
