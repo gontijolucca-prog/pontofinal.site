@@ -76,10 +76,6 @@ function visibleItems() {
     if (inferMonth(i) !== state.currentMonth) return false;
     if (state.currentBrand  !== "all" && i.brand  !== state.currentBrand)  return false;
     if (state.currentFormat !== "all" && i.format !== state.currentFormat) return false;
-    // Published items show only in published section
-    // items.json status takes priority (auto-publisher sets it there)
-    const s = (i.status === "published") ? "published" : (approvalStore.get(i.id)?.status || i.status);
-    if (s === "published") return false;
     return true;
   });
 }
@@ -321,7 +317,6 @@ function render() {
 
   writeUrlState();
   updateCounts();
-  renderPublishedSection();
 }
 
 function hasActiveFilters() {
@@ -445,56 +440,8 @@ function updateHeroAction(approved, rejected, pending) {
 }
 
 // ── PUBLISHED SECTION ──
-function renderPublishedSection() {
-  const section = document.getElementById("publishedSection");
-  const grid = document.getElementById("publishedGrid");
-  if (!section || !grid) return;
-  
-  const publishedItems = state.items.filter(it => {
-    const s = (it.status === "published") ? "published" : (approvalStore.get(it.id)?.status || it.status);
-    return s === "published";
-  });
-  
-  if (publishedItems.length === 0) {
-    section.hidden = false;
-    grid.innerHTML = '<div style="padding:2rem;text-align:center;font:500 13px/1.4 JetBrains Mono,monospace;opacity:0.5">Nenhum item publicado ainda.</div>';
-    document.getElementById("publishedCount").textContent = "0";
-    return;
-  }
-  section.hidden = false;
-  document.getElementById("publishedCount").textContent = String(publishedItems.length);
-  
-  grid.innerHTML = "";
-  publishedItems.forEach(it => {
-    let el;
-    if (it.format === "carrossel") el = document.createElement("carrossel-row");
-    else if (it.format === "story") el = document.createElement("post-tile");
-    else if (it.format === "reel") el = document.createElement("reel-tile");
-    else el = document.createElement("carrossel-row");
-    el.setItem(it);
-    grid.appendChild(el);
-  });
-  // Override stamp — "Aprovado" → "Publicado"
-  requestAnimationFrame(() => {
-    grid.querySelectorAll(".status-stamp").forEach(stamp => {
-      stamp.textContent = "Publicado";
-      stamp.className = "status-stamp status-stamp--approved";
-    });
-  });
-  
-  // Update calendar items
-  document.querySelectorAll("month-calendar .cal-item").forEach(el => {
-    const id = el.getAttribute("data-item-id");
-    if (id && publishedItems.some(p => p.id === id)) {
-      el.classList.add("cal-item--published");
-    }
-  });
-}
-
-// Re-render published section on approval changes
-window.addEventListener("approval:changed", () => {
-  renderPublishedSection();
-});
+// Publicados aparecem na galeria principal (filtrados por mês).
+// Não há secção separada.
 
 // Abre o 1o item pendente no viewer (CTA do hero-action banner).
 // Procura por items que NAO estao em status approved/rejected. Items

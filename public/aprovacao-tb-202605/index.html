@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="app-version" content="20260626-1854" />
+<meta name="app-version" content="20260626-1903" />
 <title>Aprovação · Conteúdo</title>
 
 <script>
@@ -115,41 +115,6 @@
   .section--hidden { display: none !important; }
   /* sections restored — user requested 2026-06-26 */
   /* section-toggle + calendar-only-layout removed — half-finished redesign */
-  /* Published section */
-  .published-section {
-    padding: 2rem 1.5rem;
-    border-top: 3px solid var(--border);
-    background: var(--bg);
-  }
-  .published-section h2 {
-    font: 700 14px/1 'JetBrains Mono', monospace;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    margin-bottom: 1rem;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .published-section h2 .count {
-    background: var(--accent); color: #fff;
-    padding: 4px 10px; font-size: 11px;
-  }
-  .published-grid { display: flex; flex-direction: column; gap: 0.75rem; }
-  /* Published section — cards completos com preview */
-  #publishedGrid carrossel-row,
-  #publishedGrid post-tile,
-  #publishedGrid reel-tile {
-    border-color: var(--status-approved, #2BB05F) !important;
-    box-shadow: 6px 6px 0 0 var(--status-approved, #2BB05F) !important;
-    opacity: 0.85;
-  }
-  #publishedGrid carrossel-row:hover,
-  #publishedGrid post-tile:hover,
-  #publishedGrid reel-tile:hover {
-    opacity: 1;
-  }
-  #publishedGrid .card__decide,
-  #publishedGrid .carrossel-row__actions { display: none !important; }
-  #publishedGrid .status-stamp--approved {
-    pointer-events: none;
-  }
   /* Modal improvements */
   .viewer-modal--redesign {
     max-width: 1200px !important;
@@ -266,12 +231,6 @@
 <div id="offlineBanner" class="offline-banner" hidden>
   ⚠ Sem ligação à internet. As tuas alterações ficam guardadas localmente e sincronizam quando voltar.
 </div>
-
-<!-- PUBLISHED SECTION -->
-<section class="published-section" id="publishedSection">
-  <h2>📌 Publicados <span class="count" id="publishedCount">0</span></h2>
-  <div class="published-grid" id="publishedGrid"></div>
-</section>
 
 <footer class="app-footer">
   <span id="footerStatus">Estado sincronizado</span>
