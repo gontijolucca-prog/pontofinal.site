@@ -270,8 +270,8 @@ function render() {
             : `${shotBase}.jpg?v=${APP_VERSION}&c=${currentContentSig()}`;
           const title = it.title || it.theme || "";
           card.innerHTML = `
-            <div class="gallery-card__thumb">
-              <img src="${thumbSrc}" alt="${title}" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace('.jpg?','.png?')" />
+            <div class="gallery-card__thumb" data-fmt="${it.format}">
+              <img src="${thumbSrc}" alt="${title}" loading="lazy" onerror="this.onerror=null;this.closest('.gallery-card__thumb').classList.add('is-broken')" />
               <span class="gallery-card__badge gallery-card__badge--${st}">${st === "approved" ? "✓" : st === "rejected" ? "✗" : st === "published" ? "📌" : ""}</span>
             </div>
             <div class="gallery-card__info">
