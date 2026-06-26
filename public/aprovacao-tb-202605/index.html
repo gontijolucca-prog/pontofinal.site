@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="app-version" content="20260626-1600" />
+<meta name="app-version" content="20260626-1613" />
 <title>Aprovação · Conteúdo</title>
 
 <script>
@@ -132,15 +132,43 @@
     padding: 4px 10px; font-size: 11px;
   }
   .published-grid { display: flex; flex-direction: column; gap: 0.75rem; }
-  .published-item {
-    display: flex; align-items: center; gap: 12px;
-    padding: 10px 14px;
-    border: 2px solid var(--border);
-    font: 500 13px/1.4 'JetBrains Mono', monospace;
-    opacity: 0.75;
+  .published-card {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    border: 3px solid var(--status-approved, #2BB05F);
+    background: var(--bg);
+    box-shadow: 5px 5px 0 0 var(--status-approved, #2BB05F);
+    cursor: pointer;
+    transition: transform 0.12s, box-shadow 0.12s;
+    font-family: var(--font-heavy), 'Arial Black', Impact, sans-serif;
   }
-  .published-item:hover { opacity: 1; }
-  .published-item .tag { margin: 0; }
+  .published-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 0 var(--status-approved, #2BB05F);
+  }
+  .published-card__brand {
+    background: var(--text); color: var(--bg);
+    padding: 4px 10px; font-size: 11px;
+    font-weight: 900; text-transform: uppercase;
+    letter-spacing: 0.08em; white-space: nowrap;
+  }
+  .published-card__title {
+    font-weight: 900; font-size: 16px;
+    text-transform: uppercase; letter-spacing: -0.02em;
+    flex: 1; min-width: 0;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .published-card__meta {
+    font: 500 11px/1 'JetBrains Mono', monospace;
+    color: rgba(5,5,5,0.5); white-space: nowrap;
+  }
+  .published-card .status-stamp { pointer-events: none; }
+  .published-card__tag {
+    font: 700 10px/1 'JetBrains Mono', monospace;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 4px 8px; border: 2px solid var(--border);
+    white-space: nowrap;
+  }
   /* Modal improvements */
   .viewer-modal--redesign {
     max-width: 1200px !important;

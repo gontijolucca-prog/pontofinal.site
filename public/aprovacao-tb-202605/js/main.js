@@ -419,7 +419,7 @@ function renderPublishedSection() {
   
   if (publishedItems.length === 0) {
     section.hidden = false;
-    grid.innerHTML = '<div class="published-item" style="justify-content:center;opacity:0.5;padding:1.5rem">Nenhum item publicado ainda. Clique em 📌 Publicado na vista detalhada.</div>';
+    grid.innerHTML = '<div class="published-card" style="justify-content:center;opacity:0.5;padding:2rem;cursor:default">Nenhum item publicado ainda.</div>';
     document.getElementById("publishedCount").textContent = "0";
     return;
   }
@@ -430,15 +430,19 @@ function renderPublishedSection() {
     const code = (it.id || "").split("-").pop();
     const title = (it.title || it.theme || code || "").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     const fmt = it.format || "?";
-    return `<div class="published-item" data-pub-id="${it.id}" style="cursor:pointer">
-      <span class="tag tag--accent">${fmt}</span>
-      <span>${title}</span>
-      <span style="margin-left:auto;font-size:11px;opacity:0.5">${code}</span>
+    const brandLabel = ({ techbody: "TB", techbody_u: "TBU", luiz_santana: "Luiz" })[it.brand] || it.brand || "";
+    const date = it.scheduled_for || "";
+    return `<div class="published-card" data-pub-id="${it.id}">
+      ${brandLabel ? `<span class="published-card__brand">${brandLabel}</span>` : ""}
+      <span class="published-card__tag">${fmt}</span>
+      <span class="published-card__title">${title}</span>
+      <span class="published-card__meta">${date}</span>
+      <span class="status-stamp status-stamp--approved" style="font-size:11px;padding:5px 10px">Publicado</span>
     </div>`;
   }).join("");
   
   // Wire click handlers
-  grid.querySelectorAll(".published-item").forEach(el => {
+  grid.querySelectorAll(".published-card").forEach(el => {
     el.addEventListener("click", () => {
       const id = el.getAttribute("data-pub-id");
       const item = state.items.find(it => it.id === id);
