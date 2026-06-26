@@ -81,7 +81,8 @@ function visibleItems() {
     if (state.currentBrand  !== "all" && i.brand  !== state.currentBrand)  return false;
     if (state.currentFormat !== "all" && i.format !== state.currentFormat) return false;
     // Published items show only in published section
-    const s = approvalStore.get(i.id)?.status || i.status;
+    // items.json status takes priority (auto-publisher sets it there)
+    const s = (i.status === "published") ? "published" : (approvalStore.get(i.id)?.status || i.status);
     if (s === "published") return false;
     return true;
   });
@@ -411,7 +412,8 @@ function renderPublishedSection() {
   if (!section || !grid) return;
   
   const publishedItems = state.items.filter(it => {
-    const s = approvalStore.get(it.id)?.status || it.status;
+    // items.json status takes priority (auto-publisher sets it there)
+    const s = (it.status === "published") ? "published" : (approvalStore.get(it.id)?.status || it.status);
     return s === "published";
   });
   
