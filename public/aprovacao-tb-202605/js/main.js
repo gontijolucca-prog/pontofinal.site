@@ -199,18 +199,31 @@ function render() {
   const monthHasContent = items.length > 0
     || state.items.some(i => inferMonth(i) === state.currentMonth);
 
-  // Calendário mostra sempre o mês actual. Se este mês tem conteúdo real,
-  // mostra os items reais; senão, mostra "ghost" placeholders no padrão.
+  // Calendário mostra sempre o mês actual. Se este mês tem conteúdo real
+  // COM datas agendadas, mostra os items reais. Senão (ou se os items não
+  // têm scheduled_for), mostra "ghost" placeholders no padrão.
   els.calendar().setMonth(state.currentMonth);
-  if (monthHasContent) {
-    const realCalendarItems = state.items.filter(i =>
-      inferMonth(i) === state.currentMonth
-      && (state.currentBrand  === "all" || i.brand  === state.currentBrand)
-      && (state.currentFormat === "all" || i.format === state.currentFormat)
-    );
+  const realCalendarItems = state.items.filter(i =>
+    inferMonth(i) === state.currentMonth
+    && (state.currentBrand  === "all" || i.brand  === state.currentBrand)
+    && (state.currentFormat === "all" || i.format === state.currentFormat)
+  );
+  const hasScheduled = realCalendarItems.some(i => i.scheduled_for);
+  if (hasScheduled) {
     els.calendar().setItems(realCalendarItems);
   } else {
-    els.calendar().setItems(ghostItemsFor(state.currentMonth));
+    // Sem datas agendadas neste mês — usa ghost items (ou items reais como ghost)
+    const ghosts = ghostItemsFor(state.currentMonth);
+    if (realCalendarItems.length > 0) {
+      realCalendarItems.forEach((it, i) => {
+        ghosts.push({
+          ...it,
+          id: `real-${it.id}`,
+          _real: true,
+        });
+      });
+    }
+    els.calendar().setItems(ghosts);
   }
 
   // Galeria unificada — dividida por marca e tipo de conteúdo
