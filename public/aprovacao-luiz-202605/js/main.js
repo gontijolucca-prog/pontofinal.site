@@ -24,15 +24,9 @@ const els = {
   monthSwitcher:   () => document.getElementById("monthSwitcher"),
   filterBar:       () => document.getElementById("filterBar"),
   headerLabel:     () => document.getElementById("headerLabel"),
-  carrosseisList:  () => document.getElementById("carrosseisList"),
-  postsGallery:    () => document.getElementById("postsGallery"),
-  reelsGallery:    () => document.getElementById("reelsGallery"),
   galleryGrid:     () => document.getElementById("galleryGrid"),
   galleryCount:    () => document.getElementById("galleryCount"),
   totalCount:      () => document.getElementById("totalCount"),
-  carrosseisCount: () => document.getElementById("carrosseisCount"),
-  postsCount:      () => document.getElementById("postsCount"),
-  reelsCount:      () => document.getElementById("reelsCount"),
   approvedCount:   () => document.getElementById("approvedCount"),
   rejectedCount:   () => document.getElementById("rejectedCount"),
   pendingCount:    () => document.getElementById("pendingCount"),
@@ -219,70 +213,74 @@ function render() {
     els.calendar().setItems(ghostItemsFor(state.currentMonth));
   }
 
-  const carrosseis = items.filter(i => i.format === "carrossel").sort(sortBySchedule);
-  const posts      = items.filter(i => i.format === "story").sort(sortBySchedule);
-  const reels      = items.filter(i => i.format === "reel").sort(sortBySchedule);
-
-  const list = els.carrosseisList();
-  list.innerHTML = "";
-  carrosseis.forEach(it => {
-    const row = document.createElement("carrossel-row");
-    row.setItem(it);
-    list.appendChild(row);
-  });
-
-  const pg = els.postsGallery();
-  pg.innerHTML = "";
-  posts.forEach(it => {
-    const tile = document.createElement("post-tile");
-    tile.setItem(it);
-    pg.appendChild(tile);
-  });
-
-  const rg = els.reelsGallery();
-  rg.innerHTML = "";
-  reels.forEach(it => {
-    const tile = document.createElement("reel-tile");
-    tile.setItem(it);
-    rg.appendChild(tile);
-  });
-
-  // Galeria unificada — todos os formatos num grid de thumbnails
+  // Galeria unificada — dividida por marca e tipo de conteúdo
   const gg = els.galleryGrid();
   if (gg) {
     gg.innerHTML = "";
     const allSorted = [...items].sort(sortBySchedule);
-    allSorted.forEach(it => {
-      const card = document.createElement("div");
-      card.className = "gallery-card";
-      card.setAttribute("data-item-id", it.id);
-      card.setAttribute("data-format", it.format);
-      card.setAttribute("data-brand", it.brand);
-      const st = approvalStore.get(it.id)?.status || "pending";
-      card.setAttribute("data-status", st);
-      const shotBase = (it.html_url || "").replace(/\.html$/, "");
-      const thumbSrc = it.format === "reel"
-        ? `${shotBase}.jpg?v=${APP_VERSION}&c=${currentContentSig()}`
-        : `${shotBase}_shots/slide_01.jpg?v=${APP_VERSION}&c=${currentContentSig()}`;
-      const title = it.title || it.theme || "";
-      const brandLabel = { techbody: "TB", techbody_u: "TBU", luiz_santana: "LS" }[it.brand] || it.brand;
-      const fmtLabel = { carrossel: "Carr", story: "Story", reel: "Reel" }[it.format] || it.format;
-      card.innerHTML = `
-        <div class="gallery-card__thumb">
-          <img src="${thumbSrc}" alt="${title}" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace('.jpg?','.png?')" />
-          <span class="gallery-card__badge gallery-card__badge--${st}">${st === "approved" ? "✓" : st === "rejected" ? "✗" : st === "published" ? "📌" : ""}</span>
-        </div>
-        <div class="gallery-card__info">
-          <span class="gallery-card__brand">${brandLabel}</span>
-          <span class="gallery-card__fmt">${fmtLabel}</span>
-          <span class="gallery-card__title">${title}</span>
-        </div>`;
-      card.addEventListener("click", () => {
-        const it = findItem(card.dataset.itemId);
-        if (it) els.viewer().open(it);
-      });
-      gg.appendChild(card);
-    });
+    const BRAND_NAMES = { techbody: "TechBody", techbody_u: "TechBody U", luiz_santana: "Luiz Santana" };
+    const FORMAT_NAMES = { carrossel: "Carrosséis", story: "Stories", reel: "Reels" };
+    const FORMAT_ORDER = ["carrossel", "story", "reel"];
+    const grouped = {};
+    for (const it of allSorted) {
+      const b = it.brand || "outro";
+      const f = it.format || "outro";
+      if (!grouped[b]) grouped[b] = {};
+      if (!grouped[b][f]) grouped[b][f] = [];
+      grouped[b][f].push(it);
+    }
+    const brandOrder = Object.keys(BRAND_NAMES).filter(b => grouped[b]);
+    const otherBrands = Object.keys(grouped).filter(b => !BRAND_NAMES[b]);
+    for (const brand of [...brandOrder, ...otherBrands]) {
+      const brandGroup = grouped[brand];
+      const brandLabel = BRAND_NAMES[brand] || brand;
+      const groupEl = document.createElement("div");
+      groupEl.className = "gallery-group";
+      const titleRow = document.createElement("div");
+      titleRow.className = "gallery-group__head";
+      const brandTotal = Object.values(brandGroup).reduce((s, arr) => s + arr.length, 0);
+      titleRow.innerHTML = `<h3 class="gallery-group__title">${brandLabel}</h3><span class="gallery-group__count">${brandTotal}</span>`;
+      groupEl.appendChild(titleRow);
+      for (const fmt of FORMAT_ORDER) {
+        const arr = brandGroup[fmt];
+        if (!arr || !arr.length) continue;
+        const fmtWrap = document.createElement("div");
+        fmtWrap.className = "gallery-group__sub";
+        fmtWrap.innerHTML = `<h4 class="gallery-group__subtitle">${FORMAT_NAMES[fmt] || fmt} <span class="gallery-group__subcount">${arr.length}</span></h4>`;
+        const grid = document.createElement("div");
+        grid.className = "gallery-grid";
+        for (const it of arr) {
+          const card = document.createElement("div");
+          card.className = "gallery-card";
+          card.setAttribute("data-item-id", it.id);
+          card.setAttribute("data-format", it.format);
+          card.setAttribute("data-brand", it.brand);
+          const st = approvalStore.get(it.id)?.status || "pending";
+          card.setAttribute("data-status", st);
+          const shotBase = (it.html_url || "").replace(/\.html$/, "");
+          const thumbSrc = it.format === "reel"
+            ? `${shotBase}.jpg?v=${APP_VERSION}&c=${currentContentSig()}`
+            : `${shotBase}_shots/slide_01.jpg?v=${APP_VERSION}&c=${currentContentSig()}`;
+          const title = it.title || it.theme || "";
+          card.innerHTML = `
+            <div class="gallery-card__thumb">
+              <img src="${thumbSrc}" alt="${title}" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace('.jpg?','.png?')" />
+              <span class="gallery-card__badge gallery-card__badge--${st}">${st === "approved" ? "✓" : st === "rejected" ? "✗" : st === "published" ? "📌" : ""}</span>
+            </div>
+            <div class="gallery-card__info">
+              <span class="gallery-card__title">${title}</span>
+            </div>`;
+          card.addEventListener("click", () => {
+            const it = findItem(card.dataset.itemId);
+            if (it) els.viewer().open(it);
+          });
+          grid.appendChild(card);
+        }
+        fmtWrap.appendChild(grid);
+        groupEl.appendChild(fmtWrap);
+      }
+      gg.appendChild(groupEl);
+    }
     setCount(els.galleryCount(), allSorted.length);
   }
 
@@ -297,10 +295,7 @@ function render() {
     toggleEmptyState(null);
   }
 
-  setCount(els.totalCount(),      items.length);
-  setCount(els.carrosseisCount(), carrosseis.length);
-  setCount(els.postsCount(),      posts.length);
-  setCount(els.reelsCount(),      reels.length);
+  setCount(els.totalCount(), items.length);
 
   // Atualiza as contagens das chips do filter-bar — reflectem a intersecção
   // dos *outros* eixos para que o user veja antecipadamente o efeito.

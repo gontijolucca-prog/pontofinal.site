@@ -3469,27 +3469,55 @@ article.card.is-located { animation: card-locate-flash 2.6s ease-out; }
   gap: 4px 8px;
   align-items: center;
 }
-.gallery-card__brand {
-  font: 700 10px/1 'JetBrains Mono', monospace;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  background: var(--text);
-  color: var(--bg);
-  padding: 2px 6px;
-}
-.gallery-card__fmt {
-  font: 600 9px/1 'JetBrains Mono', monospace;
-  text-transform: uppercase;
-  color: var(--text);
-  opacity: 0.5;
-}
 .gallery-card__title {
   font: 500 11px/1.3 system-ui, sans-serif;
   color: var(--text);
-  flex: 1 0 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  flex: 1 0 100%;
+}
+
+/* ───── GALLERY GROUPED (por marca + tipo) ───── */
+.gallery-group {
+  margin-bottom: 28px;
+}
+.gallery-group__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid var(--text);
+}
+.gallery-group__title {
+  font: 800 18px/1 'Arial Black', Impact, sans-serif;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.gallery-group__count {
+  font: 700 11px/1 'JetBrains Mono', monospace;
+  background: var(--text);
+  color: var(--bg);
+  padding: 4px 8px;
+}
+.gallery-group__sub {
+  margin-bottom: 18px;
+}
+.gallery-group__subtitle {
+  font: 700 12px/1 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gallery-group__subcount {
+  font-weight: 400;
+  font-size: 10px;
+  opacity: 0.5;
 }
 
 /* ───── VIEWER DIRECT EDIT ───── */
