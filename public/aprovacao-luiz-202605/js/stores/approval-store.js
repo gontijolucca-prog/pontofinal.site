@@ -526,6 +526,9 @@ export function init() {
     // Caminho FIABLE: REST directo, sem dependência do CDN do SDK.
     // Carrega sempre por aqui — funciona em Safari/Brave/Chrome igualmente.
     await loadFromSupabaseFetch();
+    // Verificar versão já agora: se o JS carregado for antigo, o indicador
+    // "ao vivo" muda para "versão antiga" imediatamente (não esperar 30s).
+    await checkAppVersion();
     // Inicia polling (12s) para sync entre browsers e devices, independente de
     // WebSockets (Safari ETP/extensões podem bloquear).
     startServerPolling();

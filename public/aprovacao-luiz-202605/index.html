@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="app-version" content="20260626-1519" />
+<meta name="app-version" content="20260626-1536" />
 <title>Aprovação · Conteúdo</title>
 
 <script>
@@ -60,33 +60,34 @@
       // Auto-refresh check a cada 10s (tab visível + user idle): lê version.txt
       // e auto-cura nuclear se o servidor publicou versão nova. Complementa
       // o version-gate.js (que faz polling idêntico mas só dispara UI).
-      setInterval(() => {
+      async function autoHeal() {
         if (document.hidden) return;
         var ed = document.activeElement;
         if (ed && (ed.tagName === 'TEXTAREA' ||
             (ed.tagName === 'INPUT' && /^(text|search|email|url|tel)$/i.test(ed.type)) ||
             ed.isContentEditable)) return;
-        fetch('version.txt?_=' + Date.now(), { cache: 'no-store' })
-          .then(function(r){ return r.ok ? r.text() : ''; })
-          .then(function(serverV){
-            if (!serverV) return;
-            serverV = serverV.trim();
-            if (!serverV || serverV === current) return;
-            try {
-              var key = 'pf-autoheal-' + serverV;
-              if (sessionStorage.getItem(key) === '1') return; // já tentámos
-              sessionStorage.setItem(key, '1');
-              navigator.serviceWorker.getRegistrations().then(function(regs){
-                return Promise.all(regs.map(function(r){ return r.unregister().catch(function(){}); }));
-              });
-              if (self.caches) caches.keys().then(function(keys){
-                return Promise.all(keys.map(function(k){ return caches.delete(k).catch(function(){}); }));
-              });
-              sessionStorage.removeItem('pf-bust-v');
-              window.location.replace(window.location.pathname + '?_=' + Date.now());
-            } catch (e) {}
-          }).catch(function(){});
-      }, 10000);
+        try {
+          var r = await fetch('version.txt?_=' + Date.now(), { cache: 'no-store' });
+          if (!r.ok) return;
+          var serverV = (await r.text()).trim();
+          if (!serverV || serverV === current) return;
+          var key = 'pf-autoheal-' + serverV;
+          try { if (sessionStorage.getItem(key) === '1') return; } catch {}
+          try { sessionStorage.setItem(key, '1'); } catch {}
+          // Nuclear reload — espera limpeza do SW + caches antes de navegar
+          if ('serviceWorker' in navigator) {
+            var regs = await navigator.serviceWorker.getRegistrations();
+            await Promise.all(regs.map(function(r){ return r.unregister().catch(function(){}); }));
+          }
+          if (self.caches) {
+            var keys = await caches.keys();
+            await Promise.all(keys.map(function(k){ return caches.delete(k).catch(function(){}); }));
+          }
+          try { sessionStorage.removeItem('pf-bust-v'); } catch {}
+          window.location.replace(window.location.pathname + '?_=' + Date.now());
+        } catch (e) {}
+      }
+      setInterval(autoHeal, 10000);
     }).catch(() => {});
   }
 </script>
@@ -283,21 +284,21 @@
     var badge = document.getElementById('versionBadge');
     if (!badge) return;
     var META = (document.querySelector('meta[name="app-version"]') || {}).content || '';
-    badge.addEventListener('click', function(){
+    badge.addEventListener('click', async function(){
       badge.disabled = true;
       badge.textContent = 'A atualizar…';
-      // nuclear reload
-      if (navigator.serviceWorker) {
-        navigator.serviceWorker.getRegistrations().then(function(regs){
-          return Promise.all(regs.map(function(r){ return r.unregister().catch(function(){}); }));
-        });
+      // Nuclear reload — espera limpeza do SW + caches antes de navegar
+      if ('serviceWorker' in navigator) {
+        var regs = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(regs.map(function(r){ return r.unregister().catch(function(){}); }));
       }
       if (self.caches) {
-        caches.keys().then(function(keys){
-          return Promise.all(keys.map(function(k){ return caches.delete(k).catch(function(){}); }));
-        });
+        var keys = await caches.keys();
+        await Promise.all(keys.map(function(k){ return caches.delete(k).catch(function(){}); }));
       }
       try { sessionStorage.removeItem('pf-bust-v'); } catch(e){}
+      // Limpar locks de auto-heal para a versão voltar a tentar
+      try { for (var i = sessionStorage.length - 1; i >= 0; i--) { var k = sessionStorage.key(i); if (k && k.startsWith('pf-autoheal-')) sessionStorage.removeItem(k); } } catch(e) {}
       window.location.replace(window.location.pathname + '?_=' + Date.now());
     });
     // Listener: o version-gate.js dispara CustomEvent quando detecta stale
