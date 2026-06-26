@@ -412,41 +412,34 @@ function renderPublishedSection() {
   if (!section || !grid) return;
   
   const publishedItems = state.items.filter(it => {
-    // items.json status takes priority (auto-publisher sets it there)
     const s = (it.status === "published") ? "published" : (approvalStore.get(it.id)?.status || it.status);
     return s === "published";
   });
   
   if (publishedItems.length === 0) {
     section.hidden = false;
-    grid.innerHTML = '<div class="published-card" style="justify-content:center;opacity:0.5;padding:2rem;cursor:default">Nenhum item publicado ainda.</div>';
+    grid.innerHTML = '<div style="padding:2rem;text-align:center;font:500 13px/1.4 JetBrains Mono,monospace;opacity:0.5">Nenhum item publicado ainda.</div>';
     document.getElementById("publishedCount").textContent = "0";
     return;
   }
   section.hidden = false;
   document.getElementById("publishedCount").textContent = String(publishedItems.length);
   
-  grid.innerHTML = publishedItems.map(it => {
-    const code = (it.id || "").split("-").pop();
-    const title = (it.title || it.theme || code || "").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    const fmt = it.format || "?";
-    const brandLabel = ({ techbody: "TB", techbody_u: "TBU", luiz_santana: "Luiz" })[it.brand] || it.brand || "";
-    const date = it.scheduled_for || "";
-    return `<div class="published-card" data-pub-id="${it.id}">
-      ${brandLabel ? `<span class="published-card__brand">${brandLabel}</span>` : ""}
-      <span class="published-card__tag">${fmt}</span>
-      <span class="published-card__title">${title}</span>
-      <span class="published-card__meta">${date}</span>
-      <span class="status-stamp status-stamp--approved" style="font-size:11px;padding:5px 10px">Publicado</span>
-    </div>`;
-  }).join("");
-  
-  // Wire click handlers
-  grid.querySelectorAll(".published-card").forEach(el => {
-    el.addEventListener("click", () => {
-      const id = el.getAttribute("data-pub-id");
-      const item = state.items.find(it => it.id === id);
-      if (item) els.viewer().open(item);
+  grid.innerHTML = "";
+  publishedItems.forEach(it => {
+    let el;
+    if (it.format === "carrossel") el = document.createElement("carrossel-row");
+    else if (it.format === "story") el = document.createElement("post-tile");
+    else if (it.format === "reel") el = document.createElement("reel-tile");
+    else el = document.createElement("carrossel-row");
+    el.setItem(it);
+    grid.appendChild(el);
+  });
+  // Override stamp — "Aprovado" → "Publicado"
+  requestAnimationFrame(() => {
+    grid.querySelectorAll(".status-stamp").forEach(stamp => {
+      stamp.textContent = "Publicado";
+      stamp.className = "status-stamp status-stamp--approved";
     });
   });
   
