@@ -413,7 +413,9 @@ function renderPublishedSection() {
   });
   
   if (publishedItems.length === 0) {
-    section.hidden = true;
+    section.hidden = false;
+    grid.innerHTML = '<div class="published-item" style="justify-content:center;opacity:0.5;padding:1.5rem">Nenhum item publicado ainda. Clique em 📌 Publicado na vista detalhada.</div>';
+    document.getElementById("publishedCount").textContent = "0";
     return;
   }
   section.hidden = false;
