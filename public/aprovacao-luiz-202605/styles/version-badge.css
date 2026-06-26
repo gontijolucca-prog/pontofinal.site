@@ -2,6 +2,7 @@
    Mostra-se subtilmente no header; clicar faz reload nuclear.
    Auto-update é responsabilidade do version-gate.js + script inline em index.html.
 */
+.version-badge[hidden] { display: none !important; }
 .version-badge {
   display: inline-flex;
   align-items: center;
