@@ -275,7 +275,11 @@ class ItemViewer extends HTMLElement {
       : (it.html_url ? `<iframe src="${it.html_url}${bust}" title="${this._escapeForHtml(it.title || "")}"></iframe>` : "");
 
     // Direct-edit textareas for each slide + caption
-    const slideEditors = (it.slides_text || []).map((s, i) => {
+    // Fallback: se slides_text está vazio mas o item tem slides, gera textareas vazios
+    const slidesArr = (it.slides_text && it.slides_text.length)
+      ? it.slides_text
+      : Array.from({ length: it.slides || 1 }, () => ({ text_overlay: "" }));
+    const slideEditors = slidesArr.map((s, i) => {
       const n = i + 1;
       const text = s.text_overlay || s.text || "";
       const label = it.format === "reel" ? `Linha ${String(n).padStart(2, "0")}` : `Slide ${String(n).padStart(2, "0")}`;
@@ -627,8 +631,12 @@ class ItemViewer extends HTMLElement {
   }
 
   _escapeForHtml(s) {
-    return String(s == null ? "" : s).replace(/[&<>"']/g, c =>
-      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    // items.json pode conter "&nbsp;" como texto literal (não entidade HTML).
+    // Decodificar antes de escapar para não mostrar "&nbsp;" na página.
+    return String(s == null ? "" : s)
+      .replace(/&nbsp;/g, " ")
+      .replace(/[&<>"']/g, c =>
+        ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
 }
 
