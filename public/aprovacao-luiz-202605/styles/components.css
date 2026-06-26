@@ -3451,11 +3451,28 @@ article.card.is-located { animation: card-locate-flash 2.6s ease-out; }
      para o preview ser idêntico ao que sai publicado.
      O fit-frame.js ajusta dinamicamente no JS via fitScaledFrame. */
 }
-.gallery-card__thumb img {
+.gallery-card__thumb img,
+.gallery-card__thumb video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+}
+.gallery-card__cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.gallery-card__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
 }
 .gallery-card__no-preview {
   display: grid;

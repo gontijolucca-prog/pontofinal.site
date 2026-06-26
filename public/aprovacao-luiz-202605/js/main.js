@@ -261,13 +261,28 @@ function render() {
       const st = effectiveStatus(it);
       card.setAttribute("data-status", st);
       const title = it.title || it.theme || "";
-      const iframeSrc = it.html_url
+      const shotBase = (it.html_url || "").replace(/\.html$/, "");
+      const isReel = it.format === "reel";
+      const iframeSrc = !isReel && it.html_url
         ? `${it.html_url}?v=${APP_VERSION}&c=${currentContentSig()}${it.format === "carrossel" ? "#slide-1" : ""}`
+        : "";
+      const reelCover = isReel && shotBase
+        ? `${shotBase}.jpg?v=${APP_VERSION}&c=${currentContentSig()}`
+        : "";
+      const reelPoster = isReel && it.video_url
+        ? it.video_url.replace(/\.mp4$/, ".jpg")
+        : "";
+      const videoSrc = isReel && it.video_url
+        ? `${it.video_url}?v=${APP_VERSION}&c=${currentContentSig()}`
         : "";
       card.innerHTML = `
         <div class="gallery-card__thumb" data-fmt="${it.format}">
-          ${iframeSrc
+          ${videoSrc
+            ? `<video class="gallery-card__video" src="${videoSrc}" poster="${reelPoster}" muted loop playsinline preload="metadata" onmouseenter="this.play()" onmouseleave="this.pause()"></video>`
+            : iframeSrc
             ? `<iframe src="${iframeSrc}" title="${_escapeForHtml(title)}" scrolling="no" loading="lazy" tabindex="-1"></iframe>`
+            : reelCover
+            ? `<img class="gallery-card__cover" src="${reelCover}" alt="${_escapeForHtml(title)}" loading="lazy" onerror="this.onerror=null;this.closest('.gallery-card__thumb').classList.add('is-broken')" />`
             : `<div class="gallery-card__no-preview">Sem preview</div>`}
           <span class="gallery-card__badge gallery-card__badge--${st}">${st === "approved" ? "✓" : st === "rejected" ? "✗" : st === "published" ? "📌" : ""}</span>
         </div>
