@@ -284,7 +284,7 @@ function render() {
           card.innerHTML = `
             <div class="gallery-card__thumb" data-fmt="${it.format}">
               ${iframeSrc
-                ? `<iframe src="${iframeSrc}" title="${this._escapeForHtml(title)}" scrolling="no" loading="lazy" tabindex="-1"></iframe>`
+                ? `<iframe src="${iframeSrc}" title="${_escapeForHtml(title)}" scrolling="no" loading="lazy" tabindex="-1"></iframe>`
                 : `<div class="gallery-card__no-preview">Sem preview</div>`}
               <span class="gallery-card__badge gallery-card__badge--${st}">${st === "approved" ? "✓" : st === "rejected" ? "✗" : st === "published" ? "📌" : ""}</span>
             </div>
