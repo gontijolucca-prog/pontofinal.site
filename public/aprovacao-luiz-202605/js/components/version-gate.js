@@ -99,24 +99,19 @@ async function check() {
     _failStreak = 0;
     if (server && META_VERSION && server !== META_VERSION) {
       // Dispara evento para o badge "Atualizar" aparecer (não-intrusivo)
-      try { window.dispatchEvent(new CustomEvent('pf:stale-version', { detail: { server, current: META_VERSION } })); } catch {}
-      // NÃO interromper quem está a escrever: se um campo de texto está focado,
-      // adia a atualização para o próximo ciclo. As edições já vão sendo gravadas
-      // no servidor — só evitamos o reload forçado a meio de uma escrita, para
-      // nunca apagar/perder o que o cliente está a alterar nesse momento.
-      if (userIsEditing()) return;
+      try { window.dispatchEvent(new CustomEvent("pf:stale-version", { detail: { server, current: META_VERSION } })); } catch {}
       // AUTO-CURA: 1x por cada versão nova do servidor faz reload nuclear
       // (limpa SW + caches) SOZINHO — o user não precisa de fazer nada.
-      // Se mesmo assim continuar dessincronizado, mostra o aviso + botão manual.
-      const healKey = 'pf-autoheal-' + server;
+      // Sem skip em editing — a página deve estar sempre atualizada.
+      const healKey = "pf-autoheal-" + server;
       let healed = true;
-      try { healed = sessionStorage.getItem(healKey) === '1'; } catch {}
+      try { healed = sessionStorage.getItem(healKey) === "1"; } catch {}
       if (!healed) {
-        try { sessionStorage.setItem(healKey, '1'); } catch {}
+        try { sessionStorage.setItem(healKey, "1"); } catch {}
         hardReload();
         return;
       }
-      showGate('stale', server);
+      showGate("stale", server);
     } else {
       hideGate();
       try { window.dispatchEvent(new CustomEvent('pf:live-version', { detail: { current: META_VERSION } })); } catch {}
@@ -131,10 +126,12 @@ async function check() {
 
 function start() {
   check();
-  window.addEventListener('online', check);
-  window.addEventListener('offline', () => showGate('offline'));
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) check(); });
-  setInterval(() => { if (!document.hidden) check(); }, 20000);
+  window.addEventListener("online", check);
+  window.addEventListener("offline", () => showGate("offline"));
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) check(); });
+  // Polling agressivo: 5s em vez de 20s. Auto-reload NÃO bloqueia em
+  // editing — o user quer página sempre atualizada, sem truques.
+  setInterval(() => { if (!document.hidden) check(); }, 5000);
 }
 
 if (document.readyState === 'loading') {
