@@ -6,6 +6,7 @@ import { approvalStore, init as initApprovalStore } from "./stores/approval-stor
 import { supabase, AUTH_ENABLED, USE_SUPABASE, initSupabase } from "./lib/supabase-client.js";
 import { monthShortLabel } from "./components/month-switcher.js";
 import { DASHBOARD_URL, APP_VERSION } from "./config.js";
+import { fitScaledFrame, dimsFor } from "./lib/fit-frame.js";
 
 function todayYYYYMM() {
   const d = new Date();
@@ -274,21 +275,29 @@ function render() {
             ? "published"
             : (approvalStore.get(it.id)?.status || "pending");
           card.setAttribute("data-status", st);
-          const shotBase = (it.html_url || "").replace(/\.html$/, "");
-          // Carrossel: ${base}_shots/slide_01.jpg
-          // Story/Reel: ${base}.jpg
-          const thumbSrc = it.format === "carrossel"
-            ? `${shotBase}_shots/slide_01.jpg?v=${APP_VERSION}&c=${currentContentSig()}`
-            : `${shotBase}.jpg?v=${APP_VERSION}&c=${currentContentSig()}`;
           const title = it.title || it.theme || "";
+          // Iframe com o mesmo html_url que o viewer usa — preview idêntico
+          // ao que se vê quando se abre em detalhe. Carrossel mostra slide 1.
+          const iframeSrc = it.html_url
+            ? `${it.html_url}?v=${APP_VERSION}&c=${currentContentSig()}${it.format === "carrossel" ? "#slide-1" : ""}`
+            : "";
           card.innerHTML = `
             <div class="gallery-card__thumb" data-fmt="${it.format}">
-              <img src="${thumbSrc}" alt="${title}" loading="lazy" onerror="this.onerror=null;this.closest('.gallery-card__thumb').classList.add('is-broken')" />
+              ${iframeSrc
+                ? `<iframe src="${iframeSrc}" title="${this._escapeForHtml(title)}" scrolling="no" loading="lazy" tabindex="-1"></iframe>`
+                : `<div class="gallery-card__no-preview">Sem preview</div>`}
               <span class="gallery-card__badge gallery-card__badge--${st}">${st === "approved" ? "✓" : st === "rejected" ? "✗" : st === "published" ? "📌" : ""}</span>
             </div>
             <div class="gallery-card__info">
               <span class="gallery-card__title">${title}</span>
             </div>`;
+          // Escala o iframe ao tamanho real de publicação (1080×1350 ou 1080×1920)
+          // para o preview ser idêntico ao viewer.
+          const iframe = card.querySelector("iframe");
+          if (iframe) {
+            const [nw, nh] = dimsFor(it.format);
+            fitScaledFrame(card.querySelector(".gallery-card__thumb"), nw, nh);
+          }
           card.addEventListener("click", () => {
             const it = findItem(card.dataset.itemId);
             if (it) els.viewer().open(it);
@@ -829,3 +838,11 @@ init().catch((err) => {
   console.error("[init] failed:", err);
   forceHideLoader("init-error");
 });
+
+// Escapar HTML para atributos (títulos de iframes, etc.)
+function _escapeForHtml(s) {
+  return String(s == null ? "" : s)
+    .replace(/&nbsp;/g, " ")
+    .replace(/[&<>"']/g, c =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}

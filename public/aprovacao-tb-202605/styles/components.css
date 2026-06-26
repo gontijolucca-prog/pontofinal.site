@@ -3439,11 +3439,34 @@ article.card.is-located { animation: card-locate-flash 2.6s ease-out; }
   overflow: hidden;
   background: #f0f0f0;
 }
+.gallery-card__thumb iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  pointer-events: none;
+  /* Escala o HTML ao tamanho real de publicação (1080×1350 ou 1080×1920)
+     para o preview ser idêntico ao que sai publicado.
+     O fit-frame.js ajusta dinamicamente no JS via fitScaledFrame. */
+}
 .gallery-card__thumb img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+}
+.gallery-card__no-preview {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  font: 700 10px/1 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  opacity: 0.5;
 }
 .gallery-card__badge {
   position: absolute;
