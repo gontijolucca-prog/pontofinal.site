@@ -5,7 +5,7 @@ import { userIsEditing } from "./utils/user-editing.js";
 import { approvalStore, init as initApprovalStore } from "./stores/approval-store.js";
 import { supabase, AUTH_ENABLED, USE_SUPABASE, initSupabase } from "./lib/supabase-client.js";
 import { monthShortLabel } from "./components/month-switcher.js";
-import { DASHBOARD_URL } from "./config.js";
+import { DASHBOARD_URL, APP_VERSION } from "./config.js";
 
 function todayYYYYMM() {
   const d = new Date();
@@ -27,6 +27,8 @@ const els = {
   carrosseisList:  () => document.getElementById("carrosseisList"),
   postsGallery:    () => document.getElementById("postsGallery"),
   reelsGallery:    () => document.getElementById("reelsGallery"),
+  galleryGrid:     () => document.getElementById("galleryGrid"),
+  galleryCount:    () => document.getElementById("galleryCount"),
   totalCount:      () => document.getElementById("totalCount"),
   carrosseisCount: () => document.getElementById("carrosseisCount"),
   postsCount:      () => document.getElementById("postsCount"),
@@ -248,6 +250,45 @@ function render() {
     tile.setItem(it);
     rg.appendChild(tile);
   });
+
+  // Galeria unificada — todos os formatos num grid de thumbnails
+  const gg = els.galleryGrid();
+  if (gg) {
+    gg.innerHTML = "";
+    const allSorted = [...items].sort(sortBySchedule);
+    allSorted.forEach(it => {
+      const card = document.createElement("div");
+      card.className = "gallery-card";
+      card.setAttribute("data-item-id", it.id);
+      card.setAttribute("data-format", it.format);
+      card.setAttribute("data-brand", it.brand);
+      const st = approvalStore.get(it.id)?.status || "pending";
+      card.setAttribute("data-status", st);
+      const shotBase = (it.html_url || "").replace(/\.html$/, "");
+      const thumbSrc = it.format === "reel"
+        ? `${shotBase}.jpg?v=${APP_VERSION}&c=${currentContentSig()}`
+        : `${shotBase}_shots/slide_01.jpg?v=${APP_VERSION}&c=${currentContentSig()}`;
+      const title = it.title || it.theme || "";
+      const brandLabel = { techbody: "TB", techbody_u: "TBU", luiz_santana: "LS" }[it.brand] || it.brand;
+      const fmtLabel = { carrossel: "Carr", story: "Story", reel: "Reel" }[it.format] || it.format;
+      card.innerHTML = `
+        <div class="gallery-card__thumb">
+          <img src="${thumbSrc}" alt="${title}" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace('.jpg?','.png?')" />
+          <span class="gallery-card__badge gallery-card__badge--${st}">${st === "approved" ? "✓" : st === "rejected" ? "✗" : st === "published" ? "📌" : ""}</span>
+        </div>
+        <div class="gallery-card__info">
+          <span class="gallery-card__brand">${brandLabel}</span>
+          <span class="gallery-card__fmt">${fmtLabel}</span>
+          <span class="gallery-card__title">${title}</span>
+        </div>`;
+      card.addEventListener("click", () => {
+        const it = findItem(card.dataset.itemId);
+        if (it) els.viewer().open(it);
+      });
+      gg.appendChild(card);
+    });
+    setCount(els.galleryCount(), allSorted.length);
+  }
 
   // Empty state: distinguir entre "mês sem conteúdo ainda" e "filtros vazios".
   const monthEmpty = items.length === 0;

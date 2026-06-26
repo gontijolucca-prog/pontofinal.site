@@ -143,6 +143,15 @@ class ItemViewer extends HTMLElement {
     }
     const capOv = approvalStore.getAllCaptionCopyOverrides?.()[it.id];
     if (capOv) it.caption = capOv.text;
+    // Reflectir nos textareas do painel directo (caso render() já tenha corrido).
+    for (const [n, ov] of Object.entries(slideOv)) {
+      const ta = this.querySelector(`[data-edit-slide="${n}"]`);
+      if (ta) ta.value = ov.text;
+    }
+    if (capOv) {
+      const capTa = this.querySelector("[data-edit-caption]");
+      if (capTa) capTa.value = capOv.text;
+    }
     // Reflectir no iframe assim que carregar.
     if (Object.keys(slideOv).length) {
       const iframe = this.querySelector(".viewer-frame-wrap iframe");
@@ -265,6 +274,24 @@ class ItemViewer extends HTMLElement {
       ? reelScriptHtml
       : (it.html_url ? `<iframe src="${it.html_url}${bust}" title="${this._escapeForHtml(it.title || "")}"></iframe>` : "");
 
+    // Direct-edit textareas for each slide + caption
+    const slideEditors = (it.slides_text || []).map((s, i) => {
+      const n = i + 1;
+      const text = s.text_overlay || s.text || "";
+      const label = it.format === "reel" ? `Linha ${String(n).padStart(2, "0")}` : `Slide ${String(n).padStart(2, "0")}`;
+      return `<div class="viewer-edit-slide">
+        <label class="viewer-edit-slide__label">${label} <span class="hint">edita aqui — muda ao vivo</span></label>
+        <textarea data-edit-slide="${n}" rows="3">${this._escapeForHtml(text)}</textarea>
+        <span class="viewer-edit-slide__fb" data-fb-slide="${n}"></span>
+      </div>`;
+    }).join("");
+    const captionEditor = it.caption ? `
+      <div class="viewer-edit-caption">
+        <label class="viewer-edit-caption__label">Descrição (Instagram) <span class="hint" style="font-weight:400;text-transform:none;letter-spacing:0;opacity:0.5;font-size:9px">edita aqui</span></label>
+        <textarea data-edit-caption rows="4">${this._escapeForHtml(it.caption || "")}</textarea>
+        <span class="viewer-edit-caption__fb" data-fb-caption></span>
+      </div>` : "";
+
     this.innerHTML = `
       <div class="viewer-modal viewer-modal--zoom" data-format="${it.format}" role="dialog" aria-modal="true" aria-label="${this._escapeForHtml(it.title || it.theme || "")}">
         <div class="viewer-frame-col">
@@ -285,13 +312,15 @@ class ItemViewer extends HTMLElement {
               </div>
               <p class="viewer-status-line" data-status-line></p>
             </div>
+            ${slideEditors}
+            ${captionEditor}
             <div class="viewer-actions" style="display:flex;gap:0;margin-top:8px;flex-wrap:wrap">
-              <button class="btn" data-action="start-edit" style="flex:1 0 100%;padding:10px;border:2px solid var(--border);background:var(--text);color:var(--bg);cursor:pointer;font:700 12px/1 'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:4px">✎ Editar textos dos slides</button>
+              <button class="btn" data-action="start-edit" style="flex:1 0 100%;padding:10px;border:2px solid var(--border);background:var(--text);color:var(--bg);cursor:pointer;font:700 12px/1 'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:4px">✎ Assistente de revisão</button>
               <button class="btn" data-action="approve-direct" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 'JetBrains Mono',monospace;text-transform:uppercase">✓ Aprovar</button>
               <button class="btn" data-action="reject-direct" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 'JetBrains Mono',monospace;text-transform:uppercase">✗ Reprovar</button>
               <button class="btn" data-action="publish" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 'JetBrains Mono',monospace;text-transform:uppercase">📌 Publicado</button>
             </div>
-            <p class="viewer-hint">${isCarousel ? "Desliza entre os slides com ‹ ›. " : ""}Clica em "Editar textos" para revisar e corrigir o copy de cada slide.</p>
+            <p class="viewer-hint">${isCarousel ? "Desliza entre os slides com ‹ ›. " : ""}Edita o texto de cada slide directamente nos campos acima. As alterações guardam automaticamente.</p>
           </div>
         </aside>
         <button class="viewer-close" data-action="close" aria-label="Fechar">×</button>
@@ -309,6 +338,7 @@ class ItemViewer extends HTMLElement {
     this._updateCounter();
     this._refreshStatusLine();
     this._bindDefaultHandlers();
+    this._bindDirectEditors();
   }
 
   _refreshStatusLine() {
@@ -582,6 +612,42 @@ class ItemViewer extends HTMLElement {
       document.body.appendChild(toast);
       setTimeout(() => { toast.style.transition = "opacity 200ms,transform 200ms"; toast.style.opacity = "0"; toast.style.transform = "translateX(-50%) translateY(10px)"; setTimeout(() => toast.remove(), 220); }, 1400);
     } catch {}
+  }
+
+  _bindDirectEditors() {
+    this._editTimers = {};
+    // Slide text editors
+    this.querySelectorAll("[data-edit-slide]").forEach(ta => {
+      const n = parseInt(ta.dataset.editSlide, 10);
+      ta.addEventListener("input", () => {
+        this._editFrameH1(this.querySelector(".viewer-frame-wrap iframe"), n, ta.value);
+        this._debounceEdit(`slide-${n}`, async () => {
+          await approvalStore.setSlideCopy(this._item.id, n, ta.value.trim());
+          const idx = n - 1;
+          if (this._item.slides_text && this._item.slides_text[idx]) {
+            const f = this._item.slides_text[idx].text_overlay != null ? "text_overlay" : "text";
+            this._item.slides_text[idx][f] = ta.value.trim();
+          }
+          const fb = this.querySelector(`[data-fb-slide="${n}"]`);
+          if (fb) { fb.textContent = "✓"; setTimeout(() => { fb.textContent = ""; }, 1500); }
+        });
+      });
+    });
+    // Caption editor
+    const capTa = this.querySelector("[data-edit-caption]");
+    if (capTa) capTa.addEventListener("input", () => {
+      this._debounceEdit("caption", async () => {
+        await approvalStore.setCaptionCopy(this._item.id, capTa.value.trim());
+        this._item.caption = capTa.value.trim();
+        const fb = this.querySelector("[data-fb-caption]");
+        if (fb) { fb.textContent = "✓"; setTimeout(() => { fb.textContent = ""; }, 1500); }
+      });
+    });
+  }
+
+  _debounceEdit(key, fn) {
+    clearTimeout(this._editTimers[key]);
+    this._editTimers[key] = setTimeout(fn, 500);
   }
 
   _escapeForHtml(s) {
