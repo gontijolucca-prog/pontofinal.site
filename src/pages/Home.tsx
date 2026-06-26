@@ -1,43 +1,22 @@
 import { useState } from 'react';
 import { db } from '../firebase';
 import { collection, addDoc } from 'firebase/firestore';
-import VideoTooltip from '../components/VideoTooltip';
-import { downloadPropostaPdf, downloadCustomPropostaPdf } from '../utils/generatePropostaPdf';
+import { downloadPropostaPdf } from '../utils/generatePropostaPdf';
 
 export default function Home() {
   const [formStatus, setFormStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null);
   const [contactMethod, setContactMethod] = useState<'telefone' | 'email'>('telefone');
   
-  // Custom Plan State
-  const [customQuantities, setCustomQuantities] = useState({
-    static: 0,
-    carousel: 0,
-    video: 0
-  });
-  const [customPlan, setCustomPlan] = useState<{total: number, static: number, carousel: number, video: number} | null>(null);
-
-  const handleQuantityChange = (type: string, value: string) => {
-    setCustomQuantities(prev => ({ ...prev, [type]: Math.max(0, parseInt(value) || 0) }));
-  };
-
-  const generateCustomPlan = () => {
-    const total = (customQuantities.static * 5) + (customQuantities.carousel * 10) + (customQuantities.video * 20);
-    if (total > 0) {
-      setCustomPlan({ ...customQuantities, total });
-    }
-  };
-
   return (
     <main>
       {/* HERO */}
       <header className="hero section">
           <div className="container hero-content">
               <h1 className="hero-title">
-                  O Seu Novo <span className="highlight">Website.</span> E as suas<br/>
-                  <span className="highlight">Redes Sociais.</span><br/>
-                  Num só lugar.
+                  O Seu Novo <span className="highlight">Website.</span><br/>
+                  <span className="highlight">Feito à Sua Medida.</span>
               </h1>
-              <p className="hero-subtitle">Agência digital focada em resultados. Websites de alta performance e gestão de conteúdos para redes sociais. Cresça a sua marca sem dores de cabeça.</p>
+              <p className="hero-subtitle">Agência digital focada em resultados. Websites de alta performance. Cresça a sua marca sem dores de cabeça.</p>
               <div className="hero-cta">
                   <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-primary btn-large">Começar Agora</button>
                   <button onClick={() => document.getElementById('como-funciona')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-large">Como Funciona ↓</button>
@@ -68,12 +47,12 @@ export default function Home() {
                   <div className="brutal-card card-dark">
                       <div className="card-icon">01</div>
                       <h3 className="card-title">Tudo num Só Lugar</h3>
-                      <p>Desde a criação do seu website até à publicação nas suas redes sociais. Centralize a sua presença digital com uma única equipa dedicada a fazê-lo crescer.</p>
+                      <p>Desde a criação do seu website ao seu lançamento. Centralize a sua presença digital com uma única equipa dedicada a fazê-lo crescer.</p>
                   </div>
                   <div className="brutal-card card-dark">
                       <div className="card-icon">02</div>
                       <h3 className="card-title">Presença que Gera Negócio</h3>
-                      <p>O seu site nasce otimizado para o Google e as suas redes sociais focadas em construir comunidade. Não fazemos apenas design, criamos autoridade real.</p>
+                      <p>O seu site nasce otimizado para o Google, focado em construir autoridade e gerar resultados. Não fazemos apenas design, criamos presença real.</p>
                   </div>
                   <div className="brutal-card card-dark">
                       <div className="card-icon">03</div>
@@ -90,196 +69,6 @@ export default function Home() {
               <h2 className="section-title text-center">Planos Mensais.<br/>Transparência Total.</h2>
               <p className="section-subtitle text-center" style={{marginBottom: '4rem'}}>Sem propostas fechadas. O que vê é exatamente o que paga.</p>
               
-               <h3 id="planos-conteudo" className="text-center" style={{fontSize: '2.5rem', marginTop: '2rem'}}>Planos de Produção de Conteúdo</h3>
-               
-                {/* Calculadora de Plano Customizado */}
-                <div className="brutal-card" style={{ maxWidth: '1000px', margin: '0.5rem auto 2rem', padding: '0.5rem 1rem', border: '2px solid black', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-                    
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <label style={{ fontWeight: 700, fontSize: '0.8rem' }}>Estáticas</label>
-                        <input 
-                            type="number" 
-                            style={{ 
-                                width: '40px', 
-                                fontSize: '1.2rem', 
-                                fontWeight: 900, 
-                                background: 'none', 
-                                border: 'none', 
-                                outline: 'none', 
-                                textAlign: 'center', 
-                                padding: 0,
-                                appearance: 'textfield'
-                            }} 
-                            value={customQuantities.static} 
-                            onChange={(e) => handleQuantityChange('static', e.target.value)}
-                            min="0"
-                        />
-                    </div>
-
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <label style={{ fontWeight: 700, fontSize: '0.8rem' }}>Carrosséis</label>
-                        <input 
-                            type="number" 
-                            style={{ 
-                                width: '40px', 
-                                fontSize: '1.2rem', 
-                                fontWeight: 900, 
-                                background: 'none', 
-                                border: 'none', 
-                                outline: 'none', 
-                                textAlign: 'center', 
-                                padding: 0,
-                                appearance: 'textfield'
-                            }} 
-                            value={customQuantities.carousel} 
-                            onChange={(e) => handleQuantityChange('carousel', e.target.value)}
-                            min="0"
-                        />
-                    </div>
-
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <label style={{ fontWeight: 700, fontSize: '0.8rem' }}>Vídeos</label>
-                        <input 
-                            type="number" 
-                            style={{ 
-                                width: '40px', 
-                                fontSize: '1.2rem', 
-                                fontWeight: 900, 
-                                background: 'none', 
-                                border: 'none', 
-                                outline: 'none', 
-                                textAlign: 'center', 
-                                padding: 0,
-                                appearance: 'textfield'
-                            }} 
-                            value={customQuantities.video} 
-                            onChange={(e) => handleQuantityChange('video', e.target.value)}
-                            min="0"
-                        />
-                    </div>
-
-                    <button onClick={generateCustomPlan} className="btn btn-primary" style={{ padding: '0.3rem 0.5rem', fontSize: '0.8rem', whiteSpace: 'nowrap' }}>Gerar Plano Customizado</button>
-                </div>
-
-                <div className="pricing-grid" style={{marginBottom: '6rem'}}>
-                    {customPlan && (
-                        <div className="brutal-card pricing-card featured-pricing custom-plan-card" style={{ position: 'relative' }}>
-                            <button 
-                                onClick={() => setCustomPlan(null)} 
-                                style={{ 
-                                    position: 'absolute', 
-                                    top: '10px', 
-                                    left: '10px', 
-                                    width: '21px', 
-                                    height: '21px', 
-                                    border: '2px solid black', 
-                                    backgroundColor: 'white', 
-                                    fontWeight: 900, 
-                                    cursor: 'pointer', 
-                                    zIndex: 10,
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    fontSize: '0.7rem'
-                                }}
-                            >✕</button>
-                            <div className="featured-badge">Plano Customizado</div>
-                            <div className="pricing-header">
-                                <h3>Personalizado</h3>
-                                <div className="price anchored-price">
-                                    <div className="new-price">
-                                        <span>{customPlan.total}€/mês</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <p className="pricing-desc"><strong>{customPlan.static + customPlan.carousel + customPlan.video} posts/mês</strong> configurados por si.</p>
-                            <ul className="pricing-features">
-                                {customPlan.static > 0 && <li>{customPlan.static} imagens estáticas por mês</li>}
-                                {customPlan.carousel > 0 && <li>{customPlan.carousel} carrosséis por mês</li>}
-                                {customPlan.video > 0 && <li>{customPlan.video} <VideoTooltip>vídeos</VideoTooltip> por mês</li>}
-                                <li>Legendas incluídas</li>
-                                <li>Planeamento básico de conteúdos</li>
-                            </ul>
-                            <button onClick={() => downloadCustomPropostaPdf({ static: customPlan.static, carousel: customPlan.carousel, video: customPlan.video }, customPlan.total)} className="btn btn-primary btn-full" style={{ marginBottom: '0.75rem' }}>💾 Guardar Proposta</button>
-                            <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-primary btn-full">Começar Agora</button>
-                        </div>
-                    )}
-
- 
-                    {!customPlan && (
-                        <>
-                           {/* Conteudo - Bronze */}
-                           <div className="brutal-card pricing-card">
-                               <div className="pricing-header">
-                                   <h3>Bronze</h3>
-                                   <div className="price anchored-price">
-                                       <div className="new-price">
-                                           <span>150€/mês</span>
-                                       </div>
-                                   </div>
-                               </div>
-                               <p className="pricing-desc"><strong>20 posts/mês</strong> ideal para manter uma presença ativa contínua.</p>
-                               <ul className="pricing-features">
-                                   <li>12 imagens estáticas por mês</li>
-                                   <li>8 carrosséis por mês (até 5 slides cada)</li>
-                                   <li>Legendas incluídas</li>
-                               </ul>
-                                <button onClick={() => downloadPropostaPdf('social-bronze')} className="btn btn-secondary btn-full" style={{ marginBottom: '0.75rem' }}>💾 Guardar Proposta</button>
-                                <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-full">Começar Agora</button>
-                            </div>
-                        
-                            {/* Conteudo - Prata */}
-                            <div className="brutal-card pricing-card featured-pricing">
-                                <div className="featured-badge">Mais Escolhido</div>
-                                <div className="pricing-header">
-                                    <h3>Prata</h3>
-                                    <div className="price anchored-price">
-                                        <div className="new-price">
-                                            <span>220€/mês</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p className="pricing-desc"><strong>28 posts/mês</strong> para empresas que querem dominar o feed e o algoritmo.</p>
-                                <ul className="pricing-features">
-                                    <li>16 imagens estáticas por mês</li>
-                                    <li>12 carrosséis por mês (até 8 slides cada)</li>
-                                    <li>Legendas incluídas</li>
-                                    <li>Planeamento mensal de conteúdos</li>
-                                </ul>
-                                <button onClick={() => downloadPropostaPdf('social-prata')} className="btn btn-primary btn-full" style={{ marginBottom: '0.75rem' }}>💾 Guardar Proposta</button>
-                                <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-primary btn-full">Começar Agora</button>
-                            </div>
-                        
-                            {/* Conteudo - Ouro */}
-                            <div className="brutal-card pricing-card bg-stripe">
-                                <div className="pricing-header">
-                                    <h3>Ouro</h3>
-                                    <div className="price anchored-price">
-                                        <div className="new-price">
-                                            <span>350€/mês</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p className="pricing-desc"><strong>40 posts/mês</strong> A estratégia máxima de conteúdo, com <VideoTooltip>vídeo</VideoTooltip> e análise.</p>
-                                <ul className="pricing-features">
-                                    <li>20 imagens estáticas por mês</li>
-                                    <li>16 carrosséis por mês (até 10 slides cada)</li>
-                                    <li>4 <VideoTooltip>vídeos</VideoTooltip> por mês</li>
-                                    <li>Legendas incluídas</li>
-                                    <li>Planeamento com estratégia de temas</li>
-                                    <li>Análise de métricas do mês anterior</li>
-                                    <li>1 Reunião de alinhamento criativo (30m)</li>
-                                </ul>
-                                <button onClick={() => downloadPropostaPdf('social-ouro')} className="btn btn-secondary btn-full" style={{ marginBottom: '0.75rem' }}>💾 Guardar Proposta</button>
-                                <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-full">Começar Agora</button>
-                            </div>
-                        </>
-                    )}
-                </div>
-
-
-
-
               <h3 id="planos-websites" className="text-center" style={{fontSize: '2.5rem', marginTop: '2rem'}}>Planos de Websites</h3>
               <div className="price-disclaimer">
                   <strong>Nota:</strong> Todos os planos de website requerem uma Taxa de Arranque única para configuração inicial e design. As manutenções incluem alojamento e segurança.
@@ -370,12 +159,12 @@ export default function Home() {
               <div className="process-wrapper">
                   <div className="process-text">
                       <h2 className="section-title">Sem Reuniões Intermináveis. Processo Fricção-Zero.</h2>
-                      <p>O seu tempo é dinheiro. O nosso modelo ágil permite que lance o seu website premium ou inicie a gestão das suas redes sociais de forma rápida e eficiente.</p>
+                      <p>O seu tempo é dinheiro. O nosso modelo ágil permite que lance o seu website premium de forma rápida e eficiente.</p>
                   </div>
                   <div className="process-steps">
                       <div className="step-card brutal-card">
                           <div className="step-number">1. Os Planos</div>
-                          <p>Escolhe o plano de Website e/o de Redes Sociais (<button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} style={{ textDecoration: 'underline', background: 'none', border: 'none', color: 'inherit', font: 'inherit', cursor: 'pointer', padding: 0 }}>abaixo</button>) adequados ao seu projeto local.</p>
+                          <p>Escolhe o plano de Website (<button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} style={{ textDecoration: 'underline', background: 'none', border: 'none', color: 'inherit', font: 'inherit', cursor: 'pointer', padding: 0 }}>abaixo</button>) adequado ao seu projeto local.</p>
                       </div>
                       <div className="step-card brutal-card">
                           <div className="step-number">2. O Formulário de Briefing</div>
@@ -383,11 +172,11 @@ export default function Home() {
                       </div>
                       <div className="step-card brutal-card">
                           <div className="step-number">3. Arranque Imediato</div>
-                          <p>Recebe o link seguro para efetuar o pagamento. Iniciamos o planeamento das redes ou a construção do site imediatamente após validação.</p>
+                          <p>Recebe o link seguro para efetuar o pagamento. Iniciamos a construção do site imediatamente após validação.</p>
                       </div>
                       <div className="step-card brutal-card">
                           <div className="step-number bg-red text-white">4. Em Poucos Dias a Funcionar</div>
-                          <p>A nossa equipa opera cirurgicamente para que tenha o website e a máquina de conteúdo no ar num espaço de dias.</p>
+                          <p>A nossa equipa opera cirurgicamente para que tenha o seu website no ar num espaço de dias.</p>
                       </div>
                   </div>
               </div>
@@ -468,10 +257,6 @@ export default function Home() {
                                       <option value="web-bronze">Websites: Plano Bronze</option>
                                       <option value="web-prata">Websites: Plano Prata</option>
                                       <option value="web-ouro">Websites: Plano Ouro</option>
-                                      <option value="social-bronze">Conteúdos: Plano Bronze</option>
-                                      <option value="social-prata">Conteúdos: Plano Prata</option>
-                                      <option value="social-ouro">Conteúdos: Plano Ouro</option>
-                                      <option value="ambos">Ambos (Website e Conteúdos)</option>
                                       <option value="indeciso">Ainda não sei, quero falar convosco</option>
                                   </select>
                               </div>

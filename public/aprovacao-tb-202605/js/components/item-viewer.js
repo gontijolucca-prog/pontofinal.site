@@ -285,7 +285,12 @@ class ItemViewer extends HTMLElement {
               </div>
               <p class="viewer-status-line" data-status-line></p>
             </div>
-            <p class="viewer-hint">${isCarousel ? "Desliza entre os slides com ‹ ›. " : ""}Esta é a vista ampliada. O texto, a data e o Aprovar ficam na lista (fecha para voltar).</p>
+            <div class="viewer-actions" style="display:flex;gap:0;margin-top:8px">
+              <button class="btn btn--approve" data-action="approve-direct" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 monospace;text-transform:uppercase">✓ Aprovar</button>
+              <button class="btn btn--reject" data-action="reject-direct" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 monospace;text-transform:uppercase">✗ Reprovar</button>
+              <button class="btn btn--publish" data-action="publish" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 monospace;text-transform:uppercase">📌 Publicado</button>
+            </div>
+            <p class="viewer-hint">${isCarousel ? "Desliza entre os slides com ‹ ›. " : ""}Zoom ao vivo. Edita o texto no assistente de aprovação.</p>
           </div>
         </aside>
         <button class="viewer-close" data-action="close" aria-label="Fechar">×</button>
@@ -311,7 +316,7 @@ class ItemViewer extends HTMLElement {
     const st = approvalStore.get(this._item.id);
     if (st.status === "pending" || !st.status) { el.textContent = ""; el.hidden = true; return; }
     el.hidden = false;
-    const label = st.status === "approved" ? "Aprovado" : "Rejeitado";
+    const label = st.status === "published" ? "Publicado" : st.status === "approved" ? "Aprovado" : "Rejeitado";
     el.innerHTML = `${label}${st.author ? ` por <strong>${this._escapeForHtml(st.author)}</strong>` : ""}`;
     el.dataset.status = st.status;
   }
@@ -327,6 +332,27 @@ class ItemViewer extends HTMLElement {
       if (a === "next")   return this._step(+1);
       if (a === "start-approve") return this._startWizard("approved");
       if (a === "start-reject")  return this._startWizard("rejected");
+      if (a === "approve-direct") {
+        if (confirm("Aprovar este item?")) {
+          import("../stores/approval-store.js").then(m => m.approvalStore.set(this._item.id, "approved"));
+          this._refreshStatusLine();
+        }
+        return;
+      }
+      if (a === "reject-direct") {
+        if (confirm("Reprovar este item?")) {
+          import("../stores/approval-store.js").then(m => m.approvalStore.set(this._item.id, "rejected"));
+          this._refreshStatusLine();
+        }
+        return;
+      }
+      if (a === "publish") {
+        if (confirm("Marcar como publicado?")) {
+          import("../stores/approval-store.js").then(m => m.approvalStore.set(this._item.id, "published"));
+          this._refreshStatusLine();
+        }
+        return;
+      }
     });
 
     const dateInput = this.querySelector("input[data-edit-date]");

@@ -61,58 +61,6 @@ const plans: Record<string, PlanData> = {
       { label: 'Manutenção Mensal', value: '80€/mês' },
     ],
   },
-  'social-bronze': {
-    name: 'Social Bronze',
-    subtitle: 'Gestão de Redes Sociais',
-    features: [
-      '<strong>20 publicações</strong> por mês',
-      '3 posts regulares por semana',
-      '<strong>2 carrosseis</strong>/semana (até 5 slides cada)',
-      'Legendas persuasivas + pesquisa de hashtags',
-      'Design de acordo com a identidade da marca',
-    ],
-    objetivo:
-      'Estabelecer uma presença consistente nas redes sociais com conteúdo de qualidade e regularidade para construir audiência e autoridade.',
-    pricing: [
-      { label: 'Investimento Mensal', value: '150€/mês' },
-    ],
-  },
-  'social-prata': {
-    name: 'Social Prata',
-    subtitle: 'Gestão de Redes Sociais',
-    features: [
-      '<strong>28 publicações</strong> por mês',
-      '4 posts regulares por semana',
-      '<strong>3 carrosseis</strong>/semana (até 8 slides cada)',
-      'Legendas persuasivas + pesquisa de hashtags',
-      'Planeamento de conteúdo mensal',
-    ],
-    objetivo:
-      'Aumentar o alcance e engagement com uma estratégia de conteúdo diversificada, combinando posts regulares, carrosseis de valor e planeamento mensal.',
-    pricing: [
-      { label: 'Investimento Mensal', value: '220€/mês' },
-    ],
-  },
-  'social-ouro': {
-    name: 'Social Ouro',
-    subtitle: 'Gestão de Redes Sociais',
-    features: [
-      '<strong>36 publicações</strong> por mês',
-      '5 posts regulares por semana',
-      '<strong>4 carrosseis</strong>/semana (até 10 slides cada)',
-       '<strong>1 <span class="video-tooltip">vídeo<span class="tooltip-text">Vídeos gerados por AI (máx. 25s). Para durações superiores, consulte-nos para orçamento extra.</span></span></strong>/semana (Reels/TikTok/Shorts)',
-
-      'Planeamento mensal com estratégia de temas',
-      'Análise de métricas do mês anterior',
-      '1 reunião de alinhamento criativo (30 min)',
-    ],
-    objetivo:
-       'Criar conteúdo focado em autoridade e engagement, combinando <span class="video-tooltip">vídeo<span class="tooltip-text">Vídeos gerados por AI (máx. 25s). Para durações superiores, consulte-nos para orçamento extra.</span></span>> dinâmico para alcance e carrosseis educativos para fidelização, com análise de métricas mensal.',
-
-    pricing: [
-      { label: 'Investimento Mensal', value: '350€/mês' },
-    ],
-  },
 };
 
 export default function PropostaPlan() {

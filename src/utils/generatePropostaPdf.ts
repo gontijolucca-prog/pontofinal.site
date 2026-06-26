@@ -60,56 +60,6 @@ const plans: Record<string, PlanData> = {
       { label: 'Manutencao Mensal', value: '80 EUR/mes' },
     ],
   },
-  'social-bronze': {
-    name: 'Social Bronze',
-    subtitle: 'Gestao de Redes Sociais',
-    features: [
-      '20 publicacoes por mes',
-      '3 posts regulares por semana',
-      '2 carrosseis/semana (ate 5 slides cada)',
-      'Legendas persuasivas + pesquisa de hashtags',
-      'Design de acordo com a identidade da marca',
-    ],
-    objetivo:
-      'Estabelecer uma presenca consistente nas redes sociais com conteudo de qualidade e regularidade para construir audiencia e autoridade.',
-    pricing: [
-      { label: 'Investimento Mensal', value: '150 EUR/mes' },
-    ],
-  },
-  'social-prata': {
-    name: 'Social Prata',
-    subtitle: 'Gestao de Redes Sociais',
-    features: [
-      '28 publicacoes por mes',
-      '4 posts regulares por semana',
-      '3 carrosseis/semana (ate 8 slides cada)',
-      'Legendas persuasivas + pesquisa de hashtags',
-      'Planeamento de conteudo mensal',
-    ],
-    objetivo:
-      'Aumentar o alcance e engagement com uma estrategia de conteudo diversificada, combinando posts regulares, carrosseis de valor e planeamento mensal.',
-    pricing: [
-      { label: 'Investimento Mensal', value: '220 EUR/mes' },
-    ],
-  },
-  'social-ouro': {
-    name: 'Social Ouro',
-    subtitle: 'Gestao de Redes Sociais',
-    features: [
-      '36 publicacoes por mes',
-      '5 posts regulares por semana',
-      '4 carrosseis/semana (ate 10 slides cada)',
-      '1 video/semana (Reels/TikTok/Shorts)',
-      'Planeamento mensal com estrategia de temas',
-      'Analise de metricas do mes anterior',
-      '1 reuniao de alinhamento criativo (30 min)',
-    ],
-    objetivo:
-      'Criar conteudo focado em autoridade e engagement, combinando video dinamico para alcance e carrosseis educativos para fidelizacao, com analise de metricas mensal.',
-    pricing: [
-      { label: 'Investimento Mensal', value: '350 EUR/mes' },
-    ],
-  },
 };
 
 // Colors
@@ -294,28 +244,4 @@ export function downloadPropostaPdf(planId: string) {
   const plan = plans[planId];
   if (!plan) return;
   generate(plan, `proposta-${planId}.pdf`);
-}
-
-export function downloadCustomPropostaPdf(
-  quantities: { static: number; carousel: number; video: number },
-  total: number
-) {
-  const features: string[] = [];
-  if (quantities.static > 0) features.push(`${quantities.static} imagens estaticas por mes`);
-  if (quantities.carousel > 0) features.push(`${quantities.carousel} carrosseis por mes`);
-  if (quantities.video > 0) features.push(`${quantities.video} videos por mes (Reels/TikTok/Shorts)`);
-  features.push('Legendas persuasivas e pesquisa de hashtags');
-  features.push('Design de acordo com a identidade da marca');
-  features.push('Planeamento basico de conteudos');
-
-  const plan: PlanData = {
-    name: 'Personalizado',
-    subtitle: 'Gestao de Redes Sociais',
-    features,
-    objetivo:
-      'Criar um plano de conteudo a medida das necessidades do negocio, combinando os formatos certos para maximizar alcance e engagement dentro do orcamento definido.',
-    pricing: [{ label: 'Investimento Mensal', value: `${total} EUR/mes` }],
-  };
-
-  generate(plan, 'proposta-personalizado.pdf');
 }

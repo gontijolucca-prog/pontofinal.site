@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="app-version" content="20260624-1957" />
+<meta name="app-version" content="20260626-1248" />
 <title>Aprovação · Conteúdo</title>
 
 <script>
@@ -109,6 +109,60 @@
 <link rel="stylesheet" href="styles/tokens.css" />
 <link rel="stylesheet" href="styles/version-badge.css" />
 <link rel="stylesheet" href="styles/components.css" />
+<style>
+  /* ── REDESIGN 2026-06: Calendar as main view ── */
+  .section--hidden { display: none !important; }
+  #carrosseisSection, #postsSection, #reelsSection { display: none; }
+  .section-toggle {
+    font: 700 11px/1 'JetBrains Mono', monospace;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 8px 16px; cursor: pointer;
+    border: 2px solid var(--border); background: var(--bg);
+    color: var(--text); margin-left: auto;
+  }
+  .section-toggle:hover { background: var(--text); color: var(--bg); }
+  .calendar-only-layout { display: flex; flex-direction: column; gap: 0; }
+  .calendar-only-layout > .section:first-child { border-bottom: 3px solid var(--border); }
+  /* Published section */
+  .published-section {
+    padding: 2rem 1.5rem;
+    border-top: 3px solid var(--border);
+    background: var(--bg);
+  }
+  .published-section h2 {
+    font: 700 14px/1 'JetBrains Mono', monospace;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .published-section h2 .count {
+    background: var(--accent); color: #fff;
+    padding: 4px 10px; font-size: 11px;
+  }
+  .published-grid { display: flex; flex-direction: column; gap: 0.75rem; }
+  .published-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 14px;
+    border: 2px solid var(--border);
+    font: 500 13px/1.4 'JetBrains Mono', monospace;
+    opacity: 0.75;
+  }
+  .published-item:hover { opacity: 1; }
+  .published-item .tag { margin: 0; }
+  /* Modal improvements */
+  .viewer-modal--redesign {
+    max-width: 1200px !important;
+    width: 95vw !important;
+    grid-template-columns: 1fr 380px !important;
+  }
+  .viewer-modal--redesign .viewer-frame-wrap {
+    min-height: 70vh !important;
+  }
+  @media (max-width: 768px) {
+    .viewer-modal--redesign { grid-template-columns: 1fr !important; }
+    #carrosseisSection, #postsSection, #reelsSection { display: none !important; }
+  }
+</style>
 </head>
 <body>
 <div id="loader" class="loader" aria-hidden="false" role="status" aria-live="polite">
@@ -232,6 +286,12 @@
 <div id="offlineBanner" class="offline-banner" hidden>
   ⚠ Sem ligação à internet. As tuas alterações ficam guardadas localmente e sincronizam quando voltar.
 </div>
+
+<!-- PUBLISHED SECTION -->
+<section class="published-section" id="publishedSection" hidden>
+  <h2>📌 Publicados <span class="count" id="publishedCount">0</span></h2>
+  <div class="published-grid" id="publishedGrid"></div>
+</section>
 
 <footer class="app-footer">
   <span id="footerStatus">Estado sincronizado</span>

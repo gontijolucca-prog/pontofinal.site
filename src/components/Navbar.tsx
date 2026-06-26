@@ -37,7 +37,6 @@ export default function Navbar() {
   };
 
   const planOptions = [
-    { label: 'Conteúdo', id: 'planos-conteudo' },
     { label: 'Website', id: 'planos-websites' },
   ];
 

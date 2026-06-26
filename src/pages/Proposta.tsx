@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import VideoTooltip from '../components/VideoTooltip';
 
 export default function Proposta() {
   const [editMode, setEditMode] = useState(false);
@@ -57,7 +56,7 @@ export default function Proposta() {
         <div className="a4-page brutal-card-static">
           <header className="proposta-header shrink-0">
             <h1 className="proposta-title" contentEditable={editMode} suppressContentEditableWarning>PROPOSTA DE SERVIÇOS</h1>
-            <p className="proposta-subtitle" contentEditable={editMode} suppressContentEditableWarning>Gestão de Redes Sociais</p>
+            <p className="proposta-subtitle" contentEditable={editMode} suppressContentEditableWarning>Websites</p>
           </header>
 
           <section className="proposta-section flex flex-col pt-6 pb-4">
@@ -68,12 +67,10 @@ export default function Proposta() {
                 <div className="proposta-details">
                   <h3 className="font-bold text-xl mb-3" contentEditable={editMode} suppressContentEditableWarning>O que está incluído:</h3>
                   <ul className="pricing-features mb-0" style={{ fontSize: '0.90rem' }}>
-                                <li contentEditable={editMode} suppressContentEditableWarning><strong>2 <VideoTooltip>Vídeos</VideoTooltip></strong> (Reels/TikTok/Shorts) com edição dinâmica</li>
-
-                    <li contentEditable={editMode} suppressContentEditableWarning><strong>8 Carrosséis</strong> (até 10 slides cada) de alto valor</li>
-                    <li contentEditable={editMode} suppressContentEditableWarning>Legendas persuasivas e pesquisa de hashtags</li>
-                    <li contentEditable={editMode} suppressContentEditableWarning>Planeamento de conteúdo mensal</li>
-                    <li contentEditable={editMode} suppressContentEditableWarning>Design de acordo com a identidade da marca</li>
+                                <li contentEditable={editMode} suppressContentEditableWarning><strong>Website de 1 página</strong> profissional</li>
+                    <li contentEditable={editMode} suppressContentEditableWarning>Design responsivo (mobile + desktop)</li>
+                    <li contentEditable={editMode} suppressContentEditableWarning>Alojamento e segurança incluídos</li>
+                    <li contentEditable={editMode} suppressContentEditableWarning>SEO básico configurado</li>
                   </ul>
                 </div>
 
@@ -94,7 +91,7 @@ export default function Proposta() {
                 <div className="brutal-card-static card-dark p-4 flex flex-col justify-center">
                   <h3 className="font-bold text-base mb-1 text-white" contentEditable={editMode} suppressContentEditableWarning>Objetivo</h3>
                    <p className="text-gray-300 text-xs" contentEditable={editMode} suppressContentEditableWarning>
-                     Criar conteúdo focado em autoridade e engagement, combinando o formato dinâmico do <VideoTooltip>vídeo</VideoTooltip> para alcance e o formato educativo/narrativo do carrossel para fidelização da audiência.
+                     Criar conteúdo focado em autoridade e engagement, combinando design moderno para alcance e conversão de audiência.
                    </p>
 
                 </div>

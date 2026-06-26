@@ -278,6 +278,7 @@ function render() {
 
   writeUrlState();
   updateCounts();
+  renderPublishedSection();
 }
 
 function hasActiveFilters() {
@@ -328,14 +329,8 @@ function bindOpen() {
   document.addEventListener("calendar:item-click", e => {
     const it = findItem(e.detail.id);
     if (!it) return;
-    const card = document.querySelector(`article.card[data-item-id="${CSS.escape(e.detail.id)}"]`);
-    if (card) {
-      card.scrollIntoView({ behavior: "smooth", block: "center" });
-      card.classList.add("is-located");
-      setTimeout(() => card.classList.remove("is-located"), 2600);
-    } else {
-      els.viewer().open(it); // card fora do filtro/mês visível
-    }
+    // Always open viewer (sections are hidden in calendar-only mode)
+    els.viewer().open(it);
   });
   // Keyboard advance dentro do viewer (A/R/J/K).
   document.addEventListener("viewer:advance", e => {
@@ -352,13 +347,14 @@ function updateCounts() {
   const items = visibleItems();
   // Counts são por item visível: o approval-store guarda por id, mas só queremos
   // mostrar approved/rejected/pending para os items presentes no scope actual.
-  let approved = 0, rejected = 0;
+  let approved = 0, rejected = 0, published = 0;
   for (const it of items) {
     const s = approvalStore.get(it.id)?.status;
-    if (s === "approved") approved++;
+    if (s === "published") published++;
+    else if (s === "approved") approved++;
     else if (s === "rejected") rejected++;
   }
-  const pending = items.length - approved - rejected;
+  const pending = items.length - approved - rejected - published;
   els.approvedCount().textContent = String(approved);
   els.rejectedCount().textContent = String(rejected);
   els.pendingCount().textContent  = String(pending);
@@ -405,6 +401,47 @@ function updateHeroAction(approved, rejected, pending) {
   }
 }
 
+// ── PUBLISHED SECTION ──
+function renderPublishedSection() {
+  const section = document.getElementById("publishedSection");
+  const grid = document.getElementById("publishedGrid");
+  if (!section || !grid) return;
+  
+  const publishedItems = state.items.filter(it => {
+    const s = approvalStore.get(it.id)?.status;
+    return s === "published";
+  });
+  
+  if (publishedItems.length === 0) {
+    section.hidden = true;
+    return;
+  }
+  section.hidden = false;
+  document.getElementById("publishedCount").textContent = String(publishedItems.length);
+  
+  grid.innerHTML = publishedItems.map(it => {
+    const code = (it.id || "").split("-").pop();
+    return `<div class="published-item" onclick="document.querySelector('item-viewer')?.open(${JSON.stringify(it).replace(/"/g, "'")})">
+      <span class="tag tag--accent">${it.format || "?"}</span>
+      <span>${(it.title || it.theme || code || "").replace(/</g, "&lt;")}</span>
+      <span style="margin-left:auto;font-size:11px;opacity:0.5">${code}</span>
+    </div>`;
+  }).join("");
+  
+  // Update calendar items
+  document.querySelectorAll("month-calendar .cal-item").forEach(el => {
+    const id = el.getAttribute("data-item-id");
+    if (id && publishedItems.some(p => p.id === id)) {
+      el.classList.add("cal-item--published");
+    }
+  });
+}
+
+// Re-render published section on approval changes
+window.addEventListener("approval:changed", () => {
+  renderPublishedSection();
+});
+
 // Abre o 1o item pendente no viewer (CTA do hero-action banner).
 // Procura por items que NAO estao em status approved/rejected. Items
 // sem entrada no cache contam como pending (default).
@@ -412,7 +449,7 @@ function openNextPending() {
   const items = visibleItems();
   const next = items.find(it => {
     const s = approvalStore.get(it.id)?.status;
-    return s !== "approved" && s !== "rejected";
+    return s !== "approved" && s !== "rejected" && s !== "published";
   });
   if (!next) return;
   const viewer = document.querySelector("item-viewer");
