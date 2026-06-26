@@ -1,10 +1,9 @@
-<!doctype html>
 <html lang="pt-PT">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TechBody U · da_caixa_ao_treino</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,400;0,700;0,800;1,200;1,400;1,800&family=Manrope:wght@200;400;500;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,400;0,700;0,800;1,200;1,400;1,800&amp;family=Manrope:wght@200;400;500;700&amp;display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #F2EDE4;
@@ -167,9 +166,15 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   max-width: min(880px, 92%) !important; 
   margin: 0 !important;
 }
-.slide--photo .slide__body h1 { font-size: clamp(26px, 3.8vw, 48px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
-.slide--type .slide__body h1 { font-size: clamp(28px, 4.2vw, 52px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
-.slide--num .slide__body h1 { font-size: clamp(24px, 3.6vw, 44px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
+/* Capa + CTA: centrado (Lucca feedback 19-jun) */
+#slide-1 .slide__body h1, #slide-2 .slide__body h1, #slide-6 .slide__body h1 { 
+  text-align: center !important; 
+  max-width: 32ch !important; 
+  text-wrap: balance !important;
+}
+.slide--photo .slide__body h1 { font-size: clamp(26px, 3.8vw, 48px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
+.slide--type .slide__body h1 { font-size: clamp(28px, 4.2vw, 52px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
+.slide--num .slide__body h1 { font-size: clamp(24px, 3.6vw, 44px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
 
 </style>
 <!-- fx-v2 -->
@@ -211,7 +216,59 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 
 </head>
 <body>
-<section class="carousel" aria-label="Carrossel TechBody U — da_caixa_ao_treino">
+
+<section class="carousel" aria-label="Carrossel TechBody U — 3_da_caixa_ao_treino">
 <article class="slide slide--photo" id="slide-1"><div class="slide__top">
   <div class="slide__photo" style="background-image:url('../../../assets/photos/magnific_b4.-recovery-and-calm-edi_2964142488.png'); background-position: center 30%"></div>
-  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Da <em>caixa</em> ao primeiro treino.</h1></div><div class="slide__bottom">  <span>01/06</span></div><div class="fx-atmos"></div><div class="fx-
+  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"></span></div><div class="slide__body"><h1>Da <em>caixa</em> ao primeiro treino.</h1></div><div class="slide__bottom">  <span>01/06</span></div><div class="fx-atmos"></div>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+
+<article class="slide slide--type" id="slide-2">
+  <div class="slide__top"><span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"></span></div>
+  <div class="slide__body"><h1>Abrir, <em>vestir</em>, <em>ligar</em>. Da caixa à primeira sessão em minutos.</h1></div>
+  <div class="slide__bottom"><span>02/06</span></div>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+<article class="slide slide--num" id="slide-3">
+  <div class="slide__top"><span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"></span></div>
+  <div class="slide__body"><div class="num">15</div><h1>É o tempo entre abrir a caixa e começar a <em>treinar</em>.</h1></div>
+  <div class="slide__bottom"><span>03/06</span></div>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+<article class="slide slide--type" id="slide-4">
+  <div class="slide__top"><span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"></span></div>
+  <div class="slide__body"><h1>App configurada. Fato vestido. Intensidade ajustada. <em>Estás pronto</em>.</h1></div>
+  <div class="slide__bottom"><span>04/06</span></div>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+<article class="slide slide--quote" id="slide-5">
+  <div class="slide__top"><span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"></span></div>
+  <div class="slide__body"><blockquote>A tecnologia que se <em>veste</em>. O treino que se <em>sente</em>.</blockquote><cite>TechBody U</cite></div>
+  <div class="slide__bottom"><span>05/06</span></div>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+<article class="slide slide--type" id="slide-6">
+  <div class="slide__top">
+  
+  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"></span></div>
+  <div class="slide__body"><h1>Da caixa ao primeiro treino. Marque a sua <em>sessão experimental</em>.</h1></div>
+  <div class="slide__bottom"><span>06/06</span><span class="slide__cta" style="background:var(--accent);color:var(--bg);padding:10px 22px;font:700 13px/1 var(--font-body);letter-spacing:0.06em;text-transform:uppercase;">Sessão experimental →</span></div>
+<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+</section>
+<script>
+  (function () {
+    var carousel = document.querySelector('.carousel');
+    function go() {
+      var m = (location.hash || '').match(/^#slide-(\d+)$/);
+      if (!m || !carousel) return;
+      var el = document.getElementById('slide-' + m[1]);
+      if (!el) return;
+      carousel.style.scrollSnapType = 'none';
+      carousel.scrollLeft = el.offsetLeft;
+      requestAnimationFrame(function () {
+        carousel.style.scrollSnapType = '';
+      });
+    }
+    window.addEventListener('hashchange', go);
+    if (document.readyState === 'complete') go();
+    else window.addEventListener('load', go);
+  })();
+</script>
+</body>
+</html>
