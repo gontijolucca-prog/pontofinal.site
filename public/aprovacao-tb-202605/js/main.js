@@ -232,18 +232,73 @@ function render() {
   if (gg) {
     gg.innerHTML = "";
     const allSorted = [...items].sort(sortBySchedule);
-    // Agrupar por marca → formato
+    // Agrupar por marca → formato. Publicados vão para grupo separado.
     const BRAND_NAMES = { techbody: "TechBody", techbody_u: "TechBody U", luiz_santana: "Luiz Santana" };
     const FORMAT_NAMES = { carrossel: "Carrosséis", story: "Stories", reel: "Reels" };
     const FORMAT_ORDER = ["carrossel", "story", "reel"];
+    // Função para saber o status efectivo (items.json status tem prioridade)
+    const effectiveStatus = (it) => it.status === "published"
+      ? "published"
+      : (approvalStore.get(it.id)?.status || "pending");
     const grouped = {};
+    const publishedItems = [];
     for (const it of allSorted) {
+      if (effectiveStatus(it) === "published") {
+        publishedItems.push(it);
+        continue;
+      }
       const b = it.brand || "outro";
       const f = it.format || "outro";
       if (!grouped[b]) grouped[b] = {};
       if (!grouped[b][f]) grouped[b][f] = [];
       grouped[b][f].push(it);
     }
+    // Construir cards num array para reutilizar lógica
+    const buildCard = (it) => {
+      const card = document.createElement("div");
+      card.className = "gallery-card";
+      card.setAttribute("data-item-id", it.id);
+      card.setAttribute("data-format", it.format);
+      card.setAttribute("data-brand", it.brand);
+      const st = effectiveStatus(it);
+      card.setAttribute("data-status", st);
+      const title = it.title || it.theme || "";
+      const iframeSrc = it.html_url
+        ? `${it.html_url}?v=${APP_VERSION}&c=${currentContentSig()}${it.format === "carrossel" ? "#slide-1" : ""}`
+        : "";
+      card.innerHTML = `
+        <div class="gallery-card__thumb" data-fmt="${it.format}">
+          ${iframeSrc
+            ? `<iframe src="${iframeSrc}" title="${_escapeForHtml(title)}" scrolling="no" loading="lazy" tabindex="-1"></iframe>`
+            : `<div class="gallery-card__no-preview">Sem preview</div>`}
+          <span class="gallery-card__badge gallery-card__badge--${st}">${st === "approved" ? "✓" : st === "rejected" ? "✗" : st === "published" ? "📌" : ""}</span>
+        </div>
+        <div class="gallery-card__info">
+          <span class="gallery-card__title">${title}</span>
+        </div>`;
+      const iframe = card.querySelector("iframe");
+      if (iframe) {
+        const [nw, nh] = dimsFor(it.format);
+        fitScaledFrame(card.querySelector(".gallery-card__thumb"), nw, nh);
+      }
+      card.addEventListener("click", () => {
+        const found = findItem(card.dataset.itemId);
+        if (found) els.viewer().open(found);
+      });
+      return card;
+    };
+    // Grupo "Publicados" primeiro (mais recente no topo)
+    if (publishedItems.length > 0) {
+      const pubGroup = document.createElement("div");
+      pubGroup.className = "gallery-group gallery-group--published";
+      pubGroup.innerHTML = `<div class="gallery-group__head"><h3 class="gallery-group__title">📌 Publicados</h3><span class="gallery-group__count">${publishedItems.length}</span></div>`;
+      const pubGrid = document.createElement("div");
+      pubGrid.className = "gallery-grid";
+      for (const it of publishedItems) pubGrid.appendChild(buildCard(it));
+      pubGroup.appendChild(pubGrid);
+      gg.appendChild(pubGroup);
+    }
+    // Grupos por marca → formato
     const brandOrder = Object.keys(BRAND_NAMES).filter(b => grouped[b]);
     const otherBrands = Object.keys(grouped).filter(b => !BRAND_NAMES[b]);
     for (const brand of [...brandOrder, ...otherBrands]) {
@@ -264,47 +319,7 @@ function render() {
         fmtWrap.innerHTML = `<h4 class="gallery-group__subtitle">${FORMAT_NAMES[fmt] || fmt} <span class="gallery-group__subcount">${arr.length}</span></h4>`;
         const grid = document.createElement("div");
         grid.className = "gallery-grid";
-        for (const it of arr) {
-          const card = document.createElement("div");
-          card.className = "gallery-card";
-          card.setAttribute("data-item-id", it.id);
-          card.setAttribute("data-format", it.format);
-          card.setAttribute("data-brand", it.brand);
-          // items.json status tem prioridade para "published" (auto-publisher marca lá)
-          const st = it.status === "published"
-            ? "published"
-            : (approvalStore.get(it.id)?.status || "pending");
-          card.setAttribute("data-status", st);
-          const title = it.title || it.theme || "";
-          // Iframe com o mesmo html_url que o viewer usa — preview idêntico
-          // ao que se vê quando se abre em detalhe. Reel mostra slide 1.
-          const iframeSrc = it.html_url
-            ? `${it.html_url}?v=${APP_VERSION}&c=${currentContentSig()}${it.format === "carrossel" ? "#slide-1" : ""}`
-            : "";
-          card.innerHTML = `
-            <div class="gallery-card__thumb" data-fmt="${it.format}">
-              ${iframeSrc
-                ? `<iframe src="${iframeSrc}" title="${_escapeForHtml(title)}" scrolling="no" loading="lazy" tabindex="-1"></iframe>`
-                : `<div class="gallery-card__no-preview">Sem preview</div>`}
-              <span class="gallery-card__badge gallery-card__badge--${st}">${st === "approved" ? "✓" : st === "rejected" ? "✗" : st === "published" ? "📌" : ""}</span>
-            </div>
-            <div class="gallery-card__info">
-              <span class="gallery-card__title">${title}</span>
-            </div>`;
-          // Escala o iframe ao tamanho real de publicação (1080×1350 ou 1080×1920)
-          // para o preview ser idêntico ao viewer. fitScaledFrame faz o ajuste
-          // dinâmico quando o iframe termina de carregar.
-          const iframe = card.querySelector("iframe");
-          if (iframe) {
-            const [nw, nh] = dimsFor(it.format);
-            fitScaledFrame(card.querySelector(".gallery-card__thumb"), nw, nh);
-          }
-          card.addEventListener("click", () => {
-            const it = findItem(card.dataset.itemId);
-            if (it) els.viewer().open(it);
-          });
-          grid.appendChild(card);
-        }
+        for (const it of arr) grid.appendChild(buildCard(it));
         fmtWrap.appendChild(grid);
         groupEl.appendChild(fmtWrap);
       }
