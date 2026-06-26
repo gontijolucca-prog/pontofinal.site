@@ -285,17 +285,8 @@ function render() {
       });
       return card;
     };
-    // Grupo "Publicados" primeiro
-    if (publishedItems.length > 0) {
-      const pubGroup = document.createElement("div");
-      pubGroup.className = "gallery-group gallery-group--published";
-      pubGroup.innerHTML = `<div class="gallery-group__head"><h3 class="gallery-group__title">📌 Publicados</h3><span class="gallery-group__count">${publishedItems.length}</span></div>`;
-      const pubGrid = document.createElement("div");
-      pubGrid.className = "gallery-grid";
-      for (const it of publishedItems) pubGrid.appendChild(buildCard(it));
-      pubGroup.appendChild(pubGrid);
-      gg.appendChild(pubGroup);
-    }
+    // Grupo "Publicados" — primeiro, antes das marcas
+    // (movido para depois dos grupos marca+formato)
     // Grupos por marca → formato
     const brandOrder = Object.keys(BRAND_NAMES).filter(b => grouped[b]);
     const otherBrands = Object.keys(grouped).filter(b => !BRAND_NAMES[b]);
@@ -322,6 +313,17 @@ function render() {
         groupEl.appendChild(fmtWrap);
       }
       gg.appendChild(groupEl);
+    }
+    // Grupo "Publicados" no fim da galeria
+    if (publishedItems.length > 0) {
+      const pubGroup = document.createElement("div");
+      pubGroup.className = "gallery-group gallery-group--published";
+      pubGroup.innerHTML = `<div class="gallery-group__head"><h3 class="gallery-group__title">📌 Publicados</h3><span class="gallery-group__count">${publishedItems.length}</span></div>`;
+      const pubGrid = document.createElement("div");
+      pubGrid.className = "gallery-grid";
+      for (const it of publishedItems) pubGrid.appendChild(buildCard(it));
+      pubGroup.appendChild(pubGrid);
+      gg.appendChild(pubGroup);
     }
     setCount(els.galleryCount(), allSorted.length);
   }
