@@ -599,16 +599,9 @@ async function init() {
   if (heroCta) heroCta.addEventListener("click", openNextPending);
   window.addEventListener("approval:changed", () => {
     updateCounts();
-    // Por defeito só o calendário precisa de re-renderizar (chips de status).
-    // Se chegou um reagendamento de outro device, aplica e faz render completo
-    // para mover chips + actualizar labels das tiles.
-    const dateMutated = applyDateOverrides();
-    const hourMutated = applyHourOverrides();
-    if (dateMutated || hourMutated) {
-      render();
-    } else {
-      els.calendar()?.render?.();
-    }
+    applyDateOverrides();
+    applyHourOverrides();
+    render();
   });
 
   // Auto-refresh silencioso quando items.json / captions.json mudam no servidor
