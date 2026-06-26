@@ -80,6 +80,9 @@ function visibleItems() {
     if (inferMonth(i) !== state.currentMonth) return false;
     if (state.currentBrand  !== "all" && i.brand  !== state.currentBrand)  return false;
     if (state.currentFormat !== "all" && i.format !== state.currentFormat) return false;
+    // Published items show only in published section
+    const s = approvalStore.get(i.id)?.status || i.status;
+    if (s === "published") return false;
     return true;
   });
 }
@@ -408,7 +411,7 @@ function renderPublishedSection() {
   if (!section || !grid) return;
   
   const publishedItems = state.items.filter(it => {
-    const s = approvalStore.get(it.id)?.status;
+    const s = approvalStore.get(it.id)?.status || it.status;
     return s === "published";
   });
   

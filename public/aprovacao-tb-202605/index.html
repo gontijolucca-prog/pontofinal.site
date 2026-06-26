@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="app-version" content="20260626-1304" />
+<meta name="app-version" content="20260626-1510" />
 <title>Aprovação · Conteúdo</title>
 
 <script>
@@ -112,17 +112,8 @@
 <style>
   /* ── REDESIGN 2026-06: Calendar as main view ── */
   .section--hidden { display: none !important; }
-  #carrosseisSection, #postsSection, #reelsSection { display: none; }
-  .section-toggle {
-    font: 700 11px/1 'JetBrains Mono', monospace;
-    text-transform: uppercase; letter-spacing: 0.06em;
-    padding: 8px 16px; cursor: pointer;
-    border: 2px solid var(--border); background: var(--bg);
-    color: var(--text); margin-left: auto;
-  }
-  .section-toggle:hover { background: var(--text); color: var(--bg); }
-  .calendar-only-layout { display: flex; flex-direction: column; gap: 0; }
-  .calendar-only-layout > .section:first-child { border-bottom: 3px solid var(--border); }
+  /* sections restored — user requested 2026-06-26 */
+  /* section-toggle + calendar-only-layout removed — half-finished redesign */
   /* Published section */
   .published-section {
     padding: 2rem 1.5rem;
@@ -160,7 +151,7 @@
   }
   @media (max-width: 768px) {
     .viewer-modal--redesign { grid-template-columns: 1fr !important; }
-    #carrosseisSection, #postsSection, #reelsSection { display: none !important; }
+    /* restored 2026-06-26 */
   }
 </style>
 </head>
