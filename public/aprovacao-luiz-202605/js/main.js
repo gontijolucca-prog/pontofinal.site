@@ -284,7 +284,7 @@ function render() {
             : iframeSrc
             ? `<iframe data-src="${iframeSrc}" title="${_escapeForHtml(title)}" scrolling="no" loading="lazy" tabindex="-1"></iframe>`
             : reelCover
-            ? `<img class="gallery-card__cover" src="${reelCover}" alt="${_escapeForHtml(title)}" loading="lazy" onerror="this.onerror=null;this.closest('.gallery-card__thumb').classList.add('is-broken')" />`
+            ? `<img class="gallery-card__cover" src="${reelCover}" alt="${_escapeForHtml(title)}" loading="eager" onerror="this.onerror=null;this.closest('.gallery-card__thumb').classList.add('is-broken')" />`
             : `<div class="gallery-card__no-preview">Sem preview</div>`}
           <span class="gallery-card__badge gallery-card__badge--${st}">${st === "approved" ? "✓" : st === "rejected" ? "✗" : st === "published" ? "📌" : ""}</span>
         </div>
