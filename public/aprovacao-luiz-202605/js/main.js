@@ -304,7 +304,8 @@ function render() {
           img.className = "gallery-card__cover";
           img.src = poster;
           img.alt = _escapeForHtml(title);
-          img.loading = "lazy";
+          img.loading = "eager";
+          img.fetchPriority = "high";
           img.onerror = () => { img.onerror = null; iframe.parentElement.classList.add("is-broken"); };
           iframe.parentElement.insertBefore(img, iframe);
           const thumb = card.querySelector(".gallery-card__thumb");
