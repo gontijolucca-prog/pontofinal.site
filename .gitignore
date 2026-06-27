@@ -9,3 +9,6 @@ coverage/
 
 # stray claude-evolve artifact (não deve ir para o deploy)
 public/.claude/
+
+# graphify knowledge graph (rebuilds on commit via .git/hooks/post-commit)
+graphify-out/
