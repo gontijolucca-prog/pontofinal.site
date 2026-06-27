@@ -56,7 +56,8 @@
     "generated_at": "2026-05-18T10:54:32",
     "scheduled_for": "",
     "hour": "",
-    "status": "pending"
+    "status": "pending",
+    "_deploy_marker": "20260627-1145"
   },
   {
     "id": "techbody-2026-05-c02",
