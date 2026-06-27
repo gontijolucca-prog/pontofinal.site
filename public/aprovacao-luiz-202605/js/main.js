@@ -263,73 +263,64 @@ function render() {
       const title = it.title || it.theme || "";
       const shotBase = (it.html_url || "").replace(/\.html$/, "");
       const isReel = it.format === "reel";
-      // Reels: capa estática (JPG) + vídeo só on hover (sem preload).
-      // Carrossel/Story: iframe com o HTML (loading="lazy" para não bloquear).
+      // Capa estática por formato:
+      //   carrossel → _shots/slide_01.jpg
+      //   story     → base.jpg
+      //   reel      → base.jpg (com video lazy on hover)
+      const coverPath = isReel
+        ? shotBase ? `${shotBase}.jpg` : ""
+        : it.format === "carrossel"
+        ? shotBase ? `${shotBase}_shots/slide_01.jpg` : ""
+        : shotBase ? `${shotBase}.jpg` : "";
+      const coverSrc = coverPath ? `${coverPath}?v=${APP_VERSION}&c=${currentContentSig()}` : "";
       const iframeSrc = !isReel && it.html_url
         ? `${it.html_url}?v=${APP_VERSION}&c=${currentContentSig()}${it.format === "carrossel" ? "#slide-1" : ""}`
         : "";
-      const reelCover = isReel && shotBase
-        ? `${shotBase}.jpg?v=${APP_VERSION}&c=${currentContentSig()}`
-        : "";
-      const reelPoster = isReel && it.video_url
-        ? it.video_url.replace(/\.mp4$/, ".jpg")
-        : "";
-      const videoDataSrc = isReel && it.video_url
+      const videoSrc = isReel && it.video_url
         ? `${it.video_url}?v=${APP_VERSION}&c=${currentContentSig()}`
+        : "";
+      const poster = isReel && it.video_url
+        ? it.video_url.replace(/\.mp4$/, ".jpg")
         : "";
       card.innerHTML = `
         <div class="gallery-card__thumb" data-fmt="${it.format}">
-          ${videoDataSrc
-            ? `<video class="gallery-card__video" data-src="${videoDataSrc}" poster="${reelPoster}" muted loop playsinline preload="none"></video>`
-            : iframeSrc
-            ? `<iframe data-src="${iframeSrc}" title="${_escapeForHtml(title)}" scrolling="no" loading="lazy" tabindex="-1"></iframe>`
-            : reelCover
-            ? `<img class="gallery-card__cover" src="${reelCover}" alt="${_escapeForHtml(title)}" loading="eager" onerror="this.onerror=null;this.closest('.gallery-card__thumb').classList.add('is-broken')" />`
+          ${coverSrc
+            ? `<img class="gallery-card__cover" src="${coverSrc}" alt="${_escapeForHtml(title)}" loading="eager" fetchpriority="high" onerror="this.onerror=null;this.closest('.gallery-card__thumb').classList.add('is-broken')" />`
             : `<div class="gallery-card__no-preview">Sem preview</div>`}
+          ${videoSrc
+            ? `<video class="gallery-card__video" data-src="${videoSrc}" poster="${poster}" muted loop playsinline preload="none" style="display:none"></video>`
+            : iframeSrc
+            ? `<iframe data-hover-src="${iframeSrc}" title="${_escapeForHtml(title)}" scrolling="no" loading="lazy" tabindex="-1" style="display:none"></iframe>`
+            : ""}
           <span class="gallery-card__badge gallery-card__badge--${st}">${st === "approved" ? "✓" : st === "rejected" ? "✗" : st === "published" ? "📌" : ""}</span>
         </div>
         <div class="gallery-card__info">
           <span class="gallery-card__title">${title}</span>
         </div>`;
-
-      // Carrossel/Story: capa JPG por defeito, iframe só on hover (evita 14
-      // iframes pesados a bloquear o LCP).
-      if (iframeSrc) {
-        const iframe = card.querySelector("iframe");
-        const poster = shotBase ? `${shotBase}_shots/slide_01.jpg?v=${APP_VERSION}&c=${currentContentSig()}` : "";
-        if (iframe && poster) {
-          iframe.dataset.hoverSrc = iframeSrc;
-          iframe.style.display = "none";
-          const img = document.createElement("img");
-          img.className = "gallery-card__cover";
-          img.src = poster;
-          img.alt = _escapeForHtml(title);
-          img.loading = "eager";
-          img.fetchPriority = "high";
-          img.onerror = () => { img.onerror = null; iframe.parentElement.classList.add("is-broken"); };
-          iframe.parentElement.insertBefore(img, iframe);
-          const thumb = card.querySelector(".gallery-card__thumb");
-          thumb.addEventListener("mouseenter", () => {
-            if (iframe.dataset.hoverSrc && !iframe.src) {
-              iframe.src = iframe.dataset.hoverSrc;
-              iframe.style.display = "";
-              img.style.display = "none";
-              const [nw, nh] = dimsFor(it.format);
-              fitScaledFrame(thumb, nw, nh);
-            }
-          });
-        }
+      const thumb = card.querySelector(".gallery-card__thumb");
+      const img = card.querySelector("img.gallery-card__cover");
+      const iframe = card.querySelector("iframe");
+      if (img && iframe) {
+        thumb.addEventListener("mouseenter", () => {
+          if (iframe.dataset.hoverSrc && !iframe.src) {
+            iframe.src = iframe.dataset.hoverSrc;
+            iframe.style.display = "";
+            img.style.display = "none";
+            const [nw, nh] = dimsFor(it.format);
+            fitScaledFrame(thumb, nw, nh);
+          }
+        });
       }
-      // Vídeo de reel: carregar e dar play só on hover (preload="none" impede auto-load)
       const video = card.querySelector("video");
-      if (video) {
-        const thumb = card.querySelector(".gallery-card__thumb");
+      if (img && video) {
         thumb.addEventListener("mouseenter", () => {
           if (video.dataset.src && !video.src) {
             video.src = video.dataset.src;
             delete video.dataset.src;
           }
           video.play().catch(() => {});
+          img.style.display = "none";
+          video.style.display = "";
         });
         thumb.addEventListener("mouseleave", () => {
           video.pause();
