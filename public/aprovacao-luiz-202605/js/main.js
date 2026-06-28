@@ -35,7 +35,11 @@ const els = {
 };
 
 function sortBySchedule(a, b) {
-  return (a.scheduled_for || "").localeCompare(b.scheduled_for || "");
+  // Items sem data ficam no fim (não no início) — "" < "2026-06-11" em localeCompare.
+  if (!a.scheduled_for && !b.scheduled_for) return 0;
+  if (!a.scheduled_for) return 1;  // a vem depois de b
+  if (!b.scheduled_for) return -1; // b vem depois de a
+  return a.scheduled_for.localeCompare(b.scheduled_for);
 }
 
 // Lê overrides de data do Supabase (via approvalStore) e aplica em
