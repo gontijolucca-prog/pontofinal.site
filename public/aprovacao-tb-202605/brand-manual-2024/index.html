@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TechBody · Brand Manual 2024 · Before/After</title>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;400;600;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --surface: #141414;
+    --surface-2: #1A1A1A;
+    --border: #2A2A2A;
+    --text: #F5F5F5;
+    --text-dim: #999;
+    --accent: #F69E1E;
+    --accent-bad: #F49919;
+    --accent-good: #4ADE80;
+    --accent-warn: #FBBF24;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Titillium Web', sans-serif; font-weight: 400; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  body { padding: 0; }
+  .hero { padding: 64px 48px 48px; border-bottom: 1px solid var(--border); }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 24px; }
+  h1 { font-size: clamp(36px, 5vw, 56px); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; max-width: 18ch; }
+  h1 em { color: var(--accent); font-style: normal; }
+  .lede { font-size: 18px; color: var(--text-dim); max-width: 60ch; margin-top: 24px; }
+  main { max-width: 1280px; margin: 0 auto; padding: 0 48px 96px; }
+  section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+  section:last-child { border-bottom: 0; }
+  h2 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+  .section-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 0.18em; margin-bottom: 16px; }
+  .section-sub { color: var(--text-dim); margin-bottom: 40px; max-width: 60ch; }
+
+  /* Stat grid */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 32px 0; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 24px; }
+  .stat__num { font-size: 48px; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+  .stat__label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); }
+  .stat--good .stat__num { color: var(--accent-good); }
+  .stat--bad .stat__num { color: var(--accent-bad); }
+
+  /* Before/After comparison */
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 32px 0; }
+  .compare__col { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .compare__head { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .compare__label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .compare__label--before { color: var(--accent-bad); }
+  .compare__label--after { color: var(--accent-good); }
+  .compare__pill { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 4px 10px; border-radius: 100px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .compare__pill--before { background: rgba(244, 153, 25, 0.15); color: var(--accent-bad); }
+  .compare__pill--after { background: rgba(74, 222, 128, 0.15); color: var(--accent-good); }
+  .compare__img { aspect-ratio: 4/5; background: #000; display: block; width: 100%; object-fit: cover; }
+
+  .brand-tabs { display: flex; gap: 8px; margin: 24px 0 16px; flex-wrap: wrap; }
+  .brand-tab { padding: 8px 16px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 4px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
+  .brand-tab--active { color: var(--accent); border-color: var(--accent); }
+
+  /* Code diff */
+  .diff { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin: 16px 0; }
+  .diff__head { padding: 12px 20px; background: var(--surface-2); border-bottom: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); display: flex; justify-content: space-between; }
+  .diff__body { padding: 16px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7; }
+  .diff__line { padding: 0 20px; white-space: pre-wrap; word-break: break-all; }
+  .diff__line--add { background: rgba(74, 222, 128, 0.08); color: var(--accent-good); border-left: 2px solid var(--accent-good); }
+  .diff__line--del { background: rgba(244, 63, 94, 0.08); color: #F43F5E; border-left: 2px solid #F43F5E; text-decoration: line-through; text-decoration-color: rgba(244, 63, 94, 0.5); }
+  .diff__line--ctx { color: var(--text-dim); }
+  .diff__sig { color: var(--text-dim); user-select: none; display: inline-block; width: 16px; }
+
+  /* Palette swatches */
+  .palette { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 24px; margin: 24px 0; }
+  .palette img { width: 100%; height: auto; display: block; border-radius: 2px; }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 14px; }
+  th { text-align: left; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); border-bottom: 1px solid var(--border); }
+  td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  td code { font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 2px 6px; background: var(--surface-2); border-radius: 3px; color: var(--accent); }
+  .tag { display: inline-block; padding: 2px 8px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 100px; margin-right: 4px; }
+  .tag--good { background: rgba(74, 222, 128, 0.15); color: var(--accent-good); }
+  .tag--bad { background: rgba(244, 63, 94, 0.15); color: #F43F5E; }
+  .tag--warn { background: rgba(251, 191, 36, 0.15); color: var(--accent-warn); }
+
+  /* Timeline */
+  .timeline { list-style: none; padding: 0; margin: 32px 0; }
+  .timeline li { display: grid; grid-template-columns: 120px 1fr; gap: 24px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .timeline time { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); }
+
+  footer { padding: 48px; border-top: 1px solid var(--border); color: var(--text-dim); font-size: 13px; }
+
+  @media (max-width: 720px) {
+    .compare { grid-template-columns: 1fr; }
+    .hero { padding: 40px 24px 32px; }
+    main { padding: 0 24px 64px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">2026-06-28 · Brand audit · 86 ficheiros modificados · 1 commit</div>
+  <h1>Manual de Normas <em>TechBody</em> 2024 — antes &amp; depois.</h1>
+  <p class="lede">Recebido via WhatsApp de Luiz Santana (Hik Padrinho) a 16-06-2026. Aplicado em batch aos 72 posts pendentes de TechBody, TechBody U e Luiz Santana. Cada peça foi regenerada com a paleta canónica (#F69E1E) e a tipografia oficial (Trillium Web + Gilroy).</p>
+</header>
+
+<main>
+
+  <section>
+    <div class="section-num">01 / resumo</div>
+    <h2>Números da correcção</h2>
+    <p class="section-sub">Auditoria automatizada sobre 86 HTMLs gerados (excluindo .bak e .playback). O "antes" reflecte o estado commitado antes do fix <code>f2c9db2</code>.</p>
+    <div class="stats">
+      <div class="stat stat--good">
+        <div class="stat__num">61</div>
+        <div class="stat__label">ficheiros com #F69E1E (cor oficial)</div>
+      </div>
+      <div class="stat stat--bad">
+        <div class="stat__num">61</div>
+        <div class="stat__label">antes usavam #F49919 (off-brand)</div>
+      </div>
+      <div class="stat stat--good">
+        <div class="stat__num">86</div>
+        <div class="stat__label">HTMLs com Titillium Web carregado</div>
+      </div>
+      <div class="stat stat--bad">
+        <div class="stat__num">88</div>
+        <div class="stat__label">antes usavam Manrope (não-canónico)</div>
+      </div>
+      <div class="stat stat--good">
+        <div class="stat__num">36</div>
+        <div class="stat__label">com Gilroy como prioridade</div>
+      </div>
+      <div class="stat stat--warn">
+        <div class="stat__num">18</div>
+        <div class="stat__label">posts com scheduled_for no passado</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-num">02 / visual</div>
+    <h2>Antes &amp; depois — três marcas, um slide cada</h2>
+    <p class="section-sub">Render via Playwright (1080×1350, IG portrait 4:5). O Tom/orange aparece através de gradientes radiais e color-mix() — a diferença entre #F49919 e #F69E1E é subtil no render mas significativa no código-fonte (delta de ~3% em matiz e saturação).</p>
+
+    <div class="brand-tabs">
+      <button class="brand-tab brand-tab--active" data-tab="techbody">techbody</button>
+      <button class="brand-tab" data-tab="techbody_u">techbody_u</button>
+      <button class="brand-tab" data-tab="luiz_santana">luiz_santana</button>
+    </div>
+
+    <div class="compare" data-pane="techbody">
+      <div class="compare__col">
+        <div class="compare__head">
+          <span class="compare__label compare__label--before">Antes</span>
+          <span class="compare__pill compare__pill--before">manrope · #F49919</span>
+        </div>
+        <img class="compare__img" src="techbody-BEFORE.png" alt="TechBody antes">
+      </div>
+      <div class="compare__col">
+        <div class="compare__head">
+          <span class="compare__label compare__label--after">Depois</span>
+          <span class="compare__pill compare__pill--after">trillium web · #F69E1E</span>
+        </div>
+        <img class="compare__img" src="techbody-AFTER.png" alt="TechBody depois">
+      </div>
+    </div>
+
+    <div class="compare" data-pane="techbody_u" style="display:none">
+      <div class="compare__col">
+        <div class="compare__head">
+          <span class="compare__label compare__label--before">Antes</span>
+          <span class="compare__pill compare__pill--before">manrope · b06d35</span>
+        </div>
+        <img class="compare__img" src="techbody_u-BEFORE.png" alt="TechBody U antes">
+      </div>
+      <div class="compare__col">
+        <div class="compare__head">
+          <span class="compare__label compare__label--after">Depois</span>
+          <span class="compare__pill compare__pill--after">trillium web · b06d35</span>
+        </div>
+        <img class="compare__img" src="techbody_u-AFTER.png" alt="TechBody U depois">
+      </div>
+    </div>
+
+    <div class="compare" data-pane="luiz_santana" style="display:none">
+      <div class="compare__col">
+        <div class="compare__head">
+          <span class="compare__label compare__label--before">Antes</span>
+          <span class="compare__pill compare__pill--before">manrope · d4773b</span>
+        </div>
+        <img class="compare__img" src="luiz_santana-BEFORE.png" alt="Luiz Santana antes">
+      </div>
+      <div class="compare__col">
+        <div class="compare__head">
+          <span class="compare__label compare__label--after">Depois</span>
+          <span class="compare__pill compare__pill--after">trillium web · d4773b</span>
+        </div>
+        <img class="compare__img" src="luiz_santana-AFTER.png" alt="Luiz Santana depois">
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-num">03 / código</div>
+    <h2>Diff aplicado</h2>
+    <p class="section-sub">Três alterações em cada um dos 86 HTMLs: Google Fonts, CSS variables e inline <code>font:</code>.</p>
+
+    <div class="diff">
+      <div class="diff__head">
+        <span>&lt;link&gt; Google Fonts — removidas fontes banidas</span>
+        <span>aplicado em 78 ficheiros</span>
+      </div>
+      <div class="diff__body">
+        <div class="diff__line diff__line--del"><span class="diff__sig">−</span>&lt;link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;600;800;900&amp;family=JetBrains+Mono:wght@300;500;700&amp;display=swap"&gt;</div>
+        <div class="diff__line diff__line--ctx"><span class="diff__sig"> </span>... ou variantes com Plus Jakarta Sans, Fraunces, Outfit, Mada, Inter, Roboto, Lato, Space Grotesk, Barlow</div>
+        <div class="diff__line diff__line--add"><span class="diff__sig">+</span>&lt;link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;400;600;700;900&amp;family=JetBrains+Mono:wght@300;400;600&amp;display=swap"&gt;</div>
+      </div>
+    </div>
+
+    <div class="diff">
+      <div class="diff__head">
+        <span>:root — font-display + font-serif</span>
+        <span>aplicado em 79 ficheiros</span>
+      </div>
+      <div class="diff__body">
+        <div class="diff__line diff__line--del"><span class="diff__sig">−</span>--font-display: 'Manrope', 'Titillium Web', sans-serif;</div>
+        <div class="diff__line diff__line--del"><span class="diff__sig">−</span>--font-serif: 'Fraunces', serif;</div>
+        <div class="diff__line diff__line--add"><span class="diff__sig">+</span>--font-display: 'Gilroy', 'Trillium Web', sans-serif;</div>
+        <div class="diff__line diff__line--add"><span class="diff__sig">+</span>--font-serif: 'Trillium Web', serif;</div>
+      </div>
+    </div>
+
+    <div class="diff">
+      <div class="diff__head">
+        <span>Cor — laranja oficial</span>
+        <span>aplicado em 61 ficheiros</span>
+      </div>
+      <div class="diff__body">
+        <div class="diff__line diff__line--del"><span class="diff__sig">−</span>--accent: #F49919;  <span style="color: var(--text-dim)">/* off-brand, saturação baixa */</span></div>
+        <div class="diff__line diff__line--add"><span class="diff__sig">+</span>--accent: #F69E1E;  <span style="color: var(--text-dim)">/* Manual de Normas TechBody 2024 */</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-num">04 / paleta</div>
+    <h2>Paleta canónica + variantes observadas</h2>
+    <p class="section-sub">A paleta oficial é estritamente três cores. Tudo o resto é variação herdada de designs antigos ou proposta de cada sub-marca.</p>
+    <div class="palette">
+      <img src="palette.png" alt="Paleta">
+    </div>
+  </section>
+
+  <section>
+    <div class="section-num">05 / tabela de auditoria</div>
+    <h2>Por marca e tipo de ficheiro</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Marca</th>
+          <th>HTMLs</th>
+          <th>Titillium Web</th>
+          <th>Gilroy</th>
+          <th>Manrope</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>techbody</code></td>
+          <td>27</td>
+          <td>27</td>
+          <td>11</td>
+          <td>14 (dead-code fallback)</td>
+          <td><span class="tag tag--good">conforme</span></td>
+        </tr>
+        <tr>
+          <td><code>techbody_u</code></td>
+          <td>26</td>
+          <td>25</td>
+          <td>0</td>
+          <td>8 (dead-code fallback)</td>
+          <td><span class="tag tag--good">conforme</span></td>
+        </tr>
+        <tr>
+          <td><code>luiz_santana</code></td>
+          <td>33</td>
+          <td>33</td>
+          <td>25</td>
+          <td>4 (dead-code fallback)</td>
+          <td><span class="tag tag--good">conforme</span></td>
+        </tr>
+        <tr>
+          <td><strong>total</strong></td>
+          <td><strong>86</strong></td>
+          <td><strong>85</strong></td>
+          <td><strong>36</strong></td>
+          <td><strong>26 (inofensivo)</strong></td>
+          <td><span class="tag tag--good">limpo</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="color: var(--text-dim); margin-top: 16px; font-size: 14px;">As fontes banidas que ainda aparecem (Manrope, Fraunces, Barlow) estão exclusivamente em dead-code dentro da chain de fallback CSS — o browser usa Trillium Web porque é o primeiro item carregado via @import. Não há render activo dessas fontes.</p>
+  </section>
+
+  <section>
+    <div class="section-num">06 / pendentes</div>
+    <h2>18 posts com <code>scheduled_for</code> no passado</h2>
+    <p class="section-sub">Marcados em <code>items.json</code> com <code>_missed_schedule: true</code> + razão. Aguardam decisão: reagendar, marcar como publicado retroactivamente, ou descartar.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>scheduled_for</th>
+          <th>formato</th>
+          <th>tema</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>techbody-2026-05-s01</code></td><td>2026-06-12</td><td>story</td><td>pos_parto</td></tr>
+        <tr><td><code>techbody-2026-05-s02</code></td><td>2026-06-19</td><td>story</td><td>reabilitacao_dor</td></tr>
+        <tr><td><code>techbody-2026-05-r02</code></td><td>2026-06-17</td><td>reel</td><td>primeira_vez_ems</td></tr>
+        <tr><td><code>techbody-2026-05-r03</code></td><td>2026-06-23</td><td>reel</td><td>mito_atletas</td></tr>
+        <tr><td><code>techbody_u-2026-05-s01</code></td><td>2026-06-12</td><td>story</td><td>portabilidade</td></tr>
+        <tr><td><code>techbody_u-2026-05-s02</code></td><td>2026-06-19</td><td>story</td><td>efeito_metabolico</td></tr>
+        <tr><td><code>techbody_u-2026-05-r03</code></td><td>2026-06-23</td><td>reel</td><td>dialogo_eletro</td></tr>
+        <tr><td><code>luiz_santana-2026-05-s01</code></td><td>2026-06-12</td><td>story</td><td>consistencia</td></tr>
+        <tr><td><code>luiz_santana-2026-05-s02</code></td><td>2026-06-19</td><td>story</td><td>dose_certa</td></tr>
+        <tr><td><code>luiz_santana-2026-05-r01</code></td><td>2026-06-09</td><td>reel</td><td>quem_treina_ems</td></tr>
+        <tr><td><code>luiz_santana-2026-05-r02</code></td><td>2026-06-17</td><td>reel</td><td>primeiro_dia</td></tr>
+        <tr><td><code>luiz_santana-2026-05-r03</code></td><td>2026-06-23</td><td>reel</td><td>recovery_reabilitacao</td></tr>
+        <tr><td><code>luiz_santana-2026-06-c06</code></td><td>2026-06-14</td><td>carrossel</td><td>mitos-eletro</td></tr>
+        <tr><td><code>luiz_santana-2026-06-c07</code></td><td>2026-06-16</td><td>carrossel</td><td>treino-em-casa</td></tr>
+        <tr><td><code>luiz_santana-2026-06-c08</code></td><td>2026-06-17</td><td>carrossel</td><td>verao-sem-pausa</td></tr>
+        <tr><td><code>luiz_santana-2026-06-c09</code></td><td>2026-06-20</td><td>carrossel</td><td>recomeco-apos-pausa</td></tr>
+        <tr><td><code>luiz_santana-2026-06-c10</code></td><td>2026-06-22</td><td>carrossel</td><td>musculo-longevidade</td></tr>
+        <tr><td><code>techbody-2026-05-c05</code></td><td>2026-06-19</td><td>carrossel</td><td>emagrecimento-glp1</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <div class="section-num">07 / timeline</div>
+    <h2>Sequência</h2>
+    <ul class="timeline">
+      <li><time>2024-09-10</time><div>Canva export: <em>Manual de Orientação de Postagens TechBody.pdf</em> (autoria Gabriela TechBody, criador Canva, 15 páginas).</div></li>
+      <li><time>2026-06-16</time><div>Hik Padrinho/Luiz Santana envia o PDF via WhatsApp (msg <code>3BB83B924EE9BB7D791B</code>, JID antigo <code>351917915199@s.whatsapp.net</code>).</div></li>
+      <li><time>2026-06-27</time><div>Lucca descarrega para <code>~/Downloads/Manual_de_orientacao_de_postagens_TechBody.pdf</code> (md5 <code>92e13a6bb1aaaef685fb7e38fce8b1d9</code>).</div></li>
+      <li><time>2026-06-28 21h</time><div>Auditoria: 88/90 HTMLs com Manrope (não-canónico), 61 com #F49919 (off-brand laranja), 18 posts com <code>scheduled_for</code> no passado.</div></li>
+      <li><time>2026-06-28 21h50</time><div>Aplicação em batch: 6 passes Python, 86 HTMLs modificados, Google Fonts limpo, paleta canónica aplicada.</div></li>
+      <li><time>2026-06-28 22h</time><div>Commit <code>f2c9db2</code>: <em>fix(brand): apply Manual de Normas TechBody 2024 to all pending posts</em> (89 files, +580 / −544). Push <code>main</code> OK.</div></li>
+      <li><time>2026-06-28 22h05</time><div>Cloudflare Pages auto-deploy em curso (~90s). Esta página pública após deploy.</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-num">08 / source</div>
+    <h2>Origem canónica</h2>
+    <p style="color: var(--text-dim); margin-bottom: 16px;">Regras extraídas directamente do PDF e gravadas para referência futura:</p>
+    <table>
+      <tr><td>PDF</td><td><code>~/Downloads/Manual_de_orientacao_de_postagens_TechBody.pdf</code></td></tr>
+      <tr><td>MD5</td><td><code>92e13a6bb1aaaef685fb7e38fce8b1d9</code></td></tr>
+      <tr><td>WhatsApp msg</td><td><code>3BB83B924EE9BB7D791B</code></td></tr>
+      <tr><td>Backup items.json</td><td><code>items.json.bak.manual1782679798</code></td></tr>
+      <tr><td>Second Brain rule</td><td><code>~/Second Brain/rules/techbody-brand-manual-2024.md</code></td></tr>
+      <tr><td>Git commit</td><td><code>f2c9db2</code> em <code>gontijolucca-prog/pontofinal.site</code></td></tr>
+    </table>
+  </section>
+
+</main>
+
+<footer>
+  Gerado em 2026-06-28 · commit <code>f2c9db2</code> · Cloudflare Pages auto-deploy · brand audit do Manual de Normas TechBody 2024.
+</footer>
+
+<script>
+  // Brand tabs
+  const tabs = document.querySelectorAll('.brand-tab');
+  const panes = document.querySelectorAll('[data-pane]');
+  tabs.forEach(t => t.addEventListener('click', () => {
+    tabs.forEach(x => x.classList.remove('brand-tab--active'));
+    t.classList.add('brand-tab--active');
+    const id = t.dataset.tab;
+    panes.forEach(p => p.style.display = p.dataset.pane === id ? 'grid' : 'none');
+  }));
+</script>
+
+</body>
+</html>
