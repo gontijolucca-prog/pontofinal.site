@@ -12,7 +12,7 @@
 // Resultado: a partir da segunda visita o user nunca mais vê versão
 // antiga, mesmo sem clear cache manual.
 
-const CACHE_NAME = 'pf-aprovacao-fallback-v67';
+const CACHE_NAME = 'pf-aprovacao-fallback-v68';
 
 // Activa imediatamente sem esperar que tabs abertas fechem.
 self.addEventListener('install', (event) => {
