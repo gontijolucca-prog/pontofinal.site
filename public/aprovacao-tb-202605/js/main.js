@@ -308,18 +308,31 @@ function renderPublishedSection() {
     hintEl.textContent = `Carrosséis ${counts.carrossel}  ·  Reels ${counts.reel}  ·  Storys ${counts.story}  —  clique para abrir`;
   }
   // Renderizar mini previews (gallery-card) — igual à galeria.
-  container.innerHTML = "";
-  for (const it of pubItems) {
-    if (typeof buildCard === "function") {
-      container.appendChild(buildCard(it));
-    } else {
-      // fallback raro: se buildCard não estiver disponível
-      const el = document.createElement("div");
-      el.className = "gallery-card";
-      el.style.cssText = "padding:12px;border:2px solid var(--border);font:700 11px/1.3 var(--font-mono);cursor:pointer;";
-      el.textContent = it.title || it.theme || it.id;
-      container.appendChild(el);
+  // Agrupar por formato (carrossel / reel / story) em sub-grids.
+  const FORMAT_ORDER = ["carrossel", "reel", "story"];
+  const groups = { carrossel: [], reel: [], story: [] };
+  for (const it of pubItems) { if (groups[it.format]) groups[it.format].push(it); }
+  for (const fmt of FORMAT_ORDER) {
+    const sub = container.querySelector(`[data-grid="${fmt}"]`);
+    const countEl = container.querySelector(`[data-count="${fmt}"]`);
+    if (!sub) continue;
+    if (countEl) countEl.textContent = groups[fmt].length;
+    sub.innerHTML = "";
+    for (const it of groups[fmt]) {
+      if (typeof buildCard === "function") {
+        sub.appendChild(buildCard(it));
+      } else {
+        // fallback raro: se buildCard não estiver disponível
+        const el = document.createElement("div");
+        el.className = "gallery-card";
+        el.style.cssText = "padding:12px;border:2px solid var(--border);font:700 11px/1.3 var(--font-mono);cursor:pointer;";
+        el.textContent = it.title || it.theme || it.id;
+        sub.appendChild(el);
+      }
     }
+    // Esconder sub-categoria se não tem items.
+    const groupDiv = sub.closest(".gallery-group");
+    if (groupDiv) groupDiv.style.display = groups[fmt].length === 0 ? "none" : "";
   }
   // Click delegation (abre o item-viewer).
   container.addEventListener("click", (e) => {

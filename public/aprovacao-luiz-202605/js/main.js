@@ -305,16 +305,28 @@ function renderPublishedSection() {
     hintEl.textContent = "Carrosseis " + counts.carrossel + "  ·  Reels " + counts.reel + "  ·  Storys " + counts.story + "  —  clique para abrir";
   }
   container.innerHTML = "";
-  for (const it of pubItems) {
-    if (typeof buildCard === "function") {
-      container.appendChild(buildCard(it));
-    } else {
-      const el = document.createElement("div");
-      el.className = "gallery-card";
-      el.style.cssText = "padding:12px;border:2px solid var(--border);font:700 11px/1.3 var(--font-mono);cursor:pointer;";
-      el.textContent = it.title || it.theme || it.id;
-      container.appendChild(el);
+  const FORMAT_ORDER = ["carrossel", "reel", "story"];
+  const groups = { carrossel: [], reel: [], story: [] };
+  for (const it of pubItems) { if (groups[it.format]) groups[it.format].push(it); }
+  for (const fmt of FORMAT_ORDER) {
+    const sub = container.querySelector(`[data-grid="${fmt}"]`);
+    const countEl = container.querySelector(`[data-count="${fmt}"]`);
+    if (!sub) continue;
+    if (countEl) countEl.textContent = groups[fmt].length;
+    sub.innerHTML = "";
+    for (const it of groups[fmt]) {
+      if (typeof buildCard === "function") {
+        sub.appendChild(buildCard(it));
+      } else {
+        const el = document.createElement("div");
+        el.className = "gallery-card";
+        el.style.cssText = "padding:12px;border:2px solid var(--border);font:700 11px/1.3 var(--font-mono);cursor:pointer;";
+        el.textContent = it.title || it.theme || it.id;
+        sub.appendChild(el);
+      }
     }
+    const groupDiv = sub.closest(".gallery-group");
+    if (groupDiv) groupDiv.style.display = groups[fmt].length === 0 ? "none" : "";
   }
   container.addEventListener("click", (e) => {
     const card = e.target.closest(".gallery-card");

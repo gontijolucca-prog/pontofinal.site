@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="app-version" content="20260628-2339" />
+<meta name="app-version" content="20260629-0036" />
 <title>Aprovação · Conteúdo</title>
 
 <script>
@@ -201,7 +201,26 @@
       <span class="section__hint">Conteudo ja live no Instagram</span>
       <button type="button" class="section__toggle" id="publishedToggle" aria-expanded="true" aria-controls="publishedGrid">Esconder</button>
     </div>
-    <div class="gallery-grid" id="publishedGrid"></div>
+    <div id="publishedGrid">
+      <div class="gallery-group gallery-group--published" data-fmt="carrossel">
+        <div class="gallery-group__head">
+          <h3 class="gallery-group__title">Carrosséis <span class="gallery-group__subcount" data-count="carrossel">0</span></h3>
+        </div>
+        <div class="gallery-grid" data-grid="carrossel"></div>
+      </div>
+      <div class="gallery-group gallery-group--published" data-fmt="reel">
+        <div class="gallery-group__head">
+          <h3 class="gallery-group__title">Reels <span class="gallery-group__subcount" data-count="reel">0</span></h3>
+        </div>
+        <div class="gallery-grid" data-grid="reel"></div>
+      </div>
+      <div class="gallery-group gallery-group--published" data-fmt="story">
+        <div class="gallery-group__head">
+          <h3 class="gallery-group__title">Storys <span class="gallery-group__subcount" data-count="story">0</span></h3>
+        </div>
+        <div class="gallery-grid" data-grid="story"></div>
+      </div>
+    </div>
   </section>
 
   <!-- GALERIA UNIFICADA — dividida por marca e tipo de conteúdo -->
