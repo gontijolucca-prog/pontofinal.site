@@ -6,7 +6,7 @@ const WEEKDAYS_FULL = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"];
 const WEEKDAYS_HEAD = ["seg", "ter", "qua", "qui", "sex", "sáb", "dom"];
 const BRAND_SHORT = { techbody: "TB", techbody_u: "TBU", luiz_santana: "LS" };
 const FMT_LABEL = { carrossel: "Carr", story: "Story", reel: "Reel" };
-const STATUS_GLYPH = { approved: "✓", rejected: "✗", pending: "", published: "▶" };
+const STATUS_GLYPH = { approved: "✓", rejected: "✗", pending: "", published: "📌" };
 const MONTH_LABEL = {
   1: "Janeiro", 2: "Fevereiro", 3: "Março", 4: "Abril",
   5: "Maio", 6: "Junho", 7: "Julho", 8: "Agosto",
