@@ -269,7 +269,9 @@
     "generated_at": "2026-05-18T10:54:32",
     "scheduled_for": "2026-06-12",
     "hour": "17h",
-    "status": "pending"
+    "status": "pending",
+    "_missed_schedule": true,
+    "_missed_reason": "scheduled_for 2026-06-12 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
   },
   {
     "id": "techbody-2026-05-s02",
@@ -294,7 +296,9 @@
     "generated_at": "2026-05-18T10:54:32",
     "scheduled_for": "2026-06-19",
     "hour": "17h",
-    "status": "pending"
+    "status": "pending",
+    "_missed_schedule": true,
+    "_missed_reason": "scheduled_for 2026-06-19 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
   },
   {
     "id": "techbody-2026-05-s03",
@@ -431,7 +435,9 @@
     "scheduled_for": "2026-06-17",
     "hour": "18h",
     "video_url": "../brands/techbody/output/2026-05/reels/r02-primeira-vez.mp4",
-    "status": "pending"
+    "status": "pending",
+    "_missed_schedule": true,
+    "_missed_reason": "scheduled_for 2026-06-17 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
   },
   {
     "id": "techbody-2026-05-r03",
@@ -473,7 +479,9 @@
     "scheduled_for": "2026-06-23",
     "hour": "18h",
     "status": "pending",
-    "video_url": "../brands/techbody/output/2026-05/reels/r03-mito-atletas.mp4"
+    "video_url": "../brands/techbody/output/2026-05/reels/r03-mito-atletas.mp4",
+    "_missed_schedule": true,
+    "_missed_reason": "scheduled_for 2026-06-23 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
   },
   {
     "id": "techbody-2026-05-r04",
@@ -788,7 +796,9 @@
     "generated_at": "2026-05-18T10:54:32",
     "scheduled_for": "2026-06-12",
     "hour": "17h",
-    "status": "pending"
+    "status": "pending",
+    "_missed_schedule": true,
+    "_missed_reason": "scheduled_for 2026-06-12 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
   },
   {
     "id": "techbody_u-2026-05-s02",
@@ -817,7 +827,9 @@
     "generated_at": "2026-05-18T10:54:32",
     "scheduled_for": "2026-06-19",
     "hour": "17h",
-    "status": "pending"
+    "status": "pending",
+    "_missed_schedule": true,
+    "_missed_reason": "scheduled_for 2026-06-19 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
   },
   {
     "id": "techbody_u-2026-05-s03",
@@ -1003,7 +1015,9 @@
     "scheduled_for": "2026-06-23",
     "hour": "18h",
     "video_url": "../brands/techbody_u/output/2026-05/reels/r03-dialogo-eletro.mp4",
-    "status": "pending"
+    "status": "pending",
+    "_missed_schedule": true,
+    "_missed_reason": "scheduled_for 2026-06-23 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
   },
   {
     "id": "techbody_u-2026-05-r04",
@@ -2129,7 +2143,9 @@
     "generated_at": "2026-05-21",
     "scheduled_for": "2026-06-12",
     "hour": "17h",
-    "status": "pending"
+    "status": "pending",
+    "_missed_schedule": true,
+    "_missed_reason": "scheduled_for 2026-06-12 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
   },
   {
     "id": "luiz_santana-2026-05-s02",
@@ -2149,7 +2165,9 @@
     "generated_at": "2026-05-21",
     "scheduled_for": "2026-06-19",
     "hour": "17h",
-    "status": "pending"
+    "status": "pending",
+    "_missed_schedule": true,
+    "_missed_reason": "scheduled_for 2026-06-19 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
   },
   {
     "id": "luiz_santana-2026-05-s03",
@@ -2190,7 +2208,9 @@
     "scheduled_for": "2026-06-09",
     "hour": "18h",
     "status": "pending",
-    "video_url": "../brands/luiz_santana/output/2026-05/reels/luiz_r01_twin-fullscene_AvatarIV_v2.mp4"
+    "video_url": "../brands/luiz_santana/output/2026-05/reels/luiz_r01_twin-fullscene_AvatarIV_v2.mp4",
+    "_missed_schedule": true,
+    "_missed_reason": "scheduled_for 2026-06-09 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
   },
   {
     "id": "luiz_santana-2026-05-r02",
@@ -2211,7 +2231,9 @@
     "scheduled_for": "2026-06-17",
     "hour": "18h",
     "status": "pending",
-    "video_url": "../brands/luiz_santana/output/2026-05/reels/r02-final-seedance.mp4"
+    "video_url": "../brands/luiz_santana/output/2026-05/reels/r02-final-seedance.mp4",
+    "_missed_schedule": true,
+    "_missed_reason": "scheduled_for 2026-06-17 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
   },
   {
     "id": "luiz_santana-2026-05-r03",
@@ -2232,7 +2254,9 @@
     "scheduled_for": "2026-06-23",
     "hour": "18h",
     "status": "pending",
-    "video_url": "../brands/luiz_santana/output/2026-05/reels/luiz_r03_reabilitacao_twin_AvatarV_v2.mp4"
+    "video_url": "../brands/luiz_santana/output/2026-05/reels/luiz_r03_reabilitacao_twin_AvatarV_v2.mp4",
+    "_missed_schedule": true,
+    "_missed_reason": "scheduled_for 2026-06-23 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
   },
   {
     "id": "luiz_santana-2026-05-r04",
@@ -2272,7 +2296,9 @@
     "generated_at": "2026-06-12",
     "scheduled_for": "2026-06-14",
     "hour": "09h",
-    "status": "pending"
+    "status": "pending",
+    "_missed_schedule": true,
+    "_missed_reason": "scheduled_for 2026-06-14 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
   },
   {
     "id": "luiz_santana-2026-06-c07",
@@ -2292,7 +2318,9 @@
     "generated_at": "2026-06-12",
     "scheduled_for": "2026-06-16",
     "hour": "09h",
-    "status": "pending"
+    "status": "pending",
+    "_missed_schedule": true,
+    "_missed_reason": "scheduled_for 2026-06-16 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
   },
   {
     "id": "luiz_santana-2026-06-c08",
@@ -2312,7 +2340,9 @@
     "generated_at": "2026-06-12",
     "scheduled_for": "2026-06-17",
     "hour": "09h",
-    "status": "pending"
+    "status": "pending",
+    "_missed_schedule": true,
+    "_missed_reason": "scheduled_for 2026-06-17 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
   },
   {
     "id": "luiz_santana-2026-06-c09",
@@ -2332,7 +2362,9 @@
     "generated_at": "2026-06-12",
     "scheduled_for": "2026-06-20",
     "hour": "09h",
-    "status": "pending"
+    "status": "pending",
+    "_missed_schedule": true,
+    "_missed_reason": "scheduled_for 2026-06-20 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
   },
   {
     "id": "luiz_santana-2026-06-c10",
@@ -2352,7 +2384,9 @@
     "generated_at": "2026-06-12",
     "scheduled_for": "2026-06-22",
     "hour": "09h",
-    "status": "pending"
+    "status": "pending",
+    "_missed_schedule": true,
+    "_missed_reason": "scheduled_for 2026-06-22 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
   },
   {
     "id": "luiz_santana-2026-06-c11",
@@ -2676,7 +2710,9 @@
     "instagram_post_id": null,
     "instagram_permalink": null,
     "published_at": null,
-    "note": "Apagado pelo Lucca duas vezes. Não republicar sem revisão. A versão publicada tem caption que o Lucca não aprova."
+    "note": "Apagado pelo Lucca duas vezes. Não republicar sem revisão. A versão publicada tem caption que o Lucca não aprova.",
+    "_missed_schedule": true,
+    "_missed_reason": "scheduled_for 2026-06-19 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
   },
   {
     "id": "techbody-2026-07-s04",
