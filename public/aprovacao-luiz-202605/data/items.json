@@ -318,9 +318,10 @@
     "photo_positions": [],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "",
-    "hour": "",
-    "status": "pending"
+    "scheduled_for": "2026-06-26",
+    "hour": "17h",
+    "status": "published",
+    "published_at": "2026-06-26T17:00:00+0000"
   },
   {
     "id": "techbody-2026-05-s04",
@@ -847,9 +848,10 @@
     ],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-18T10:54:32",
-    "scheduled_for": "",
-    "hour": "",
-    "status": "pending"
+    "scheduled_for": "2026-06-26",
+    "hour": "17h",
+    "status": "published",
+    "published_at": "2026-06-26T17:00:00+0000"
   },
   {
     "id": "techbody_u-2026-05-s04",
@@ -2174,7 +2176,8 @@
     "generated_at": "2026-05-21",
     "scheduled_for": "",
     "hour": "",
-    "status": "pending"
+    "status": "pending",
+    "published_at": ""
   },
   {
     "id": "luiz_santana-2026-05-r01",

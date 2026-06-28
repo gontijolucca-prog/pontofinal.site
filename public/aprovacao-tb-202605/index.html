@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="app-version" content="20260628-2256" />
+<meta name="app-version" content="20260628-2310" />
 <title>Aprovação · Conteúdo</title>
 
 <script>
@@ -212,7 +212,17 @@
     <month-calendar id="calendar"></month-calendar>
   </section>
 
-  <!-- PUBLICADOS — resumo do que já saiu, agrupado por tipo -->
+  <!-- GALERIA UNIFICADA — dividida por marca e tipo de conteúdo -->
+  <section class="section" id="gallerySection">
+    <div class="section__heading">
+      <h2>Galeria</h2>
+      <span class="count" id="galleryCount">0</span>
+      <span class="section__hint">Todos os conteúdos — clica para abrir e editar</span>
+    </div>
+    <div id="galleryGrid"></div>
+  </section>
+
+  <!-- PUBLICADOS — resumo do que já saiu, agrupado por tipo (no fim da página) -->
   <section class="section" id="publishedSection">
     <div class="section__heading">
       <h2>📌 Publicados</h2>
@@ -246,16 +256,6 @@
         <ol class="published-col__list" data-list="story"></ol>
       </div>
     </div>
-  </section>
-
-  <!-- GALERIA UNIFICADA — dividida por marca e tipo de conteúdo -->
-  <section class="section" id="gallerySection">
-    <div class="section__heading">
-      <h2>Galeria</h2>
-      <span class="count" id="galleryCount">0</span>
-      <span class="section__hint">Todos os conteúdos — clica para abrir e editar</span>
-    </div>
-    <div id="galleryGrid"></div>
   </section>
 
 </main>

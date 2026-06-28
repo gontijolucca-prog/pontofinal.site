@@ -444,7 +444,7 @@ function render() {
         sub.appendChild(grid);
         pubGroup.appendChild(sub);
       }
-      gg.prepend(pubGroup);
+      gg.appendChild(pubGroup);
     }
     setCount(els.galleryCount(), allSorted.length);
   }
