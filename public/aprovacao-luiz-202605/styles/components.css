@@ -3669,3 +3669,5 @@ article.card.is-located { animation: card-locate-flash 2.6s ease-out; }
   color: var(--text);
   opacity: 0.6;
 }
+
+/* ───── PUBLICADOS — 3 colunas por tipo (reel / story / carrossel) ───── */

@@ -195,6 +195,57 @@ function inferMonth(item) {
   return null;
 }
 
+function renderPublishedSection() {
+  const grid = document.getElementById("publishedGrid");
+  const totalEl = document.getElementById("publishedCount");
+  if (!grid) return;
+  // Filtra TODOS os items com status: published (ignora mês/filtro actual).
+  // Mostra o histórico completo do que já saiu, agrupado por formato.
+  const FORMAT_ORDER = ["carrossel", "reel", "story"];
+  const groups = { carrossel: [], reel: [], story: [] };
+  for (const it of state.items) {
+    if (it.status !== "published") continue;
+    if (groups[it.format]) groups[it.format].push(it);
+  }
+  // Ordenar por data de publicação (mais recente primeiro) dentro de cada grupo.
+  for (const f of FORMAT_ORDER) {
+    groups[f].sort((a, b) => String(b.published_at || "").localeCompare(String(a.published_at || "")));
+  }
+  const total = groups.carrossel.length + groups.reel.length + groups.story.length;
+  if (totalEl) totalEl.textContent = total;
+  // Preencher cada coluna
+  for (const fmt of FORMAT_ORDER) {
+    const list = grid.querySelector(`[data-list="${fmt}"]`);
+    const count = grid.querySelector(`[data-count="${fmt}"]`);
+    if (!list) continue;
+    if (count) count.textContent = groups[fmt].length;
+    list.innerHTML = "";
+    for (const it of groups[fmt]) {
+      const li = document.createElement("li");
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "published-item";
+      btn.dataset.itemId = it.id;
+      btn.dataset.brand = it.brand;
+      const brandShort = { techbody: "TB", techbody_u: "TBU", luiz_santana: "LS" }[it.brand] || it.brand;
+      const ref = (it.id || "").split("-").pop() || "";
+      const title = (it.title || it.theme || "").slice(0, 40);
+      const dateShort = it.published_at ? it.published_at.slice(0, 10) : (it.scheduled_for || "");
+      btn.innerHTML = `
+        <span class="published-item__brand">${brandShort}</span>
+        <span class="published-item__title" title="${(it.title || it.theme || "").replace(/"/g, '&quot;')}">${ref} · ${title}</span>
+        <span class="published-item__date">${dateShort}</span>
+      `;
+      btn.addEventListener("click", () => {
+        const ev = new CustomEvent("published:item-click", { bubbles: true, detail: { id: it.id } });
+        document.dispatchEvent(ev);
+      });
+      li.appendChild(btn);
+      list.appendChild(li);
+    }
+  }
+}
+
 function render() {
   const items = visibleItems();
   const monthHasContent = items.length > 0
@@ -209,6 +260,10 @@ function render() {
     && (state.currentBrand  === "all" || i.brand  === state.currentBrand)
     && (state.currentFormat === "all" || i.format === state.currentFormat)
   );
+  // Secção "Publicados" — itens com status: published em items.json (independentemente
+  // do mês visível no calendário: serve de log histórico do que já saiu).
+  renderPublishedSection();
+
   const hasScheduled = realCalendarItems.some(i => i.scheduled_for);
   if (hasScheduled) {
     els.calendar().setItems(realCalendarItems);
@@ -463,6 +518,22 @@ function bindOpen() {
     // Always open viewer (sections are hidden in calendar-only mode)
     els.viewer().open(it);
   });
+  document.addEventListener("published:item-click", e => {
+    const it = findItem(e.detail.id);
+    if (it) els.viewer().open(it);
+  });
+  // Toggle "Esconder" da secção Publicados (mesmo padrão do calendário).
+  const pubBtn = document.getElementById("publishedToggle");
+  const pubSection = document.getElementById("publishedSection");
+  if (pubBtn && pubSection) {
+    pubBtn.addEventListener("click", () => {
+      const isHidden = pubSection.classList.toggle("is-collapsed");
+      const grid = document.getElementById("publishedGrid");
+      if (grid) grid.style.display = isHidden ? "none" : "";
+      pubBtn.textContent = isHidden ? "Mostrar" : "Esconder";
+      pubBtn.setAttribute("aria-expanded", String(!isHidden));
+    });
+  }
   // Keyboard advance dentro do viewer (A/R/J/K).
   document.addEventListener("viewer:advance", e => {
     const items = visibleItems().sort(sortBySchedule);

@@ -195,6 +195,53 @@ function inferMonth(item) {
   return null;
 }
 
+function renderPublishedSection() {
+  const grid = document.getElementById("publishedGrid");
+  const totalEl = document.getElementById("publishedCount");
+  if (!grid) return;
+  const FORMAT_ORDER = ["carrossel", "reel", "story"];
+  const groups = { carrossel: [], reel: [], story: [] };
+  for (const it of state.items) {
+    if (it.status !== "published") continue;
+    if (groups[it.format]) groups[it.format].push(it);
+  }
+  for (const f of FORMAT_ORDER) {
+    groups[f].sort((a, b) => String(b.published_at || "").localeCompare(String(a.published_at || "")));
+  }
+  const total = groups.carrossel.length + groups.reel.length + groups.story.length;
+  if (totalEl) totalEl.textContent = total;
+  for (const fmt of FORMAT_ORDER) {
+    const list = grid.querySelector(`[data-list="${fmt}"]`);
+    const count = grid.querySelector(`[data-count="${fmt}"]`);
+    if (!list) continue;
+    if (count) count.textContent = groups[fmt].length;
+    list.innerHTML = "";
+    for (const it of groups[fmt]) {
+      const li = document.createElement("li");
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "published-item";
+      btn.dataset.itemId = it.id;
+      btn.dataset.brand = it.brand;
+      const brandShort = { techbody: "TB", techbody_u: "TBU", luiz_santana: "LS" }[it.brand] || it.brand;
+      const ref = (it.id || "").split("-").pop() || "";
+      const title = (it.title || it.theme || "").slice(0, 40);
+      const dateShort = it.published_at ? it.published_at.slice(0, 10) : (it.scheduled_for || "");
+      btn.innerHTML = `
+        <span class="published-item__brand">${brandShort}</span>
+        <span class="published-item__title" title="${(it.title || it.theme || "").replace(/"/g, '&quot;')}">${ref} · ${title}</span>
+        <span class="published-item__date">${dateShort}</span>
+      `;
+      btn.addEventListener("click", () => {
+        const ev = new CustomEvent("published:item-click", { bubbles: true, detail: { id: it.id } });
+        document.dispatchEvent(ev);
+      });
+      li.appendChild(btn);
+      list.appendChild(li);
+    }
+  }
+}
+
 function render() {
   const items = visibleItems();
   const monthHasContent = items.length > 0
@@ -227,6 +274,9 @@ function render() {
     }
     els.calendar().setItems(ghosts);
   }
+
+  // Secção "Publicados" — log histórico do que já saiu, agrupado por tipo.
+  renderPublishedSection();
 
   // Galeria unificada — dividida por marca e tipo de conteúdo
   const gg = els.galleryGrid();
@@ -465,6 +515,23 @@ function bindOpen() {
       els.viewer().open(it); // card fora do filtro/mês visível
     }
   });
+  document.addEventListener("published:item-click", e => {
+    const it = findItem(e.detail.id);
+    if (!it) return;
+    els.viewer().open(it);
+  });
+  // Toggle "Esconder" da secção Publicados.
+  const pubBtn = document.getElementById("publishedToggle");
+  const pubSection = document.getElementById("publishedSection");
+  if (pubBtn && pubSection) {
+    pubBtn.addEventListener("click", () => {
+      const isHidden = pubSection.classList.toggle("is-collapsed");
+      const grid = document.getElementById("publishedGrid");
+      if (grid) grid.style.display = isHidden ? "none" : "";
+      pubBtn.textContent = isHidden ? "Mostrar" : "Esconder";
+      pubBtn.setAttribute("aria-expanded", String(!isHidden));
+    });
+  }
   // Keyboard advance dentro do viewer (A/R/J/K).
   document.addEventListener("viewer:advance", e => {
     const items = visibleItems().sort(sortBySchedule);
