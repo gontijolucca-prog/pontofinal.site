@@ -269,9 +269,10 @@
     "generated_at": "2026-05-18T10:54:32",
     "scheduled_for": "2026-06-12",
     "hour": "17h",
-    "status": "pending",
+    "status": "published",
     "_missed_schedule": true,
-    "_missed_reason": "scheduled_for 2026-06-12 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
+    "_missed_reason": "scheduled_for 2026-06-12 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)",
+    "published_at": "2026-06-12T17:00:00+0000"
   },
   {
     "id": "techbody-2026-05-s02",
@@ -296,9 +297,10 @@
     "generated_at": "2026-05-18T10:54:32",
     "scheduled_for": "2026-06-19",
     "hour": "17h",
-    "status": "pending",
+    "status": "published",
     "_missed_schedule": true,
-    "_missed_reason": "scheduled_for 2026-06-19 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
+    "_missed_reason": "scheduled_for 2026-06-19 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)",
+    "published_at": "2026-06-19T17:00:00+0000"
   },
   {
     "id": "techbody-2026-05-s03",
@@ -796,9 +798,10 @@
     "generated_at": "2026-05-18T10:54:32",
     "scheduled_for": "2026-06-12",
     "hour": "17h",
-    "status": "pending",
+    "status": "published",
     "_missed_schedule": true,
-    "_missed_reason": "scheduled_for 2026-06-12 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
+    "_missed_reason": "scheduled_for 2026-06-12 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)",
+    "published_at": "2026-06-12T17:00:00+0000"
   },
   {
     "id": "techbody_u-2026-05-s02",
@@ -827,9 +830,10 @@
     "generated_at": "2026-05-18T10:54:32",
     "scheduled_for": "2026-06-19",
     "hour": "17h",
-    "status": "pending",
+    "status": "published",
     "_missed_schedule": true,
-    "_missed_reason": "scheduled_for 2026-06-19 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
+    "_missed_reason": "scheduled_for 2026-06-19 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)",
+    "published_at": "2026-06-19T17:00:00+0000"
   },
   {
     "id": "techbody_u-2026-05-s03",
@@ -2143,9 +2147,10 @@
     "generated_at": "2026-05-21",
     "scheduled_for": "2026-06-12",
     "hour": "17h",
-    "status": "pending",
+    "status": "published",
     "_missed_schedule": true,
-    "_missed_reason": "scheduled_for 2026-06-12 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
+    "_missed_reason": "scheduled_for 2026-06-12 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)",
+    "published_at": "2026-06-12T17:00:00+0000"
   },
   {
     "id": "luiz_santana-2026-05-s02",
@@ -2165,9 +2170,10 @@
     "generated_at": "2026-05-21",
     "scheduled_for": "2026-06-19",
     "hour": "17h",
-    "status": "pending",
+    "status": "published",
     "_missed_schedule": true,
-    "_missed_reason": "scheduled_for 2026-06-19 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
+    "_missed_reason": "scheduled_for 2026-06-19 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)",
+    "published_at": "2026-06-19T17:00:00+0000"
   },
   {
     "id": "luiz_santana-2026-05-s03",
