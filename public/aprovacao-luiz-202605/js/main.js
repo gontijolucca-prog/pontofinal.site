@@ -351,7 +351,7 @@ function render() {
       const img = card.querySelector("img.gallery-card__cover");
       const iframe = card.querySelector("iframe");
       if (img && iframe) {
-        thumb.addEventListener("mouseenter", () => {
+        const loadIframe = () => {
           if (iframe.dataset.hoverSrc && !iframe.src) {
             iframe.src = iframe.dataset.hoverSrc;
             iframe.style.display = "";
@@ -359,7 +359,18 @@ function render() {
             const [nw, nh] = dimsFor(it.format);
             fitScaledFrame(thumb, nw, nh);
           }
-        });
+        };
+        thumb.addEventListener("mouseenter", loadIframe);
+        const obs = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              loadIframe();
+              obs.unobserve(entry.target);
+            }
+          }
+        }, { rootMargin: "200px" });
+        obs.observe(thumb);
+        card._pubObserver = obs;
       }
       const video = card.querySelector("video");
       if (img && video) {

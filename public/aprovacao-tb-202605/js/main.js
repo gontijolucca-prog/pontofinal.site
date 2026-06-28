@@ -355,12 +355,14 @@ function render() {
         <div class="gallery-card__info">
           <span class="gallery-card__title">${title}</span>
         </div>`;
-      // Hover: esconde capa, mostra iframe/video
+      // Load when visible: IntersectionObserver carrega o iframe preview automaticamente
+      // quando o card entra na viewport (sem precisar de hover). RootMargin=200px
+      // inicia o load antes de o user lá chegar, evitando ecrãs em branco ao scrollar.
       const thumb = card.querySelector(".gallery-card__thumb");
       const img = card.querySelector("img.gallery-card__cover");
       const iframe = card.querySelector("iframe");
       if (img && iframe) {
-        thumb.addEventListener("mouseenter", () => {
+        const loadIframe = () => {
           if (iframe.dataset.hoverSrc && !iframe.src) {
             iframe.src = iframe.dataset.hoverSrc;
             iframe.style.display = "";
@@ -368,7 +370,21 @@ function render() {
             const [nw, nh] = dimsFor(it.format);
             fitScaledFrame(thumb, nw, nh);
           }
-        });
+        };
+        // Hover mantém-se como trigger secundário (caso o IntersectionObserver
+        // não tenha disparado — ex.: card escondido por CSS/filtro).
+        thumb.addEventListener("mouseenter", loadIframe);
+        // IntersectionObserver: carrega quando visível (sem hover).
+        const obs = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              loadIframe();
+              obs.unobserve(entry.target);
+            }
+          }
+        }, { rootMargin: "200px" });
+        obs.observe(thumb);
+        card._pubObserver = obs; // guardar para cleanup se necessário
       }
       const video = card.querySelector("video");
       if (img && video) {
