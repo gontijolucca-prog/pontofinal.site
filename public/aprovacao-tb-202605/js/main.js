@@ -438,31 +438,6 @@ function render() {
       }
       gg.appendChild(groupEl);
     }
-    // Grupo "Publicados" no TOPO da galeria, subdividido por formato.
-    if (publishedItems.length > 0) {
-      const pubGroup = document.createElement("div");
-      pubGroup.className = "gallery-group gallery-group--published";
-      pubGroup.innerHTML = `<div class="gallery-group__head"><h3 class="gallery-group__title">📌 Publicados</h3><span class="gallery-group__count">${publishedItems.length}</span></div>`;
-      // Agrupar por formato (carrossel / reel / story) — mesmo padrão que a
-      // secção "Publicados" do calendário, para consistência visual.
-      const publishedByFmt = { carrossel: [], reel: [], story: [] };
-      for (const it of publishedItems) {
-        if (publishedByFmt[it.format]) publishedByFmt[it.format].push(it);
-      }
-      for (const fmt of FORMAT_ORDER) {
-        const arr = publishedByFmt[fmt];
-        if (!arr || !arr.length) continue;
-        const sub = document.createElement("div");
-        sub.className = "gallery-group__sub";
-        sub.innerHTML = `<h4 class="gallery-group__subtitle">${FORMAT_NAMES[fmt] || fmt} <span class="gallery-group__subcount">${arr.length}</span></h4>`;
-        const grid = document.createElement("div");
-        grid.className = "gallery-grid";
-        for (const it of arr) grid.appendChild(buildCard(it));
-        sub.appendChild(grid);
-        pubGroup.appendChild(sub);
-      }
-      gg.appendChild(pubGroup);
-    }
     setCount(els.galleryCount(), allSorted.length);
   }
 
