@@ -195,55 +195,140 @@ function inferMonth(item) {
   return null;
 }
 
+// Função para saber o status efectivo (items.json status tem prioridade).
+const effectiveStatus = (it) => it.status === "published"
+  ? "published"
+  : (approvalStore.get(it.id)?.status || "pending");
+
+// Construir preview card (gallery-card) com capa + iframe/video lazy.
+const buildCard = (it) => {
+  const card = document.createElement("div");
+  card.className = "gallery-card";
+  card.setAttribute("data-item-id", it.id);
+  card.setAttribute("data-format", it.format);
+  card.setAttribute("data-brand", it.brand);
+  const st = effectiveStatus(it);
+  card.setAttribute("data-status", st);
+  const title = it.title || it.theme || "";
+  const shotBase = (it.html_url || "").replace(/\.html$/, "");
+  const isReel = it.format === "reel";
+  const coverPath = isReel
+    ? shotBase ? shotBase + ".jpg" : ""
+    : it.format === "carrossel"
+    ? shotBase ? shotBase + "_shots/slide_01.jpg" : ""
+    : shotBase ? shotBase + ".jpg" : "";
+  const coverSrc = coverPath ? coverPath + "?v=" + APP_VERSION + "&c=" + currentContentSig() : "";
+  const iframeSrc = !isReel && it.html_url
+    ? it.html_url + "?v=" + APP_VERSION + "&c=" + currentContentSig() + (it.format === "carrossel" ? "#slide-1" : "")
+    : "";
+  const videoSrc = isReel && it.video_url
+    ? it.video_url + "?v=" + APP_VERSION + "&c=" + currentContentSig()
+    : "";
+  const poster = isReel && it.video_url
+    ? it.video_url.replace(/.mp4$/, ".jpg")
+    : "";
+  card.innerHTML = `
+    <div class="gallery-card__thumb" data-fmt="${it.format}">
+      ${coverSrc
+        ? '<img class="gallery-card__cover" src="' + coverSrc + '" alt="' + _escapeForHtml(title) + '" loading="eager" fetchpriority="high" onerror="this.onerror=null;this.closest(\'.gallery-card__thumb\').classList.add(\'is-broken\')" />'
+        : '<div class="gallery-card__no-preview">Sem preview</div>'}
+      ${videoSrc
+        ? '<video class="gallery-card__video" data-src="' + videoSrc + '" poster="' + poster + '" muted loop playsinline preload="none" style="display:none"></video>'
+        : iframeSrc
+        ? '<iframe data-hover-src="' + iframeSrc + '" title="' + _escapeForHtml(title) + '" scrolling="no" loading="lazy" tabindex="-1" style="display:none"></iframe>'
+        : ""}
+      <span class="gallery-card__badge gallery-card__badge--${st}">${st === "approved" ? "\u2713" : st === "rejected" ? "\u2717" : st === "published" ? "📌" : ""}</span>
+    </div>
+    <div class="gallery-card__info">
+      <span class="gallery-card__title">${title}</span>
+    </div>`;
+  const thumb = card.querySelector(".gallery-card__thumb");
+  const img = card.querySelector("img.gallery-card__cover");
+  const iframe = card.querySelector("iframe");
+  if (img && iframe) {
+    const loadIframe = () => {
+      if (iframe.dataset.hoverSrc && !iframe.src) {
+        iframe.src = iframe.dataset.hoverSrc;
+        iframe.style.display = "";
+        img.style.display = "none";
+        var nw_nh = dimsFor(it.format);
+        fitScaledFrame(thumb, nw_nh[0], nw_nh[1]);
+      }
+    };
+    thumb.addEventListener("mouseenter", loadIframe);
+    const obs = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          loadIframe();
+          obs.unobserve(entry.target);
+        }
+      }
+    }, { rootMargin: "200px" });
+    obs.observe(thumb);
+    card._pubObserver = obs;
+  }
+  const video = card.querySelector("video");
+  if (img && video) {
+    thumb.addEventListener("mouseenter", () => {
+      if (video.dataset.src && !video.src) {
+        video.src = video.dataset.src;
+        delete video.dataset.src;
+      }
+      video.play().catch(() => {});
+      img.style.display = "none";
+      video.style.display = "";
+    });
+    thumb.addEventListener("mouseleave", () => {
+      video.pause();
+      video.currentTime = 0;
+    });
+  }
+  card.addEventListener("click", () => {
+    const found = findItem(card.dataset.itemId);
+    if (found) els.viewer().open(found);
+  });
+  return card;
+};
+
+// ─── Render ──────────────────────────────────────────────────────────────
+
+
 function renderPublishedSection() {
-  const grid = document.getElementById("publishedGrid");
+  const container = document.getElementById("publishedGrid");
   const totalEl = document.getElementById("publishedCount");
-  if (!grid) return;
-  // Filtra TODOS os items com status: published (ignora mês/filtro actual).
-  // Mostra o histórico completo do que já saiu, agrupado por formato.
-  const FORMAT_ORDER = ["carrossel", "reel", "story"];
-  const groups = { carrossel: [], reel: [], story: [] };
-  for (const it of state.items) {
-    if (it.status !== "published") continue;
-    if (groups[it.format]) groups[it.format].push(it);
+  if (!container) return;
+  const pubItems = state.items.filter(i => i.status === "published");
+  pubItems.sort((a, b) => String(b.published_at || "").localeCompare(String(a.published_at || "")));
+  if (totalEl) totalEl.textContent = pubItems.length;
+  // Actualizar hint com contagens por formato.
+  const hintEl = document.getElementById("publishedSection")?.querySelector(".section__hint");
+  if (hintEl) {
+    const counts = { carrossel: 0, reel: 0, story: 0 };
+    for (const it of pubItems) { if (counts[it.format] !== undefined) counts[it.format]++; }
+    hintEl.textContent = `Carrosséis ${counts.carrossel}  ·  Reels ${counts.reel}  ·  Storys ${counts.story}  —  clique para abrir`;
   }
-  // Ordenar por data de publicação (mais recente primeiro) dentro de cada grupo.
-  for (const f of FORMAT_ORDER) {
-    groups[f].sort((a, b) => String(b.published_at || "").localeCompare(String(a.published_at || "")));
-  }
-  const total = groups.carrossel.length + groups.reel.length + groups.story.length;
-  if (totalEl) totalEl.textContent = total;
-  // Preencher cada coluna
-  for (const fmt of FORMAT_ORDER) {
-    const list = grid.querySelector(`[data-list="${fmt}"]`);
-    const count = grid.querySelector(`[data-count="${fmt}"]`);
-    if (!list) continue;
-    if (count) count.textContent = groups[fmt].length;
-    list.innerHTML = "";
-    for (const it of groups[fmt]) {
-      const li = document.createElement("li");
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "published-item";
-      btn.dataset.itemId = it.id;
-      btn.dataset.brand = it.brand;
-      const brandShort = { techbody: "TB", techbody_u: "TBU", luiz_santana: "LS" }[it.brand] || it.brand;
-      const ref = (it.id || "").split("-").pop() || "";
-      const title = (it.title || it.theme || "").slice(0, 40);
-      const dateShort = it.published_at ? it.published_at.slice(0, 10) : (it.scheduled_for || "");
-      btn.innerHTML = `
-        <span class="published-item__brand">${brandShort}</span>
-        <span class="published-item__title" title="${(it.title || it.theme || "").replace(/"/g, '&quot;')}">${ref} · ${title}</span>
-        <span class="published-item__date">${dateShort}</span>
-      `;
-      btn.addEventListener("click", () => {
-        const ev = new CustomEvent("published:item-click", { bubbles: true, detail: { id: it.id } });
-        document.dispatchEvent(ev);
-      });
-      li.appendChild(btn);
-      list.appendChild(li);
+  // Renderizar mini previews (gallery-card) — igual à galeria.
+  container.innerHTML = "";
+  for (const it of pubItems) {
+    if (typeof buildCard === "function") {
+      container.appendChild(buildCard(it));
+    } else {
+      // fallback raro: se buildCard não estiver disponível
+      const el = document.createElement("div");
+      el.className = "gallery-card";
+      el.style.cssText = "padding:12px;border:2px solid var(--border);font:700 11px/1.3 var(--font-mono);cursor:pointer;";
+      el.textContent = it.title || it.theme || it.id;
+      container.appendChild(el);
     }
   }
+  // Click delegation (abre o item-viewer).
+  container.addEventListener("click", (e) => {
+    const card = e.target.closest(".gallery-card");
+    if (card) {
+      const ev = new CustomEvent("published:item-click", { bubbles: true, detail: { id: card.dataset.itemId } });
+      document.dispatchEvent(ev);
+    }
+  });
 }
 
 function render() {
@@ -292,9 +377,6 @@ function render() {
     const FORMAT_NAMES = { carrossel: "Carrosséis", story: "Stories", reel: "Reels" };
     const FORMAT_ORDER = ["carrossel", "story", "reel"];
     // Função para saber o status efectivo (items.json status tem prioridade)
-    const effectiveStatus = (it) => it.status === "published"
-      ? "published"
-      : (approvalStore.get(it.id)?.status || "pending");
     const grouped = {};
     const publishedItems = [];
     for (const it of allSorted) {
@@ -308,106 +390,8 @@ function render() {
       if (!grouped[b][f]) grouped[b][f] = [];
       grouped[b][f].push(it);
     }
-    // Construir cards num array para reutilizar lógica
-    const buildCard = (it) => {
-      const card = document.createElement("div");
-      card.className = "gallery-card";
-      card.setAttribute("data-item-id", it.id);
-      card.setAttribute("data-format", it.format);
-      card.setAttribute("data-brand", it.brand);
-      const st = effectiveStatus(it);
-      card.setAttribute("data-status", st);
-      const title = it.title || it.theme || "";
-      const shotBase = (it.html_url || "").replace(/\.html$/, "");
-      const isReel = it.format === "reel";
-      // Capa estática por formato:
-      //   carrossel → _shots/slide_01.jpg
-      //   story     → base.jpg
-      //   reel      → base.jpg (com video lazy on hover)
-      const coverPath = isReel
-        ? shotBase ? `${shotBase}.jpg` : ""
-        : it.format === "carrossel"
-        ? shotBase ? `${shotBase}_shots/slide_01.jpg` : ""
-        : shotBase ? `${shotBase}.jpg` : "";
-      const coverSrc = coverPath ? `${coverPath}?v=${APP_VERSION}&c=${currentContentSig()}` : "";
-      const iframeSrc = !isReel && it.html_url
-        ? `${it.html_url}?v=${APP_VERSION}&c=${currentContentSig()}${it.format === "carrossel" ? "#slide-1" : ""}`
-        : "";
-      const videoSrc = isReel && it.video_url
-        ? `${it.video_url}?v=${APP_VERSION}&c=${currentContentSig()}`
-        : "";
-      const poster = isReel && it.video_url
-        ? it.video_url.replace(/\.mp4$/, ".jpg")
-        : "";
-      // innerHTML: capa VISÍVEL, iframe/video ESCONDIDO (carrega on hover)
-      card.innerHTML = `
-        <div class="gallery-card__thumb" data-fmt="${it.format}">
-          ${coverSrc
-            ? `<img class="gallery-card__cover" src="${coverSrc}" alt="${_escapeForHtml(title)}" loading="eager" fetchpriority="high" onerror="this.onerror=null;this.closest('.gallery-card__thumb').classList.add('is-broken')" />`
-            : `<div class="gallery-card__no-preview">Sem preview</div>`}
-          ${videoSrc
-            ? `<video class="gallery-card__video" data-src="${videoSrc}" poster="${poster}" muted loop playsinline preload="none" style="display:none"></video>`
-            : iframeSrc
-            ? `<iframe data-hover-src="${iframeSrc}" title="${_escapeForHtml(title)}" scrolling="no" loading="lazy" tabindex="-1" style="display:none"></iframe>`
-            : ""}
-          <span class="gallery-card__badge gallery-card__badge--${st}">${st === "approved" ? "✓" : st === "rejected" ? "✗" : st === "published" ? "📌" : ""}</span>
-        </div>
-        <div class="gallery-card__info">
-          <span class="gallery-card__title">${title}</span>
-        </div>`;
-      // Load when visible: IntersectionObserver carrega o iframe preview automaticamente
-      // quando o card entra na viewport (sem precisar de hover). RootMargin=200px
-      // inicia o load antes de o user lá chegar, evitando ecrãs em branco ao scrollar.
-      const thumb = card.querySelector(".gallery-card__thumb");
-      const img = card.querySelector("img.gallery-card__cover");
-      const iframe = card.querySelector("iframe");
-      if (img && iframe) {
-        const loadIframe = () => {
-          if (iframe.dataset.hoverSrc && !iframe.src) {
-            iframe.src = iframe.dataset.hoverSrc;
-            iframe.style.display = "";
-            img.style.display = "none";
-            const [nw, nh] = dimsFor(it.format);
-            fitScaledFrame(thumb, nw, nh);
-          }
-        };
-        // Hover mantém-se como trigger secundário (caso o IntersectionObserver
-        // não tenha disparado — ex.: card escondido por CSS/filtro).
-        thumb.addEventListener("mouseenter", loadIframe);
-        // IntersectionObserver: carrega quando visível (sem hover).
-        const obs = new IntersectionObserver((entries) => {
-          for (const entry of entries) {
-            if (entry.isIntersecting) {
-              loadIframe();
-              obs.unobserve(entry.target);
-            }
-          }
-        }, { rootMargin: "200px" });
-        obs.observe(thumb);
-        card._pubObserver = obs; // guardar para cleanup se necessário
-      }
-      const video = card.querySelector("video");
-      if (img && video) {
-        thumb.addEventListener("mouseenter", () => {
-          if (video.dataset.src && !video.src) {
-            video.src = video.dataset.src;
-            delete video.dataset.src;
-          }
-          video.play().catch(() => {});
-          img.style.display = "none";
-          video.style.display = "";
-        });
-        thumb.addEventListener("mouseleave", () => {
-          video.pause();
-          video.currentTime = 0;
-        });
-      }
-      card.addEventListener("click", () => {
-        const found = findItem(card.dataset.itemId);
-        if (found) els.viewer().open(found);
-      });
-      return card;
-    };
+    // buildCard definido a nível de módulo — reutilizável pela secção
+    // "Publicados" (previews com imagem/iframe) e pela galeria principal.
     // Grupo "Publicados" — primeiro (publicados vão para baixo)
     // Placeholder: criado depois dos grupos marca+formato
     // Grupos por marca → formato

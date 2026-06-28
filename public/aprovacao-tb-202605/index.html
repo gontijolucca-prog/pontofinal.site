@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="app-version" content="20260628-2322" />
+<meta name="app-version" content="20260628-2339" />
 <title>Aprovação · Conteúdo</title>
 
 <script>
@@ -222,7 +222,7 @@
     <div id="galleryGrid"></div>
   </section>
 
-  <!-- PUBLICADOS — resumo do que já saiu, agrupado por tipo (no fim da página) -->
+  <!-- PUBLICADOS — mini previews (como a galeria), no fim da página -->
   <section class="section" id="publishedSection">
     <div class="section__heading">
       <h2>📌 Publicados</h2>
@@ -230,32 +230,7 @@
       <span class="section__hint">Conteúdos já live no Instagram</span>
       <button type="button" class="section__toggle" id="publishedToggle" aria-expanded="true" aria-controls="publishedGrid">Esconder</button>
     </div>
-    <div class="published-grid" id="publishedGrid">
-      <div class="published-col" data-fmt="carrossel">
-        <div class="published-col__head">
-          <span class="published-col__dot" style="background:#FFFFFF"></span>
-          <span class="published-col__label">Carrosséis</span>
-          <span class="published-col__count" data-count="carrossel">0</span>
-        </div>
-        <ol class="published-col__list" data-list="carrossel"></ol>
-      </div>
-      <div class="published-col" data-fmt="reel">
-        <div class="published-col__head">
-          <span class="published-col__dot" style="background:#050505"></span>
-          <span class="published-col__label">Reels</span>
-          <span class="published-col__count" data-count="reel">0</span>
-        </div>
-        <ol class="published-col__list" data-list="reel"></ol>
-      </div>
-      <div class="published-col" data-fmt="story">
-        <div class="published-col__head">
-          <span class="published-col__dot" style="background:#FF2A2A"></span>
-          <span class="published-col__label">Storys</span>
-          <span class="published-col__count" data-count="story">0</span>
-        </div>
-        <ol class="published-col__list" data-list="story"></ol>
-      </div>
-    </div>
+    <div class="gallery-grid" id="publishedGrid"></div>
   </section>
 
 </main>

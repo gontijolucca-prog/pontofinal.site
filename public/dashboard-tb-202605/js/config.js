@@ -13,3 +13,5 @@ export const AUTH_ENABLED =
   SUPABASE_URL.startsWith("https://") &&
   !SUPABASE_URL.includes("YOUR_PROJECT") &&
   !SUPABASE_ANON_KEY.includes("REPLACE");
+
+export const APP_VERSION = "20260628-2350";
