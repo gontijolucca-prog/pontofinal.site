@@ -1285,7 +1285,7 @@
     "photos_used": [],
     "prompt_version": "hand-v2",
     "generated_at": "2026-06-06T16:30:00",
-    "scheduled_for": "2026-07-05",
+    "scheduled_for": "2026-07-07",
     "hour": "09h",
     "status": "pending"
   },
@@ -1330,7 +1330,7 @@
     "photos_used": [],
     "prompt_version": "hand-v2",
     "generated_at": "2026-06-06T16:30:00",
-    "scheduled_for": "2026-07-09",
+    "scheduled_for": "2026-07-13",
     "hour": "09h",
     "status": "pending"
   },
@@ -1375,7 +1375,7 @@
     "photos_used": [],
     "prompt_version": "hand-v2",
     "generated_at": "2026-06-06T16:30:00",
-    "scheduled_for": "2026-07-13",
+    "scheduled_for": "2026-07-21",
     "hour": "09h",
     "status": "pending"
   },
@@ -1425,7 +1425,7 @@
     "photos_used": [],
     "prompt_version": "hand-v2",
     "generated_at": "2026-06-06T16:30:00",
-    "scheduled_for": "2026-07-21",
+    "scheduled_for": "2026-07-27",
     "hour": "17h",
     "status": "pending"
   },
@@ -1450,8 +1450,8 @@
     "photos_used": [],
     "prompt_version": "hand-v2",
     "generated_at": "2026-06-06T16:30:00",
-    "scheduled_for": "2026-07-25",
-    "hour": "17h",
+    "scheduled_for": "2026-07-29",
+    "hour": "09h",
     "status": "pending"
   },
   {
@@ -1533,7 +1533,7 @@
     "photos_used": [],
     "prompt_version": "hand-v2",
     "generated_at": "2026-06-06T16:30:00",
-    "scheduled_for": "2026-07-07",
+    "scheduled_for": "2026-07-09",
     "hour": "18h",
     "video_url": "../brands/techbody/output/2026-07/reels/r02-costas-jul.mp4",
     "status": "pending"
@@ -1575,7 +1575,7 @@
     "photos_used": [],
     "prompt_version": "hand-v2",
     "generated_at": "2026-06-06T16:30:00",
-    "scheduled_for": "2026-07-11",
+    "scheduled_for": "2026-07-15",
     "hour": "18h",
     "video_url": "../brands/techbody/output/2026-07/reels/r03-primeira-sessao-jul.mp4",
     "status": "pending"
@@ -1617,7 +1617,7 @@
     "photos_used": [],
     "prompt_version": "hand-v2",
     "generated_at": "2026-06-06T16:30:00",
-    "scheduled_for": "2026-07-15",
+    "scheduled_for": "2026-07-23",
     "hour": "18h",
     "video_url": "../brands/techbody/output/2026-07/reels/r04-negocio-jul.mp4",
     "status": "pending"
@@ -1708,7 +1708,7 @@
     "photos_used": [],
     "prompt_version": "hand-v2",
     "generated_at": "2026-06-06T16:30:00",
-    "scheduled_for": "2026-07-07",
+    "scheduled_for": "2026-07-09",
     "hour": "09h",
     "status": "pending"
   },
@@ -1753,7 +1753,7 @@
     "photos_used": [],
     "prompt_version": "hand-v2",
     "generated_at": "2026-06-06T16:30:00",
-    "scheduled_for": "2026-07-11",
+    "scheduled_for": "2026-07-15",
     "hour": "09h",
     "status": "pending"
   },
@@ -1798,7 +1798,7 @@
     "photos_used": [],
     "prompt_version": "hand-v2",
     "generated_at": "2026-06-06T16:30:00",
-    "scheduled_for": "2026-07-15",
+    "scheduled_for": "2026-07-23",
     "hour": "09h",
     "status": "pending"
   },
@@ -1823,7 +1823,7 @@
     "photos_used": [],
     "prompt_version": "hand-v2",
     "generated_at": "2026-06-06T16:30:00",
-    "scheduled_for": "2026-07-19",
+    "scheduled_for": "2026-07-21",
     "hour": "17h",
     "status": "pending"
   },
@@ -1848,7 +1848,7 @@
     "photos_used": [],
     "prompt_version": "hand-v2",
     "generated_at": "2026-06-06T16:30:00",
-    "scheduled_for": "2026-07-23",
+    "scheduled_for": "2026-07-27",
     "hour": "17h",
     "status": "pending"
   },
@@ -1873,7 +1873,7 @@
     "photos_used": [],
     "prompt_version": "hand-v2",
     "generated_at": "2026-06-06T16:30:00",
-    "scheduled_for": "2026-07-27",
+    "scheduled_for": "2026-07-29",
     "hour": "17h",
     "status": "pending"
   },
@@ -1939,7 +1939,7 @@
     "photos_used": [],
     "prompt_version": "hand-v2",
     "generated_at": "2026-06-06T16:30:00",
-    "scheduled_for": "2026-07-05",
+    "scheduled_for": "2026-07-01",
     "hour": "18h",
     "video_url": "../brands/techbody_u/output/2026-07/reels/r01-treinador-verao-jul.mp4",
     "status": "pending"
@@ -1981,7 +1981,7 @@
     "photos_used": [],
     "prompt_version": "hand-v2",
     "generated_at": "2026-06-06T16:30:00",
-    "scheduled_for": "2026-07-09",
+    "scheduled_for": "2026-07-07",
     "hour": "18h",
     "video_url": "../brands/techbody_u/output/2026-07/reels/r02-sempre-aberto-jul.mp4",
     "status": "pending"
