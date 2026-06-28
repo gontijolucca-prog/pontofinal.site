@@ -276,6 +276,20 @@
   opacity: 0.7;
 }
 .cal-chip--rejected .cal-chip__status { color: #b3261e; }
+/* Published: o item JÁ foi publicado no IG. Fundo verde sólido (não só borda)
+   para distinguir visualmente de "approved" (que pode ainda não ter saido). */
+.cal-chip--published {
+  background: #1B5E20;
+  border-color: #1B5E20;
+  box-shadow: 2px 2px 0 0 #050505;
+  color: #FFFFFF;
+}
+.cal-chip--published .cal-chip__brand { background: #FFFFFF; color: #1B5E20; border-color: #FFFFFF; }
+.cal-chip--published .cal-chip__fmt,
+.cal-chip--published .cal-chip__hour,
+.cal-chip--published .cal-chip__title,
+.cal-chip--published .cal-chip__ref { color: #FFFFFF; }
+.cal-chip--published .cal-chip__status { color: #FFD600; font-size: 1.1em; }
 
 /* Status indicators na agenda mobile. */
 .agenda-item__status {
@@ -290,6 +304,13 @@
 .agenda-item--approved .agenda-item__status { color: #2a8c3a; }
 .agenda-item--rejected .agenda-item__status { color: #b3261e; }
 .agenda-item--rejected { opacity: 0.7; }
+/* Published: fundo verde sólido + texto branco. */
+.agenda-item--published { background: #1B5E20; color: #FFFFFF; border-color: #1B5E20; }
+.agenda-item--published .agenda-item__brand { background: #FFFFFF; color: #1B5E20; border-color: #FFFFFF; }
+.agenda-item--published .agenda-item__hour,
+.agenda-item--published .agenda-item__fmt,
+.agenda-item--published .agenda-item__title { color: #FFFFFF; }
+.agenda-item--published .agenda-item__status { color: #FFD600; }
 
 /* ───── AGENDA — mobile-first list of days with content ───── */
 .cal-agenda { display: none; list-style: none; padding: 0; margin: 0; }

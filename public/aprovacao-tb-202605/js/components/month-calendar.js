@@ -6,7 +6,7 @@ const WEEKDAYS_FULL = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"];
 const WEEKDAYS_HEAD = ["seg", "ter", "qua", "qui", "sex", "sáb", "dom"];
 const BRAND_SHORT = { techbody: "TB", techbody_u: "TBU", luiz_santana: "LS" };
 const FMT_LABEL = { carrossel: "Carr", story: "Story", reel: "Reel" };
-const STATUS_GLYPH = { approved: "✓", rejected: "✗", pending: "" };
+const STATUS_GLYPH = { approved: "✓", rejected: "✗", pending: "", published: "▶" };
 const MONTH_LABEL = {
   1: "Janeiro", 2: "Fevereiro", 3: "Março", 4: "Abril",
   5: "Maio", 6: "Junho", 7: "Julho", 8: "Agosto",
@@ -105,7 +105,11 @@ class MonthCalendar extends HTMLElement {
     });
   }
 
-  _statusFor(itemId) {
+  _statusFor(itemId, it) {
+    // items.json `status: "published"` toma precedência — significa que o item
+    // JÁ foi publicado no IG (via pipeline / workflow_dispatch), independentemente
+    // do estado na tabela `approvals` (que só tem approved/rejected/pending).
+    if (it && it.status === "published") return "published";
     try {
       return approvalStore.get(itemId)?.status || "pending";
     } catch { return "pending"; }
@@ -123,7 +127,7 @@ class MonthCalendar extends HTMLElement {
           </span>
         `;
       }
-      const status = this._statusFor(it.id);
+      const status = this._statusFor(it.id, it);
       const glyph = STATUS_GLYPH[status] || "";
       const titleText = (it.title || it.theme || "").replace(/</g, "&lt;");
       return `
@@ -158,7 +162,7 @@ class MonthCalendar extends HTMLElement {
           </li>
         `;
       }
-      const status = this._statusFor(it.id);
+      const status = this._statusFor(it.id, it);
       const glyph = STATUS_GLYPH[status] || "";
       return `
         <li class="agenda-item agenda-item--${status}" data-item-id="${it.id}" data-format="${it.format}" data-brand="${it.brand}" data-status="${status}">
