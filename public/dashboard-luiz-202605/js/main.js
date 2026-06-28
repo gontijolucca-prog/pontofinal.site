@@ -97,7 +97,7 @@ async function ensureAuthenticated() {
 function renderAll() {
   const items = visibleItems();
   els.approvalStats().setData(items, state.approvals);
-  els.themesCatalog().setData(state.themes);  // temas são atemporais, não filtram
+  els.themesCatalog().setData(state.themes, state.items, state.currentMonth);
   updatePeriodLabel();
   updateFooter();
 }

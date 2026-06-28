@@ -328,6 +328,57 @@
   margin: 0;
 }
 
+/* ───── THEMES LEGEND ───── */
+.themes-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-bottom: var(--s-4);
+  padding: var(--s-3) var(--s-4);
+  background: var(--bg-soft);
+  border: var(--border-w) solid var(--border);
+}
+.themes-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.themes-legend__dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+}
+.themes-legend__item--active .themes-legend__dot {
+  background: #2BB05F;
+}
+.themes-legend__item--past .themes-legend__dot {
+  background: #FFB81F;
+}
+.themes-legend__item--future .themes-legend__dot {
+  background: var(--bg);
+}
+
+/* ───── THEME CARD STATES ───── */
+.theme-card--active {
+  background: #f0faf0;
+  border-color: #2BB05F;
+  box-shadow: 3px 3px 0 0 #2BB05F;
+}
+.theme-card--past {
+  background: #fffcf0;
+  border-color: #FFB81F;
+  box-shadow: 3px 3px 0 0 #FFB81F;
+}
+.theme-card--future {
+  opacity: 0.75;
+}
+
 /* ───── PLACEHOLDER (IG insights) ───── */
 .section--placeholder { opacity: 0.85; }
 .placeholder-card {
