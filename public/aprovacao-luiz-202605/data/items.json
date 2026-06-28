@@ -2691,32 +2691,32 @@
     "theme": "habito-de-treino",
     "pilar": "Hábitos",
     "audience": "b2c",
-    "title": "Quatro passos para criares o hábito de treinar todas as semanas.",
+    "title": "Quatro passos para o hábito de treinar.",
     "slides": 6,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Quatro passos para criares o hábito de treinar todas as semanas."
+        "text_overlay": "Quatro passos para o hábito de treinar."
       },
       {
-        "role": "content",
-        "text_overlay": "1. TORNAR ÓBVIO O ambiente decide antes de ti. Roupa de treino preparada na noite anterior. 20 minutos marcados no calendário. Decisão tomada antes de ser preciso tomá-la."
+        "role": "development",
+        "text_overlay": "1. Tornar óbvio. O ambiente decide antes de ti."
       },
       {
-        "role": "content",
-        "text_overlay": "2. TORNAR ATRATIVO O cérebro repete o que antecipação recompensa. Ouvir o podcast favorito só durante o treino. Treinar com alguém. Associar prazer imediato ao esforço."
+        "role": "development",
+        "text_overlay": "2. Tornar atractivo. Junta prazer ao esforço."
       },
       {
-        "role": "content",
-        "text_overlay": "3. TORNAR FÁCIL A fricção mata o hábito. Começar por cinco minutos nos dias difíceis. Aplicar a técnica dos dois minutos. Reduzir o arranque até ser impossível recusar."
+        "role": "development",
+        "text_overlay": "3. Tornar fácil. Cinco minutos chegam para começar."
       },
       {
-        "role": "content",
-        "text_overlay": "1% POR DIA = 37X EM 365 DIAS A melhoria diária parece invisível. O efeito composto é inevitável. Cada sessão consistente é um investimento composto no corpo e na disciplina."
+        "role": "stat",
+        "text_overlay": "1% por dia. 37x melhor ao fim de um ano."
       },
       {
         "role": "cta",
-        "text_overlay": "ENVIAR 'HABITO' EM MENSAGEM DIRECTA RECEBER O PLANO COMPLETO DE 20 MINUTOS SEMANAL"
+        "text_overlay": "Envia HABITO em mensagem directa."
       }
     ],
     "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c13-habito-de-treino.html",
@@ -2750,32 +2750,32 @@
     "theme": "tendencia-tech-treino",
     "pilar": "Tecnologia",
     "audience": "b2c",
-    "title": "O ginásio dos teus pais já morreu. O próximo ainda nem abriu.",
+    "title": "O ginásio dos teus pais já morreu.",
     "slides": 6,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "O ginásio dos teus pais já morreu. O próximo ainda nem abriu."
+        "text_overlay": "O ginásio dos teus pais já morreu."
       },
       {
-        "role": "desenvolvimento",
-        "text_overlay": "A maioria dos adultos em Portugal já treina, dorme e mede o coração a partir de um relógio de pulso. A tecnologia deixou de ser acessório. É infraestrutura."
+        "role": "development",
+        "text_overlay": "Wearables já são rotina. Whoop. Apple Watch. Garmin. Oura."
       },
       {
-        "role": "desenvolvimento",
-        "text_overlay": "20"
+        "role": "development",
+        "text_overlay": "Apps com IA ajustam carga, volume e recuperação. Em tempo real."
       },
       {
-        "role": "desenvolvimento",
-        "text_overlay": "EMS de corpo inteiro. Ativação muscular até 85%. No tempo de um almoço. Sem joelhos no chão. Sem filas. Sem desculpas."
+        "role": "stat",
+        "text_overlay": "EMS em casa. Vinte minutos. Recrutamento muscular até 85%."
       },
       {
-        "role": "desenvolvimento",
-        "text_overlay": "Daqui a cinco anos, a hipertrofia acontece em casa. O ginásio vira hub social. Os dados ajustam a carga sessão a sessão. O achismo fica sem lugar."
+        "role": "development",
+        "text_overlay": "Hipertrofia vai para casa. O ginásio vira hub social."
       },
       {
         "role": "cta",
-        "text_overlay": "Link na bio para experimentar a tecnologia de treino mais avançada em Portugal."
+        "text_overlay": "Link na bio. Experimenta a tecnologia mais avançada."
       }
     ],
     "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c14-tendencia-tech-treino.html",
@@ -2809,32 +2809,32 @@
     "theme": "ebook-eletro-negocios",
     "pilar": "B2B / Ebook",
     "audience": "b2b",
-    "title": "Estúdios EMS em Portugal cresceram 40% nos últimos 3 anos. A maioria ignora porquê.",
+    "title": "Estúdios EMS cresceram 40% em três anos.",
     "slides": 6,
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Estúdios EMS em Portugal cresceram 40% nos últimos 3 anos. A maioria ignora porquê."
+        "text_overlay": "Estúdios EMS cresceram 40% em três anos."
       },
       {
-        "role": "desenvolvimento",
-        "text_overlay": "1. Porquê EMS é a nova linha de receita. Ticket médio superior. Recorrência 2 a 3 vezes por semana. Retenção que o treino convencional não entrega."
+        "role": "development",
+        "text_overlay": "1. Porquê EMS é nova linha de receita. Ticket superior. Recorrência 2-3x semana."
       },
       {
-        "role": "desenvolvimento",
-        "text_overlay": "2. Quanto cobrar. Sessão EMS premium. Treino convencional. Margem por hora-cliente. EMS ganha em rentabilidade, não em preço de tabela."
+        "role": "development",
+        "text_overlay": "2. Quanto cobrar. EMS ganha em rentabilidade por hora."
       },
       {
-        "role": "desenvolvimento",
-        "text_overlay": "3. O que é preciso para começar. Espaço mínimo 15 metros quadrados. Investimento inicial definido. Fornecedores certificados. Nada de improvisos."
+        "role": "development",
+        "text_overlay": "3. O que é preciso. 15m². Fornecedores certificados."
       },
       {
-        "role": "desenvolvimento",
-        "text_overlay": "4. Como integrar EMS sem canibalizar clientes actuais. Posicionamento premium. Segmentação clara. Crescimento paralelo, não substituição."
+        "role": "stat",
+        "text_overlay": "Estúdio TechBody. Payback em 14 meses."
       },
       {
-        "role": "type",
-        "text_overlay": "5. Os números. Estúdio TechBody. Payback em 14 meses. Modelo replicável. Ebook gratuito. Comenta EU QUERO."
+        "role": "cta",
+        "text_overlay": "Comenta EU QUERO. Recebe o ebook por DM."
       }
     ],
     "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c15-ebook-eletro-negocios.html",
