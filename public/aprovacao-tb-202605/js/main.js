@@ -308,7 +308,7 @@ function renderPublishedSection() {
     hintEl.textContent = `Carrosséis ${counts.carrossel}  ·  Reels ${counts.reel}  ·  Storys ${counts.story}  —  clique para abrir`;
   }
   // Renderizar mini previews (gallery-card) — igual à galeria.
-  // Agrupar por formato (carrossel / reel / story) em sub-grids.
+  // Agrupar por formato (carrossel / reel / story) em sub-grids já presentes no HTML.
   const FORMAT_ORDER = ["carrossel", "reel", "story"];
   const groups = { carrossel: [], reel: [], story: [] };
   for (const it of pubItems) { if (groups[it.format]) groups[it.format].push(it); }

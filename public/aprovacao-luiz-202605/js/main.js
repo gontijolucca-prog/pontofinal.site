@@ -304,7 +304,6 @@ function renderPublishedSection() {
     for (const it of pubItems) { if (counts[it.format] !== undefined) counts[it.format]++; }
     hintEl.textContent = "Carrosseis " + counts.carrossel + "  ·  Reels " + counts.reel + "  ·  Storys " + counts.story + "  —  clique para abrir";
   }
-  container.innerHTML = "";
   const FORMAT_ORDER = ["carrossel", "reel", "story"];
   const groups = { carrossel: [], reel: [], story: [] };
   for (const it of pubItems) { if (groups[it.format]) groups[it.format].push(it); }
