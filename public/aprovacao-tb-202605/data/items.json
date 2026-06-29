@@ -1218,7 +1218,8 @@
     "generated_at": "2026-05-18T10:54:32",
     "scheduled_for": "",
     "hour": "",
-    "status": "pending"
+    "status": "rejected",
+    "note": "Cancelado — Luiz = SÓ carrosséis (regra 12-jun)."
   },
   {
     "id": "techbody-2026-07-c01",
@@ -2107,9 +2108,10 @@
     "styles": [],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-21",
-    "scheduled_for": "",
+    "scheduled_for": "2026-06-01",
     "hour": "",
-    "status": "pending"
+    "status": "pending",
+    "note": "Reagendado padrão 1-0-1-0-1 (era )"
   },
   {
     "id": "luiz_santana-2026-05-c04",
@@ -2127,9 +2129,10 @@
     "styles": [],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-21",
-    "scheduled_for": "",
+    "scheduled_for": "2026-06-03",
     "hour": "",
-    "status": "pending"
+    "status": "pending",
+    "note": "Reagendado padrão 1-0-1-0-1 (era )"
   },
   {
     "id": "luiz_santana-2026-05-s01",
@@ -2195,8 +2198,9 @@
     "generated_at": "2026-05-21",
     "scheduled_for": "",
     "hour": "",
-    "status": "pending",
-    "published_at": ""
+    "status": "rejected",
+    "published_at": "",
+    "note": "Cancelado — Luiz = SÓ carrosséis (regra 12-jun)."
   },
   {
     "id": "luiz_santana-2026-05-r01",
@@ -2214,12 +2218,13 @@
     "styles": [],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-21",
-    "scheduled_for": "2026-06-09",
+    "scheduled_for": "",
     "hour": "18h",
-    "status": "pending",
+    "status": "rejected",
     "video_url": "../brands/luiz_santana/output/2026-05/reels/luiz_r01_twin-fullscene_AvatarIV_v2.mp4",
     "_missed_schedule": true,
-    "_missed_reason": "scheduled_for 2026-06-09 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
+    "_missed_reason": "scheduled_for 2026-06-09 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)",
+    "note": "Cancelado — Luiz = SÓ carrosséis (regra 12-jun)."
   },
   {
     "id": "luiz_santana-2026-05-r02",
@@ -2237,12 +2242,13 @@
     "styles": [],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-21",
-    "scheduled_for": "2026-06-17",
+    "scheduled_for": "",
     "hour": "18h",
-    "status": "pending",
+    "status": "rejected",
     "video_url": "../brands/luiz_santana/output/2026-05/reels/r02-final-seedance.mp4",
     "_missed_schedule": true,
-    "_missed_reason": "scheduled_for 2026-06-17 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
+    "_missed_reason": "scheduled_for 2026-06-17 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)",
+    "note": "Cancelado — Luiz = SÓ carrosséis (regra 12-jun)."
   },
   {
     "id": "luiz_santana-2026-05-r03",
@@ -2260,12 +2266,13 @@
     "styles": [],
     "prompt_version": "hand-v1",
     "generated_at": "2026-05-21",
-    "scheduled_for": "2026-06-23",
+    "scheduled_for": "",
     "hour": "18h",
-    "status": "pending",
+    "status": "rejected",
     "video_url": "../brands/luiz_santana/output/2026-05/reels/luiz_r03_reabilitacao_twin_AvatarV_v2.mp4",
     "_missed_schedule": true,
-    "_missed_reason": "scheduled_for 2026-06-23 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
+    "_missed_reason": "scheduled_for 2026-06-23 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)",
+    "note": "Cancelado — Luiz = SÓ carrosséis (regra 12-jun)."
   },
   {
     "id": "luiz_santana-2026-05-r04",
@@ -2285,7 +2292,8 @@
     "generated_at": "2026-05-21",
     "scheduled_for": "",
     "hour": "",
-    "status": "pending"
+    "status": "rejected",
+    "note": "Cancelado — Luiz = SÓ carrosséis (regra 12-jun)."
   },
   {
     "id": "luiz_santana-2026-06-c06",
@@ -2303,11 +2311,11 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "2026-06-14",
+    "scheduled_for": "2026-06-09",
     "hour": "09h",
     "status": "pending",
     "_missed_schedule": true,
-    "_missed_reason": "scheduled_for 2026-06-14 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
+    "note": "Reagendado padrão 1-0-1-0-1 (era 2026-06-14)"
   },
   {
     "id": "luiz_santana-2026-06-c07",
@@ -2325,11 +2333,11 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "2026-06-16",
+    "scheduled_for": "2026-06-17",
     "hour": "09h",
     "status": "pending",
     "_missed_schedule": true,
-    "_missed_reason": "scheduled_for 2026-06-16 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
+    "note": "Reagendado padrão 1-0-1-0-1 (era 2026-06-16)"
   },
   {
     "id": "luiz_santana-2026-06-c08",
@@ -2347,11 +2355,11 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "2026-06-17",
+    "scheduled_for": "2026-06-23",
     "hour": "09h",
     "status": "pending",
     "_missed_schedule": true,
-    "_missed_reason": "scheduled_for 2026-06-17 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
+    "note": "Reagendado padrão 1-0-1-0-1 (era 2026-06-17)"
   },
   {
     "id": "luiz_santana-2026-06-c09",
@@ -2369,11 +2377,11 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "2026-06-20",
+    "scheduled_for": "2026-06-25",
     "hour": "09h",
     "status": "pending",
     "_missed_schedule": true,
-    "_missed_reason": "scheduled_for 2026-06-20 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
+    "note": "Reagendado padrão 1-0-1-0-1 (era 2026-06-20)"
   },
   {
     "id": "luiz_santana-2026-06-c10",
@@ -2391,16 +2399,16 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "2026-06-22",
+    "scheduled_for": "2026-06-29",
     "hour": "09h",
     "status": "pending",
     "_missed_schedule": true,
-    "_missed_reason": "scheduled_for 2026-06-22 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
+    "note": "Reagendado padrão 1-0-1-0-1 (era 2026-06-22)"
   },
   {
     "id": "luiz_santana-2026-06-c11",
     "brand": "luiz_santana",
-    "month": "2026-06",
+    "month": "2026-07",
     "format": "carrossel",
     "theme": "paper-pubmed",
     "pilar": "",
@@ -2413,14 +2421,15 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "",
+    "scheduled_for": "2026-07-01",
     "hour": "",
-    "status": "pending"
+    "status": "pending",
+    "note": "Reagendado padrão 1-0-1-0-1 (era )"
   },
   {
     "id": "luiz_santana-2026-06-c12",
     "brand": "luiz_santana",
-    "month": "2026-06",
+    "month": "2026-07",
     "format": "carrossel",
     "theme": "bastidores-formacao",
     "pilar": "",
@@ -2433,14 +2442,15 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "",
+    "scheduled_for": "2026-07-03",
     "hour": "",
-    "status": "pending"
+    "status": "pending",
+    "note": "Reagendado padrão 1-0-1-0-1 (era )"
   },
   {
     "id": "luiz_santana-2026-06-c13",
     "brand": "luiz_santana",
-    "month": "2026-06",
+    "month": "2026-07",
     "format": "carrossel",
     "theme": "tonificar-vs-crescer",
     "pilar": "",
@@ -2453,9 +2463,10 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "",
+    "scheduled_for": "2026-07-07",
     "hour": "",
-    "status": "pending"
+    "status": "pending",
+    "note": "Reagendado padrão 1-0-1-0-1 (era )"
   },
   {
     "id": "luiz_santana-2026-07-c01",
@@ -2473,9 +2484,10 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "2026-07-01",
+    "scheduled_for": "2026-07-09",
     "hour": "09h",
-    "status": "pending"
+    "status": "pending",
+    "note": "Reagendado padrão 1-0-1-0-1 (era 2026-07-01)"
   },
   {
     "id": "luiz_santana-2026-07-c02",
@@ -2493,9 +2505,10 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "2026-07-03",
+    "scheduled_for": "2026-07-13",
     "hour": "09h",
-    "status": "pending"
+    "status": "pending",
+    "note": "Reagendado padrão 1-0-1-0-1 (era 2026-07-03)"
   },
   {
     "id": "luiz_santana-2026-07-c03",
@@ -2513,9 +2526,10 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "2026-07-06",
+    "scheduled_for": "2026-07-15",
     "hour": "09h",
-    "status": "pending"
+    "status": "pending",
+    "note": "Reagendado padrão 1-0-1-0-1 (era 2026-07-06)"
   },
   {
     "id": "luiz_santana-2026-07-c04",
@@ -2533,9 +2547,10 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "2026-07-08",
+    "scheduled_for": "2026-07-17",
     "hour": "09h",
-    "status": "pending"
+    "status": "pending",
+    "note": "Reagendado padrão 1-0-1-0-1 (era 2026-07-08)"
   },
   {
     "id": "luiz_santana-2026-07-c05",
@@ -2553,9 +2568,10 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "2026-07-10",
+    "scheduled_for": "2026-07-21",
     "hour": "09h",
-    "status": "pending"
+    "status": "pending",
+    "note": "Reagendado padrão 1-0-1-0-1 (era 2026-07-10)"
   },
   {
     "id": "luiz_santana-2026-07-c06",
@@ -2573,9 +2589,10 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "2026-07-14",
+    "scheduled_for": "2026-07-23",
     "hour": "09h",
-    "status": "pending"
+    "status": "pending",
+    "note": "Reagendado padrão 1-0-1-0-1 (era 2026-07-14)"
   },
   {
     "id": "luiz_santana-2026-07-c07",
@@ -2593,9 +2610,10 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "2026-07-16",
+    "scheduled_for": "2026-07-27",
     "hour": "09h",
-    "status": "pending"
+    "status": "pending",
+    "note": "Reagendado padrão 1-0-1-0-1 (era 2026-07-16)"
   },
   {
     "id": "luiz_santana-2026-07-c08",
@@ -2613,9 +2631,10 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "2026-07-20",
+    "scheduled_for": "2026-07-29",
     "hour": "09h",
-    "status": "pending"
+    "status": "pending",
+    "note": "Reagendado padrão 1-0-1-0-1 (era 2026-07-20)"
   },
   {
     "id": "luiz_santana-2026-07-c09",
@@ -2633,14 +2652,15 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "",
+    "scheduled_for": "2026-07-31",
     "hour": "",
-    "status": "pending"
+    "status": "pending",
+    "note": "Reagendado padrão 1-0-1-0-1 (era )"
   },
   {
     "id": "luiz_santana-2026-07-c10",
     "brand": "luiz_santana",
-    "month": "2026-07",
+    "month": "2026-08",
     "format": "carrossel",
     "theme": "rotina-minima-viavel",
     "pilar": "",
@@ -2653,14 +2673,15 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "",
+    "scheduled_for": "2026-08-03",
     "hour": "",
-    "status": "pending"
+    "status": "pending",
+    "note": "Reagendado padrão 1-0-1-0-1 (era )"
   },
   {
     "id": "luiz_santana-2026-07-c11",
     "brand": "luiz_santana",
-    "month": "2026-07",
+    "month": "2026-08",
     "format": "carrossel",
     "theme": "como-escolher-estudio",
     "pilar": "",
@@ -2673,14 +2694,15 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "",
+    "scheduled_for": "2026-08-05",
     "hour": "",
-    "status": "pending"
+    "status": "pending",
+    "note": "Reagendado padrão 1-0-1-0-1 (era )"
   },
   {
     "id": "luiz_santana-2026-07-c12",
     "brand": "luiz_santana",
-    "month": "2026-07",
+    "month": "2026-08",
     "format": "carrossel",
     "theme": "cinco-perguntas",
     "pilar": "",
@@ -2693,9 +2715,10 @@
     "styles": [],
     "prompt_version": "luiz-batch-20260612",
     "generated_at": "2026-06-12",
-    "scheduled_for": "",
+    "scheduled_for": "2026-08-07",
     "hour": "",
-    "status": "pending"
+    "status": "pending",
+    "note": "Reagendado padrão 1-0-1-0-1 (era )"
   },
   {
     "id": "luiz_santana-2026-05-c05",
@@ -2713,15 +2736,14 @@
     "styles": [],
     "prompt_version": "hand-v1",
     "generated_at": "2026-06-10T19:23:55",
-    "scheduled_for": "2026-06-19",
+    "scheduled_for": "2026-06-05",
     "hour": "17h",
     "status": "pending",
     "instagram_post_id": null,
     "instagram_permalink": null,
     "published_at": null,
-    "note": "Apagado pelo Lucca duas vezes. Não republicar sem revisão. A versão publicada tem caption que o Lucca não aprova.",
-    "_missed_schedule": true,
-    "_missed_reason": "scheduled_for 2026-06-19 < today 2026-06-28; still pending — needs decision (reagendar / publicar / descartar)"
+    "note": "Reagendado padrão 1-0-1-0-1 (era 2026-06-19) — Apagado pelo Lucca duas vezes. Não republicar sem revisão. A versão publicada tem caption que o Lucca não aprova.",
+    "_missed_schedule": true
   },
   {
     "id": "techbody-2026-07-s04",
