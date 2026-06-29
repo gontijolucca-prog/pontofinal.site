@@ -53,7 +53,7 @@ class ItemViewer extends HTMLElement {
         if (img && fresh.html_url) {
           const shotBase = (fresh.html_url || "").replace(/\.html$/, "");
           const bust = `?v=${APP_VERSION}&c=${d.contentSig}`;
-          img.src = `${shotBase}.png${bust}`;
+          img.src = `${shotBase}.jpg${bust}`;
         }
       }
       this._applyStoredOverrides && this._applyStoredOverrides();
@@ -196,7 +196,7 @@ class ItemViewer extends HTMLElement {
     if (!img || !this._item) return;
     const shotBase = (this._item.html_url || "").replace(/\.html$/, "");
     if (!shotBase) return;
-    const src = `${shotBase}_shots/slide_${String(n).padStart(2, "0")}.png?v=${APP_VERSION}&c=${currentContentSig()}`;
+    const src = `${shotBase}_shots/slide_${String(n).padStart(2, "0")}.jpg?v=${APP_VERSION}&c=${currentContentSig()}`;
     img.src = src;
   }
 
@@ -298,13 +298,13 @@ class ItemViewer extends HTMLElement {
     } else if (isReel) {
       frameHtml = reelScriptHtml;
     } else if (isCarousel && shotBase) {
-      const slideImg = `${shotBase}_shots/slide_01.png${bust}`;
+      const slideImg = `${shotBase}_shots/slide_01.jpg${bust}`;
       const iframeSrc = `${it.html_url}${bust}#slide-1`;
       frameHtml = `<img class="viewer-slide-img" src="${slideImg}" alt="${this._escapeForHtml(it.title || "")}" />` +
         `<iframe class="viewer-frame-iframe" data-src="${iframeSrc}" style="display:none" title="${this._escapeForHtml(it.title || "")}" scrolling="no"></iframe>`;
     } else if (it.html_url && shotBase) {
       // Story: imagem única + iframe para edição
-      const storyImg = `${shotBase}.png${bust}`;
+      const storyImg = `${shotBase}.jpg${bust}`;
       const iframeSrc = `${it.html_url}${bust}`;
       frameHtml = `<img class="viewer-slide-img" src="${storyImg}" alt="${this._escapeForHtml(it.title || "")}" />` +
         `<iframe class="viewer-frame-iframe" data-src="${iframeSrc}" style="display:none" title="${this._escapeForHtml(it.title || "")}" scrolling="no"></iframe>`;
