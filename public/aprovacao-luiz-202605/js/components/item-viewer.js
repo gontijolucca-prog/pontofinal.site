@@ -97,6 +97,7 @@ class ItemViewer extends HTMLElement {
     this._item = item;
     this._slide = 1;
     this._wizard = null;
+    this._viewMode = "image";
     this.setAttribute("data-open", "true");
     this.setAttribute("aria-hidden", "false");
     document.body.classList.add("viewer-open");
@@ -179,7 +180,8 @@ class ItemViewer extends HTMLElement {
     const next = Math.min(total, Math.max(1, this._slide + delta));
     if (next === this._slide) return;
     this._slide = next;
-    this._gotoSlideImage(next);
+    if (this._viewMode === "live") this._gotoSlideInFrame(next);
+    else this._gotoSlideImage(next);
     this._updateCounter();
   }
 
@@ -193,8 +195,8 @@ class ItemViewer extends HTMLElement {
   }
 
   _gotoSlideInFrame(n) {
-    // Usado pelo wizard (iframe próprio) — mantém-se para edição ao vivo.
-    const iframe = this.querySelector(".onboard__preview iframe");
+    // Target: iframe do viewer principal (modo ao vivo) ou iframe do wizard.
+    const iframe = this.querySelector(".viewer-frame-iframe") || this.querySelector(".onboard__preview iframe");
     if (!iframe) return;
     try {
       const doc = iframe.contentDocument;
@@ -243,7 +245,7 @@ class ItemViewer extends HTMLElement {
     } catch {}
   }
 
-  _liveEditSlide(n, text) { this._editFrameH1(this.querySelector(".viewer-frame-wrap iframe"), n, text); }
+  _liveEditSlide(n, text) { this._editFrameH1(this.querySelector(".viewer-frame-iframe"), n, text); }
 
   // ─── Render principal ─────────────────────────────────────────────────────
 
@@ -280,8 +282,9 @@ class ItemViewer extends HTMLElement {
 
     const isReelVideo = isReel && !!it.video_url;
     const bust = `?v=${APP_VERSION}&c=${currentContentSig()}`;
-    // Para carrosséis e stories: usar a imagem final (screenshot) em vez de
-    // iframe HTML. A imagem é pixel-idêntica ao que vai sair no Instagram.
+    // Híbrido: imagem final (screenshot) visível por defeito + iframe HTML
+    // escondido para edição ao vivo. Toggle permite alternar entre os dois.
+    // Quando o user focus um textarea, auto-switch para modo "ao vivo".
     const shotBase = (it.html_url || "").replace(/\.html$/, "");
     let frameHtml = "";
     if (isReelVideo) {
@@ -290,12 +293,22 @@ class ItemViewer extends HTMLElement {
       frameHtml = reelScriptHtml;
     } else if (isCarousel && shotBase) {
       const slideImg = `${shotBase}_shots/slide_01.jpg${bust}`;
-      frameHtml = `<img class="viewer-slide-img" src="${slideImg}" alt="${this._escapeForHtml(it.title || "")}" />`;
+      const iframeSrc = `${it.html_url}${bust}#slide-1`;
+      frameHtml = `<img class="viewer-slide-img" src="${slideImg}" alt="${this._escapeForHtml(it.title || "")}" />` +
+        `<iframe class="viewer-frame-iframe" data-src="${iframeSrc}" style="display:none" title="${this._escapeForHtml(it.title || "")}" scrolling="no"></iframe>`;
     } else if (it.html_url && shotBase) {
-      // Story: imagem única
+      // Story: imagem única + iframe para edição
       const storyImg = `${shotBase}.jpg${bust}`;
-      frameHtml = `<img class="viewer-slide-img" src="${storyImg}" alt="${this._escapeForHtml(it.title || "")}" />`;
+      const iframeSrc = `${it.html_url}${bust}`;
+      frameHtml = `<img class="viewer-slide-img" src="${storyImg}" alt="${this._escapeForHtml(it.title || "")}" />` +
+        `<iframe class="viewer-frame-iframe" data-src="${iframeSrc}" style="display:none" title="${this._escapeForHtml(it.title || "")}" scrolling="no"></iframe>`;
     }
+    // Toggle imagem/ao-vivo (só para carrosséis e stories com HTML)
+    const modeToggle = (!isReel && it.html_url) ? `
+      <div class="viewer-mode-toggle">
+        <button class="viewer-mode-btn is-active" data-action="mode-image">📷 Imagem final</button>
+        <button class="viewer-mode-btn" data-action="mode-live">✏️ Ao vivo</button>
+      </div>` : "";
 
     // Direct-edit textareas for each slide + caption
     // Fallback: se slides_text está vazio mas o item tem slides, gera textareas vazios
@@ -324,6 +337,7 @@ class ItemViewer extends HTMLElement {
         <div class="viewer-frame-col">
           <div class="viewer-frame-wrap${isReelVideo ? " viewer-frame-wrap--video" : ""}">${frameHtml}</div>
           ${navbarHtml}
+          ${modeToggle}
         </div>
         <aside class="viewer-panel">
           <div class="viewer-panel__default" data-panel="default">
@@ -345,7 +359,7 @@ class ItemViewer extends HTMLElement {
               <button class="btn" data-action="approve-direct" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 'JetBrains Mono',monospace;text-transform:uppercase">✓ Aprovar</button>
               <button class="btn" data-action="reject-direct" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 'JetBrains Mono',monospace;text-transform:uppercase">✗ Reprovar</button>
             </div>
-            <p class="viewer-hint">${isCarousel ? "Desliza entre os slides com ‹ ›. " : ""}Vês a imagem final tal como vai sair no Instagram. Edita o texto nos campos acima — as alterações guardam e reflectem-se na próxima geração.</p>
+            <p class="viewer-hint">${isCarousel ? "Desliza entre os slides com ‹ ›. " : ""}Vês a imagem final por defeito. Clica num campo de texto para editar ao vivo, ou usa o toggle 📷/✏️ para alternar.</p>
           </div>
         </aside>
         <button class="viewer-close" data-action="close" aria-label="Fechar">×</button>
