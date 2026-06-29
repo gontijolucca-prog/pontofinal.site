@@ -213,7 +213,7 @@ const effectiveStatus = (it) => it.status === "published"
 // ficheiro .jpg (story/reel) — são a imagem final pixel-idêntica ao que
 // vai sair no Instagram. Sem iframes HTML: carregamento imediato e
 // visualização fiel ao resultado publicado.
-const buildCard = (it) => {
+const buildCard = (it, cardIndex = 999) => {
   const card = document.createElement("div");
   card.className = "gallery-card";
   card.setAttribute("data-item-id", it.id);
@@ -223,12 +223,15 @@ const buildCard = (it) => {
   card.setAttribute("data-status", st);
   const title = it.title || it.theme || "";
   const shotBase = (it.html_url || "").replace(/\.html$/, "");
+  const isCar = it.format === "carrossel";
   const isReel = it.format === "reel";
+  // Performance: usar JPG em vez de PNG para as thumbnails da galeria.
+  // JPGs são 5-10x mais pequenos (ex: 162KB vs 1.4MB para 1080x1350).
   const coverPath = isReel
     ? shotBase ? shotBase + ".jpg" : ""
-    : it.format === "carrossel"
-    ? shotBase ? shotBase + "_shots/slide_01.png" : ""
-    : shotBase ? shotBase + ".png" : "";
+    : isCar
+    ? shotBase ? shotBase + "_shots/slide_01.jpg" : ""
+    : shotBase ? shotBase + ".jpg" : "";
   const coverSrc = coverPath ? coverPath + "?v=" + APP_VERSION + "&c=" + currentContentSig() : "";
   const videoSrc = isReel && it.video_url
     ? it.video_url + "?v=" + APP_VERSION + "&c=" + currentContentSig()
@@ -236,10 +239,16 @@ const buildCard = (it) => {
   const poster = isReel && it.video_url
     ? it.video_url.replace(/.mp4$/, ".jpg")
     : "";
+  // Performance: lazy loading para cards fora do ecrã.
+  // Primeiros 4 cards (acima da dobra) carregam eagerly com alta prioridade.
+  // Resto carrega lazily com baixa prioridade.
+  const lazyAttr = cardIndex < 4
+    ? 'loading="eager" fetchpriority="high"'
+    : 'loading="lazy" fetchpriority="low" decoding="async"';
   card.innerHTML = `
     <div class="gallery-card__thumb" data-fmt="${it.format}">
       ${coverSrc
-        ? '<img class="gallery-card__cover" src="' + coverSrc + '" alt="' + _escapeForHtml(title) + '" loading="eager" fetchpriority="high" onerror="this.onerror=null;this.closest(\'.gallery-card__thumb\').classList.add(\'is-broken\')" />'
+        ? '<img class="gallery-card__cover" src="' + coverSrc + '" alt="' + _escapeForHtml(title) + '" width="540" height="675" ' + lazyAttr + ' onerror="this.onerror=null;this.closest(\'.gallery-card__thumb\').classList.add(\'is-broken\');if(!this.dataset.jpgfail){this.dataset.jpgfail=1;this.src=this.src.replace(\'.jpg\',\'\')+\'.png\'}" />'
         : '<div class="gallery-card__no-preview">Sem preview</div>'}
       ${videoSrc
         ? '<video class="gallery-card__video" data-src="' + videoSrc + '" poster="' + poster + '" muted loop playsinline preload="none" style="display:none"></video>'
@@ -303,9 +312,10 @@ function renderPublishedSection() {
     if (!sub) continue;
     if (countEl) countEl.textContent = groups[fmt].length;
     sub.innerHTML = "";
+    let pubIdx = 0;
     for (const it of groups[fmt]) {
       if (typeof buildCard === "function") {
-        sub.appendChild(buildCard(it));
+        sub.appendChild(buildCard(it, pubIdx++));
       } else {
         // fallback raro: se buildCard não estiver disponível
         const el = document.createElement("div");
@@ -410,7 +420,8 @@ function render() {
         fmtWrap.innerHTML = `<h4 class="gallery-group__subtitle">${FORMAT_NAMES[fmt] || fmt} <span class="gallery-group__subcount">${arr.length}</span></h4>`;
         const grid = document.createElement("div");
         grid.className = "gallery-grid";
-        for (const it of arr) grid.appendChild(buildCard(it));
+        let gIdx = 0;
+        for (const it of arr) grid.appendChild(buildCard(it, gIdx++));
         fmtWrap.appendChild(grid);
         groupEl.appendChild(fmtWrap);
       }
