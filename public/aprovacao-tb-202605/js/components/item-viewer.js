@@ -39,8 +39,14 @@ class ItemViewer extends HTMLElement {
       const fresh = (d.items || []).find(it => it.id === this._item.id);
       if (!fresh) return;
       this._item = fresh;
-      // Refresh da imagem do slide (não há iframe no viewer principal).
-      if (this._isCarousel) {
+      // Refresh conforme o modo activo.
+      if (this._viewMode === "live") {
+        const iframe = this.querySelector(".viewer-frame-iframe");
+        if (iframe && fresh.html_url) {
+          const hash = this._isCarousel ? `#slide-${this._slide || 1}` : "";
+          iframe.src = `${fresh.html_url}?v=${APP_VERSION}&c=${d.contentSig}${hash}`;
+        }
+      } else if (this._isCarousel) {
         this._gotoSlideImage(this._slide || 1);
       } else {
         const img = this.querySelector(".viewer-slide-img");

@@ -39,8 +39,14 @@ class ItemViewer extends HTMLElement {
       const fresh = (d.items || []).find(it => it.id === this._item.id);
       if (!fresh) return;
       this._item = fresh;
-      // Refresh da imagem do slide (não há iframe no viewer principal).
-      if (this._isCarousel) {
+      // Refresh conforme o modo activo.
+      if (this._viewMode === "live") {
+        const iframe = this.querySelector(".viewer-frame-iframe");
+        if (iframe && fresh.html_url) {
+          const hash = this._isCarousel ? `#slide-${this._slide || 1}` : "";
+          iframe.src = `${fresh.html_url}?v=${APP_VERSION}&c=${d.contentSig}${hash}`;
+        }
+      } else if (this._isCarousel) {
         this._gotoSlideImage(this._slide || 1);
       } else {
         const img = this.querySelector(".viewer-slide-img");
@@ -159,10 +165,10 @@ class ItemViewer extends HTMLElement {
       const capTa = this.querySelector("[data-edit-caption]");
       if (capTa) capTa.value = capOv.text;
     }
-    // Reflectir no iframe do wizard assim que carregar (o viewer principal
-    // agora usa imagens estáticas — não há iframe para editar ao vivo).
+    // Reflectir no iframe do viewer/wizard assim que carregar (o viewer
+    // principal usa imagens estáticas por defeito — o iframe vive no modo "ao vivo").
     if (Object.keys(slideOv).length) {
-      const iframe = this.querySelector(".onboard__preview iframe");
+      const iframe = this.querySelector(".viewer-frame-iframe") || this.querySelector(".onboard__preview iframe");
       if (iframe) {
         const reapply = () => { for (const n of Object.keys(slideOv)) this._editFrameH1(iframe, parseInt(n, 10), slideOv[n].text); };
         iframe.addEventListener("load", reapply, { once: true });
@@ -375,6 +381,44 @@ class ItemViewer extends HTMLElement {
     this._bindDirectEditors();
   }
 
+  _switchViewMode(mode) {
+    if (this._viewMode === mode) return;
+    this._viewMode = mode;
+    const img = this.querySelector(".viewer-slide-img");
+    const iframe = this.querySelector(".viewer-frame-iframe");
+    const btnImg = this.querySelector('[data-action="mode-image"]');
+    const btnLive = this.querySelector('[data-action="mode-live"]');
+    if (mode === "live") {
+      if (img) img.style.display = "none";
+      if (iframe) {
+        if (iframe.dataset.src && !iframe.src) {
+          iframe.src = iframe.dataset.src;
+          delete iframe.dataset.src;
+        }
+        iframe.style.display = "";
+        const wrap = this.querySelector(".viewer-frame-wrap");
+        if (wrap && this._item) {
+          if (this._fitCleanup) this._fitCleanup();
+          const [nw, nh] = dimsFor(this._item.format);
+          this._fitCleanup = fitScaledFrame(wrap, nw, nh);
+        }
+        // Navegar para o slide actual + aplicar overrides quando carregar
+        iframe.addEventListener("load", () => {
+          this._gotoSlideInFrame(this._slide);
+          this._applyStoredOverrides && this._applyStoredOverrides();
+        }, { once: true });
+      }
+      btnImg?.classList.remove("is-active");
+      btnLive?.classList.add("is-active");
+    } else {
+      if (img) img.style.display = "";
+      if (iframe) iframe.style.display = "none";
+      if (this._fitCleanup) { this._fitCleanup(); this._fitCleanup = null; }
+      btnLive?.classList.remove("is-active");
+      btnImg?.classList.add("is-active");
+    }
+  }
+
   _refreshStatusLine() {
     const el = this.querySelector("[data-status-line]");
     if (!el || !this._item) return;
@@ -395,6 +439,8 @@ class ItemViewer extends HTMLElement {
       if (a === "close")  return this._wizard ? this._exitWizard() : this.close();
       if (a === "prev")   return this._step(-1);
       if (a === "next")   return this._step(+1);
+      if (a === "mode-image") return this._switchViewMode("image");
+      if (a === "mode-live")  return this._switchViewMode("live");
       if (a === "start-approve") return this._startWizard("approved");
       if (a === "start-reject")  return this._startWizard("rejected");
       if (a === "approve-direct") {
@@ -632,8 +678,12 @@ class ItemViewer extends HTMLElement {
     this._editTimers = {};
     this.querySelectorAll("[data-edit-slide]").forEach(ta => {
       const n = parseInt(ta.dataset.editSlide, 10);
+      // Auto-switch para modo ao vivo quando o user começa a editar
+      ta.addEventListener("focus", () => {
+        if (this._viewMode !== "live") this._switchViewMode("live");
+      });
       ta.addEventListener("input", () => {
-        this._editFrameH1(this.querySelector(".viewer-frame-wrap iframe"), n, ta.value);
+        this._editFrameH1(this.querySelector(".viewer-frame-iframe"), n, ta.value);
         this._debounceEdit(`slide-${n}`, async () => {
           await approvalStore.setSlideCopy(this._item.id, n, ta.value.trim());
           const idx = n - 1;
