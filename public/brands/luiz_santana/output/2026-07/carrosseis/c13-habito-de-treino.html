@@ -73,6 +73,15 @@ body { font-family: var(--font-display); color: var(--text); }
 .slide--cta .cta-handle { font-family: var(--font-mono); font-size: 26px; color: #5a6473; letter-spacing: 0.02em; line-height: 1; }
 .slide--cta .cta-pill { display: inline-block; padding: 28px 56px; background: #333333; color: #FFFFFF; font-size: 30px; font-weight: 600; border-radius: 100px; letter-spacing: 0.01em; margin-top: 8px; }
 .slide--cta .cta-foot { font-family: var(--font-mono); font-size: 18px; color: #8b95a3; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 4px; }
+
+.slide--num .bg-photo, .slide--type .bg-photo, .slide--quote .bg-photo {
+  position: absolute; inset: 0; background-size: cover; background-position: center;
+  opacity: 0.10; z-index: 0;
+}
+.slide--num .bg-photo::after, .slide--type .bg-photo::after, .slide--quote .bg-photo::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(51,51,51,0.72) 0%, rgba(51,51,51,0.85) 100%);
+}
 </style>
 </head>
 <body>
@@ -81,7 +90,6 @@ body { font-family: var(--font-display); color: var(--text); }
 <article class="slide slide--hero" id="slide-1">
   <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific__photo-a-30yearold-man-with-brown-skin-and-short-bl__28181.png')"></div>
   <div class="orb orb-a"></div>
-  <div class="profile"><div class="avatar" style="background:transparent;"><img src="_avatar.png" alt="Luiz Santana" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">Luiz Santana</div><div class="handle">@techbody_pt</div></div></div>
   <div class="hero-stack">
     <div class="kicker">Não é força de vontade. É método.</div>
     <h1>Quatro passos para o hábito de treinar.</h1>
@@ -90,9 +98,9 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--type" id="slide-2">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific__photo-a-30yearold-man-with-brown-skin-and-short-bl__28181.png')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
-  <div class="profile"><div class="avatar" style="background:transparent;"><img src="_avatar.png" alt="Luiz Santana" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">Luiz Santana</div><div class="handle">@techbody_pt</div></div></div>
   <div class="content">
     <div class="num">02</div>
     <h1>1. Tornar óbvio.
@@ -103,9 +111,9 @@ O ambiente decide antes de ti.</h1>
 </article>
 
 <article class="slide slide--type" id="slide-3">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific__photo-a-30yearold-man-with-brown-skin-and-short-bl__28181.png')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
-  <div class="profile"><div class="avatar" style="background:transparent;"><img src="_avatar.png" alt="Luiz Santana" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">Luiz Santana</div><div class="handle">@techbody_pt</div></div></div>
   <div class="content">
     <div class="num">03</div>
     <h1>2. Tornar atractivo.
@@ -116,9 +124,9 @@ Junta prazer ao esforço.</h1>
 </article>
 
 <article class="slide slide--type" id="slide-4">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific__photo-a-30yearold-man-with-brown-skin-and-short-bl__28181.png')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
-  <div class="profile"><div class="avatar" style="background:transparent;"><img src="_avatar.png" alt="Luiz Santana" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">Luiz Santana</div><div class="handle">@techbody_pt</div></div></div>
   <div class="content">
     <div class="num">04</div>
     <h1>3. Tornar fácil.
@@ -129,9 +137,9 @@ Cinco minutos chegam para começar.</h1>
 </article>
 
 <article class="slide slide--type" id="slide-5">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific__photo-a-30yearold-man-with-brown-skin-and-short-bl__28181.png')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
-  <div class="profile"><div class="avatar" style="background:transparent;"><img src="_avatar.png" alt="Luiz Santana" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">Luiz Santana</div><div class="handle">@techbody_pt</div></div></div>
   <div class="content">
     <div class="num">05</div>
     <h1>1% por dia.
@@ -142,9 +150,9 @@ Cinco minutos chegam para começar.</h1>
 </article>
 
 <article class="slide slide--type" id="slide-6">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific__photo-a-30yearold-man-with-brown-skin-and-short-bl__28181.png')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
-  <div class="profile"><div class="avatar" style="background:transparent;"><img src="_avatar.png" alt="Luiz Santana" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">Luiz Santana</div><div class="handle">@techbody_pt</div></div></div>
   <div class="content">
     <div class="num">06</div>
     <h1>Envia HABITO em mensagem directa.</h1>

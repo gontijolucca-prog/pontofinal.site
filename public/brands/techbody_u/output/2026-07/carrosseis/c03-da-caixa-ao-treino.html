@@ -73,6 +73,15 @@ body { font-family: var(--font-display); color: var(--text); }
 .slide--cta .cta-handle { font-family: var(--font-mono); font-size: 26px; color: #5a6473; letter-spacing: 0.02em; line-height: 1; }
 .slide--cta .cta-pill { display: inline-block; padding: 28px 56px; background: #333333; color: #FFFFFF; font-size: 30px; font-weight: 600; border-radius: 100px; letter-spacing: 0.01em; margin-top: 8px; }
 .slide--cta .cta-foot { font-family: var(--font-mono); font-size: 18px; color: #8b95a3; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 4px; }
+
+.slide--num .bg-photo, .slide--type .bg-photo, .slide--quote .bg-photo {
+  position: absolute; inset: 0; background-size: cover; background-position: center;
+  opacity: 0.10; z-index: 0;
+}
+.slide--num .bg-photo::after, .slide--type .bg-photo::after, .slide--quote .bg-photo::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(51,51,51,0.72) 0%, rgba(51,51,51,0.85) 100%);
+}
 </style>
 </head>
 <body>
@@ -81,7 +90,7 @@ body { font-family: var(--font-display); color: var(--text); }
 <article class="slide slide--hero" id="slide-1">
   <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_b7.-home-studio-corner-ed_2964142762.jpg')"></div>
   <div class="orb orb-a"></div>
-  <div class="profile" style="gap:0;"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="height:42px;width:auto;display:block;filter:brightness(0) invert(1);"/></div>
+  <div class="profile" style="gap:0;"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="height:48px;width:auto;display:block;"/></div>
   <div class="hero-stack">
     <div class="kicker">TechBody U</div>
     <h1>Da <em>caixa</em> ao primeiro treino.</h1>
@@ -90,8 +99,9 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--type" id="slide-2">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_b7.-home-studio-corner-ed_2964142762.jpg')"></div>
   <div class="orb orb-a"></div>
-  <div class="profile" style="gap:0;"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="height:42px;width:auto;display:block;filter:brightness(0) invert(1);"/></div>
+  <div class="profile" style="gap:0;"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="height:48px;width:auto;display:block;"/></div>
   <div class="content">
     <div class="num">02</div>
     <h1>Abrir, <em>vestir</em>, <em>ligar</em>. Da caixa à primeira sessão em minutos.</h1>
@@ -101,8 +111,9 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--num" id="slide-3">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_b7.-home-studio-corner-ed_2964142762.jpg')"></div>
   <div class="orb orb-a"></div>
-  <div class="profile" style="gap:0;"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="height:42px;width:auto;display:block;filter:brightness(0) invert(1);"/></div>
+  <div class="profile" style="gap:0;"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="height:48px;width:auto;display:block;"/></div>
   <div class="content">
     <div class="num">15</div>
     <h1>É o tempo entre abrir a caixa e começar a <em>treinar</em>.</h1>
@@ -112,8 +123,9 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--type" id="slide-4">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_b7.-home-studio-corner-ed_2964142762.jpg')"></div>
   <div class="orb orb-a"></div>
-  <div class="profile" style="gap:0;"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="height:42px;width:auto;display:block;filter:brightness(0) invert(1);"/></div>
+  <div class="profile" style="gap:0;"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="height:48px;width:auto;display:block;"/></div>
   <div class="content">
     <div class="num">04</div>
     <h1>App configurada. Fato vestido. Intensidade ajustada. <em>Estás pronto</em>.</h1>
@@ -123,8 +135,9 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--quote" id="slide-5">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_b7.-home-studio-corner-ed_2964142762.jpg')"></div>
   <div class="orb orb-a"></div>
-  <div class="profile" style="gap:0;"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="height:42px;width:auto;display:block;filter:brightness(0) invert(1);"/></div>
+  <div class="profile" style="gap:0;"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="height:48px;width:auto;display:block;"/></div>
   <div class="content">
     <div class="num">05</div>
     <blockquote>"A tecnologia que se veste . O treino que se sente ."</blockquote>
@@ -134,8 +147,9 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--type" id="slide-6">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_b7.-home-studio-corner-ed_2964142762.jpg')"></div>
   <div class="orb orb-a"></div>
-  <div class="profile" style="gap:0;"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="height:42px;width:auto;display:block;filter:brightness(0) invert(1);"/></div>
+  <div class="profile" style="gap:0;"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="height:48px;width:auto;display:block;"/></div>
   <div class="content">
     <div class="num">06</div>
     <h1>Da caixa ao primeiro treino. Marque a sua <em>sessão experimental</em>.</h1>

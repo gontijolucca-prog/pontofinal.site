@@ -73,6 +73,15 @@ body { font-family: var(--font-display); color: var(--text); }
 .slide--cta .cta-handle { font-family: var(--font-mono); font-size: 26px; color: #5a6473; letter-spacing: 0.02em; line-height: 1; }
 .slide--cta .cta-pill { display: inline-block; padding: 28px 56px; background: #333333; color: #FFFFFF; font-size: 30px; font-weight: 600; border-radius: 100px; letter-spacing: 0.01em; margin-top: 8px; }
 .slide--cta .cta-foot { font-family: var(--font-mono); font-size: 18px; color: #8b95a3; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 4px; }
+
+.slide--num .bg-photo, .slide--type .bg-photo, .slide--quote .bg-photo {
+  position: absolute; inset: 0; background-size: cover; background-position: center;
+  opacity: 0.10; z-index: 0;
+}
+.slide--num .bg-photo::after, .slide--type .bg-photo::after, .slide--quote .bg-photo::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(51,51,51,0.72) 0%, rgba(51,51,51,0.85) 100%);
+}
 </style>
 </head>
 <body>
@@ -90,6 +99,7 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--num" id="slide-2">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e6-postreino-imagem-edito_2964580806.jpg')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
   <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
@@ -102,6 +112,7 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--type" id="slide-3">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e6-postreino-imagem-edito_2964580806.jpg')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
   <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
@@ -114,6 +125,7 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--quote" id="slide-4">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e6-postreino-imagem-edito_2964580806.jpg')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
   <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
@@ -126,6 +138,7 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--type" id="slide-5">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e6-postreino-imagem-edito_2964580806.jpg')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
   <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
@@ -138,6 +151,7 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--type" id="slide-6">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e6-postreino-imagem-edito_2964580806.jpg')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
   <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>

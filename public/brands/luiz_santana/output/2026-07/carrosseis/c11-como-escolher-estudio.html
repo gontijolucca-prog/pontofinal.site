@@ -73,6 +73,15 @@ body { font-family: var(--font-display); color: var(--text); }
 .slide--cta .cta-handle { font-family: var(--font-mono); font-size: 26px; color: #5a6473; letter-spacing: 0.02em; line-height: 1; }
 .slide--cta .cta-pill { display: inline-block; padding: 28px 56px; background: #333333; color: #FFFFFF; font-size: 30px; font-weight: 600; border-radius: 100px; letter-spacing: 0.01em; margin-top: 8px; }
 .slide--cta .cta-foot { font-family: var(--font-mono); font-size: 18px; color: #8b95a3; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 4px; }
+
+.slide--num .bg-photo, .slide--type .bg-photo, .slide--quote .bg-photo {
+  position: absolute; inset: 0; background-size: cover; background-position: center;
+  opacity: 0.10; z-index: 0;
+}
+.slide--num .bg-photo::after, .slide--type .bg-photo::after, .slide--quote .bg-photo::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(51,51,51,0.72) 0%, rgba(51,51,51,0.85) 100%);
+}
 </style>
 </head>
 <body>
@@ -81,7 +90,6 @@ body { font-family: var(--font-display); color: var(--text); }
 <article class="slide slide--hero" id="slide-1">
   <div class="bg-photo" style="background-image:url('../../../assets/photos/generated_outfits_2026-05-20/03_fato_techbody_estudio.jpg')"></div>
   <div class="orb orb-a"></div>
-  <div class="profile"><div class="avatar" style="background:transparent;"><img src="_avatar.png" alt="Luiz Santana" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">Luiz Santana</div><div class="handle">@techbody_pt</div></div></div>
   <div class="hero-stack">
     <div class="kicker">Três perguntas separam os&nbsp;sérios dos&nbsp;improvisos.</div>
     <h1>Nem&nbsp;todos os&nbsp;estúdios são&nbsp;iguais.</h1>
@@ -90,8 +98,8 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--type" id="slide-2">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/generated_outfits_2026-05-20/03_fato_techbody_estudio.jpg')"></div>
   <div class="orb orb-a"></div>
-  <div class="profile"><div class="avatar" style="background:transparent;"><img src="_avatar.png" alt="Luiz Santana" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">Luiz Santana</div><div class="handle">@techbody_pt</div></div></div>
   <div class="content">
     <div class="num">02</div>
     <h1>O&nbsp;critério importa mais&nbsp;do&nbsp;que&nbsp;a&nbsp;máquina.</h1>
@@ -101,8 +109,8 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--type" id="slide-3">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/generated_outfits_2026-05-20/03_fato_techbody_estudio.jpg')"></div>
   <div class="orb orb-a"></div>
-  <div class="profile"><div class="avatar" style="background:transparent;"><img src="_avatar.png" alt="Luiz Santana" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">Luiz Santana</div><div class="handle">@techbody_pt</div></div></div>
   <div class="content">
     <div class="num">03</div>
     <h1>Um: quem regula a&nbsp;intensidade — e&nbsp;que&nbsp;preparação&nbsp;tem?</h1>
@@ -112,8 +120,8 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--type" id="slide-4">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/generated_outfits_2026-05-20/03_fato_techbody_estudio.jpg')"></div>
   <div class="orb orb-a"></div>
-  <div class="profile"><div class="avatar" style="background:transparent;"><img src="_avatar.png" alt="Luiz Santana" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">Luiz Santana</div><div class="handle">@techbody_pt</div></div></div>
   <div class="content">
     <div class="num">04</div>
     <h1>Dois: a&nbsp;sessão é&nbsp;adaptada a&nbsp;ti ou&nbsp;igual para&nbsp;todos?</h1>
@@ -123,8 +131,8 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--type" id="slide-5">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/generated_outfits_2026-05-20/03_fato_techbody_estudio.jpg')"></div>
   <div class="orb orb-a"></div>
-  <div class="profile"><div class="avatar" style="background:transparent;"><img src="_avatar.png" alt="Luiz Santana" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">Luiz Santana</div><div class="handle">@techbody_pt</div></div></div>
   <div class="content">
     <div class="num">05</div>
     <h1>Três: explicam-te&nbsp;o&nbsp;método antes de&nbsp;falar de&nbsp;preço?</h1>
@@ -134,8 +142,8 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--type" id="slide-6">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/generated_outfits_2026-05-20/03_fato_techbody_estudio.jpg')"></div>
   <div class="orb orb-a"></div>
-  <div class="profile"><div class="avatar" style="background:transparent;"><img src="_avatar.png" alt="Luiz Santana" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">Luiz Santana</div><div class="handle">@techbody_pt</div></div></div>
   <div class="content">
     <div class="num">06</div>
     <h1>Envia-me&nbsp;mensagem ESTÚDIO — eu mostro-te&nbsp;como a&nbsp;TechBody responde às&nbsp;três.</h1>

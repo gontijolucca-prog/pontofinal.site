@@ -73,6 +73,15 @@ body { font-family: var(--font-display); color: var(--text); }
 .slide--cta .cta-handle { font-family: var(--font-mono); font-size: 26px; color: #5a6473; letter-spacing: 0.02em; line-height: 1; }
 .slide--cta .cta-pill { display: inline-block; padding: 28px 56px; background: #333333; color: #FFFFFF; font-size: 30px; font-weight: 600; border-radius: 100px; letter-spacing: 0.01em; margin-top: 8px; }
 .slide--cta .cta-foot { font-family: var(--font-mono); font-size: 18px; color: #8b95a3; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 4px; }
+
+.slide--num .bg-photo, .slide--type .bg-photo, .slide--quote .bg-photo {
+  position: absolute; inset: 0; background-size: cover; background-position: center;
+  opacity: 0.10; z-index: 0;
+}
+.slide--num .bg-photo::after, .slide--type .bg-photo::after, .slide--quote .bg-photo::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(51,51,51,0.72) 0%, rgba(51,51,51,0.85) 100%);
+}
 </style>
 </head>
 <body>
@@ -81,7 +90,6 @@ body { font-family: var(--font-display); color: var(--text); }
 <article class="slide slide--hero" id="slide-1">
   <div class="bg-photo" style="background-image:url('../../../assets/photos/generated_outfits_2026-05-20/09_tbu_acto_treino.jpg')"></div>
   <div class="orb orb-a"></div>
-  <div class="profile"><div class="avatar" style="background:transparent;"><img src="_avatar.png" alt="Luiz Santana" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">Luiz Santana</div><div class="handle">@techbody_pt</div></div></div>
   <div class="hero-stack">
     <div class="kicker">A&nbsp;resposta está dentro do&nbsp;músculo.</div>
     <h1>Porque é&nbsp;que&nbsp;vinte e&nbsp;cinco minutos&nbsp;chegam?</h1>
@@ -90,9 +98,9 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--type" id="slide-2">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/generated_outfits_2026-05-20/09_tbu_acto_treino.jpg')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
-  <div class="profile"><div class="avatar" style="background:transparent;"><img src="_avatar.png" alt="Luiz Santana" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">Luiz Santana</div><div class="handle">@techbody_pt</div></div></div>
   <div class="content">
     <div class="num">02</div>
     <h1>No&nbsp;treino convencional, o&nbsp;cérebro guarda sempre fibras em&nbsp;reserva.</h1>
@@ -102,9 +110,9 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--type" id="slide-3">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/generated_outfits_2026-05-20/09_tbu_acto_treino.jpg')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
-  <div class="profile"><div class="avatar" style="background:transparent;"><img src="_avatar.png" alt="Luiz Santana" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">Luiz Santana</div><div class="handle">@techbody_pt</div></div></div>
   <div class="content">
     <div class="num">03</div>
     <h1>O&nbsp;estímulo elétrico fala diretamente com&nbsp;o&nbsp;músculo.</h1>
@@ -114,9 +122,9 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--type" id="slide-4">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/generated_outfits_2026-05-20/09_tbu_acto_treino.jpg')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
-  <div class="profile"><div class="avatar" style="background:transparent;"><img src="_avatar.png" alt="Luiz Santana" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">Luiz Santana</div><div class="handle">@techbody_pt</div></div></div>
   <div class="content">
     <div class="num">04</div>
     <h1>Contração direta, profunda, no&nbsp;corpo inteiro ao&nbsp;mesmo&nbsp;tempo.</h1>
@@ -126,9 +134,9 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--type" id="slide-5">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/generated_outfits_2026-05-20/09_tbu_acto_treino.jpg')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
-  <div class="profile"><div class="avatar" style="background:transparent;"><img src="_avatar.png" alt="Luiz Santana" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">Luiz Santana</div><div class="handle">@techbody_pt</div></div></div>
   <div class="content">
     <div class="num">05</div>
     <h1>Mais&nbsp;fibras a&nbsp;trabalhar, menos&nbsp;tempo preciso.<br>É&nbsp;fisiologia.</h1>
@@ -138,9 +146,9 @@ body { font-family: var(--font-display); color: var(--text); }
 </article>
 
 <article class="slide slide--type" id="slide-6">
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/generated_outfits_2026-05-20/09_tbu_acto_treino.jpg')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
-  <div class="profile"><div class="avatar" style="background:transparent;"><img src="_avatar.png" alt="Luiz Santana" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">Luiz Santana</div><div class="handle">@techbody_pt</div></div></div>
   <div class="content">
     <div class="num">06</div>
     <h1>Envia-me&nbsp;mensagem CIÊNCIA e&nbsp;eu explico-te&nbsp;ao&nbsp;detalhe —&nbsp;sem&nbsp;jargão.</h1>
