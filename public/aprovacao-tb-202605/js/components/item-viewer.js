@@ -716,6 +716,8 @@ class ItemViewer extends HTMLElement {
           }
           const fb = this.querySelector(`[data-fb-slide="${n}"]`);
           if (fb) { fb.textContent = "✓"; setTimeout(() => { fb.textContent = ""; }, 1500); }
+          // Commit permanente no HTML do post
+          this._saveToHtmlFile(n, ta.value.trim());
         });
       });
     });
@@ -734,6 +736,48 @@ class ItemViewer extends HTMLElement {
   _debounceEdit(key, fn) {
     clearTimeout(this._editTimers[key]);
     this._editTimers[key] = setTimeout(fn, 500);
+  }
+
+  // Salva a edição do texto permanentemente no ficheiro HTML do post
+  // via GitHub API (CloudFlare Pages Function). Modifica o h1 do slide
+  // directamente no HTML e faz commit no repo — triggers auto-deploy.
+  async _saveToHtmlFile(n, text) {
+    const it = this._item;
+    if (!it || !it.html_url) return;
+    try {
+      // Resolver o path relativo do html_url para path do repo
+      const fullUrl = new URL(it.html_url, window.location.href).pathname;
+      const repoPath = "public" + fullUrl;
+      // Fetch do HTML actual (same-origin)
+      const resp = await fetch(it.html_url + "?v=" + APP_VERSION + "&c=" + currentContentSig(), { cache: "no-store" });
+      if (!resp.ok) return;
+      const html = await resp.text();
+      // Parse + modificar o h1 do slide
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      let target = doc.querySelector(`#slide-${n} h1, #slide-${n} h2, #slide-${n} blockquote`);
+      if (!target && n === 1) target = doc.querySelector("h1, h2, blockquote");
+      if (!target) return;
+      target.innerHTML = fmtToHtml(text);
+      // Serializar de volta para HTML string
+      const modifiedHtml = "<!doctype html>\n" + doc.documentElement.outerHTML;
+      // Commit via API
+      const apiResp = await fetch("/api/edit-slide", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          filePath: repoPath,
+          htmlContent: modifiedHtml,
+          message: `edit: slide ${n} text in ${repoPath.split("/").pop()}`,
+        }),
+      });
+      if (apiResp.ok) {
+        console.log("[viewer] HTML commitado permanentemente:", repoPath);
+      } else {
+        console.warn("[viewer] falha ao commitar HTML:", await apiResp.text());
+      }
+    } catch (e) {
+      console.warn("[viewer] erro ao salvar HTML:", e);
+    }
   }
 
   _escapeForHtml(s) {
