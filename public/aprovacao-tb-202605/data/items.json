@@ -2111,7 +2111,7 @@
     "scheduled_for": "2026-06-01",
     "hour": "",
     "status": "pending",
-    "note": "Reagendado padrão 1-0-1-0-1 (era )"
+    "note": "Reagendado padrão 1-0-1-0-1 (era sem data)"
   },
   {
     "id": "luiz_santana-2026-05-c04",
@@ -2132,7 +2132,7 @@
     "scheduled_for": "2026-06-03",
     "hour": "",
     "status": "pending",
-    "note": "Reagendado padrão 1-0-1-0-1 (era )"
+    "note": "Reagendado padrão 1-0-1-0-1 (era sem data)"
   },
   {
     "id": "luiz_santana-2026-05-s01",
@@ -2424,7 +2424,7 @@
     "scheduled_for": "2026-07-01",
     "hour": "",
     "status": "pending",
-    "note": "Reagendado padrão 1-0-1-0-1 (era )"
+    "note": "Reagendado padrão 1-0-1-0-1 (era sem data)"
   },
   {
     "id": "luiz_santana-2026-06-c12",
@@ -2445,7 +2445,7 @@
     "scheduled_for": "2026-07-03",
     "hour": "",
     "status": "pending",
-    "note": "Reagendado padrão 1-0-1-0-1 (era )"
+    "note": "Reagendado padrão 1-0-1-0-1 (era sem data)"
   },
   {
     "id": "luiz_santana-2026-06-c13",
@@ -2466,7 +2466,7 @@
     "scheduled_for": "2026-07-07",
     "hour": "",
     "status": "pending",
-    "note": "Reagendado padrão 1-0-1-0-1 (era )"
+    "note": "Reagendado padrão 1-0-1-0-1 (era sem data)"
   },
   {
     "id": "luiz_santana-2026-07-c01",
@@ -2655,7 +2655,7 @@
     "scheduled_for": "2026-07-31",
     "hour": "",
     "status": "pending",
-    "note": "Reagendado padrão 1-0-1-0-1 (era )"
+    "note": "Reagendado padrão 1-0-1-0-1 (era sem data)"
   },
   {
     "id": "luiz_santana-2026-07-c10",
@@ -2676,7 +2676,7 @@
     "scheduled_for": "2026-08-03",
     "hour": "",
     "status": "pending",
-    "note": "Reagendado padrão 1-0-1-0-1 (era )"
+    "note": "Reagendado padrão 1-0-1-0-1 (era sem data)"
   },
   {
     "id": "luiz_santana-2026-07-c11",
@@ -2697,7 +2697,7 @@
     "scheduled_for": "2026-08-05",
     "hour": "",
     "status": "pending",
-    "note": "Reagendado padrão 1-0-1-0-1 (era )"
+    "note": "Reagendado padrão 1-0-1-0-1 (era sem data)"
   },
   {
     "id": "luiz_santana-2026-07-c12",
@@ -2718,7 +2718,7 @@
     "scheduled_for": "2026-08-07",
     "hour": "",
     "status": "pending",
-    "note": "Reagendado padrão 1-0-1-0-1 (era )"
+    "note": "Reagendado padrão 1-0-1-0-1 (era sem data)"
   },
   {
     "id": "luiz_santana-2026-05-c05",
