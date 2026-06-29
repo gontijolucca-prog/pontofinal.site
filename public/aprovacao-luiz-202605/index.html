@@ -2,8 +2,8 @@
 <html lang="pt-PT">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="20260629-1131" />
-<meta name="app-version" content="20260629-1244" />
+<meta name="viewport" content="20260629-1246" />
+<meta name="app-version" content="20260629-1247" />
 <title>Aprovação · Conteúdo</title>
 
 <script>
@@ -110,6 +110,25 @@
 <link rel="stylesheet" href="styles/tokens.css" />
 <link rel="stylesheet" href="styles/version-badge.css" />
 <link rel="stylesheet" href="styles/components.css" />
+<style>
+  /* ── REDESIGN 2026-06: Calendar as main view ── */
+  .section--hidden { display: none !important; }
+  /* sections restored — user requested 2026-06-26 */
+  /* section-toggle + calendar-only-layout removed — half-finished redesign */
+  /* Modal improvements */
+  .viewer-modal--redesign {
+    max-width: 1200px !important;
+    width: 95vw !important;
+    grid-template-columns: 1fr 380px !important;
+  }
+  .viewer-modal--redesign .viewer-frame-wrap {
+    min-height: 70vh !important;
+  }
+  @media (max-width: 768px) {
+    .viewer-modal--redesign { grid-template-columns: 1fr !important; }
+    /* restored 2026-06-26 */
+  }
+</style>
 </head>
 <body>
 <div id="loader" class="loader" aria-hidden="false" role="status" aria-live="polite">
@@ -193,12 +212,22 @@
     <month-calendar id="calendar"></month-calendar>
   </section>
 
-    <!-- PUBLICADOS — mini previews (como a galeria), no fim da pagina -->
+  <!-- GALERIA UNIFICADA — dividida por marca e tipo de conteúdo -->
+  <section class="section" id="gallerySection">
+    <div class="section__heading">
+      <h2>Galeria</h2>
+      <span class="count" id="galleryCount">0</span>
+      <span class="section__hint">Todos os conteúdos — clica para abrir e editar</span>
+    </div>
+    <div id="galleryGrid"></div>
+  </section>
+
+  <!-- PUBLICADOS — mini previews (como a galeria), no fim da página -->
   <section class="section" id="publishedSection">
     <div class="section__heading">
       <h2>📌 Publicados</h2>
       <span class="count" id="publishedCount">0</span>
-      <span class="section__hint">Conteudo ja live no Instagram</span>
+      <span class="section__hint">Conteúdos já live no Instagram</span>
       <button type="button" class="section__toggle" id="publishedToggle" aria-expanded="true" aria-controls="publishedGrid">Esconder</button>
     </div>
     <div id="publishedGrid">
@@ -221,16 +250,6 @@
         <div class="gallery-grid" data-grid="story"></div>
       </div>
     </div>
-  </section>
-
-  <!-- GALERIA UNIFICADA — dividida por marca e tipo de conteúdo -->
-  <section class="section" id="gallerySection">
-    <div class="section__heading">
-      <h2>Galeria</h2>
-      <span class="count" id="galleryCount">0</span>
-      <span class="section__hint">Todos os conteúdos — clica para abrir e editar</span>
-    </div>
-    <div id="galleryGrid"></div>
   </section>
 
 </main>
