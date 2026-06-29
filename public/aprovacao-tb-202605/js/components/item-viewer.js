@@ -288,8 +288,9 @@ class ItemViewer extends HTMLElement {
 
     const isReelVideo = isReel && !!it.video_url;
     const bust = `?v=${APP_VERSION}&c=${currentContentSig()}`;
-    // Para carrosséis e stories: usar a imagem final (screenshot) em vez de
-    // iframe HTML. A imagem é pixel-idêntica ao que vai sair no Instagram.
+    // Híbrido: imagem final (screenshot) visível por defeito + iframe HTML
+    // escondido para edição ao vivo. Toggle permite alternar entre os dois.
+    // Quando o user focus um textarea, auto-switch para modo "ao vivo".
     const shotBase = (it.html_url || "").replace(/\.html$/, "");
     let frameHtml = "";
     if (isReelVideo) {
@@ -298,12 +299,22 @@ class ItemViewer extends HTMLElement {
       frameHtml = reelScriptHtml;
     } else if (isCarousel && shotBase) {
       const slideImg = `${shotBase}_shots/slide_01.jpg${bust}`;
-      frameHtml = `<img class="viewer-slide-img" src="${slideImg}" alt="${this._escapeForHtml(it.title || "")}" />`;
+      const iframeSrc = `${it.html_url}${bust}#slide-1`;
+      frameHtml = `<img class="viewer-slide-img" src="${slideImg}" alt="${this._escapeForHtml(it.title || "")}" />` +
+        `<iframe class="viewer-frame-iframe" data-src="${iframeSrc}" style="display:none" title="${this._escapeForHtml(it.title || "")}" scrolling="no"></iframe>`;
     } else if (it.html_url && shotBase) {
-      // Story: imagem única
+      // Story: imagem única + iframe para edição
       const storyImg = `${shotBase}.jpg${bust}`;
-      frameHtml = `<img class="viewer-slide-img" src="${storyImg}" alt="${this._escapeForHtml(it.title || "")}" />`;
+      const iframeSrc = `${it.html_url}${bust}`;
+      frameHtml = `<img class="viewer-slide-img" src="${storyImg}" alt="${this._escapeForHtml(it.title || "")}" />` +
+        `<iframe class="viewer-frame-iframe" data-src="${iframeSrc}" style="display:none" title="${this._escapeForHtml(it.title || "")}" scrolling="no"></iframe>`;
     }
+    // Toggle imagem/ao-vivo (só para carrosséis e stories com HTML)
+    const modeToggle = (!isReel && it.html_url) ? `
+      <div class="viewer-mode-toggle">
+        <button class="viewer-mode-btn is-active" data-action="mode-image">📷 Imagem final</button>
+        <button class="viewer-mode-btn" data-action="mode-live">✏️ Ao vivo</button>
+      </div>` : "";
 
     // Direct-edit textareas for each slide + caption
     // Fallback: se slides_text está vazio mas o item tem slides, gera textareas vazios
