@@ -42,16 +42,16 @@ body { font-family: var(--font-display); color: var(--text); }
 .watermark { position: absolute; bottom: 40px; left: 48px; font-family: var(--font-mono); font-size: 16px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.04em; z-index: 5; }
 .progress { position: absolute; left: 48px; right: 48px; bottom: 22px; height: 3px; background: var(--line-soft); z-index: 5; }
 .progress span { display: block; height: 100%; background: var(--accent); }
-.slide::before { content: ''; position: absolute; inset: 0; z-index: 4; pointer-events: none; opacity: 0.035;
+.slide::before { content: ''; position: absolute; inset: 0; z-index: 4; pointer-events: none; opacity: 0.028;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   background-size: 180px 180px; }
 .orb { position: absolute; border-radius: 50%; pointer-events: none; z-index: 1; }
-.orb-a { top: -180px; right: -180px; width: 900px; height: 900px; background: radial-gradient(circle, rgba(246,158,30,0.10), transparent 70%); }
-.orb-b { bottom: -150px; left: -150px; width: 750px; height: 750px; background: radial-gradient(circle, rgba(246,158,30,0.06), transparent 70%); }
-.orb-c { top: 50%; left: 50%; transform: translate(-50%,-50%); width: 1000px; height: 1000px; background: radial-gradient(circle, rgba(246,158,30,0.05), transparent 70%); }
+.orb-a { top:-140px;left:-180px; width: 900px; height: 900px; background: radial-gradient(circle, rgba(246,158,30,0.10), transparent 70%); border-radius: 50%; position: absolute; pointer-events: none; z-index: 1; }
+.orb-b { bottom:-120px;left:-180px; width: 750px; height: 750px; background: radial-gradient(circle, rgba(246,158,30,0.06), transparent 70%); border-radius: 50%; position: absolute; pointer-events: none; z-index: 1; }
+.orb-c { top:50%;right:20%;transform:translate(50%,-50%); width: 1000px; height: 1000px; background: radial-gradient(circle, rgba(246,158,30,0.05), transparent 70%); border-radius: 50%; position: absolute; pointer-events: none; z-index: 1; }
 .slide--hero { display: grid; align-content: end; padding: 160px 64px 200px; }
-.slide--hero .bg-photo { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.34; z-index: 1; }
-.slide--hero .bg-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(51,51,51,0.20) 0%, rgba(51,51,51,0.55) 100%); }
+.slide--hero .bg-photo { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.39; z-index: 1; }
+.slide--hero .bg-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(185deg, rgba(51,51,51,0.12) 0%, rgba(51,51,51,0.50) 100%); }
 .slide--hero .hero-stack { position: relative; z-index: 2; display: grid; gap: 32px; }
 .slide--hero .kicker { font-family: var(--font-mono); font-size: 19px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
 .slide--hero h1 { font-size: 42px; font-weight: 700; line-height: 1.14; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 18ch; text-wrap: balance; hyphens: auto; -webkit-hyphens: auto; }
@@ -79,7 +79,7 @@ body { font-family: var(--font-display); color: var(--text); }
 <section class="carousel" aria-label="Carrossel Luiz Santana">
 
 <article class="slide slide--hero" id="slide-1">
-  <div class="bg-photo" style="background-image:url('_capa.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/generated_outfits_2026-05-20/06_social_camisa_aberta.jpg')"></div>
   <div class="orb orb-a"></div>
   <div class="profile"><div class="avatar" style="background:transparent;"><img src="_avatar.png" alt="Luiz Santana" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">Luiz Santana</div><div class="handle">@techbody_pt</div></div></div>
   <div class="hero-stack">

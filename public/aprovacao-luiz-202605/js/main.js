@@ -208,7 +208,11 @@ const effectiveStatus = (it) => it.status === "published"
   ? "published"
   : (approvalStore.get(it.id)?.status || "pending");
 
-// Construir preview card (gallery-card) com capa + iframe/video lazy.
+// Construir preview card (gallery-card) com imagem final (screenshot).
+// Usa as imagens estáticas geradas em _shots/ (carrossel) ou no próprio
+// ficheiro .jpg (story/reel) — são a imagem final pixel-idêntica ao que
+// vai sair no Instagram. Sem iframes HTML: carregamento imediato e
+// visualização fiel ao resultado publicado.
 const buildCard = (it) => {
   const card = document.createElement("div");
   card.className = "gallery-card";
@@ -226,9 +230,6 @@ const buildCard = (it) => {
     ? shotBase ? shotBase + "_shots/slide_01.jpg" : ""
     : shotBase ? shotBase + ".jpg" : "";
   const coverSrc = coverPath ? coverPath + "?v=" + APP_VERSION + "&c=" + currentContentSig() : "";
-  const iframeSrc = !isReel && it.html_url
-    ? it.html_url + "?v=" + APP_VERSION + "&c=" + currentContentSig() + (it.format === "carrossel" ? "#slide-1" : "")
-    : "";
   const videoSrc = isReel && it.video_url
     ? it.video_url + "?v=" + APP_VERSION + "&c=" + currentContentSig()
     : "";
@@ -242,8 +243,6 @@ const buildCard = (it) => {
         : '<div class="gallery-card__no-preview">Sem preview</div>'}
       ${videoSrc
         ? '<video class="gallery-card__video" data-src="' + videoSrc + '" poster="' + poster + '" muted loop playsinline preload="none" style="display:none"></video>'
-        : iframeSrc
-        ? '<iframe data-hover-src="' + iframeSrc + '" title="' + _escapeForHtml(title) + '" scrolling="no" loading="lazy" tabindex="-1" style="display:none"></iframe>'
         : ""}
       <span class="gallery-card__badge gallery-card__badge--${st}">${st === "approved" ? "\u2713" : st === "rejected" ? "\u2717" : st === "published" ? "\U0001F4CC" : ""}</span>
     </div>
@@ -252,29 +251,7 @@ const buildCard = (it) => {
     </div>`;
   const thumb = card.querySelector(".gallery-card__thumb");
   const img = card.querySelector("img.gallery-card__cover");
-  const iframe = card.querySelector("iframe");
-  if (img && iframe) {
-    const loadIframe = () => {
-      if (iframe.dataset.hoverSrc && !iframe.src) {
-        iframe.src = iframe.dataset.hoverSrc;
-        iframe.style.display = "";
-        img.style.display = "none";
-        var nw_nh = dimsFor(it.format);
-        fitScaledFrame(thumb, nw_nh[0], nw_nh[1]);
-      }
-    };
-    thumb.addEventListener("mouseenter", loadIframe);
-    const obs = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          loadIframe();
-          obs.unobserve(entry.target);
-        }
-      }
-    }, { rootMargin: "200px" });
-    obs.observe(thumb);
-    card._pubObserver = obs;
-  }
+  // Reels: hover para ver o vídeo (mantém-se — o video é o formato final).
   const video = card.querySelector("video");
   if (img && video) {
     thumb.addEventListener("mouseenter", () => {

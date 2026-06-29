@@ -39,10 +39,16 @@ class ItemViewer extends HTMLElement {
       const fresh = (d.items || []).find(it => it.id === this._item.id);
       if (!fresh) return;
       this._item = fresh;
-      const iframe = this.querySelector(".viewer-frame-wrap iframe");
-      if (iframe && fresh.html_url) {
-        const hash = this._isCarousel ? `#slide-${this._slide || 1}` : "";
-        iframe.src = `${fresh.html_url}?v=${APP_VERSION}&c=${d.contentSig}${hash}`;
+      // Refresh da imagem do slide (não há iframe no viewer principal).
+      if (this._isCarousel) {
+        this._gotoSlideImage(this._slide || 1);
+      } else {
+        const img = this.querySelector(".viewer-slide-img");
+        if (img && fresh.html_url) {
+          const shotBase = (fresh.html_url || "").replace(/\.html$/, "");
+          const bust = `?v=${APP_VERSION}&c=${d.contentSig}`;
+          img.src = `${shotBase}.jpg${bust}`;
+        }
       }
       this._applyStoredOverrides && this._applyStoredOverrides();
     };
@@ -152,11 +158,12 @@ class ItemViewer extends HTMLElement {
       const capTa = this.querySelector("[data-edit-caption]");
       if (capTa) capTa.value = capOv.text;
     }
-    // Reflectir no iframe assim que carregar.
+    // Reflectir no iframe do wizard assim que carregar (o viewer principal
+    // agora usa imagens estáticas — não há iframe para editar ao vivo).
     if (Object.keys(slideOv).length) {
-      const iframe = this.querySelector(".viewer-frame-wrap iframe");
+      const iframe = this.querySelector(".onboard__preview iframe");
       if (iframe) {
-        const reapply = () => { for (const n of Object.keys(slideOv)) this._liveEditSlide(parseInt(n, 10), slideOv[n].text); };
+        const reapply = () => { for (const n of Object.keys(slideOv)) this._editFrameH1(iframe, parseInt(n, 10), slideOv[n].text); };
         iframe.addEventListener("load", reapply, { once: true });
         // Caso já esteja carregado.
         try { if (iframe.contentDocument?.readyState === "complete") reapply(); } catch {}
@@ -172,28 +179,33 @@ class ItemViewer extends HTMLElement {
     const next = Math.min(total, Math.max(1, this._slide + delta));
     if (next === this._slide) return;
     this._slide = next;
-    this._gotoSlideInFrame(next);
+    this._gotoSlideImage(next);
     this._updateCounter();
   }
 
+  _gotoSlideImage(n) {
+    const img = this.querySelector(".viewer-slide-img");
+    if (!img || !this._item) return;
+    const shotBase = (this._item.html_url || "").replace(/\.html$/, "");
+    if (!shotBase) return;
+    const src = `${shotBase}_shots/slide_${String(n).padStart(2, "0")}.jpg?v=${APP_VERSION}&c=${currentContentSig()}`;
+    img.src = src;
+  }
+
   _gotoSlideInFrame(n) {
-    const iframe = this.querySelector(".viewer-frame-wrap iframe");
+    // Usado pelo wizard (iframe próprio) — mantém-se para edição ao vivo.
+    const iframe = this.querySelector(".onboard__preview iframe");
     if (!iframe) return;
     try {
       const doc = iframe.contentDocument;
       const el = doc && doc.getElementById(`slide-${n}`);
       if (el) {
-        // scrollTo no scroller real (.carousel, overflow-x) em vez de
-        // scrollIntoView: este propaga aos ancestors same-origin e scrollava o
-        // body por trás do overlay. A janela do iframe não scrolla (scrollBy
-        // nela era no-op: setas "mortas").
         const sc = doc.querySelector(".carousel");
         if (sc) sc.scrollTo({ left: el.offsetLeft, top: 0, behavior: "instant" });
         else iframe.contentWindow.scrollTo({ left: el.offsetLeft, top: el.offsetTop, behavior: "instant" });
         return;
       }
     } catch {}
-    // Fallback: hash (pode fazer scroll suave / reload conforme o browser).
     if (this._item?.html_url) iframe.src = `${this._item.html_url}?v=${APP_VERSION}&c=${currentContentSig()}#slide-${n}`;
   }
 
@@ -268,11 +280,22 @@ class ItemViewer extends HTMLElement {
 
     const isReelVideo = isReel && !!it.video_url;
     const bust = `?v=${APP_VERSION}&c=${currentContentSig()}`;
-    const frameHtml = isReelVideo
-      ? `<video class="viewer-video" src="${it.video_url}${bust}" controls autoplay loop playsinline></video>`
-      : isReel
-      ? reelScriptHtml
-      : (it.html_url ? `<iframe src="${it.html_url}${bust}" title="${this._escapeForHtml(it.title || "")}"></iframe>` : "");
+    // Para carrosséis e stories: usar a imagem final (screenshot) em vez de
+    // iframe HTML. A imagem é pixel-idêntica ao que vai sair no Instagram.
+    const shotBase = (it.html_url || "").replace(/\.html$/, "");
+    let frameHtml = "";
+    if (isReelVideo) {
+      frameHtml = `<video class="viewer-video" src="${it.video_url}${bust}" controls autoplay loop playsinline></video>`;
+    } else if (isReel) {
+      frameHtml = reelScriptHtml;
+    } else if (isCarousel && shotBase) {
+      const slideImg = `${shotBase}_shots/slide_01.jpg${bust}`;
+      frameHtml = `<img class="viewer-slide-img" src="${slideImg}" alt="${this._escapeForHtml(it.title || "")}" />`;
+    } else if (it.html_url && shotBase) {
+      // Story: imagem única
+      const storyImg = `${shotBase}.jpg${bust}`;
+      frameHtml = `<img class="viewer-slide-img" src="${storyImg}" alt="${this._escapeForHtml(it.title || "")}" />`;
+    }
 
     // Direct-edit textareas for each slide + caption
     // Fallback: se slides_text está vazio mas o item tem slides, gera textareas vazios
@@ -322,20 +345,15 @@ class ItemViewer extends HTMLElement {
               <button class="btn" data-action="approve-direct" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 'JetBrains Mono',monospace;text-transform:uppercase">✓ Aprovar</button>
               <button class="btn" data-action="reject-direct" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 'JetBrains Mono',monospace;text-transform:uppercase">✗ Reprovar</button>
             </div>
-            <p class="viewer-hint">${isCarousel ? "Desliza entre os slides com ‹ ›. " : ""}Edita o texto de cada slide directamente nos campos acima. As alterações guardam automaticamente.</p>
+            <p class="viewer-hint">${isCarousel ? "Desliza entre os slides com ‹ ›. " : ""}Vês a imagem final tal como vai sair no Instagram. Edita o texto nos campos acima — as alterações guardam e reflectem-se na próxima geração.</p>
           </div>
         </aside>
         <button class="viewer-close" data-action="close" aria-label="Fechar">×</button>
       </div>`;
 
-    // Escala o iframe à dimensão exacta de publicação para que o "ver em
-    // grande" seja idêntico ao preview do cartão e à imagem publicada.
+    // Imagens estáticas: não precisam de fitScaledFrame (CSS object-fit: contain
+    // faz o scaling). O fitScaledFrame só se aplica a iframes (wizard preview).
     if (this._fitCleanup) { this._fitCleanup(); this._fitCleanup = null; }
-    if (!isReel && it.html_url) {
-      const wrap = this.querySelector(".viewer-frame-wrap");
-      const [nw, nh] = dimsFor(it.format);
-      if (wrap) this._fitCleanup = fitScaledFrame(wrap, nw, nh);
-    }
 
     this._updateCounter();
     this._refreshStatusLine();
