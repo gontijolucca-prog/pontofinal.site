@@ -44,17 +44,21 @@ function sortBySchedule(a, b) {
 
 // Lê overrides de data do Supabase (via approvalStore) e aplica em
 // state.items. Garante que reagendamentos manuais persistem cross-device.
+// IMPORTANTE: valida que o override é uma data real (YYYY-MM-DD) — alguns
+// items têm "Cancelado" ou outras notas textuais no campo date, que não devem
+// ser aplicadas como datas (causava items com scheduled_for="Cancelado...").
+const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 function applyDateOverrides() {
   const overrides = approvalStore.getAllDateOverrides?.() || {};
   let mutated = false;
   for (const it of state.items) {
     const ov = overrides[it.id]?.date;
-    if (!ov) continue;
+    if (!ov || !ISO_DATE_RE.test(ov)) continue;
     if (it.scheduled_for !== ov) {
       it.scheduled_for = ov;
       mutated = true;
     }
-    if (ov.length >= 7 && it.month !== ov.slice(0, 7)) {
+    if (it.month !== ov.slice(0, 7)) {
       it.month = ov.slice(0, 7);
       mutated = true;
     }
