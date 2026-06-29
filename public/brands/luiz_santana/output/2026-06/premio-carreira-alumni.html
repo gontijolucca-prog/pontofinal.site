@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <title>Prémio Carreira Alumni</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0d0d0d; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+    .slide {
+      width: 1080px;
+      height: 1350px;
+      position: relative;
+      display: grid;
+      align-content: center;
+      padding: 160px 96px 200px;
+      text-align: center;
+      justify-items: center;
+      background: #0d0d0d;
+      overflow: hidden;
+    }
+    .slide::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+      opacity: 0.038;
+      pointer-events: none;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .orb-a { top: -120px; right: -120px; width: 900px; height: 900px; background: radial-gradient(circle, rgba(246,158,30,0.10), transparent 70%); }
+    .orb-b { bottom: -180px; left: -180px; width: 750px; height: 750px; background: radial-gradient(circle, rgba(246,158,30,0.06), transparent 70%); }
+    .content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      justify-items: center;
+      gap: 48px;
+      max-width: 880px;
+    }
+    .kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 22px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(246,158,30,1);
+      font-weight: 500;
+    }
+    h1 {
+      font-size: 52px;
+      font-weight: 700;
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      max-width: 18ch;
+    }
+    h1 em {
+      color: rgba(246,158,30,1);
+      font-style: normal;
+      font-weight: 700;
+    }
+    .body {
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.78);
+      max-width: 720px;
+      font-style: italic;
+    }
+    .credit {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 18px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-top: 24px;
+    }
+    .profile {
+      position: absolute;
+      top: 56px;
+      left: 56px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .profile .avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(246,158,30,1);
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      font-weight: 700;
+      color: #0d0d0d;
+    }
+    .profile .name {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+    .profile .handle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+    }
+    .watermark {
+      position: absolute;
+      bottom: 40px;
+      right: 56px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+  <article class="slide" id="slide-1">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="profile">
+      <div class="avatar">LS</div>
+      <div>
+        <div class="name">Luiz Santana</div>
+        <div class="handle">@techbody_pt</div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="kicker">Reconhecimento</div>
+      <h1>Prémio <em>Carreira Alumni</em></h1>
+      <p class="body">Receber este prémio é uma honra que recebo com muita gratidão e sentido de responsabilidade.</p>
+      <div class="credit">Politécnico de Santarém</div>
+    </div>
+    <div class="watermark">Junho 2026</div>
+  </article>
+</body>
+</html>
