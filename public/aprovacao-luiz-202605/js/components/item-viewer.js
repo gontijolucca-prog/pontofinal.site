@@ -326,8 +326,8 @@ class ItemViewer extends HTMLElement {
       const text = s.text_overlay || s.text || "";
       const label = it.format === "reel" ? `Linha ${String(n).padStart(2, "0")}` : `Slide ${String(n).padStart(2, "0")}`;
       return `<div class="viewer-edit-slide">
-        <label class="viewer-edit-slide__label">${label} <span class="hint">edita aqui — muda ao vivo</span></label>
-        <textarea data-edit-slide="${n}" rows="3">${this._escapeForHtml(text)}</textarea>
+        <label class="viewer-edit-slide__label">${label} <span class="hint">Enter = quebra de linha · *palavra* = destaque</span></label>
+        <textarea data-edit-slide="${n}" rows="5">${this._escapeForHtml(text)}</textarea>
         <span class="viewer-edit-slide__fb" data-fb-slide="${n}"></span>
       </div>`;
     }).join("");
