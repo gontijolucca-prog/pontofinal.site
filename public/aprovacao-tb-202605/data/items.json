@@ -3013,35 +3013,5 @@
         "text_overlay": "Estás a emagrecer com GLP‑1?\nA TechBody ajuda‑te a proteger o músculo.\nEnvia-me mensagem — digo‑te por onde começar."
       }
     ]
-  },
-  {
-    "id": "techbody-2026-07-s04",
-    "brand": "techbody",
-    "month": "2026-07",
-    "format": "story",
-    "theme": "placeholder",
-    "pilar": "",
-    "audience": "b2c",
-    "title": "Story 04 (a gerar)",
-    "slides": 1,
-    "slides_text": [
-      {
-        "role": "story",
-        "text_overlay": "Story 04 — a gerar conteúdo"
-      }
-    ],
-    "html_url": "",
-    "photos_used": [],
-    "photo_positions": [],
-    "styles": [
-      "type"
-    ],
-    "prompt_version": "placeholder-v1",
-    "generated_at": "2026-06-28",
-    "scheduled_for": "2026-07-30",
-    "hour": "17h",
-    "status": "pending",
-    "caption": "",
-    "hashtags": ""
   }
 ]
