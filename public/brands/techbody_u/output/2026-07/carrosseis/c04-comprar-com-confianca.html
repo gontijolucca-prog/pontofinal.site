@@ -76,12 +76,19 @@ body { font-family: var(--font-display); color: var(--text); }
 
 .slide--num .bg-photo, .slide--type .bg-photo, .slide--quote .bg-photo {
   position: absolute; inset: 0; background-size: cover; background-position: center;
-  opacity: 0.10; z-index: 0;
+  opacity: 0.16; z-index: 0;
 }
 .slide--num .bg-photo::after, .slide--type .bg-photo::after, .slide--quote .bg-photo::after {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(51,51,51,0.72) 0%, rgba(51,51,51,0.85) 100%);
 }
+
+/* HERO V3: centered */
+.slide--hero { align-content: center; justify-items: center; text-align: center; }
+.slide--hero .hero-stack { justify-items: center; text-align: center; }
+.slide--hero h1 { font-size: 46px; max-width: 16ch; text-align: center; }
+.slide--hero .kicker { font-size: 17px; }
+
 </style>
 </head>
 <body>
