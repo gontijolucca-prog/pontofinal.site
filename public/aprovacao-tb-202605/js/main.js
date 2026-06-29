@@ -282,7 +282,7 @@ function renderPublishedSection() {
   const container = document.getElementById("publishedGrid");
   const totalEl = document.getElementById("publishedCount");
   if (!container) return;
-  const pubItems = state.items.filter(i => i.status === "published");
+  const pubItems = state.items.filter(i => i.status === "published" && inferMonth(i) === state.currentMonth);
   pubItems.sort((a, b) => String(b.published_at || "").localeCompare(String(a.published_at || "")));
   if (totalEl) totalEl.textContent = pubItems.length;
   // Actualizar hint com contagens por formato.
@@ -319,6 +319,9 @@ function renderPublishedSection() {
     const groupDiv = sub.closest(".gallery-group");
     if (groupDiv) groupDiv.style.display = groups[fmt].length === 0 ? "none" : "";
   }
+  // Hide the entire "Publicados" section when no items are published this month
+  const pubSection = document.getElementById("publishedSection");
+  if (pubSection) pubSection.style.display = pubItems.length === 0 ? "none" : "";
   // Click delegation (abre o item-viewer).
   container.addEventListener("click", (e) => {
     const card = e.target.closest(".gallery-card");
