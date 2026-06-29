@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="20260629-1246" />
-<meta name="app-version" content="20260629-1430" />
+<meta name="app-version" content="20260629-1444" />
 <title>Aprovação · Conteúdo</title>
 
 <script>
@@ -58,14 +58,10 @@
       });
 
       // Auto-refresh check a cada 10s (tab visível + user idle): lê version.txt
-      // e auto-cura nuclear se o servidor publicou versão nova. Complementa
-      // o version-gate.js (que faz polling idêntico mas só dispara UI).
+      // e auto-cura nuclear se o servidor publicou versão nova.
+      // SEMPRE executa — mesmo se user está a editar. Versão nova > editing state.
       async function autoHeal() {
         if (document.hidden) return;
-        var ed = document.activeElement;
-        if (ed && (ed.tagName === 'TEXTAREA' ||
-            (ed.tagName === 'INPUT' && /^(text|search|email|url|tel)$/i.test(ed.type)) ||
-            ed.isContentEditable)) return;
         try {
           var r = await fetch('version.txt?_=' + Date.now(), { cache: 'no-store' });
           if (!r.ok) return;
@@ -74,6 +70,10 @@
           var key = 'pf-autoheal-' + serverV;
           try { if (sessionStorage.getItem(key) === '1') return; } catch {}
           try { sessionStorage.setItem(key, '1'); } catch {}
+          // Mostra toast visível para o user saber que está a actualizar
+          showUpdateToast(serverV);
+          // Espera 800ms para o user ver o toast
+          await new Promise(function(r){ setTimeout(r, 800); });
           // Nuclear reload — espera limpeza do SW + caches antes de navegar
           if ('serviceWorker' in navigator) {
             var regs = await navigator.serviceWorker.getRegistrations();
@@ -87,7 +87,40 @@
           window.location.replace(window.location.pathname + '?_=' + Date.now());
         } catch (e) {}
       }
-      setInterval(autoHeal, 10000);
+      // Toast visível quando há update — para o user saber que está a recarregar
+      function showUpdateToast(newV) {
+        try {
+          var existing = document.getElementById('pf-update-toast');
+          if (existing) existing.remove();
+          var toast = document.createElement('div');
+          toast.id = 'pf-update-toast';
+          toast.setAttribute('role', 'status');
+          toast.setAttribute('aria-live', 'polite');
+          toast.style.cssText = [
+            'position:fixed', 'bottom:24px', 'right:24px', 'z-index:99999',
+            'display:flex', 'align-items:center', 'gap:12px',
+            'padding:14px 20px', 'border-radius:10px',
+            'background:#0d0d0d', 'color:#fff', 'border:2px solid #f69e1e',
+            "font:600 14px/1.2 'Inter',system-ui,sans-serif",
+            'box-shadow:0 8px 32px rgba(0,0,0,0.4)',
+            'animation:pfSlideIn 0.3s ease-out'
+          ].join(';');
+          toast.innerHTML = '<span style="font-size:20px;line-height:1;animation:pfSpin 1s linear infinite;display:inline-block;">↻</span>' +
+            '<span>Nova versão disponível — a atualizar...</span>';
+          if (!document.getElementById('pf-toast-styles')) {
+            var style = document.createElement('style');
+            style.id = 'pf-toast-styles';
+            style.textContent = '@keyframes pfSlideIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}@keyframes pfSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}';
+            document.head.appendChild(style);
+          }
+          document.body.appendChild(toast);
+        } catch(e) {}
+      }
+      setInterval(autoHeal, 5000);
+      // Também verifica quando a tab volta a ficar visível
+      document.addEventListener('visibilitychange', function() { if (!document.hidden) autoHeal(); });
+      // E quando a janela ganha foco
+      window.addEventListener('focus', autoHeal);
     }).catch(() => {});
   }
 </script>
