@@ -76,12 +76,24 @@ body { font-family: var(--font-display); color: var(--text); }
 
 .slide--num .bg-photo, .slide--type .bg-photo, .slide--quote .bg-photo {
   position: absolute; inset: 0; background-size: cover; background-position: center;
-  opacity: 0.16; z-index: 0;
+  opacity: 0.18; z-index: 0;
 }
 .slide--num .bg-photo::after, .slide--type .bg-photo::after, .slide--quote .bg-photo::after {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(51,51,51,0.72) 0%, rgba(51,51,51,0.85) 100%);
 }
+
+
+/* HERO V3: centered */
+.slide--hero { align-content: center; justify-items: center; text-align: center; }
+.slide--hero .hero-stack { justify-items: center; text-align: center; }
+.slide--hero h1 { font-size: 46px; max-width: 16ch; text-align: center; }
+.slide--hero .kicker { font-size: 17px; }
+
+/* CONTENT C2: number as watermark, big h1 */
+.slide--num .num, .slide--quote .num, .slide--type .num { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 280px; opacity: 0.06; z-index: 1; pointer-events: none; }
+.slide--num .content, .slide--quote .content, .slide--type .content { gap: 0; }
+.slide--num h1, .slide--quote h1, .slide--type h1 { font-size: 46px; max-width: 18ch; }
 
 </style>
 </head>
@@ -92,7 +104,7 @@ body { font-family: var(--font-display); color: var(--text); }
   <div class="bg-photo" style="background-image:url('../../../assets/photos/generated_outfits_2026-05-20/09_tbu_acto_treino.jpg')"></div>
   <div class="orb orb-a"></div>
   <div class="hero-stack">
-    <div class="kicker">O&nbsp;Pedro perguntou: como é&nbsp;que&nbsp;25&nbsp;minutos chegam?</div>
+    <div class="kicker">Perguntou: como é&nbsp;que&nbsp;25&nbsp;minutos chegam?</div>
     <h1>A&nbsp;resposta está&nbsp;dentro do&nbsp;músculo.</h1>
   </div>
   <div class="arrow-mark">→</div><div class="progress"><span style="width:16.666666666666664%"></span></div>

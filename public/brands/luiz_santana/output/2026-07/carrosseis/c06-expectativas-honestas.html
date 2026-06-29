@@ -76,12 +76,18 @@ body { font-family: var(--font-display); color: var(--text); }
 
 .slide--num .bg-photo, .slide--type .bg-photo, .slide--quote .bg-photo {
   position: absolute; inset: 0; background-size: cover; background-position: center;
-  opacity: 0.16; z-index: 0;
+  opacity: 0.18; z-index: 0;
 }
 .slide--num .bg-photo::after, .slide--type .bg-photo::after, .slide--quote .bg-photo::after {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(51,51,51,0.72) 0%, rgba(51,51,51,0.85) 100%);
 }
+
+
+/* CONTENT C2: number as watermark, big h1 */
+.slide--num .num, .slide--quote .num, .slide--type .num { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 280px; opacity: 0.06; z-index: 1; pointer-events: none; }
+.slide--num .content, .slide--quote .content, .slide--type .content { gap: 0; }
+.slide--num h1, .slide--quote h1, .slide--type h1 { font-size: 46px; max-width: 18ch; }
 
 </style>
 </head>
@@ -92,7 +98,7 @@ body { font-family: var(--font-display); color: var(--text); }
   <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_a2.-firm-authority-direct_2964371283.png')"></div>
   <div class="orb orb-a"></div>
   <div class="hero-stack">
-    <div class="kicker">A&nbsp;Carla perguntou: quanto&nbsp;tempo?</div>
+    <div class="kicker">Perguntou: quanto&nbsp;tempo?</div>
     <h1>Resposta honesta: depende.</h1>
   </div>
   <div class="arrow-mark">→</div><div class="progress"><span style="width:16.666666666666664%"></span></div>
