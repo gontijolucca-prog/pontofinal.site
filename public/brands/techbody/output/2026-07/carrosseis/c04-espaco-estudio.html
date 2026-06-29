@@ -3,268 +3,146 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>TechBody · espaco_estudio</title>
-<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;400;600;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+<title>TechBody ·  espaco estudio</title>
+<link href="https://fonts.googleapis.com/css2?family=Trillium+Web:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
 <style>
 :root {
-  --bg: #333333;
-  --primary: #333333;
+  --bg-primary: #333333;
+  --bg-elevated: #3a3a3a;
+  --bg-soft: #2a2a2a;
   --accent: #F69E1E;
-  --text: #ffffff;
-  --w-thin: 200;
-  --w-mid: 500;
-  --w-strong: 700;
-  --w-black: 800;
-  --font-display: 'Manrope', 'Titillium Web', sans-serif, 'Titillium Web', sans-serif, 'Titillium Web', sans-serif, 'Titillium Web', sans-serif, 'Titillium Web', sans-serif, 'Titillium Web', sans-serif;
+  --text: #FFFFFF;
+  --text-muted: rgba(255,255,255,0.62);
+  --line: rgba(255,255,255,0.10);
+  --line-soft: rgba(255,255,255,0.06);
+  --font-display: 'Trillium Web', 'Manrope', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --font-serif: 'Trillium Web', serif;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-display); -webkit-font-smoothing: antialiased; }
-/* Carousel slides at Instagram portrait 4:5 (1080×1350). O contentor iframe
-   é 4:5 — cada slide ocupa 100% da largura para snap perfeito. */
-.carousel {
-  display: flex;
-  scroll-snap-type: x mandatory;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  height: 100vh;
-  width: 100vw;
-}
+html, body { background: #0d0d0d; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+body { font-family: var(--font-display); color: var(--text); }
+.carousel { display: flex; scroll-snap-type: x mandatory; overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; height: 100vh; width: 100vw; }
 .carousel::-webkit-scrollbar { display: none; }
 .slide {
   flex: 0 0 100%;
   width: 100%;
   height: 100%;
   scroll-snap-align: start;
-  scroll-snap-stop: always;
   position: relative;
   overflow: hidden;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  padding: clamp(28px, 4vw, 56px);
+  background: var(--bg-primary);
 }
-/* slide background image (if any) */
-.slide__photo {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  z-index: 0;
-}
-.slide__photo::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.78) 100%);
-}
-/* slide layouts */
-.slide__top, .slide__body, .slide__bottom { position: relative; z-index: 1; }
-.slide__top { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
-.slide__bottom { display: flex; justify-content: space-between; align-items: end; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
-.slide__bottom .arrow { font-size: 22px; }
-.slide__body { display: grid; align-content: center; gap: 18px; }
-
-/* style: photo-bg */
-.slide--photo .slide__body h1 {
-  font-family: var(--font-display);
-  font-weight: var(--w-strong);
-  font-size: clamp(15px, 6vw, 72px);
-  line-height: 1.1;
-  letter-spacing: -0.025em;
-  max-width: 22ch;
-
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  hyphens: none;}
-.slide--photo .slide__body p { font-family: var(--font-mono); font-size: clamp(13px, 1.4vw, 16px); max-width: 38ch; color: rgba(255,255,255,0.78); }
-
-/* style: typographic */
-.slide--type { background: var(--bg); }
-.slide--type .slide__body h1 {
-  font-family: var(--font-display);
-  font-weight: var(--w-strong);
-  font-size: clamp(15px, 4.4vw, 58px);
-  line-height: 1.1;
-  letter-spacing: -0.025em;
-  max-width: 30ch;
-  color: var(--text);
-
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  hyphens: none;}
-.slide--type .slide__body h1 em { color: var(--accent); font-style: normal; font-weight: var(--w-black); }
-.slide--type .slide__body p { font-family: var(--font-mono); font-size: clamp(13px, 1.3vw, 15px); max-width: 42ch; color: rgba(255,255,255,0.55); }
-
-/* style: numeric — slim serif italic instead of a giant black block */
-.slide--num { background: var(--bg); }
-.slide--num .slide__body { align-content: center; justify-items: start; gap: 18px; }
-.slide--num .slide__body .num {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: var(--w-black);
-  font-size: clamp(55px, 19vw, 240px);
-  line-height: 0.85;
-  letter-spacing: -0.05em;
-  color: var(--accent);
-}
-.slide--num .slide__body h1 {
-  font-family: var(--font-display);
-  font-weight: var(--w-mid);
-  font-size: clamp(14px, 3vw, 38px);
-  line-height: 1.18;
-  letter-spacing: -0.01em;
-  max-width: 28ch;
-
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  hyphens: none;}
-.slide--num .slide__body p { font-family: var(--font-mono); font-size: clamp(12px, 1.3vw, 15px); max-width: 44ch; color: rgba(255,255,255,0.55); }
-
-/* style: quote — italic serif, restrained */
-.slide--quote { background: var(--bg); }
-.slide--quote .slide__body {
-  align-content: center;
-  border-left: 2px solid var(--accent);
-  padding-left: clamp(18px, 2.6vw, 32px);
-}
-.slide--quote .slide__body .mark { display: none; }
-.slide--quote .slide__body blockquote {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 200;
-  font-size: clamp(14px, 4vw, 50px);
-  line-height: 1.22;
-  letter-spacing: -0.018em;
-  max-width: 32ch;
-  color: var(--text);
-}
-.slide--quote .slide__body cite { font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.5); font-style: normal; letter-spacing: 0.18em; text-transform: uppercase; }
-
-/* brand mark — refined, not maximal */
-.brand-glyph { font-family: var(--font-display); font-weight: var(--w-strong); letter-spacing: -0.02em; color: var(--accent); font-size: clamp(16px, 1.8vw, 20px); }
-
-/* Tipografia: evitar orphans (palavra curta sozinha na linha).
-   text-wrap: pretty -> Chrome 117+/Safari 17.5+. Fallback graceful em browsers antigos. */
-h1, h2, h3, p, blockquote, .num {
-  text-wrap: balance;
-  text-wrap: pretty;
-}
-
-/* Julho: duotone laranja — fotos do banco com tratamento novo (≠ junho a cores).
-   blend no background (não filter no elemento: filter dessaturaria o ::after). */
-.slide__photo { background-color: #b4622f; background-blend-mode: luminosity; }
-.slide__photo::after { background: linear-gradient(180deg, rgba(10,10,12,0.38) 0%, rgba(10,10,12,0.88) 100%); }
-
-.slide__body h1 { text-wrap: wrap !important; }
-
-/* === v2.1: texto mais largo, sem órfãos (Lucca feedback 19-jun) === */
-.slide__body h1 { 
-  text-wrap: wrap !important; 
-  text-align: left !important; 
-  max-width: min(880px, 92%) !important; 
-  margin: 0 !important;
-}
-.slide--photo .slide__body h1 { font-size: clamp(26px, 3.8vw, 48px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
-.slide--type .slide__body h1 { font-size: clamp(28px, 4.2vw, 52px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
-.slide--num .slide__body h1 { font-size: clamp(24px, 3.6vw, 44px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
-
-#slide-1 .slide__body h1 {; text-align: center !important;}
-#slide-1 .slide__body { text-align: center !important; align-items: center !important; justify-items: center !important; }
+.profile { position: absolute; top: 48px; left: 48px; display: flex; align-items: center; gap: 18px; z-index: 5; }
+.profile .avatar { width: 68px; height: 68px; border-radius: 50%; background: var(--accent); overflow: hidden; display: grid; place-items: center; flex-shrink: 0; }
+.profile .avatar img { width: 100%; height: 100%; object-fit: cover; }
+.profile .who { display: grid; gap: 4px; }
+.profile .name { font-size: 24px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; line-height: 1; }
+.profile .handle { font-family: var(--font-mono); font-size: 18px; font-weight: 400; color: var(--text-muted); letter-spacing: 0.02em; line-height: 1; }
+.arrow-mark { position: absolute; bottom: 70px; right: 48px; width: 58px; height: 58px; border: 2px solid var(--line); border-radius: 50%; display: grid; place-items: center; z-index: 5; color: var(--text); font-size: 26px; line-height: 1; }
+.watermark { position: absolute; bottom: 40px; left: 48px; font-family: var(--font-mono); font-size: 16px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.04em; z-index: 5; }
+.progress { position: absolute; left: 48px; right: 48px; bottom: 22px; height: 3px; background: var(--line-soft); z-index: 5; }
+.progress span { display: block; height: 100%; background: var(--accent); }
+.slide::before { content: ''; position: absolute; inset: 0; z-index: 4; pointer-events: none; opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 180px 180px; }
+.orb { position: absolute; border-radius: 50%; pointer-events: none; z-index: 1; }
+.orb-a { top: -180px; right: -180px; width: 900px; height: 900px; background: radial-gradient(circle, rgba(246,158,30,0.10), transparent 70%); }
+.orb-b { bottom: -150px; left: -150px; width: 750px; height: 750px; background: radial-gradient(circle, rgba(246,158,30,0.06), transparent 70%); }
+.orb-c { top: 50%; left: 50%; transform: translate(-50%,-50%); width: 1000px; height: 1000px; background: radial-gradient(circle, rgba(246,158,30,0.05), transparent 70%); }
+.slide--hero { display: grid; align-content: end; padding: 160px 64px 200px; }
+.slide--hero .bg-photo { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.34; z-index: 1; }
+.slide--hero .bg-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(51,51,51,0.20) 0%, rgba(51,51,51,0.55) 100%); }
+.slide--hero .hero-stack { position: relative; z-index: 2; display: grid; gap: 32px; }
+.slide--hero .kicker { font-family: var(--font-mono); font-size: 19px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+.slide--hero h1 { font-size: 42px; font-weight: 700; line-height: 1.14; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 18ch; text-wrap: balance; hyphens: auto; -webkit-hyphens: auto; }
+.slide--hero h1 em { color: var(--accent); font-style: normal; font-weight: 700; }
+.slide--num, .slide--quote, .slide--type { display: grid; align-content: center; padding: 160px 64px 200px; text-align: center; justify-items: center; }
+.slide--num .content, .slide--quote .content, .slide--type .content { display: grid; justify-items: center; gap: 32px; position: relative; z-index: 2; max-width: 880px; }
+.slide--num .num, .slide--quote .num, .slide--type .num { font-family: var(--font-mono); font-size: 112px; font-weight: 900; color: var(--accent); line-height: 1; letter-spacing: -0.02em; }
+.slide--num h1, .slide--quote h1, .slide--type h1 { font-size: 40px; font-weight: 700; line-height: 1.16; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 20ch; text-wrap: balance; hyphens: none; overflow-wrap: break-word; }
+.slide--num h1 em, .slide--quote h1 em, .slide--type h1 em { color: var(--accent); font-style: normal; font-weight: 700; }
+.slide--num p.body, .slide--quote p.body, .slide--type p.body { font-size: 30px; font-weight: 400; line-height: 1.4; color: rgba(255,255,255,0.82); font-style: italic; max-width: 680px; }
+.slide--num p.body em, .slide--quote p.body em, .slide--type p.body em { color: var(--accent); font-style: italic; font-weight: 600; }
+.slide--quote blockquote { font-family: 'Trillium Web', serif; font-style: italic; font-weight: 300; font-size: 56px; line-height: 1.22; letter-spacing: -0.018em; color: var(--text); border-left: 2px solid var(--accent); padding-left: 40px; max-width: 22ch; text-align: left; }
+.slide--quote cite { font-family: var(--font-mono); font-size: 16px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); font-style: normal; margin-top: 20px; }
+.slide--cta { background: #FFFFFF; display: grid; place-items: center; padding: 160px 64px 200px; }
+.slide--cta .cta-stack { display: grid; justify-items: center; gap: 32px; text-align: center; }
+.slide--cta .cta-avatar { width: 220px; height: 220px; border-radius: 50%; background: var(--accent); overflow: hidden; display: grid; place-items: center; }
+.slide--cta .cta-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.slide--cta .cta-name { font-size: 56px; font-weight: 700; color: #333333; letter-spacing: -0.012em; line-height: 1; }
+.slide--cta .cta-handle { font-family: var(--font-mono); font-size: 26px; color: #5a6473; letter-spacing: 0.02em; line-height: 1; }
+.slide--cta .cta-pill { display: inline-block; padding: 28px 56px; background: #333333; color: #FFFFFF; font-size: 30px; font-weight: 600; border-radius: 100px; letter-spacing: 0.01em; margin-top: 8px; }
+.slide--cta .cta-foot { font-family: var(--font-mono); font-size: 18px; color: #8b95a3; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 4px; }
 </style>
-<!-- fx-v2 -->
-<style id="fx-v2">
-/* ═══ FX v2.3 ESTÁTICO — atmosfera de fundo congelada (decisão Lucca 11-jun:
-   carrosséis publicam como imagem; preview tem de mostrar o mesmo) ═══ */
-.slide, .story-single { isolation: isolate; }
-.fx-atmos, .fx-orb, .fx-grain { position: absolute; z-index: 0; pointer-events: none; }
-.fx-atmos {
-  inset: -22%;
-  background:
-    radial-gradient(48% 44% at 26% 22%, color-mix(in oklch, var(--accent) 26%, transparent), transparent 78%),
-    radial-gradient(52% 48% at 80% 84%, color-mix(in oklch, var(--accent) 13%, transparent), transparent 80%);
-  transform: scale(1.03);
-}
-.fx-orb {
-  width: 72%; aspect-ratio: 1; border-radius: 50%; top: -16%; right: -18%;
-  background: radial-gradient(circle, color-mix(in oklch, var(--accent) 19%, transparent), transparent 74%);
-  opacity: .72;
-}
-.fx-grain {
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
-  opacity: .055; mix-blend-mode: overlay;
-}
-.slide__photo, .bg-photo, .slide--photo .photo { transform: scale(1.05); }
-.carousel .slide:first-child .fx-orb { width: 82%; top: -18%; right: -20%; }
-.carousel .slide:first-child .fx-atmos { inset: -28%; }
-.slide--photo .fx-atmos, .slide--photo .fx-orb { filter: opacity(.5); }
-.slide--photo .fx-grain { opacity: .04; }
-.story-single__body {
-  justify-items: center !important; align-content: center !important;
-  text-align: center !important; justify-self: stretch !important;
-}
-.story-single__body h1, .story-single__body .num, .story-single__body p { margin-inline: auto; }
-.story-single--quote .story-single__body { border-left: none !important; padding-left: 0 !important; }
-</style>
-
 </head>
 <body>
-<section class="carousel" aria-label="Carrossel TechBody — espaco_estudio">
+<section class="carousel" aria-label="Carrossel TechBody">
 
-<article class="slide slide--photo" id="slide-1">
-  <div class="slide__photo" style="background-image:url('../../../assets/photos/magnific_estudio-aquecimento-contr_2968055318.jpg'); background-position: center 65%"></div>
-  <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Quanto&nbsp;espaço&nbsp;precisa&nbsp;um&nbsp;estúdio<em>TechBody</em>?</h1></div>
-  <div class="slide__bottom"><span>01/06</span><span class="arrow">→</span></div>
-<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+<article class="slide slide--hero" id="slide-1">
+  <div class="bg-photo" style="background-image:url('_capa.jpg')"></div>
+  <div class="orb orb-a"></div>
+  <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
+  <div class="hero-stack">
+    <div class="kicker">TechBody</div>
+    <h1>Quanto&nbsp;espaço&nbsp;precisa&nbsp;um&nbsp;estúdio<em>TechBody</em>?</h1>
+  </div>
+  <div class="arrow-mark">→</div><div class="watermark">@techbody</div><div class="progress"><span style="width:16.666666666666664%"></span></div>
+</article>
+
 <article class="slide slide--type" id="slide-2">
-  <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Menos&nbsp;do&nbsp;que&nbsp;imagina&nbsp;—&nbsp;a&nbsp;baixa<br>exigência&nbsp;de&nbsp;espaço&nbsp;faz&nbsp;parte&nbsp;do<em>modelo</em>.</h1></div>
-  <div class="slide__bottom"><span>02/06</span><span class="arrow">→</span></div>
-<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+  <div class="orb orb-b"></div>
+  <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
+  <div class="content">
+    <div class="num">02</div>
+    <h1>Menos&nbsp;do&nbsp;que&nbsp;imagina&nbsp;—&nbsp;a&nbsp;baixa<br>exigência&nbsp;de&nbsp;espaço&nbsp;faz&nbsp;parte&nbsp;do<em>modelo</em>.</h1>
+    
+  </div>
+  <div class="arrow-mark">→</div><div class="watermark">@techbody</div><div class="progress"><span style="width:33.33333333333333%"></span></div>
+</article>
+
 <article class="slide slide--type" id="slide-3">
-  <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Menos&nbsp;equipamentos.<br>Sessões&nbsp;curtas.<br>Mais<em>rotação</em>de&nbsp;clientes.</h1></div>
-  <div class="slide__bottom"><span>03/06</span><span class="arrow">→</span></div>
-<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+  <div class="orb orb-b"></div>
+  <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
+  <div class="content">
+    <div class="num">03</div>
+    <h1>Menos&nbsp;equipamentos.<br>Sessões&nbsp;curtas.<br>Mais<em>rotação</em>de&nbsp;clientes.</h1>
+    
+  </div>
+  <div class="arrow-mark">→</div><div class="watermark">@techbody</div><div class="progress"><span style="width:50.0%"></span></div>
+</article>
+
 <article class="slide slide--type" id="slide-4">
-  <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Serviço&nbsp;premium,&nbsp;com<em>valor&nbsp;percebido</em>à&nbsp;altura.</h1></div>
-  <div class="slide__bottom"><span>04/06</span><span class="arrow">→</span></div>
-<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+  <div class="orb orb-b"></div>
+  <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
+  <div class="content">
+    <div class="num">04</div>
+    <h1>Serviço&nbsp;premium,&nbsp;com<em>valor&nbsp;percebido</em>à&nbsp;altura.</h1>
+    
+  </div>
+  <div class="arrow-mark">→</div><div class="watermark">@techbody</div><div class="progress"><span style="width:66.66666666666666%"></span></div>
+</article>
+
 <article class="slide slide--type" id="slide-5">
-  <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Modelo <em>chave‑na‑mão</em>: método, formação e&nbsp;tecnologia<br>incluídos.</h1></div>
-  <div class="slide__bottom"><span>05/06</span><span class="arrow">→</span></div>
-<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+  <div class="orb orb-b"></div>
+  <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
+  <div class="content">
+    <div class="num">05</div>
+    <h1>Modelo <em>chave‑na‑mão</em>: método, formação e&nbsp;tecnologia<br>incluídos.</h1>
+    
+  </div>
+  <div class="arrow-mark">→</div><div class="watermark">@techbody</div><div class="progress"><span style="width:83.33333333333334%"></span></div>
+</article>
+
 <article class="slide slide--type" id="slide-6">
-  <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Agende&nbsp;uma&nbsp;reunião&nbsp;de<em>avaliação</em>.</h1></div>
-  <div class="slide__bottom"><span>06/06</span><span class="slide__cta" style="background:var(--accent);color:#0a0a0c;padding:10px 22px;font:700 13px/1 var(--font-display);letter-spacing:0.06em;text-transform:uppercase;">Franchising →</span></div>
-<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+  <div class="orb orb-b"></div>
+  <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
+  <div class="content">
+    <div class="num">06</div>
+    <h1>Agende&nbsp;uma&nbsp;reunião&nbsp;de<em>avaliação</em>.</h1>
+    
+  </div>
+  <div class="arrow-mark">→</div><div class="watermark">@techbody</div><div class="progress"><span style="width:100.0%"></span></div>
+</article>
 </section>
-<script>
-  (function () {
-    var carousel = document.querySelector('.carousel');
-    function go() {
-      var m = (location.hash || '').match(/^#slide-(\d+)$/);
-      if (!m || !carousel) return;
-      var el = document.getElementById('slide-' + m[1]);
-      if (!el) return;
-      var prev = carousel.style.scrollSnapType;
-      carousel.style.scrollSnapType = 'none';
-      carousel.scrollLeft = el.offsetLeft;
-      requestAnimationFrame(function () {
-        carousel.style.scrollSnapType = prev || '';
-      });
-    }
-    window.addEventListener('hashchange', go);
-    if (document.readyState === 'complete') go();
-    else window.addEventListener('load', go);
-  })();
-</script>
 </body>
 </html>

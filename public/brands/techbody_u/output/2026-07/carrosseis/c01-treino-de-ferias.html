@@ -1,275 +1,148 @@
+<!doctype html>
 <html lang="pt-PT">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TechBody U · treino_de_ferias</title>
-<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;400;600;700;900&amp;family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TechBody U ·  treino de ferias</title>
+<link href="https://fonts.googleapis.com/css2?family=Trillium+Web:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
 <style>
 :root {
-  --bg: #F2EDE4;
-  --primary: #14160F;
-  --accent: #C36F49;
-  --text: #14160F;
-  --text-mute: rgba(20, 22, 15, 0.55);
-  --text-faint: rgba(20, 22, 15, 0.35);
-  --line: rgba(20, 22, 15, 0.12);
-  --font-display: 'Trillium Web', serif;
-  --font-body: 'Trillium Web', sans-serif;
+  --bg-primary: #333333;
+  --bg-elevated: #3a3a3a;
+  --bg-soft: #2a2a2a;
+  --accent: #F69E1E;
+  --text: #FFFFFF;
+  --text-muted: rgba(255,255,255,0.62);
+  --line: rgba(255,255,255,0.10);
+  --line-soft: rgba(255,255,255,0.06);
+  --font-display: 'Trillium Web', 'Manrope', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
-/* Carousel slides at Instagram portrait 4:5 (1080×1350). Iframe parent é 4:5. */
-.carousel {
-  display: flex;
-  scroll-snap-type: x mandatory;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  height: 100vh;
-  width: 100vw;
-}
+html, body { background: #0d0d0d; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+body { font-family: var(--font-display); color: var(--text); }
+.carousel { display: flex; scroll-snap-type: x mandatory; overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; height: 100vh; width: 100vw; }
 .carousel::-webkit-scrollbar { display: none; }
 .slide {
   flex: 0 0 100%;
   width: 100%;
   height: 100%;
   scroll-snap-align: start;
-  scroll-snap-stop: always;
   position: relative;
   overflow: hidden;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  padding: clamp(40px, 6vw, 72px);
-  background: var(--bg);
-  color: var(--text);
+  background: var(--bg-primary);
 }
-.slide__top {
-  display: flex; justify-content: space-between; align-items: baseline;
-  font: 500 12px/1 var(--font-body);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-mute);
-}
-.slide__top .brand {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-style: italic;
-  font-size: clamp(14px, 2.4vw, 26px);
-  letter-spacing: -0.02em;
-  color: var(--accent);
-  text-transform: none;
-}
-.slide__bottom {
-  display: flex; justify-content: space-between; align-items: baseline;
-  font: 500 12px/1 var(--font-body);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-mute);
-}
-.slide__cta {
-  background: var(--accent);
-  color: var(--bg);
-  padding: 10px 22px;
-  font: 700 13px/1 var(--font-body);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-.slide__body { display: grid; align-content: center; }
-
-/* ─── style: photo (split 2-col layout) ─── */
-.slide--photo .slide__body {
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(28px, 4vw, 56px);
-  align-items: center;
-}
-.slide--photo h1 {
-  font: 200 clamp(40px, 6vw, 92px)/0.94 var(--font-display);
-  font-style: italic;
-  letter-spacing: -0.025em;
-  color: var(--text);
-}
-.slide--photo h1 em {
-  color: var(--accent);
-  font-style: italic;
-  font-weight: 800;
-}
-.slide--photo .photo {
-  aspect-ratio: 4/5;
-  background-size: cover;
-  background-position: center;
-  border-radius: 2px;
-}
-/* When the hook line is short, allow a more poetic mix-case heading. */
-
-/* ─── style: typographic (centered serif) ─── */
-.slide--type .slide__body {
-  align-content: center;
-  justify-items: center;
-  text-align: center;
-}
-.slide--type h1 {
-  font: 200 clamp(40px, 7vw, 108px)/0.96 var(--font-display);
-  font-style: italic;
-  letter-spacing: -0.025em;
-  max-width: 14ch;
-  color: var(--text);
-}
-.slide--type h1 em { color: var(--accent); font-weight: 800; }
-
-/* ─── style: numeric (large terracotta number) ─── */
-.slide--num .slide__body {
-  align-content: center;
-  gap: 18px;
-}
-.slide--num .num {
-  font: 800 clamp(120px, 22vw, 280px)/0.84 var(--font-display);
-  font-style: italic;
-  letter-spacing: -0.06em;
-  color: var(--accent);
-}
-.slide--num h1 {
-  font: 400 clamp(28px, 3.6vw, 48px)/1.1 var(--font-display);
-  font-style: italic;
-  letter-spacing: -0.02em;
-  max-width: 22ch;
-  color: var(--text);
-}
-
-/* ─── style: quote (italic blockquote) ─── */
-.slide--quote .slide__body {
-  align-content: center;
-  gap: 16px;
-  border-left: 3px solid var(--accent);
-  padding-left: clamp(20px, 3vw, 36px);
-}
-.slide--quote blockquote {
-  font: 200 clamp(28px, 4.4vw, 56px)/1.18 var(--font-display);
-  font-style: italic;
-  letter-spacing: -0.02em;
-  color: var(--text);
-  max-width: 22ch;
-}
-.slide--quote cite {
-  font: 500 12px/1 var(--font-body);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-mute);
-  font-style: normal;
-}
-
-.slide__body h1 { text-wrap: wrap !important; }
-
-/* === v2.1: texto mais largo, sem órfãos (Lucca feedback 19-jun) === */
-.slide__body h1 { 
-  text-wrap: wrap !important; 
-  text-align: left !important; 
-  max-width: min(880px, 92%) !important; 
-  margin: 0 !important;
-}
-/* Capa + CTA: centrado (Lucca feedback 19-jun) */
-#slide-1 .slide__body h1, #slide-2 .slide__body h1, #slide-6 .slide__body h1 { 
-  text-align: center !important; 
-  max-width: 32ch !important; 
-  text-wrap: balance !important;
-}
-.slide--photo .slide__body h1 { font-size: clamp(26px, 3.8vw, 48px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; text-align: center !important;}
-.slide--type .slide__body h1 { font-size: clamp(28px, 4.2vw, 52px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; text-align: center !important;}
-.slide--num .slide__body h1 { font-size: clamp(24px, 3.6vw, 44px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; text-align: center !important;}
-
-#slide-1 .slide__body { text-align: center !important; align-items: center !important; justify-items: center !important; }
+.profile { position: absolute; top: 48px; left: 48px; display: flex; align-items: center; gap: 18px; z-index: 5; }
+.profile .avatar { width: 68px; height: 68px; border-radius: 50%; background: var(--accent); overflow: hidden; display: grid; place-items: center; flex-shrink: 0; }
+.profile .avatar img { width: 100%; height: 100%; object-fit: cover; }
+.profile .who { display: grid; gap: 4px; }
+.profile .name { font-size: 24px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; line-height: 1; }
+.profile .handle { font-family: var(--font-mono); font-size: 18px; font-weight: 400; color: var(--text-muted); letter-spacing: 0.02em; line-height: 1; }
+.arrow-mark { position: absolute; bottom: 70px; right: 48px; width: 58px; height: 58px; border: 2px solid var(--line); border-radius: 50%; display: grid; place-items: center; z-index: 5; color: var(--text); font-size: 26px; line-height: 1; }
+.watermark { position: absolute; bottom: 40px; left: 48px; font-family: var(--font-mono); font-size: 16px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.04em; z-index: 5; }
+.progress { position: absolute; left: 48px; right: 48px; bottom: 22px; height: 3px; background: var(--line-soft); z-index: 5; }
+.progress span { display: block; height: 100%; background: var(--accent); }
+.slide::before { content: ''; position: absolute; inset: 0; z-index: 4; pointer-events: none; opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 180px 180px; }
+.orb { position: absolute; border-radius: 50%; pointer-events: none; z-index: 1; }
+.orb-a { top: -180px; right: -180px; width: 900px; height: 900px; background: radial-gradient(circle, rgba(246,158,30,0.10), transparent 70%); }
+.orb-b { bottom: -150px; left: -150px; width: 750px; height: 750px; background: radial-gradient(circle, rgba(246,158,30,0.06), transparent 70%); }
+.orb-c { top: 50%; left: 50%; transform: translate(-50%,-50%); width: 1000px; height: 1000px; background: radial-gradient(circle, rgba(246,158,30,0.05), transparent 70%); }
+.slide--hero { display: grid; align-content: end; padding: 160px 64px 200px; }
+.slide--hero .bg-photo { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.34; z-index: 1; }
+.slide--hero .bg-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(51,51,51,0.20) 0%, rgba(51,51,51,0.55) 100%); }
+.slide--hero .hero-stack { position: relative; z-index: 2; display: grid; gap: 32px; }
+.slide--hero .kicker { font-family: var(--font-mono); font-size: 19px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+.slide--hero h1 { font-size: 42px; font-weight: 700; line-height: 1.14; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 18ch; text-wrap: balance; hyphens: auto; -webkit-hyphens: auto; }
+.slide--hero h1 em { color: var(--accent); font-style: normal; font-weight: 700; }
+.slide--num, .slide--quote, .slide--type { display: grid; align-content: center; padding: 160px 64px 200px; text-align: center; justify-items: center; }
+.slide--num .content, .slide--quote .content, .slide--type .content { display: grid; justify-items: center; gap: 32px; position: relative; z-index: 2; max-width: 880px; }
+.slide--num .num, .slide--quote .num, .slide--type .num { font-family: var(--font-mono); font-size: 112px; font-weight: 900; color: var(--accent); line-height: 1; letter-spacing: -0.02em; }
+.slide--num h1, .slide--quote h1, .slide--type h1 { font-size: 40px; font-weight: 700; line-height: 1.16; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 20ch; text-wrap: balance; hyphens: none; overflow-wrap: break-word; }
+.slide--num h1 em, .slide--quote h1 em, .slide--type h1 em { color: var(--accent); font-style: normal; font-weight: 700; }
+.slide--num p.body, .slide--quote p.body, .slide--type p.body { font-size: 30px; font-weight: 400; line-height: 1.4; color: rgba(255,255,255,0.82); font-style: italic; max-width: 680px; }
+.slide--num p.body em, .slide--quote p.body em, .slide--type p.body em { color: var(--accent); font-style: italic; font-weight: 600; }
+.slide--quote blockquote { font-family: 'Trillium Web', serif; font-style: italic; font-weight: 300; font-size: 56px; line-height: 1.22; letter-spacing: -0.018em; color: var(--text); border-left: 2px solid var(--accent); padding-left: 40px; max-width: 22ch; text-align: left; }
+.slide--quote cite { font-family: var(--font-mono); font-size: 16px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); font-style: normal; margin-top: 20px; }
+.slide--cta { background: #FFFFFF; display: grid; place-items: center; padding: 160px 64px 200px; }
+.slide--cta .cta-stack { display: grid; justify-items: center; gap: 32px; text-align: center; }
+.slide--cta .cta-avatar { width: 220px; height: 220px; border-radius: 50%; background: var(--accent); overflow: hidden; display: grid; place-items: center; }
+.slide--cta .cta-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.slide--cta .cta-name { font-size: 56px; font-weight: 700; color: #333333; letter-spacing: -0.012em; line-height: 1; }
+.slide--cta .cta-handle { font-family: var(--font-mono); font-size: 26px; color: #5a6473; letter-spacing: 0.02em; line-height: 1; }
+.slide--cta .cta-pill { display: inline-block; padding: 28px 56px; background: #333333; color: #FFFFFF; font-size: 30px; font-weight: 600; border-radius: 100px; letter-spacing: 0.01em; margin-top: 8px; }
+.slide--cta .cta-foot { font-family: var(--font-mono); font-size: 18px; color: #8b95a3; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 4px; }
 </style>
-<!-- fx-v2 -->
-<style id="fx-v2">
-/* ═══ FX v2.3 ESTÁTICO — atmosfera de fundo congelada (decisão Lucca 11-jun:
-   carrosséis publicam como imagem; preview tem de mostrar o mesmo) ═══ */
-.slide, .story-single { isolation: isolate; }
-.fx-atmos, .fx-orb, .fx-grain { position: absolute; z-index: 0; pointer-events: none; }
-.fx-atmos {
-  inset: -22%;
-  background:
-    radial-gradient(48% 44% at 26% 22%, color-mix(in oklch, var(--accent) 26%, transparent), transparent 78%),
-    radial-gradient(52% 48% at 80% 84%, color-mix(in oklch, var(--accent) 13%, transparent), transparent 80%);
-  transform: scale(1.03);
-}
-.fx-orb {
-  width: 72%; aspect-ratio: 1; border-radius: 50%; top: -16%; right: -18%;
-  background: radial-gradient(circle, color-mix(in oklch, var(--accent) 19%, transparent), transparent 74%);
-  opacity: .72;
-}
-.fx-grain {
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
-  opacity: .055; mix-blend-mode: overlay;
-}
-.slide__photo, .bg-photo, .slide--photo .photo { transform: scale(1.05); }
-.carousel .slide:first-child .fx-orb { width: 82%; top: -18%; right: -20%; }
-.carousel .slide:first-child .fx-atmos { inset: -28%; }
-.slide--photo .fx-atmos, .slide--photo .fx-orb { filter: opacity(.5); }
-.slide--photo .fx-grain { opacity: .04; }
-.story-single__body {
-  justify-items: center !important; align-content: center !important;
-  text-align: center !important; justify-self: stretch !important;
-}
-.story-single__body h1, .story-single__body .num, .story-single__body p { margin-inline: auto; }
-.story-single--quote .story-single__body { border-left: none !important; padding-left: 0 !important; }
-</style>
-
 </head>
 <body>
+<section class="carousel" aria-label="Carrossel TechBody U">
 
-<section class="carousel" aria-label="Carrossel TechBody U — 1_treino_de_ferias">
-<article class="slide slide--photo" id="slide-1"><div class="slide__top">
-  <div class="slide__photo" style="background-image:url('../../../assets/photos/FATO.png'); background-position: center 30%"></div>
-  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"></span></div><div class="slide__body"><h1>O treino vai de <em>férias</em> consigo.</h1></div>
-<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+<article class="slide slide--hero" id="slide-1">
+  <div class="bg-photo" style="background-image:url('_capa.jpg')"></div>
+  <div class="orb orb-a"></div>
+  <div class="profile"><div class="avatar" style="background:#FFFFFF;"><img src="_avatar.png" alt="TechBody U" style="object-fit:contain;padding:8px;"/></div><div class="who"><div class="name">TechBody U</div><div class="handle">@techbody_u</div></div></div>
+  <div class="hero-stack">
+    <div class="kicker">TechBody U</div>
+    <h1>O treino vai de <em>férias</em> consigo.</h1>
+  </div>
+  <div class="arrow-mark">→</div><div class="watermark">@techbody_u</div><div class="progress"><span style="width:16.666666666666664%"></span></div>
+</article>
 
 <article class="slide slide--type" id="slide-2">
-  <div class="slide__top"><span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"></span></div>
-  <div class="slide__body"><h1>Férias não são desculpa para <em>parar</em>. São a altura ideal para um treino <em>diferente</em>.</h1></div>
-  <div class="slide__bottom"><span>02/06</span></div>
-<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+  <div class="orb orb-b"></div>
+  <div class="profile"><div class="avatar" style="background:#FFFFFF;"><img src="_avatar.png" alt="TechBody U" style="object-fit:contain;padding:8px;"/></div><div class="who"><div class="name">TechBody U</div><div class="handle">@techbody_u</div></div></div>
+  <div class="content">
+    <div class="num">02</div>
+    <h1>Férias não são desculpa para <em>parar</em>. São a altura ideal para um treino <em>diferente</em>.</h1>
+    
+  </div>
+  <div class="arrow-mark">→</div><div class="watermark">@techbody_u</div><div class="progress"><span style="width:33.33333333333333%"></span></div>
+</article>
+
 <article class="slide slide--num" id="slide-3">
-  <div class="slide__top"><span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"></span></div>
-  <div class="slide__body"><div class="num">20'</div><h1>3x por semana, 20 minutos. Cabe na mala e na <em>agenda</em>.</h1></div>
-  <div class="slide__bottom"><span>03/06</span></div>
-<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+  <div class="orb orb-c"></div>
+  <div class="profile"><div class="avatar" style="background:#FFFFFF;"><img src="_avatar.png" alt="TechBody U" style="object-fit:contain;padding:8px;"/></div><div class="who"><div class="name">TechBody U</div><div class="handle">@techbody_u</div></div></div>
+  <div class="content">
+    <div class="num">20'</div>
+    <h1>3x por semana, 20 minutos. Cabe na mala e na <em>agenda</em>.</h1>
+    
+  </div>
+  <div class="arrow-mark">→</div><div class="watermark">@techbody_u</div><div class="progress"><span style="width:50.0%"></span></div>
+</article>
+
 <article class="slide slide--type" id="slide-4">
-  <div class="slide__top"><span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"></span></div>
-  <div class="slide__body"><h1>TechBody <em>U</em> leva-se para qualquer lado. O fato, o controlador, o telemóvel.</h1></div>
-  <div class="slide__bottom"><span>04/06</span></div>
-<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+  <div class="orb orb-b"></div>
+  <div class="profile"><div class="avatar" style="background:#FFFFFF;"><img src="_avatar.png" alt="TechBody U" style="object-fit:contain;padding:8px;"/></div><div class="who"><div class="name">TechBody U</div><div class="handle">@techbody_u</div></div></div>
+  <div class="content">
+    <div class="num">04</div>
+    <h1>TechBody <em>U</em> leva-se para qualquer lado. O fato, o controlador, o telemóvel.</h1>
+    
+  </div>
+  <div class="arrow-mark">→</div><div class="watermark">@techbody_u</div><div class="progress"><span style="width:66.66666666666666%"></span></div>
+</article>
+
 <article class="slide slide--quote" id="slide-5">
-  <div class="slide__top"><span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"></span></div>
-  <div class="slide__body"><blockquote>Leve o treino consigo. O corpo <em>agradece</em>.</blockquote><cite>TechBody U</cite></div>
-  <div class="slide__bottom"><span>05/06</span></div>
-<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+  <div class="orb orb-b"></div>
+  <div class="profile"><div class="avatar" style="background:#FFFFFF;"><img src="_avatar.png" alt="TechBody U" style="object-fit:contain;padding:8px;"/></div><div class="who"><div class="name">TechBody U</div><div class="handle">@techbody_u</div></div></div>
+  <div class="content">
+    <div class="num">05</div>
+    <blockquote>"Leve o treino consigo. O corpo agradece ."</blockquote>
+    <cite>TechBody U</cite>
+  </div>
+  <div class="arrow-mark">→</div><div class="watermark">@techbody_u</div><div class="progress"><span style="width:83.33333333333334%"></span></div>
+</article>
+
 <article class="slide slide--type" id="slide-6">
-  <div class="slide__top">
-  
-  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"></span></div>
-  <div class="slide__body"><h1>Leve o TechBody <em>U</em> de férias. Marque a sua sessão experimental.</h1></div>
-  <div class="slide__bottom"><span>06/06</span><span class="slide__cta" style="background:var(--accent);color:var(--bg);padding:10px 22px;font:700 13px/1 var(--font-body);letter-spacing:0.06em;text-transform:uppercase;">Sessão experimental →</span></div>
-<div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
+  <div class="orb orb-b"></div>
+  <div class="profile"><div class="avatar" style="background:#FFFFFF;"><img src="_avatar.png" alt="TechBody U" style="object-fit:contain;padding:8px;"/></div><div class="who"><div class="name">TechBody U</div><div class="handle">@techbody_u</div></div></div>
+  <div class="content">
+    <div class="num">06</div>
+    <h1>Leve o TechBody <em>U</em> de férias. Marque a sua sessão experimental.</h1>
+    
+  </div>
+  <div class="arrow-mark">→</div><div class="watermark">@techbody_u</div><div class="progress"><span style="width:100.0%"></span></div>
+</article>
 </section>
-<script>
-  (function () {
-    var carousel = document.querySelector('.carousel');
-    function go() {
-      var m = (location.hash || '').match(/^#slide-(\d+)$/);
-      if (!m || !carousel) return;
-      var el = document.getElementById('slide-' + m[1]);
-      if (!el) return;
-      carousel.style.scrollSnapType = 'none';
-      carousel.scrollLeft = el.offsetLeft;
-      requestAnimationFrame(function () {
-        carousel.style.scrollSnapType = '';
-      });
-    }
-    window.addEventListener('hashchange', go);
-    if (document.readyState === 'complete') go();
-    else window.addEventListener('load', go);
-  })();
-</script>
 </body>
 </html>
