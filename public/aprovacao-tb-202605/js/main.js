@@ -227,8 +227,8 @@ const buildCard = (it) => {
   const coverPath = isReel
     ? shotBase ? shotBase + ".jpg" : ""
     : it.format === "carrossel"
-    ? shotBase ? shotBase + "_shots/slide_01.jpg" : ""
-    : shotBase ? shotBase + ".jpg" : "";
+    ? shotBase ? shotBase + "_shots/slide_01.png" : ""
+    : shotBase ? shotBase + ".png" : "";
   const coverSrc = coverPath ? coverPath + "?v=" + APP_VERSION + "&c=" + currentContentSig() : "";
   const videoSrc = isReel && it.video_url
     ? it.video_url + "?v=" + APP_VERSION + "&c=" + currentContentSig()
