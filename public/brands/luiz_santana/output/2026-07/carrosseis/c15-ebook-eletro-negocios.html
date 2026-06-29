@@ -54,12 +54,12 @@ body { font-family: var(--font-display); color: var(--text); }
 .slide--hero .bg-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(155deg, rgba(51,51,51,0.14) 0%, rgba(51,51,51,0.52) 100%); }
 .slide--hero .hero-stack { position: relative; z-index: 2; display: grid; gap: 32px; }
 .slide--hero .kicker { font-family: var(--font-mono); font-size: 19px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
-.slide--hero h1 { font-size: 42px; font-weight: 700; line-height: 1.14; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 18ch; text-wrap: balance; hyphens: none; }
+.slide--hero h1 { font-size: 42px; font-weight: 700; line-height: 1.14; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 18ch; text-wrap: balance; hyphens: auto; -webkit-hyphens: auto; }
 .slide--hero h1 em { color: var(--accent); font-style: normal; font-weight: 700; }
 .slide--num, .slide--quote, .slide--type { display: grid; align-content: center; padding: 160px 64px 200px; text-align: center; justify-items: center; }
 .slide--num .content, .slide--quote .content, .slide--type .content { display: grid; justify-items: center; gap: 32px; position: relative; z-index: 2; max-width: 880px; }
 .slide--num .num, .slide--quote .num, .slide--type .num { font-family: var(--font-mono); font-size: 112px; font-weight: 900; color: var(--accent); line-height: 1; letter-spacing: -0.02em; }
-.slide--num h1, .slide--quote h1, .slide--type h1 { font-size: 40px; font-weight: 700; line-height: 1.16; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 20ch; text-wrap: balance; hyphens: none;  }
+.slide--num h1, .slide--quote h1, .slide--type h1 { font-size: 40px; font-weight: 700; line-height: 1.16; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 20ch; text-wrap: balance; hyphens: none; overflow-wrap: break-word; }
 .slide--num h1 em, .slide--quote h1 em, .slide--type h1 em { color: var(--accent); font-style: normal; font-weight: 700; }
 .slide--num p.body, .slide--quote p.body, .slide--type p.body { font-size: 30px; font-weight: 400; line-height: 1.4; color: rgba(255,255,255,0.82); font-style: italic; max-width: 680px; }
 .slide--num p.body em, .slide--quote p.body em, .slide--type p.body em { color: var(--accent); font-style: italic; font-weight: 600; }
@@ -76,25 +76,12 @@ body { font-family: var(--font-display); color: var(--text); }
 
 .slide--num .bg-photo, .slide--type .bg-photo, .slide--quote .bg-photo {
   position: absolute; inset: 0; background-size: cover; background-position: center;
-  opacity: 0.18; z-index: 0;
+  opacity: 0.16; z-index: 0;
 }
 .slide--num .bg-photo::after, .slide--type .bg-photo::after, .slide--quote .bg-photo::after {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(51,51,51,0.72) 0%, rgba(51,51,51,0.85) 100%);
 }
-
-/* HERO V4: big kicker, smaller h1 */
-.slide--hero .kicker { font-size: 26px; letter-spacing: 0.12em; }
-.slide--hero h1 { font-size: 36px; max-width: 22ch; }
-.slide--hero .hero-stack { gap: 20px; }
-
-/* CONTENT C2: number as watermark, big h1 */
-.slide--num .num, .slide--quote .num, .slide--type .num {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  font-size: 280px; opacity: 0.06; z-index: 1; pointer-events: none;
-}
-.slide--num .content, .slide--quote .content, .slide--type .content { gap: 0; }
-.slide--num h1, .slide--quote h1, .slide--type h1 { font-size: 46px; max-width: 18ch; }
 
 </style>
 </head>
@@ -102,17 +89,17 @@ body { font-family: var(--font-display); color: var(--text); }
 <section class="carousel" aria-label="Carrossel Luiz Santana">
 
 <article class="slide slide--hero" id="slide-1">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_a4-origem-narrativa-e-rel_2964293900.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_a4-origem-narrativa-e-rel_2964293900.png')"></div>
   <div class="orb orb-a"></div>
   <div class="hero-stack">
     <div class="kicker">A maioria ignora porquê.</div>
     <h1>Estúdios EMS cresceram 40% em três anos.</h1>
   </div>
-  <div class="arrow-mark">→</div><div class="watermark">@techbody_pt</div><div class="progress"><span style="width:16.666666666666664%"></span></div>
+  <div class="arrow-mark">→</div><div class="progress"><span style="width:16.666666666666664%"></span></div>
 </article>
 
 <article class="slide slide--type" id="slide-2">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_a4-origem-narrativa-e-rel_2964293900.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_a4-origem-narrativa-e-rel_2964293900.png')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
   <div class="orb orb-c"></div>
@@ -122,11 +109,11 @@ body { font-family: var(--font-display); color: var(--text); }
 Ticket superior. Recorrência 2-3x semana.</h1>
     
   </div>
-  <div class="arrow-mark">→</div><div class="watermark">@techbody_pt</div><div class="progress"><span style="width:33.33333333333333%"></span></div>
+  <div class="arrow-mark">→</div><div class="progress"><span style="width:33.33333333333333%"></span></div>
 </article>
 
 <article class="slide slide--type" id="slide-3">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_a4-origem-narrativa-e-rel_2964293900.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_a4-origem-narrativa-e-rel_2964293900.png')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
   <div class="orb orb-c"></div>
@@ -136,11 +123,11 @@ Ticket superior. Recorrência 2-3x semana.</h1>
 EMS ganha em rentabilidade por hora.</h1>
     
   </div>
-  <div class="arrow-mark">→</div><div class="watermark">@techbody_pt</div><div class="progress"><span style="width:50.0%"></span></div>
+  <div class="arrow-mark">→</div><div class="progress"><span style="width:50.0%"></span></div>
 </article>
 
 <article class="slide slide--type" id="slide-4">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_a4-origem-narrativa-e-rel_2964293900.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_a4-origem-narrativa-e-rel_2964293900.png')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
   <div class="orb orb-c"></div>
@@ -150,11 +137,11 @@ EMS ganha em rentabilidade por hora.</h1>
 15m². Fornecedores certificados.</h1>
     
   </div>
-  <div class="arrow-mark">→</div><div class="watermark">@techbody_pt</div><div class="progress"><span style="width:66.66666666666666%"></span></div>
+  <div class="arrow-mark">→</div><div class="progress"><span style="width:66.66666666666666%"></span></div>
 </article>
 
 <article class="slide slide--type" id="slide-5">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_a4-origem-narrativa-e-rel_2964293900.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_a4-origem-narrativa-e-rel_2964293900.png')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
   <div class="orb orb-c"></div>
@@ -164,11 +151,11 @@ EMS ganha em rentabilidade por hora.</h1>
 Payback em 14 meses.</h1>
     
   </div>
-  <div class="arrow-mark">→</div><div class="watermark">@techbody_pt</div><div class="progress"><span style="width:83.33333333333334%"></span></div>
+  <div class="arrow-mark">→</div><div class="progress"><span style="width:83.33333333333334%"></span></div>
 </article>
 
 <article class="slide slide--type" id="slide-6">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_a4-origem-narrativa-e-rel_2964293900.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_a4-origem-narrativa-e-rel_2964293900.png')"></div>
   <div class="orb orb-a"></div>
   <div class="orb orb-b"></div>
   <div class="orb orb-c"></div>
@@ -178,7 +165,7 @@ Payback em 14 meses.</h1>
 Recebe o ebook por DM.</h1>
     
   </div>
-  <div class="arrow-mark">→</div><div class="watermark">@techbody_pt</div><div class="progress"><span style="width:100.0%"></span></div>
+  <div class="arrow-mark">→</div><div class="progress"><span style="width:100.0%"></span></div>
 </article>
 </section>
 </body>
