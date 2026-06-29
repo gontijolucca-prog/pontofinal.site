@@ -322,14 +322,8 @@ function renderPublishedSection() {
   // Hide the entire "Publicados" section when no items are published this month
   const pubSection = document.getElementById("publishedSection");
   if (pubSection) pubSection.style.display = pubItems.length === 0 ? "none" : "";
-  // Click delegation (abre o item-viewer).
-  container.addEventListener("click", (e) => {
-    const card = e.target.closest(".gallery-card");
-    if (card) {
-      const ev = new CustomEvent("published:item-click", { bubbles: true, detail: { id: card.dataset.itemId } });
-      document.dispatchEvent(ev);
-    }
-  });
+  // Click delegation (abre o item-viewer). Fixo em bindOpen() — não
+  // re-registar aqui, ou acumula-se um listener por cada render().
 }
 
 function render() {
@@ -507,6 +501,16 @@ function bindOpen() {
     if (!it) return;
     // Always open viewer (sections are hidden in calendar-only mode)
     els.viewer().open(it);
+  });
+  // Click delegation para a secção Publicados — registado uma única vez
+  // (em bindOpen) em vez de dentro de renderPublishedSection() para não
+  // acumular handlers a cada re-render.
+  document.addEventListener("click", e => {
+    const card = e.target.closest("#publishedGrid .gallery-card");
+    if (card) {
+      const ev = new CustomEvent("published:item-click", { bubbles: true, detail: { id: card.dataset.itemId } });
+      document.dispatchEvent(ev);
+    }
   });
   document.addEventListener("published:item-click", e => {
     const it = findItem(e.detail.id);

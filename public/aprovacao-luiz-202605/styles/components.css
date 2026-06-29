@@ -276,9 +276,11 @@
   opacity: 0.7;
 }
 .cal-chip--rejected .cal-chip__status { color: #b3261e; }
-/* Published: o item JÁ foi publicado no IG. Apenas marker visual
-   (anel verde-escuro grosso) — texto/cor de fundo da chip mantêm-se
-   para legibilidade e scan por formato. */
+/* Published: o item JÁ foi publicado no IG. Apenas um marker visual
+   (anel verde-escuro grosso + checkmark sólido) — texto/cor de fundo
+   da chip mantêm-se para legibilidade. Não pintar tudo de verde-escuro
+   sólido: as cores por formato (story rosa-pálido, reel cinza, carrossel
+   branco) são úteis para scan visual rápido. */
 .cal-chip--published {
   border-color: #1B5E20;
   border-width: 3px;

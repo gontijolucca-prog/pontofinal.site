@@ -203,7 +203,7 @@ function inferMonth(item) {
   return null;
 }
 
-// Funcao para saber o status efectivo (items.json status tem prioridade).
+// Função para saber o status efectivo (items.json status tem prioridade).
 const effectiveStatus = (it) => it.status === "published"
   ? "published"
   : (approvalStore.get(it.id)?.status || "pending");
@@ -239,12 +239,12 @@ const buildCard = (it) => {
   card.innerHTML = `
     <div class="gallery-card__thumb" data-fmt="${it.format}">
       ${coverSrc
-        ? '<img class="gallery-card__cover" src="' + coverSrc + '" alt="' + _escapeForHtml(title) + '" loading="eager" fetchpriority="high" onerror="this.onerror=null;this.parentElement.classList.add(\'is-broken\')" />'
+        ? '<img class="gallery-card__cover" src="' + coverSrc + '" alt="' + _escapeForHtml(title) + '" loading="eager" fetchpriority="high" onerror="this.onerror=null;this.closest(\'.gallery-card__thumb\').classList.add(\'is-broken\')" />'
         : '<div class="gallery-card__no-preview">Sem preview</div>'}
       ${videoSrc
         ? '<video class="gallery-card__video" data-src="' + videoSrc + '" poster="' + poster + '" muted loop playsinline preload="none" style="display:none"></video>'
         : ""}
-      <span class="gallery-card__badge gallery-card__badge--${st}">${st === "approved" ? "\u2713" : st === "rejected" ? "\u2717" : st === "published" ? "\U0001F4CC" : ""}</span>
+      <span class="gallery-card__badge gallery-card__badge--${st}">${st === "approved" ? "\u2713" : st === "rejected" ? "\u2717" : st === "published" ? "📌" : ""}</span>
     </div>
     <div class="gallery-card__info">
       <span class="gallery-card__title">${title}</span>
@@ -275,6 +275,8 @@ const buildCard = (it) => {
   return card;
 };
 
+// ─── Render ──────────────────────────────────────────────────────────────
+
 
 function renderPublishedSection() {
   const container = document.getElementById("publishedGrid");
@@ -283,12 +285,15 @@ function renderPublishedSection() {
   const pubItems = state.items.filter(i => i.status === "published" && inferMonth(i) === state.currentMonth);
   pubItems.sort((a, b) => String(b.published_at || "").localeCompare(String(a.published_at || "")));
   if (totalEl) totalEl.textContent = pubItems.length;
+  // Actualizar hint com contagens por formato.
   const hintEl = document.getElementById("publishedSection")?.querySelector(".section__hint");
   if (hintEl) {
     const counts = { carrossel: 0, reel: 0, story: 0 };
     for (const it of pubItems) { if (counts[it.format] !== undefined) counts[it.format]++; }
-    hintEl.textContent = "Carrosseis " + counts.carrossel + "  ·  Reels " + counts.reel + "  ·  Storys " + counts.story + "  —  clique para abrir";
+    hintEl.textContent = `Carrosséis ${counts.carrossel}  ·  Reels ${counts.reel}  ·  Storys ${counts.story}  —  clique para abrir`;
   }
+  // Renderizar mini previews (gallery-card) — igual à galeria.
+  // Agrupar por formato (carrossel / reel / story) em sub-grids já presentes no HTML.
   const FORMAT_ORDER = ["carrossel", "reel", "story"];
   const groups = { carrossel: [], reel: [], story: [] };
   for (const it of pubItems) { if (groups[it.format]) groups[it.format].push(it); }
@@ -302,6 +307,7 @@ function renderPublishedSection() {
       if (typeof buildCard === "function") {
         sub.appendChild(buildCard(it));
       } else {
+        // fallback raro: se buildCard não estiver disponível
         const el = document.createElement("div");
         el.className = "gallery-card";
         el.style.cssText = "padding:12px;border:2px solid var(--border);font:700 11px/1.3 var(--font-mono);cursor:pointer;";
@@ -309,19 +315,15 @@ function renderPublishedSection() {
         sub.appendChild(el);
       }
     }
+    // Esconder sub-categoria se não tem items.
     const groupDiv = sub.closest(".gallery-group");
     if (groupDiv) groupDiv.style.display = groups[fmt].length === 0 ? "none" : "";
   }
   // Hide the entire "Publicados" section when no items are published this month
   const pubSection = document.getElementById("publishedSection");
   if (pubSection) pubSection.style.display = pubItems.length === 0 ? "none" : "";
-  container.addEventListener("click", (e) => {
-    const card = e.target.closest(".gallery-card");
-    if (card) {
-      const ev = new CustomEvent("published:item-click", { bubbles: true, detail: { id: card.dataset.itemId } });
-      document.dispatchEvent(ev);
-    }
-  });
+  // Click delegation (abre o item-viewer). Fixo em bindOpen() — não
+  // re-registar aqui, ou acumula-se um listener por cada render().
 }
 
 function render() {
@@ -338,13 +340,16 @@ function render() {
     && (state.currentBrand  === "all" || i.brand  === state.currentBrand)
     && (state.currentFormat === "all" || i.format === state.currentFormat)
   );
+  // Secção "Publicados" — itens com status: published em items.json (independentemente
+  // do mês visível no calendário: serve de log histórico do que já saiu).
+  renderPublishedSection();
+
   const hasScheduled = realCalendarItems.some(i => i.scheduled_for);
   if (hasScheduled) {
     els.calendar().setItems(realCalendarItems);
   } else {
     // Sem datas agendadas neste mês — usa ghost items (ou items reais como ghost)
     const ghosts = ghostItemsFor(state.currentMonth);
-    // Se há items reais sem data, junta-os como ghosts adicionais
     if (realCalendarItems.length > 0) {
       realCalendarItems.forEach((it, i) => {
         ghosts.push({
@@ -357,17 +362,16 @@ function render() {
     els.calendar().setItems(ghosts);
   }
 
-  // Secção "Publicados" — log histórico do que já saiu, agrupado por tipo.
-  renderPublishedSection();
-
   // Galeria unificada — dividida por marca e tipo de conteúdo
   const gg = els.galleryGrid();
   if (gg) {
     gg.innerHTML = "";
     const allSorted = [...items].sort(sortBySchedule);
+    // Agrupar por marca → formato. Publicados vão para grupo separado.
     const BRAND_NAMES = { techbody: "TechBody", techbody_u: "TechBody U", luiz_santana: "Luiz Santana" };
     const FORMAT_NAMES = { carrossel: "Carrosséis", story: "Stories", reel: "Reels" };
     const FORMAT_ORDER = ["carrossel", "story", "reel"];
+    // Função para saber o status efectivo (items.json status tem prioridade)
     const grouped = {};
     const publishedItems = [];
     for (const it of allSorted) {
@@ -381,10 +385,10 @@ function render() {
       if (!grouped[b][f]) grouped[b][f] = [];
       grouped[b][f].push(it);
     }
-    // buildCard definido a nivel de modulo.
-
-    // Grupo "Publicados" — primeiro, antes das marcas
-    // (movido para depois dos grupos marca+formato)
+    // buildCard definido a nível de módulo — reutilizável pela secção
+    // "Publicados" (previews com imagem/iframe) e pela galeria principal.
+    // Grupo "Publicados" — primeiro (publicados vão para baixo)
+    // Placeholder: criado depois dos grupos marca+formato
     // Grupos por marca → formato
     const brandOrder = Object.keys(BRAND_NAMES).filter(b => grouped[b]);
     const otherBrands = Object.keys(grouped).filter(b => !BRAND_NAMES[b]);
@@ -495,21 +499,24 @@ function bindOpen() {
   document.addEventListener("calendar:item-click", e => {
     const it = findItem(e.detail.id);
     if (!it) return;
-    const card = document.querySelector(`article.card[data-item-id="${CSS.escape(e.detail.id)}"]`);
+    // Always open viewer (sections are hidden in calendar-only mode)
+    els.viewer().open(it);
+  });
+  // Click delegation para a secção Publicados — registado uma única vez
+  // (em bindOpen) em vez de dentro de renderPublishedSection() para não
+  // acumular handlers a cada re-render.
+  document.addEventListener("click", e => {
+    const card = e.target.closest("#publishedGrid .gallery-card");
     if (card) {
-      card.scrollIntoView({ behavior: "smooth", block: "center" });
-      card.classList.add("is-located");
-      setTimeout(() => card.classList.remove("is-located"), 2600);
-    } else {
-      els.viewer().open(it); // card fora do filtro/mês visível
+      const ev = new CustomEvent("published:item-click", { bubbles: true, detail: { id: card.dataset.itemId } });
+      document.dispatchEvent(ev);
     }
   });
   document.addEventListener("published:item-click", e => {
     const it = findItem(e.detail.id);
-    if (!it) return;
-    els.viewer().open(it);
+    if (it) els.viewer().open(it);
   });
-  // Toggle "Esconder" da secção Publicados.
+  // Toggle "Esconder" da secção Publicados (mesmo padrão do calendário).
   const pubBtn = document.getElementById("publishedToggle");
   const pubSection = document.getElementById("publishedSection");
   if (pubBtn && pubSection) {
@@ -592,6 +599,10 @@ function updateHeroAction(approved, rejected, pending) {
     hero.setAttribute("hidden", "");
   }
 }
+
+// ── PUBLISHED SECTION ──
+// Publicados aparecem na galeria principal (filtrados por mês).
+// Não há secção separada.
 
 // Abre o 1o item pendente no viewer (CTA do hero-action banner).
 // Procura por items que NAO estao em status approved/rejected. Items
@@ -954,11 +965,6 @@ function forceHideLoader(reason) {
 }
 setTimeout(() => forceHideLoader("safety-6s"), 6000);
 
-init().catch((err) => {
-  console.error("[init] failed:", err);
-  forceHideLoader("init-error");
-});
-
 // Escapar HTML para atributos (títulos de iframes, etc.)
 function _escapeForHtml(s) {
   return String(s == null ? "" : s)
@@ -966,3 +972,8 @@ function _escapeForHtml(s) {
     .replace(/[&<>"']/g, c =>
       ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
+
+init().catch((err) => {
+  console.error("[init] failed:", err);
+  forceHideLoader("init-error");
+});
