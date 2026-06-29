@@ -1825,10 +1825,10 @@
     "month": "2026-07",
     "format": "story",
     "kind": "estatico",
-    "theme": "tecsuit_na_mala",
+    "theme": "resultados_visiveis",
     "pilar": "Portabilidade",
     "audience": "b2c",
-    "title": "A mala está feita? O TecSuit também vai.",
+    "title": "Resultados visíveis em 30 dias. Sem ginásio.",
     "slides": 1,
     "slides_text": [
       {
