@@ -1,0 +1,45 @@
+[
+  {
+    "slide_number": 1,
+    "role": "hook",
+    "text_overlay": "A Rita decidiu treinar todos os dias.",
+    "subhead": "Durou duas semanas.",
+    "visual_prompt": "Editorial dark cinematic, Luiz photo as soft backdrop, sharp copper accent line, Manrope bold.",
+    "reference_image": "luiz_photo"
+  },
+  {
+    "slide_number": 2,
+    "role": "development",
+    "text_overlay": "O sofá estava mais perto do que o ginásio.",
+    "visual_prompt": "Dark typographic, Manrope bold, italic serif subhead.",
+    "reference_image": "none"
+  },
+  {
+    "slide_number": 3,
+    "role": "development",
+    "text_overlay": "Foi quando descobriu que 20 minutos resolvem o que 90 nunca resolvem.",
+    "visual_prompt": "Dark typographic, copper accent rule, italic serif detail.",
+    "reference_image": "none"
+  },
+  {
+    "slide_number": 4,
+    "role": "development",
+    "text_overlay": "Um fato. Um controlador. O treino passou a caber na rotina.",
+    "visual_prompt": "Dark typographic, large italic number 3, copper accent.",
+    "reference_image": "none"
+  },
+  {
+    "slide_number": 5,
+    "role": "stat",
+    "text_overlay": "Três vezes por semana. Ao fim de um ano, 37x mais consistente.",
+    "visual_prompt": "Dark typographic, large italic number 1% in copper.",
+    "reference_image": "none"
+  },
+  {
+    "slide_number": 6,
+    "role": "cta",
+    "text_overlay": "Link na bio. O primeiro passo é marcar a sessão.",
+    "visual_prompt": "Editorial dark cinematic, Luiz photo backdrop, copper rule, Manrope bold.",
+    "reference_image": "luiz_photo"
+  }
+]

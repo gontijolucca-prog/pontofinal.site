@@ -1,0 +1,45 @@
+[
+  {
+    "slide_number": 1,
+    "role": "hook",
+    "text_overlay": "O João tem um ginásio. Receita estagnada.",
+    "subhead": "Descobriu o EMS como linha de receita.",
+    "visual_prompt": "Editorial dark cinematic, Luiz photo as soft backdrop, copper accent line.",
+    "reference_image": "luiz_photo"
+  },
+  {
+    "slide_number": 2,
+    "role": "development",
+    "text_overlay": "Ticket superior. Recorrência 2-3x por semana. O modelo encaixa.",
+    "visual_prompt": "Dark typographic, italic serif subhead.",
+    "reference_image": "none"
+  },
+  {
+    "slide_number": 3,
+    "role": "development",
+    "text_overlay": "Rentabilidade por hora superior ao ginásio tradicional.",
+    "visual_prompt": "Dark typographic, large italic 2 in copper.",
+    "reference_image": "none"
+  },
+  {
+    "slide_number": 4,
+    "role": "development",
+    "text_overlay": "15m² bastam. Fornecedores certificados. Método incluído.",
+    "visual_prompt": "Dark typographic, large italic 3 in copper.",
+    "reference_image": "none"
+  },
+  {
+    "slide_number": 5,
+    "role": "stat",
+    "text_overlay": "Estúdio TechBody. Payback em 14 meses.",
+    "visual_prompt": "Dark typographic, large italic 14 in copper.",
+    "reference_image": "none"
+  },
+  {
+    "slide_number": 6,
+    "role": "cta",
+    "text_overlay": "Link na bio. Recebe o ebook sobre o modelo de negócio.",
+    "visual_prompt": "Editorial dark cinematic, Luiz photo backdrop, copper rule.",
+    "reference_image": "luiz_photo"
+  }
+]

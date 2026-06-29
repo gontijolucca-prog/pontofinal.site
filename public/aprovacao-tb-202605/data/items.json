@@ -1205,27 +1205,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "As férias não param o progresso."
+        "text_overlay": "O Rui vai de férias. O treino vai com ele."
       },
       {
         "role": "proof",
-        "text_overlay": "25 minutos por sessão, três vezes por semana — cabe em qualquer agenda de verão."
+        "text_overlay": "25 minutos, três vezes por semana. Cabe na mala de férias."
       },
       {
         "role": "demo",
-        "text_overlay": "De manhã cedo ou à hora de almoço — a sessão adapta-se ao seu dia."
+        "text_overlay": "De manhã cedo ou à hora de almoço. A sessão adapta-se ao seu dia."
       },
       {
         "role": "quote",
-        "text_overlay": "O corpo que trabalha em julho é o que descansa melhor em agosto."
+        "text_overlay": "Quem treina em julho descansa melhor em agosto."
       },
       {
         "role": "proof",
-        "text_overlay": "Sempre com um personal trainer ao seu lado."
+        "text_overlay": "Sempre com um personal trainer. Mesmo de férias."
       },
       {
         "role": "cta",
-        "text_overlay": "Marque a sua sessão experimental."
+        "text_overlay": "Link na bio. O progresso não tira férias."
       }
     ],
     "html_url": "../brands/techbody/output/2026-07/carrosseis/c01-ferias-progresso.html",
@@ -1250,11 +1250,11 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "O que acontece ao corpo numa sessão?"
+        "text_overlay": "O que acontece ao corpo em 25 minutos?"
       },
       {
-        "role": "demo",
-        "text_overlay": "3 minutos para vestir o TecSuit e calibrar a intensidade consigo."
+        "role": "proof",
+        "text_overlay": "Cinco minutos para vestir. Cinco para calibrar."
       },
       {
         "role": "demo",
@@ -1262,15 +1262,15 @@
       },
       {
         "role": "proof",
-        "text_overlay": "90% dos músculos podem ser ativados ao mesmo tempo."
+        "text_overlay": "Grupos ativados ao mesmo tempo. Até a respiração sente."
       },
       {
-        "role": "proof",
-        "text_overlay": "Milhares de contrações numa só sessão."
+        "role": "stat",
+        "text_overlay": "Milhares de contrações. Numa só sessão."
       },
       {
         "role": "cta",
-        "text_overlay": "Sinta-o no corpo, não no papel — marque a sua sessão experimental."
+        "text_overlay": "Link na bio. Sinta no corpo, não no papel."
       }
     ],
     "html_url": "../brands/techbody/output/2026-07/carrosseis/c02-uma-sessao-por-dentro.html",
@@ -1295,27 +1295,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "A eletroestimulação é para si?"
+        "text_overlay": "A Joana parou de treinar há dois anos."
       },
       {
-        "role": "demo",
-        "text_overlay": "Para quem quer recomeçar a treinar — sem voltar à estaca zero."
+        "role": "para_quem",
+        "text_overlay": "Queria recomeçar. Mas voltar à estaca zero assustava-a."
       },
       {
-        "role": "demo",
-        "text_overlay": "Para quem quer perder peso com sessões curtas e acompanhadas."
+        "role": "para_quem",
+        "text_overlay": "Sessões curtas. Acompanhadas. O corpo começou a responder."
       },
       {
-        "role": "demo",
-        "text_overlay": "Para quem precisa de tratar dores e recuperar movimento."
+        "role": "para_quem",
+        "text_overlay": "As dores que tinha começaram a passar."
       },
       {
         "role": "quote",
-        "text_overlay": "Composição corporal, força e bem-estar. Corpo e mente revigorados."
+        "text_overlay": "Composição, força, bem-estar. Corpo e mente revigorados."
       },
       {
         "role": "cta",
-        "text_overlay": "Comece pela sessão experimental."
+        "text_overlay": "Link na bio. Para quem quer começar."
       }
     ],
     "html_url": "../brands/techbody/output/2026-07/carrosseis/c03-para-quem-e.html",
@@ -1340,27 +1340,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Quanto espaço precisa um estúdio TechBody?"
+        "text_overlay": "O Pedro quer abrir um estúdio. O espaço parece pequeno."
       },
       {
         "role": "demo",
-        "text_overlay": "Menos do que imagina — a baixa exigência de espaço faz parte do modelo."
+        "text_overlay": "Menos do que imagina. A baixa exigência faz parte do modelo."
       },
       {
-        "role": "demo",
+        "role": "proof",
         "text_overlay": "Menos equipamentos. Sessões curtas. Mais rotação de clientes."
       },
       {
         "role": "proof",
-        "text_overlay": "Serviço premium, com valor percebido à altura."
-      },
-      {
-        "role": "proof",
-        "text_overlay": "Modelo chave-na-mão: método, formação e tecnologia incluídos."
+        "text_overlay": "Serviço premium. Com valor percebido à altura."
       },
       {
         "role": "cta",
-        "text_overlay": "Agende uma reunião de avaliação."
+        "text_overlay": "Modelo chave-na-mão. Método, formação, tecnologia."
+      },
+      {
+        "role": "cta",
+        "text_overlay": "Link na bio. Agende uma reunião de avaliação."
       }
     ],
     "html_url": "../brands/techbody/output/2026-07/carrosseis/c04-espaco-estudio.html",
@@ -1628,27 +1628,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "O treino vai de férias consigo."
-      },
-      {
-        "role": "demo",
-        "text_overlay": "O TecSuit e a aplicação cabem em qualquer mala."
-      },
-      {
-        "role": "demo",
-        "text_overlay": "25 minutos no terraço, na sala — onde estiver."
-      },
-      {
-        "role": "demo",
-        "text_overlay": "A aplicação guia a sessão, em casa ou fora dela."
+        "text_overlay": "Os Martins vão de férias. O treino vai com eles."
       },
       {
         "role": "proof",
-        "text_overlay": "Volte de férias melhor do que partiu."
+        "text_overlay": "Férias não são desculpa para parar. São a altura ideal para um treino diferente."
+      },
+      {
+        "role": "stat",
+        "text_overlay": "3x por semana, 20 minutos. Cabe na mala e na agenda."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "TechBody U leva-se para qualquer lado. O fato, o controlador, o telemóvel."
+      },
+      {
+        "role": "quote",
+        "text_overlay": "Leve o treino consigo. O corpo agradece."
       },
       {
         "role": "cta",
-        "text_overlay": "Conheça a TechBody U."
+        "text_overlay": "Link na bio. Leve o treino de férias."
       }
     ],
     "html_url": "../brands/techbody_u/output/2026-07/carrosseis/c01-treino-de-ferias.html",
@@ -1673,27 +1673,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "E se treinar fosse um jogo?"
-      },
-      {
-        "role": "demo",
-        "text_overlay": "Cada sessão soma pontos TechBody na aplicação."
-      },
-      {
-        "role": "demo",
-        "text_overlay": "Histórico completo do seu progresso, sempre à mão."
-      },
-      {
-        "role": "demo",
-        "text_overlay": "Treinos novos todas as semanas para manter o desafio."
+        "text_overlay": "O Miguel acha treinar aborrecido. E se fosse um jogo?"
       },
       {
         "role": "proof",
-        "text_overlay": "25 minutos por sessão. O jogo joga-se três vezes por semana."
+        "text_overlay": "Pontos, níveis, objectivos. A app transforma cada sessão num desafio."
+      },
+      {
+        "role": "stat",
+        "text_overlay": "1, 2 ou 3 treinos por semana. Ele decide. O corpo segue."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "Cada sessão é um ponto. Cada semana, um nível. O corpo nota a diferença."
+      },
+      {
+        "role": "quote",
+        "text_overlay": "O melhor jogo é o que melhora o teu corpo."
       },
       {
         "role": "cta",
-        "text_overlay": "Descubra o sistema de pontos."
+        "text_overlay": "Link na bio. Comece a jogar."
       }
     ],
     "html_url": "../brands/techbody_u/output/2026-07/carrosseis/c02-treinar-vira-jogo.html",
@@ -1718,27 +1718,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Da caixa ao primeiro treino."
-      },
-      {
-        "role": "demo",
-        "text_overlay": "Dentro: o TecSuit, a sua segunda pele de eletroestimulação."
-      },
-      {
-        "role": "demo",
-        "text_overlay": "Uma sessão personalizada por videochamada para começar bem."
+        "text_overlay": "A Ana abriu a caixa. Minutos depois, estava a treinar."
       },
       {
         "role": "proof",
-        "text_overlay": "90 dias de aplicação Premium incluídos."
+        "text_overlay": "Abrir. Vestir. Ligar. Primeira sessão em minutos."
       },
       {
-        "role": "demo",
-        "text_overlay": "No primeiro treino, a aplicação guia cada passo."
+        "role": "stat",
+        "text_overlay": "Minutos. É o tempo entre a caixa e começar a treinar."
+      },
+      {
+        "role": "proof",
+        "text_overlay": "App configurada. Fato vestido. Intensidade ajustada. Está pronto."
+      },
+      {
+        "role": "quote",
+        "text_overlay": "A tecnologia que se veste. O treino que se sente."
       },
       {
         "role": "cta",
-        "text_overlay": "Saiba tudo no link da bio."
+        "text_overlay": "Link na bio. Da caixa ao primeiro treino."
       }
     ],
     "html_url": "../brands/techbody_u/output/2026-07/carrosseis/c03-da-caixa-ao-treino.html",
@@ -1763,27 +1763,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Tecnologia para casa, sem receios."
+        "text_overlay": "O Pedro hesitava. Equipamento para casa, sem receios."
       },
       {
         "role": "proof",
-        "text_overlay": "Garantia de dois anos incluída."
+        "text_overlay": "Equipamento certificado. Acompanhamento profissional. Resultados reais."
+      },
+      {
+        "role": "stat",
+        "text_overlay": "30 dias para experimentar o TechBody U em casa."
       },
       {
         "role": "proof",
-        "text_overlay": "Pagamento único ou em mensalidades — como preferir."
+        "text_overlay": "Suporte, garantia, videochamada de arranque. Não está sozinho."
       },
       {
-        "role": "demo",
-        "text_overlay": "Acompanhamento desde o primeiro dia."
-      },
-      {
-        "role": "demo",
-        "text_overlay": "Dezenas de programas na aplicação, para todos os objetivos."
+        "role": "quote",
+        "text_overlay": "Não compra equipamento. Compra um método."
       },
       {
         "role": "cta",
-        "text_overlay": "Adira com confiança."
+        "text_overlay": "Link na bio. Compre com confiança."
       }
     ],
     "html_url": "../brands/techbody_u/output/2026-07/carrosseis/c04-comprar-com-confianca.html",
@@ -2376,22 +2376,28 @@
     "note": "Reagendado padrão 1-0-1-0-1 (era 2026-07-01)",
     "slides_text": [
       {
-        "text_overlay": "Julho chega e a agenda explode."
+        "role": "hook",
+        "text_overlay": "O João tem uma agenda que não para. Julho chegou e o treino ficou para trás."
       },
       {
-        "text_overlay": "Não precisas de mais força de vontade.\nPrecisas de um treino mais curto."
+        "role": "development",
+        "text_overlay": "Não por preguiça. Porque o dia só tem 24 horas."
       },
       {
-        "text_overlay": "25 minutos.\nMenos do que um episódio."
+        "role": "development",
+        "text_overlay": "Foi quando descobriu que 25 minutos chegam."
       },
       {
-        "text_overlay": "A agenda está cheia.\nO método adapta-se."
+        "role": "development",
+        "text_overlay": "Menos do que um episódio. Mais do que uma hora no ginásio."
       },
       {
-        "text_overlay": "Uma sessão curta e intensa condensa o trabalho de uma longa."
+        "role": "development",
+        "text_overlay": "Sessão curta, intensa, sem tempo perdido."
       },
       {
-        "text_overlay": "Envia-me mensagem AGENDA — eu digo-te como encaixar o treino."
+        "role": "cta",
+        "text_overlay": "Link na bio. O treino cabe na sua agenda também."
       }
     ]
   },

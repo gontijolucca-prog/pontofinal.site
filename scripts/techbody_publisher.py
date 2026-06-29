@@ -54,7 +54,53 @@ BRAND_ENV = {
 SB_URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 SB_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
 
+# Fallback local para eventos que o Supabase não aceitou (publish_history
+# INSERT falhou, network down, etc). JSONL append-only — pode ser re-importado
+# depois com `psql -c "\\copy publish_history ... FROM 'fallback.jsonl'"`.
+HISTORY_FALLBACK_PATH = os.environ.get(
+    "PUBLISH_HISTORY_FALLBACK",
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "publish_history_fallback.jsonl"),
+)
+
 _TOKENS_CACHE = None
+
+
+def log_history(item_id, *, status, brand=None, kind=None, ig_post_id=None,
+                caption=None, error_detail=None, scheduled_for=None,
+                item_scheduled_for=None, dry_run=None, namespace=None):
+    """Regista um evento no log imutável publish_history.
+
+    status ∈ {published, error, skipped_no_token, stuck_claim, uncertain, dry_run_planned}
+    Nunca levanta excepção: se Supabase falhar, escreve em HISTORY_FALLBACK_PATH.
+    """
+    if dry_run is None:
+        dry_run = DRY
+    row = {
+        "item_id": item_id,
+        "namespace": namespace,
+        "brand": brand,
+        "kind": kind,
+        "status": status,
+        "ig_post_id": ig_post_id,
+        "caption": (caption or "")[:500] if caption else None,
+        "error_detail": (error_detail or "")[:500] if error_detail else None,
+        "scheduled_for": scheduled_for,
+        "item_scheduled_for": item_scheduled_for,
+        "dry_run": bool(dry_run),
+    }
+    row = {k: v for k, v in row.items() if v is not None}
+    try:
+        sb("POST", "/publish_history", row)
+    except Exception as e:
+        # Fallback: append em ficheiro local JSONL para re-import posterior
+        try:
+            row.setdefault("fallback_ts", datetime.now(TZ).isoformat())
+            row.setdefault("fallback_err", str(e)[:200])
+            with open(HISTORY_FALLBACK_PATH, "a", encoding="utf-8") as f:
+                f.write(json.dumps(row, ensure_ascii=False) + "\n")
+            print(f"  (history fallback → {HISTORY_FALLBACK_PATH}: {e})")
+        except Exception as e2:
+            print(f"  AVISO: nem Supabase nem fallback local aceitaram log: {e2}")
 
 
 def brand_tokens():
@@ -322,6 +368,8 @@ def main():
             print(f"STUCK {lid}: claim 'publishing' há {age_h:.1f}h — verificar no Instagram e marcar published/error no Supabase")
             alerts.append({"type": "stuck_publishing", "item_id": lid,
                            "detail": f"claim 'publishing' há {age_h:.1f}h; confirmar no Instagram se o post saiu e corrigir o publish_queue"})
+            log_history(lid, status="stuck_claim",
+                        error_detail=f"claim 'publishing' há {age_h:.1f}h")
 
     published = 0
     for ns, deploy in DEPLOYS.items():
@@ -380,6 +428,11 @@ def main():
                         }, prefer="resolution=merge-duplicates")
                     except Exception as e:
                         print(f"  (ledger do skip falhou: {e})")
+                    log_history(iid, status="skipped_no_token", brand=brand,
+                                kind=item["format"], namespace=ns,
+                                error_detail=f"sem token/user para {brand} (due {when:%Y-%m-%d %H:%M})",
+                                scheduled_for=when.isoformat(),
+                                item_scheduled_for=item.get("scheduled_for"))
                 continue
 
             cap_copy = note_text(state.get(f"{iid}:caption:copy", {}).get("note"))
@@ -390,6 +443,11 @@ def main():
 
             print(f"DUE {iid} [{brand}/{item['format']}] agendado {when:%Y-%m-%d %H:%M}")
             if DRY:
+                log_history(iid, status="dry_run_planned", brand=brand,
+                            kind=item["format"], namespace=ns,
+                            caption=caption[:500],
+                            scheduled_for=when.isoformat(),
+                            item_scheduled_for=item.get("scheduled_for"))
                 published += 1
                 continue
 
@@ -412,6 +470,11 @@ def main():
                 print(f"INCERTO {iid}: {e}")
                 alerts.append({"type": "uncertain_publish", "item_id": iid, "brand": brand,
                                "detail": f"{str(e)[:300]} — verificar no Instagram; marcar published/error no Supabase"})
+                log_history(iid, status="uncertain", brand=brand,
+                            kind=item["format"], namespace=ns,
+                            error_detail=str(e)[:500],
+                            scheduled_for=when.isoformat(),
+                            item_scheduled_for=item.get("scheduled_for"))
                 continue
             except Exception as e:
                 print(f"ERRO {iid}: {e}")
@@ -426,6 +489,11 @@ def main():
                     }, prefer="resolution=merge-duplicates")
                 except Exception as e2:
                     print(f"  (ledger também falhou: {e2} — fica 'publishing'; alerta de stuck no próximo run)")
+                log_history(iid, status="error", brand=brand,
+                            kind=item["format"], namespace=ns,
+                            error_detail=str(e)[:500],
+                            scheduled_for=when.isoformat(),
+                            item_scheduled_for=item.get("scheduled_for"))
                 continue
 
             # publicado com sucesso — se o update do ledger falhar, NUNCA marcar
@@ -443,6 +511,14 @@ def main():
                 print(f"AVISO {iid}: PUBLICADO (media {media_id}) mas ledger não atualizou: {e}")
                 alerts.append({"type": "ledger_update_failed", "item_id": iid, "brand": brand,
                                "detail": f"post SAIU (media_id={media_id}) mas ficou 'publishing' no ledger — marcar 'published' no Supabase"})
+            # log imutável: TUDO o que toca o Instagram fica registado, mesmo se
+            # o ledger falhou a atualizar
+            log_history(iid, status="published", brand=brand,
+                        kind=item["format"], namespace=ns,
+                        ig_post_id=media_id,
+                        caption=caption[:500],
+                        scheduled_for=when.isoformat(),
+                        item_scheduled_for=item.get("scheduled_for"))
             published += 1
 
     if alerts and not DRY:

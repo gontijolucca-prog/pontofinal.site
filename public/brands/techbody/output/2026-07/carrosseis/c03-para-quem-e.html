@@ -54,12 +54,12 @@ body { font-family: var(--font-display); color: var(--text); }
 .slide--hero .bg-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(51,51,51,0.25) 0%, rgba(51,51,51,0.50) 100%); }
 .slide--hero .hero-stack { position: relative; z-index: 2; display: grid; gap: 32px; }
 .slide--hero .kicker { font-family: var(--font-mono); font-size: 19px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
-.slide--hero h1 { font-size: 42px; font-weight: 700; line-height: 1.14; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 18ch; text-wrap: balance; hyphens: none; }
+.slide--hero h1 { font-size: 42px; font-weight: 700; line-height: 1.14; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 18ch; text-wrap: balance; hyphens: auto; -webkit-hyphens: auto; }
 .slide--hero h1 em { color: var(--accent); font-style: normal; font-weight: 700; }
 .slide--num, .slide--quote, .slide--type { display: grid; align-content: center; padding: 160px 64px 200px; text-align: center; justify-items: center; }
 .slide--num .content, .slide--quote .content, .slide--type .content { display: grid; justify-items: center; gap: 32px; position: relative; z-index: 2; max-width: 880px; }
 .slide--num .num, .slide--quote .num, .slide--type .num { font-family: var(--font-mono); font-size: 112px; font-weight: 900; color: var(--accent); line-height: 1; letter-spacing: -0.02em; }
-.slide--num h1, .slide--quote h1, .slide--type h1 { font-size: 40px; font-weight: 700; line-height: 1.16; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 20ch; text-wrap: balance; hyphens: none;  }
+.slide--num h1, .slide--quote h1, .slide--type h1 { font-size: 40px; font-weight: 700; line-height: 1.16; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 20ch; text-wrap: balance; hyphens: none; overflow-wrap: break-word; }
 .slide--num h1 em, .slide--quote h1 em, .slide--type h1 em { color: var(--accent); font-style: normal; font-weight: 700; }
 .slide--num p.body, .slide--quote p.body, .slide--type p.body { font-size: 30px; font-weight: 400; line-height: 1.4; color: rgba(255,255,255,0.82); font-style: italic; max-width: 680px; }
 .slide--num p.body em, .slide--quote p.body em, .slide--type p.body em { color: var(--accent); font-style: italic; font-weight: 600; }
@@ -102,71 +102,71 @@ body { font-family: var(--font-display); color: var(--text); }
 <section class="carousel" aria-label="Carrossel TechBody">
 
 <article class="slide slide--hero" id="slide-1">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e2.-aquecimento-controlad_2964620617.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e2.-aquecimento-controlad_2964620617.png')"></div>
   <div class="orb orb-a"></div>
   <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
   <div class="hero-stack">
     <div class="kicker">TechBody</div>
-    <h1>A eletroestimulação é para <em>si</em>?</h1>
+    <h1>A&nbsp;Joana parou de&nbsp;treinar<br>há&nbsp;dois&nbsp;anos.</h1>
   </div>
   <div class="arrow-mark">→</div><div class="watermark">@techbody</div><div class="progress"><span style="width:16.666666666666664%"></span></div>
 </article>
 
 <article class="slide slide--type" id="slide-2">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e2.-aquecimento-controlad_2964620617.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e2.-aquecimento-controlad_2964620617.png')"></div>
   <div class="orb orb-a"></div>
   <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
   <div class="content">
     <div class="num">02</div>
-    <h1>Para quem quer <em>recomeçar</em> a treinar — sem voltar à estaca zero.</h1>
+    <h1>Queria <em>recomeçar</em>.<br>Mas&nbsp;voltar à&nbsp;estaca&nbsp;zero assustava-a.</h1>
     
   </div>
   <div class="arrow-mark">→</div><div class="watermark">@techbody</div><div class="progress"><span style="width:33.33333333333333%"></span></div>
 </article>
 
 <article class="slide slide--type" id="slide-3">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e2.-aquecimento-controlad_2964620617.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e2.-aquecimento-controlad_2964620617.png')"></div>
   <div class="orb orb-a"></div>
   <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
   <div class="content">
     <div class="num">03</div>
-    <h1>Para quem quer <em>perder peso</em> com sessões curtas e acompanhadas.</h1>
+    <h1>Sessões curtas. Acompanhadas.<br>O&nbsp;corpo começou a&nbsp;responder.</h1>
     
   </div>
   <div class="arrow-mark">→</div><div class="watermark">@techbody</div><div class="progress"><span style="width:50.0%"></span></div>
 </article>
 
 <article class="slide slide--type" id="slide-4">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e2.-aquecimento-controlad_2964620617.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e2.-aquecimento-controlad_2964620617.png')"></div>
   <div class="orb orb-a"></div>
   <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
   <div class="content">
     <div class="num">04</div>
-    <h1>Para quem precisa de <em>tratar dores</em> e recuperar movimento.</h1>
+    <h1>As&nbsp;dores que&nbsp;tinha<br>começaram a&nbsp;passar.</h1>
     
   </div>
   <div class="arrow-mark">→</div><div class="watermark">@techbody</div><div class="progress"><span style="width:66.66666666666666%"></span></div>
 </article>
 
 <article class="slide slide--quote" id="slide-5">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e2.-aquecimento-controlad_2964620617.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e2.-aquecimento-controlad_2964620617.png')"></div>
   <div class="orb orb-a"></div>
   <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
   <div class="content">
     <div class="num">05</div>
-    <blockquote>"Composição corporal, força e bem-estar. Corpo e mente revigorados."</blockquote>
+    <blockquote>"Composição, força, bem-estar.<br>Corpo e&nbsp;mente revigorados."</blockquote>
     <cite>O método TechBody</cite>
   </div>
   <div class="arrow-mark">→</div><div class="watermark">@techbody</div><div class="progress"><span style="width:83.33333333333334%"></span></div>
 </article>
 
 <article class="slide slide--type" id="slide-6">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e2.-aquecimento-controlad_2964620617.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e2.-aquecimento-controlad_2964620617.png')"></div>
   <div class="orb orb-a"></div>
   <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
   <div class="content">
     <div class="num">06</div>
-    <h1><em>Link na bio</em> para começar.</h1>
+    <h1><em>Link na bio</em>.<br>Para&nbsp;quem&nbsp;quer&nbsp;começar.</h1>
     
   </div>
   <div class="arrow-mark">→</div><div class="watermark">@techbody</div><div class="progress"><span style="width:100.0%"></span></div>

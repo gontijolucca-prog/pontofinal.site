@@ -54,12 +54,12 @@ body { font-family: var(--font-display); color: var(--text); }
 .slide--hero .bg-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(200deg, rgba(51,51,51,0.15) 0%, rgba(51,51,51,0.60) 100%); }
 .slide--hero .hero-stack { position: relative; z-index: 2; display: grid; gap: 32px; }
 .slide--hero .kicker { font-family: var(--font-mono); font-size: 19px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
-.slide--hero h1 { font-size: 42px; font-weight: 700; line-height: 1.14; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 18ch; text-wrap: balance; hyphens: none; }
+.slide--hero h1 { font-size: 42px; font-weight: 700; line-height: 1.14; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 18ch; text-wrap: balance; hyphens: auto; -webkit-hyphens: auto; }
 .slide--hero h1 em { color: var(--accent); font-style: normal; font-weight: 700; }
 .slide--num, .slide--quote, .slide--type { display: grid; align-content: center; padding: 160px 64px 200px; text-align: center; justify-items: center; }
 .slide--num .content, .slide--quote .content, .slide--type .content { display: grid; justify-items: center; gap: 32px; position: relative; z-index: 2; max-width: 880px; }
 .slide--num .num, .slide--quote .num, .slide--type .num { font-family: var(--font-mono); font-size: 112px; font-weight: 900; color: var(--accent); line-height: 1; letter-spacing: -0.02em; }
-.slide--num h1, .slide--quote h1, .slide--type h1 { font-size: 40px; font-weight: 700; line-height: 1.16; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 20ch; text-wrap: balance; hyphens: none;  }
+.slide--num h1, .slide--quote h1, .slide--type h1 { font-size: 40px; font-weight: 700; line-height: 1.16; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 20ch; text-wrap: balance; hyphens: none; overflow-wrap: break-word; }
 .slide--num h1 em, .slide--quote h1 em, .slide--type h1 em { color: var(--accent); font-style: normal; font-weight: 700; }
 .slide--num p.body, .slide--quote p.body, .slide--type p.body { font-size: 30px; font-weight: 400; line-height: 1.4; color: rgba(255,255,255,0.82); font-style: italic; max-width: 680px; }
 .slide--num p.body em, .slide--quote p.body em, .slide--type p.body em { color: var(--accent); font-style: italic; font-weight: 600; }
@@ -101,76 +101,76 @@ body { font-family: var(--font-display); color: var(--text); }
 <section class="carousel" aria-label="Carrossel TechBody">
 
 <article class="slide slide--hero" id="slide-1">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e4-pico-de-intensidade-im_2964580645.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e4-pico-de-intensidade-im_2964580645.png')"></div>
   <div class="orb orb-a"></div>
   <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
   <div class="hero-stack">
     <div class="kicker">TechBody</div>
-    <h1>O que acontece ao corpo numa <em>sessão</em>?</h1>
+    <h1>O&nbsp;que acontece ao&nbsp;corpo<br>em&nbsp;25&nbsp;minutos?</h1>
   </div>
   <div class="arrow-mark">→</div><div class="watermark">@techbody</div><div class="progress"><span style="width:16.666666666666664%"></span></div>
 </article>
 
 <article class="slide slide--num" id="slide-2">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e4-pico-de-intensidade-im_2964580645.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e4-pico-de-intensidade-im_2964580645.png')"></div>
   <div class="orb orb-b"></div>
   <div class="orb orb-c"></div>
   <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
   <div class="content">
     <div class="num">3</div>
-    <h1>minutos para vestir o TecSuit e calibrar a intensidade consigo.</h1>
+    <h1>Cinco minutos para&nbsp;vestir.<br>Cinco para&nbsp;calibrar.</h1>
     
   </div>
   <div class="arrow-mark">→</div><div class="watermark">@techbody</div><div class="progress"><span style="width:33.33333333333333%"></span></div>
 </article>
 
 <article class="slide slide--type" id="slide-3">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e4-pico-de-intensidade-im_2964580645.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e4-pico-de-intensidade-im_2964580645.png')"></div>
   <div class="orb orb-b"></div>
   <div class="orb orb-c"></div>
   <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
   <div class="content">
     <div class="num">03</div>
-    <h1>O aquecimento acorda os principais <em>grupos musculares</em>.</h1>
+    <h1>O&nbsp;aquecimento acorda<br>os&nbsp;principais <em>grupos musculares</em>.</h1>
     
   </div>
   <div class="arrow-mark">→</div><div class="watermark">@techbody</div><div class="progress"><span style="width:50.0%"></span></div>
 </article>
 
 <article class="slide slide--num" id="slide-4">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e4-pico-de-intensidade-im_2964580645.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e4-pico-de-intensidade-im_2964580645.png')"></div>
   <div class="orb orb-b"></div>
   <div class="orb orb-c"></div>
   <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
   <div class="content">
     <div class="num">90%</div>
-    <h1>dos músculos podem ser ativados ao mesmo tempo — até a respiração sente.</h1>
+    <h1>Grupos ativados ao&nbsp;mesmo&nbsp;tempo.<br>Até&nbsp;a&nbsp;respiração sente.</h1>
     
   </div>
   <div class="arrow-mark">→</div><div class="watermark">@techbody</div><div class="progress"><span style="width:66.66666666666666%"></span></div>
 </article>
 
 <article class="slide slide--type" id="slide-5">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e4-pico-de-intensidade-im_2964580645.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e4-pico-de-intensidade-im_2964580645.png')"></div>
   <div class="orb orb-b"></div>
   <div class="orb orb-c"></div>
   <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
   <div class="content">
     <div class="num">05</div>
-    <h1>Milhares de <em>contrações</em> numa só sessão.</h1>
+    <h1>Milhares de <em>contrações</em>.<br>Numa&nbsp;só&nbsp;sessão.</h1>
     
   </div>
   <div class="arrow-mark">→</div><div class="watermark">@techbody</div><div class="progress"><span style="width:83.33333333333334%"></span></div>
 </article>
 
 <article class="slide slide--type" id="slide-6">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e4-pico-de-intensidade-im_2964580645.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_e4-pico-de-intensidade-im_2964580645.png')"></div>
   <div class="orb orb-b"></div>
   <div class="orb orb-c"></div>
   <div class="profile"><div class="avatar" style="background:var(--accent);"><img src="_avatar.png" alt="TechBody" style="object-fit:cover;padding:0;"/></div><div class="who"><div class="name">TechBody</div><div class="handle">@techbody</div></div></div>
   <div class="content">
     <div class="num">06</div>
-    <h1>Sinta-o no corpo, não no papel — <em>Link na bio</em>.</h1>
+    <h1>Sinta no&nbsp;corpo.<br>Não&nbsp;no&nbsp;papel.<br><em>Link na bio</em>.</h1>
     
   </div>
   <div class="arrow-mark">→</div><div class="watermark">@techbody</div><div class="progress"><span style="width:100.0%"></span></div>

@@ -1,0 +1,45 @@
+[
+  {
+    "slide_number": 1,
+    "role": "hook",
+    "text_overlay": "O Pedro só conhece o ginásio dos pais.",
+    "subhead": "E descobre que o fitness mudou.",
+    "visual_prompt": "Editorial dark cinematic, Luiz photo as soft backdrop, copper accent line, Manrope bold.",
+    "reference_image": "luiz_photo"
+  },
+  {
+    "slide_number": 2,
+    "role": "development",
+    "text_overlay": "O relógio mede o sono. A app ajusta o treino.",
+    "visual_prompt": "Dark typographic, italic serif detail, copper accent.",
+    "reference_image": "none"
+  },
+  {
+    "slide_number": 3,
+    "role": "development",
+    "text_overlay": "IA calcula a carga ideal. Recuperação. Volume.",
+    "visual_prompt": "Dark typographic, large italic 20 in copper.",
+    "reference_image": "none"
+  },
+  {
+    "slide_number": 4,
+    "role": "stat",
+    "text_overlay": "Vinte minutos de EMS em casa. 85% de recrutamento.",
+    "visual_prompt": "Dark typographic, large italic 85% in copper.",
+    "reference_image": "none"
+  },
+  {
+    "slide_number": 5,
+    "role": "development",
+    "text_overlay": "O ginásio vai para casa. O estúdio vira hub social.",
+    "visual_prompt": "Dark typographic, italic serif subhead.",
+    "reference_image": "none"
+  },
+  {
+    "slide_number": 6,
+    "role": "cta",
+    "text_overlay": "Link na bio. A tecnologia mais avançada ao seu alcance.",
+    "visual_prompt": "Editorial dark cinematic, Luiz photo backdrop, copper rule, Manrope bold.",
+    "reference_image": "luiz_photo"
+  }
+]

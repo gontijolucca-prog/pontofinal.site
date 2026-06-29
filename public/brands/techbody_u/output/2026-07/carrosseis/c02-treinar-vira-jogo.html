@@ -54,12 +54,12 @@ body { font-family: var(--font-display); color: var(--text); }
 .slide--hero .bg-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(200deg, rgba(51,51,51,0.15) 0%, rgba(51,51,51,0.60) 100%); }
 .slide--hero .hero-stack { position: relative; z-index: 2; display: grid; gap: 32px; }
 .slide--hero .kicker { font-family: var(--font-mono); font-size: 19px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
-.slide--hero h1 { font-size: 42px; font-weight: 700; line-height: 1.14; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 18ch; text-wrap: balance; hyphens: none; }
+.slide--hero h1 { font-size: 42px; font-weight: 700; line-height: 1.14; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 18ch; text-wrap: balance; hyphens: auto; -webkit-hyphens: auto; }
 .slide--hero h1 em { color: var(--accent); font-style: normal; font-weight: 700; }
 .slide--num, .slide--quote, .slide--type { display: grid; align-content: center; padding: 160px 64px 200px; text-align: center; justify-items: center; }
 .slide--num .content, .slide--quote .content, .slide--type .content { display: grid; justify-items: center; gap: 32px; position: relative; z-index: 2; max-width: 880px; }
 .slide--num .num, .slide--quote .num, .slide--type .num { font-family: var(--font-mono); font-size: 112px; font-weight: 900; color: var(--accent); line-height: 1; letter-spacing: -0.02em; }
-.slide--num h1, .slide--quote h1, .slide--type h1 { font-size: 40px; font-weight: 700; line-height: 1.16; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 20ch; text-wrap: balance; hyphens: none;  }
+.slide--num h1, .slide--quote h1, .slide--type h1 { font-size: 40px; font-weight: 700; line-height: 1.16; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 20ch; text-wrap: balance; hyphens: none; overflow-wrap: break-word; }
 .slide--num h1 em, .slide--quote h1 em, .slide--type h1 em { color: var(--accent); font-style: normal; font-weight: 700; }
 .slide--num p.body, .slide--quote p.body, .slide--type p.body { font-size: 30px; font-weight: 400; line-height: 1.4; color: rgba(255,255,255,0.82); font-style: italic; max-width: 680px; }
 .slide--num p.body em, .slide--quote p.body em, .slide--type p.body em { color: var(--accent); font-style: italic; font-weight: 600; }
@@ -101,76 +101,76 @@ body { font-family: var(--font-display); color: var(--text); }
 <section class="carousel" aria-label="Carrossel TechBody U">
 
 <article class="slide slide--hero" id="slide-1">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_c4-tarde-produtiva-pessoa_2964228286.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_c4-tarde-produtiva-pessoa_2964228286.png')"></div>
   <div class="orb orb-a"></div>
   <div class="profile" style="gap:0;"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="height:48px;width:auto;display:block;"/></div>
   <div class="hero-stack">
     <div class="kicker">TechBody U</div>
-    <h1>E se treinar fosse um <em>jogo</em>?</h1>
+    <h1>O&nbsp;Miguel acha treinar aborrecido.<br>E&nbsp;se&nbsp;fosse um <em>jogo</em>?</h1>
   </div>
   <div class="arrow-mark">→</div><div class="watermark">@techbody_u</div><div class="progress"><span style="width:16.666666666666664%"></span></div>
 </article>
 
 <article class="slide slide--type" id="slide-2">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_c4-tarde-produtiva-pessoa_2964228286.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_c4-tarde-produtiva-pessoa_2964228286.png')"></div>
   <div class="orb orb-b"></div>
   <div class="orb orb-c"></div>
   <div class="profile" style="gap:0;"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="height:48px;width:auto;display:block;"/></div>
   <div class="content">
     <div class="num">02</div>
-    <h1>Pontos, níveis, objectivos. A <em>app</em> TechBody U transforma cada sessão num <em>desafio</em>.</h1>
+    <h1>Pontos, níveis, objectivos.<br>A&nbsp;<em>app</em> transforma cada&nbsp;sessão num <em>desafio</em>.</h1>
     
   </div>
   <div class="arrow-mark">→</div><div class="watermark">@techbody_u</div><div class="progress"><span style="width:33.33333333333333%"></span></div>
 </article>
 
 <article class="slide slide--num" id="slide-3">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_c4-tarde-produtiva-pessoa_2964228286.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_c4-tarde-produtiva-pessoa_2964228286.png')"></div>
   <div class="orb orb-b"></div>
   <div class="orb orb-c"></div>
   <div class="profile" style="gap:0;"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="height:48px;width:auto;display:block;"/></div>
   <div class="content">
     <div class="num">3×25</div>
-    <h1>Por semana. Só 1, 2 ou 3 treinos. Consigo decide.</h1>
+    <h1>1, 2 ou&nbsp;3 treinos por&nbsp;semana.<br>Ele&nbsp;decide. O&nbsp;corpo segue.</h1>
     
   </div>
   <div class="arrow-mark">→</div><div class="watermark">@techbody_u</div><div class="progress"><span style="width:50.0%"></span></div>
 </article>
 
 <article class="slide slide--type" id="slide-4">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_c4-tarde-produtiva-pessoa_2964228286.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_c4-tarde-produtiva-pessoa_2964228286.png')"></div>
   <div class="orb orb-b"></div>
   <div class="orb orb-c"></div>
   <div class="profile" style="gap:0;"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="height:48px;width:auto;display:block;"/></div>
   <div class="content">
     <div class="num">04</div>
-    <h1>Cada sessão concluída é um <em>ponto</em>. Cada semana, um <em>nível</em>. O corpo nota a diferença.</h1>
+    <h1>Cada&nbsp;sessão é&nbsp;um <em>ponto</em>.<br>Cada&nbsp;semana, um <em>nível</em>.<br>O&nbsp;corpo nota a&nbsp;diferença.</h1>
     
   </div>
   <div class="arrow-mark">→</div><div class="watermark">@techbody_u</div><div class="progress"><span style="width:66.66666666666666%"></span></div>
 </article>
 
 <article class="slide slide--quote" id="slide-5">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_c4-tarde-produtiva-pessoa_2964228286.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_c4-tarde-produtiva-pessoa_2964228286.png')"></div>
   <div class="orb orb-b"></div>
   <div class="orb orb-c"></div>
   <div class="profile" style="gap:0;"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="height:48px;width:auto;display:block;"/></div>
   <div class="content">
     <div class="num">05</div>
-    <blockquote>"O melhor jogo é o que melhora o teu corpo."</blockquote>
+    <blockquote>"O&nbsp;melhor jogo é&nbsp;o&nbsp;que melhora o&nbsp;teu corpo."</blockquote>
     <cite>TechBody U</cite>
   </div>
   <div class="arrow-mark">→</div><div class="watermark">@techbody_u</div><div class="progress"><span style="width:83.33333333333334%"></span></div>
 </article>
 
 <article class="slide slide--type" id="slide-6">
-  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_c4-tarde-produtiva-pessoa_2964228286.jpg')"></div>
+  <div class="bg-photo" style="background-image:url('../../../assets/photos/magnific_c4-tarde-produtiva-pessoa_2964228286.png')"></div>
   <div class="orb orb-b"></div>
   <div class="orb orb-c"></div>
   <div class="profile" style="gap:0;"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="height:48px;width:auto;display:block;"/></div>
   <div class="content">
     <div class="num">06</div>
-    <h1>Comece a <em>jogar</em>. <em>Link na bio</em> para saber mais.</h1>
+    <h1><em>Link na bio</em>.<br>Comece a&nbsp;<em>jogar</em>.</h1>
     
   </div>
   <div class="arrow-mark">→</div><div class="watermark">@techbody_u</div><div class="progress"><span style="width:100.0%"></span></div>
