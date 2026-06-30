@@ -2404,7 +2404,7 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "O TecSuit veste-se sem roupa por baixo."
+        "text_overlay": "O TecSuit não se veste por cima da roupa. O TecSuit veste-se sem roupa por baixo."
       },
       {
         "role": "development",
