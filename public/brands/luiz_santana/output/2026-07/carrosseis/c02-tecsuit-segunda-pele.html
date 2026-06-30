@@ -59,7 +59,7 @@ body { font-family: var(--font-display); color: var(--text); }
 .slide--num, .slide--quote, .slide--type { display: grid; align-content: center; padding: 160px 64px 200px; text-align: center; justify-items: center; }
 .slide--num .content, .slide--quote .content, .slide--type .content { display: grid; justify-items: center; gap: 32px; position: relative; z-index: 2; max-width: 880px; }
 .slide--num .num, .slide--quote .num, .slide--type .num { font-family: var(--font-mono); font-size: 112px; font-weight: 900; color: var(--accent); line-height: 1; letter-spacing: -0.02em; }
-.slide--num h1, .slide--quote h1, .slide--type h1 { font-size: 40px; font-weight: 700; line-height: 1.16; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 20ch; text-wrap: balance; hyphens: none; overflow-wrap: break-word; }
+.slide--num h1, .slide--quote h1, .slide--type h1 { font-size: 40px; font-weight: 700; line-height: 1.16; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 20ch; text-wrap: balance; hyphens: none; word-break: keep-all; overflow-wrap: break-word; }
 .slide--num h1 em, .slide--quote h1 em, .slide--type h1 em { color: var(--accent); font-style: normal; font-weight: 700; }
 .slide--num p.body, .slide--quote p.body, .slide--type p.body { font-size: 30px; font-weight: 400; line-height: 1.4; color: rgba(255,255,255,0.82); font-style: italic; max-width: 680px; }
 .slide--num p.body em, .slide--quote p.body em, .slide--type p.body em { color: var(--accent); font-style: italic; font-weight: 600; }
@@ -87,7 +87,7 @@ body { font-family: var(--font-display); color: var(--text); }
 /* HERO V1: no kicker, big h1 */
 .slide--hero .hero-stack { gap: 0; }
 .slide--hero .kicker { display: none; }
-.slide--hero h1 { font-size: 50px; max-width: 28ch; overflow-wrap: break-word; }
+.slide--hero h1 { font-size: 50px; max-width: 28ch; word-break: keep-all; overflow-wrap: break-word; }
 
 /* CONTENT C1: left-aligned, different hierarchy */
 .slide--num, .slide--quote, .slide--type { text-align: left; justify-items: start; }

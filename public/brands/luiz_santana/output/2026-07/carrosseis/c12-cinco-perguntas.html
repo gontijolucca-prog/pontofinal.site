@@ -88,7 +88,7 @@ body { font-family: var(--font-display); color: var(--text); }
 /* HERO V1: no kicker, big h1 */
 .slide--hero .hero-stack { gap: 0; }
 .slide--hero .kicker { display: none; }
-.slide--hero h1 { font-size: 50px; max-width: 28ch; overflow-wrap: break-word; }
+.slide--hero h1 { font-size: 50px; max-width: 28ch; word-break: keep-all; overflow-wrap: break-word; }
 
 /* CONTENT C2: number as watermark, big h1 */
 .slide--num .num, .slide--quote .num, .slide--type .num { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 280px; opacity: 0.06; z-index: 1; pointer-events: none; }
@@ -105,7 +105,7 @@ body { font-family: var(--font-display); color: var(--text); }
   <div class="orb orb-a"></div>
   <div class="hero-stack">
     <div class="kicker">As&nbsp;cinco perguntas que toda a&nbsp;gente&nbsp;faz.</div>
-    <h1>As cinco perguntas que toda a gente faz. Respondidas sem rodeios.</h1>
+    <h1>Respondidas sem rodeios.</h1>
   </div>
   <div class="arrow-mark">→</div><div class="progress"><span style="width:16.666666666666664%"></span></div>
 </article>
