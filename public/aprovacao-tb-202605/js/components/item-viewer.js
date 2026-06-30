@@ -73,10 +73,10 @@ class ItemViewer extends HTMLElement {
       if (this.getAttribute("data-open") !== "true") return;
       const tag = (e.target?.tagName || "").toLowerCase();
       const typing = tag === "input" || tag === "textarea" || tag === "select" || e.target?.isContentEditable;
-      if (e.key === "Escape") { if (this._wizard) return this._exitWizard(); return this.close(); }
+      if (e.key === "Escape") return this.close();
       if (typing) return;
-      if (e.key === "ArrowRight") return this._wizard ? this._wizardNext() : this._step(+1);
-      if (e.key === "ArrowLeft")  return this._wizard ? this._wizardBack() : this._step(-1);
+      if (e.key === "ArrowRight") return this._step(+1);
+      if (e.key === "ArrowLeft")  return this._step(-1);
       if (this._wizard) return;
       const key = e.key.toLowerCase();
       if (key === "j" || e.key === "ArrowDown") { e.preventDefault(); this._advanceItem(+1); return; }
@@ -356,7 +356,6 @@ class ItemViewer extends HTMLElement {
             ${slideEditors}
             ${captionEditor}
             <div class="viewer-actions" style="display:flex;gap:0;margin-top:8px;flex-wrap:wrap">
-              <button class="btn" data-action="start-edit" style="flex:1 0 100%;padding:10px;border:2px solid var(--border);background:var(--text);color:var(--bg);cursor:pointer;font:700 12px/1 'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:8px">✎ Assistente de revisão</button>
               <label class="toggle-approve" data-action="approve-toggle"${toggleDisabled ? " data-disabled" : ""}>
                 <input type="checkbox" ${toggleChecked ? "checked" : ""} ${toggleDisabled ? "disabled" : ""} />
                 <span class="toggle-approve__slider"></span>
@@ -370,9 +369,16 @@ class ItemViewer extends HTMLElement {
         <button class="viewer-close" data-action="close" aria-label="Fechar">×</button>
       </div>`;
 
-    // Imagens estáticas: não precisam de fitScaledFrame (CSS object-fit: contain
-    // faz o scaling). O fitScaledFrame só se aplica a iframes (wizard preview).
+    // fitScaledFrame: renderiza o iframe às dimensões nativas de publicação
+    // (1080×1350 carrossel, 1080×1920 story) e escala visualmente para caber
+    // no contentor. Garante que a pré-visualização é pixel-idêntica ao produto final.
     if (this._fitCleanup) { this._fitCleanup(); this._fitCleanup = null; }
+    if (!isReel && !isReelVideo && it.html_url) {
+      const fmt = it.format || "carrossel";
+      const [nw, nh] = dimsFor(fmt);
+      const wrap = this.querySelector(".viewer-frame-wrap");
+      if (wrap) this._fitCleanup = fitScaledFrame(wrap, nw, nh);
+    }
 
     this._updateCounter();
     this._refreshStatusLine();
@@ -399,10 +405,9 @@ class ItemViewer extends HTMLElement {
       const btn = e.target.closest("[data-action]");
       if (!btn) return;
       const a = btn.dataset.action;
-      if (a === "close")  return this._wizard ? this._exitWizard() : this.close();
+      if (a === "close")  return this.close();
       if (a === "prev")   return this._step(-1);
       if (a === "next")   return this._step(+1);
-      if (a === "start-edit")    return this._startWizard("edit");
       if (a === "approve-toggle") {
         // Toggle switch — força gravação de texto pendente antes de mudar estado.
         const cb = this.querySelector(".toggle-approve input[type=\"checkbox\"]");
@@ -444,117 +449,7 @@ class ItemViewer extends HTMLElement {
     });
   }
 
-  // ─── Assistente de confirmação de copies ──────────────────────────────────
 
-  _startWizard(disposition) {
-    const it = this._item;
-    if (!it) return;
-    const steps = [];
-    const n = this._slideCount();
-    const hasSlides = (it.slides_text && it.slides_text.length) || it.format === "carrossel" || it.format === "story";
-    if (hasSlides) {
-      for (let i = 1; i <= Math.max(1, n); i++) {
-        steps.push({ type: "slide", n: i, label: it.format === "story" ? "Texto da imagem" : `Slide ${String(i).padStart(2, "0")}` });
-      }
-    }
-    if (it.caption && it.caption.trim()) steps.push({ type: "caption", label: "Descrição (Instagram)" });
-    if (!steps.length) steps.push({ type: "caption", label: "Descrição (Instagram)" });
-    this._wizard = { disposition, steps, idx: 0 };
-    const isEditMode = disposition === "edit";
-    const modal = this.querySelector(".viewer-modal");
-    const ob = document.createElement("div");
-    ob.className = "onboard";
-    ob.innerHTML = `<div class="onboard__scrim"></div><div class="onboard__card" role="dialog" aria-modal="true"></div>`;
-    modal.appendChild(ob);
-    this._onboard = ob;
-    ob.addEventListener("click", (e) => {
-      const btn = e.target.closest("[data-action]");
-      if (!btn) return;
-      const a = btn.dataset.action;
-      if (a === "wz-exit")   return this._exitWizard();
-      if (a === "wz-back")   return this._wizardBack();
-      if (a === "wz-next")   return this._wizardNext();
-      if (a === "wz-apply")  return this._wizardApply();
-      if (a === "wz-finish") return this._wizardFinish();
-    });
-    this._renderWizardStep();
-  }
-
-  _exitWizard() {
-    this._wizard = null;
-    if (this._onboard) { this._onboard.remove(); this._onboard = null; }
-    this._refreshStatusLine();
-  }
-
-  _renderWizardStep() {
-    const w = this._wizard;
-    const card = this._onboard && this._onboard.querySelector(".onboard__card");
-    if (!card || !w) return;
-    const it = this._item;
-    const step = w.steps[w.idx];
-    const isLast = w.idx === w.steps.length - 1;
-    const dispLabel = w.disposition === "approved" ? "Aprovar" : w.disposition === "rejected" ? "Reprovar" : "Editar";
-
-    // Mantém a vista de zoom (atrás) sincronizada com o passo.
-    if (step.type === "slide") {
-      this._slide = step.n;
-      if (this._isCarousel) { this._gotoSlideInFrame(step.n); this._updateCounter(); }
-      this._highlightReelLine(step.n);
-    }
-
-    const value = step.type === "caption" ? (it.caption || "") : this._slideText(step.n);
-    const hashtags = step.type === "caption" && it.hashtags ? it.hashtags : "";
-
-    // Pré-visualização ao vivo do post dentro do próprio popup.
-    let previewHtml = "";
-    if (step.type === "slide" && it.html_url && !this._isReel) {
-      const ratio = it.format === "story" ? "9-16" : "4-5";
-      const src = `${it.html_url}?v=${APP_VERSION}&c=${currentContentSig()}${this._isCarousel ? `#slide-${step.n}` : ""}`;
-      previewHtml = `<div class="onboard__preview onboard__preview--${ratio}"><iframe data-ob-frame src="${src}" title="pré-visualização" scrolling="no"></iframe></div>`;
-    } else if (this._isReel && step.type === "slide") {
-      const role = (it.slides_text || [])[step.n - 1]?.role;
-      previewHtml = `<div class="onboard__reel-tag">Linha ${String(step.n).padStart(2, "0")}${role ? " · " + this._escapeForHtml(ROLE_LABELS[role] || role) : ""}</div>`;
-    }
-
-    card.innerHTML = `
-      <div class="onboard__head">
-        <span class="onboard__kicker">Confirmar conteúdo</span>
-        <span class="wizard__disp wizard__disp--${w.disposition}">${dispLabel}</span>
-        <button class="onboard__close" data-action="wz-exit" aria-label="Cancelar">×</button>
-      </div>
-      <div class="wizard__progress" aria-hidden="true">
-        ${w.steps.map((s, i) => `<span class="wizard__dot${i === w.idx ? " is-active" : ""}${i < w.idx ? " is-done" : ""}"></span>`).join("")}
-      </div>
-      <div class="wizard__step-label">${this._escapeForHtml(step.label)} <span class="wizard__step-count">${w.idx + 1} / ${w.steps.length}</span></div>
-      ${previewHtml}
-      <p class="wizard__q">${step.type === "caption" ? "Concordas com o copy da descrição?" : "Concordas com o texto deste post?"}</p>
-      <textarea class="wizard__textarea" data-wz-text rows="${step.type === "caption" ? 8 : 3}">${this._escapeForHtml(value)}</textarea>
-      ${hashtags ? `<pre class="wizard__hashtags">${this._escapeForHtml(hashtags)}</pre>` : ""}
-      <div class="wizard__apply-row">
-        <button class="btn btn--ghost btn--small" data-action="wz-apply" disabled><span class="btn__icon" aria-hidden="true">✎</span> Aplicar alteração</button>
-        <span class="wizard__feedback" data-wz-feedback aria-live="polite"></span>
-      </div>
-      <div class="wizard__nav">
-        <button class="btn btn--ghost" data-action="wz-back" ${w.idx === 0 ? "disabled" : ""}>‹ Anterior</button>
-        ${isLast
-          ? (isEditMode
-            ? `<button class="btn btn--solid" data-action="wz-finish">Concluir edição ✓</button>`
-            : `<button class="btn btn--${w.disposition === "approved" ? "approve" : "reject"}" data-action="wz-finish">Concluir — ${dispLabel} ✓</button>`)
-          : `<button class="btn btn--solid" data-action="wz-next">Confirmar ›</button>`}
-      </div>`;
-
-    // Pré-visualização: navega para o slide e aplica o texto actual (override).
-    const obFrame = card.querySelector("[data-ob-frame]");
-    if (obFrame && step.type === "slide") {
-      obFrame.addEventListener("load", () => { this._scrollFrameToSlide(obFrame, step.n); this._editFrameH1(obFrame, step.n, value); }, { once: true });
-    }
-
-    const ta = card.querySelector("[data-wz-text]");
-    const applyBtn = card.querySelector('[data-action="wz-apply"]');
-    const original = value;
-    ta.addEventListener("input", () => { applyBtn.disabled = ta.value.trim() === original.trim(); });
-    setTimeout(() => ta.focus(), 40);
-  }
 
   _highlightReelLine(n) {
     if (!this._isReel) return;
@@ -565,89 +460,7 @@ class ItemViewer extends HTMLElement {
     if (active) active.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
-  async _wizardApply() {
-    const w = this._wizard; if (!w) return;
-    const card = this._onboard.querySelector(".onboard__card");
-    const ta = card.querySelector("[data-wz-text]");
-    const step = w.steps[w.idx];
-    const text = (ta.value || "").trim();
-    const fb = card.querySelector("[data-wz-feedback]");
-    try {
-      if (step.type === "caption") {
-        await approvalStore.setCaptionCopy(this._item.id, text);
-        this._item.caption = text;
-      } else {
-        await approvalStore.setSlideCopy(this._item.id, step.n, text);
-        const idx = step.n - 1;
-        if (this._item.slides_text && this._item.slides_text[idx]) {
-          const f = this._item.slides_text[idx].text_overlay != null ? "text_overlay" : "text";
-          this._item.slides_text[idx][f] = text;
-        }
-        this._liveEditSlide(step.n, text);                                  // zoom grande (atrás)
-        this._editFrameH1(card.querySelector("[data-ob-frame]"), step.n, text); // preview no popup
-        this._updateReelLineText(step.n, text);
-      }
-      if (fb) { fb.textContent = "✓ Aplicado"; fb.classList.add("is-ok"); }
-      card.querySelector('[data-action="wz-apply"]').disabled = true;
-    } catch (err) {
-      console.error("[wizard] apply failed:", err);
-      if (fb) { fb.textContent = "Falhou — tenta de novo"; fb.classList.remove("is-ok"); }
-    }
-  }
 
-  _updateReelLineText(n, text) {
-    const p = this.querySelector(`.viewer-reel-script__line[data-reel-line="${n}"] .viewer-reel-script__line-text`);
-    if (p) p.textContent = text;
-  }
-
-  _wizardBack() {
-    const w = this._wizard; if (!w || w.idx === 0) return;
-    w.idx--;
-    this._renderWizardStep();
-  }
-
-  _wizardNext() {
-    const w = this._wizard; if (!w) return;
-    if (w.idx < w.steps.length - 1) { w.idx++; this._renderWizardStep(); }
-  }
-
-  async _wizardFinish() {
-    const w = this._wizard; if (!w) return;
-    const it = this._item;
-    // In edit mode, just close — no approval change
-    if (w.disposition === "edit") {
-      this._showActionToast("edit");
-      this._wizard = null;
-      if (this._onboard) { this._onboard.remove(); this._onboard = null; }
-      this._refreshStatusLine();
-      return;
-    }
-    await approvalStore.set(it.id, w.disposition);
-    // Marca também a descrição com a mesma disposição (foi confirmada no fluxo).
-    if (it.caption && it.caption.trim()) {
-      try { await approvalStore.setCaption(it.id, w.disposition); } catch {}
-    }
-    this._showActionToast(w.disposition);
-    this._wizard = null;
-    if (this._onboard) { this._onboard.remove(); this._onboard = null; }
-    if (!this._advanceItem(+1)) this.close();
-  }
-
-  _showActionToast(status) {
-    try {
-      const cfg = {
-        approved: { icon: "✓", text: "Aprovado", color: "#2BB05F" },
-        edit: { icon: "✎", text: "Textos guardados", color: "#333" },
-      };
-      const c = cfg[status]; if (!c) return;
-      const toast = document.createElement("div");
-      toast.className = "action-toast";
-      toast.style.cssText = `position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:${c.color};color:#fff;padding:14px 24px;font:900 14px/1 var(--font-heavy,'Arial Black',sans-serif);letter-spacing:0.08em;text-transform:uppercase;border:3px solid #050505;box-shadow:6px 6px 0 0 #050505;z-index:9999;display:flex;align-items:center;gap:10px;`;
-      toast.innerHTML = `<span style="font-size:18px">${c.icon}</span>${c.text}`;
-      document.body.appendChild(toast);
-      setTimeout(() => { toast.style.transition = "opacity 200ms,transform 200ms"; toast.style.opacity = "0"; toast.style.transform = "translateX(-50%) translateY(10px)"; setTimeout(() => toast.remove(), 220); }, 1400);
-    } catch {}
-  }
 
   _bindDirectEditors() {
     this._editTimers = {};
