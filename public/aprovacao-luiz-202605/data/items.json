@@ -1190,23 +1190,23 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "O Rui vai de férias. O treino vai com ele."
+        "text_overlay": "Vai de férias.O treino vai com ele."
       },
       {
         "role": "proof",
-        "text_overlay": "25 minutos, três vezes por semana. Cabe na mala de férias."
+        "text_overlay": "25 minutos, três vezes por semana.Cabe na mala de férias."
       },
       {
         "role": "demo",
-        "text_overlay": "De manhã cedo ou à hora de almoço. A sessão adapta-se ao seu dia."
+        "text_overlay": "De manhã cedo ou à hora de almoço.A sessão adapta-se ao seu dia."
       },
       {
         "role": "quote",
-        "text_overlay": "Quem treina em julho descansa melhor em agosto."
+        "text_overlay": "Sempre com um personal trainer.Mesmo de férias."
       },
       {
         "role": "proof",
-        "text_overlay": "Sempre com um personal trainer. Mesmo de férias."
+        "text_overlay": "Link na bio.O progresso não tira férias."
       },
       {
         "role": "cta",
@@ -1235,27 +1235,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "O que acontece ao corpo em 25 minutos?"
+        "text_overlay": "O que acontece ao corpoem 25 minutos?"
       },
       {
         "role": "proof",
-        "text_overlay": "Cinco minutos para vestir. Cinco para calibrar."
+        "text_overlay": "Cinco minutos para vestir.Cinco para calibrar."
       },
       {
         "role": "demo",
-        "text_overlay": "O aquecimento acorda os principais grupos musculares."
+        "text_overlay": "O aquecimento acordaos principais grupos musculares."
       },
       {
         "role": "proof",
-        "text_overlay": "Grupos ativados ao mesmo tempo. Até a respiração sente."
+        "text_overlay": "Grupos ativados ao mesmo tempo.Até a respiração sente."
       },
       {
         "role": "stat",
-        "text_overlay": "Milhares de contrações. Numa só sessão."
+        "text_overlay": "Milhares de contrações.Numa só sessão."
       },
       {
         "role": "cta",
-        "text_overlay": "Link na bio. Sinta no corpo, não no papel."
+        "text_overlay": "Sinta no corpo.Não no papel.Link na bio."
       }
     ],
     "html_url": "../brands/techbody/output/2026-07/carrosseis/c02-uma-sessao-por-dentro.html",
@@ -1280,23 +1280,23 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "A Joana parou de treinar há dois anos."
+        "text_overlay": "Parou de treinarhá dois anos."
       },
       {
         "role": "para_quem",
-        "text_overlay": "Queria recomeçar. Mas voltar à estaca zero assustava-a."
+        "text_overlay": "Queria recomeçar.Mas voltar à estaca zero assustava-a."
       },
       {
         "role": "para_quem",
-        "text_overlay": "Sessões curtas. Acompanhadas. O corpo começou a responder."
+        "text_overlay": "Sessões curtas. Acompanhadas.O corpo começou a responder."
       },
       {
         "role": "para_quem",
-        "text_overlay": "As dores que tinha começaram a passar."
+        "text_overlay": "As dores que tinhacomeçaram a passar."
       },
       {
         "role": "quote",
-        "text_overlay": "Composição, força, bem-estar. Corpo e mente revigorados."
+        "text_overlay": "Link na bio.Para quem quer começar."
       },
       {
         "role": "cta",
@@ -1325,27 +1325,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "O Pedro quer abrir um estúdio. O espaço parece pequeno."
+        "text_overlay": "Quer abrir um estúdio.O espaço parece pequeno."
       },
       {
         "role": "demo",
-        "text_overlay": "Menos do que imagina. A baixa exigência faz parte do modelo."
+        "text_overlay": "Menos do que imagina.A baixa exigência faz parte do modelo."
       },
       {
         "role": "proof",
-        "text_overlay": "Menos equipamentos. Sessões curtas. Mais rotação de clientes."
+        "text_overlay": "Menos equipamentos.Sessões curtas.Mais rotação de clientes."
       },
       {
         "role": "proof",
-        "text_overlay": "Serviço premium. Com valor percebido à altura."
+        "text_overlay": "Serviço premium.Com valor percebido à altura."
       },
       {
         "role": "cta",
-        "text_overlay": "Modelo chave-na-mão. Método, formação, tecnologia."
+        "text_overlay": "Modelo chave‑na‑mão.Método, formação, tecnologia."
       },
       {
         "role": "cta",
-        "text_overlay": "Link na bio. Agende uma reunião de avaliação."
+        "text_overlay": "Link na bio.Agende uma reunião de avaliação."
       }
     ],
     "html_url": "../brands/techbody/output/2026-07/carrosseis/c04-espaco-estudio.html",
@@ -1613,23 +1613,23 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Os Martins vão de férias. O treino vai com eles."
+        "text_overlay": "Vão de férias.O treino vai com eles."
       },
       {
         "role": "proof",
-        "text_overlay": "Férias não são desculpa para parar. São a altura ideal para um treino diferente."
+        "text_overlay": "Férias não são desculpa para parar.São a altura ideal para um treino diferente."
       },
       {
         "role": "stat",
-        "text_overlay": "3x por semana, 20 minutos. Cabe na mala e na agenda."
+        "text_overlay": "3x por semana, 25 minutos.Cabe na mala e na agenda."
       },
       {
         "role": "proof",
-        "text_overlay": "TechBody U leva-se para qualquer lado. O fato, o controlador, o telemóvel."
+        "text_overlay": "TechBody U leva-se para qualquer lado.O fato, o controlador, o telemóvel."
       },
       {
         "role": "quote",
-        "text_overlay": "Leve o treino consigo. O corpo agradece."
+        "text_overlay": "Link na bio.Leve o treino de férias."
       },
       {
         "role": "cta",
@@ -1658,23 +1658,23 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "O Miguel acha treinar aborrecido. E se fosse um jogo?"
+        "text_overlay": "O Miguel acha treinar aborrecido.E se fosse um jogo?"
       },
       {
         "role": "proof",
-        "text_overlay": "Pontos, níveis, objectivos. A app transforma cada sessão num desafio."
+        "text_overlay": "Pontos, níveis, objectivos.A app transforma cada sessão num desafio."
       },
       {
         "role": "stat",
-        "text_overlay": "1, 2 ou 3 treinos por semana. Ele decide. O corpo segue."
+        "text_overlay": "1, 2 ou 3 treinos por semana.Ele decide. O corpo segue."
       },
       {
         "role": "proof",
-        "text_overlay": "Cada sessão é um ponto. Cada semana, um nível. O corpo nota a diferença."
+        "text_overlay": "Cada sessão é um ponto.Cada semana, um nível.O corpo nota a diferença."
       },
       {
         "role": "quote",
-        "text_overlay": "O melhor jogo é o que melhora o teu corpo."
+        "text_overlay": "Link na bio.Comece a jogar."
       },
       {
         "role": "cta",
@@ -1703,23 +1703,23 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "A Ana abriu a caixa. Minutos depois, estava a treinar."
+        "text_overlay": "Abriu a caixa.Minutos depois, estava a treinar."
       },
       {
         "role": "proof",
-        "text_overlay": "Abrir. Vestir. Ligar. Primeira sessão em minutos."
+        "text_overlay": "Abrir. Vestir. Ligar.Primeira sessão em minutos."
       },
       {
         "role": "stat",
-        "text_overlay": "Minutos. É o tempo entre a caixa e começar a treinar."
+        "text_overlay": "Minutos.É o tempo entre a caixae começar a treinar."
       },
       {
         "role": "proof",
-        "text_overlay": "App configurada. Fato vestido. Intensidade ajustada. Está pronto."
+        "text_overlay": "App configurada. Fato vestido.Intensidade ajustada.Está pronto."
       },
       {
         "role": "quote",
-        "text_overlay": "A tecnologia que se veste. O treino que se sente."
+        "text_overlay": "Link na bio.Da caixa ao primeiro treino."
       },
       {
         "role": "cta",
@@ -1748,23 +1748,23 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "O Pedro hesitava. Equipamento para casa, sem receios."
+        "text_overlay": "Hesitava.Equipamento para casa, sem receios."
       },
       {
         "role": "proof",
-        "text_overlay": "Equipamento certificado. Acompanhamento profissional. Resultados reais."
+        "text_overlay": "Equipamento certificado.Acompanhamento profissional.Resultados reais."
       },
       {
         "role": "stat",
-        "text_overlay": "30 dias para experimentar o TechBody U em casa."
+        "text_overlay": "30 dias para experimentaro TechBody U em casa."
       },
       {
         "role": "proof",
-        "text_overlay": "Suporte, garantia, videochamada de arranque. Não está sozinho."
+        "text_overlay": "Suporte, garantia,videochamada de arranque.Não está sozinho."
       },
       {
         "role": "quote",
-        "text_overlay": "Não compra equipamento. Compra um método."
+        "text_overlay": "Link na bio.Compre com confiança."
       },
       {
         "role": "cta",
@@ -2357,27 +2357,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Tem uma agenda que não para. Julho chegou e o treino ficou para trás."
+        "text_overlay": "Julho chegou e o treino ficou para trás."
       },
       {
         "role": "development",
-        "text_overlay": "Não por preguiça. Porque o dia só tem 24 horas."
+        "text_overlay": "Não por preguiça.Porque o dia só tem 24 horas."
       },
       {
         "role": "development",
-        "text_overlay": "Foi quando descobriu que 25 minutos chegam."
+        "text_overlay": "Foi quando descobriuque 25 minutos chegam."
       },
       {
         "role": "development",
-        "text_overlay": "Menos do que um episódio. Mais do que uma hora no ginásio."
+        "text_overlay": "Menos do que um episódio.Mais do que uma hora no ginásio."
       },
       {
         "role": "development",
-        "text_overlay": "Sessão curta, intensa, sem tempo perdido."
+        "text_overlay": "Sessão curta, intensa,sem tempo perdido."
       },
       {
         "role": "cta",
-        "text_overlay": "Link na bio. O treino cabe na sua agenda também."
+        "text_overlay": "Link na bio.O treino cabe na sua agenda também."
       }
     ]
   },
@@ -2404,27 +2404,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Descobriu uma coisa. O TecSuit veste-se sem roupa por baixo."
+        "text_overlay": "O TecSuit veste-se sem roupa por baixo."
       },
       {
         "role": "development",
-        "text_overlay": "Experimentou e viu. O fato fica mesmo bem."
+        "text_overlay": "Experimentou e viu.O fato fica mesmo bem."
       },
       {
         "role": "development",
-        "text_overlay": "Cada elétrodo no sítio. O estímulo chega onde deve."
+        "text_overlay": "Cada elétrodo no sítio.O estímulo chega onde deve."
       },
       {
         "role": "development",
-        "text_overlay": "Compra-se uma vez. Sem mensalidades. Sem surpresas."
+        "text_overlay": "Compra-se uma vez.Sem mensalidades. Sem surpresas."
       },
       {
         "role": "development",
-        "text_overlay": "A app guia. O fato responde. O método faz o resto."
+        "text_overlay": "A app guia. O fato responde.O método faz o resto."
       },
       {
         "role": "cta",
-        "text_overlay": "Link na bio. Descubra como funciona o TecSuit."
+        "text_overlay": "Link na bio.Descubra como funciona o TecSuit."
       }
     ]
   },
@@ -2451,27 +2451,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Passava 1h30 no ginásio. Sentia-se cansado. Os resultados não apareciam."
+        "text_overlay": "Sentia-se cansado.Os resultados não apareciam."
       },
       {
         "role": "development",
-        "text_overlay": "Até descobrir que o músculo não conta minutos. Conta o estímulo."
+        "text_overlay": "Até descobrir que o músculonão conta minutos. Conta o estímulo."
       },
       {
         "role": "development",
-        "text_overlay": "Sessões longas são piloto automático. As curtas exigem presença."
+        "text_overlay": "Sessões longas são piloto automático.As curtas exigem presença."
       },
       {
         "role": "development",
-        "text_overlay": "Corpo inteiro ao mesmo tempo. Sem tempos mortos."
+        "text_overlay": "Corpo inteiro ao mesmo tempo.Sem tempos mortos."
       },
       {
         "role": "stat",
-        "text_overlay": "Intensidade certa vale mais do que hora extra."
+        "text_overlay": "Intensidade certavale mais do que hora extra."
       },
       {
         "role": "cta",
-        "text_overlay": "Link na bio. Menos tempo pode render mais."
+        "text_overlay": "Link na bio.Menos tempo pode render mais."
       }
     ]
   },
@@ -2498,27 +2498,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Passou dos 30 e notou. O corpo mudou as regras sem avisar."
+        "text_overlay": "O corpo mudou as regras sem avisar."
       },
       {
         "role": "development",
-        "text_overlay": "Menos músculo. Menos energia gasta em repouso."
+        "text_overlay": "Menos músculo.Menos energia gasta em repouso."
       },
       {
         "role": "development",
-        "text_overlay": "A solução não é comer menos. É ter mais músculo."
+        "text_overlay": "A solução não é comer menos.É ter mais músculo."
       },
       {
         "role": "development",
-        "text_overlay": "Músculo ativo é um motor que gasta mais — mesmo parado."
+        "text_overlay": "Músculo ativo é um motorque gasta mais — mesmo parado."
       },
       {
         "role": "stat",
-        "text_overlay": "Não é comer menos. É ter um corpo que trabalha por si."
+        "text_overlay": "Não é comer menos.É ter um corpo que trabalha por ti."
       },
       {
         "role": "cta",
-        "text_overlay": "Link na bio. Recupere o controlo do metabolismo."
+        "text_overlay": "Link na bio.Recupera o controlo do metabolismo."
       }
     ]
   },
@@ -2545,27 +2545,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Passa 8 horas sentado. O corpo adaptou-se. Para pior."
+        "text_overlay": "O corpo adaptou-se.Para pior."
       },
       {
         "role": "development",
-        "text_overlay": "Ombros fechados. Lombar tensa. Zona central a dormir."
+        "text_overlay": "Ombros fechados. Lombar tensa.Zona central a dormir."
       },
       {
         "role": "development",
-        "text_overlay": "Alongar não chega. O músculo de suporte precisa de acordar."
+        "text_overlay": "Alongar não chega.O músculo de suporte precisa de acordar."
       },
       {
         "role": "development",
-        "text_overlay": "A eletroestimulação acorda os músculos que a cadeira desliga."
+        "text_overlay": "A eletroestimulação acordaos músculos que a cadeira desliga."
       },
       {
         "role": "stat",
-        "text_overlay": "25 minutos contra 40 horas. Luta justa."
+        "text_overlay": "25 minutos contra 40 horas.Luta justa."
       },
       {
         "role": "cta",
-        "text_overlay": "Sente o corpo a cobrar? Link na bio. O corpo agradece."
+        "text_overlay": "Sentes o corpo a cobrar?Link na bio. O corpo agradece."
       }
     ]
   },
@@ -2592,27 +2592,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Quanto tempo até ver resultados? Resposta honesta: depende."
+        "text_overlay": "Resposta honesta: depende."
       },
       {
         "role": "development",
-        "text_overlay": "Depende do ponto de partida. Do sono. Da regularidade."
+        "text_overlay": "Depende do ponto de partida.Do sono. Da regularidade."
       },
       {
         "role": "development",
-        "text_overlay": "O método garante o estímulo. A consistência faz o resto."
+        "text_overlay": "O método garante o estímulo.A consistência faz o resto."
       },
       {
         "role": "development",
-        "text_overlay": "Primeiro conhecer o ponto de partida. Promessas, não."
+        "text_overlay": "Primeiro conhecer o ponto de partida.Promessas, não."
       },
       {
         "role": "stat",
-        "text_overlay": "Sem promessas vazias. Com método. Com tempo."
+        "text_overlay": "Sem promessas vazias.Com método. Com tempo."
       },
       {
         "role": "cta",
-        "text_overlay": "Prefere verdade a datas bonitas? Link na bio. Vamos falar."
+        "text_overlay": "Preferes verdade a datas bonitas?Link na bio. Vamos falar."
       }
     ]
   },
@@ -2639,27 +2639,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Sempre teve medo de treinar força. Achava que ficava grande."
+        "text_overlay": "Achava que ficava grande.Não sabia o que perdia."
       },
       {
         "role": "development",
-        "text_overlay": "Treinar força é para quem quer futuro."
+        "text_overlay": "Treinar força não é só para homens.É para quem quer futuro."
       },
       {
         "role": "development",
-        "text_overlay": "Músculo é proteção. Ossos. Metabolismo. Autonomia."
+        "text_overlay": "Músculo é proteção.Ossos. Metabolismo. Autonomia."
       },
       {
         "role": "development",
-        "text_overlay": "Ficar grande exige anos de trabalho. Não acontece por acaso."
+        "text_overlay": "«Ficar grande»exige anos de trabalho.Não acontece por acaso."
       },
       {
         "role": "development",
-        "text_overlay": "Força a sério. Sem impacto. Com método."
+        "text_overlay": "Força a sério.Sem impacto. Com método."
       },
       {
         "role": "cta",
-        "text_overlay": "Link na bio. Força não tem género."
+        "text_overlay": "Partilha com quem achaque força não é para ela."
       }
     ]
   },
@@ -2686,27 +2686,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Tem 65 anos. Decidiu que não ia enfraquecer."
+        "text_overlay": "Decidiu que não ia enfraquecer."
       },
       {
         "role": "development",
-        "text_overlay": "A força que perde dos 50 aos 70 decide o resto."
+        "text_overlay": "A força que perdes dos 50 aos 70decide o resto."
       },
       {
         "role": "development",
-        "text_overlay": "A ciência confirma: ganhos de força em qualquer idade."
+        "text_overlay": "A ciência confirma:ganhos de força em qualquer idade."
       },
       {
         "role": "development",
-        "text_overlay": "Nunca é tarde. O corpo responde."
+        "text_overlay": "Nunca é tarde.O corpo responde."
       },
       {
         "role": "stat",
-        "text_overlay": "Carga ajustada, sem sobrecarga. O método respeita o corpo."
+        "text_overlay": "Carga ajustada, sem sobrecarga.O método respeita o corpo."
       },
       {
         "role": "cta",
-        "text_overlay": "Link na bio. A idade não decide a força."
+        "text_overlay": "Partilha com quem dizque já não tem idade."
       }
     ]
   },
@@ -2733,27 +2733,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Como é que 25 minutos chegam? A resposta está dentro do músculo."
+        "text_overlay": "A resposta está dentro do músculo."
       },
       {
         "role": "development",
-        "text_overlay": "No treino convencional, o cérebro guarda fibras em reserva."
+        "text_overlay": "No treino convencional,o cérebro guarda fibras em reserva."
       },
       {
         "role": "development",
-        "text_overlay": "O estímulo elétrico fala diretamente com o músculo."
+        "text_overlay": "O estímulo elétricofala diretamente com o músculo."
       },
       {
         "role": "development",
-        "text_overlay": "Contração direta e profunda. Corpo inteiro ao mesmo tempo."
+        "text_overlay": "Contração direta e profunda.Corpo inteiro ao mesmo tempo."
       },
       {
         "role": "stat",
-        "text_overlay": "Mais fibras a trabalhar. Menos tempo preciso. É fisiologia."
+        "text_overlay": "Mais fibras a trabalhar.Menos tempo preciso. É fisiologia."
       },
       {
         "role": "cta",
-        "text_overlay": "Link na bio. Explicamos ao detalhe — sem jargão."
+        "text_overlay": "Link na bio.Explicamos ao detalhe — sem jargão."
       }
     ]
   },
@@ -2780,27 +2780,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Queria a rotina perfeita. Durou duas semanas. Depois, a vida apertou."
+        "text_overlay": "Durou duas semanas. Depois, a vida apertou."
       },
       {
         "role": "development",
-        "text_overlay": "Planos ambiciosos morrem na segunda semana. Os realistas ficam."
+        "text_overlay": "Planos ambiciososmorrem na segunda semana.Os realistas ficam."
       },
       {
         "role": "development",
-        "text_overlay": "O mínimo viável é estratégia. Sobrevive quando a vida aperta."
+        "text_overlay": "O mínimo viável é estratégia.Sobrevive quando a vida aperta."
       },
       {
         "role": "development",
-        "text_overlay": "25 minutos: curto demais para falhar. Forte para contar."
+        "text_overlay": "25 minutos: curto demaispara falhar. Forte para contar."
       },
       {
         "role": "stat",
-        "text_overlay": "Pouco, bem feito, sempre. É isso."
+        "text_overlay": "Pouco, bem feito, sempre.É isso."
       },
       {
         "role": "cta",
-        "text_overlay": "Link na bio. O próximo recomeço começa aqui."
+        "text_overlay": "Link na bio.O próximo recomeço começa aqui."
       }
     ]
   },
@@ -2827,27 +2827,27 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Procurou um estúdio. Fez três perguntas. Separaram os sérios dos improvisos."
+        "text_overlay": "Separaram os sérios dos improvisos."
       },
       {
         "role": "development",
-        "text_overlay": "O critério importa mais do que a máquina."
+        "text_overlay": "O critério importa maisdo que a máquina."
       },
       {
         "role": "development",
-        "text_overlay": "Um: quem regula a intensidade? E que preparação tem?"
+        "text_overlay": "Um: quem regula a intensidade?E que preparação tem?"
       },
       {
         "role": "development",
-        "text_overlay": "Dois: a sessão é adaptada a si ou igual para todos?"
+        "text_overlay": "Dois: a sessão é adaptada a tiou igual para todos?"
       },
       {
         "role": "development",
-        "text_overlay": "Três: explicam-lhe o método antes de falar de preço?"
+        "text_overlay": "Três: explicam-te o métodoantes de falar de preço?"
       },
       {
         "role": "cta",
-        "text_overlay": "Link na bio. Veja como a TechBody responde às três."
+        "text_overlay": "Link na bio.Vê como a TechBody responde às três."
       }
     ]
   },
@@ -2878,23 +2878,23 @@
       },
       {
         "role": "development",
-        "text_overlay": "Dói? Não. É intenso. Regulado ao segundo."
+        "text_overlay": "«Dói?»Não. É intenso.Regulado ao segundo."
       },
       {
         "role": "development",
-        "text_overlay": "Perguntar é o primeiro treino. Aqui vão as respostas."
+        "text_overlay": "Perguntar é o primeiro treino.Aqui vão as respostas."
       },
       {
         "role": "development",
-        "text_overlay": "E o ginásio? Na TechBody, a eletroestimulação é o treino principal."
+        "text_overlay": "«E o ginásio?»Na TechBody, a eletro estimulaçãoé o treino principal."
       },
       {
         "role": "development",
-        "text_overlay": "Quanto dura? 25 minutos. Para quem? Quase toda a gente."
+        "text_overlay": "«Quanto dura?»25 minutos.«Para quem?»Quase toda a gente."
       },
       {
         "role": "cta",
-        "text_overlay": "Link na bio. Respondemos a todas as perguntas."
+        "text_overlay": "Ficou alguma de fora?Link na bio. Respondemos a todas."
       }
     ]
   },
@@ -2955,7 +2955,7 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Decidiu treinar todos os dias. Durou duas semanas."
+        "text_overlay": "Durou duas semanas."
       },
       {
         "role": "development",
@@ -2963,7 +2963,7 @@
       },
       {
         "role": "development",
-        "text_overlay": "Foi quando descobriu que 20 minutos resolvem o que 90 nunca resolvem."
+        "text_overlay": "Foi quando descobriu que 25 minutos resolvem o que 90 nunca resolvem."
       },
       {
         "role": "development",
@@ -3015,7 +3015,7 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Só conhece o ginásio dos pais. Descobriu que o fitness mudou."
+        "text_overlay": "E descobre que o fitness mudou."
       },
       {
         "role": "development",
@@ -3075,19 +3075,19 @@
     "slides_text": [
       {
         "role": "hook",
-        "text_overlay": "Tem um ginásio. Receita estagnada. Descobriu o EMS como linha de receita."
+        "text_overlay": "Descobriu o EMS como linha de receita."
       },
       {
         "role": "development",
-        "text_overlay": "Ticket superior. Recorrência 2-3x por semana. O modelo encaixa."
+        "text_overlay": "1. Porquê EMS é nova linha de receita. Ticket superior. Recorrência 2-3x semana."
       },
       {
         "role": "development",
-        "text_overlay": "Rentabilidade por hora superior ao ginásio tradicional."
+        "text_overlay": "2. Quanto cobrar. EMS ganha em rentabilidade por hora."
       },
       {
         "role": "development",
-        "text_overlay": "15m² bastam. Fornecedores certificados. Método incluído."
+        "text_overlay": "3. O que é preciso. 15m². Fornecedores certificados."
       },
       {
         "role": "stat",
@@ -3095,7 +3095,7 @@
       },
       {
         "role": "cta",
-        "text_overlay": "Link na bio. Receba o ebook sobre o modelo de negócio."
+        "text_overlay": "Comenta EU QUERO. Recebe o ebook por DM."
       }
     ],
     "html_url": "../brands/luiz_santana/output/2026-07/carrosseis/c15-ebook-eletro-negocios.html",
