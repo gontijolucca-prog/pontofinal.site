@@ -599,6 +599,78 @@
 .btn--reject  { background: var(--accent); color: var(--bg); }
 .btn--ghost   { background: var(--bg); color: var(--text); }
 
+/* Toggle switch Aprovar/Pendente — substitui botões Aprovar/Reprovar */
+.toggle-approve {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 2px solid var(--border);
+  background: var(--bg);
+  cursor: pointer;
+  font: 700 11px/1 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: transform var(--d-fast) var(--ease), box-shadow var(--d-fast) var(--ease);
+  user-select: none;
+  -webkit-user-select: none;
+}
+.toggle-approve:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow);
+}
+.toggle-approve:active {
+  transform: translate(1px, 1px);
+  box-shadow: 0 0 0 0 var(--border);
+}
+.toggle-approve input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 40px;
+  height: 22px;
+  background: #ccc;
+  border-radius: 11px;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  position: relative;
+  transition: background 150ms, border-color 150ms;
+  flex-shrink: 0;
+}
+.toggle-approve input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background: var(--bg);
+  border-radius: 50%;
+  transition: transform 150ms;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.toggle-approve input[type="checkbox"]:checked {
+  background: var(--status-approved);
+  border-color: var(--status-approved);
+}
+.toggle-approve input[type="checkbox"]:checked::after {
+  transform: translateX(18px);
+}
+.toggle-approve input[type="checkbox"]:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.toggle-approve__label {
+  font: 700 11px/1 var(--font-mono, 'JetBrains Mono', monospace);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text);
+}
+.toggle-approve[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 /* Status badge — shown when item is approved/rejected */
 .status-stamp {
   position: absolute;

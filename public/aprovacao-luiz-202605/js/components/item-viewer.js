@@ -103,7 +103,7 @@ class ItemViewer extends HTMLElement {
     this._item = item;
     this._slide = 1;
     this._wizard = null;
-    this._viewMode = "image";
+    this._viewMode = "live";
     this.setAttribute("data-open", "true");
     this.setAttribute("aria-hidden", "false");
     document.body.classList.add("viewer-open");
@@ -288,10 +288,10 @@ class ItemViewer extends HTMLElement {
 
     const isReelVideo = isReel && !!it.video_url;
     const bust = `?v=${APP_VERSION}&c=${currentContentSig()}`;
-    // Híbrido: imagem final (screenshot) visível por defeito + iframe HTML
-    // escondido para edição ao vivo. Toggle permite alternar entre os dois.
-    // Quando o user focus um textarea, auto-switch para modo "ao vivo".
+    // Preview ao vivo (iframe HTML) por defeito — o que está nos textboxes
+    // reflecte-se no preview em tempo real. A imagem estática fica oculta.
     const shotBase = (it.html_url || "").replace(/\.html$/, "");
+    const effSt = it.status === "published" ? "published" : (approvalStore.get(it.id)?.status || "pending");
     let frameHtml = "";
     if (isReelVideo) {
       frameHtml = `<video class="viewer-video" src="${it.video_url}${bust}" controls autoplay loop playsinline></video>`;
@@ -300,14 +300,14 @@ class ItemViewer extends HTMLElement {
     } else if (isCarousel && shotBase) {
       const slideImg = `${shotBase}_shots/slide_01.jpg${bust}`;
       const iframeSrc = `${it.html_url}${bust}#slide-1`;
-      frameHtml = `<img class="viewer-slide-img" src="${slideImg}" alt="${this._escapeForHtml(it.title || "")}" />` +
-        `<iframe class="viewer-frame-iframe" data-src="${iframeSrc}" style="display:none" title="${this._escapeForHtml(it.title || "")}" scrolling="no"></iframe>`;
+      frameHtml = `<img class="viewer-slide-img" src="${slideImg}" alt="${this._escapeForHtml(it.title || "")}" style="display:none" />` +
+        `<iframe class="viewer-frame-iframe" src="${iframeSrc}" title="${this._escapeForHtml(it.title || "")}" scrolling="no"></iframe>`;
     } else if (it.html_url && shotBase) {
       // Story: imagem única + iframe para edição
       const storyImg = `${shotBase}.jpg${bust}`;
       const iframeSrc = `${it.html_url}${bust}`;
-      frameHtml = `<img class="viewer-slide-img" src="${storyImg}" alt="${this._escapeForHtml(it.title || "")}" />` +
-        `<iframe class="viewer-frame-iframe" data-src="${iframeSrc}" style="display:none" title="${this._escapeForHtml(it.title || "")}" scrolling="no"></iframe>`;
+      frameHtml = `<img class="viewer-slide-img" src="${storyImg}" alt="${this._escapeForHtml(it.title || "")}" style="display:none" />` +
+        `<iframe class="viewer-frame-iframe" src="${iframeSrc}" title="${this._escapeForHtml(it.title || "")}" scrolling="no"></iframe>`;
     }
     // Direct-edit textareas for each slide + caption
     // Fallback: se slides_text está vazio mas o item tem slides, gera textareas vazios
@@ -330,6 +330,8 @@ class ItemViewer extends HTMLElement {
         <textarea data-edit-caption rows="4">${this._escapeForHtml(it.caption || "")}</textarea>
         <span class="viewer-edit-caption__fb" data-fb-caption></span>
       </div>` : "";
+    const toggleChecked = effSt === "approved" || effSt === "published";
+    const toggleDisabled = effSt === "published";
 
     this.innerHTML = `
       <div class="viewer-modal viewer-modal--zoom" data-format="${it.format}" role="dialog" aria-modal="true" aria-label="${this._escapeForHtml(it.title || it.theme || "")}">
@@ -354,9 +356,12 @@ class ItemViewer extends HTMLElement {
             ${slideEditors}
             ${captionEditor}
             <div class="viewer-actions" style="display:flex;gap:0;margin-top:8px;flex-wrap:wrap">
-              <button class="btn" data-action="start-edit" style="flex:1 0 100%;padding:10px;border:2px solid var(--border);background:var(--text);color:var(--bg);cursor:pointer;font:700 12px/1 'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:4px">✎ Assistente de revisão</button>
-              <button class="btn" data-action="approve-direct" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 'JetBrains Mono',monospace;text-transform:uppercase">✓ Aprovar</button>
-              <button class="btn" data-action="reject-direct" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 'JetBrains Mono',monospace;text-transform:uppercase">✗ Reprovar</button>
+              <button class="btn" data-action="start-edit" style="flex:1 0 100%;padding:10px;border:2px solid var(--border);background:var(--text);color:var(--bg);cursor:pointer;font:700 12px/1 'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:8px">✎ Assistente de revisão</button>
+              <label class="toggle-approve" data-action="approve-toggle"${toggleDisabled ? " data-disabled" : ""}>
+                <input type="checkbox" ${toggleChecked ? "checked" : ""} ${toggleDisabled ? "disabled" : ""} />
+                <span class="toggle-approve__slider"></span>
+                <span class="toggle-approve__label">Aprovado</span>
+              </label>
               <button class="btn" data-action="publish" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 'JetBrains Mono',monospace;text-transform:uppercase">📌 Publicado</button>
             </div>
             <p class="viewer-hint">${isCarousel ? "Desliza entre os slides com ‹ ›. " : ""}A imagem final é a referência. Clica num campo de texto para editar.</p>
@@ -397,22 +402,16 @@ class ItemViewer extends HTMLElement {
       if (a === "close")  return this._wizard ? this._exitWizard() : this.close();
       if (a === "prev")   return this._step(-1);
       if (a === "next")   return this._step(+1);
-      // mode toggle removido — imagem final = ao vivo
-      if (a === "start-approve") return this._startWizard("approved");
-      if (a === "start-reject")  return this._startWizard("rejected");
       if (a === "start-edit")    return this._startWizard("edit");
-      if (a === "approve-direct") {
-        if (confirm("Aprovar este item?")) {
-          import("../stores/approval-store.js").then(m => m.approvalStore.set(this._item.id, "approved"));
+      if (a === "approve-toggle") {
+        // Toggle switch — força gravação de texto pendente antes de mudar estado.
+        const cb = this.querySelector(".toggle-approve input[type=\"checkbox\"]");
+        if (!cb || cb.disabled) return;
+        const newStatus = cb.checked ? "approved" : "pending";
+        this._flushPendingEdits().then(() => {
+          import("../stores/approval-store.js").then(m => m.approvalStore.set(this._item.id, newStatus));
           this._refreshStatusLine();
-        }
-        return;
-      }
-      if (a === "reject-direct") {
-        if (confirm("Reprovar este item?")) {
-          import("../stores/approval-store.js").then(m => m.approvalStore.set(this._item.id, "rejected"));
-          this._refreshStatusLine();
-        }
+        });
         return;
       }
       if (a === "publish") {
@@ -638,7 +637,6 @@ class ItemViewer extends HTMLElement {
     try {
       const cfg = {
         approved: { icon: "✓", text: "Aprovado", color: "#2BB05F" },
-        rejected: { icon: "✕", text: "Rejeitado", color: "#FF4D2E" },
         edit: { icon: "✎", text: "Textos guardados", color: "#333" },
       };
       const c = cfg[status]; if (!c) return;
@@ -729,6 +727,38 @@ class ItemViewer extends HTMLElement {
     } catch (e) {
       console.warn("[viewer] erro ao salvar HTML:", e);
     }
+  }
+
+  // Força gravação de todas as edições pendentes nos textboxes antes de
+  // aprovar. Espera que todos os debounces pendentes terminem.
+  async _flushPendingEdits() {
+    const timers = this._editTimers || {};
+    const keys = Object.keys(timers);
+    if (!keys.length) return;
+    // Disparar os callbacks pendentes imediatamente.
+    for (const key of keys) {
+      clearTimeout(timers[key]);
+      const ta = key === "caption"
+        ? this.querySelector("[data-edit-caption]")
+        : this.querySelector(`[data-edit-slide="${key.replace("slide-", "")}"]`);
+      if (!ta) continue;
+      const val = ta.value.trim();
+      if (!val) continue;
+      if (key === "caption") {
+        await approvalStore.setCaptionCopy(this._item.id, val);
+        if (this._item) this._item.caption = val;
+      } else {
+        const n = parseInt(key.replace("slide-", ""), 10);
+        await approvalStore.setSlideCopy(this._item.id, n, val);
+        if (this._item && this._item.slides_text && this._item.slides_text[n - 1]) {
+          const f = this._item.slides_text[n - 1].text_overlay != null ? "text_overlay" : "text";
+          this._item.slides_text[n - 1][f] = val;
+        }
+      }
+      const fb = this.querySelector(key === "caption" ? "[data-fb-caption]" : `[data-fb-slide="${key.replace("slide-", "")}"]`);
+      if (fb) { fb.textContent = "✓"; setTimeout(() => { fb.textContent = ""; }, 1500); }
+    }
+    this._editTimers = {};
   }
 
   _escapeForHtml(s) {
