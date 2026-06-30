@@ -309,13 +309,6 @@ class ItemViewer extends HTMLElement {
       frameHtml = `<img class="viewer-slide-img" src="${storyImg}" alt="${this._escapeForHtml(it.title || "")}" />` +
         `<iframe class="viewer-frame-iframe" data-src="${iframeSrc}" style="display:none" title="${this._escapeForHtml(it.title || "")}" scrolling="no"></iframe>`;
     }
-    // Toggle imagem/ao-vivo (só para carrosséis e stories com HTML)
-    const modeToggle = (!isReel && it.html_url) ? `
-      <div class="viewer-mode-toggle">
-        <button class="viewer-mode-btn is-active" data-action="mode-image">📷 Imagem final</button>
-        <button class="viewer-mode-btn" data-action="mode-live">✏️ Ao vivo</button>
-      </div>` : "";
-
     // Direct-edit textareas for each slide + caption
     // Fallback: se slides_text está vazio mas o item tem slides, gera textareas vazios
     const slidesArr = (it.slides_text && it.slides_text.length)
@@ -343,7 +336,6 @@ class ItemViewer extends HTMLElement {
         <div class="viewer-frame-col">
           <div class="viewer-frame-wrap${isReelVideo ? " viewer-frame-wrap--video" : ""}">${frameHtml}</div>
           ${navbarHtml}
-          ${modeToggle}
         </div>
         <aside class="viewer-panel">
           <div class="viewer-panel__default" data-panel="default">
@@ -367,7 +359,7 @@ class ItemViewer extends HTMLElement {
               <button class="btn" data-action="reject-direct" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 'JetBrains Mono',monospace;text-transform:uppercase">✗ Reprovar</button>
               <button class="btn" data-action="publish" style="flex:1;padding:8px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font:700 11px/1 'JetBrains Mono',monospace;text-transform:uppercase">📌 Publicado</button>
             </div>
-            <p class="viewer-hint">${isCarousel ? "Desliza entre os slides com ‹ ›. " : ""}Vês a imagem final por defeito. Clica num campo de texto para editar ao vivo, ou usa o toggle 📷/✏️ para alternar.</p>
+            <p class="viewer-hint">${isCarousel ? "Desliza entre os slides com ‹ ›. " : ""}A imagem final é a referência. Clica num campo de texto para editar.</p>
           </div>
         </aside>
         <button class="viewer-close" data-action="close" aria-label="Fechar">×</button>
@@ -383,43 +375,7 @@ class ItemViewer extends HTMLElement {
     this._bindDirectEditors();
   }
 
-  _switchViewMode(mode) {
-    if (this._viewMode === mode) return;
-    this._viewMode = mode;
-    const img = this.querySelector(".viewer-slide-img");
-    const iframe = this.querySelector(".viewer-frame-iframe");
-    const btnImg = this.querySelector('[data-action="mode-image"]');
-    const btnLive = this.querySelector('[data-action="mode-live"]');
-    if (mode === "live") {
-      if (img) img.style.display = "none";
-      if (iframe) {
-        if (iframe.dataset.src && !iframe.src) {
-          iframe.src = iframe.dataset.src;
-          delete iframe.dataset.src;
-        }
-        iframe.style.display = "";
-        const wrap = this.querySelector(".viewer-frame-wrap");
-        if (wrap && this._item) {
-          if (this._fitCleanup) this._fitCleanup();
-          const [nw, nh] = dimsFor(this._item.format);
-          this._fitCleanup = fitScaledFrame(wrap, nw, nh);
-        }
-        // Navegar para o slide actual + aplicar overrides quando carregar
-        iframe.addEventListener("load", () => {
-          this._gotoSlideInFrame(this._slide);
-          this._applyStoredOverrides && this._applyStoredOverrides();
-        }, { once: true });
-      }
-      btnImg?.classList.remove("is-active");
-      btnLive?.classList.add("is-active");
-    } else {
-      if (img) img.style.display = "";
-      if (iframe) iframe.style.display = "none";
-      if (this._fitCleanup) { this._fitCleanup(); this._fitCleanup = null; }
-      btnLive?.classList.remove("is-active");
-      btnImg?.classList.add("is-active");
-    }
-  }
+  // Toggle imagem/ao-vivo removido — ambos modos usam .jpg agora
 
   _refreshStatusLine() {
     const el = this.querySelector("[data-status-line]");
@@ -441,8 +397,7 @@ class ItemViewer extends HTMLElement {
       if (a === "close")  return this._wizard ? this._exitWizard() : this.close();
       if (a === "prev")   return this._step(-1);
       if (a === "next")   return this._step(+1);
-      if (a === "mode-image") return this._switchViewMode("image");
-      if (a === "mode-live")  return this._switchViewMode("live");
+      // mode toggle removido — imagem final = ao vivo
       if (a === "start-approve") return this._startWizard("approved");
       if (a === "start-reject")  return this._startWizard("rejected");
       if (a === "start-edit")    return this._startWizard("edit");
@@ -701,10 +656,6 @@ class ItemViewer extends HTMLElement {
     // Slide text editors
     this.querySelectorAll("[data-edit-slide]").forEach(ta => {
       const n = parseInt(ta.dataset.editSlide, 10);
-      // Auto-switch para modo ao vivo quando o user começa a editar
-      ta.addEventListener("focus", () => {
-        if (this._viewMode !== "live") this._switchViewMode("live");
-      });
       ta.addEventListener("input", () => {
         this._editFrameH1(this.querySelector(".viewer-frame-iframe"), n, ta.value);
         this._debounceEdit(`slide-${n}`, async () => {
