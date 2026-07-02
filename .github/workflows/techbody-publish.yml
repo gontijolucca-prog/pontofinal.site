@@ -9,6 +9,10 @@ on:
       dry_run:
         description: "Dry-run (1 = só mostra plano)"
         default: "1"
+      publish_only:
+        description: "IDs específicos (vírgula-separados). Vazio = todos os due."
+        default: ""
+        required: false
 
 concurrency:
   group: techbody-publish
@@ -50,6 +54,7 @@ jobs:
           IG_USER_ID_LUIZ_SANTANA: ${{ secrets.IG_USER_ID_LUIZ_SANTANA }}
           DRY_RUN: ${{ github.event.inputs.dry_run || '0' }}
           PUBLISH_ENABLED: ${{ secrets.PUBLISH_ENABLED }}
+          PUBLISH_ONLY: ${{ github.event.inputs.publish_only || '' }}
         run: python3 -u scripts/techbody_publisher.py
 
       - name: Alertar falhas (issue deduped + email)

@@ -41,6 +41,13 @@ TZ = ZoneInfo("Europe/Lisbon")
 PUBLISH_CAP = int(os.environ.get("PUBLISH_CAP", "3"))
 DRY = os.environ.get("DRY_RUN") == "1"
 
+# ── PUBLISH_ONLY: lista de item IDs separados por vírgula ─────────────
+# Quando definido, o publisher SÓ publica esses items (ignora todos os
+# outros aprovados/due). Útil para publicações manuais e direccionadas.
+PUBLISH_ONLY = set(
+    s.strip() for s in os.environ.get("PUBLISH_ONLY", "").split(",") if s.strip()
+)
+
 # ── QUALITY GATE ────────────────────────────────────────────────────────
 # Antes de publicar, validar que os PNGs têm dimensões correctas e não
 # estão stale. Se o quality_gate falhar, abortar (mesmo em modo não-dry).
@@ -521,6 +528,9 @@ def main():
         for iid, item in sorted(items.items(), key=lambda kv: (kv[1].get("scheduled_for") or "", kv[0])):
             if published >= PUBLISH_CAP:
                 break
+            # Filtro PUBLISH_ONLY: se definido, ignorar tudo o que não estiver na lista
+            if PUBLISH_ONLY and iid not in PUBLISH_ONLY:
+                continue
             # peças só-preview vivem na página de aprovação mas NUNCA publicam,
             # mesmo aprovadas (ex.: stories do Luiz, decisão 2026-06-10)
             if item.get("preview_only"):
