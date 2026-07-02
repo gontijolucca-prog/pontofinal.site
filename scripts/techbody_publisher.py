@@ -82,13 +82,13 @@ def log_history(item_id, *, status, brand=None, kind=None, ig_post_id=None,
         "kind": kind,
         "status": status,
         "ig_post_id": ig_post_id,
-        "caption": (caption or "")[:500] if caption else None,
         "error_detail": (error_detail or "")[:500] if error_detail else None,
         "scheduled_for": scheduled_for,
         "item_scheduled_for": item_scheduled_for,
         "dry_run": bool(dry_run),
     }
     row = {k: v for k, v in row.items() if v is not None}
+    # NOTE: 'caption' column removed from publish_history — causes PGRST204 schema error
     try:
         sb("POST", "/publish_history", row)
     except Exception as e:
@@ -353,6 +353,14 @@ def main():
     except RuntimeError:
         ledger = {r["item_id"]: r for r in sb("GET", "/publish_queue?select=item_id,status")}
 
+    print(f"  ledger: {len(ledger)} items — {sum(1 for r in ledger.values() if r.get('status')=='published')} published, {sum(1 for r in ledger.values() if r.get('status')=='publishing')} publishing, {sum(1 for r in ledger.values() if r.get('status')=='error')} error")
+
+    # SAFEGUARD: se o ledger estiver vazio, NUNCA publicar (pode causar duplicados)
+    if not ledger and not DRY:
+        print("ABORT: publish_queue vazio — risco de duplicados. A interromper.")
+        print("  Para a primeira execução, usar DRY_RUN=1 para verificar o plano.")
+        sys.exit(1)
+
     # claims 'publishing' antigos = run anterior morreu a meio; nunca republicar
     # às cegas — alertar para verificação manual no Instagram
     alerts = []
@@ -423,7 +431,7 @@ def main():
                         sb("POST", "/publish_queue?on_conflict=item_id", {
                             "item_id": iid, "namespace": ns, "brand": brand,
                             "kind": item["format"], "status": "skipped_no_token",
-                            "caption": f"sem token/user para {brand}",
+                            "status": "skipped_no_token",
                             "scheduled_for": when.isoformat(),
                         }, prefer="resolution=merge-duplicates")
                     except Exception as e:
@@ -484,7 +492,6 @@ def main():
                     sb("POST", "/publish_queue?on_conflict=item_id", {
                         "item_id": iid, "namespace": ns, "brand": brand,
                         "kind": item["format"], "status": "error",
-                        "caption": str(e)[:500],
                         "scheduled_for": when.isoformat(),
                     }, prefer="resolution=merge-duplicates")
                 except Exception as e2:
@@ -502,8 +509,6 @@ def main():
                 sb("POST", "/publish_queue?on_conflict=item_id", {
                     "item_id": iid, "namespace": ns, "brand": brand,
                     "kind": item["format"], "status": "published",
-                    "caption": caption[:500],
-                    "assets": dict(build_assets(item), media_id=media_id),
                     "scheduled_for": when.isoformat(),
                 }, prefer="resolution=merge-duplicates")
                 print(f"OK {iid} → media {media_id}")
