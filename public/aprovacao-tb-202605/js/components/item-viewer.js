@@ -432,20 +432,28 @@ class ItemViewer extends HTMLElement {
     if (dateInput) dateInput.addEventListener("change", async (e) => {
       const v = e.target.value; if (!v || !this._item) return;
       const old = this._item.scheduled_for; if (v === old) return;
+      // ── CONFIRMAÇÃO ANTES DE AGENDAR ──
+      const ok = await this._confirmSchedule(v, this._item.hour || "12h00");
+      if (!ok) { e.target.value = old || ""; return; }
       this._item.scheduled_for = v;
       try { await approvalStore.setDate(this._item.id, v); }
       catch { this._item.scheduled_for = old; e.target.value = old || ""; return; }
       this.dispatchEvent(new CustomEvent("item:date-changed", { bubbles: true, detail: { id: this._item.id, date: v, oldDate: old } }));
+      this._showEditToast(`Data alterada para ${v} — item precisa de re-render`);
     });
 
     const hourInput = this.querySelector("input[data-edit-hour]");
     if (hourInput) hourInput.addEventListener("change", async (e) => {
       const v = e.target.value; if (!v || !this._item) return;
       const old = this._item.hour; if (v === old) return;
+      // ── CONFIRMAÇÃO ANTES DE AGENDAR ──
+      const ok = await this._confirmSchedule(this._item.scheduled_for || "?", v);
+      if (!ok) { e.target.value = old || ""; return; }
       this._item.hour = v;
       try { await approvalStore.setHour(this._item.id, v); }
       catch { this._item.hour = old; e.target.value = old || ""; return; }
       this.dispatchEvent(new CustomEvent("item:hour-changed", { bubbles: true, detail: { id: this._item.id, hour: v, oldHour: old } }));
+      this._showEditToast(`Hora alterada para ${v} — item precisa de re-render`);
     });
   }
 
@@ -498,6 +506,46 @@ class ItemViewer extends HTMLElement {
   _debounceEdit(key, fn) {
     clearTimeout(this._editTimers[key]);
     this._editTimers[key] = setTimeout(fn, 500);
+  }
+
+  // ── PASSO 5: Confirmação antes de agendar ──────────────────────────
+  async _confirmSchedule(date, hour) {
+    return new Promise((resolve) => {
+      const backdrop = document.createElement("div");
+      backdrop.style.cssText = "position:fixed;inset:0;z-index:10001;background:rgba(0,0,0,0.55);display:grid;place-items:center;padding:16px;";
+      backdrop.innerHTML = `
+        <div style="background:#fff;color:#050505;width:min(420px,100%);border:4px solid #050505;box-shadow:10px 10px 0 0 #050505;padding:24px 22px;font-family:'JetBrains Mono',ui-monospace,monospace;">
+          <h2 style="font:800 20px/1.1 'Arial Black',Impact,sans-serif;margin:0 0 8px;">Confirmar agendamento</h2>
+          <p style="font-size:13px;line-height:1.5;color:rgba(5,5,5,0.7);margin:0 0 18px;">
+            Confirmar publicação para <strong>${date}</strong> às <strong>${hour}</strong>?<br><br>
+            O item precisará de ser re-renderizado antes de publicar.
+          </p>
+          <div style="display:flex;gap:12px;">
+            <button type="button" id="confirmYes" style="flex:1;padding:12px;background:#050505;color:#fff;font:800 12px/1 'Arial Black',sans-serif;letter-spacing:0.06em;text-transform:uppercase;border:3px solid #050505;cursor:pointer;">Confirmar</button>
+            <button type="button" id="confirmNo" style="flex:1;padding:12px;background:#fff;color:#050505;font:800 12px/1 'Arial Black',sans-serif;letter-spacing:0.06em;text-transform:uppercase;border:3px solid #050505;cursor:pointer;">Cancelar</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(backdrop);
+      const yes = backdrop.querySelector("#confirmYes");
+      const no = backdrop.querySelector("#confirmNo");
+      yes.addEventListener("click", () => { backdrop.remove(); resolve(true); });
+      no.addEventListener("click", () => { backdrop.remove(); resolve(false); });
+      backdrop.addEventListener("click", (e) => { if (e.target === backdrop) { backdrop.remove(); resolve(false); } });
+    });
+  }
+
+  _showEditToast(msg) {
+    const t = document.createElement("div");
+    t.style.cssText = "position:fixed;bottom:80px;left:50%;transform:translateX(-50%);max-width:min(90vw,420px);background:#f69e1e;color:#050505;padding:13px 20px;font:700 12.5px/1.4 'JetBrains Mono',ui-monospace,monospace;border:3px solid #050505;box-shadow:5px 5px 0 0 #050505;z-index:10001;text-align:center;";
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => {
+      t.style.transition = "opacity .25s,transform .25s";
+      t.style.opacity = "0";
+      t.style.transform = "translateX(-50%) translateY(8px)";
+      setTimeout(() => t.remove(), 260);
+    }, 3200);
   }
 
   // Salva a edição do texto permanentemente no ficheiro HTML do post

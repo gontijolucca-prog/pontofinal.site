@@ -2,8 +2,8 @@
 <html lang="pt-PT">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="20260629-1343" />
-<meta name="app-version" content="20260702-1120" />
+<meta name="viewport" content="20260702-2" />
+<meta name="app-version" content="20260702-1636" />
 <title>Aprovação · Conteúdo</title>
 
 <script>
@@ -213,6 +213,8 @@
   <user-menu id="userMenu" aria-hidden="true"></user-menu>
 </header>
 
+<top-tabs id="topTabs"></top-tabs>
+
 <main id="main">
 
   <!-- HERO ACTION — direcciona o user ao próximo item pendente -->
@@ -296,14 +298,6 @@
   ⚠ Sem ligação à internet. As tuas alterações ficam guardadas localmente e sincronizam quando voltar.
 </div>
 
-<footer class="app-footer">
-  <span id="footerStatus">Estado sincronizado</span>
-  <span>
-    Aprovados <strong id="approvedCount">0</strong>
-    · Rejeitados <strong id="rejectedCount">0</strong>
-    · Pendentes <strong id="pendingCount">0</strong>
-  </span>
-</footer>
 
 <script>
   // Offline detection — independente dos módulos JS
@@ -337,6 +331,8 @@
 <script type="module" src="js/components/item-viewer.js"></script>
 <script type="module" src="js/components/auth-modal.js"></script>
 <script type="module" src="js/components/user-menu.js"></script>
+<script type="module" src="js/components/pub-queue.js"></script>
+<script type="module" src="js/components/top-tabs.js"></script>
 <script type="module" src="js/main.js"></script>
 <script>
   // Badge "Atualizar" — aparece no header quando versão detectada != carregada.

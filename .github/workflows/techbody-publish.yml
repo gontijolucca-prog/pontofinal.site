@@ -1,8 +1,9 @@
 name: TechBody IG Publisher
 
 on:
-  schedule:
-    - cron: "*/30 * * * *"   # a cada 30 min — o script só publica o que está due
+  # schedule:
+  #   - cron: "*/30 * * * *"   # DESATIVADO 25-jun-2026 — publicações acidentais
+  #   Reativar requer PUBLISH_ENABLED=true nos Secrets + autorização do user
   workflow_dispatch:
     inputs:
       dry_run:
@@ -48,6 +49,7 @@ jobs:
           IG_TOKEN_LUIZ_SANTANA: ${{ secrets.IG_TOKEN_LUIZ_SANTANA }}
           IG_USER_ID_LUIZ_SANTANA: ${{ secrets.IG_USER_ID_LUIZ_SANTANA }}
           DRY_RUN: ${{ github.event.inputs.dry_run || '0' }}
+          PUBLISH_ENABLED: ${{ secrets.PUBLISH_ENABLED }}
         run: python3 -u scripts/techbody_publisher.py
 
       - name: Alertar falhas (issue deduped + email)

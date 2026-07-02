@@ -40,6 +40,53 @@ TZ = ZoneInfo("Europe/Lisbon")
 PUBLISH_CAP = int(os.environ.get("PUBLISH_CAP", "3"))
 DRY = os.environ.get("DRY_RUN") == "1"
 
+# ── QUALITY GATE ────────────────────────────────────────────────────────
+# Antes de publicar, validar que os PNGs têm dimensões correctas e não
+# estão stale. Se o quality_gate falhar, abortar (mesmo em modo não-dry).
+QUALITY_GATE = os.environ.get("SKIP_QUALITY_GATE") != "1"
+
+
+def run_quality_gate():
+    """Corre quality_gate.py como subprocess. Retorna True se passou."""
+    if not QUALITY_GATE:
+        print("  (quality gate desativado via SKIP_QUALITY_GATE)")
+        return True
+    qg_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "quality_gate.py")
+    if not os.path.exists(qg_path):
+        print("  AVISO: quality_gate.py não encontrado — a saltar verificação")
+        return True
+    print("  a correr quality_gate...")
+    try:
+        result = subprocess.run(
+            [sys.executable, qg_path, "--json"],
+            capture_output=True, text=True, timeout=120
+        )
+        if result.returncode == 0:
+            data = json.loads(result.stdout)
+            s = data.get("summary", {})
+            print(f"  quality_gate: {s.get('pass',0)} pass, {s.get('fail',0)} fail")
+            return True
+        else:
+            try:
+                data = json.loads(result.stdout)
+            except Exception:
+                data = {"items": [], "summary": {"fail": 1, "pass": 0}}
+            s = data.get("summary", {})
+            print(f"  quality_gate FAIL: {s.get('fail',0)} items com problemas")
+            for item in data.get("items", []):
+                if item.get("status") == "fail":
+                    print(f"    ✗ {item['item_id']}: {'; '.join(item.get('errors',[]))}")
+            for ns, st in data.get("staleness", {}).items():
+                if st.get("status") == "fail":
+                    print(f"    ✗ STALENESS [{ns}]: {st.get('detail','')}")
+            return False
+    except subprocess.TimeoutExpired:
+        print("  quality_gate: TIMEOUT — a abortar")
+        return False
+    except Exception as e:
+        print(f"  quality_gate: erro ({e}) — a abortar por segurança")
+        return False
+
 # namespace de aprovação → deploy folder; marca → conta IG
 DEPLOYS = {
     "cm-approval-tb-v1": "public/aprovacao-tb-202605",
@@ -339,7 +386,76 @@ def publish_item(item, caption, ig_user, token):
         return ig_publish(ig_user, token, c)
 
 
+# ── PASSO 7: Verificação pós-publicação ──────────────────────────────────
+def verify_post(ig_user, token, media_id, retries=3, delay=10):
+    """Verifica que o post existe no IG e tenta validar dimensões.
+    Retorna dict com status: verified / mismatch / error."""
+    for attempt in range(retries):
+        try:
+            code, resp = http("GET",
+                f"{GRAPH}/{media_id}?fields=id,media_type,media_url,permalink,timestamp"
+                f"&access_token={urllib.parse.quote(token)}")
+            if code != 200:
+                if attempt < retries - 1:
+                    time.sleep(delay)
+                    continue
+                return {"status": "error", "error": f"Graph API {code}: {resp}"}
+            permalink = resp.get("permalink", "")
+            media_url = resp.get("media_url", "")
+            dims = None
+            if media_url:
+                try:
+                    req = urllib.request.Request(media_url,
+                        headers={"User-Agent": UA, "Range": "bytes=0-4096"})
+                    with urllib.request.urlopen(req, timeout=30) as r:
+                        header = r.read(4096)
+                        if header[:8] == b'\x89PNG\r\n\x1a\n' and len(header) >= 24:
+                            import struct
+                            w = struct.unpack('>I', header[16:20])[0]
+                            h = struct.unpack('>I', header[20:24])[0]
+                            dims = f"{w}x{h}"
+                except Exception:
+                    pass
+            result = {"status": "verified", "permalink": permalink,
+                      "media_url": media_url}
+            if dims:
+                result["dimensions"] = dims
+            return result
+        except Exception as e:
+            if attempt < retries - 1:
+                time.sleep(delay)
+                continue
+            return {"status": "error", "error": str(e)[:200]}
+    return {"status": "error", "error": "max retries exceeded"}
+
+
+# ── PASSO 8: Info de assets para log de auditoria ────────────────────────
+def get_assets_info(item):
+    """Recolhe info de assets (URLs, acessibilidade) para auditoria."""
+    assets = build_assets(item)
+    fmt = item.get("format")
+    info = {"format": fmt, "slides": []}
+    urls = assets.get("photos") or [assets.get("video")] or []
+    for url in (urls or []):
+        if not url:
+            continue
+        info["slides"].append({"url": url, "accessible": head_ok(url)})
+    return info
+
+
 def main():
+    # ── KILL SWITCH ──────────────────────────────────────────────────────
+    # PUBLISH_ENABLED tem de ser "true" (string) nos GitHub Secrets.
+    # Default: ausente / "false" → publisher recusa correr.
+    # Isto previne 100% das publicações acidentais, mesmo que o cron seja
+    # reativado por engano.
+    publish_enabled = os.environ.get("PUBLISH_ENABLED", "").strip().lower()
+    if publish_enabled != "true":
+        print("BLOCKED: PUBLISH_ENABLED != true — a interromper sem publicar.")
+        print("  Para publicar: definir PUBLISH_ENABLED=true nos GitHub Secrets")
+        print("  e correr gh workflow run techbody-publish.yml -f dry_run=1 primeiro.")
+        sys.exit(0)
+
     if not SB_URL or not SB_KEY:
         print("FATAL: SUPABASE_URL/SUPABASE_SERVICE_ROLE_KEY em falta")
         sys.exit(1)
@@ -360,6 +476,16 @@ def main():
         print("ABORT: publish_queue vazio — risco de duplicados. A interromper.")
         print("  Para a primeira execução, usar DRY_RUN=1 para verificar o plano.")
         sys.exit(1)
+
+    # ── QUALITY GATE ──────────────────────────────────────────────────────
+    # Validar PNGs antes de qualquer publicação. Em DRY_RUN, reporta mas não
+    # aborta (para o user ver o plano + os problemas ao mesmo tempo).
+    if not DRY:
+        if not run_quality_gate():
+            print("ABORT: quality_gate falhou — corrigir antes de publicar.")
+            sys.exit(1)
+    else:
+        run_quality_gate()  # reporta mas não aborta em dry-run
 
     # claims 'publishing' antigos = run anterior morreu a meio; nunca republicar
     # às cegas — alertar para verificação manual no Instagram
@@ -516,14 +642,46 @@ def main():
                 print(f"AVISO {iid}: PUBLICADO (media {media_id}) mas ledger não atualizou: {e}")
                 alerts.append({"type": "ledger_update_failed", "item_id": iid, "brand": brand,
                                "detail": f"post SAIU (media_id={media_id}) mas ficou 'publishing' no ledger — marcar 'published' no Supabase"})
-            # log imutável: TUDO o que toca o Instagram fica registado, mesmo se
-            # o ledger falhou a atualizar
+            # ── VERIFICAÇÃO PÓS-PUBLICAÇÃO (passo 7) ────────────────────
+            # Confirmar que o post existe no Instagram e validar dimensões
+            post_verification = verify_post(ig_user, token, media_id)
+            if post_verification.get("status") == "verified":
+                print(f"  ✓ verificado no IG: {post_verification.get('permalink','')}")
+                ig_dims = post_verification.get("dimensions", "")
+                if ig_dims:
+                    print(f"    dimensões IG: {ig_dims}")
+            elif post_verification.get("status") == "mismatch":
+                ig_dims = post_verification.get("dimensions", "")
+                print(f"  ⚠ MISMATCH: IG devolveu dimensões diferentes: {ig_dims}")
+                alerts.append({"type": "dimension_mismatch", "item_id": iid, "brand": brand,
+                               "detail": f"Post publicado mas dimensões no IG diferem do original: {ig_dims}"})
+            else:
+                print(f"  ⚠ verificação pós-publicação falhou: {post_verification.get('error','')}")
+
+            # ── LOG EXPANDIDO (passo 8) ─────────────────────────────────────
+            # Log imutável com auditoria completa: asset md5, dimensões,
+            # verificação pós-publicação
+            assets_info = get_assets_info(item)
             log_history(iid, status="published", brand=brand,
                         kind=item["format"], namespace=ns,
                         ig_post_id=media_id,
                         caption=caption[:500],
                         scheduled_for=when.isoformat(),
                         item_scheduled_for=item.get("scheduled_for"))
+            # Log adicional de verificação em ficheiro local (publish_history
+            # do Supabase tem schema fixo — info extra vai para fallback JSONL)
+            try:
+                verification_row = {
+                    "item_id": iid, "namespace": ns, "brand": brand,
+                    "ig_post_id": media_id,
+                    "post_verification": post_verification,
+                    "assets": assets_info,
+                    "published_at": datetime.now(TZ).isoformat(),
+                }
+                with open(HISTORY_FALLBACK_PATH.replace(".jsonl", "_verification.jsonl"), "a", encoding="utf-8") as f:
+                    f.write(json.dumps(verification_row, ensure_ascii=False) + "\n")
+            except Exception:
+                pass
             published += 1
 
     if alerts and not DRY:

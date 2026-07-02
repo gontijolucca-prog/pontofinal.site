@@ -7,6 +7,8 @@ import { supabase, AUTH_ENABLED, USE_SUPABASE, initSupabase } from "./lib/supaba
 import { monthShortLabel } from "./components/month-switcher.js";
 import { DASHBOARD_URL, APP_VERSION } from "./config.js";
 import { fitScaledFrame, dimsFor } from "./lib/fit-frame.js";
+import { initPubQueue, setBrandFilter } from "./components/pub-queue.js";
+// top-tabs.js é carregado via <script> no HTML — não precisa de import aqui
 
 function todayYYYYMM() {
   const d = new Date();
@@ -296,7 +298,7 @@ function renderPublishedSection() {
   const container = document.getElementById("publishedGrid");
   const totalEl = document.getElementById("publishedCount");
   if (!container) return;
-  const pubItems = state.items.filter(i => i.status === "published" && inferMonth(i) === state.currentMonth);
+  const pubItems = state.items.filter(i => i.status === "published" && inferMonth(i) === state.currentMonth && (state.currentBrand === "all" || i.brand === state.currentBrand));
   pubItems.sort((a, b) => String(b.published_at || "").localeCompare(String(a.published_at || "")));
   if (totalEl) totalEl.textContent = pubItems.length;
   // Actualizar hint com contagens por formato.
@@ -933,6 +935,37 @@ async function init() {
   render();
   // Wait one frame for the components to mount their iframes, then watch them.
   requestAnimationFrame(() => requestAnimationFrame(manageLoader));
+
+  // ── FILA DE PUBLICAÇÃO ──────────────────────────────────────────────
+  initPubQueue(state.items);
+
+  // Esconder todas as secções no load — menu inicial é o default
+  const sectionsToHide = ['pubQueueSection', 'calendarSection', 'gallerySection', 'publishedSection'];
+  sectionsToHide.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+  const homeEl = document.getElementById('topTabsHome');
+  if (homeEl) homeEl.style.display = '';
+
+  // ── TOP TABS ──────────────────────────────────────────────────────────
+  const topTabs = document.getElementById('topTabs');
+  if (topTabs) {
+    topTabs.addEventListener('tab:change', (e) => {
+      const { brand } = e.detail;
+      if (brand && brand !== 'all') {
+        state.currentBrand = brand;
+      } else if (brand === 'all') {
+        state.currentBrand = 'all';
+      }
+      setBrandFilter(brand || 'all');
+      render();
+    });
+  }
+
+  // Esconder filter-bar
+  const filterBarEl = document.getElementById('filterBar');
+  if (filterBarEl) filterBarEl.style.display = 'none';
 
   // Refresh/abertura começa sempre no calendário: desligamos o restauro de
   // scroll do browser e ancoramos na secção do calendário após o 1º render.
