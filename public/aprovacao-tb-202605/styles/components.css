@@ -3900,7 +3900,7 @@ article.card.is-located { animation: card-locate-flash 2.6s ease-out; }
 /* ── TOP TABS BAR ─────────────────────────────────────────────────────── */
 .top-tabs {
   position: sticky;
-  top: 0;
+  top: var(--top-tabs-top, 0px);
   z-index: 100;
   background: var(--bg);
   border-bottom: var(--border-w) solid var(--border);
