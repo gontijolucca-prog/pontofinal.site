@@ -63,6 +63,12 @@
    o loader ficasse stuck. */
 
 /* ───── HEADER ───── */
+.app-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+}
 .app-header {
   display: flex;
   justify-content: space-between;
@@ -71,9 +77,6 @@
   padding: var(--s-4) var(--s-6);
   border-bottom: var(--border-w-bold) solid var(--border);
   background: var(--bg);
-  position: sticky;
-  top: 0;
-  z-index: 50;
 }
 /* Em mobile reduzir padding lateral para caber tudo sem cortar. */
 @media (max-width: 720px) {
@@ -3899,9 +3902,7 @@ article.card.is-located { animation: card-locate-flash 2.6s ease-out; }
 
 /* ── TOP TABS BAR ─────────────────────────────────────────────────────── */
 .top-tabs {
-  position: sticky;
-  top: var(--top-tabs-top, 0px);
-  z-index: 100;
+  position: relative;
   background: var(--bg);
   border-bottom: var(--border-w) solid var(--border);
 }
