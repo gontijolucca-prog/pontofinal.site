@@ -7,7 +7,7 @@
 // Estados: approved → pending_render → render_done → published
 // Polling de 5s ao Supabase para manter-se atualizado.
 
-import { SUPABASE_URL, SUPABASE_ANON_KEY, NAMESPACE, APP_VERSION } from "../config.js";
+import { SUPABASE_URL, SUPABASE_ANON_KEY, NAMESPACE, APP_VERSION, BRANDS_FILTER } from "../config.js";
 import { approvalStore } from "../stores/approval-store.js";
 
 const POLL_INTERVAL = 5000;
@@ -183,6 +183,8 @@ function renderQueue(items) {
     if (s !== "approved" && s !== "published") return false;
     // Aplicar filtro de marca
     if (_brandFilter !== "all" && it.brand !== _brandFilter) return false;
+    // Filtrar items que não pertencem a esta página
+    if (BRANDS_FILTER && BRANDS_FILTER.length && !BRANDS_FILTER.includes(it.brand)) return false;
     return true;
   });
 

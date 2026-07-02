@@ -5,7 +5,7 @@ import { userIsEditing } from "./utils/user-editing.js";
 import { approvalStore, init as initApprovalStore } from "./stores/approval-store.js";
 import { supabase, AUTH_ENABLED, USE_SUPABASE, initSupabase } from "./lib/supabase-client.js";
 import { monthShortLabel } from "./components/month-switcher.js";
-import { DASHBOARD_URL, APP_VERSION } from "./config.js";
+import { DASHBOARD_URL, APP_VERSION, BRANDS_FILTER } from "./config.js";
 import { fitScaledFrame, dimsFor } from "./lib/fit-frame.js";
 import { initPubQueue, setBrandFilter } from "./components/pub-queue.js";
 // top-tabs.js é carregado via <script> no HTML — não precisa de import aqui
@@ -82,9 +82,17 @@ function applyHourOverrides() {
   return mutated;
 }
 
+function isBrandAllowed(brand) {
+  // Filtra items que não pertencem a esta página (ex: luiz_santana não
+  // aparece na página TB, techbody não aparece na página Luiz).
+  if (!BRANDS_FILTER || !BRANDS_FILTER.length) return true;
+  return BRANDS_FILTER.includes(brand);
+}
+
 function visibleItems() {
   return state.items.filter(i => {
     if (inferMonth(i) !== state.currentMonth) return false;
+    if (!isBrandAllowed(i.brand)) return false;
     if (state.currentBrand  !== "all" && i.brand  !== state.currentBrand)  return false;
     if (state.currentFormat !== "all" && i.format !== state.currentFormat) return false;
     return true;
@@ -101,6 +109,7 @@ function publishPattern() {
   const pattern = [];
   for (const it of state.items) {
     if (inferMonth(it) !== template) continue;
+    if (!isBrandAllowed(it.brand)) continue;
     if (!it.scheduled_for) continue;
     const day = parseInt(it.scheduled_for.split("-")[2], 10);
     if (!day) continue;
@@ -174,6 +183,7 @@ function brandCounts() {
   const map = new Map();
   for (const it of state.items) {
     if (inferMonth(it) !== state.currentMonth) continue;
+    if (!isBrandAllowed(it.brand)) continue;
     if (state.currentFormat !== "all" && it.format !== state.currentFormat) continue;
     const cur = map.get(it.brand) || { count: 0, approved: 0 };
     cur.count += 1;
@@ -187,6 +197,7 @@ function formatCounts() {
   const map = new Map();
   for (const it of state.items) {
     if (inferMonth(it) !== state.currentMonth) continue;
+    if (!isBrandAllowed(it.brand)) continue;
     if (state.currentBrand !== "all" && it.brand !== state.currentBrand) continue;
     map.set(it.format, (map.get(it.format) || 0) + 1);
   }
@@ -298,7 +309,7 @@ function renderPublishedSection() {
   const container = document.getElementById("publishedGrid");
   const totalEl = document.getElementById("publishedCount");
   if (!container) return;
-  const pubItems = state.items.filter(i => i.status === "published" && inferMonth(i) === state.currentMonth && (state.currentBrand === "all" || i.brand === state.currentBrand));
+  const pubItems = state.items.filter(i => i.status === "published" && inferMonth(i) === state.currentMonth && isBrandAllowed(i.brand) && (state.currentBrand === "all" || i.brand === state.currentBrand));
   pubItems.sort((a, b) => String(b.published_at || "").localeCompare(String(a.published_at || "")));
   if (totalEl) totalEl.textContent = pubItems.length;
   // Actualizar hint com contagens por formato.
@@ -354,6 +365,7 @@ function render() {
   els.calendar().setMonth(state.currentMonth);
   const realCalendarItems = state.items.filter(i =>
     inferMonth(i) === state.currentMonth
+    && isBrandAllowed(i.brand)
     && (state.currentBrand  === "all" || i.brand  === state.currentBrand)
     && (state.currentFormat === "all" || i.format === state.currentFormat)
   );
@@ -959,6 +971,7 @@ async function init() {
         state.currentBrand = 'all';
       }
       setBrandFilter(brand || 'all');
+      // Re-renderizar com o filtro actualizado
       render();
     });
   }
