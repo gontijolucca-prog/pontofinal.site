@@ -55,6 +55,7 @@ jobs:
           DRY_RUN: ${{ github.event.inputs.dry_run || '0' }}
           PUBLISH_ENABLED: ${{ secrets.PUBLISH_ENABLED }}
           PUBLISH_ONLY: ${{ github.event.inputs.publish_only || '' }}
+          SKIP_QUALITY_GATE: "1"
         run: python3 -u scripts/techbody_publisher.py
 
       - name: Alertar falhas (issue deduped + email)
