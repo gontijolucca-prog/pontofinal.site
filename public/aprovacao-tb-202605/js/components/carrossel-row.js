@@ -84,13 +84,19 @@ class CarrosselRow extends HTMLElement {
     const article = this.querySelector(".card"); if (!article) return;
     const state = approvalStore.get(this._item.id);
     let stamp = article.querySelector(":scope > .status-stamp");
-    if (state.status === "pending") { if (stamp) stamp.remove(); article.removeAttribute("data-status"); }
+    let authorEl = article.querySelector(":scope > .status-author");
+    if (state.status === "pending") { if (stamp) stamp.remove(); if (authorEl) authorEl.remove(); article.removeAttribute("data-status"); }
     else {
       article.setAttribute("data-status", state.status);
       const label = state.status === "approved" ? "Aprovado" : "Não publicar";
       if (!stamp) { stamp = document.createElement("span"); article.prepend(stamp); }
       stamp.textContent = label; stamp.className = `status-stamp status-stamp--${state.status}`;
-      if (state.author) { stamp.setAttribute("data-author", `${label} por ${state.author}`); stamp.setAttribute("tabindex", "0"); }
+      if (state.author) {
+        stamp.setAttribute("data-author", `${label} por ${state.author}`);
+        stamp.setAttribute("tabindex", "0");
+        if (!authorEl) { authorEl = document.createElement("span"); authorEl.className = "status-author"; article.appendChild(authorEl); }
+        authorEl.textContent = `por ${state.author}`;
+      } else if (authorEl) { authorEl.remove(); }
     }
     this._mountPublished();
   }

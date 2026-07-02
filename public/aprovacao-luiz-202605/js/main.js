@@ -221,6 +221,8 @@ const buildCard = (it, cardIndex = 999) => {
   card.setAttribute("data-brand", it.brand);
   const st = effectiveStatus(it);
   card.setAttribute("data-status", st);
+  const approvalState = approvalStore.get(it.id);
+  const author = approvalState?.author || "";
   const title = it.title || it.theme || "";
   const shotBase = (it.html_url || "").replace(/\.html$/, "");
   const isCar = it.format === "carrossel";
@@ -259,6 +261,7 @@ const buildCard = (it, cardIndex = 999) => {
     </div>
     <div class="gallery-card__info">
       <span class="gallery-card__title">${title}</span>
+      ${author ? `<span class="gallery-card__author">por ${_escapeForHtml(author)}</span>` : ""}
     </div>`;
   const thumb = card.querySelector(".gallery-card__thumb");
   const img = card.querySelector("img.gallery-card__cover");

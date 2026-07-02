@@ -686,6 +686,26 @@
 .status-stamp--approved { background: var(--status-approved); color: var(--bg); }
 .status-stamp--rejected { background: var(--accent); color: var(--bg); }
 
+/* Author tag — assinatura visível "por X" logo abaixo do status-stamp.
+   Mostra quem aprovou/rejeitou, à primeira vista (sem precisar de hover). */
+.status-author {
+  position: absolute;
+  top: calc(var(--s-3) + 30px);
+  right: var(--s-3);
+  font: 700 10px/1.2 var(--font-mono, ui-monospace, monospace);
+  color: var(--text);
+  background: var(--bg);
+  padding: 3px 8px;
+  border: 2px solid var(--border);
+  z-index: 3;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
 /* ───── PUBLISHED OVERLAY — item já publicado no Instagram ───── */
 .card[data-published="true"] {
   position: relative;
@@ -3622,6 +3642,16 @@ article.card.is-located { animation: card-locate-flash 2.6s ease-out; }
   white-space: nowrap;
   flex: 1 0 100%;
 }
+.gallery-card__author {
+  font: 700 10px/1.2 var(--font-mono, ui-monospace, monospace);
+  color: var(--text);
+  background: var(--status-approved);
+  padding: 2px 7px;
+  border: 2px solid var(--border);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+.gallery-card[data-status="rejected"] .gallery-card__author { background: var(--accent); color: var(--bg); }
 
 /* ───── GALLERY GROUPED (por marca + tipo) ───── */
 .gallery-group {
