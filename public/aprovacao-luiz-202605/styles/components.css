@@ -3902,6 +3902,7 @@ article.card.is-located { animation: card-locate-flash 2.6s ease-out; }
 
 /* ── TOP TABS BAR ─────────────────────────────────────────────────────── */
 .top-tabs {
+  position: relative;
   background: var(--bg);
   border-bottom: var(--border-w) solid var(--border);
 }

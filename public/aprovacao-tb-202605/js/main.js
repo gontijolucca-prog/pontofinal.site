@@ -307,7 +307,7 @@ function renderPublishedSection() {
   const container = document.getElementById("publishedGrid");
   const totalEl = document.getElementById("publishedCount");
   if (!container) return;
-  const pubItems = state.items.filter(i => i.status === "published" && inferMonth(i) === state.currentMonth && isBrandAllowed(i.brand) && (state.currentBrand === "all" || i.brand === state.currentBrand));
+  const pubItems = state.items.filter(i => effectiveStatus(i) === "published" && inferMonth(i) === state.currentMonth && isBrandAllowed(i.brand) && (state.currentBrand === "all" || i.brand === state.currentBrand));
   pubItems.sort((a, b) => String(b.published_at || "").localeCompare(String(a.published_at || "")));
   if (totalEl) totalEl.textContent = pubItems.length;
   // Actualizar hint com contagens por formato.
@@ -986,17 +986,6 @@ async function init() {
   requestAnimationFrame(() => requestAnimationFrame(() => {
     document.getElementById("calendarSection")?.scrollIntoView({ block: "start" });
   }));
-
-  // Sticky header: top-tabs cola abaixo do header, não por cima.
-  function updateStickyTop() {
-    const h = document.querySelector(".app-header");
-    if (h) {
-      const top = h.offsetHeight;
-      document.documentElement.style.setProperty("--top-tabs-top", top + "px");
-    }
-  }
-  updateStickyTop();
-  window.addEventListener("resize", updateStickyTop);
 }
 
 // Safety global: se init() pendurar ou throw (ex.: Supabase bloqueado por

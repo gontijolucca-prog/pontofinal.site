@@ -653,6 +653,16 @@ def main():
                 print(f"AVISO {iid}: PUBLICADO (media {media_id}) mas ledger não atualizou: {e}")
                 alerts.append({"type": "ledger_update_failed", "item_id": iid, "brand": brand,
                                "detail": f"post SAIU (media_id={media_id}) mas ficou 'publishing' no ledger — marcar 'published' no Supabase"})
+            # Marcar como published na tabela approvals (para a UI mostrar)
+            try:
+                sb("POST", "/approvals?on_conflict=namespace,item_id", {
+                    "namespace": ns,
+                    "item_id": iid,
+                    "status": "published",
+                    "updated_at": datetime.now(TZ).isoformat(),
+                }, prefer="resolution=merge-duplicates")
+            except Exception as e:
+                print(f"  AVISO: approvals não atualizado para published: {e}")
             # ── VERIFICAÇÃO PÓS-PUBLICAÇÃO (passo 7) ────────────────────
             # Confirmar que o post existe no Instagram e validar dimensões
             post_verification = verify_post(ig_user, token, media_id)

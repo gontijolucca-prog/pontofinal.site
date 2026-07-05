@@ -59,7 +59,7 @@ body { font-family: var(--font-display); color: var(--text); }
 .slide--num, .slide--quote, .slide--type { display: grid; align-content: center; padding: 160px 64px 200px; text-align: center; justify-items: center; }
 .slide--num .content, .slide--quote .content, .slide--type .content { display: grid; justify-items: center; gap: 32px; position: relative; z-index: 2; max-width: 880px; }
 .slide--num .num, .slide--quote .num, .slide--type .num { font-family: var(--font-mono); font-size: 112px; font-weight: 900; color: var(--accent); line-height: 1; letter-spacing: -0.02em; }
-.slide--num h1, .slide--quote h1, .slide--type h1 { font-size: 40px; font-weight: 700; line-height: 1.16; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 20ch; text-wrap: balance; hyphens: none; word-break: keep-all; overflow-wrap: break-word; }
+.slide--num h1, .slide--quote h1, .slide--type h1 { font-size: 40px; font-weight: 700; line-height: 1.16; letter-spacing: -0.02em; color: var(--text); text-transform: uppercase; max-width: 22ch; text-wrap: balance; hyphens: none; word-break: keep-all; overflow-wrap: normal; }
 .slide--num h1 em, .slide--quote h1 em, .slide--type h1 em { color: var(--accent); font-style: normal; font-weight: 700; }
 .slide--num p.body, .slide--quote p.body, .slide--type p.body { font-size: 30px; font-weight: 400; line-height: 1.4; color: rgba(255,255,255,0.82); font-style: italic; max-width: 680px; }
 .slide--num p.body em, .slide--quote p.body em, .slide--type p.body em { color: var(--accent); font-style: italic; font-weight: 600; }
@@ -127,7 +127,7 @@ body { font-family: var(--font-display); color: var(--text); }
   <div class="orb orb-b"></div>
   <div class="content">
     <div class="num">03</div>
-    <h1>Menos&nbsp;do&nbsp;que&nbsp;um&nbsp;episódio.<br>Mais&nbsp;do&nbsp;que&nbsp;uma&nbsp;hora&nbsp;no&nbsp;ginásio.</h1>
+    <h1>Menos do que um <span style="white-space:nowrap">episódio.</span><br>Mais do que uma <span style="white-space:nowrap">hora</span> no ginásio.</h1>
     
   </div>
   <div class="arrow-mark">→</div><div class="progress"><span style="width:66.66666666666666%"></span></div>
@@ -151,7 +151,7 @@ body { font-family: var(--font-display); color: var(--text); }
   <div class="orb orb-b"></div>
   <div class="content">
     <div class="num">05</div>
-    <h1><em>Link&nbsp;na&nbsp;bio.</em><br>O&nbsp;<em>treino</em> cabe na&nbsp;sua&nbsp;agenda&nbsp;também.</h1>
+    <h1><em>Link&nbsp;na&nbsp;bio.</em><br>O&nbsp;<em>treino</em> cabe na&nbsp;sua&nbsp;agenda&nbsp;<span style="white-space:nowrap">também.</span></h1>
     
   </div>
   <div class="arrow-mark">→</div><div class="progress"><span style="width:100.0%"></span></div>
