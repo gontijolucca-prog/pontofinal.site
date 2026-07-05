@@ -203,7 +203,21 @@ function renderQueue(items) {
   if (!grid) return;
 
   if (queueItems.length === 0) {
-    grid.innerHTML = `<div class="pq-empty">Nenhum item aprovado ou agendado ainda.</div>`;
+    grid.innerHTML = `
+      <div class="pq-empty-state">
+        <div class="pq-empty-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <rect x="6" y="10" width="36" height="28" rx="3" stroke="currentColor" stroke-width="2"/>
+            <path d="M6 18h36" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="14" r="1.5" fill="currentColor"/>
+            <circle cx="17" cy="14" r="1.5" fill="currentColor"/>
+            <path d="M16 28l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="pq-empty-title">Fila de Publicação</div>
+        <div class="pq-empty-desc">Os itens aprovados na Galeria aparecem aqui automaticamente.<br>Aprova um item para o veres nesta fila.</div>
+      </div>
+    `;
     return;
   }
 
@@ -368,12 +382,28 @@ const QUEUE_CSS = `
 .pq-rejected .pq-card__state {
   color: #FF2A2A;
 }
-.pq-empty {
+.pq-empty-state {
   grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 48px 24px;
   text-align: center;
-  padding: 32px;
-  font: 400 13px/1.4 'JetBrains Mono', ui-monospace, monospace;
+}
+.pq-empty-icon {
+  color: var(--muted, #999);
+  opacity: 0.5;
+}
+.pq-empty-title {
+  font: 800 16px/1 'JetBrains Mono', ui-monospace, monospace;
+  color: var(--text, #333);
+  letter-spacing: -0.01em;
+}
+.pq-empty-desc {
+  font: 400 13px/1.5 'JetBrains Mono', ui-monospace, monospace;
   color: var(--muted, #888);
+  max-width: 360px;
 }
 `;
 
