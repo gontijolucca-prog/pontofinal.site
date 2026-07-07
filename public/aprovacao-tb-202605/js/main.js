@@ -582,9 +582,12 @@ function updateCounts() {
     else if (s === "rejected") rejected++;
   }
   const pending = items.length - approved - rejected - published;
-  els.approvedCount().textContent = String(approved);
-  els.rejectedCount().textContent = String(rejected);
-  els.pendingCount().textContent  = String(pending);
+  const ac = els.approvedCount();
+  const rc = els.rejectedCount();
+  const pc = els.pendingCount();
+  if (ac) ac.textContent = String(approved);
+  if (rc) rc.textContent = String(rejected);
+  if (pc) pc.textContent  = String(pending);
   // Sincronizar chips do header (mesma fonte de verdade)
   const hA = document.getElementById("headerApprovedCount");
   const hR = document.getElementById("headerRejectedCount");
