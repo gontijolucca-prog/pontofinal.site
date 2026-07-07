@@ -90,7 +90,7 @@
     position: relative;
   }
   .card__preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .card__preview iframe { width: 100%; height: 100%; border: 0; display: block; pointer-events: none; transform: scale(1.0); transform-origin: top left; }
+  .card__preview iframe { border: 0; display: block; pointer-events: none; position: absolute; top: 0; left: 0; width: 1080px; transform-origin: top left; }
   .card__preview video { width: 100%; height: 100%; object-fit: cover; display: block; background: #000; }
   .card[data-format="story"] .card__preview,
   .card[data-format="reel"]  .card__preview { aspect-ratio: 9/16; }
@@ -248,7 +248,7 @@
   // fallback para Supabase REST directo.
   const APPROVALS_ENDPOINTS = ["/api/approvals", `${SUPABASE_URL}/rest/v1/approvals`];
   async function loadApprovals() {
-    const query = `namespace=eq.${encodeURIComponent(NAMESPACE)}&status=eq.approved&select=item_id,note,updated_at`;
+    const query = `namespace=eq.${encodeURIComponent(NAMESPACE)}&status=in.(approved,published)&select=item_id,note,updated_at`;
     for (const base of APPROVALS_ENDPOINTS) {
       const isProxy = base.startsWith("/api/");
       try {
@@ -367,7 +367,21 @@
     els.empty.hidden = true;
     els.grid.hidden = false;
     els.grid.innerHTML = visible.map(renderCard).join("");
+    scalePreviews();
   }
+
+  function scalePreviews() {
+    document.querySelectorAll('.card__preview').forEach(preview => {
+      const iframe = preview.querySelector('iframe');
+      if (!iframe) return;
+      const w = preview.clientWidth;
+      const card = preview.closest('.card');
+      const isPortrait = card.dataset.format === 'story' || card.dataset.format === 'reel';
+      iframe.style.height = isPortrait ? '1920px' : '1350px';
+      iframe.style.transform = `scale(${w / 1080})`;
+    });
+  }
+  window.addEventListener('resize', scalePreviews);
 
   els.filters.addEventListener("click", (e) => {
     const btn = e.target.closest("[data-filter]");

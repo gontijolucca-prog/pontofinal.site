@@ -37,6 +37,8 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== self.location.origin) return;
   // Só GET requests — POSTs (writes) vão sempre directos para network.
   if (req.method !== 'GET') return;
+  // Não intercetar downloads de ficheiros binários grandes (.zip, .mp4, .png, .jpg)
+  if (/\.(zip|mp4|png|jpe?g|webp|gif)(\?|$)/i.test(url.pathname)) return;
 
   event.respondWith((async () => {
     try {
