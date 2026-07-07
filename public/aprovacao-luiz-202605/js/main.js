@@ -242,8 +242,6 @@ const buildCard = (it, cardIndex = 999) => {
   const isReel = it.format === "reel";
   // Performance: usar JPG em vez de PNG para as thumbnails da galeria.
   // JPGs são 5-10x mais pequenos (ex: 162KB vs 1.4MB para 1080x1350).
-  // O preview completo continua a poder usar PNG se necessário.
-  // Fallback: se JPG não existir, usa PNG.
   const coverPath = isReel
     ? shotBase ? shotBase + ".jpg" : ""
     : isCar
@@ -584,9 +582,12 @@ function updateCounts() {
     else if (s === "rejected") rejected++;
   }
   const pending = items.length - approved - rejected - published;
-  els.approvedCount().textContent = String(approved);
-  els.rejectedCount().textContent = String(rejected);
-  els.pendingCount().textContent  = String(pending);
+  const ac = els.approvedCount();
+  const rc = els.rejectedCount();
+  const pc = els.pendingCount();
+  if (ac) ac.textContent = String(approved);
+  if (rc) rc.textContent = String(rejected);
+  if (pc) pc.textContent  = String(pending);
   // Sincronizar chips do header (mesma fonte de verdade)
   const hA = document.getElementById("headerApprovedCount");
   const hR = document.getElementById("headerRejectedCount");
@@ -961,6 +962,7 @@ async function init() {
   if (homeEl) homeEl.style.display = '';
 
   // ── TOP TABS ──────────────────────────────────────────────────────────
+  // Tab bar: alterna entre secções. Brand dropdown dentro de cada tab.
   const topTabs = document.getElementById('topTabs');
   if (topTabs) {
     topTabs.addEventListener('tab:change', (e) => {
@@ -970,13 +972,14 @@ async function init() {
       } else if (brand === 'all') {
         state.currentBrand = 'all';
       }
+      // Aplicar filtro de marca à Fila de Publicação
       setBrandFilter(brand || 'all');
       // Re-renderizar com o filtro actualizado
       render();
     });
   }
 
-  // Esconder filter-bar
+  // Esconder filter-bar (substituído pelo dropdown de marca nos tabs)
   const filterBarEl = document.getElementById('filterBar');
   if (filterBarEl) filterBarEl.style.display = 'none';
 
