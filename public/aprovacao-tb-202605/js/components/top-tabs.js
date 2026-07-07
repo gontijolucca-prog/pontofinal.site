@@ -21,7 +21,10 @@ const TABS = [
 class TopTabs extends HTMLElement {
   connectedCallback() {
     this.classList.add("top-tabs");
-    this._activeTab = "home"; // default: menu inicial
+    // Restaurar tab de localStorage (persiste entre refreshes)
+    let savedTab = "home";
+    try { savedTab = localStorage.getItem("pf-active-tab") || "home"; } catch {}
+    this._activeTab = savedTab;
     this._brand = "all";
     this._openMenu = null;
     this.render();
@@ -139,6 +142,8 @@ class TopTabs extends HTMLElement {
 
   _goHome() {
     this._activeTab = "home";
+    this._brand = "all";
+    this._persist();
     this.querySelectorAll(".top-tabs__tab-wrap").forEach(w => w.classList.remove("is-active"));
     this._showSection();
     this._dispatch();
@@ -147,10 +152,15 @@ class TopTabs extends HTMLElement {
   _select(tab, brand) {
     this._activeTab = tab;
     this._brand = brand;
+    this._persist();
     this._closeMenus();
     this.render();
     this._showSection();
     this._dispatch();
+  }
+
+  _persist() {
+    try { localStorage.setItem("pf-active-tab", this._activeTab); } catch {}
   }
 
   _toggleMenu(tabId) {
