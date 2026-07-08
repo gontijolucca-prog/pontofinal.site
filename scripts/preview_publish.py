@@ -368,11 +368,15 @@ def main():
             for r in rows:
                 sb_state[r["item_id"]] = r
 
-    # Collect items from all deploys
+    # Collect items from all deploys (deduplicate by ID — keep first occurrence)
+    seen_ids = set()
     all_items = []
     for ns, deploy in DEPLOYS.items():
         items = get_items_for_date(ns, deploy, target, sb_state)
-        all_items.extend(items)
+        for item in items:
+            if item["id"] not in seen_ids:
+                seen_ids.add(item["id"])
+                all_items.append(item)
 
     if args.json:
         print(json.dumps(all_items, ensure_ascii=False, indent=2))
