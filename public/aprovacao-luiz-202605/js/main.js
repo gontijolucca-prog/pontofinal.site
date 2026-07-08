@@ -953,7 +953,8 @@ async function init() {
   initPubQueue(state.items);
 
   // Restaurar secção activa (persiste entre refreshes via localStorage)
-  // O top-tabs component já restaurou o estado — só forçar home se não há tab gravada
+  // O top-tabs component já restaurou o estado de tab; aqui forçamos home se
+  // não há tab gravada OU garantimos que a tab restaurada é a renderizada.
   const savedTab = (() => { try { return localStorage.getItem("pf-active-tab") || "home"; } catch { return "home"; } })();
   if (savedTab === "home") {
     const sectionsToHide = ['pubQueueSection', 'calendarSection', 'gallerySection', 'publishedSection'];
@@ -963,6 +964,13 @@ async function init() {
     });
     const homeEl = document.getElementById('topTabsHome');
     if (homeEl) homeEl.style.display = '';
+  } else {
+    // Garantir que a secção certa fica visível após o refresh — top-tabs só
+    // faz o render() do header mas não chama _showSection(). Aqui forçamos.
+    requestAnimationFrame(() => {
+      const tt = document.getElementById('topTabs');
+      if (tt && typeof tt._showSection === 'function') tt._showSection();
+    });
   }
 
   // ── TOP TABS ──────────────────────────────────────────────────────────
@@ -990,7 +998,7 @@ async function init() {
   // Desligar restauro de scroll do browser (causa jumps)
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   // Só ancorar no calendário se estamos no home/default — senão respeitar a secção activa
-  if (savedTab === "home" || savedTab === "calendar") {
+  if (savedTab === "home") {
     requestAnimationFrame(() => requestAnimationFrame(() => {
       document.getElementById("calendarSection")?.scrollIntoView({ block: "start" });
     }));
