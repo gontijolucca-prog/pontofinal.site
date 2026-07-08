@@ -178,13 +178,24 @@ def render_with_playwright(html_path, output_dir, format, n_slides, overrides):
         # Navegar para o HTML
         page.goto(html_url, wait_until="networkidle", timeout=30000)
 
-        # Aplicar overrides de texto
+        # CSS de isolamento — garante que só o slide activo é visível,
+        # eliminando a faixa lateral do slide anterior (bug de flex layout)
+        page.add_style_tag(content=f"""
+            .carousel {{ display: block !important; overflow: hidden !important; position: relative !important; width: {w}px !important; height: {h}px !important; }}
+            .slide:not(.shot-active) {{ display: none !important; }}
+            .slide.shot-active {{
+                width: {w}px !important; height: {h}px !important;
+                flex: none !important;
+                position: absolute !important; left: 0 !important; top: 0 !important;
+                z-index: 999 !important;
+                clip-path: inset(0) !important;
+                overflow: hidden !important;
+            }}
+        """)
+
+        # Aplicar overrides de texto (directamente no DOM)
         for slide_n, text in overrides.get("slide_texts", {}).items():
             try:
-                # Tentar navegar para o slide
-                page.evaluate(f"window.location.hash = '#slide-{slide_n}'")
-                time.sleep(0.5)
-                # Substituir o texto do h1
                 page.evaluate(f"""
                     const h1 = document.querySelector('.slide:nth-child({slide_n}) h1, [data-slide="{slide_n}"] h1');
                     if (h1) h1.textContent = {json.dumps(text)};
@@ -197,12 +208,16 @@ def render_with_playwright(html_path, output_dir, format, n_slides, overrides):
         success = True
         for i in range(1, n_slides + 1):
             try:
-                # Navegar para o slide
-                page.evaluate(f"window.location.hash = '#slide-{i}'")
-                time.sleep(0.3)
+                # Activar apenas o slide actual via CSS class (não hash)
+                page.evaluate(f"""
+                    document.querySelectorAll(".slide").forEach((s, si) => {{
+                        s.classList.toggle("shot-active", si === {i - 1});
+                    }});
+                """)
+                time.sleep(0.5)
 
                 output_path = os.path.join(output_dir, f"slide_{i:02d}.png")
-                # Screenshot do viewport (não full page — queremos exactamente 1080×1350)
+                # Screenshot do slide isolado (clip garante 1080×1350 exactos)
                 page.screenshot(path=output_path, type="png", clip={"x": 0, "y": 0, "width": w, "height": h})
 
                 # Validar dimensões
