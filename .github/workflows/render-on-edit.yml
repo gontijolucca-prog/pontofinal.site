@@ -1,0 +1,166 @@
+name: Auto-Render on Edit
+
+# Re-renderiza PNGs quando HTML é editado via página de aprovação.
+# O edit-slide.js faz commit do HTML → este workflow corre → renderiza PNGs → commit.
+# Assim, edições de texto nos slides chegam sempre ao Instagram corretas.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "public/brands/**/carrosseis/*.html"
+      - "public/brands/**/stories/*.html"
+  workflow_dispatch:
+    inputs:
+      html_path:
+        description: "Path específico do HTML (ex: public/brands/techbody/output/2026-07/carrosseis/c01.html)"
+        required: false
+        type: string
+
+permissions:
+  contents: write   # precisa de write para commit dos PNGs
+
+concurrency:
+  group: render-on-edit
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN_RENDER || github.token }}
+          fetch-depth: 2   # preciso do commit anterior para diff
+
+      - name: Instalar Playwright
+        run: |
+          npx playwright install chromium --with-deps 2>&1 | tail -3
+
+      - name: Detectar HTMLs alterados e renderizar PNGs
+        env:
+          SITE_BASE: "https://pontofinal.site"
+          HTML_OVERRIDE: ${{ inputs.html_path }}
+        run: |
+          node - <<'NODEEOF'
+          import { chromium } from "playwright";
+          import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs";
+          import { join, dirname, basename } from "path";
+          import { execSync } from "child_process";
+
+          const SITE = "https://pontofinal.site";
+          const REPO = process.cwd();
+
+          // 1. Determinar quais HTMLs foram alterados
+          let changed = [];
+          const override = process.env.HTML_OVERRIDE;
+          if (override) {
+            changed = [override];
+          } else {
+            // Get changed files from last commit
+            const out = execSync("git diff --name-only HEAD~1 HEAD", { encoding: "utf-8" });
+            changed = out.trim().split("\n").filter(f =>
+              f.match(/public\/brands\/.*\/(carrosseis|stories)\/.*\.html$/) &&
+              !f.includes(".bak") && !f.includes(".deprecated")
+            );
+          }
+
+          if (changed.length === 0) {
+            console.log("Nenhum HTML de carrossel/story alterado — salto.");
+            process.exit(0);
+          }
+
+          console.log(`HTMLs para re-renderizar: ${changed.length}`);
+          for (const f of changed) console.log(`  ${f}`);
+
+          const browser = await chromium.launch({ headless: true });
+
+          for (const htmlPath of changed) {
+            const absPath = join(REPO, htmlPath);
+            if (!existsSync(absPath)) {
+              console.log(`  ⚠️ ${htmlPath}: ficheiro não existe — salto`);
+              continue;
+            }
+
+            // Determinar pasta de shots
+            const htmlDir = dirname(htmlPath);
+            const htmlName = basename(htmlPath, ".html");
+            const shotsDir = join(REPO, htmlDir, `${htmlName}_shots`);
+            mkdirSync(shotsDir, { recursive: true });
+
+            // Ler HTML para contar slides
+            const html = readFileSync(absPath, "utf-8");
+            const slideCount = (html.match(/class="slide/g) || []).length;
+            if (slideCount === 0) {
+              console.log(`  ⚠️ ${htmlPath}: sem .slide elements — salto`);
+              continue;
+            }
+
+            console.log(`  → ${htmlName}: ${slideCount} slides`);
+
+            const ctx = await browser.newContext({
+              viewport: { width: 1080, height: 1350 },
+              deviceScaleFactor: 2,
+            });
+            const page = await ctx.newPage();
+
+            // CSS de isolamento (igual ao render-clean-slides.mjs)
+            await page.addStyleTag({ content: `
+              .carousel { display: block !important; overflow: hidden !important; }
+              .slide:not(.shot-active) { display: none !important; }
+              .slide.shot-active {
+                width: 1080px !important; height: 1350px !important;
+                flex: none !important;
+              }
+            `});
+
+            // Carregar HTML do filesystem local (assets resolvem por path relativo)
+            await page.goto(`file://${absPath}`, { waitUntil: "networkidle", timeout: 20000 });
+
+            // Fix .jpg→.png (caso ainda exista)
+            await page.evaluate(() => {
+              document.querySelectorAll("[style*='background-image']").forEach(el => {
+                el.setAttribute("style", el.getAttribute("style").replace(/\.jpg/g, ".png"));
+              });
+            });
+
+            // Wait fonts
+            try { await page.evaluate(() => document.fonts.ready); } catch {}
+            await page.waitForTimeout(1500);
+
+            for (let i = 0; i < slideCount; i++) {
+              const n = String(i + 1).padStart(2, "0");
+              await page.evaluate((idx) => {
+                document.querySelectorAll(".slide").forEach((s, si) => {
+                  s.classList.toggle("shot-active", si === idx);
+                });
+              }, i);
+              await page.waitForTimeout(400);
+              const slide = page.locator(".slide.shot-active");
+              await slide.screenshot({
+                path: join(shotsDir, `slide_${n}.png`),
+                type: "png",
+              });
+              console.log(`    ✅ slide_${n}.png`);
+            }
+
+            await ctx.close();
+          }
+
+          await browser.close();
+          console.log("\nRenderização completa.");
+          NODEEOF
+
+      - name: Commit PNGs se houver alterações
+        run: |
+          git add "public/brands/**/*_shots/*.png"
+          if git diff --staged --quiet; then
+            echo "Nenhum PNG alterado — nada a commitar."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git commit -m "auto-render: PNG screenshots re-renderizados após edição de HTML"
+            git push
+            echo "✓ PNGs commitados e pushed"
+          fi
