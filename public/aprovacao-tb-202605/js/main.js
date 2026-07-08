@@ -952,14 +952,18 @@ async function init() {
   // ── FILA DE PUBLICAÇÃO ──────────────────────────────────────────────
   initPubQueue(state.items);
 
-  // Esconder todas as secções no load — menu inicial é o default
-  const sectionsToHide = ['pubQueueSection', 'calendarSection', 'gallerySection', 'publishedSection'];
-  sectionsToHide.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.style.display = 'none';
-  });
-  const homeEl = document.getElementById('topTabsHome');
-  if (homeEl) homeEl.style.display = '';
+  // Restaurar secção activa (persiste entre refreshes via localStorage)
+  // O top-tabs component já restaurou o estado — só forçar home se não há tab gravada
+  const savedTab = (() => { try { return localStorage.getItem("pf-active-tab") || "home"; } catch { return "home"; } })();
+  if (savedTab === "home") {
+    const sectionsToHide = ['pubQueueSection', 'calendarSection', 'gallerySection', 'publishedSection'];
+    sectionsToHide.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+    const homeEl = document.getElementById('topTabsHome');
+    if (homeEl) homeEl.style.display = '';
+  }
 
   // ── TOP TABS ──────────────────────────────────────────────────────────
   // Tab bar: alterna entre secções. Brand dropdown dentro de cada tab.
@@ -983,12 +987,14 @@ async function init() {
   const filterBarEl = document.getElementById('filterBar');
   if (filterBarEl) filterBarEl.style.display = 'none';
 
-  // Refresh/abertura começa sempre no calendário: desligamos o restauro de
-  // scroll do browser e ancoramos na secção do calendário após o 1º render.
+  // Desligar restauro de scroll do browser (causa jumps)
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    document.getElementById("calendarSection")?.scrollIntoView({ block: "start" });
-  }));
+  // Só ancorar no calendário se estamos no home/default — senão respeitar a secção activa
+  if (savedTab === "home" || savedTab === "calendar") {
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      document.getElementById("calendarSection")?.scrollIntoView({ block: "start" });
+    }));
+  }
 }
 
 // Safety global: se init() pendurar ou throw (ex.: Supabase bloqueado por
