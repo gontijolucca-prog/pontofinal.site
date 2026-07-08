@@ -7,10 +7,10 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: "Dry-run (1 = só mostra plano)"
+        description: "Dry-run (1 = só mostra plano, 0 = publicar a sério)"
         default: "1"
       publish_only:
-        description: "IDs específicos (vírgula-separados). Vazio = todos os due."
+        description: "IDs específicos (vírgula-separados). OBRIGATÓRIO quando dry_run=0."
         default: ""
         required: false
 
@@ -41,6 +41,17 @@ jobs:
             echo "run=1" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Validar publish_only obrigatório
+        if: steps.gate.outputs.run == '1' && inputs.dry_run == '0'
+        run: |
+          if [ -z "${{ inputs.publish_only }}" ]; then
+            echo "✗ ERRO: publish_only é OBRIGATÓRIO quando dry_run=0"
+            echo "  Nunca publicar sem especificar IDs exactos."
+            echo "  Usa preview_publish.py para ver o que está due."
+            exit 1
+          fi
+          echo "✓ IDs: ${{ inputs.publish_only }}"
+
       - name: Publicar conteúdo aprovado due
         if: steps.gate.outputs.run == '1'
         env:
@@ -55,7 +66,7 @@ jobs:
           DRY_RUN: ${{ github.event.inputs.dry_run || '0' }}
           PUBLISH_ENABLED: ${{ secrets.PUBLISH_ENABLED }}
           PUBLISH_ONLY: ${{ github.event.inputs.publish_only || '' }}
-          SKIP_QUALITY_GATE: "1"
+          SKIP_QUALITY_GATE: "0"
         run: python3 -u scripts/techbody_publisher.py
 
       - name: Alertar falhas (issue deduped + email)
