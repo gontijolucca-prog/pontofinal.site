@@ -4,22 +4,22 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>TechBody · modelo_franchising</title>
-<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;400;600;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700&family=Manrope:wght@300;400;500;600;700;800&family=Titillium+Web:wght@200;400;600;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
 <style>
-/* Manual de Normas TechBody 2024: Gilroy prioritário, Titillium Web, paleta #333333/#F69E1E/#FFFFFF */
+/* Manual de Normas TechBody 2024: Gilroy prioritário, Titillium Web, paleta #333333/#F49919/#FFFFFF */
 
 :root {
   --bg: #333333;
   --primary: #333333;
-  --accent: #F69E1E;
+  --accent: #F49919;
   --text: #ffffff;
   --w-thin: 200;
   --w-mid: 500;
   --w-strong: 700;
   --w-black: 800;
-  --font-display: 'Gilroy', 'Trillium Web', sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Manrope', 'Titillium Web', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --font-serif: 'Trillium Web', serif;
+  --font-serif: 'Titillium Web', serif;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-display); -webkit-font-smoothing: antialiased; }
@@ -78,7 +78,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   max-width: 22ch;
 
   word-wrap: break-word;
-  
+  overflow-wrap: break-word;
   hyphens: none;}
 .slide--photo .slide__body p { font-family: var(--font-mono); font-size: clamp(13px, 1.4vw, 16px); max-width: 38ch; color: rgba(255,255,255,0.78); }
 
@@ -94,7 +94,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   color: var(--text);
 
   word-wrap: break-word;
-  
+  overflow-wrap: break-word;
   hyphens: none;}
 .slide--type .slide__body h1 em { color: var(--accent); font-style: normal; font-weight: var(--w-black); }
 .slide--type .slide__body p { font-family: var(--font-mono); font-size: clamp(13px, 1.3vw, 15px); max-width: 42ch; color: rgba(255,255,255,0.55); }
@@ -120,7 +120,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   max-width: 28ch;
 
   word-wrap: break-word;
-  
+  overflow-wrap: break-word;
   hyphens: none;}
 .slide--num .slide__body p { font-family: var(--font-mono); font-size: clamp(12px, 1.3vw, 15px); max-width: 44ch; color: rgba(255,255,255,0.55); }
 
@@ -159,16 +159,20 @@ h1, h2, h3, p, blockquote, .num {
 /* === v2.1: texto mais largo, sem órfãos (Lucca feedback 19-jun) === */
 .slide__body h1 { 
   text-wrap: wrap !important; 
+  text-align: left !important; 
   max-width: min(880px, 92%) !important; 
   margin: 0 !important;
 }
-.slide--photo .slide__body h1 { font-size: clamp(26px, 3.8vw, 48px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
-.slide--type .slide__body h1 { font-size: clamp(28px, 4.2vw, 52px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
-.slide--num .slide__body h1 { font-size: clamp(24px, 3.6vw, 44px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
+/* Capa + CTA: centrado (Lucca feedback 19-jun) */
+#slide-1 .slide__body h1, #slide-2 .slide__body h1, #slide-6 .slide__body h1 { 
+  text-align: center !important; 
+  max-width: 32ch !important; 
+  text-wrap: balance !important;
+}
+.slide--photo .slide__body h1 { font-size: clamp(26px, 3.8vw, 48px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
+.slide--type .slide__body h1 { font-size: clamp(28px, 4.2vw, 52px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
+.slide--num .slide__body h1 { font-size: clamp(24px, 3.6vw, 44px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
 
-#slide-1 .slide__body h1 {; text-align: center !important;}
-#slide-1 .slide__body { text-align: center !important; align-items: center !important; justify-items: center !important; }
-#slide-1 .slide__body h1 { text-align: center !important; justify-self: center !important; max-width: none !important; }
 </style>
 <!-- fx-v2 -->
 <style id="fx-v2">
@@ -215,7 +219,7 @@ h1, h2, h3, p, blockquote, .num {
   <div class="slide__photo" style="background-image:url('../../../assets/photos/magnific_estudio-pico-de-intensida_2968056176.png')"></div>
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
   <div class="slide__body">
-        <h1>Tem um ginásio?<br>Cabe‑lhe aqui uma linha de<br>receita nova.</h1>
+        <h1>Tem um ginásio?Cabe‑lhe&nbsp;aqui uma linha dereceita nova.</h1>
         </div>
   <div class="slide__bottom"><span>01/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
@@ -223,28 +227,28 @@ h1, h2, h3, p, blockquote, .num {
 
 <article class="slide slide--type" id="slide-2">
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Um estúdio TechBody opera numa<br>área compacta dentro do seu<br>espaço.</h1></div>
+  <div class="slide__body"><h1>Um estúdio TechBody opera numaárea compacta dentro do&nbsp;seuespaço.</h1></div>
   <div class="slide__bottom"><span>02/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 
 
 <article class="slide slide--type" id="slide-3">
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Ticket por sessão superior ao<br>convencional.<br>Recorrência regular.</h1></div>
+  <div class="slide__body"><h1>Ticket por&nbsp;sessão superior aoconvencional.<br>Recorrência regular.</h1></div>
   <div class="slide__bottom"><span>03/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 
 
 <article class="slide slide--type" id="slide-4">
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Cada cliente regressa duas a<br>três vezes por semana.<br>Recorrência por design.</h1></div>
+  <div class="slide__body"><h1>Cada cliente regressa duas atrês vezes por&nbsp;semana.<br>Recorrência por&nbsp;design.</h1></div>
   <div class="slide__bottom"><span>04/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 
 
 <article class="slide slide--type" id="slide-5">
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
-  <div class="slide__body"><h1>Franchising chave‑na‑mão: plano<br>de negócio, formação,<br>recrutamento e marketing<br>digital.</h1></div>
+  <div class="slide__body"><h1>Franchising chave‑na‑mão: planode negócio, formação,recrutamento e&nbsp;marketingdigital.</h1></div>
   <div class="slide__bottom"><span>05/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 
@@ -253,7 +257,7 @@ h1, h2, h3, p, blockquote, .num {
   <div class="slide__photo" style="background-image:url('../../../assets/photos/magnific_e6.-postreino-recuperacao_2964620915.png')"></div>
   <div class="slide__top"><span class="brand-glyph">TechBody</span></div>
   <div class="slide__body">
-        <h1>Marque uma reunião.<br>Vamos olhar para os seus<br>números.</h1>
+        <h1>Marque uma reunião.<br>Vamos olhar para&nbsp;os&nbsp;seusnúmeros.</h1>
         </div>
   <div class="slide__bottom"><span>06/06</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>

@@ -203,12 +203,16 @@ html, body { background: var(--bg); color: var(--text); font-family: var(--font-
   max-width: min(880px, 92%) !important; 
   margin: 0 !important;
 }
-.slide--photo .slide__body h1 { font-size: clamp(26px, 3.8vw, 48px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
-.slide--type .slide__body h1 { font-size: clamp(28px, 4.2vw, 52px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
-.slide--num .slide__body h1 { font-size: clamp(24px, 3.6vw, 44px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
+/* Capa + CTA: centrado (Lucca feedback 19-jun) */
+#slide-1 .slide__body h1, #slide-2 .slide__body h1, #slide-6 .slide__body h1 { 
+  text-align: center !important; 
+  max-width: 32ch !important; 
+  text-wrap: balance !important;
+}
+.slide--photo .slide__body h1 { font-size: clamp(26px, 3.8vw, 48px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
+.slide--type .slide__body h1 { font-size: clamp(28px, 4.2vw, 52px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
+.slide--num .slide__body h1 { font-size: clamp(24px, 3.6vw, 44px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
 
-#slide-1 .slide__body { text-align: center !important; align-items: center !important; justify-items: center !important; }
-#slide-1 .slide__body h1 { text-align: center !important; justify-self: center !important; }
 </style>
 <!-- fx-v2 -->
 <style id="fx-v2">
@@ -261,9 +265,9 @@ html, body { background: var(--bg); color: var(--text); font-family: var(--font-
   <div class="body">
     <div class="tag-line">a verdade · que ninguém te conta</div>
     <div class="hook-stack">
-      <h1>Site bonito</h1>
-      <h1>não é o<br/>mesmo que</h1>
-      <h1><span class="hl">site que vende</span>.</h1>
+      <h1 class="h-mega">Site bonito</h1>
+      <h1 class="h-mid">não&nbsp;é omesmo que</h1>
+      <h1 class="h-mega"><span class="hl">site que&nbsp;vende</span>.</h1>
     </div>
     <div class="swatch-row">
       <span class="swatch swatch--red"></span>
@@ -285,7 +289,7 @@ html, body { background: var(--bg); color: var(--text); font-family: var(--font-
   </div>
   <div class="body">
     <span class="counter">a armadilha · 01</span>
-    <h2>Vendem-te<br/><span class="hl">um quadro</span>.</h2>
+    <h2 class="h-big">Vendem-te<br/><span class="hl">um quadro</span>.</h2>
     <p class="sub">Animações lindas, fotos de stock perfeitas, paletas com cinco cores. Tudo bonito. E nada que diga ao visitante o que tu fazes ou por que devia escolher-te.</p>
   </div>
   <div class="bar">
@@ -302,8 +306,8 @@ html, body { background: var(--bg); color: var(--text); font-family: var(--font-
   </div>
   <div class="body">
     <span class="counter">a verdade · 02</span>
-    <h2>O cliente não<br/>quer um quadro.</h2>
-    <h2>Quer<br/><span class="hl">uma resposta</span>.</h2>
+    <h2 class="h-big">O cliente não<br/>quer um quadro.</h2>
+    <h2 class="h-mid">Quer<br/><span class="hl">uma resposta</span>.</h2>
     <p class="sub">Quer saber se resolves o problema dele, em que prazo, por que preço, e quem mais já confiou em ti. Em 30 segundos.</p>
   </div>
   <div class="bar">
@@ -320,7 +324,7 @@ html, body { background: var(--bg); color: var(--text); font-family: var(--font-
   </div>
   <div class="body">
     <span class="counter">bonito · não vende</span>
-    <h2>3 sinais.</h2>
+    <h2 class="h-mid">3 sinais.</h2>
     <div class="versus-block">
       <div class="vs-row">
         <div class="icon icon--bad">×</div>
@@ -350,7 +354,7 @@ html, body { background: var(--bg); color: var(--text); font-family: var(--font-
   </div>
   <div class="body">
     <span class="counter">vende · 3 sinais</span>
-    <h2><span class="hl">vende</span>.</h2>
+    <h2 class="h-mid"><span class="hl">vende</span>.</h2>
     <div class="versus-block">
       <div class="vs-row">
         <div class="icon">✓</div>
@@ -380,8 +384,8 @@ html, body { background: var(--bg); color: var(--text); font-family: var(--font-
   </div>
   <div class="body">
     <span class="counter">o teste</span>
-    <h2>O teu site é<br/><span class="hl">um cartaz</span>?</h2>
-    <h2>Ou é uma<br/>conversa que<br/>fecha venda?</h2>
+    <h2 class="h-big">O teu site é<br/><span class="hl">um cartaz</span>?</h2>
+    <h2 class="h-mid">Ou é uma<br/>conversa que<br/>fecha venda?</h2>
     <p class="sub">A diferença entre uma e outra são três coisas: clareza no topo, prova ao meio, próximo passo no fim. Mais nada.</p>
   </div>
   <div class="bar">
@@ -398,8 +402,8 @@ html, body { background: var(--bg); color: var(--text); font-family: var(--font-
   </div>
   <div class="body">
     <span class="counter">verdade · 03</span>
-    <h2>Sites que<br/><span class="hl">vendem</span><br/>são <br/>directos.</h2>
-    <h2>Os bonitos<br/>são para<br/>portefólio.</h2>
+    <h2 class="h-big">Sites que<br/><span class="hl">vendem</span><br/>são <br/>directos.</h2>
+    <h2 class="h-mid">Os bonitos<br/>são para<br/>portefólio.</h2>
     <p class="sub">Estética sem clareza é decoração. E decoração não paga as contas — clientes pagam.</p>
   </div>
   <div class="bar">
@@ -416,8 +420,8 @@ html, body { background: var(--bg); color: var(--text); font-family: var(--font-
   </div>
   <div class="body">
     <span class="counter">a tua vez</span>
-    <h2>Site que<br/><span class="hl">vende</span>.</h2>
-    <h2>Dois dias.</h2>
+    <h2 class="h-big">Site que<br/><span class="hl">vende</span>.</h2>
+    <h2 class="h-mid">Dois dias.</h2>
     <div class="cta-box">
       <span class="label">próximo passo</span>
       <h2>Auditoria<br/>gratuita.</h2>

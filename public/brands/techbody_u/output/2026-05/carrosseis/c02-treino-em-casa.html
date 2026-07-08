@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>TechBody U · treino_em_casa</title>
-<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;400;600;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,400;0,700;0,800;1,200;1,400;1,800&family=Manrope:wght@200;400;500;700&display=swap" rel="stylesheet" />
 <style>
 :root {
   --bg: #F2EDE4;
@@ -14,8 +14,8 @@
   --text-mute: rgba(20, 22, 15, 0.55);
   --text-faint: rgba(20, 22, 15, 0.35);
   --line: rgba(20, 22, 15, 0.12);
-  --font-display: 'Trillium Web', serif;
-  --font-body: 'Trillium Web', sans-serif;
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Manrope', sans-serif;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
@@ -167,22 +167,26 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   max-width: min(880px, 92%) !important; 
   margin: 0 !important;
 }
-.slide--photo .slide__body h1 { font-size: clamp(26px, 3.8vw, 48px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
-.slide--type .slide__body h1 { font-size: clamp(28px, 4.2vw, 52px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
-.slide--num .slide__body h1 { font-size: clamp(24px, 3.6vw, 44px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
+/* Capa + CTA: centrado (Lucca feedback 19-jun) */
+#slide-1 .slide__body h1, #slide-2 .slide__body h1, #slide-6 .slide__body h1 { 
+  text-align: center !important; 
+  max-width: 32ch !important; 
+  text-wrap: balance !important;
+}
+.slide--photo .slide__body h1 { font-size: clamp(26px, 3.8vw, 48px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
+.slide--type .slide__body h1 { font-size: clamp(28px, 4.2vw, 52px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
+.slide--num .slide__body h1 { font-size: clamp(24px, 3.6vw, 44px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
 
-#slide-1 .slide__body { text-align: center !important; align-items: center !important; justify-items: center !important; }
-#slide-1 .slide__body h1 { text-align: center !important; justify-self: center !important; }
 </style>
 </head>
 <body>
 <section class="carousel" aria-label="Carrossel TechBody U — treino_em_casa">
-<article class="slide slide--type" id="slide-1"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>A casa pode ser o teu estúdio.</h1></div><div class="slide__bottom">  <span>01/06</span></div></article>
-<article class="slide slide--photo" id="slide-2"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body">  <h1><em>Não</em> precisas de máquinas. Não precisas de horários. Não precisas de marcar.</h1>  <div class="photo" style="background-image:url('../../../assets/photos/magnific_e2-aquecimento-controlado_2964228670.png')"></div></div><div class="slide__bottom">  <span>02/06</span></div></article>
-<article class="slide slide--type" id="slide-3"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Vestes o fato. Abres a aplicação. Começas em menos de um minuto.</h1></div><div class="slide__bottom">  <span>03/06</span></div></article>
-<article class="slide slide--type" id="slide-4"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Vinte e cinco minutos de estímulo profundo. Sem cargas pesadas. Sem horas perdidas.</h1></div><div class="slide__bottom">  <span>04/06</span></div></article>
-<article class="slide slide--photo" id="slide-5"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body">  <h1><em>Acabas,</em> dobras o fato. O treino some. O resultado fica.</h1>  <div class="photo" style="background-image:url('../../../assets/photos/magnific_e1-chegada-ao-estudio-pes_2964211125.png')"></div></div><div class="slide__bottom">  <span>05/06</span></div></article>
-<article class="slide slide--type" id="slide-6"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Marca uma demonstração. Experimenta o fato vestido.</h1></div><div class="slide__bottom">  <span class="slide__cta">Conhece o método →</span></div></article>
+<article class="slide slide--type" id="slide-1"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>A&nbsp;casa pode ser o&nbsp;teu estúdio.</h1></div><div class="slide__bottom">  <span>01/06</span></div></article>
+<article class="slide slide--photo" id="slide-2"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body">  <h1><em>Não</em> precisas de&nbsp;máquinas.<br>Não&nbsp;precisas de&nbsp;horários.<br>Não&nbsp;precisas de&nbsp;marcar.</h1>  <div class="photo" style="background-image:url('../../../assets/photos/magnific_e2-aquecimento-controlado_2964228670.png')"></div></div><div class="slide__bottom">  <span>02/06</span></div></article>
+<article class="slide slide--type" id="slide-3"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Vestes o&nbsp;fato.<br>Abres a&nbsp;aplicação.<br>Começas em&nbsp;menos de&nbsp;um minuto.</h1></div><div class="slide__bottom">  <span>03/06</span></div></article>
+<article class="slide slide--type" id="slide-4"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Vinte e&nbsp;cinco minutos de&nbsp;estímulo profundo.<br>Sem&nbsp;cargas pesadas.<br>Sem&nbsp;horas perdidas.</h1></div><div class="slide__bottom">  <span>04/06</span></div></article>
+<article class="slide slide--photo" id="slide-5"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body">  <h1><em>Acabas,</em> dobras o&nbsp;fato.<br>O&nbsp;treino some.<br>O&nbsp;resultado fica.</h1>  <div class="photo" style="background-image:url('../../../assets/photos/magnific_e1-chegada-ao-estudio-pes_2964211125.png')"></div></div><div class="slide__bottom">  <span>05/06</span></div></article>
+<article class="slide slide--type" id="slide-6"><div class="slide__top">  <span class="brand"><img src="../../../assets/logos/magnific__other-black-text-on-a-white-background-with-smalle__28184.png" alt="TechBody U" style="display:block;height:clamp(34px,4.6vw,58px);width:auto;"/></span></div><div class="slide__body"><h1>Marca uma demonstração.<br>Experimenta o&nbsp;fato vestido.</h1></div><div class="slide__bottom">  <span class="slide__cta">Conhece o método →</span></div></article>
 </section>
 <script>
   (function () {

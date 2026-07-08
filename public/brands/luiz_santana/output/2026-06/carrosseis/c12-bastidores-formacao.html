@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Luiz Santana · bastidores formacao</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Titillium+Web:wght@200;400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;700;800&family=JetBrains+Mono:wght@300;400;600&family=Fraunces:ital,wght@0,200;0,400;0,800;1,200;1,400;1,800&display=swap" rel="stylesheet" />
 <style>
 :root {
   --bg: #1a1a1a;
@@ -15,9 +15,9 @@
   --w-mid: 500;
   --w-strong: 700;
   --w-black: 800;
-  --font-display: 'Gilroy', 'Trillium Web', sans-serif;
+  --font-display: 'Manrope', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --font-serif: 'Trillium Web', serif;
+  --font-serif: 'Fraunces', serif;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-display); -webkit-font-smoothing: antialiased; }
@@ -143,18 +143,18 @@ h1, h2, h3, p, blockquote, .num {
 }
 
 /* slide-1 editorial cover v7 */
-#slide-1 { padding: clamp(36px, 5vw, 64px) !important; overflow: hidden}
-#slide-1 .slide__top { gap: clamp(16px, 3vw, 32px); align-items: baseline}
-#slide-1 .cap-index { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.45)}
-#slide-1 .bg-word { position: absolute; bottom: -6vh; right: -3vw; font-family: var(--font-serif); font-style: italic; font-weight: 200; font-size: clamp(170px, 26vw, 320px); color: transparent; -webkit-text-stroke: 1.4px rgba(255,255,255,0.085); letter-spacing: -0.045em; line-height: 0.82; user-select: none; pointer-events: none; z-index: 0; white-space: nowrap; text-transform: lowercase}
-#slide-1.slide--photo .bg-word { -webkit-text-stroke: 1.4px rgba(255,255,255,0.18)}
-#slide-1 .slide__body { display: grid !important; grid-template-rows: auto auto auto !important; align-content: center !important; justify-items: center !important; gap: clamp(18px, 2.8vh, 30px) !important; position: relative; z-index: 1; padding-top: 0 !important; padding-bottom: 0 !important}
+#slide-1 { padding: clamp(36px, 5vw, 64px) !important; overflow: hidden; }
+#slide-1 .slide__top { gap: clamp(16px, 3vw, 32px); align-items: baseline; }
+#slide-1 .cap-index { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+#slide-1 .bg-word { position: absolute; bottom: -6vh; right: -3vw; font-family: var(--font-serif); font-style: italic; font-weight: 200; font-size: clamp(170px, 26vw, 320px); color: transparent; -webkit-text-stroke: 1.4px rgba(255,255,255,0.085); letter-spacing: -0.045em; line-height: 0.82; user-select: none; pointer-events: none; z-index: 0; white-space: nowrap; text-transform: lowercase; }
+#slide-1.slide--photo .bg-word { -webkit-text-stroke: 1.4px rgba(255,255,255,0.18); }
+#slide-1 .slide__body { display: grid !important; grid-template-rows: auto auto auto !important; align-content: center !important; justify-items: center !important; gap: clamp(18px, 2.8vh, 30px) !important; position: relative; z-index: 1; padding-top: 0 !important; padding-bottom: 0 !important; }
 #slide-6 .slide__body { display: grid !important; align-content: center !important; justify-items: center !important; gap: 18px !important; }
-#slide-1 .slide__body h1 { font-family: var(--font-display) !important; font-weight: 600 !important; font-size: clamp(32px, 5vw, 58px) !important; line-height: 1.08 !important; letter-spacing: -0.02em !important; max-width: 22ch !important; justify-self: center !important; text-align: center !important; text-wrap: pretty; color: rgba(255,255,255,0.96); }
-#slide-1 .accent-rule { width: clamp(40px, 6.5vw, 80px); height: 2px; background: var(--accent); justify-self: center !important; opacity: 0.85}
-#slide-1 .slide__hook { font-family: var(--font-serif) !important; font-style: italic; font-weight: 300; font-size: clamp(24px, 3.4vw, 38px) !important; line-height: 1.28; color: rgba(255,255,255,0.86) !important; max-width: 24ch !important; justify-self: center !important; text-align: center !important; text-wrap: pretty; }
-#slide-1.slide--photo .slide__hook { color: rgba(255,255,255,0.96) !important; text-shadow: 0 2px 18px rgba(0,0,0,0.45)}
-#slide-1.slide--photo .slide__body h1 { text-shadow: 0 2px 22px rgba(0,0,0,0.55); text-align: center !important;}
+#slide-1 .slide__body h1 { font-family: var(--font-display) !important; font-weight: 600 !important; font-size: clamp(32px, 5vw, 58px) !important; line-height: 1.08 !important; letter-spacing: -0.02em !important; max-width: 22ch !important; justify-self: center !important; text-align: center; text-wrap: pretty; color: rgba(255,255,255,0.96); }
+#slide-1 .accent-rule { width: clamp(40px, 6.5vw, 80px); height: 2px; background: var(--accent); justify-self: center !important; opacity: 0.85; }
+#slide-1 .slide__hook { font-family: var(--font-serif) !important; font-style: italic; font-weight: 300; font-size: clamp(24px, 3.4vw, 38px) !important; line-height: 1.28; color: rgba(255,255,255,0.86) !important; max-width: 24ch !important; justify-self: center !important; text-align: center; text-wrap: pretty; }
+#slide-1.slide--photo .slide__hook { color: rgba(255,255,255,0.96) !important; text-shadow: 0 2px 18px rgba(0,0,0,0.45); }
+#slide-1.slide--photo .slide__body h1 { text-shadow: 0 2px 22px rgba(0,0,0,0.55); }
 /* coerência interiores */
 
 
@@ -169,11 +169,16 @@ h1, h2, h3, p, blockquote, .num {
   max-width: min(880px, 92%) !important; 
   margin: 0 !important;
 }
-.slide--photo .slide__body h1 { font-size: clamp(30px, 5vw, 58px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
-.slide--type .slide__body h1 { font-size: clamp(30px, 5vw, 58px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
-.slide--num .slide__body h1 { font-size: clamp(30px, 5vw, 58px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; }
+/* Capa + CTA: centrado (Lucca feedback 19-jun) */
+#slide-1 .slide__body h1, #slide-2 .slide__body h1, #slide-6 .slide__body h1 { 
+  text-align: center !important; 
+  max-width: 32ch !important; 
+  text-wrap: pretty !important;
+}
+.slide--photo .slide__body h1 { font-size: clamp(30px, 5vw, 58px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
+.slide--type .slide__body h1 { font-size: clamp(30px, 5vw, 58px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
+.slide--num .slide__body h1 { font-size: clamp(30px, 5vw, 58px) !important; line-height: 1.15 !important; max-width: min(920px, 95%) !important; } #slide-1 .slide__body h1, #slide-2 .slide__body h1 { max-width: 22ch !important; }
 
-#slide-1 .slide__body { text-align: center !important; align-items: center !important; justify-items: center !important; justify-self: center !important; display: grid; }
 </style>
 <!-- fx-v2 -->
 <style id="fx-v2">
@@ -220,7 +225,7 @@ h1, h2, h3, p, blockquote, .num {
   <div class="bg-word" aria-hidden="true">equipa</div>
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span><span class="cap-index">Bastidores</span></div>
   <div class="slide__body">
-    <h1>O que separa um bom estúdio de um medíocre?</h1>
+    <h1>O&nbsp;que&nbsp;separa um&nbsp;bom estúdio de&nbsp;um&nbsp;medíocre?</h1>
     <div class="accent-rule"></div>
     <p class="slide__hook">Quase nunca é&nbsp;a&nbsp;máquina.</p>
   </div>
@@ -228,10 +233,10 @@ h1, h2, h3, p, blockquote, .num {
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
 
 <article class="slide slide--photo" id="slide-2">
-  <div class="slide__photo" style="background-image:url('../../../assets/photos/generated_outfits_2026-05-20/07_social_fato_escuro.jpg')"></div>
+  <div class="slide__photo" style="background-image:url('../../../assets/photos/generated_outfits_2026-05-20/07_social_fato_escuro.png')"></div>
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span></div>
   <div class="slide__body">
-    <h1>Tecnologia sem critério humano não chega.</h1>
+    <h1>Tecnologia sem&nbsp;critério humano não&nbsp;chega.</h1>
   </div>
   <div class="slide__bottom"><span>02/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
@@ -239,7 +244,7 @@ h1, h2, h3, p, blockquote, .num {
 <article class="slide slide--type" id="slide-3">
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span></div>
   <div class="slide__body">
-    <h1>Um bom treinador lê o corpo antes de subir a intensidade.</h1>
+    <h1>Um&nbsp;bom treinador lê o&nbsp;corpo antes de&nbsp;subir a&nbsp;intensidade.</h1>
   </div>
   <div class="slide__bottom"><span>03/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
@@ -247,7 +252,7 @@ h1, h2, h3, p, blockquote, .num {
 <article class="slide slide--type" id="slide-4">
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span></div>
   <div class="slide__body">
-    <h1>Liderar uma rede é não deixar o critério diluir-se com o crescimento.</h1>
+    <h1>Liderar uma&nbsp;rede é&nbsp;não deixar o&nbsp;critério diluir-se&nbsp;com&nbsp;o&nbsp;crescimento.</h1>
   </div>
   <div class="slide__bottom"><span>04/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
@@ -255,7 +260,7 @@ h1, h2, h3, p, blockquote, .num {
 <article class="slide slide--type" id="slide-5">
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span></div>
   <div class="slide__body">
-    <h1>Na TechBody, a formação das equipas leva o mesmo método que o treino.</h1>
+    <h1>Na&nbsp;TechBody, a&nbsp;formação das&nbsp;equipas leva o&nbsp;mesmo método que&nbsp;o&nbsp;treino.</h1>
   </div>
   <div class="slide__bottom"><span>05/06</span><span class="arrow">→</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
@@ -263,7 +268,7 @@ h1, h2, h3, p, blockquote, .num {
 <article class="slide slide--type" id="slide-6">
   <div class="slide__top"><span class="brand-glyph">Luiz Santana</span></div>
   <div class="slide__body">
-    <h1>És profissional de fitness?<br>Comenta EQUIPA — eu explico-te o modelo.</h1>
+    <h1>És&nbsp;profissional de&nbsp;fitness?<br>Comenta EQUIPA — eu explico-te&nbsp;o&nbsp;modelo.</h1>
   </div>
   <div class="slide__bottom"><span>06/06</span></div>
 <div class="fx-atmos"></div><div class="fx-orb"></div><div class="fx-grain"></div></article>
