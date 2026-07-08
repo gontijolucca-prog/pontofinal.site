@@ -108,11 +108,15 @@ jobs:
 
             // CSS de isolamento (igual ao render-clean-slides.mjs)
             await page.addStyleTag({ content: `
-              .carousel { display: block !important; overflow: hidden !important; }
+              .carousel { display: block !important; overflow: hidden !important; position: relative !important; width: 1080px !important; height: 1350px !important; }
               .slide:not(.shot-active) { display: none !important; }
               .slide.shot-active {
                 width: 1080px !important; height: 1350px !important;
                 flex: none !important;
+                position: absolute !important; left: 0 !important; top: 0 !important;
+                z-index: 999 !important;
+                clip-path: inset(0) !important;
+                overflow: hidden !important;
               }
             `});
 
