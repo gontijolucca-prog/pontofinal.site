@@ -34,11 +34,16 @@ jobs:
         env:
           TB: ${{ secrets.IG_TOKEN_TECHBODY }}
           TBU: ${{ secrets.IG_TOKEN_TECHBODY_U }}
+          LUIZ: ${{ secrets.IG_TOKEN_LUIZ_SANTANA }}
         run: |
-          if [ -z "$TB" ] && [ -z "$TBU" ]; then
+          echo "Tokens: TB=${TB:+✓} TBU=${TBU:+✓} LUIZ=${LUIZ:+✓}"
+          if [ -z "$TB" ] && [ -z "$TBU" ] && [ -z "$LUIZ" ]; then
             echo "Sem tokens configurados — salto." && echo "run=0" >> "$GITHUB_OUTPUT"
           else
             echo "run=1" >> "$GITHUB_OUTPUT"
+          fi
+          if [ -z "$LUIZ" ]; then
+            echo "⚠ AVISO: Token Luiz Santana não encontrado — items Luiz serão ignorados"
           fi
 
       - name: Validar publish_only obrigatório
