@@ -123,17 +123,24 @@ def get_thumbnail_url(item):
         return ""
 
     fmt = item.get("format", "")
-    brand = item.get("brand", "")
-    month = item.get("month", "")
-
     if fmt == "carrossel":
-        # e.g. ../brands/techbody/output/2026-07/carrosseis/c04-espaco-estudio.html
         base = html_url.replace(".html", "").replace("../", "")
         return f"{SITE}/{base}_shots/slide_01.jpg"
     elif fmt in ("reel", "story"):
         base = html_url.replace(".html", "").replace("../", "")
         return f"{SITE}/{base}.jpg"
     return ""
+
+
+def get_all_slide_urls(item):
+    """Get all slide thumbnail URLs for a carousel."""
+    html_url = item.get("html_url", "")
+    fmt = item.get("format", "")
+    n_slides = item.get("slides", 1)
+    if not html_url or fmt != "carrossel":
+        return [get_thumbnail_url(item)] if get_thumbnail_url(item) else []
+    base = html_url.replace(".html", "").replace("../", "")
+    return [f"{SITE}/{base}_shots/slide_{str(i).zfill(2)}.jpg" for i in range(1, n_slides + 1)]
 
 
 def get_items_for_date(deploy_key, deploy_path, target_date, supabase_state):
@@ -172,6 +179,7 @@ def get_items_for_date(deploy_key, deploy_path, target_date, supabase_state):
             "hour": hour,
             "status": status,
             "thumbnail": get_thumbnail_url(item),
+            "slide_urls": get_all_slide_urls(item),
             "slides": item.get("slides", 1),
             "html_url": item.get("html_url", ""),
             "publishable": status == "approved",
@@ -195,8 +203,13 @@ def generate_html(items, target_date):
         disabled = "" if item["publishable"] else "disabled"
 
         thumb_html = ""
-        if item["thumbnail"]:
-            thumb_html = f'<img src="{item["thumbnail"]}" alt="{item["title"]}" class="thumb" onerror="this.style.display=\'none\'" />'
+        if item.get("slide_urls"):
+            slides_strip = ""
+            for idx, url in enumerate(item["slide_urls"], 1):
+                slides_strip += f'<img src="{url}" alt="Slide {idx}" class="slide-thumb" onerror="this.style.display=\'none\'" />\n'
+            thumb_html = f'<div class="slides-strip">{slides_strip}</div>'
+        elif item["thumbnail"]:
+            thumb_html = f'<div class="slides-strip"><img src="{item["thumbnail"]}" alt="{item["title"]}" class="slide-thumb" onerror="this.style.display=\'none\'" /></div>'
         else:
             thumb_html = f'<div class="thumb-placeholder">Sem thumbnail</div>'
 
@@ -253,8 +266,10 @@ def generate_html(items, target_date):
     .item-id {{ font-family: monospace; font-size: 13px; color: #ccc; }}
     .badge {{ font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 100px; color: #fff; text-transform: uppercase; letter-spacing: 0.05em; }}
     .item-body {{ display: flex; gap: 16px; padding: 16px; }}
-    .thumb-container {{ flex-shrink: 0; width: 160px; height: 200px; border-radius: 8px; overflow: hidden; background: #222; }}
-    .thumb {{ width: 100%; height: 100%; object-fit: cover; }}
+    .thumb-container {{ flex-shrink: 0; width: 100%; overflow-x: auto; border-radius: 8px; background: #222; padding: 8px; }}
+    .slides-strip {{ display: flex; gap: 8px; }}
+    .slide-thumb {{ width: 120px; height: 150px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }}
+    .thumb {{ width: 160px; height: 200px; object-fit: cover; }}
     .thumb-placeholder {{ width: 100%; height: 100%; display: grid; place-items: center; color: #666; font-size: 12px; }}
     .item-info {{ flex: 1; display: flex; flex-direction: column; gap: 8px; }}
     .item-brand {{ font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }}
