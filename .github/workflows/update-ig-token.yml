@@ -1,0 +1,72 @@
+name: Update IG Token
+
+# Actualiza o token de uma conta IG no Supabase ig_tokens.
+# Usado quando um token foi invalidado e precisamos de meter um novo.
+
+on:
+  workflow_dispatch:
+    inputs:
+      brand:
+        description: "Brand name (luiz_santana, techbody, techbody_u)"
+        required: true
+        type: string
+      token:
+        description: "New IGAA token"
+        required: true
+        type: string
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Update Supabase ig_tokens
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          BRAND: ${{ inputs.brand }}
+          TOKEN: ${{ inputs.token }}
+        run: |
+          python3 - <<'PYEOF'
+          import json, os, urllib.request
+          from datetime import datetime, timezone
+
+          SB = os.environ["SUPABASE_URL"].rstrip("/")
+          KEY = os.environ["SUPABASE_SERVICE_ROLE_KEY"]
+          BRAND = os.environ["BRAND"]
+          TOKEN = os.environ["TOKEN"]
+          NOW = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+          # First check if row exists
+          req = urllib.request.Request(
+              f"{SB}/rest/v1/ig_tokens?select=brand&brand=eq.{BRAND}",
+              headers={"apikey": KEY, "Authorization": f"Bearer {KEY}"},
+          )
+          with urllib.request.urlopen(req) as r:
+              rows = json.loads(r.read().decode())
+
+          if rows:
+              # Update existing row
+              body = json.dumps({"token": TOKEN, "refreshed_at": NOW, "status": "active"})
+              req = urllib.request.Request(
+                  f"{SB}/rest/v1/ig_tokens?brand=eq.{BRAND}",
+                  data=body.encode(),
+                  method="PATCH",
+                  headers={"apikey": KEY, "Authorization": f"Bearer {KEY}",
+                           "Content-Type": "application/json", "Prefer": "return=representation"},
+              )
+              with urllib.request.urlopen(req) as r:
+                  print(f"✓ Updated token for {BRAND} in Supabase")
+          else:
+              # Insert new row
+              body = json.dumps({"brand": BRAND, "token": TOKEN, "refreshed_at": NOW, "status": "active"})
+              req = urllib.request.Request(
+                  f"{SB}/rest/v1/ig_tokens",
+                  data=body.encode(),
+                  method="POST",
+                  headers={"apikey": KEY, "Authorization": f"Bearer {KEY}",
+                           "Content-Type": "application/json", "Prefer": "return=representation"},
+              )
+              with urllib.request.urlopen(req) as r:
+                  print(f"✓ Inserted token for {BRAND} in Supabase")
+          PYEOF
