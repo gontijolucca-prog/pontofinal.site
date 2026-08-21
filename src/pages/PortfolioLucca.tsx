@@ -55,7 +55,7 @@ const GROUPS: { key: Video['group']; label: string; link?: string; linkLabel: st
   { key: 'shorts', label: 'Shorts / Reels', link: 'https://www.youtube.com/@CrisisReportUk', linkLabel: 'Canal CrisisReportUk — editei a maioria dos vídeos do canal' },
   { key: 'publicidades', label: 'Publicidades', link: 'https://remax.pt/pt', linkLabel: 'Remax Portugal' },
   { key: 'motion', label: 'Motion Graphics', link: 'https://www.instagram.com/parfootgolf/', linkLabel: 'Instagram Parfootgolf' },
-  { key: 'vlogs', label: 'Vlogs', link: 'https://www.youtube.com/@calibricrlh', linkLabel: 'Canal Calibri CRLH' },
+  { key: 'vlogs', label: 'Vlogs', link: 'https://www.youtube.com/@calibricrlh', linkLabel: 'Canal Calibri' },
 ];
 
 export default function PortfolioLucca() {
