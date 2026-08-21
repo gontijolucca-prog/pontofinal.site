@@ -65,7 +65,7 @@
 .pf .pf-identity { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .pf .pf-username { font-size: 20px; font-weight: 400; }
 .pf .pf-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.pf .pf-btn { font-size: 14px; font-weight: 600; padding: 7px 16px; border-radius: 8px; background: var(--pf-bg); border: 1px solid var(--pf-line); color: var(--pf-text); transition: background .15s; }
+.pf .pf-btn { font-size: 14px; font-weight: 600; padding: 7px 16px; border-radius: 8px; background: var(--pf-bg); border: 1px solid var(--pf-line); color: var(--pf-text); transition: background .15s; cursor: pointer; line-height: 1.4; font-family: var(--pf-sans); text-transform: none; letter-spacing: 0; }
 .pf .pf-btn:hover { background: var(--pf-soft); }
 .pf .pf-btn.blue { background: var(--pf-blue); color: #fff; border-color: transparent; font-weight: 600; }
 .pf .pf-btn.blue:hover { background: #0081e0; }
@@ -87,18 +87,6 @@
 .pf .pf-hl-ic { width: 76px; height: 76px; border-radius: 50%; padding: 2px; background: conic-gradient(from 210deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5, #feda75); margin: 0 auto; }
 .pf .pf-hl-ic-in { width: 100%; height: 100%; border-radius: 50%; border: 2px solid var(--pf-bg); background: #fff; display: flex; align-items: center; justify-content: center; font-size: 28px; }
 .pf .pf-hl-t { font-size: 12px; margin-top: 6px; color: var(--pf-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-/* ---------- Tabs (IG grid icons) ---------- */
-.pf .pf-tabs { border-top: 1px solid var(--pf-line); display: flex; justify-content: center; }
-.pf .pf-tab { display: flex; align-items: center; gap: 6px; padding: 18px 22px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pf-muted); cursor: pointer; border-top: 1px solid transparent; margin-top: -1px; }
-.pf .pf-tab.active { color: var(--pf-text); border-top-color: var(--pf-text); }
-.pf .pf-tab svg { width: 15px; height: 15px; fill: currentColor; }
-
-/* ---------- Filter chips ---------- */
-.pf .pf-chips { display: flex; justify-content: center; gap: 10px; padding: 20px 0 10px; flex-wrap: wrap; }
-.pf .pf-chip { font-size: 13px; font-weight: 500; padding: 7px 16px; border-radius: 999px; border: 1px solid var(--pf-line); background: var(--pf-bg); color: var(--pf-text); cursor: pointer; transition: all .15s; }
-.pf .pf-chip:hover { background: var(--pf-soft); }
-.pf .pf-chip.active { background: var(--pf-text); color: var(--pf-bg); border-color: var(--pf-text); }
 
 /* ---------- Post grid (faithful, tight) ---------- */
 .pf .pf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; padding-top: 4px; }
@@ -144,8 +132,8 @@
 .pf .pf-modal-head .pf-mav img { width: 100%; height: 100%; border-radius: 50%; border: 2px solid var(--pf-bg); object-fit: cover; display: block; }
 .pf .pf-modal-head .pf-mu { font-size: 14px; font-weight: 600; }
 .pf .pf-modal-close { margin-left: auto; width: 34px; height: 34px; border-radius: 50%; background: transparent; color: var(--pf-text); border: 0; font-size: 26px; cursor: pointer; line-height: 1; }
-.pf .pf-modal-frame { width: 100%; background: #000; }
-.pf .pf-modal-frame iframe { width: 100%; border: 0; aspect-ratio: 16 / 10; display: block; }
+.pf .pf-modal-frame { width: 100%; background: #000; aspect-ratio: 16 / 9; }
+.pf .pf-modal-frame iframe, .pf .pf-modal-frame video { width: 100%; border: 0; height: 100%; display: block; object-fit: contain; }
 .pf .pf-modal-cap { padding: 12px 16px 20px; }
 .pf .pf-modal-icons { display: flex; gap: 16px; margin-bottom: 10px; }
 .pf .pf-modal-icons svg { width: 24px; height: 24px; fill: var(--pf-text); cursor: pointer; }
