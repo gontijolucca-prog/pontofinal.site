@@ -69,7 +69,7 @@ export default function PortfolioLucca() {
 
   // Vídeo + thumb hosted na VPS
   const videoSrc = (v: Video) => `https://media.pontofinal.site/${v.id}.mp4`;
-  const thumb = (v: Video) => `https://media.pontofinal.site/thumbs/${v.id}.jpg`;
+  const thumb = (v: Video) => `https://media.pontofinal.site/thumbs/${v.id}.jpg?v=2`;
 
   return (
     <div className="pf">
