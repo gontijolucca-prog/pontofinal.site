@@ -12,6 +12,7 @@ const PropostaPlan = lazy(() => import('./pages/PropostaPlan'));
 const Contrato = lazy(() => import('./pages/Contrato'));
 const MapaConteudos = lazy(() => import('./pages/MapaConteudos'));
 const CRM = lazy(() => import('./pages/CRM'));
+const PortfolioLucca = lazy(() => import('./pages/PortfolioLucca'));
 
 function RouteFallback() {
   return (
@@ -27,7 +28,8 @@ function Layout() {
     || location.pathname.startsWith('/proposta/')
     || location.pathname === '/contrato'
     || location.pathname === '/mapa-conteudos'
-    || location.pathname === '/crm';
+    || location.pathname === '/crm'
+    || location.pathname === '/portfolio/lucca';
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -44,6 +46,7 @@ function Layout() {
             <Route path="/contrato" element={<Contrato />} />
             <Route path="/mapa-conteudos" element={<MapaConteudos />} />
             <Route path="/crm" element={<CRM />} />
+            <Route path="/portfolio/lucca" element={<PortfolioLucca />} />
           </Routes>
         </Suspense>
       </div>

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { db } from '../firebase';
 import { collection, addDoc } from 'firebase/firestore';
-import { downloadPropostaPdf } from '../utils/generatePropostaPdf';
 
 export default function Home() {
   const [formStatus, setFormStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null);
@@ -10,145 +9,99 @@ export default function Home() {
   return (
     <main>
       {/* HERO */}
-      <header className="hero section">
+      <header className="hero section blueprint-grid">
           <div className="container hero-content">
+              <span className="hero-badge"><span className="badge-num">//</span> PONTOFINAL · FERRAMENTAS DE IA</span>
               <h1 className="hero-title">
-                  O Seu Novo <span className="highlight">Website.</span><br/>
-                  <span className="highlight">Feito à Sua Medida.</span>
+                  Automatiza o trabalho repetitivo<br/>do teu negócio. <span className="highlight">Com IA.</span>
               </h1>
-              <p className="hero-subtitle">Agência digital focada em resultados. Websites de alta performance. Cresça a sua marca sem dores de cabeça.</p>
+              <p className="hero-subtitle">Construímos ferramentas de inteligência artificial <strong>feitas à medida</strong> do teu negócio — agentes, automações e ferramentas internas que trabalham por ti, 24/7, sem dores de cabeça.</p>
               <div className="hero-cta">
-                  <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-primary btn-large">Começar Agora</button>
+                  <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-primary btn-large">Pedir Diagnóstico Gratuito →</button>
                   <button onClick={() => document.getElementById('como-funciona')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-large">Como Funciona ↓</button>
               </div>
               
               <div className="hero-stats">
                   <div className="stat-box">
-                      <span className="stat-value">2<small>Dias</small></span>
-                      <span className="stat-label">Tempo Médio Entrega</span>
+                      <span className="stat-value">-50<span className="stat-suffix">%</span></span>
+                      <span className="stat-label">Tarefas Manuais Eliminadas</span>
+                  </div>
+                  <div className="stat-box">
+                      <span className="stat-value">24<small>/7</small></span>
+                      <span className="stat-label">A Trabalhar por Ti</span>
                   </div>
                   <div className="stat-box">
                       <span className="stat-value">100<small>%</small></span>
-                      <span className="stat-label">Design Responsivo</span>
-                  </div>
-                  <div className="stat-box">
-                      <span className="stat-value">∞</span>
-                      <span className="stat-label">Hosting & Suporte</span>
+                      <span className="stat-label">Feito à Medida</span>
                   </div>
               </div>
           </div>
       </header>
 
-      {/* WHY US */}
-      <section id="why-us" className="why-us section bg-dark">
+      {/* SPEC BAND */}
+      <section className="section" style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
           <div className="container">
-              <h2 className="section-title text-white">Esqueça as Agências Tradicionais.<br/>Isto é Eficiência.</h2>
+              <div className="spec-band">
+                  <div className="spec-item"><span className="spec-key">Projeto</span><span className="spec-val">À medida, não em caixa</span></div>
+                  <div className="spec-item"><span className="spec-key">Integração</span><span className="spec-val">Com as tuas ferramentas</span></div>
+                  <div className="spec-item"><span className="spec-key">Operação</span><span className="spec-val">24/7 · autónomo</span></div>
+                  <div className="spec-item"><span className="spec-key">Suporte</span><span className="spec-val">Manutenção incluída</span></div>
+              </div>
+          </div>
+      </section>
+
+      {/* SERVICES */}
+      <section id="servicos" className="why-us section bg-dark">
+          <div className="container">
+              <span className="hero-badge" style={{ marginBottom: '1.5rem' }}><span className="badge-num">01</span> O QUE CONSTRUÍMOS</span>
+              <h2 className="section-title text-white">Ferramentas de IA que eliminam trabalho manual do teu dia-a-dia.</h2>
               <div className="grid-3">
-                  <div className="brutal-card card-dark">
-                      <div className="card-icon">01</div>
-                      <h3 className="card-title">Tudo num Só Lugar</h3>
-                      <p>Desde a criação do seu website ao seu lançamento. Centralize a sua presença digital com uma única equipa dedicada a fazê-lo crescer.</p>
+                  <div className="brutal-card card-dark corner-notch">
+                      <div className="card-icon">01 // AGENTES</div>
+                      <h3 className="card-title">Agentes de IA</h3>
+                      <p className="card-desc">Assistentes virtuais que respondem, qualificam e agendam clientes no teu site e WhatsApp, 24/7, sem precisar de ti.</p>
                   </div>
-                  <div className="brutal-card card-dark">
-                      <div className="card-icon">02</div>
-                      <h3 className="card-title">Presença que Gera Negócio</h3>
-                      <p>O seu site nasce otimizado para o Google, focado em construir autoridade e gerar resultados. Não fazemos apenas design, criamos presença real.</p>
+                  <div className="brutal-card card-dark corner-notch">
+                      <div className="card-icon">02 // AUTOMAÇÃO</div>
+                      <h3 className="card-title">Automação de Processos</h3>
+                      <p className="card-desc">Fluxos que ligam as tuas ferramentas e fazem sozinhos as tarefas repetitivas: relatórios, follow-ups, triagem de pedidos, integrações.</p>
                   </div>
-                  <div className="brutal-card card-dark">
-                      <div className="card-icon">03</div>
-                      <h3 className="card-title">Transparência Total</h3>
-                      <p>Planos mensais claros sem orçamentos surpresa. Entregas ultra-rápidas, reuniões eficientes e foco naquilo que realmente importa: resultados.</p>
+                  <div className="brutal-card card-dark corner-notch">
+                      <div className="card-icon">03 // SOB MEDIDA</div>
+                      <h3 className="card-title">Ferramentas Internas</h3>
+                      <p className="card-desc">Painéis, CRMs e geradores construídos à medida do teu caso — resolvem o teu problema específico, não uma solução genérica.</p>
                   </div>
               </div>
           </div>
       </section>
 
-      {/* PRICING */}
-      <section id="pacotes" className="pricing section">
+      {/* PRICING — por consulta */}
+      <section id="orcamento" className="pricing section bg-dark">
           <div className="container">
-              <h2 className="section-title text-center">Planos Mensais.<br/>Transparência Total.</h2>
-              <p className="section-subtitle text-center" style={{marginBottom: '4rem'}}>Sem propostas fechadas. O que vê é exatamente o que paga.</p>
-              
-              <h3 id="planos-websites" className="text-center" style={{fontSize: '2.5rem', marginTop: '2rem'}}>Planos de Websites</h3>
-              <div className="price-disclaimer">
-                  <strong>Nota:</strong> Todos os planos de website requerem uma Taxa de Arranque única para configuração inicial e design. As manutenções incluem alojamento e segurança.
+              <span className="hero-badge" style={{ marginBottom: '1.5rem' }}><span className="badge-num">02</span> MODELO</span>
+              <h2 className="section-title text-white">Preços por consulta.<br/>Cada projeto é único.</h2>
+              <p className="section-subtitle" style={{ marginBottom: '3rem' }}>Não temos pacotes fechados. Cada ferramenta de IA é orçamentada à medida do teu caso, depois de um diagnóstico gratuito. Pagas só pelo que precisas.</p>
+
+              <div className="grid-3">
+                   <div className="brutal-card card-dark corner-notch">
+                       <div className="card-icon">01 // DIAGNÓSTICO</div>
+                       <h3 className="card-title">Gratuito</h3>
+                       <p className="card-desc">Analisamos o teu negócio e vemos o que pode ser automatizado — sem qualquer custo ou compromisso.</p>
+                   </div>
+                   <div className="brutal-card card-dark corner-notch">
+                       <div className="card-icon">02 // ORÇAMENTO</div>
+                       <h3 className="card-title">À Medida</h3>
+                       <p className="card-desc">Cada projeto é cotado pelo seu âmbito real. Sem pacotes fechados, sem pagares pelo que não precisas.</p>
+                   </div>
+                   <div className="brutal-card card-dark corner-notch">
+                       <div className="card-icon">03 // CONTRATO</div>
+                       <h3 className="card-title">Sem Surpresas</h3>
+                       <p className="card-desc">O que acordamos no orçamento é exatamente o que pagas. Transparência do início ao fim.</p>
+                   </div>
               </div>
-              
-              <div className="pricing-grid">
-                   <div className="brutal-card pricing-card">
-                       <div className="pricing-header">
-                           <h3>Bronze</h3>
-                          <div className="price anchored-price">
-                              <div className="new-price" style={{fontSize: '2rem'}}>
-                                  <span>200€ (Arranque)</span>
-                                  <span>+ 30€/mês (Manutenção)</span>
-                              </div>
-                          </div>
-                      </div>
-                      <div className="price-subtext special-offer smooth-bounce" style={{marginBottom: '1.5rem'}}>
-                        <strong>OFERTA ESPECIAL:</strong> 1º Mês de Manutenção Grátis. A partir do 2º mês: 30€/mês.
-                      </div>
-                      <ul className="pricing-features">
-                          <li>Website de 1 página</li>
-                          <li>Design responsivo (telemóvel e PC)</li>
-                          <li>Alojamento e segurança incluídos</li>
-                       <li>1 atualização por mês</li>
-                       </ul>
-                       <button onClick={() => downloadPropostaPdf('web-bronze')} className="btn btn-secondary btn-full" style={{ marginBottom: '0.75rem' }}>💾 Guardar Proposta</button>
-                       <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-full">Começar Agora</button>
-                   </div>
 
-                   {/* Website - Prata */}
-                   <div className="brutal-card pricing-card featured-pricing">
-                       <div className="pricing-header">
-                           <h3>Prata</h3>
-                           <div className="price anchored-price">
-                               <div className="new-price" style={{fontSize: '2rem'}}>
-                                   <span>400€ (Arranque)</span>
-                                   <span>+ 50€/mês (Manutenção)</span>
-                               </div>
-                           </div>
-                       </div>
-                       <div className="price-subtext special-offer smooth-bounce" style={{marginBottom: '1.5rem'}}>
-                         <strong>OFERTA ESPECIAL:</strong> 1º Mês de Manutenção Grátis. A partir do 2º mês: 50€/mês.
-                       </div>
-                       <ul className="pricing-features">
-                           <li>Website até 5 páginas</li>
-                           <li>Design responsivo</li>
-                           <li>Botão WhatsApp</li>
-                           <li>Alojamento e segurança incluídos</li>
-                           <li>2 atualizações por mês</li>
-                       </ul>
-                       <button onClick={() => downloadPropostaPdf('web-prata')} className="btn btn-primary btn-full" style={{ marginBottom: '0.75rem' }}>💾 Guardar Proposta</button>
-                       <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-primary btn-full">Começar Agora</button>
-                   </div>
-
-                   {/* Website - Ouro */}
-                   <div className="brutal-card pricing-card bg-stripe">
-                       <div className="pricing-header">
-                           <h3>Ouro</h3>
-                           <div className="price anchored-price">
-                               <div className="new-price" style={{fontSize: '2rem'}}>
-                                   <span>700€ (Arranque)</span>
-                                   <span>+ 80€/mês (Manutenção)</span>
-                               </div>
-                           </div>
-                       </div>
-                       <div className="price-subtext special-offer smooth-bounce" style={{marginBottom: '1.5rem'}}>
-                         <strong>OFERTA ESPECIAL:</strong> 1º Mês de Manutenção Grátis. A partir do 2º mês: 80€/mês.
-                       </div>
-                       <ul className="pricing-features">
-                           <li>Tudo o que o Prata inclui</li>
-                           <li>Criação de ferramentas web / internas</li>
-                           <li>Estatísticas de visitas</li>
-                           <li>Suporte prioritário</li>
-                           <li>Alojamento e segurança incluídos</li>
-                           <li>4 atualizações por mês</li>
-                       </ul>
-                       <button onClick={() => downloadPropostaPdf('web-ouro')} className="btn btn-secondary btn-full" style={{ marginBottom: '0.75rem' }}>💾 Guardar Proposta</button>
-                       <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-full">Começar Agora</button>
-                   </div>
-
+              <div className="final-cta-buttons" style={{ marginTop: '3.5rem', justifyContent: 'flex-start' }}>
+                  <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-primary btn-large">Pedir Orçamento Gratuito →</button>
               </div>
           </div>
       </section>
@@ -158,25 +111,26 @@ export default function Home() {
           <div className="container">
               <div className="process-wrapper">
                   <div className="process-text">
-                      <h2 className="section-title">Sem Reuniões Intermináveis. Processo Fricção-Zero.</h2>
-                      <p>O seu tempo é dinheiro. O nosso modelo ágil permite que lance o seu website premium de forma rápida e eficiente.</p>
+                      <span className="hero-badge" style={{ marginBottom: '1.5rem' }}><span className="badge-num">03</span> PROCESSO</span>
+                      <h2 className="section-title">Da ideia à ferramenta a funcionar. Sem fricção.</h2>
+                      <p>Processo ágil e transparente. Diagnóstico, desenho e construção em poucas semanas — para a tua ferramenta trabalhar o quanto antes.</p>
                   </div>
                   <div className="process-steps">
                       <div className="step-card brutal-card">
-                          <div className="step-number">1. Os Planos</div>
-                          <p>Escolhe o plano de Website (<button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} style={{ textDecoration: 'underline', background: 'none', border: 'none', color: 'inherit', font: 'inherit', cursor: 'pointer', padding: 0 }}>abaixo</button>) adequado ao seu projeto local.</p>
+                          <div className="step-number"><span className="step-idx">1.</span> Diagnóstico</div>
+                          <p>Falamos do teu negócio e identificamos o que pode ser automatizado e quanto tempo poupa.</p>
                       </div>
                       <div className="step-card brutal-card">
-                          <div className="step-number">2. O Formulário de Briefing</div>
-                          <p>Preenche o formulário detalhado na secção abaixo. O nosso arranque é baseado num briefing direto para obter logo a sua essência.</p>
+                          <div className="step-number"><span className="step-idx">2.</span> Desenho da Ferramenta</div>
+                          <p>Definimos a solução exata: o âmbito, as integrações e o modelo de preço à medida.</p>
                       </div>
                       <div className="step-card brutal-card">
-                          <div className="step-number">3. Arranque Imediato</div>
-                          <p>Recebe o link seguro para efetuar o pagamento. Iniciamos a construção do site imediatamente após validação.</p>
+                          <div className="step-number"><span className="step-idx">3.</span> Construção & Integração</div>
+                          <p>Construímos e ligamos a tua ferramenta às tuas ferramentas atuais. Testamos contigo.</p>
                       </div>
-                      <div className="step-card brutal-card">
-                          <div className="step-number bg-red text-white">4. Em Poucos Dias a Funcionar</div>
-                          <p>A nossa equipa opera cirurgicamente para que tenha o seu website no ar num espaço de dias.</p>
+                      <div className="step-card brutal-card bg-cobalt">
+                          <div className="step-number"><span className="step-idx">4.</span> Lançamento & Manutenção</div>
+                          <p>Põe-se a trabalhar 24/7. Fazemos a manutenção, atualizações e suporte.</p>
                       </div>
                   </div>
               </div>
@@ -186,22 +140,23 @@ export default function Home() {
       {/* FORMS SECTION */}
       <section id="forms-section" className="forms-section section">
           <div className="container">
-              <h2 className="section-title text-center">Pronto para a Ação?<br/><span className="highlight">Escolha o seu Caminho.</span></h2>
+              <span className="hero-badge" style={{ marginBottom: '1.5rem' }}><span className="badge-num">04</span> CONTACTO</span>
+              <h2 className="section-title text-center">Vamos automatizar o teu negócio?<br/><span className="highlight red">Pede um diagnóstico gratuito.</span></h2>
               
               <div style={{ maxWidth: '600px', margin: '0 auto' }}>
                   
                   {/* Formulário: Agendar Chamada */}
                   <div className="brutal-card form-card">
                       <div className="form-header">
-                          <h3>Pronto para começar?</h3>
-                          <p>Preencha os dados abaixo e entraremos em contacto para alinhar o seu projeto.</p>
+                          <h3>Diagnóstico gratuito</h3>
+                          <p>Conta-nos o teu caso e identificamos o que a IA pode automatizar no teu negócio.</p>
                       </div>
                       
                       {formStatus?.type === 'success' ? (
                           <div style={{ textAlign: 'center', padding: '2rem 0' }}>
                               <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>✅</div>
                               <h3 style={{ fontSize: '1.5rem', marginBottom: '2rem', lineHeight: '1.4' }}>
-                                  A nossa equipa vai entrar em contacto o mais breve possível.<br/>Obrigado!
+                                  Recebemos o teu pedido. Vamos entrar em contacto o mais breve possível.<br/>Obrigado!
                               </h3>
                               <button 
                                   type="button" 
@@ -251,13 +206,13 @@ export default function Home() {
                               )}
 
                               <div className="form-group">
-                                  <label htmlFor="call-plano">Que serviços lhe interessam?</label>
+                                  <label htmlFor="call-plano">Que solução de IA lhe interessa?</label>
                                   <select id="call-plano" name="plano_interesse" className="brutal-input" required defaultValue="">
                                       <option value="" disabled>Escolher uma opção...</option>
-                                      <option value="web-bronze">Websites: Plano Bronze</option>
-                                      <option value="web-prata">Websites: Plano Prata</option>
-                                      <option value="web-ouro">Websites: Plano Ouro</option>
-                                      <option value="indeciso">Ainda não sei, quero falar convosco</option>
+                                      <option value="ai-assistente">Assistente (agente de IA)</option>
+                                      <option value="ai-automacao">Automação de processos</option>
+                                      <option value="ai-sobmedida">Ferramenta sob medida</option>
+                                      <option value="indeciso">Ainda não sei, quero um diagnóstico</option>
                                   </select>
                               </div>
 
@@ -311,12 +266,12 @@ export default function Home() {
 
                               {/* Breve descrição */}
                               <div className="form-group">
-                                  <label htmlFor="call-descricao">Breve descrição do seu projeto</label>
+                                  <label htmlFor="call-descricao">Breve descrição do seu negócio</label>
                                   <textarea
                                       id="call-descricao"
                                       name="descricao"
                                       className="brutal-input textarea"
-                                      placeholder="Ex: Preciso de um website para o meu negócio local e gestão de redes sociais..."
+                                      placeholder="Ex: Somos uma oficina e perdemos tempo a responder a pedidos de orçamento..."
                                       rows={2}
                                       style={{ minHeight: '3.5rem', resize: 'vertical' }}
                                   />
@@ -325,7 +280,7 @@ export default function Home() {
                               {/* Anti-spam hidden field */}
                               <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
                               
-                              <button type="submit" className="btn btn-primary btn-full form-submit">Pedir Contacto</button>
+                              <button type="submit" className="btn btn-primary btn-full form-submit">Pedir Diagnóstico Gratuito</button>
                           </form>
                       )}
                   </div>

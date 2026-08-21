@@ -61,6 +61,57 @@ const plans: Record<string, PlanData> = {
       { label: 'Manutenção Mensal', value: '80€/mês' },
     ],
   },
+  'ai-assistente': {
+    name: 'Assistente',
+    subtitle: 'Agente de IA',
+    features: [
+      '<strong>1 agente de IA</strong> (site ou WhatsApp)',
+      'Responde e qualifica leads <strong>24/7</strong>',
+      'Base de conhecimento do teu negócio',
+      'Alojamento e segurança incluídos',
+      '<strong>1 atualização</strong> por mês',
+    ],
+    objetivo:
+      'Criar um assistente de IA que responde, qualifica e trabalha por ti 24/7, sem depender de uma pessoa para atender cada pedido.',
+    pricing: [
+      { label: 'Arranque', value: '350€' },
+      { label: 'Manutenção Mensal', value: '39€/mês' },
+    ],
+  },
+  'ai-automacao': {
+    name: 'Automação',
+    subtitle: 'Automação de Processos',
+    features: [
+      '<strong>1 agente de IA</strong> + fluxos de automação',
+      'Integrações com as tuas ferramentas',
+      'Elimina tarefas repetitivas do dia-a-dia',
+      'Alojamento, segurança e base de dados',
+      '<strong>2 atualizações</strong> por mês',
+    ],
+    objetivo:
+      'Automatizar os processos repetitivos do negócio: follow-ups, relatórios, triagem de pedidos e integrações que funcionam sozinhas.',
+    pricing: [
+      { label: 'Arranque', value: '850€' },
+      { label: 'Manutenção Mensal', value: '89€/mês' },
+    ],
+  },
+  'ai-sobmedida': {
+    name: 'Sob Medida',
+    subtitle: 'Ferramenta Interna Personalizada',
+    features: [
+      '<strong>Ferramenta interna completa</strong> feita à medida',
+      'Painéis, CRMs ou geradores personalizados',
+      'Múltiplos agentes e automações',
+      'Suporte prioritário',
+      '<strong>4 atualizações</strong> por mês',
+    ],
+    objetivo:
+      'Desenvolver uma ferramenta de IA completa, construída especificamente para o teu caso, que resolve o problema exato do teu negócio.',
+    pricing: [
+      { label: 'Arranque', value: 'a partir de 1.500€' },
+      { label: 'Manutenção Mensal', value: '149€/mês' },
+    ],
+  },
 };
 
 export default function PropostaPlan() {

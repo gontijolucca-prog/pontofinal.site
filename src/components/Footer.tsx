@@ -5,8 +5,8 @@ export default function Footer() {
     <footer className="footer border-top-thick" style={{ padding: '2rem 0', backgroundColor: '#FFF', textAlign: 'center' }}>
         <div className="container footer-content">
             <div className="footer-brand">
-                <div className="logo">Pontofinal.site_</div>
-                <p>Agência Digital para empresas reais.<br/>Websites.<br/>Leiria, Portugal.</p>
+                <div className="logo">Ponto<span className="logo-accent">final</span>.site_</div>
+                <p>Ferramentas de IA feitas à medida.<br/>Automatizamos o trabalho repetitivo do teu negócio.<br/>Leiria, Portugal.</p>
             </div>
             <div className="footer-links">
                 <h3>Legal</h3>

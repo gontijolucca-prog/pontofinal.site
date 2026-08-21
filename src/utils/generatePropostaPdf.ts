@@ -60,13 +60,66 @@ const plans: Record<string, PlanData> = {
       { label: 'Manutencao Mensal', value: '80 EUR/mes' },
     ],
   },
+  'ai-assistente': {
+    name: 'Assistente',
+    subtitle: 'Agente de IA',
+    features: [
+      '1 agente de IA (site ou WhatsApp)',
+      'Responde e qualifica leads 24/7',
+      'Base de conhecimento do teu negocio',
+      'Alojamento e seguranca incluidos',
+      '1 atualizacao por mes',
+    ],
+    objetivo:
+      'Criar um assistente de IA que responde, qualifica e aguenta contigo 24/7, sem depender de uma pessoa para atender cada pedido.',
+    pricing: [
+      { label: 'Arranque', value: '350 EUR' },
+      { label: 'Manutencao Mensal', value: '39 EUR/mes' },
+    ],
+  },
+  'ai-automacao': {
+    name: 'Automacao',
+    subtitle: 'Automacao de Processos',
+    features: [
+      '1 agente de IA + fluxos de automacao',
+      'Integracoes com as tuas ferramentas',
+      'Elimina tarefas repetitivas diarias',
+      'Alojamento, seguranca e base de dados',
+      '2 atualizacoes por mes',
+    ],
+    objetivo:
+      'Automatizar os processos repetitivos do negocio: follow-ups, relatorios, triagem de pedidos e integracoes que funcionam sozinhas.',
+    pricing: [
+      { label: 'Arranque', value: '850 EUR' },
+      { label: 'Manutencao Mensal', value: '89 EUR/mes' },
+    ],
+  },
+  'ai-sobmedida': {
+    name: 'Sob Medida',
+    subtitle: 'Ferramenta Interna Personalizada',
+    features: [
+      'Ferramenta interna completa feita a medida',
+      'Paineis, CRMs ou geradores personalizados',
+      'Multiplos agentes e automacoes',
+      'Suporte prioritario',
+      '4 atualizacoes por mes',
+    ],
+    objetivo:
+      'Desenvolver uma ferramenta de IA completa, construida especificamente para o teu caso, que resolve o problema exato do teu negocio.',
+    pricing: [
+      { label: 'Arranque', value: 'a partir de 1.500 EUR' },
+      { label: 'Manutencao Mensal', value: '149 EUR/mes' },
+    ],
+  },
 };
 
-// Colors
-const RED = [255, 42, 42];
-const YELLOW = [255, 230, 0];
-const BLACK = [5, 5, 5];
-const GRAY = [240, 240, 240];
+// Colors (Industrial Toolbox)
+const COBALT = [27, 79, 216];
+const SIGNAL = [200, 16, 46];
+const BLACK = [16, 35, 61];
+const GRAY = [233, 228, 214];
+const RED = COBALT; // accents -> cobalt
+const YELLOW = GRAY; // price box -> paper tint
 
 function generate(plan: PlanData, filename: string) {
   const doc = new jsPDF({
@@ -234,7 +287,7 @@ function generate(plan: PlanData, filename: string) {
 
   doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
-  doc.text('A SUA AGENCIA DIGITAL FOCADA EM RESULTADOS.', pageWidth / 2, footerY + 18, { align: 'center' });
+  doc.text('FERRAMENTAS DE IA FEITAS A MEDIDA PARA O SEU NEGOCIO.', pageWidth / 2, footerY + 18, { align: 'center' });
 
   // --- SAVE ---
   doc.save(filename);

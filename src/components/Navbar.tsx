@@ -37,13 +37,15 @@ export default function Navbar() {
   };
 
   const planOptions = [
-    { label: 'Website', id: 'planos-websites' },
+    { label: 'Serviços', id: 'servicos' },
+    { label: 'Processo', id: 'como-funciona' },
+    { label: 'Orçamento', id: 'orcamento' },
   ];
 
   return (
     <nav className="navbar border-top-thick" style={{ padding: '1.5rem 0', borderBottom: '4px solid #050505', background: '#FFF' }}>
       <div className="container nav-content">
-        <Link to="/" className="logo" style={{ textDecoration: 'none' }} onClick={handleLogoClick}>Pontofinal.site_</Link>
+        <Link to="/" className="logo" style={{ textDecoration: 'none' }} onClick={handleLogoClick}>Ponto<span className="logo-accent">final</span>.site_</Link>
 
         {/* Desktop Nav */}
         <div className="nav-desktop">
