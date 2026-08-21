@@ -105,7 +105,6 @@ export default function PortfolioLucca() {
               </div>
               <div className="pf-stats">
                 <div className="pf-stat"><b>{POSTS.length}</b><span>projetos</span></div>
-                <div className="pf-stat"><b>{POSTS.filter((p) => p.group === 'shorts').length}</b><span>shorts</span></div>
                 <div className="pf-stat"><b>7yrs</b><span>experiência</span></div>
               </div>
               <div className="pf-bio">
