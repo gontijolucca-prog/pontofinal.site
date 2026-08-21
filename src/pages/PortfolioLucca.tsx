@@ -50,12 +50,12 @@ const POSTS: Video[] = [
   { id: 'remax-reel-4', title: 'Remax — Reel 4', group: 'publicidades', client: 'Remax', tags: ['Publicidade', 'Reel'], likes: 2050, comments: 169 },
 ];
 
-const GROUPS: { key: Video['group']; label: string }[] = [
-  { key: 'talking', label: 'Talking Heads' },
-  { key: 'shorts', label: 'Shorts / Reels' },
-  { key: 'publicidades', label: 'Publicidades' },
-  { key: 'motion', label: 'Motion Graphics' },
-  { key: 'vlogs', label: 'Vlogs' },
+const GROUPS: { key: Video['group']; label: string; link?: string; linkLabel: string }[] = [
+  { key: 'talking', label: 'Talking Heads', link: 'https://www.youtube.com/@nunocarvalhovlog/videos', linkLabel: 'Canal Nuno Carvalho' },
+  { key: 'shorts', label: 'Shorts / Reels', link: 'https://www.youtube.com/@CrisisReportUk', linkLabel: 'Canal CrisisReportUk — editei a maioria dos vídeos do canal' },
+  { key: 'publicidades', label: 'Publicidades', link: 'https://remax.pt/pt', linkLabel: 'Remax Portugal' },
+  { key: 'motion', label: 'Motion Graphics', link: 'https://www.instagram.com/parfootgolf/', linkLabel: 'Instagram Parfootgolf' },
+  { key: 'vlogs', label: 'Vlogs', link: 'https://www.youtube.com/@calibricrlh', linkLabel: 'Canal Calibri CRLH' },
 ];
 
 export default function PortfolioLucca() {
@@ -130,6 +130,11 @@ export default function PortfolioLucca() {
                 <div className="pf-psep">
                   <span>{g.label}</span>
                   <b>{group.length}</b>
+                  {g.link && (
+                    <a className="pf-catlink" href={g.link} target="_blank" rel="noreferrer">
+                      {g.linkLabel} ↗
+                    </a>
+                  )}
                 </div>
                 <div className="pf-grid">
                   {group.map((v) => (
