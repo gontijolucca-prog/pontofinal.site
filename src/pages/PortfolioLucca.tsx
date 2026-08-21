@@ -38,19 +38,24 @@ const POSTS: Video[] = [
   { id: '1bAj4tPyTZT6vGzkn-U2I_Y1VMdkXHhI0', title: 'Marrocos 2', group: 'vlogs', client: 'Marrocos', tags: ['Travel', 'Film'], likes: 1042, comments: 81 },
   { id: '1BDR9ecJzgfMi1DcRPs1-oBGFaZ6_Cbql', title: 'Marrocos 3', group: 'vlogs', client: 'Marrocos', tags: ['Travel', 'Film'], likes: 899, comments: 64 },
 
-  // ---- PUBLICIDADES (Remax) ----
+  // ---- PUBLICIDADES (Remax) — 5 longform + 4 reels ----
   { id: 'remax-long-1', title: 'Remax — Longform 1', group: 'publicidades', client: 'Remax', tags: ['Publicidade', 'Longform'], likes: 1567, comments: 112 },
   { id: 'remax-long-2', title: 'Remax — Longform 2', group: 'publicidades', client: 'Remax', tags: ['Publicidade', 'Longform'], likes: 1420, comments: 98 },
+  { id: 'remax-long-3', title: 'Remax — Longform 3', group: 'publicidades', client: 'Remax', tags: ['Publicidade', 'Longform'], likes: 1498, comments: 104 },
+  { id: 'remax-long-4', title: 'Remax — Longform 4', group: 'publicidades', client: 'Remax', tags: ['Publicidade', 'Longform'], likes: 1332, comments: 91 },
+  { id: 'remax-long-5', title: 'Remax — Longform 5', group: 'publicidades', client: 'Remax', tags: ['Publicidade', 'Longform'], likes: 1511, comments: 107 },
   { id: 'remax-reel-1', title: 'Remax — Reel 1', group: 'publicidades', client: 'Remax', tags: ['Publicidade', 'Reel'], likes: 2380, comments: 201 },
   { id: 'remax-reel-2', title: 'Remax — Reel 2', group: 'publicidades', client: 'Remax', tags: ['Publicidade', 'Reel'], likes: 2140, comments: 176 },
+  { id: 'remax-reel-3', title: 'Remax — Reel 3', group: 'publicidades', client: 'Remax', tags: ['Publicidade', 'Reel'], likes: 2260, comments: 188 },
+  { id: 'remax-reel-4', title: 'Remax — Reel 4', group: 'publicidades', client: 'Remax', tags: ['Publicidade', 'Reel'], likes: 2050, comments: 169 },
 ];
 
 const GROUPS: { key: Video['group']; label: string }[] = [
-  { key: 'shorts', label: 'Shorts / Reels' },
-  { key: 'motion', label: 'Motion Graphics' },
   { key: 'talking', label: 'Talking Heads' },
-  { key: 'vlogs', label: 'Vlogs' },
+  { key: 'shorts', label: 'Shorts / Reels' },
   { key: 'publicidades', label: 'Publicidades' },
+  { key: 'motion', label: 'Motion Graphics' },
+  { key: 'vlogs', label: 'Vlogs' },
 ];
 
 export default function PortfolioLucca() {
