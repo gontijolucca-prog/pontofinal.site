@@ -9,41 +9,18 @@
 
 .pf .pf-cursor-rec {
   position: fixed; top: 0; left: 0;
-  width: 44px; height: 44px;
-  margin: -22px 0 0 -22px; /* centrar no ponteiro */
+  width: 10px; height: 10px;
+  margin: -5px 0 0 -5px; /* centrar no ponteiro */
   pointer-events: none; z-index: 99999;
-  display: flex; align-items: center; justify-content: center;
 }
 .pf .pf-rec-btn {
-  width: 40px; height: 40px; border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #ff6b5e, #d90404 55%, #7a0000);
-  border: 2px solid rgba(255,255,255,0.85);
-  box-shadow: 0 0 0 0 rgba(255, 20, 20, 0.55);
-  animation: pf-rec-breathe 1.7s ease-in-out infinite;
-  display: flex; align-items: center; justify-content: center;
-  position: relative;
-}
-.pf .pf-rec-btn::after {
-  content: ''; position: absolute; top: 6px; right: 6px;
-  width: 9px; height: 9px; border-radius: 50%;
-  background: #ffd6d6;
-  box-shadow: 0 0 6px 2px #ff3b3b;
-  animation: pf-rec-led 1.7s ease-in-out infinite;
-}
-.pf .pf-rec-label {
-  position: absolute; bottom: -9px; left: 50%; transform: translateX(-50%);
-  background: rgba(0,0,0,0.75); color: #fff;
-  font-size: 9px; font-weight: 700; letter-spacing: 0.08em;
-  padding: 1px 5px; border-radius: 4px; line-height: 1.4;
-  font-family: var(--pf-sans); white-space: nowrap;
+  width: 100%; height: 100%; border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #ff8a80, #e51a1a 70%);
+  animation: pf-rec-breathe 1.6s ease-in-out infinite;
 }
 @keyframes pf-rec-breathe {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 20, 20, 0.0), 0 0 8px 2px rgba(255,40,40,0.25); transform: scale(0.92); }
-  50%      { box-shadow: 0 0 0 12px rgba(255, 20, 20, 0.0), 0 0 26px 10px rgba(255,40,40,0.65); transform: scale(1.08); }
-}
-@keyframes pf-rec-led {
-  0%, 100% { opacity: 0.25; transform: scale(0.7); }
-  50%      { opacity: 1; transform: scale(1); }
+  0%, 100% { opacity: 0.55; transform: scale(0.8); box-shadow: 0 0 4px rgba(255,60,60,0.5), 0 0 12px rgba(255,30,30,0.3); }
+  50%      { opacity: 1; transform: scale(1.15); box-shadow: 0 0 8px rgba(255,60,60,1), 0 0 22px rgba(255,30,30,0.75), 0 0 42px rgba(255,30,30,0.4); }
 }
 @media (hover: none), (pointer: coarse) {
   .pf, .pf * { cursor: auto !important; }
