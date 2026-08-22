@@ -6,29 +6,29 @@
    Partículas a levitar no fundo (estrelas) — animação contínua
    ------------------------------------------------------------ */
 .pf {
-  --pf-particle: rgba(255, 255, 255, 0.7); /* dark: brancas */
+  --pf-particle: rgba(255, 255, 255, 0.85); /* dark: brancas */
 }
 .pf.pf-light {
-  --pf-particle: rgba(0, 0, 0, 0.55); /* light: pretas */
+  --pf-particle: rgba(0, 0, 0, 0.7); /* light: pretas */
 }
 .pf .pf-particles {
   position: fixed; inset: 0; overflow: hidden;
   pointer-events: none; z-index: 0;
 }
 .pf .pf-particles i {
-  position: absolute; bottom: -12px; display: block;
+  position: absolute; bottom: -16px; display: block;
   border-radius: 50%;
   background: var(--pf-particle);
-  box-shadow: 0 0 8px 1px var(--pf-particle);
+  box-shadow: 0 0 10px 2px var(--pf-particle), 0 0 22px 5px var(--pf-particle);
   animation: pf-levitate linear infinite;
   opacity: 0;
 }
 @keyframes pf-levitate {
-  0%   { transform: translateY(0) scale(0.6); opacity: 0; }
-  12%  { opacity: var(--pf-p-op, 0.8); }
-  60%  { opacity: calc(var(--pf-p-op, 0.8) * 0.7); }
-  85%  { opacity: calc(var(--pf-p-op, 0.8) * 0.25); }
-  100% { transform: translateY(calc(-100vh - 40px)) scale(1.15); opacity: 0; }
+  0%   { transform: translateY(0) scale(0.7); opacity: 0; }
+  10%  { opacity: var(--pf-p-op, 1); }
+  55%  { opacity: calc(var(--pf-p-op, 1) * 0.85); }
+  80%  { opacity: calc(var(--pf-p-op, 1) * 0.35); }
+  100% { transform: translateY(calc(-100vh - 50px)) scale(1.25); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .pf .pf-particles { display: none; }

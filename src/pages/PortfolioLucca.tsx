@@ -59,12 +59,12 @@ const GROUPS: { key: Video['group']; label: string; link?: string; linkLabel: st
 ];
 
 // Partículas do fundo (posição fixa, animação varia em duração/delay/tamanho)
-const PARTICLES = Array.from({ length: 28 }, (_, i) => ({
-  left: `${(i * 3.7 + (i % 5) * 1.3) % 100}%`,
-  size: `${3 + ((i * 7) % 5)}px`,
-  dur: `${9 + ((i * 13) % 14)}s`,
-  delay: `${(i * 1.7) % 12}s`,
-  op: `${0.35 + ((i * 11) % 50) / 100}`,
+const PARTICLES = Array.from({ length: 44 }, (_, i) => ({
+  left: `${(i * 2.3 + (i % 7) * 1.7) % 100}%`,
+  size: `${4 + ((i * 5) % 7)}px`,
+  dur: `${7 + ((i * 9) % 12)}s`,
+  delay: `${(i * 1.3) % 10}s`,
+  op: `${0.55 + ((i * 7) % 45) / 100}`,
 }));
 
 export default function PortfolioLucca() {
