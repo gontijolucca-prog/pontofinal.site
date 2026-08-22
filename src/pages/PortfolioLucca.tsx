@@ -61,7 +61,13 @@ const GROUPS: { key: Video['group']; label: string; link?: string; linkLabel: st
 export default function PortfolioLucca() {
   const [active, setActive] = useState<Video | null>(null);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [cursorPos, setCursorPos] = useState({ x: -100, y: -100 });
 
+  useEffect(() => {
+    const move = (e: MouseEvent) => setCursorPos({ x: e.clientX, y: e.clientY });
+    window.addEventListener('mousemove', move);
+    return () => window.removeEventListener('mousemove', move);
+  }, []);
   useEffect(() => {
     // default dark; respeita escolha anterior do utilizador
     const saved = window.localStorage.getItem('pf-theme');
@@ -85,6 +91,12 @@ export default function PortfolioLucca() {
 
   return (
     <div className={`pf${theme === 'light' ? ' pf-light' : ''}`}>
+      {/* Cursor REC de gravação */}
+      <div className="pf-cursor-rec" style={{ transform: `translate(${cursorPos.x}px, ${cursorPos.y}px)` }}>
+        <div className="pf-rec-btn">
+          <span className="pf-rec-label">REC</span>
+        </div>
+      </div>
       {/* TOP BAR */}
       <header className="pf-topbar">
         <div className="pf-topbar-inner">
@@ -114,14 +126,14 @@ export default function PortfolioLucca() {
                 <div className="pf-avatar-inner">
                   <img src="/lucca-portfolio/lucca.png" alt="Lucca Gontijo" />
                 </div>
-                <div className="pf-verified" aria-label="Verificado">
-                  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                </div>
               </div>
             </div>
             <div>
               <div className="pf-identity">
                 <span className="pf-username">lucca.gontijo</span>
+                <span className="pf-verified" aria-label="Verificado">
+                  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </span>
                 <div className="pf-actions">
                   <button
                     className="pf-btn blue"
