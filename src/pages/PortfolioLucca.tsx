@@ -91,9 +91,10 @@ export default function PortfolioLucca() {
 
   return (
     <div className={`pf${theme === 'light' ? ' pf-light' : ''}`}>
-      {/* Cursor REC — luz de gravação */}
+      {/* Cursor REC — luz de gravação + label */}
       <div className="pf-cursor-rec" style={{ transform: `translate(${cursorPos.x}px, ${cursorPos.y}px)` }}>
         <div className="pf-rec-btn" />
+        <span className="pf-rec-label">REC</span>
       </div>
       {/* TOP BAR */}
       <header className="pf-topbar">
