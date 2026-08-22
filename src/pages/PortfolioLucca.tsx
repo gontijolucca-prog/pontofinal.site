@@ -85,6 +85,45 @@ export default function PortfolioLucca() {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  // Autoplay no hover do post
+  const playPost = (card: HTMLElement, src: string, poster: string) => {
+    const v = card.querySelector('video') as HTMLVideoElement | null;
+    if (!v) return;
+    if (!v.src) { v.src = src; v.poster = poster; }
+    const p = v.play();
+    if (p) p.catch(() => {/* autoplay bloqueado — ignora */});
+  };
+  const stopPost = (card: HTMLElement) => {
+    const v = card.querySelector('video') as HTMLVideoElement | null;
+    if (v) { v.pause(); v.currentTime = 0; }
+  };
+
+  // Glow gradual por proximidade do rato (rAF throttled)
+  useEffect(() => {
+    const posts = () => Array.from(document.querySelectorAll<HTMLElement>('.pf-post'));
+    let raf = 0;
+    const RADIUS = 220; // px de alcance do glow
+    const onMove = (e: MouseEvent) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const mx = e.clientX, my = e.clientY;
+        for (const el of posts()) {
+          const r = el.getBoundingClientRect();
+          const cx = r.left + r.width / 2;
+          const cy = r.top + r.height / 2;
+          const dist = Math.hypot(mx - cx, my - cy);
+          const g = Math.max(0, 1 - dist / RADIUS);
+          el.style.setProperty('--pf-glow', g.toFixed(3));
+        }
+      });
+    };
+    window.addEventListener('mousemove', onMove);
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
   // Vídeo + thumb hosted na VPS
   const videoSrc = (v: Video) => `https://media.pontofinal.site/${v.id}.mp4`;
   const thumb = (v: Video) => `https://media.pontofinal.site/thumbs/${v.id}.jpg?v=2`;
@@ -175,8 +214,15 @@ export default function PortfolioLucca() {
                 </div>
                 <div className="pf-grid">
                   {group.map((v) => (
-                    <div key={v.id} className="pf-post" onClick={() => setActive(v)}>
+                    <div
+                      key={v.id}
+                      className="pf-post"
+                      onClick={() => setActive(v)}
+                      onMouseEnter={(e) => playPost(e.currentTarget, videoSrc(v), thumb(v))}
+                      onMouseLeave={(e) => stopPost(e.currentTarget)}
+                    >
                       <img src={thumb(v)} alt={v.title} loading="lazy" />
+                      <video className="pf-post-video" muted loop playsInline preload="none" />
                       <div className="pf-overlay">
                         <div className="pf-overlay-meta">
                           <div><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>{v.likes.toLocaleString('en-US')}</div>
