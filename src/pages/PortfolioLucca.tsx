@@ -58,15 +58,6 @@ const GROUPS: { key: Video['group']; label: string; link?: string; linkLabel: st
   { key: 'vlogs', label: 'Vlogs', link: 'https://www.youtube.com/@calibricrlh', linkLabel: 'Canal Calibri' },
 ];
 
-// Partículas do fundo (posição fixa, animação varia em duração/delay/tamanho)
-const PARTICLES = Array.from({ length: 44 }, (_, i) => ({
-  left: `${(i * 2.3 + (i % 7) * 1.7) % 100}%`,
-  size: `${4 + ((i * 5) % 7)}px`,
-  dur: `${7 + ((i * 9) % 12)}s`,
-  delay: `${(i * 1.3) % 10}s`,
-  op: `${0.55 + ((i * 7) % 45) / 100}`,
-}));
-
 export default function PortfolioLucca() {
   const [active, setActive] = useState<Video | null>(null);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
@@ -139,22 +130,6 @@ export default function PortfolioLucca() {
 
   return (
     <div className={`pf${theme === 'light' ? ' pf-light' : ''}`}>
-      {/* Partículas a levitar no fundo (brancas dark / pretas light) */}
-      <div className="pf-particles" aria-hidden="true">
-        {PARTICLES.map((p, i) => (
-          <i
-            key={i}
-            style={{
-              left: p.left,
-              width: p.size,
-              height: p.size,
-              animationDuration: p.dur,
-              animationDelay: p.delay,
-              ['--pf-p-op' as string]: p.op,
-            }}
-          />
-        ))}
-      </div>
       {/* Cursor REC — luz de gravação + label */}
       <div className="pf-cursor-rec" style={{ transform: `translate(${cursorPos.x}px, ${cursorPos.y}px)` }}>
         <div className="pf-rec-btn" />
