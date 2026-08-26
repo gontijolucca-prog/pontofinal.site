@@ -4,7 +4,7 @@ import './portfolio-lucca.css';
 type Video = {
   id: string;
   title: string;
-  group: 'shorts' | 'motion' | 'talking' | 'vlogs' | 'publicidades';
+  group: 'shorts' | 'motion' | 'talking' | 'vlogs' | 'publicidades' | 'techbody';
   client: string;
   tags: string[];
   likes: number;
@@ -48,12 +48,23 @@ const POSTS: Video[] = [
   { id: 'remax-reel-2', title: 'Remax — Reel 2', group: 'publicidades', client: 'Remax', tags: ['Publicidade', 'Reel'], likes: 2140, comments: 176 },
   { id: 'remax-reel-3', title: 'Remax — Reel 3', group: 'publicidades', client: 'Remax', tags: ['Publicidade', 'Reel'], likes: 2260, comments: 188 },
   { id: 'remax-reel-4', title: 'Remax — Reel 4', group: 'publicidades', client: 'Remax', tags: ['Publicidade', 'Reel'], likes: 2050, comments: 169 },
+
+  // ---- TECHBODY & TECHBODY U (reels 2026) ----
+  { id: 'DaTg0iNFIAo', title: 'Abrir um Estúdio TechBody em 4 Passos', group: 'techbody', client: 'TechBody Portugal', tags: ['Publicidade', 'Reel', 'Franchise'], likes: 1840, comments: 143 },
+  { id: 'DZ78Sb9idnl', title: 'Eletroestimulação não é só para atletas', group: 'techbody', client: 'TechBody Portugal', tags: ['Publicidade', 'Reel'], likes: 1620, comments: 128 },
+  { id: 'DZspMIGiaAO', title: '25 Minutos — Corpo Inteiro na TechBody', group: 'techbody', client: 'TechBody Portugal', tags: ['Publicidade', 'Reel'], likes: 1510, comments: 112 },
+  { id: 'DZYGO50jXmq', title: 'Sem tempo para treinar? 25 minutos bastam', group: 'techbody', client: 'TechBody Portugal', tags: ['Publicidade', 'Reel'], likes: 1690, comments: 131 },
+  { id: 'DaTg9J-jzIk', title: 'ProtectBodyU — Pacote Completo Explicado', group: 'techbody', client: 'TechBody U', tags: ['Publicidade', 'Reel', 'Produto'], likes: 1770, comments: 139 },
+  { id: 'DZ78W4NlKct', title: 'TechBodyU FAT — Treina em Casa em 25 Minutos', group: 'techbody', client: 'TechBody U', tags: ['Publicidade', 'Reel', 'Produto'], likes: 1950, comments: 156 },
+  { id: 'DZspQowj1s-', title: 'App TechBodyU — 10 Coleções de Treino', group: 'techbody', client: 'TechBody U', tags: ['Publicidade', 'Reel', 'App'], likes: 1430, comments: 104 },
+  { id: 'DZYGT1PE2Ni', title: 'TechBodyU — Primeiro Dispositivo de Treino Inteligente', group: 'techbody', client: 'TechBody U', tags: ['Publicidade', 'Reel', 'Produto'], likes: 2110, comments: 172 },
 ];
 
 const GROUPS: { key: Video['group']; label: string; link?: string; linkLabel: string }[] = [
   { key: 'talking', label: 'Talking Heads', link: 'https://www.youtube.com/@nunocarvalhovlog/videos', linkLabel: 'Canal Nuno Carvalho' },
   { key: 'shorts', label: 'Shorts / Reels', link: 'https://www.youtube.com/@CrisisReportUk', linkLabel: 'Canal CrisisReportUk — editei a maioria dos vídeos do canal' },
   { key: 'publicidades', label: 'Publicidades', link: 'https://remax.pt/pt', linkLabel: 'Remax Portugal' },
+  { key: 'techbody', label: 'TechBody & TechBodyU', link: 'https://www.instagram.com/techbody_pt/', linkLabel: 'Instagram TechBody' },
   { key: 'motion', label: 'Motion Graphics', link: 'https://www.instagram.com/parfootgolf/', linkLabel: 'Instagram Parfootgolf' },
   { key: 'vlogs', label: 'Vlogs', link: 'https://www.youtube.com/@calibricrlh', linkLabel: 'Canal Calibri' },
 ];
