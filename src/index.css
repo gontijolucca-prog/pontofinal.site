@@ -3,24 +3,24 @@
 /* ============================================================
    PONTOFINAL.site — "Industrial Toolbox"
    Ferramentas de IA feitas à medida para o negócio.
-   Estética: blueprint / oficina técnica (azul-cobalto, mono).
+   Estética: brutalista tricolor (branco, vermelho, preto).
    ============================================================ */
 
 :root {
     /* Industrial Toolbox Palette */
-    --paper:      #F4F1E8;   /* blueprint paper (off-white) */
-    --ink:        #10233D;   /* deep blueprint blue */
-    --cobalt:     #1B4FD8;   /* accent cobalt */
-    --signal:     #C8102E;   /* signal red accent */
+    --paper:      #FFFFFF;   /* blueprint paper (off-white) */
+    --ink:        #0A0A0B;   /* deep blueprint blue */
+    --cobalt:     #0A0A0B;   /* reservado: mapeado para preto (só branco/vermelho/preto) */
+    --signal:     #FF2A2A;   /* signal red accent */
     --white:      #FFFFFF;
-    --line:       rgba(16, 35, 61, 0.12);   /* blueprint grid line */
+    --line:       rgba(10, 10, 11, 0.12);   /* blueprint grid line */
 
     /* Alias para compatibilidade com páginas internas */
     --color-bg:        var(--paper);
     --color-text:      var(--ink);
     --color-primary:   var(--signal);
     --color-secondary: var(--ink);
-    --color-light:     #E9E4D6;
+    --color-light:     #FFFFFF;
 
     /* Structure */
     --border-width: 2px;
@@ -30,14 +30,25 @@
     --shadow-solid-hover: 9px 9px 0px 0px var(--cobalt);
     --shadow-solid-small: 4px 4px 0px 0px var(--ink);
 
-    /* Typography */
-    --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Roboto Mono', Menlo, Consolas, monospace;
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    /* Typography: display + mono. Pesos extremos 200 vs 800. */
+    --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    --font-display: 'Archivo', 'Arial Black', sans-serif;
+    --font-sans: 'Archivo', Verdana, Geneva, sans-serif;
 
     /* Layout */
     --container-max: 1200px;
-    --spacing-section: 6rem;
+    --spacing-section: 8rem;
 }
+
+main { font-family: var(--font-sans); }
+main h1, main h2, main h3 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+}
+main p, main li { font-weight: 200; }
+.navbar, .footer { font-family: var(--font-sans); }
 
 * {
     margin: 0;
@@ -51,7 +62,7 @@ html {
 }
 
 body {
-    font-family: var(--font-sans);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
     color: var(--ink);
     background-color: var(--paper);
     line-height: 1.6;
@@ -62,6 +73,58 @@ body {
         linear-gradient(90deg, var(--line) 1px, transparent 1px);
     background-size: 44px 44px;
 }
+
+/* Portfolio intocado: com .pf presente, o body volta ao look original */
+body:has(.pf) {
+    background-color: #F4F1E8;
+    background-image:
+        linear-gradient(rgba(16, 35, 61, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 35, 61, 0.12) 1px, transparent 1px);
+    color: #10233D;
+}
+
+/* Grain overlay (só conteúdo <main>, portfolio excluído) */
+main::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+}
+
+/* Reveal orquestrado no load com stagger */
+@keyframes rise {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(0.2, 0.9, 0.25, 1) forwards;
+    animation-delay: var(--d, 0s);
+}
+@media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; animation: none; }
+    html { scroll-behavior: auto; }
+}
+
+/* Numeral fantasma que quebra a grelha */
+.ghost-num {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(5rem, 14vw, 11rem);
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--ink);
+    opacity: 0.14;
+    position: absolute;
+    top: -1.2rem;
+    right: 0;
+    pointer-events: none;
+    user-select: none;
+}
+.bg-dark .ghost-num { -webkit-text-stroke-color: var(--paper); }
 
 /* Blueprint grid utility (applied per-section to avoid full-page clutter) */
 .blueprint-grid {
@@ -83,7 +146,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p {
-    font-weight: 400;
+    font-weight: 200;
     font-size: 1.06rem;
     margin-bottom: 1.5rem;
 }
@@ -91,13 +154,13 @@ p {
 a {
     color: var(--ink);
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 800;
 }
 
 .tech-label {
     font-family: var(--font-mono);
     font-size: 0.78rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0.16em;
     text-transform: uppercase;
 }
@@ -116,7 +179,12 @@ a {
 }
 
 .section-title {
-    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
 }
 
 .section-subtitle {
@@ -126,9 +194,25 @@ a {
 }
 
 .text-center { text-align: center; }
-.text-white { color: #FFFFFF; }
-.bg-dark { background-color: var(--ink); color: #F4F1E8; }
-.bg-light { background-color: var(--color-light); }
+.text-white { color: var(--white); }
+.bg-dark {
+    background-color: var(--ink);
+    background-image:
+        radial-gradient(60rem 30rem at 85% -10%, rgba(10, 10, 11, 0.35), transparent 60%),
+        radial-gradient(40rem 24rem at 5% 110%, rgba(255, 42, 42, 0.28), transparent 60%),
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: auto, auto, 44px 44px, 44px 44px;
+    color: var(--paper);
+}
+.bg-light {
+    background-color: var(--color-light);
+    background-image:
+        radial-gradient(50rem 26rem at 10% 0%, rgba(10, 10, 11, 0.10), transparent 60%),
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: auto, 44px 44px, 44px 44px;
+}
 .bg-red { background-color: var(--signal); color: #fff; }
 .bg-cobalt { background-color: var(--cobalt); color: #fff; }
 .color-red { color: var(--signal); }
@@ -136,11 +220,11 @@ a {
 .border-top-thick { border-top: var(--border-width) solid var(--border-color); }
 
 /* Inverted dark section: override heading color */
-.bg-dark h2, .bg-dark h3 { color: #F4F1E8; }
+.bg-dark h2, .bg-dark h3 { color: #FFFFFF; }
 
 .highlight {
-    background-color: var(--cobalt);
-    color: #FFFFFF;
+    background-color: var(--signal);
+    color: var(--white);
     padding: 0 0.4rem;
     display: inline-block;
     transform: rotate(-1deg);
@@ -149,8 +233,9 @@ a {
     font-family: var(--font-mono);
 }
 
-.highlight.red {
-    background-color: var(--signal);
+.highlight.alt {
+    background-color: var(--ink);
+    color: var(--paper);
 }
 
 /* Buttons — technical / blueprint */
@@ -158,7 +243,7 @@ a {
     display: inline-block;
     padding: 0.85rem 1.6rem;
     font-family: var(--font-mono);
-    font-weight: 700;
+    font-weight: 800;
     font-size: 0.95rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -182,18 +267,30 @@ a {
 }
 
 .btn-primary {
-    background-color: var(--cobalt);
-    color: #FFF;
+    background-color: var(--signal);
+    color: var(--white);
     border-color: var(--ink);
 }
 
 .btn-primary:hover {
-    background-color: color-mix(in srgb, var(--cobalt) 85%, black);
+    background-color: var(--ink);
+    color: var(--paper);
+    box-shadow: 9px 9px 0px 0px var(--signal);
+    transform: translate(-2px, -2px) rotate(-1deg);
 }
 
 .btn-secondary {
     background-color: var(--white);
+    background-image: linear-gradient(180deg, var(--white), var(--paper));
     color: var(--ink);
+}
+.btn-secondary:hover {
+    background-image: none;
+    background-color: var(--signal);
+    color: var(--white);
+    border-color: var(--ink);
+    box-shadow: 9px 9px 0px 0px var(--ink);
+    transform: translate(-2px, -2px) rotate(1deg);
 }
 
 .btn-large {
@@ -209,7 +306,9 @@ a {
 .navbar {
     padding: 1.5rem 0;
     border-bottom: var(--border-width) solid var(--border-color);
-    background-color: var(--paper);
+    background-color: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     background-image:
         linear-gradient(var(--line) 1px, transparent 1px),
         linear-gradient(90deg, var(--line) 1px, transparent 1px);
@@ -218,6 +317,21 @@ a {
     top: 0;
     z-index: 100;
 }
+.navbar .container { background: transparent; }
+.nav-desktop .btn { position: relative; overflow: clip; }
+.nav-desktop .btn::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    width: 100%;
+    background: var(--paper);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.22s ease;
+}
+.nav-desktop .btn:hover::after { transform: scaleX(1); }
 
 .nav-content {
     display: flex;
@@ -308,7 +422,7 @@ a {
     border-bottom: 2px solid var(--ink);
     cursor: pointer;
     font-family: var(--font-mono);
-    font-weight: 600;
+    font-weight: 800;
     font-size: 0.85rem;
     color: var(--ink);
 }
@@ -324,26 +438,46 @@ a {
     .logo { font-size: 1.2rem; padding: 4px 10px; }
 }
 
-/* ============ HERO ============ */
+/* ============ HERO (atmosférico + assimétrico) ============ */
 .hero {
-    min-height: 82vh;
+    min-height: 92vh;
     display: flex;
     align-items: center;
+    overflow: clip;
     background-color: var(--paper);
+    background-image:
+        radial-gradient(55rem 32rem at 100% 0%, rgba(10, 10, 11, 0.05), transparent 55%),
+        radial-gradient(38rem 26rem at 0% 100%, rgba(255, 42, 42, 0.06), transparent 55%),
+        radial-gradient(24rem 18rem at 55% 45%, rgba(10, 10, 11, 0.03), transparent 65%);
 }
 
 .hero-content {
     display: grid;
     gap: 2rem;
-    max-width: 980px;
+    max-width: 1080px;
+    margin-right: auto;
+    margin-left: 0;
+    position: relative;
+}
+.hero-content::before {
+    content: '';
+    position: absolute;
+    left: -3rem;
+    top: -2rem;
+    bottom: -2rem;
+    width: 6px;
+    background: var(--signal);
+    box-shadow: 4px 4px 0px 0px var(--ink);
+    transform: rotate(1.5deg);
 }
 
 .hero-badge {
     display: inline-block;
     width: fit-content;
+    transform: rotate(-1.5deg);
     font-family: var(--font-mono);
     font-size: 0.8rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--paper);
@@ -355,16 +489,27 @@ a {
 .hero-badge .badge-num { color: var(--signal); }
 
 .hero-title {
-    font-size: clamp(2.6rem, 6vw, 4.6rem);
-    line-height: 1.05;
-    max-width: 960px;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(3.2rem, 9vw, 6.8rem);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    max-width: 16ch;
+    text-wrap: pretty;
 }
+.hero-content > * { min-width: 0; }
+.hero-title .highlight { font-size: 0.72em; vertical-align: middle; }
+.hero-title { overflow-wrap: break-word; }
 
 .hero-subtitle {
-    font-size: 1.35rem;
-    max-width: 720px;
-    font-weight: 400;
-    color: color-mix(in srgb, var(--ink) 82%, transparent);
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    max-width: 56ch;
+    max-width: 56ch;
+    font-weight: 200;
+    color: color-mix(in srgb, var(--ink) 88%, transparent);
+    border-left: 4px solid var(--signal);
+    padding-left: 1.25rem;
+    margin-left: 0.5rem;
 }
 
 .hero-cta {
@@ -387,6 +532,8 @@ a {
     display: flex;
     flex-direction: column;
 }
+.hero-stats .stat-box:nth-child(2) { transform: translateY(0.9rem); }
+.hero-stats .stat-box:nth-child(3) { transform: translateY(-0.4rem); }
 
 .stat-value {
     font-family: var(--font-mono);
@@ -404,7 +551,7 @@ a {
     font-family: var(--font-mono);
     text-transform: uppercase;
     font-size: 0.78rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0.08em;
     color: color-mix(in srgb, var(--ink) 75%, transparent);
     margin-top: 0.4rem;
@@ -416,7 +563,11 @@ a {
     grid-template-columns: repeat(4, 1fr);
     border: var(--border-width) solid var(--border-color);
     background: var(--white);
+    background-image:
+        repeating-linear-gradient(-45deg, rgba(10, 10, 11, 0.045) 0 1px, transparent 1px 9px),
+        linear-gradient(180deg, var(--white), var(--white));
     box-shadow: var(--shadow-solid);
+    transform: rotate(-0.5deg);
 }
 
 .spec-item {
@@ -429,7 +580,7 @@ a {
 .spec-key {
     font-family: var(--font-mono);
     font-size: 0.72rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--signal);
@@ -440,7 +591,7 @@ a {
 .spec-val {
     font-family: var(--font-mono);
     font-size: 1.05rem;
-    font-weight: 700;
+    font-weight: 800;
     color: var(--ink);
 }
 
@@ -448,15 +599,19 @@ a {
 .brutal-card {
     border: var(--border-width) solid var(--border-color);
     background-color: var(--white);
+    background-image:
+        radial-gradient(22rem 12rem at 110% -10%, rgba(255, 42, 42, 0.07), transparent 60%),
+        repeating-linear-gradient(-45deg, rgba(10, 10, 11, 0.045) 0 1px, transparent 1px 9px),
+        linear-gradient(180deg, var(--white), var(--white));
     padding: 2.2rem;
     box-shadow: var(--shadow-solid);
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
     position: relative;
 }
 
 .brutal-card:hover {
-    transform: translate(-3px, -3px);
-    box-shadow: var(--shadow-solid-hover);
+    transform: translate(-3px, -3px) rotate(-0.4deg);
+    box-shadow: 9px 9px 0px 0px var(--signal);
 }
 
 .brutal-card-static {
@@ -470,7 +625,7 @@ a {
     background-color: var(--ink);
     color: var(--paper);
     border-color: var(--ink);
-    box-shadow: 6px 6px 0px 0px var(--cobalt);
+    box-shadow: 6px 6px 0px 0px var(--signal);
 }
 
 .card-dark h3 { color: var(--paper); }
@@ -484,7 +639,7 @@ a {
     top: 0.4rem;
     right: 0.7rem;
     font-family: var(--font-mono);
-    color: var(--cobalt);
+    color: var(--signal);
     font-size: 0.9rem;
 }
 
@@ -494,6 +649,10 @@ a {
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     margin-top: 3.5rem;
+}
+@media (min-width: 1025px) {
+    .grid-3 > :nth-child(2) { transform: translateY(2.2rem); }
+    .grid-3 > :nth-child(2):hover { transform: translateY(2.2rem) translate(-3px, -3px) rotate(-0.4deg); }
 }
 
 .grid-2 {
@@ -539,7 +698,7 @@ a {
     transform: translateY(-8px);
     position: relative;
     z-index: 10;
-    box-shadow: 8px 8px 0px 0px var(--cobalt);
+    box-shadow: 8px 8px 0px 0px var(--signal);
     border-color: var(--ink);
 }
 
@@ -552,7 +711,7 @@ a {
     top: -14px;
     right: -14px;
     background-color: var(--signal);
-    color: #FFF;
+    color: var(--white);
     padding: 4px 12px;
     font-family: var(--font-mono);
     font-weight: 800;
@@ -592,7 +751,7 @@ a {
 
 .old-price del {
     font-size: 1.3rem;
-    font-weight: 700;
+    font-weight: 800;
     color: color-mix(in srgb, var(--ink) 55%, transparent);
     text-decoration: none;
     position: relative;
@@ -627,8 +786,8 @@ a {
 
 .new-price small.today-badge {
     font-size: 0.85rem;
-    color: #FFF;
-    background-color: var(--cobalt);
+    color: var(--white);
+    background-color: var(--signal);
     padding: 0.15rem 0.5rem;
     border: 2px solid var(--ink);
     text-transform: uppercase;
@@ -641,7 +800,7 @@ a {
 
 .price-subtext.special-offer {
     font-size: 0.88rem;
-    font-weight: 700;
+    font-weight: 800;
     background-color: var(--color-light);
     color: var(--ink);
     padding: 0.9rem;
@@ -676,7 +835,7 @@ a {
 .pricing-features li {
     padding: 0.7rem 0;
     border-bottom: 2px solid var(--border-color);
-    font-weight: 500;
+    font-weight: 200;
     font-size: 0.98rem;
     position: relative;
     padding-left: 1.5rem;
@@ -726,6 +885,12 @@ a {
 /* ============ FORMS ============ */
 .forms-section {
     background-color: var(--color-light);
+    background-image:
+        radial-gradient(46rem 26rem at 90% 0%, rgba(255, 42, 42, 0.10), transparent 60%),
+        radial-gradient(40rem 24rem at 0% 100%, rgba(10, 10, 11, 0.10), transparent 60%),
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: auto, auto, 44px 44px, 44px 44px;
     border-top: var(--border-width) solid var(--border-color);
 }
 
@@ -747,7 +912,7 @@ a {
 
 .form-group label {
     font-family: var(--font-mono);
-    font-weight: 700;
+    font-weight: 800;
     font-size: 0.8rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -757,11 +922,11 @@ a {
     width: 100%;
     padding: 0.9rem 1rem;
     border: var(--border-width) solid var(--border-color);
-    background-color: #FFFFFF;
+    background-color: var(--white);
     color: var(--ink);
     font-family: inherit;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 200;
     transition: box-shadow 0.2s;
     outline: none;
     border-radius: 0;
@@ -770,7 +935,7 @@ a {
 .brutal-input:focus { box-shadow: var(--shadow-solid-small); }
 .brutal-input.textarea { resize: vertical; }
 
-.dark-form .form-group label { color: #FFFFFF; }
+.dark-form .form-group label { color: var(--white); }
 .dark-form .brutal-input { background-color: var(--color-light); }
 .dark-form .brutal-input:focus { box-shadow: 4px 4px 0px 0px var(--cobalt); }
 
@@ -779,8 +944,14 @@ a {
 /* ============ FOOTER ============ */
 .footer {
     background-color: var(--ink);
+    background-image:
+        radial-gradient(50rem 22rem at 50% -20%, rgba(10, 10, 11, 0.35), transparent 60%),
+        linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: auto, 44px 44px, 44px 44px;
     color: var(--paper);
     padding: 4rem 0 2rem;
+    text-align: center;
 }
 
 .footer .logo { background-color: var(--paper); color: var(--ink); border-color: var(--paper); }
@@ -817,7 +988,7 @@ a {
     text-align: center;
     border-top: 2px solid color-mix(in srgb, var(--paper) 25%, transparent);
     padding-top: 1.8rem;
-    font-weight: 600;
+    font-weight: 800;
     color: color-mix(in srgb, var(--paper) 70%, transparent);
     font-size: 0.9rem;
 }
@@ -833,7 +1004,7 @@ a {
     outline: 2px dashed var(--cobalt);
     outline-offset: 2px;
     cursor: text;
-    background: rgba(27, 79, 216, 0.04);
+    background: rgba(10, 10, 11, 0.04);
     border-radius: 2px;
     padding: 0 2px;
     transition: outline-color 0.2s;
@@ -841,7 +1012,7 @@ a {
 
 [contenteditable="true"]:focus {
     outline: 2px solid var(--cobalt);
-    background: rgba(27, 79, 216, 0.06);
+    background: rgba(10, 10, 11, 0.06);
 }
 
 /* Animations */
@@ -875,7 +1046,7 @@ a {
     opacity: 0;
     transition: opacity 0.2s;
     font-size: 0.8rem;
-    font-weight: 500;
+    font-weight: 200;
     box-shadow: var(--shadow-solid-small);
     text-transform: none;
     line-height: 1.2;
@@ -899,7 +1070,7 @@ a {
     width: 100%;
     max-width: 210mm;
     min-height: 297mm;
-    background: #FFF;
+    background: var(--white);
     padding: 2rem;
     box-sizing: border-box;
     display: flex;
@@ -913,7 +1084,7 @@ a {
 
 .proposta-subtitle {
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 800;
     color: var(--signal);
     text-transform: uppercase;
     font-family: var(--font-mono);
@@ -922,7 +1093,7 @@ a {
 
 @media print {
     @page { size: A4; margin: 0; }
-    body { background: #FFF; margin: 0; }
+    body { background: var(--white); margin: 0; }
     .a4-container { padding: 0; background: transparent; }
     .a4-page { width: 210mm; min-height: 297mm; height: auto; padding: 15mm 20mm; box-shadow: none !important; border: none !important; page-break-after: always; overflow: visible; }
     .navbar, .footer, .no-print { display: none !important; }
@@ -937,7 +1108,7 @@ a {
 .admin-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
 .admin-dropdown { position: absolute; top: calc(100% + 6px); right: 0; background: var(--white); border: 2px solid var(--ink); box-shadow: 6px 6px 0px 0px var(--ink); min-width: 200px; z-index: 100; }
 .admin-dropdown-group-label { padding: 0.4rem 1rem; font-size: 0.65rem; font-family: var(--font-mono); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--signal); border-bottom: 2px solid var(--ink); background: var(--color-light); }
-.admin-dropdown-item { display: block; width: 100%; text-align: left; padding: 0.6rem 1rem; background: transparent; border: none; border-bottom: 1px solid #e0e0e0; cursor: pointer; font-family: inherit; font-weight: 600; font-size: 0.9rem; color: var(--ink); }
+.admin-dropdown-item { display: block; width: 100%; text-align: left; padding: 0.6rem 1rem; background: transparent; border: none; border-bottom: 1px solid #e0e0e0; cursor: pointer; font-family: inherit; font-weight: 800; font-size: 0.9rem; color: var(--ink); }
 .admin-dropdown-item:hover { background: var(--color-light); }
 .admin-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
@@ -1009,7 +1180,8 @@ a {
     .container { padding: 0 1rem; }
     .section { padding: 3rem 0; }
     .hero { padding-top: 2rem; padding-bottom: 2rem; }
-    .hero-title { font-size: 1.75rem; }
+    .hero-content::before { left: -1rem; }
+    .hero-title { font-size: 2rem; max-width: 100%; }
     .hero-subtitle { font-size: 1rem; }
     .hero-cta .btn-large { font-size: 1rem; padding: 1rem 1.5rem; }
     .brutal-card { padding: 1.25rem; }

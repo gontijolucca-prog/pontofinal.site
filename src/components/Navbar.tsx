@@ -43,7 +43,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="navbar border-top-thick" style={{ padding: '1.5rem 0', borderBottom: '4px solid #050505', background: '#FFF' }}>
+    <nav className="navbar border-top-thick">
       <div className="container nav-content">
         <Link to="/" className="logo" style={{ textDecoration: 'none' }} onClick={handleLogoClick}>Ponto<span className="logo-accent">final</span>.site_</Link>
 

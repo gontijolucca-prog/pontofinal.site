@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer className="footer border-top-thick" style={{ padding: '2rem 0', backgroundColor: '#FFF', textAlign: 'center' }}>
+    <footer className="footer border-top-thick">
         <div className="container footer-content">
             <div className="footer-brand">
                 <div className="logo">Ponto<span className="logo-accent">final</span>.site_</div>

@@ -11,17 +11,17 @@ export default function Home() {
       {/* HERO */}
       <header className="hero section blueprint-grid">
           <div className="container hero-content">
-              <span className="hero-badge"><span className="badge-num">//</span> PONTOFINAL · FERRAMENTAS DE IA</span>
-              <h1 className="hero-title">
+              <span className="hero-badge reveal" style={{ ['--d' as string]: '0s' }}><span className="badge-num">//</span> PONTOFINAL · FERRAMENTAS DE IA</span>
+              <h1 className="hero-title reveal" style={{ ['--d' as string]: '0.1s' }}>
                   Automatiza o trabalho repetitivo<br/>do teu negócio. <span className="highlight">Com IA.</span>
               </h1>
-              <p className="hero-subtitle">Construímos ferramentas de inteligência artificial <strong>feitas à medida</strong> do teu negócio — agentes, automações e ferramentas internas que trabalham por ti, 24/7, sem dores de cabeça.</p>
-              <div className="hero-cta">
+              <p className="hero-subtitle reveal" style={{ ['--d' as string]: '0.2s' }}>Construímos ferramentas de inteligência artificial <strong>feitas à medida</strong> do teu negócio — agentes, automações e ferramentas internas que trabalham por ti, 24/7, sem dores de cabeça.</p>
+              <div className="hero-cta reveal" style={{ ['--d' as string]: '0.3s' }}>
                   <button onClick={() => document.getElementById('forms-section')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-primary btn-large">Pedir Diagnóstico Gratuito →</button>
                   <button onClick={() => document.getElementById('como-funciona')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-secondary btn-large">Como Funciona ↓</button>
               </div>
               
-              <div className="hero-stats">
+              <div className="hero-stats reveal" style={{ ['--d' as string]: '0.45s' }}>
                   <div className="stat-box">
                       <span className="stat-value">-50<span className="stat-suffix">%</span></span>
                       <span className="stat-label">Tarefas Manuais Eliminadas</span>
@@ -52,7 +52,8 @@ export default function Home() {
 
       {/* SERVICES */}
       <section id="servicos" className="why-us section bg-dark">
-          <div className="container">
+          <div className="container" style={{ position: 'relative' }}>
+              <span className="ghost-num" aria-hidden="true">01</span>
               <span className="hero-badge" style={{ marginBottom: '1.5rem' }}><span className="badge-num">01</span> O QUE CONSTRUÍMOS</span>
               <h2 className="section-title text-white">Ferramentas de IA que eliminam trabalho manual do teu dia-a-dia.</h2>
               <div className="grid-3">
@@ -77,7 +78,8 @@ export default function Home() {
 
       {/* PRICING — por consulta */}
       <section id="orcamento" className="pricing section bg-dark">
-          <div className="container">
+          <div className="container" style={{ position: 'relative' }}>
+              <span className="ghost-num" aria-hidden="true">02</span>
               <span className="hero-badge" style={{ marginBottom: '1.5rem' }}><span className="badge-num">02</span> MODELO</span>
               <h2 className="section-title text-white">Preços por consulta.<br/>Cada projeto é único.</h2>
               <p className="section-subtitle" style={{ marginBottom: '3rem' }}>Não temos pacotes fechados. Cada ferramenta de IA é orçamentada à medida do teu caso, depois de um diagnóstico gratuito. Pagas só pelo que precisas.</p>
@@ -108,7 +110,8 @@ export default function Home() {
 
       {/* HOW IT WORKS */}
       <section id="como-funciona" className="process section bg-light border-top-thick">
-          <div className="container">
+          <div className="container" style={{ position: 'relative' }}>
+              <span className="ghost-num" aria-hidden="true">03</span>
               <div className="process-wrapper">
                   <div className="process-text">
                       <span className="hero-badge" style={{ marginBottom: '1.5rem' }}><span className="badge-num">03</span> PROCESSO</span>
@@ -128,7 +131,7 @@ export default function Home() {
                           <div className="step-number"><span className="step-idx">3.</span> Construção & Integração</div>
                           <p>Construímos e ligamos a tua ferramenta às tuas ferramentas atuais. Testamos contigo.</p>
                       </div>
-                      <div className="step-card brutal-card bg-cobalt">
+                      <div className="step-card brutal-card bg-red">
                           <div className="step-number"><span className="step-idx">4.</span> Lançamento & Manutenção</div>
                           <p>Põe-se a trabalhar 24/7. Fazemos a manutenção, atualizações e suporte.</p>
                       </div>
@@ -139,9 +142,10 @@ export default function Home() {
 
       {/* FORMS SECTION */}
       <section id="forms-section" className="forms-section section">
-          <div className="container">
+          <div className="container" style={{ position: 'relative' }}>
+              <span className="ghost-num" aria-hidden="true">04</span>
               <span className="hero-badge" style={{ marginBottom: '1.5rem' }}><span className="badge-num">04</span> CONTACTO</span>
-              <h2 className="section-title text-center">Vamos automatizar o teu negócio?<br/><span className="highlight red">Pede um diagnóstico gratuito.</span></h2>
+              <h2 className="section-title text-center">Vamos automatizar o teu negócio?<br/><span className="highlight alt">Pede um diagnóstico gratuito.</span></h2>
               
               <div style={{ maxWidth: '600px', margin: '0 auto' }}>
                   
