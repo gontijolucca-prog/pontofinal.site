@@ -199,9 +199,10 @@ export default function Home() {
                               {formStatus?.type === 'error' && (
                                   <div style={{
                                       padding: '1rem',
-                                      backgroundColor: '#f8d7da',
-                                      color: '#721c24',
-                                      border: '2px solid #f5c6cb',
+                                      backgroundColor: '#FFFFFF',
+                                      color: '#0A0A0B',
+                                      border: '2px solid #0A0A0B',
+                                      borderLeft: '8px solid #E10600',
                                       marginBottom: '1rem',
                                       fontWeight: 'bold'
                                   }}>

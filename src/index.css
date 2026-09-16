@@ -8,12 +8,11 @@
 
 :root {
     /* Industrial Toolbox Palette */
-    --paper:      #FFFFFF;   /* blueprint paper (off-white) */
-    --ink:        #0A0A0B;   /* deep blueprint blue */
-    --cobalt:     #0A0A0B;   /* reservado: mapeado para preto (só branco/vermelho/preto) */
-    --signal:     #FF2A2A;   /* signal red accent */
+    --paper:      #FFFFFF;   /* branco */
+    --ink:        #0A0A0B;   /* preto */
+    --signal:     #E10600;   /* o vermelho (único accent) */
     --white:      #FFFFFF;
-    --line:       rgba(10, 10, 11, 0.12);   /* blueprint grid line */
+    --line:       rgba(10, 10, 11, 0.12);   /* hairline preta */
 
     /* Alias para compatibilidade com páginas internas */
     --color-bg:        var(--paper);
@@ -27,7 +26,7 @@
     --border-color: var(--ink);
     --border-radius: 0px;            /* technical sharp edges */
     --shadow-solid: 6px 6px 0px 0px var(--ink);
-    --shadow-solid-hover: 9px 9px 0px 0px var(--cobalt);
+    --shadow-solid-hover: 9px 9px 0px 0px var(--ink);
     --shadow-solid-small: 4px 4px 0px 0px var(--ink);
 
     /* Typography: display + mono. Pesos extremos 200 vs 800. */
@@ -126,7 +125,7 @@ main::after {
 }
 .bg-dark .ghost-num { -webkit-text-stroke-color: var(--paper); }
 
-/* Blueprint grid utility (applied per-section to avoid full-page clutter) */
+/* Grid utility (applied per-section to avoid full-page clutter) */
 .blueprint-grid {
     background-image:
         linear-gradient(var(--line) 1px, transparent 1px),
@@ -199,7 +198,7 @@ a {
     background-color: var(--ink);
     background-image:
         radial-gradient(60rem 30rem at 85% -10%, rgba(10, 10, 11, 0.35), transparent 60%),
-        radial-gradient(40rem 24rem at 5% 110%, rgba(255, 42, 42, 0.28), transparent 60%),
+        radial-gradient(40rem 24rem at 5% 110%, rgba(225, 6, 0, 0.28), transparent 60%),
         linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
     background-size: auto, auto, 44px 44px, 44px 44px;
@@ -214,9 +213,7 @@ a {
     background-size: auto, 44px 44px, 44px 44px;
 }
 .bg-red { background-color: var(--signal); color: #fff; }
-.bg-cobalt { background-color: var(--cobalt); color: #fff; }
 .color-red { color: var(--signal); }
-.color-cobalt { color: var(--cobalt); }
 .border-top-thick { border-top: var(--border-width) solid var(--border-color); }
 
 /* Inverted dark section: override heading color */
@@ -238,7 +235,7 @@ a {
     color: var(--paper);
 }
 
-/* Buttons — technical / blueprint */
+/* Buttons — technical */
 .btn {
     display: inline-block;
     padding: 0.85rem 1.6rem;
@@ -447,7 +444,7 @@ a {
     background-color: var(--paper);
     background-image:
         radial-gradient(55rem 32rem at 100% 0%, rgba(10, 10, 11, 0.05), transparent 55%),
-        radial-gradient(38rem 26rem at 0% 100%, rgba(255, 42, 42, 0.06), transparent 55%),
+        radial-gradient(38rem 26rem at 0% 100%, rgba(225, 6, 0, 0.06), transparent 55%),
         radial-gradient(24rem 18rem at 55% 45%, rgba(10, 10, 11, 0.03), transparent 65%);
 }
 
@@ -486,7 +483,7 @@ a {
     padding: 0.4rem 0.9rem;
 }
 
-.hero-badge .badge-num { color: var(--signal); }
+.hero-badge .badge-num { color: var(--paper); }
 
 .hero-title {
     font-family: var(--font-display);
@@ -557,7 +554,7 @@ a {
     margin-top: 0.4rem;
 }
 
-/* ============ BLUEPRINT SPEC BAR ============ */
+/* ============ SPEC BAR ============ */
 .spec-band {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -600,7 +597,7 @@ a {
     border: var(--border-width) solid var(--border-color);
     background-color: var(--white);
     background-image:
-        radial-gradient(22rem 12rem at 110% -10%, rgba(255, 42, 42, 0.07), transparent 60%),
+        radial-gradient(22rem 12rem at 110% -10%, rgba(225, 6, 0, 0.07), transparent 60%),
         repeating-linear-gradient(-45deg, rgba(10, 10, 11, 0.045) 0 1px, transparent 1px 9px),
         linear-gradient(180deg, var(--white), var(--white));
     padding: 2.2rem;
@@ -752,7 +749,7 @@ a {
 .old-price del {
     font-size: 1.3rem;
     font-weight: 800;
-    color: color-mix(in srgb, var(--ink) 55%, transparent);
+    color: color-mix(in srgb, var(--ink) 70%, transparent);
     text-decoration: none;
     position: relative;
     display: inline-block;
@@ -846,7 +843,7 @@ a {
     position: absolute;
     left: 0;
     font-family: var(--font-mono);
-    color: var(--cobalt);
+    color: var(--signal);
     font-weight: 800;
 }
 
@@ -880,13 +877,12 @@ a {
 .step-number .step-idx { color: var(--signal); margin-right: 0.4rem; }
 
 .step-card.bg-red .step-number,
-.step-card.bg-cobalt .step-number { color: var(--paper); border-color: var(--paper); }
 
 /* ============ FORMS ============ */
 .forms-section {
     background-color: var(--color-light);
     background-image:
-        radial-gradient(46rem 26rem at 90% 0%, rgba(255, 42, 42, 0.10), transparent 60%),
+        radial-gradient(46rem 26rem at 90% 0%, rgba(225, 6, 0, 0.10), transparent 60%),
         radial-gradient(40rem 24rem at 0% 100%, rgba(10, 10, 11, 0.10), transparent 60%),
         linear-gradient(var(--line) 1px, transparent 1px),
         linear-gradient(90deg, var(--line) 1px, transparent 1px);
@@ -937,7 +933,7 @@ a {
 
 .dark-form .form-group label { color: var(--white); }
 .dark-form .brutal-input { background-color: var(--color-light); }
-.dark-form .brutal-input:focus { box-shadow: 4px 4px 0px 0px var(--cobalt); }
+.dark-form .brutal-input:focus { box-shadow: 4px 4px 0px 0px var(--ink); }
 
 .form-submit { margin-top: auto; padding: 1.2rem; }
 
@@ -982,7 +978,7 @@ a {
 .footer-links a { color: color-mix(in srgb, var(--paper) 85%, transparent); }
 .footer-links a:hover { color: var(--signal); text-decoration: underline; }
 
-.footer-admin-link { color: var(--signal); font-weight: bold; }
+.footer-admin-link { color: var(--paper); font-weight: bold; }
 
 .footer-bottom {
     text-align: center;
@@ -1001,7 +997,7 @@ a {
 
 /* ============ EDIT MODE (proposta) ============ */
 [contenteditable="true"] {
-    outline: 2px dashed var(--cobalt);
+    outline: 2px dashed var(--ink);
     outline-offset: 2px;
     cursor: text;
     background: rgba(10, 10, 11, 0.04);
@@ -1011,7 +1007,7 @@ a {
 }
 
 [contenteditable="true"]:focus {
-    outline: 2px solid var(--cobalt);
+    outline: 2px solid var(--ink);
     background: rgba(10, 10, 11, 0.06);
 }
 
